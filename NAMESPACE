@@ -1,0 +1,80 @@
+# NAMESPACE file for SciencesPo
+
+importFrom("utils", "packageDescription")
+importFrom("stats", "sd")
+importFrom("data.table", "data.table")
+importFrom("xtable", "xtable")
+importFrom("ggplot2", "ggplot")
+importFrom("ggplot2", "fortify") 
+importFrom("gridExtra", "grid.table")
+importFrom("gridExtra", "grid.stext")
+importFrom("grid", "grid.text")
+importFrom("grid", "gpar") 
+importFrom("grid", "unit") 
+importFrom("grid", "pushViewport")
+importFrom("grid", "popViewport") 
+importFrom("grid", "grid.newpage") 
+importFrom("grid", "grid.layout")
+importFrom("grid", "viewport") 
+#importFrom("RecordLinkage", "editMatch") 
+#importFrom("RecordLinkage", "compare.linkage") 
+#importFrom("RecordLinkage", "epiWeights") 
+#importFrom("RecordLinkage", "getPairs") 
+
+# export all functions/variables that don't start with a .
+# exportPattern("^[^\\.]")
+
+export(
+	accent,
+	add.footnote,
+	anonymize,
+	as.beta,
+	beta.parms,
+	cv,
+	data.clean,
+	dummy,
+	fptp2av,
+	get.ci,
+	get.enp,
+	get.ipc,
+	get.valid,
+	get.vif,
+	get.years,
+	ggmodel,
+	join.lists,
+	kurtosis,
+	lsq,
+	modify,
+	outliers,
+	outtags,
+	psum,
+	rDirichlet,
+	reclassify,
+	rename.files,
+	rescale,
+	resplot,
+	rprob,
+	rstack,
+	se,
+	slice,
+	shift,
+	skewness,
+	sorter,
+	theme_minimalist,
+	unnest,
+	vreplace,
+	winsor.mean
+)	
+   ## Soundex
+export(
+	soundexBR,
+	soundexES,
+	soundexFR
+)
+	## Tables
+export(
+    detail,
+    h2f,
+	tableau,
+	toLatex
+)

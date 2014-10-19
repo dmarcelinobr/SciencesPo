@@ -1,0 +1,32 @@
+require(compiler)#
+compilePKGS(enable=TRUE)#
+enableJIT(3)#
+setClass(Class = "testobject", #
+         slots = c( data     = "numeric",   #
+                    test     = "character", #
+                    split    = "numeric",   #
+                    name     = "character"  #
+         )#
+)#
+#
+a <- new("testobject", data=c(1,2,3,4), test="TEST", split=5, name="NAME")#
+#
+for(i in a@data){#
+  print(i)#
+}
+require(compiler)#
+compilePKGS(enable=TRUE)#
+enableJIT(3) ;.Data <- NULL;#
+setClass(Class = "testobject", #
+         slots = c( data     = "numeric",   #
+                    test     = "character", #
+                    split    = "numeric",   #
+                    name     = "character"  #
+         )#
+)#
+#
+a <- new("testobject", data=c(1,2,3,4), test="TEST", split=5, name="NAME")#
+#
+for(i in a@data){#
+  print(i)#
+}
