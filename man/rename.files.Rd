@@ -20,13 +20,14 @@ Text to replace pattern with.}
 }
 
 \value{
-Prints "Operation complete" to console when done; look at files in directory 'dir' for changes.
+Prints \emph{Done!} to console when done; look at files in directory \sQuote{dir} for changes.
 }
 
 \author{ Daniel Marcelino}
 
 \examples{
-# For example, a file name may have hyphen "-", and you can replace them with underline "_".
+# For example, a file name may have hyphen "-", 
+# and you can replace them with underline "_".
 \dontrun{ rename.files("~/Desktop/mydata", "-", "_") }
 }
 \keyword{ data manipulation }

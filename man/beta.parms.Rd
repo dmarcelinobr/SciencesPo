@@ -4,7 +4,7 @@
 \title{Returns alpha and beta parameters
 }
 
-\description{Given mean and variance components, the function returns \eqn{\alpha} and \eqn{\beta} parameters for a Beta distribution.
+\description{Given mean and variance components, the function returns \eqn{\alpha} and \eqn{\beta} parameters to for a Beta distribution.
 }
 \usage{
 beta.parms(mu, var)
@@ -15,8 +15,8 @@ beta.parms(mu, var)
   \item{var}{A value for var.
 }
 }
-\details{It calculates \eqn{\alpha} and \eqn{\beta} parameters for the Beta distribution: 
-\deqn{\alpha = \right(\frac{1-\mu}{\sigma^2}-\frac{1}{\mu}\right)\mu^2} and \deqn{\beta = \alpha\left(\frac{1}{\mu}-1\right)}
+\details{It calculates \eqn{\alpha} and \eqn{\beta} parameters of the Beta distribution: 
+\eqn{\alpha=\left(\frac{1-\mu}{\sigma^2}-\frac{1}{\mu}\right)\mu^2} and \eqn{\beta=\alpha\left(\frac{1}{\mu}-1\right)}.
 }
 \value{A list object containing alpha and beta.
 }
@@ -26,13 +26,14 @@ beta.parms(mu, var)
 }
 \note{ In R, the Beta distribution with parameters \eqn{shape1=\alpha} and \eqn{shape2=\beta} has density 
 therfore, \code{dbeta(x, shape1=par[1], shape2=par[2]) }
-In this parametrisation, the  mean is \deqn{E(X) = \frac{\alpha}{\alpha + \beta}}{E(X)=\alpha/\alpha+\beta} and the variance is \deqn{V(X) = \frac{\alpa \beta}{(\alpa + \beta)^2 (\alpa+\beta+1)} }.
+In this parametrisation, the  mean is  \eqn{E(X) = \frac{\alpha}{\alpha + \beta}} and the variance is \eqn{Var(X) = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha+ \beta+1)}}.
 
 }
+
 \examples{
 
 (par <- beta.parms(0.5, 0.1))
 
 	}
 
-\keyword{ ~models }
+\keyword{ models }

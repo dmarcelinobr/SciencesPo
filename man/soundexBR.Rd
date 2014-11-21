@@ -3,7 +3,7 @@
 \alias{soundexBR}
 \title{Soundex Encoding For Portuguese BR
 }
-\description{SoundexBR returns a census-like soundex code a string name, given the Portuguese (Brazilian) sound system. This function was firstly outlined to work with \code{RecordLinkage} package, however, it also is helpful as a standalone function. See details bellow.
+\description{SoundexBR returns a census-like soundex code of a string name, given the Portuguese (Brazilian) sound system. This function was firstly outlined to work with \code{RecordLinkage} package, however, it is also helpful as a standalone function. See details bellow.
 }
 \usage{
 soundexBR(term)
@@ -12,7 +12,7 @@ soundexBR(term)
   \item{term}{a list, a vector or a data frame with strings.
 }
 }
-\details{This function assign a `soundex' code for strings based on their sounds, instead of their spelling. For instance, names that sound alike, but spelled differently, like \bold{SOUZA} and \bold{SOUSA}, will be assigned to an identically code. Therefore, this function may help on finding a surnanames even if they were registered with minor misspellings. The code consists of 4 digits long: a letter and three numbers as \dQuote{0-000} <capital letter><digit><digit><digit>. The integers refers to the remaining letters.
+\details{This function assign a \sQuote{soundex} code for strings based on their sounds, instead of their spelling. For instance, names that sound alike, but spelled differently, like \dQuote{SOUZA} and \dQuote{SOUSA}, is assigned an identically code. Therefore, this function may help on to finding names even when they were registered with minor misspellings. The code consists of 4 digits long: a letter and three numbers as \dQuote{0-000} <capital letter><digit><digit><digit> and that the integers refers to the remaining letters.
 
 }
 \value{A character vector or matrix with the same dimensions as \code{term}.
@@ -22,9 +22,12 @@ Borg, Andreas and Murat Sariyar. (2012) \emph{RecordLinkage: Record Linkage in R
 
 Camargo Jr. and Coeli CM. (2000) Reclink: aplicativo para o relacionamento de bases de dados, implementando o método probabilistic record linkage. \emph{Cad. Saúde Pública}, \bold{16(2)}, Rio de Janeiro.
 
-Marcelino, Daniel (2013) \emph{SciencesPo: A Tool Set for Analyzing Political Behaviour Data, \url{(http://dx.doi.org/10.2139/ssrn.2320547}.}
+Marcelino, Daniel (2013) \emph{SciencesPo: A Tool Set for Analyzing Political Behaviour Data}, \url{(http://dx.doi.org/10.2139/ssrn.2320547}.
+
+Paula, Fátima de Lima (2014) \emph{Readmissão Hospitalar de Idosos após Internação por Fratura Proximal do Fêmur no Município do Rio de Janeiro}, Doctoral thesis, Fiocruz.
 
 }
+
 \author{Daniel Marcelino <dmarcelino@live.com>
 }
 \note{This function was adapted from the US census soundex version. 
@@ -34,8 +37,6 @@ The genealogist Dick Eastman maintains a soundex calculator in his website at \u
 
 }
 
-\seealso{\code{\link{soundexES}}, \code{\link{soundexFR}}.
-}
 \examples{
 
 # A silly example:
@@ -47,24 +48,25 @@ soundexBR(names)
 
 # Example with RecordLinkage:
 #Some data:
-mydata1 <- data.frame(
-fname=c('Ricardo','Maria','Tereza','Pedro','José', 'Germano'),
+data1 <- data.frame(list(
+fname=c('Ricardo','Maria','Tereza','Pedro','José','Germano'),
 lname=c('Cunha','Andrade','Silva','Soares','Silva','Lima'),
 age=c(67,89,78,65,68,67),
 birth=c(1945,1923,1934,1947,1944,1945),
-date=c(20120907,20120703,20120301,20120805,20121004,20121209))
+date=c(20120907,20120703,20120301,20120805,20121004,20121209)
+))
 
-
-mydata2<-data.frame(
-fname=c('Maria','Lúcia','Paulo','Marcos', 'Ricardo', 'Germânio'),
+data2<-data.frame( list( fname=c('Maria','Lúcia','Paulo','Marcos','Ricardo','Germânio'),
 lname=c('Andrada','Silva','Soares','Pereira','Cunha','Lima'),
-age=c(67,88,78,60,68,80),
-birth=c(1945,1924,1934,1952,1944,1932),
-date=c(20121208,20121103,20120302,20120105,20121004,20121209))
+age=c(67,88,78,60,67,80),
+birth=c(1945,1924,1934,1952,1945,1932),
+date=c(20121208,20121103,20120302,20120105,20120907,20121209)
+))
+
 
 # Must call RecordLinkage package
 
-\dontrun{pairs<-compare.linkage(mydata1, mydata2,
+\dontrun{pairs<-compare.linkage(data1, data2,
 blockfld=list(c(1,2,4),c(1,2)),
 phonetic<-c(1,2), phonfun = soundexBR, strcmp = FALSE,
 strcmpfun<-jarowinkler, exclude=FALSE,identity1 = NA,
@@ -81,4 +83,4 @@ getPairs(pairs, max.weight = Inf, min.weight = -Inf)
 	}
 }
 
-\keyword{ soundex  }
+\keyword{soundex}

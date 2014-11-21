@@ -1,31 +1,62 @@
 # NAMESPACE file for SciencesPo
 
 importFrom("utils", "packageDescription")
-importFrom("stats", "sd")
-importFrom("data.table", "data.table")
+importFrom("foreign", "read.spss")
+importFrom("foreign", "read.dta")
+importFrom("foreign", "write.dta")
 importFrom("xtable", "xtable")
+importFrom("data.table", "data.table")
+importFrom("data.table", ":=")
+importFrom("dplyr", "tbl_df")
+importFrom("dplyr", "filter")
+importFrom("dplyr", "group_by")
+importFrom("dplyr", "tally")
+importFrom("dplyr", "mutate")
+importFrom("dplyr", "arrange")
+importFrom("dplyr", "inner_join")
+importFrom("dplyr", "summarise")
 importFrom("ggplot2", "ggplot")
-importFrom("ggplot2", "fortify") 
+importFrom("ggplot2", "fortify")
+importFrom("ggplot2", "aes")
+importFrom("ggplot2", "geom_abline") 
+importFrom("ggplot2", "geom_point") 
+importFrom("ggplot2", "geom_text") 
+importFrom("ggplot2", "geom_smooth") 
+importFrom("ggplot2", "geom_hline") 
+importFrom("ggplot2", "scale_x_continuous") 
+importFrom("ggplot2", "scale_y_continuous")
+importFrom("ggplot2", "ggtitle") 
+importFrom("ggplot2", "stat_qq") 
+importFrom("ggplot2", "geom_histogram") 
+importFrom("ggplot2", "geom_linerange") 
+importFrom("ggplot2", "theme_grey")
+importFrom("ggplot2", "element_rect")
+importFrom("ggplot2", "element_blank")
+importFrom("ggplot2", "element_line")
+importFrom("ggplot2", "element_text")
+importFrom("ggplot2", "theme")
+importFrom("ggplot2", "rel")
 importFrom("gridExtra", "grid.table")
 importFrom("gridExtra", "grid.stext")
 importFrom("grid", "grid.text")
 importFrom("grid", "gpar") 
-importFrom("grid", "unit") 
+importFrom("grid", "unit")
 importFrom("grid", "pushViewport")
 importFrom("grid", "popViewport") 
 importFrom("grid", "grid.newpage") 
 importFrom("grid", "grid.layout")
 importFrom("grid", "viewport") 
-#importFrom("RecordLinkage", "editMatch") 
-#importFrom("RecordLinkage", "compare.linkage") 
-#importFrom("RecordLinkage", "epiWeights") 
-#importFrom("RecordLinkage", "getPairs") 
+importFrom("RecordLinkage", "editMatch") 
+importFrom("RecordLinkage", "compare.linkage") 
+importFrom("RecordLinkage", "epiWeights") 
+importFrom("RecordLinkage", "getPairs") 
 
 # export all functions/variables that don't start with a .
 # exportPattern("^[^\\.]")
 
 export(
 	accent,
+	add.alpha,
 	add.footnote,
 	anonymize,
 	as.beta,
@@ -37,13 +68,17 @@ export(
 	get.ci,
 	get.enp,
 	get.ipc,
+	get.mode,
 	get.valid,
 	get.vif,
 	get.years,
 	ggmodel,
 	join.lists,
+	KFpredict,
+	KFupdate,
 	kurtosis,
 	lsq,
+	mGaussian,
 	modify,
 	outliers,
 	outtags,
@@ -55,26 +90,28 @@ export(
 	resplot,
 	rprob,
 	rstack,
+	sample.df,
 	se,
 	slice,
 	shift,
 	skewness,
 	sorter,
 	theme_minimalist,
+	theme_black,
+	theme_map,
+	toTitle,
 	unnest,
 	vreplace,
 	winsor.mean
 )	
    ## Soundex
 export(
-	soundexBR,
-	soundexES,
-	soundexFR
+	soundexBR
 )
 	## Tables
 export(
     detail,
     h2f,
 	tableau,
-	toLatex
+	r2tex
 )

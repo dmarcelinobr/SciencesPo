@@ -44,9 +44,9 @@ as.beta(model)
 
 # Possible interpretation: a change in 1 standard deviation of mcs has more than 
 # twice the impact on pcs than a 1 standard deviation change in the homeless variable.
-# This example points up another potential weakness of standardized regression coefficients,
-# however, in that the homeless variable can take on values of 0 or 1, 
-# and a 1 standard deviation change is hard to interpret.
+# This example points up another potential weakness of standardized regression 
+# coefficients, however, in that the homeless variable can take on values of 
+# 0 or 1, and a 1 standard deviation change is hard to interpret.
 
 }
 

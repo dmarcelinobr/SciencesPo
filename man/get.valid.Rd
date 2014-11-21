@@ -3,7 +3,7 @@
 \alias{get.valid}
 \title{Get valid observations in a data frame
 }
-\description{The function indicates what observations are valid.
+\description{Indicate which observations are valid.
 }
 \usage{
 get.valid(x)
@@ -21,4 +21,4 @@ get.valid(x)
 data(montreal)
 get.valid(montreal)
 }
-\keyword{ ~descriptive }
+\keyword{ descriptive }

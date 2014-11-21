@@ -4,7 +4,7 @@ function(var, title = NULL){
         percts <- 100 * prop.table(counts)       
         
         print(
-            xtable::xtable(
+            xtable(
                 cbind(
                     Count = counts
                     , Percent = percts

@@ -2,17 +2,17 @@
 \name{SciencesPo-package}
 \alias{SciencesPo}
 \docType{package}
-\title{A tool set for political behavior data	
+\title{A Tool Set For Political Behaviour Data	
 }
-\description{SciencesPo is a facility package that includes functions and algorithms most useful for the political science crowd. Use help(package="SciencesPo") for list all functions.
+\description{ SciencesPo is a facility package that includes sound functions for the political science crowd. Use help(package="SciencesPo") for list all functions.
 }
 
 \details{
 \tabular{ll}{
 Package: \tab SciencesPo\cr
 Type: \tab Package\cr
-Version: \tab 0.10.21 \cr
-Date: \tab 2014-10-21\cr
+Version: \tab 0.11.21 \cr
+Date: \tab 2014-11-21\cr
 License: \tab LGPL (>= 2.0, < 3)\cr }
 
 }

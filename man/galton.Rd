@@ -30,7 +30,5 @@ James A. Hanley (2004) \sQuote{Transmuting} women into men: Galton's family data
 \examples{
 data(galton)
 
-\dontrun{plot(galton)}
-
 }
 \keyword{datasets}

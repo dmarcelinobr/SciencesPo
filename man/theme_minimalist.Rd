@@ -6,13 +6,15 @@
 \description{
 Applies a minimalist to a ggplot2 object}
 \usage{
-theme_minimalist(base_size = 12, base_family = "sans")
+theme_minimalist(base_size = 12, base_family = "sans", title_family = "mono")
 }
 \arguments{
   \item{base_size}{
-Font size
+Font size.
 }
-  \item{base_family}{Font type
+  \item{base_family}{Font type.
+}
+  \item{title_family}{Font type for title.
 }
 }
 \value{ggplot2 graph style. 

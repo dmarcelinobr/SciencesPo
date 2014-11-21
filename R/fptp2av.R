@@ -38,7 +38,7 @@ function(data=NULL, link=NULL){
 		
 	    # votes_1<-rep(list(c(ballot)), as.numeric(as.character(each_row[candid,vote_spread])))
 	    votes<-c(votes,list(votes_1))
-		names(votes)<-c(names(votes)[1: (length(votes)-1) ], as.character(each_row[candid,candidates]))
+		names(votes)<-c(names(votes)[1:(length(votes)-1) ], as.character(each_row[candid,candidates]))
 	  }
 	  return(votes)
 	}
@@ -47,8 +47,7 @@ function(data=NULL, link=NULL){
 		r1<-ball_s[x]
 		return(r1)
 	}
-	.add_followers <-
-function(depth, followers, each_row){
+	.add_followers <- function(depth, followers, each_row){
 	#vs<-as.numeric(as.character(each_row[,vote_spread]))
 	ball<-character(depth)
 	for(i in 1: depth){

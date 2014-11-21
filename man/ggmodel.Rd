@@ -5,7 +5,7 @@
 \description{Draw common plots for diagnostic of lm or glm models 
 }
 \usage{
-ggmodel(model, toplot = "points", which = c(1:3, 5), mfrow = c(1, 1), what = "plots", ...)
+ggmodel(model,toplot="points",which=c(1:3, 5),mfrow=c(1,1),what="plots",...)
 }
 \arguments{
   \item{model}{A model object
@@ -22,7 +22,8 @@ ggmodel(model, toplot = "points", which = c(1:3, 5), mfrow = c(1, 1), what = "pl
 }
 }
 \references{
-Modified from \url{http://librestats.com/2012/06/11/autoplot-graphical-methods-with-ggplot2/}
+Modified from:
+\url{http://librestats.com/2012/06/11/autoplot-graphical-methods-with-ggplot2/}
 }
 \author{
 Daniel Marcelino

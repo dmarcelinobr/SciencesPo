@@ -26,6 +26,7 @@ Daniel Marcelino}
 \examples{
 
 countries <- c('United States', 'Ecuador', 'Russia', 'Russia', 'Ecuador')
-vreplace(vec=countries, from=c('Ecuador', 'Russia', 'United States'), to=c('ECU', 'RUS', 'USA'))
+vreplace(vec=countries, from=c('Ecuador','Russia','United States'), 
+to=c('ECU', 'RUS', 'USA'))
 }
 \keyword{ data manipulation }

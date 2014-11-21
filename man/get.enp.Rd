@@ -60,11 +60,11 @@ get.enp(seats=A, votes=NULL, total=1, method="Golosov")
 
 # Non-trivial example: 
 # 2010 Election outcome
-# party = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV","PC do B","PPS","PRB",
-# "PMN", "PT do B", "PSOL","PHS","PRTB","PRP","PSL","PTC")
-# votes = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345, 4478736, 3808646,
-# 2981714,2886633, 2545279, 2376475, 1659973, 1026220, 605768, 968475, 
-# 719611, 283047, 232530, 457490, 563145)
+# party = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV",
+# "PC do B","PPS","PRB", "PMN", "PT do B", "PSOL","PHS","PRTB","PRP","PSL","PTC")
+# votes = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345, 
+# 4478736, 3808646, 2981714,2886633, 2545279, 2376475, 1659973, 1026220, 
+# 605768, 968475, 719611, 283047, 232530, 457490, 563145)
 
 seats10 = c(88,79,53,43,41,41,34,28,21,17,15,15,12,8,4,3,3,2,2,2,1,1)/513
 
@@ -76,4 +76,5 @@ seats14 = c(70,66,55,37,38,34,34,26,22,20,19,15,12,11,10,9,8,5,4,3,3,3,2,2,2,1,1
 get.enp(seats=seats14, votes=NULL, total=NULL, method="Golosov")
 
 }
+\keyword{ political behaviour }
 \keyword{ descriptive stats }

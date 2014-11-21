@@ -1,12 +1,12 @@
 \encoding{UTF-8}
-\name{toLatex}
-\alias{toLatex}
+\name{r2tex}
+\alias{r2tex}
 \title{Generate Latex Code
 }
 \description{It links to the \sQuote{xtable} function for generating the latex code.
 }
 \usage{
-toLatex(x, title = NULL)
+r2tex(x, title = NULL)
 }
 \arguments{
   \item{x}{ is the object to be passed into latex code, usually a table object.
@@ -30,13 +30,13 @@ data(cgreene76)
 
 tab <- detail(cgreene76, basic = TRUE)
 
-toLatex(tab)
+r2tex(tab)
 
 # Everything together 
 
 cap <- "Presidential Election, Brazil (2006)"
 
-toLatex(detail(cgreene76, basic = TRUE), cap)
+r2tex(detail(cgreene76, basic = TRUE), cap)
 
 }
 

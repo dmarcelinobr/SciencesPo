@@ -11,7 +11,7 @@
 \arguments{
   \item{m}{is a square matrix.}
 }
-\details{The function generates a flatten table of correlations. Using it beside \code{\link{toLatex}} will produce a latex-like correlation table. If necessary, typing \sQuote{cor(t(x))} will coerce \sQuote{x} to a properly square matrix format. 
+\details{The function generates a flatten table of correlations. Using it beside \code{\link{r2tex}} will produce a latex-like correlation table. If necessary, typing \sQuote{cor(t(x))} will coerce \sQuote{x} to a properly square matrix format. 
 }
 \value{An table or a data.frame containing the correlations for \code{m}.
 
@@ -30,7 +30,7 @@ Spiegel, M. R. (1992) Correlation Theory. in: \emph{Theory and Problems of Proba
 \note{When using the function to correlate values of a variable with corresponding values at a different time will lead to an autocorrelation table.
 }
 
-\seealso{\code{\link{toLatex}},\code{\link{rprob}}. 
+\seealso{\code{\link{r2tex}},\code{\link{rprob}}. 
 }
 \examples{
 
@@ -40,7 +40,7 @@ data(nerlove63)
 
 rstack(table)
 
-toLatex(rstack(table))
+r2tex(rstack(table))
 
 }
 
