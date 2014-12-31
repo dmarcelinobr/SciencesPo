@@ -1,3 +1,27 @@
+#' @title Make Data Anonymous
+#' 
+#' @description This function replaces factor and character variables by a combination of letters and numbers, and numeric columns are also transformed.
+#' 
+#' @param x A vector or a data frame
+#' 
+#' @param keep.names A logical argument. If \code{FALSE}, variable names will be replaced by Xs
+#' 
+#' @details By making difficult to recognize the original data while keeping the same data structure, this function is  quite useful for sharing data on help lists.
+#'
+#' @return An object of the same type as \code{x}
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @examples
+#' # setup data
+#' data(ssex)
+#' anonymize(ssex)
+#' anonymize(ssex, keep.names=FALSE)
+#'
+#' @keywords Tables
+#'
+#' @export
+#'
 anonymize <-
 function(x, keep.names=TRUE){
   truenames <- names(x)
