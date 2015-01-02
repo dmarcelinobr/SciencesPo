@@ -1,17 +1,17 @@
-#' @title Footnote to ggplot Graphs
-#' 
-#' @description Add footnotes to \pkg{ggplot2} objects. 
-#' 
-#' @param text Any text or empty to use default 
-#' 
+#' @title Stamp a ggplot object
+#'
+#' @description Add footnotes to \pkg{ggplot2} objects.
+#'
+#' @param text Any text or empty to use default
+#'
 #' @param size The size for text.
-#' 
+#'
 #' @param color Color for the text
-#' 
+#'
 #' @details Only works with a ggplot object.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @examples
 #' # setup data
 #' x <- seq(0, 50, 1)
@@ -20,13 +20,13 @@
 #' df <- data.frame( x = x, supply=supply, demand=demand)
 #'
 #' library(ggplot2)
-#' ggplot(df, aes(x)) + 
-#' geom_line(aes(y = supply, colour = supply))+ 
+#' ggplot(df, aes(x)) +
+#' geom_line(aes(y = supply, colour = supply))+
 #' geom_line(aes(y = demand, colour = demand))
-#' add.footnote()
+#' stamp()
 #'
 #' @keywords Graphs
-#' 
+#'
 #' @importFrom ggplot2 ggplot
 #' @importFrom grid unit
 #' @importFrom grid pushViewport
@@ -37,8 +37,8 @@
 #'
 #' @export
 #'
-add.footnote <-
-function(text = paste(Sys.info()["user"],  
+stamp <-
+function(text = paste(Sys.info()["user"],
                          format(Sys.time(), "%d %b %Y"),sep = " " ),
                          size = .7, color = grey(.75))
 {

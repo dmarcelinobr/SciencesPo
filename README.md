@@ -21,7 +21,7 @@ The _SciencesPo_  package lives on the R Foundation repository [(CRAN)](http://c
 
   ```
   require(devtools)
-  install_github('SciencesPo','danielmarcelino')
+  install_github("danielmarcelino/SciencesPo")
   ```
   
 3 - Or download the [sources in a zip](https://github.com/danielmarcelino/SciencesPo/zipball/master) file and build manually. To do so, please unzip the file to an empty dir and run the following commands there:
