@@ -4,7 +4,7 @@
 #' 
 #' @aliases std.error
 #' @param x  A vector of class numeric or integer
-#' @param na.rm A logical value indicating whether \code{NA} should be stripped before  computating.
+#' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
 #' 
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
 #' 

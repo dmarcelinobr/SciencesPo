@@ -1,4 +1,4 @@
-#' Generate Markov Chains
+#' @title Generate Markov Chains
 #' 
 #' @description
 #' Generates a Markov Chain.

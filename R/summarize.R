@@ -1,18 +1,20 @@
+#' @encoding UTF-8
 #' @title Method to Produce Descriptive Statistics Summary
 #' @param ... Parameters which are typically ignored
 #' @return A data.frame of descriptive statistics 
-#' @export summarize
+#' @export 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-summarize <- function(...)
-  UseMethod("summarize")
+detail <- function(...)
+  UseMethod("detail")
 
 
-print.summarize<-function(x,...){
-  cat("summarize: ")
+print.detail<-function(x,...){
+  cat("detail: ")
   print(x$call) 
 }
 NULL
 
+#' @encoding UTF-8
 #' @title Default Summary Statistics Function
 #' 
 #' @description This function provides up to 14 statistics for an entire data object: number of cases, mean, standard deviation, variance, standard error, median, mad (median absolute deviation), trimmed and winsorized means, range, minimum, maximum, skewness, and kurtosis.
@@ -20,13 +22,13 @@ NULL
 #' @details Trimming is not winsorizing. The winsorization process is more complex than simply excluding data. For example, while in a trimmed estimator the extreme values are discarded, in a winsorized estimator, they are rather replaced by certain percentiles.
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @param x A vector or a data frame.
-#' @param by A factor variable 
-#' @param basic A logical value indicating if a short version of the descriptive table might be returned
-#' @param na.rm A logical value indicating whether NA values should be stripped before the computations
-#' @param trim Is the proportion of the data to be replaced for estimating the average
-#' @param type A numeric value (fraction) to be trimmed. The value in trim will be discarded from the top and bottom of data. See in details below 
-#' @param k A numeric value for observations in the data set to be discarded while computing the winsorized mean. See details below
+#' @param x a vector or a data frame.
+#' @param by a factor variable 
+#' @param basic a logical value indicating if a short version of the descriptive table might be returned
+#' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
+#' @param trim is the proportion of the data to be replaced for estimating the average
+#' @param type a numeric value (fraction) to be trimmed. The value in trim will be discarded from the top and bottom of data. See in details below 
+#' @param k a numeric value for observations in the data set to be discarded while computing the winsorized mean. See details below
 #' 
 #' @return A data frame containing the require computations
 #' 
@@ -40,10 +42,10 @@ NULL
 #' data(ssex) 
 #'
 #' # To apply the function
-#' summarize(ssex, trim = 0.5, k = 3)
+#' detail(ssex, trim = 0.5, k = 3)
 #'
 #' @export
-summarize <-
+detail <-
   function (x, by = NULL, basic = FALSE, na.rm = TRUE, trim = 0.2, type = 2, k = 1)
   {
     cl <- match.call()
@@ -155,6 +157,6 @@ summarize <-
     }
     output <- format(round(data.frame(vars = vars, temp), 1), nsmall = 0)
     
-    class(output) <- c("SciencesPo", "summarize", "data.frame")
+    class(output) <- c("SciencesPo", "describe", "data.frame")
     return(output)   
   }

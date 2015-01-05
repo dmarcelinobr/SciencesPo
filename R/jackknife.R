@@ -1,4 +1,4 @@
-#' Resamples Data Using the Jackknife Method
+#' @title Resamples Data Using the Jackknife Method
 #' 
 #' @description 
 #' This function is used for estimating standard errors when the distribution is not know.
@@ -14,7 +14,8 @@
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
-#' @examples x = runif(10, 0, 1)
+#' @examples 
+#' x = runif(10, 0, 1)
 #' mean(x)
 #' jackknife(x,mean)
 #' 

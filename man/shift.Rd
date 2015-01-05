@@ -3,29 +3,37 @@
 \alias{shift}
 \title{Lag or Lead Observations}
 \usage{
-shift(x, delta = NA)
+shift(x, id, time, delta = 1)
 }
 \arguments{
-\item{x}{The variable to be lagged or leaded}
+\item{x}{the variable to be lagged or leaded}
 
-\item{delta}{An integer for units to move backward or forward as negative (-#) or positive (#)}
+\item{id}{the subject or identification variable.}
+
+\item{time}{the time id variable.}
+
+\item{delta}{an integer value (positive or negative) for units to move either backward or forward.}
 }
 \value{
 An object of the same type as \code{x}
 }
 \description{
-Shift function allows one to either lag or lead a column variables in a data frame
+Shift function allows one to either lag or lead a column variables in a data frame.
+}
+\details{
+The combination of \code{id} and \code{time} must yelds to a unique identification of the observations.
 }
 \examples{
-weather <- data.frame(
-month = a <- c('J','F','M','A','M','J','J','A','S','O','N','D'),
-precip = b <- c(78,62,74,78,76, 83, 91, 93, 93,78, 93, 81),
-max = c <- c(-6, -4, 2, 11, 19, 24,  26,  25, 20, 13, 5, -2),
-min = d <- c(-15, -13, -7, 1, 8,  13, 16, 14, 9, 3, -2, -10) )
+data(sheston91)
+attach(sheston91)
+peek(sheston91)
+## lag
+sheston91$L.pop <- shift(x = pop, id = country, time = year, delta = 1)
+head(sheston91)
 
-(weather$L.precip <- shift(weather$precip, -1) ) # lag
-
-(weather$precip.L <- shift(weather$precip, 1) ) # lead
+# lead
+ sheston91$pop.L <- shift(x = pop, id = country, time = year, delta =  -1)
+head(sheston91)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

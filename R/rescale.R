@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Rescaling as Z-scores and Centering 
 #' 
 #' @description  Provides a rapidly way to generate standard variables.
@@ -17,7 +18,7 @@
 #' 
 #' @keywords Standardization
 #'
-#' @seealso  \code{\link{center}}, \code{\link{standardize}}
+#' @seealso  \code{\link{scale}}, \code{\link{unscale}}
 #' @export
 #'
 rescale <-function(x, range) {

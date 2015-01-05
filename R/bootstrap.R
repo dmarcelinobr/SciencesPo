@@ -1,3 +1,16 @@
+#' @encoding UTF-8
+#' @title Method for Bootstrap
+#'
+#' This method is intended to be provides statistical models that support  bootstrapping.
+#' @param x a a vector or a fitted model object that will be used to produce bootstrapped parameters. Model objects are from the class \dQuote{glm} or \dQuote{lm}.
+#' 
+#' @param ... unspecified parameters
+#' @return a list with the \dQuote{alpha} and \dQuote{beta} slots set. Note that \dQuote{alpha} corresponds to ancillary parameters and \dQuote{beta} corresponds to systematic components of the model.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @export
+bootstrap <- function (x, ...)
+  UseMethod("bootstrap")
+
 #' @title Bootstrap
 #' 
 #' @description
@@ -14,11 +27,30 @@
 #' bootstrap(x,fn=mean)
 #' 
 #' @export
-
-
-bootstrap<-function(x, boots=100, fn){
+bootstrap.default<-function(x, boots=100, fn){
 	n=length(x)
-	lings<-replicate(boots, fn(sample(x,n, replace=TRUE)))
-	
-	list(se=sd(lings), lings=lings)
+	lings <-replicate(boots, fn(sample(x,n, replace=TRUE)))
+	list(se = sd(lings), 
+       lings = lings)
 }
+NULL
+
+
+#' @title Bootstrap Parameters of a Statistical Model
+#'
+#' This method is used for bootstrapping statistical models typically of class \dQuote{lm} or \dQuote{glm}.
+#' 
+#' @param x A fitted model object, typically of class \dQuote{lm} or \dQuote{glm}
+#' @param ... A list of optional parameters
+#' @return a list with the \dQuote{alpha} and \dQuote{beta} slots set
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' 
+#' 
+#' @export
+bootstrap.model <- function (x, ...)
+  list(
+    alpha = NULL,
+    beta = coef(x)
+  )

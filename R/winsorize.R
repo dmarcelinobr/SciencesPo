@@ -4,7 +4,7 @@
 #' 
 #' @param x The vector to be winsorized
 #' @param k An integer for the quantity of outlier elements that to be replaced in the calculation process
-#' @param na.rm A logical value indicating whether \code{NA} values should be stripped before computing. The default is \code{na.rm = TRUE}
+#' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
 #'
 #' @details Winsorizing a vector will produce different results than trimming it. While by trimming a vector causes extreme values to be discarded, by winsorizing it in the other hand, causes extreme values to be replaced by certain percentiles.
 #' 
@@ -18,7 +18,6 @@
 #'  
 #'  @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'  
-#'  @seealso \code{\link{summarize}}
 #'  
 #'  @examples  
 #'  x <- rnorm(100) 

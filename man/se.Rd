@@ -9,7 +9,7 @@ se(x, na.rm = TRUE)
 \arguments{
 \item{x}{A vector of class numeric or integer}
 
-\item{na.rm}{A logical value indicating whether \code{NA} should be stripped before  computating.}
+\item{na.rm}{a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.}
 }
 \description{
 Compute the standard errors of a numeric vector

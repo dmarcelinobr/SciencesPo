@@ -6,11 +6,11 @@
 kurtosis(x, na.rm = FALSE, type = 2)
 }
 \arguments{
-\item{x}{A numeric vector}
+\item{x}{a numeric vector}
 
-\item{na.rm}{A logical value indicating whether \code{NA} values should be stripped before the computation proceeds, the default is \code{na.rm = FALSE}.}
+\item{na.rm}{a logical value for \code{na.rm}, default is \code{na.rm=FALSE}.}
 
-\item{type}{An integer between 1 and 3 selecting one of the algorithms for computing kurtosis detailed below}
+\item{type}{an integer between 1 and 3 selecting one of the algorithms for computing kurtosis detailed below}
 }
 \value{
 An object of the same type as \code{x}.

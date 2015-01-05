@@ -10,7 +10,7 @@ winsorize(x, k = 1, na.rm = TRUE)
 
 \item{k}{An integer for the quantity of outlier elements that to be replaced in the calculation process}
 
-\item{na.rm}{A logical value indicating whether \code{NA} values should be stripped before computing. The default is \code{na.rm = TRUE}}
+\item{na.rm}{a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.}
 }
 \value{
 An object of the same type as \code{x}
@@ -38,9 +38,6 @@ Dixon, W. J., and Yuen, K. K. (1999) Trimming and winsorization: A review. \emph
 Dixon, W. J., and Yuen, K. K. (1960) Simplified Estimation from Censored Normal Samples, \emph{The Annals of Mathematical Statistics,} \bold{31,} 385--391.
 
 Wilcox, R. R. (2012) \emph{Introduction to robust estimation and hypothesis testing.} Academic Press, 30-32. Statistics Canada (2010) \emph{Survey Methods and Practices.}
-}
-\seealso{
-\code{\link{summarize}}
 }
 \keyword{Descriptive}
 

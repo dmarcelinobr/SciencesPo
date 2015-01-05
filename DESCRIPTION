@@ -16,7 +16,11 @@ Depends:
     R (>= 3.0),stats,utils,graphics,grDevices,ggplot2
 Imports:
     grid,
-    lubridate
+    lubridate,
+    devtools,
+    foreign,
+    xtable,
+    gdata
 Suggests:
     Zelig,
     MCMCpack
