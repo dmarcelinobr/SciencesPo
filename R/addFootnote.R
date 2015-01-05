@@ -23,7 +23,7 @@
 #' ggplot(df, aes(x)) +
 #' geom_line(aes(y = supply, colour = supply))+
 #' geom_line(aes(y = demand, colour = demand))
-#' aadFootnote(size = .9, color = "red")
+#' addFootnote(size = .9, color = "red")
 #'
 #' @keywords Graphs
 #'
@@ -37,7 +37,7 @@
 #'
 #' @export
 #'
-aadFootnote <-
+addFootnote <-
 function(x=NULL, size=NULL, color=NULL, rotation = 90, justification = c("right", "bottom")) {
   if(!is.null(x)){
     text = paste(x)
