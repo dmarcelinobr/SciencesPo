@@ -12,7 +12,10 @@ before_install:
   - ./travis-tool.sh bootstrap
 install:
   - ./travis-tool.sh install_deps
+<<<<<<< HEAD
    - ./travis-tool.sh install_r ggplot2
+=======
+>>>>>>> 5106718093bd5fecd5643c6a4872015405c6b51c
 script: ./travis-tool.sh run_tests
 
 after_failure:
@@ -21,4 +24,8 @@ after_failure:
 notifications:
   email:
     on_success: change
+<<<<<<< HEAD
     on_failure: change
+=======
+    on_failure: change
+>>>>>>> 5106718093bd5fecd5643c6a4872015405c6b51c
