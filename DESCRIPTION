@@ -1,19 +1,30 @@
 Package: SciencesPo
 Type: Package
-Title: A Tool Set For Political Behaviour Data
+Title: A Tool Set For Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
-Version: 0.11.21
-Date: 2014-11-21
+Version: 1.01.20
+Date: 2015-01-20
 Author: Daniel Marcelino
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
-Description: SciencesPo is a facility package for the political science crowd. It provides sound functions for analyzing random and nonrandom data, future updates will focus on innovative techniques published on relevant journals in the field of political science.
+Description: SciencesPo is a facility package for the political science crowd.
+    It provides a collection of functions for ease of analyze and presentation
+    of random and nonrandom data. Future updates will focus on innovative
+    techniques published on relevant journals in the field.
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: LGPL (>= 2.0, < 3)
-Depends: R (>= 3.0),stats,utils,graphics,grDevices,ggplot2
-Imports:foreign,data.table,dplyr,gridExtra,grid,xtable,RecordLinkage
-Suggests: Zelig,MCMCpack
+Depends:
+    R (>= 3.0),stats,utils,graphics,grDevices,ggplot2
+Imports:
+    grid,
+    lubridate,
+	devtools,
+    foreign,
+    xtable,
+    gdata
+Suggests:
+    Zelig,
+    MCMCpack
 LazyData: yes
-Repository: http://github.com/danielmarcelino/SciencesPo
+Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo
 ByteCompile: TRUE
-

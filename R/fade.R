@@ -1,3 +1,24 @@
+#' @title Add transparency
+#'
+#' @description Alpha function to add transparency in graphic objects
+#'
+#' @param color Any color or vector of colors
+#' @param alpha Level for alpha, default is \code{0.5}
+#' 
+#' @keywords Graphs
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' @examples
+#' # setup data
+#' x <- seq(0, 50, 1)
+#' supply <- x * -2 + 100
+#' demand <- x * 2
+#' # Point size and transparency 
+#' plot(supply, demand, pch = 19, cex = 3, col = fade("red", 0.5))
+#'
+#'@export
+#'
 fade<- function (color, alpha = .5) 
 {
     if(missing(color))

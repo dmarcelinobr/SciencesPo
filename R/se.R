@@ -1,3 +1,22 @@
+#' @title Calculate the Standard Error
+#'
+#' @description Compute the standard errors of a numeric vector
+#' 
+#' @aliases std.error
+#' @param x  A vector of class numeric or integer
+#' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
+#' 
+#' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
+#' 
+#' @references Kenney, J. F. and Keeping, E. S. (1951) Standard Error of the Mean. In \emph{Mathematics of Statistics,} Pt. 2, 2nd ed. Princeton, NJ: Van Nostrand, pp. 110 and 132--133.
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @examples
+#' x <- rnorm(100); 
+#' se(x)
+#'
+#' @export 
 se <-
 function (x, na.rm = TRUE) 
     {

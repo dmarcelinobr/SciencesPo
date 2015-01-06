@@ -1,3 +1,23 @@
+#' @title Generate dummy variables
+#' 
+#' @description Provides an alternative to generate dummy variables
+#' 
+#' @param x a column position to generate dummies
+#' @param data the data object as a data.frame
+#' @param drop A logical value. If \code{TRUE}, unused levels will be omitted
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' @details A matrix object
+#' 
+#' @keywords Models
+#' 
+#' @examples
+#' df <- data.frame(y = rnorm(25), x = runif(25,0,1), sex = sample(1:2, 25, rep=TRUE))
+#' 
+#' dummy(df$sex)
+#' 
+#' @export
 dummy <-
 function (x, data = NULL, drop = TRUE) 
 {
