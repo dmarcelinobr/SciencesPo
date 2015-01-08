@@ -1,7 +1,7 @@
 ##################################################################
 ## This will be sent to the console when the package is loaded.
-##################################################################
-  .onAttach <- function(libname, pkgname) {
+##################################################################  
+.onAttach <- function(libname, pkgname) {
    pkgEnv = pos.to.env(match('package:SciencesPo', search()))
    # vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
     ## Send message
@@ -44,17 +44,26 @@
 .max <- "max.  "
 
 
+
+.Last.lib<-function(libname){
+  stringa<-unlist(strsplit(x=libname,split="/"))
+  pkgname<-stringa[length(stringa)]
+  #library.dynam.unload(pkgname,libpath=libname)
+  txt<-paste("Thank you to use",sQuote(pkgname),"package. See you.")
+  writeLines(txt)
+}
+
 RECYCLEWARNING <- NULL
 .onLoad <- function(libname, pkgname){
   RECYCLEWARNING <<- gettext(tryCatch( (1:2)+(1:3),warning=function(w) w$message ))
 }
-
 
 ### List objects excluding function
 lsNoFunction <- function() {
  setdiff(ls(envir= .GlobalEnv), as.character(lsf.str()[])
  )
 }
+
 ### Limit maximum observations be print
 print.data.frame <- function(x, ...) {
     oWidth <- getOption("width")
@@ -68,7 +77,9 @@ hour2min <- function(hhmm) {
   hhmm <- as.numeric(hhmm)
   trunc(hhmm/100)*60 + hhmm %% 100
 }
+
 min2hour <- function(min) {
   min <- as.numeric(min)
   trunc(min/60)*100 + min %% 60
 }
+

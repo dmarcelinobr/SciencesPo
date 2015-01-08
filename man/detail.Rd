@@ -4,18 +4,18 @@
 \alias{detail}
 \title{Method to Produce Descriptive Statistics Summary}
 \usage{
-detail(x, by = NULL, basic = FALSE, na.rm = TRUE, trim = 0.2,
+detail(data, by = NULL, basic = TRUE, na.rm = TRUE, trim = 0.2,
   type = 2, k = 1)
 
-detail(x, by = NULL, basic = FALSE, na.rm = TRUE, trim = 0.2,
+detail(data, by = NULL, basic = TRUE, na.rm = TRUE, trim = 0.2,
   type = 2, k = 1)
 }
 \arguments{
-\item{x}{a vector or a data frame.}
+\item{data}{a data object (vector or data.frame).}
 
 \item{by}{a factor variable}
 
-\item{basic}{a logical value indicating if a short version of the descriptive table might be returned}
+\item{basic}{indicates if only a short version of the descriptive table should be returned, the default is \code{basic=TRUE}.}
 
 \item{na.rm}{a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.}
 
@@ -35,7 +35,7 @@ A data frame containing the require computations
 \description{
 Method to Produce Descriptive Statistics Summary
 
-This function provides up to 14 statistics for an entire data object: number of cases, mean, standard deviation, variance, standard error, median, mad (median absolute deviation), trimmed and winsorized means, range, minimum, maximum, skewness, and kurtosis.
+This function provides up to 14 statistics for an entire data object: number of cases, mean, standard deviation, variance, standard error, median, mad (median absolute deviation), trimmed and winsorized means, range, minimum, maximum, skewness, and kurtosis. Statistics for a factor variable might be computed based on its `levels`, and is shown accompained whit ans \verb{"*"}.
 }
 \details{
 Trimming is not winsorizing. The winsorization process is more complex than simply excluding data. For example, while in a trimmed estimator the extreme values are discarded, in a winsorized estimator, they are rather replaced by certain percentiles.

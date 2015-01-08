@@ -62,6 +62,7 @@
 #'
 #' @export
 #'
+#'
 effectiveNumber <-
 function(seats=NULL, votes=NULL, total=NA, method="Laakso/Taagepera"){
   if(method=="Golosov"){

@@ -3,14 +3,14 @@
 \alias{info}
 \title{Get Information on Data Objects}
 \usage{
-info(x = .data, show, ignore)
+info(data = .data, show, ignore)
 }
 \arguments{
-\item{x}{the data frame to be detailed.}
+\item{data}{the data frame to be detailed.}
 
-\item{show}{the selection of columns from \code{x}, if not all.}
+\item{show}{the selection of columns from \code{data}, if not all.}
 
-\item{ignore}{columns from \code{x} to prevent of showing.}
+\item{ignore}{columns from \code{data} to prevent of showing.}
 }
 \description{
 Get Information on Data Objects

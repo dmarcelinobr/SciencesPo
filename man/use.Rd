@@ -3,19 +3,19 @@
 \alias{use}
 \title{Attach exclusively various file formats}
 \usage{
-use(file, dataFrame = .data, clear = TRUE, spss.missing = TRUE,
+use(file, data = .data, clear = TRUE, spss.missing = TRUE,
   tolower = TRUE)
 }
 \arguments{
-\item{file}{}
+\item{file}{the name of the file which the data are to be read from.}
 
-\item{dataFrame}{}
+\item{data}{the internal name after attaching the data file.}
 
-\item{clear}{}
+\item{clear}{if \code{TRUE}, all attached data in the environment will be detached first.}
 
-\item{spss.missing}{, default is \code{spss.missing = TRUE}.}
+\item{spss.missing}{, whether the values for missing is a SPSS dataset should be replaced with NA, the default is \code{spss.missing = TRUE}.}
 
-\item{tolower}{, default is \code{tolower = TRUE}.}
+\item{tolower}{whether the variable names should be forced to lower case, default is \code{tolower = TRUE}.}
 }
 \description{
 This works rigoroulsy as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear=FALSE} is specified.

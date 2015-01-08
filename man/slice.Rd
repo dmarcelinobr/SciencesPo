@@ -15,6 +15,9 @@ slice(x, by = 2, pattern = NULL)
 \description{
 Break up a vector by certain N sized chunks
 }
+\details{
+
+}
 \examples{
 x <- seq(1:15)
 slice(x, by = 2, pattern = 4)
