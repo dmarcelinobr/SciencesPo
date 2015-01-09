@@ -14,8 +14,8 @@ peek(x, n = 10)
 Provide a sly view of the data by randomly draw observations, instead of showing only the first \code{head()} or the last \code{tail()} rows of an object.
 }
 \examples{
-data(galton)
-peek(galton)
+data(titanic)
+peek(titanic)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

@@ -111,20 +111,23 @@ NULL
 
 
 #' @title Recode variable
+#' 
 #' @description Change values of a variable in a \code{data.frame}.
-#' @param vars a varaible or a set of variables.
+#' label.var
+#' @param vars varaible(s) to be recoded 
+#' @param from old values or arithmetic conditions. 
+#' @param to new values for all variables listed.
+#' @param data a \code{data.frame} object.
+#' @param \dots typically not needed parameters. 
 #' 
 #' @examples
-#'   data(titanic)
-#'   use(titanic)
-#'   # recoding CLASS "crew" to missing value:
-#'   recode(CLASS, from = crew, to = NA)
+#' df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), 
+#' z=sample(5, 20, rep=TRUE) )
+#' use(df)
+#' # recoding x  to missing value:
+#' recode(z, from = c(1,2,3,4,5), to = c(5,4,3,2,1), data=df)
 #' @export
-recode <- function(vars, ...){
-  UseMethod("recode")
-}
-
-recode.default <-
+recode <-
   function (vars, from, to, data = .data, ...) 
   {
     data1 <- data
@@ -651,26 +654,6 @@ NULL
 
 
 
-#' @title Random Imputation 
-#' 
-#' @description Indeed a very simple but somewhat limited approach is to impute missing values from observed chosen uniformly randomly with replacement (this function is designed for teaching purposes). It assumes that \deqn{p(R|Z_{obs}, Z_{mis}) = p(R|\phi)} (MCAR). Sampling with replacement is important since it continues to favor values with higher incidence (preserving the MCAR empirical distribution).
-#'
-#' @details May also be combined with apply for matrix imputation drills.
-#' 
-#' @examples
-#'   X <- c(1,2,NA,4,5,NA)
-#' randImputation(X)
-#' @export
-randImputation <- function(x)  {
-  gone <- is.na(x)
-  there <- x[!gone]
-  x[gone] <- sample(x=there,size=sum(gone),replace=TRUE)
-  return(x)
-}
-NULL
-
-
-
 
 
 #' @title Lookup
@@ -679,11 +662,7 @@ NULL
 #'  
 #'  @param x the variable
 #'  @param  lookup.array a n-by-2 array used for looking up.
-#'  
-#'  @examples
-#'  a <- c( 1, 1, 1, NA, NA, NA)
-#'  b <-cbind(c(1, NA), c(NA, 99))
-#'  lookup( a,b)
+#'
 #'  
 #' @export
 lookup <- function (x, lookup.array) 
@@ -706,13 +685,50 @@ lookup <- function (x, lookup.array)
       x[b != "" & !is.na(b)] <- (b[b != "" & !is.na(b)])
     }
     x[is.na(b)] <- as.numeric(b[is.na(b)])
-    xreturn <- x
-    return(xreturn)
+    answer <- x
+    return(answer)
   }
 }
 NULL
 
-
+#' @title Wrap all related variables 
+#' 
+#' @description  Try to  wrap all related variables into the existing .data
+#' @param data is the .data object
+#'
+#' @export
+wrap <- function (data = .data) 
+{
+  data1 <- data
+  j <- NULL
+  k <- attr(data1, "var.labels")
+  candidate.objects <- setdiff(lsNoFunction(), as.character(ls.str(mode = "list")[]))
+  if (length(candidate.objects) == 0) 
+    stop("No related vector outside the default data frame")
+  for (i in 1:length(candidate.objects)) {
+    if (length(get(candidate.objects[i])) == nrow(data1)) {
+      if (any(names(data1) == candidate.objects[i])) {
+        data1[, names(data1) == candidate.objects[i]] <- get(candidate.objects[i])
+        j <- c(j, i)
+      }
+      else {
+        data1 <- data.frame(data1, get(candidate.objects[i]))
+        names(data1)[ncol(data1)] <- candidate.objects[i]
+        j <- c(j, i)
+        if (!is.null(k)) {
+          k <- c(k, "")
+        }
+      }
+    }
+  }
+  attr(data1, "var.labels") <- k
+  rm(list = candidate.objects[j], pos = 1)
+  assign(as.character(substitute(data)), data1, pos=1)
+  if(is.element(as.character(substitute(data)), search())){
+    detach(pos=which(search() %in% as.character(substitute(data))))
+    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+  }
+}
 
 
 

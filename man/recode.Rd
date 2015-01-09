@@ -3,18 +3,28 @@
 \alias{recode}
 \title{Recode variable}
 \usage{
-recode(vars, ...)
+recode(vars, from, to, data = .data, ...)
 }
 \arguments{
-\item{vars}{a varaible or a set of variables.}
+\item{vars}{varaible(s) to be recoded}
+
+\item{from}{old values or arithmetic conditions.}
+
+\item{to}{new values for all variables listed.}
+
+\item{data}{a \code{data.frame} object.}
+
+\item{\dots}{typically not needed parameters.}
 }
 \description{
 Change values of a variable in a \code{data.frame}.
+label.var
 }
 \examples{
-data(titanic)
-  use(titanic)
-  # recoding CLASS "crew" to missing value:
-  recode(CLASS, from = crew, to = NA)
+df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5),
+z=sample(5, 20, rep=TRUE) )
+use(df)
+# recoding x  to missing value:
+recode(z, from = c(1,2,3,4,5), to = c(5,4,3,2,1), data=df)
 }
 

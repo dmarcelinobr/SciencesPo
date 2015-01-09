@@ -239,10 +239,10 @@ labelvar <-function(var, label, drop=TRUE, data = .data){
                  " If this variable in the data frame is to be labelled,","\n",
                  " either the non-variable object of this name must be removed before labelling","\n", "\n",
                  paste("   rm(",as.character(substitute( var)),")",";             ",
-                       " label.var(", as.character(substitute(var)),", \"", as.character(substitute(label)),"\")",sep=""),"\n", "\n",
+                       " labelvar(", as.character(substitute(var)),", \"", as.character(substitute(label)),"\")",sep=""),"\n", "\n",
                  " or the variable in the data frame must be prior renamed","\n",  "\n",
                  paste("   ren(", as.character(substitute( var)),", newname)", "; ",
-                       " label.var(newname,\"", as.character(substitute(label)),"\")", sep=""), "\n"))
+                       " labelvar(newname,\"", as.character(substitute(label)),"\")", sep=""), "\n"))
     }
     if(length(var)==nrow(data)){
       data1[,names(data1)==as.character(substitute(var))] <- var
@@ -280,8 +280,8 @@ NULL
 #' 
 #' @keywords Tables
 #' @examples
-#' data(galton)
-#' peek(galton)
+#' data(titanic)
+#' peek(titanic)
 #' 
 #' @export
 #' 

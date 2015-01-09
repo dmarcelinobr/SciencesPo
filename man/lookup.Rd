@@ -13,9 +13,4 @@ lookup(x, lookup.array)
 \description{
 Recodes values of a vector from a lookup array.
 }
-\examples{
-a <- c( 1, 1, 1, NA, NA, NA)
- b <-cbind(c(1, NA), c(NA, 99))
- lookup( a,b)
-}
 

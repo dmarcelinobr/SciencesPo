@@ -44,15 +44,6 @@
 .max <- "max.  "
 
 
-
-.Last.lib<-function(libname){
-  stringa<-unlist(strsplit(x=libname,split="/"))
-  pkgname<-stringa[length(stringa)]
-  #library.dynam.unload(pkgname,libpath=libname)
-  txt<-paste("Thank you to use",sQuote(pkgname),"package. See you.")
-  writeLines(txt)
-}
-
 RECYCLEWARNING <- NULL
 .onLoad <- function(libname, pkgname){
   RECYCLEWARNING <<- gettext(tryCatch( (1:2)+(1:3),warning=function(w) w$message ))
