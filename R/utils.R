@@ -49,6 +49,18 @@ RECYCLEWARNING <- NULL
   RECYCLEWARNING <<- gettext(tryCatch( (1:2)+(1:3),warning=function(w) w$message ))
 }
 
+.myDataEnv <- new.env(parent=emptyenv()) # not exported
+
+isLoaded <- function(.data) {
+  exists(.data, .myDataEnv)
+}
+
+getData <- function(.data) {
+  if (!isLoaded(.data))
+    data(.data, envir=.myDataEnv)
+  .myDataEnv[[.data]]
+}
+
 ### List objects excluding function
 lsNoFunction <- function() {
  setdiff(ls(envir= .GlobalEnv), as.character(lsf.str()[])

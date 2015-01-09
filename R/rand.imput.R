@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Random Imputation 
 #' 
 #' @description Performs random imputation in a vector that contains missing values.

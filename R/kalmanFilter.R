@@ -47,9 +47,9 @@ NULL
 #' @keywords Models
 #' @export
 kalmanUpdate <- function(mean1, var1, mean2, var2){
-  new_mean = (var2 * mean1 + var1 * mean2) / (var1 + var2)
-  new_var = 1 / (1/var1 + 1/var2)
-  return(c(new_mean,new_var))
+  newmean = (var2 * mean1 + var1 * mean2) / (var1 + var2)
+  newvar = 1 / (1/var1 + 1/var2)
+  return(c(newmean,newvar))
 }
 NULL
 
@@ -57,7 +57,6 @@ NULL
 
 
 
-#
 # you can fix your code with 'assign':
 #  
 #  sumfill = function(I,J) { for (i in 1:I) for (j in 1:J) 

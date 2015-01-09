@@ -1,8 +1,27 @@
-## Subsetting .data
+#' @encoding UTF-8
+#' @title Subset data 
+#' 
+#'  @description Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
+#'  
+#'  @param data = .data
+#'  #'  @param select the columns to select from \code{data}.
+#'  @param exclude the columns to remove from \code{data}.
+#'  @param subset the elements or rows to keep from \code{data} (missing values are taken as false).
+#'  @param drop passed on to [ indexing operator.
+#'  @param refactor whether the levels of variable(s) with zero count should be removed after subsetting. The default is \code{refactor="subset.vars"}, which means that the levels of the variables not being used will be recycled.
+#' @param sample an integer for the size of random sample to retain from the \code{data}.
+#' @param \dots typically unecessary parameters.
+#'  
+#' @examples
+#' data(ssex)
+#' keep(ssex, select = c(Date, Oppose, Favor))
+
+#' @export
+#'
 keep <-
-  function (data = .data, sample = NULL, exclude = NULL, subset, 
-            select, drop = FALSE, refactor = c("subset.vars", "all", "none"), ...) 
+  function (data = .data, select, exclude = NULL, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
   {
+
     data.name <- as.character(substitute(data))
     data1 <- data
     datalabel <- attr(data1, "datalabel")
@@ -109,7 +128,7 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Recode variable
 #' 
 #' @description Change values of a variable in a \code{data.frame}.
@@ -218,6 +237,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Convert Factors into Numeric Vectors
 #' 
 #' @description Convert Factors into Numeric Vectors
@@ -249,6 +269,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Generate dummy variables
 #' 
 #' @description Provides an alternative to generate dummy variables
@@ -311,6 +332,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Modify data elements by their position
 #'
 #' @description Modify an element in a vector, taking its position as reference.
@@ -343,6 +365,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Join a list of data frames
 #' 
 #' @description Recursively join data frames 
@@ -375,6 +399,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Unnest a Nested List
 #' 
 #' @description  Unnest nested lists made easy.
@@ -414,7 +440,7 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Reverse the levels of a factor.
 #' 
 #' @param x a factor whose levels need to be reverse coded.
@@ -453,6 +479,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Lag or Lead Observations
 #' 
 #' @description Shift function allows one to either lag or lead a column variables in a data frame.
@@ -544,9 +571,12 @@ NULL
 
 
 
+
+
+#' @encoding UTF-8
 #' @title Slice a vector
 #' 
-#' @description Break up a vector by certain N sized chunks
+#' @description Break up a vector by certain N sized chunks.
 #' 
 #' @param x A numeric vector
 #' @param by The number by which to split the vector
@@ -578,6 +608,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Replace commas by dots
 #' 
 #' @description Replace commas by dots in that order.
@@ -603,6 +635,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Rownames to column 
 #' 
 #' @description Moves rownames to column 
@@ -655,7 +689,7 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Lookup
 #' 
 #'  @description Recodes values of a vector from a lookup array. 
@@ -691,6 +725,11 @@ lookup <- function (x, lookup.array)
 }
 NULL
 
+
+
+
+
+#' @encoding UTF-8
 #' @title Wrap all related variables 
 #' 
 #' @description  Try to  wrap all related variables into the existing .data
@@ -729,6 +768,6 @@ wrap <- function (data = .data)
     attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
-
+NULL
 
 

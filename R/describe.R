@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Get Information on Data Objects 
 #'
 #' @param data the data frame to be detailed.
@@ -192,6 +193,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Labels variables
 #'
 #' @description Labels variables
@@ -267,7 +269,7 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Show Randomly Drawn Observations
 #' 
 #' @description Provide a sly view of the data by randomly draw observations, instead of showing only the first \code{head()} or the last \code{tail()} rows of an object.

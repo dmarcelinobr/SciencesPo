@@ -47,7 +47,7 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Changes NAs in a vector into a given value
 #'
 #' @description Changes NAs in a vector into a given value
@@ -68,6 +68,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Eliminate NA observations
 #'
 #' @description Generates two matrices: One with complete observations and the other with all observations.
@@ -100,6 +102,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Return Elapsed Time in Years
 #'
 #' @description Return the elapsed time in years.

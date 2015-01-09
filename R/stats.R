@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Pearson's Coefficient of Variation 
 #'
 #' @description Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Karl Pearson, which is given by the division of standard deviation by the mean. The CV reflects a normalized measure of the dispersion of a given probability distribution. Conversely, distributions with \deqn{cv < 1} are considered \dQuote{low-variance}, while those with \deqn{cv > 1} \dQuote{high-variance}.
@@ -24,6 +25,8 @@ function(x){
   sd(x)/mean(x)
 }
 NULL
+
+
 
 
 
@@ -182,6 +185,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Winsorized Mean 
 #' 
 #' @description Compute the winsorized mean, which consists of recoding the top k values in a vector.
@@ -231,6 +235,11 @@ winsorize <-
   }
 NULL
 
+
+
+
+
+#' @encoding UTF-8
 #' @title Calculate the Standard Error
 #'
 #' @description Compute the standard errors of a numeric vector
@@ -275,7 +284,9 @@ NULL
 
 
 
-#' Calculate the Log Likelihood of a Normal Distribution
+
+#' @encoding UTF-8
+#' @title Calculate the Log Likelihood of a Normal Distribution
 #' 
 #' @description 
 #' Find the log likelihood of a normal distribution.
@@ -302,6 +313,8 @@ loglik<-function(x=data, mu, var)
   -ll
 }
 NULL
+
+
 
 
 
@@ -373,6 +386,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title  Calculate the Mode
 #' 
 #' @description Estimates the mode for a vector

@@ -102,13 +102,13 @@ NULL
 
 
 
-#' print.lrtest
+#' @title Method for printing lrtest
 #'
-#'
-#'
+#' @param x a model class object.
+#' @param \dots typically unecessary parameters.
 #'
 #' 
-#' 
+#' @export
 print.lrtest <- function(x, ...) {
   if(any(x$model.class == "coxph")){
     cat("Likelihood ratio test for Cox regression & conditional logistic regression",
