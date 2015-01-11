@@ -771,3 +771,161 @@ wrap <- function (data = .data)
 NULL
 
 
+
+#' @title Converts rle object to data.frame
+#'
+#' @param r an rle object.
+#'
+#'
+#' just converts an rle object to a data.frame
+#   with columns: value, length, startIndex, endIndex
+#' @export 
+rleFrame = function(r) {
+  y <- data.frame(cbind(r[[2]], as.integer(r[[1]])),
+                  stringsAsFactors=FALSE)
+  y[,2] <- as.integer(y[,2])
+  y <- cbind(y,cumsum(y[,2]))
+  y <- cbind(y,(y[,3] - y[,2] + 1))
+  y = y[,c(1,2,4,3)]
+  names(y) = c("x","len","start","end")
+  return(y)
+}
+NULL
+
+
+
+
+
+
+#' @encoding UTF-8
+#' @title Unity-based normalization
+#' 
+#' @description Normalizes as feature scaling, \code{min - max}, or unity-based normalization. Typically used to bring all values into the range [0,1]. However, this can be generalized to restrict the range of values in the dataset between any arbitrary points  \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})} }.
+#' 
+#' @param var is a vector to be normalized
+#' @param range is a valid range, default is \code{c(0,1)}.
+#' 
+#' @return Normalized values in an object of the same class as \code{var}.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#'
+#' @examples
+#' x <- sample(10)
+#' normalize(x, range=c(0,1))
+#' normalize(x)
+#' 
+#' @keywords Rescaling
+#'
+#' @seealso  \code{\link{scale}}, \code{\link{unscale}}
+#' @export
+#'
+normalize <-function(var, range) {
+  if(nargs() > 1 && is.numeric(var) && is.numeric(range)) {
+    # if newrange has max first, reverse it
+    if(range[1] > range[2]) {
+      newmin<-range[2]
+      range[2]<-range[1]
+      range[1]<-newmin
+    }
+    data.range<-range(var)
+    if(data.range[1] == data.range[2]) stop("cannot rescale a constant vector!")
+    # range[1]+(x - min(x) )*(range[2]-range[1])/(max(x)-min(x))
+    # elegantly: 
+    sFactor <-(range[2]-range[1])/(data.range[2]-data.range[1])
+    return(range[1]+(var-data.range[1])*sFactor)
+  }
+  else {
+    cat("Usage: normalize(var, c(0,1)\n")
+    cat("\twhere `var` is a numeric vector and range is the `min` and `max` of the new range\n")  }
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Splits name field variable 
+#' @description Splits a name field variable allocating the first and last names into two new columns or a list.
+#' @param name the name field column. 
+#' @param data the data.frame name.
+#' 
+#' @return two columns or a list.
+#' @seealso \link{unnest}.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @examples
+#' df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Barack Obama", "Simon Bolivar", "Florence Nightingale") )
+#' name.split(df$name)
+#' @export
+name.split<- function(name, data=.data){
+  #nl <- as.list(1:ncol(data))
+  # names(nl) <- names(data)
+  # - TODO maybe warn about replacing existing variable with the same names (first and last)
+  first = as.character(
+    lapply(
+      strsplit(
+        as.character(
+          name), split='\\s+'),
+      head, n=1))
+  
+  last = as.character(
+    lapply(
+      strsplit(
+        as.character(
+          name), split='\\s+'),
+      tail, n=1))
+  if(!missing(data)){
+    return(cbind(data, first, last))
+  }else{
+    return(cbind(first, last))
+  }
+}
+NULL
+
+
+
+
+
+
+
+#' Extraction of Categorical Values as a Preprocessing Step for Making Dummy Variables
+#' 
+#'  \code{categories} stores all the categorical values that are present in the factors and character vectors of a data frame. Numeric and integer vectors are ignored. It is a preprocessing step for the \code{dummy} function. This function is appropriate for settings in which the user only wants to compute dummies for the categorical values that were present in another data set. This is especially useful in predictive modeling, when the new (test) data has more or other categories than the training data.
+#'
+#' @param x data frame containing factors or character vectors that need to be transformed to dummies. Numerics, dates and integers will be ignored.
+#' @param p select the top p values in terms of frequency. Either "all" (all categories in all variables), an integer scalar (top p categories in all variables), or a vector of integers (number of top categories per variable in order of appearance.
+#' @examples
+#' #create toy data
+#' (traindata <- data.frame(var1=as.factor(c("a","b","b","c")),
+#'                          var2=as.factor(c(1,1,2,3)),
+#'                          var3=c("val1","val2","val3","val3"),
+#'                          stringsAsFactors=FALSE))
+#' (newdata <- data.frame(var1=as.factor(c("a","b","b","c","d","d")),
+#'                        var2=as.factor(c(1,1,2,3,4,5)),
+#'                        var3=c("val1","val2","val3","val3","val4","val4"),
+#'                        stringsAsFactors=FALSE))
+#'
+#' categories(x=traindata,p="all")
+#' categories(x=traindata,p=2)
+#' categories(x=traindata,p=c(2,1,3))
+#' @seealso \code{\link{dummy}}
+#' @return  A list containing the variable names and the categories
+#' @author Authors: Michel Ballings, and Dirk Van den Poel, Maintainer: \email{Michel.Ballings@@GMail.com}
+categories <- function(x,p="all"){
+  categoricals <- which(sapply(x,function(x) is.factor(x) || is.character(x)))
+  x <- data.frame(x[,categoricals])
+  cats <- sapply(1:ncol(x),function(z) {
+    cats <- table(x[,z])
+    if(is.numeric(p) && length(p) == 1) {
+      names(sort(cats,decreasing=TRUE)[1:if(length(cats) <= p) length(cats) else p])
+    } else if (is.numeric(p) && length(p) >= 1) {
+      names(sort(cats,decreasing=TRUE)[1:if(length(cats) <= p[z]) length(cats) else p[z]])
+    } else if (p=="all") {
+      names(cats)
+    }  
+  },simplify=FALSE)
+  names(cats) <- names(x)
+  cats
+}
+NULL
+

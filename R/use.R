@@ -8,6 +8,8 @@
 #' @param spss.missing , whether the values for missing is a SPSS dataset should be replaced with NA, the default is \code{spss.missing = TRUE}.
 #' @param tolower  whether the variable names should be forced to lower case, default is \code{tolower = TRUE}.
 #' 
+#' @details By using this \dQuote{attach} version, the data becomes available globally usually positioned in the second place, see for instance \code{search()}. 
+#' 
 #' @importFrom foreign read.dta 
 #' @importFrom foreign read.spss
 #' 

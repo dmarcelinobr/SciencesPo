@@ -86,3 +86,39 @@ min2hour <- function(min) {
   trunc(min/60)*100 + min %% 60
 }
 
+
+#' Column names as (always) a character vector
+#' 
+#' A convenience function using either character vectors or numeric vectors to specify a subset of a \code{data.frame}.
+#' 
+#' 
+#' @param data the input \code{data.frame}.
+#' @param cols the \code{names} or numeric position you want.
+#' @return A character vector of the desired names.
+#' @examples
+#' \dontrun{colNames(iris, 1:3)}
+#' 
+colNames <- function(data, cols) {
+  if (!is.numeric(cols)) cols <- match(cols, names(data))
+  names(data)[cols]
+}
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Extracts names from a dataset other than the ones indicates
+#' 
+#' @param data the input \code{data.frame}.
+#' @param check The \code{names} you want to check.
+#' 
+#'  @return A character vector of the remaining names.
+#'   @seealso \code{\link{setdiff}}
+#'  @examples
+#' bigdf <- data.frame(a = 1:2, b = 3:4, c = 5:6)
+#' otherNames(bigdf, "b")
+#'
+otherNames <- function(data, check) {
+  setdiff(names(data), colNames(data, check))
+}
+NULL

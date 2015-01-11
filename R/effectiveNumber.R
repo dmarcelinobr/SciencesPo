@@ -65,6 +65,9 @@
 #'
 effectiveNumber <-
 function(seats=NULL, votes=NULL, total=NA, method="Laakso/Taagepera"){
+  if (is.object(seats) || is.object(votes)) {
+      stop("Either `seats` or `votes` is not a primitive type", call. = FALSE)
+      }
   if(method=="Golosov"){
       if(!is.null(seats)){
         round(sum((seats)/((seats)+((seats[1])^2)-((seats)^2))),2) -> Golosov

@@ -1,4 +1,20 @@
 #' @encoding UTF-8
+#' @title Strip white spaces
+#' @param x is a character vector.
+#' @param delim is the delimiter, default is white spaces \code{" "} 
+#' 
+# stripWhite(" Daniel   Marcelino   Silva ")
+stripWhite <- function(x, delim = " ") {
+  gsub("^\\s+|\\s+$", "",
+       gsub(sprintf("\\s+[%s]\\s+|\\s+[%s]|[%s]\\s+",
+                    delim, delim, delim), delim, x))
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
 #' @title Return a factor variable of age groups
 #'
 #' @description Return a factor variable using breaks and labels. The function will calculate the

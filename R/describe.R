@@ -270,7 +270,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Show Randomly Drawn Observations
+#' @title Show Observations Randomly Drawn from the Data
 #' 
 #' @description Provide a sly view of the data by randomly draw observations, instead of showing only the first \code{head()} or the last \code{tail()} rows of an object.
 #' 

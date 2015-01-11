@@ -304,3 +304,31 @@ NULL
 #' @usage data(titanic)
 #' @format  2201 observations, 4 variables.
 NULL
+
+
+
+
+
+#' @title NY Weather 1995-2014
+
+#' @description Data represents average daily temperatures.
+#' 
+#' \itemize{
+#'  \item month the month recorded (starts on January, 1995)
+#'   character vector for date.
+#'  \item day the day of the month.
+#'  \item year the year.
+#'  \item temp the average daily temperatures ( \dQuote{24 hour} and \deqn{(min + max)/2}).
+#'  }
+#' @note In the original files, missing data is recorded as \dQuote{-99}, so must be replaced.
+#' 
+#' @source  Archived by the National Climatic Data Center (NCDC) and downloaded at: \url{http://academic.udayton.edu/kissock/http/Weather/gsod95-current/NYNEWYOR.txt}
+#' 
+#' @references Edward Tufte \emph{New York Weather Chart}, January 4, 2004, p. A-15.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name weather
+#' @usage data(weather)
+#' @format A data frame with 7290 observations on the following 4 variables.
+NULL
