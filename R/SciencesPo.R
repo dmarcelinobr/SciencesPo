@@ -10,9 +10,9 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 NULL
 
-#' @title Galton's Family Data on Human Stature.
+#' @title Galton's Family Data on Human Stature
 #' 
-#' @description It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas.
+#' @description The data is a reproduction on the famous 1885 study of Francis Galton exploring the relationship between the heights of children and the height of their parents. Few years later, in 1888, Galton would introduce the concept of correlation. The variables are the height of the adult child and the midparent height, defined as the average of the height of the father and 1.08 times the height of the mother. The units are inches. The number of cases is 928, representing 928 children and their 205 parents.
 #'
 #' \itemize{
 #'   \item parent the parents' average height
@@ -25,8 +25,8 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name galton
-#' @usage data(galton)
+#' @name Galton
+#' @usage data(Galton)
 #' @format A data frame with 928 observations on the following 2 variables.
 NULL
 
