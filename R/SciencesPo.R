@@ -10,9 +10,9 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 NULL
 
-#' @title Galton's Family Data on Human Stature.
+#' @title Galton's Family Data on Human Stature
 #' 
-#' @description It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas.
+#' @description The data is a reproduction on the famous 1885 study of Francis Galton exploring the relationship between the heights of children and the height of their parents. Few years later, in 1888, Galton would introduce the concept of correlation. The variables are the height of the adult child and the midparent height, defined as the average of the height of the father and 1.08 times the height of the mother. The units are inches. The number of cases is 928, representing 928 children and their 205 parents.
 #'
 #' \itemize{
 #'   \item parent the parents' average height
@@ -25,8 +25,8 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name galton
-#' @usage data(galton)
+#' @name Galton
+#' @usage data(Galton)
 #' @format A data frame with 928 observations on the following 2 variables.
 NULL
 
@@ -331,4 +331,35 @@ NULL
 #' @name weather
 #' @usage data(weather)
 #' @format A data frame with 7290 observations on the following 4 variables.
+NULL
+
+
+
+#' @title Auto Data Set
+#'
+#' @description Gas mileage, horsepower, and other information for 392 vehicles.
+#' 
+#' \itemize{
+#' \item make Make and Model.
+#' \item price Price.
+#'  \item mpg miles per gallon.
+#' \item rep78 repair Record 1978.
+#'   \item headroom Headroom (in.).
+#'   \item trunk Trunk space (cu. ft.).
+#'  \item weight Vehicle weight (lbs.).
+#'  \item length Length (in.).
+#'  \item turn turn Circle (ft.)
+#'  \item displacement engine displacement (cu. inches).
+#'  \item gear_ratio gear Ratio.
+#'  \item foreign car type.
+#'  }
+#' @note This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.
+#' 
+#' @references Edward Tufte \emph{New York Weather Chart}, January 4, 2004, p. A-15.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name auto
+#' @usage data(auto)
+#' @format A data frame with 74 observations on the following 12 variables.
 NULL
