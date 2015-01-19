@@ -20,6 +20,9 @@ use(file, data = .data, clear = TRUE, spss.missing = TRUE,
 \description{
 This works rigoroulsy as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear=FALSE} is specified.
 }
+\details{
+By using this \dQuote{attach} version, the data becomes available globally usually positioned in the second place, see for instance \code{search()}.
+}
 \examples{
 data(ssex)
 use(ssex)

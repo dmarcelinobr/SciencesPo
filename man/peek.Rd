@@ -2,7 +2,7 @@
 \encoding{UTF-8}
 \name{peek}
 \alias{peek}
-\title{Show Randomly Drawn Observations}
+\title{Show Observations Randomly Drawn from the Data}
 \usage{
 peek(x, n = 10)
 }

@@ -1,10 +1,10 @@
 #' @title Finds ID combination
 #' 
-#' @description
+#' @description Finds unique id combination
 #' 
-#' @param columns
-#' @param data
-#' @param verbose
+#' @param columns columns to combine 
+#' @param data the data object
+#' @param verbose if \code{TRUE} messages maybe be displayed.
 #' 
 #' @details The original function was published at \url{https://stackoverflow.com/questions/16045161/unique-identifier-in-data-table}. This was berely touched. 
 #' 
