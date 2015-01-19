@@ -308,7 +308,6 @@ NULL
 
 
 
-
 #' @title NY Weather 1995-2014
 
 #' @description Data represents average daily temperatures.
@@ -332,3 +331,35 @@ NULL
 #' @usage data(weather)
 #' @format A data frame with 7290 observations on the following 4 variables.
 NULL
+
+
+
+#' @title Auto Data Set
+#'
+#' @description Gas mileage, horsepower, and other information for 392 vehicles.
+#' 
+#' \itemize{
+#' \item make Make and Model.
+#' \item price Price.
+#'  \item mpg miles per gallon.
+#' \item rep78 repair Record 1978.
+#'   \item headroom Headroom (in.).
+#'   \item trunk Trunk space (cu. ft.).
+#'  \item weight Vehicle weight (lbs.).
+#'  \item length Length (in.).
+#'  \item turn turn Circle (ft.)
+#'  \item displacement engine displacement (cu. inches).
+#'  \item gear_ratio gear Ratio.
+#'  \item foreign car type.
+#'  }
+#' @note This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University. The dataset was used in the 1983 American Statistical Association Exposition.
+#' 
+#' @references Edward Tufte \emph{New York Weather Chart}, January 4, 2004, p. A-15.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name auto
+#' @usage data(auto)
+#' @format A data frame with 74 observations on the following 12 variables.
+NULL
+
