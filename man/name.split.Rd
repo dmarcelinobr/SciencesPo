@@ -18,7 +18,7 @@ two columns or a list.
 Splits a name field variable allocating the first and last names into two new columns or a list.
 }
 \examples{
-df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Barack Obama", "Simon Bolivar", "Florence Nightingale") )
+df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Simon Bolivar") )
 name.split(df$name)
 }
 \author{

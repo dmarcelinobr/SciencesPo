@@ -115,8 +115,8 @@ NULL
 #'  @return A character vector of the remaining names.
 #'   @seealso \code{\link{setdiff}}
 #'  @examples
-#' bigdf <- data.frame(a = 1:2, b = 3:4, c = 5:6)
-#' otherNames(bigdf, "b")
+#' \dontrun{ bigdf <- data.frame(a = 1:2, b = 3:4, c = 5:6)
+#' otherNames(bigdf, "b")}
 #'
 otherNames <- function(data, check) {
   setdiff(names(data), colNames(data, check))

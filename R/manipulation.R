@@ -854,7 +854,7 @@ NULL
 #' @seealso \link{unnest}.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
-#' df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Barack Obama", "Simon Bolivar", "Florence Nightingale") )
+#' df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Simon Bolivar") )
 #' name.split(df$name)
 #' @export
 name.split<- function(name, data=.data){
@@ -886,8 +886,6 @@ NULL
 
 
 
-
-
 #' Extraction of Categorical Values as a Preprocessing Step for Making Dummy Variables
 #' 
 #'  \code{categories} stores all the categorical values that are present in the factors and character vectors of a data frame. Numeric and integer vectors are ignored. It is a preprocessing step for the \code{dummy} function. This function is appropriate for settings in which the user only wants to compute dummies for the categorical values that were present in another data set. This is especially useful in predictive modeling, when the new (test) data has more or other categories than the training data.
@@ -911,6 +909,7 @@ NULL
 #' @seealso \code{\link{dummy}}
 #' @return  A list containing the variable names and the categories
 #' @author Authors: Michel Ballings, and Dirk Van den Poel, Maintainer: \email{Michel.Ballings@@GMail.com}
+#' @export
 categories <- function(x,p="all"){
   categoricals <- which(sapply(x,function(x) is.factor(x) || is.character(x)))
   x <- data.frame(x[,categoricals])

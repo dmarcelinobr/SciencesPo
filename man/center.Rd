@@ -23,7 +23,8 @@ Essentially, what it does is redefine the 0 point for that predictor to be whate
 require(ggplot2)
 #have random normal distributions with means of 2 and 5, respectively.
 n <- 20
-df = data.frame(id=1:n, x=rnorm(n, mean=2, sd=.5), y=rnorm(n, mean=5, sd=2), age=rnorm(n, mean = 40, sd = 30), female=sample(c(T, F), n, rep = TRUE) )
+df = data.frame(id=1:n, x=rnorm(n, mean=2, sd=.5), y=rnorm(n, mean=5, sd=2),
+age=rnorm(n, mean = 40, sd = 30), female=sample(c(TRUE, FALSE), n, rep = TRUE) )
 mod = lm(y ~ x, data=df)
 summary(mod)
 ggplot(df, aes(x=x, y=y)) + geom_point()
@@ -35,7 +36,7 @@ mod = lm(center(y) ~ center(x), data=df)
 summary(mod)
  # center and z-score: (x - xbar)/sd(x)
  # mod = lm(rescale(center(y)) ~ rescale(center(x)), data=df)
- as.beta(mod) # after fitting
+ # as.beta(mod) # after fitting
 
  with(df, center(y, as.factor(female))) # center by group
 }
@@ -43,7 +44,7 @@ summary(mod)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{rescale}}, \code{\link{standardize}}
+\code{\link{normalize}}
 }
 \keyword{Standardization}
 
