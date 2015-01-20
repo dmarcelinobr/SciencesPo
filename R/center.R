@@ -1,6 +1,6 @@
 #' @title Center Predictor Variables.
 #'
-#' @description  Perform column centering and allow for centering by groups. By centering, I simply mean to subtract a constant from every value of a variable (x - \bar{x}), which produces an equivalent as \code{scale(x, scale = FALSE)} in the \pkg{base} package.
+#' @description  Perform column centering and allow for centering by groups. By centering, I simply mean to subtract a constant from every value of a variable \deqn{(x - \bar{x})}, which produces an equivalent as \code{scale(x, scale = FALSE)} in the \pkg{base} package.
 #'
 #' @param x A variable name whose values is to be centered
 #' @param by A factor variable
