@@ -1,6 +1,7 @@
 ##################################################################
 ## This will be sent to the console when the package is loaded.
 ##################################################################  
+
 .onAttach <- function(libname, pkgname) {
    pkgEnv = pos.to.env(match('package:SciencesPo', search()))
    # vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
@@ -16,6 +17,8 @@
     msg <- paste(msg,"                           110--------111\n")
     packageStartupMessage(msg)
   }
+
+
 
 ## The below .locale() is a local function
 .locale <- local({ 
@@ -45,16 +48,19 @@
 
 
 
-.myDataEnv <- new.env(parent=emptyenv()) # not exported
+.SciencesPoEnv <- new.env(parent=emptyenv()) # not exported
+
+assign("SciencesPo.theme",   list(), envir = .SciencesPoEnv)
+assign("SciencesPo.options", list(), envir = .SciencesPoEnv)
 
 isLoaded <- function(.data) {
-  exists(.data, .myDataEnv)
+  exists(.data, .SciencesPoEnv)
 }
 
 getData <- function(.data) {
   if (!isLoaded(.data))
-    data(.data, envir=.myDataEnv)
-  .myDataEnv[[.data]]
+    data(.data, envir=.SciencesPoEnv)
+  .SciencesPoEnv[[.data]]
 }
 
 ### List objects excluding function

@@ -2,14 +2,31 @@
 \encoding{UTF-8}
 \name{normalize}
 \alias{normalize}
+\alias{normalize.character}
+\alias{normalize.default}
+\alias{normalize.factor}
+\alias{normalize.numeric}
 \title{Unity-based normalization}
 \usage{
-normalize(var, range)
+normalize(x, range, domain, ...)
+
+\method{normalize}{factor}(x, range, domain = range(1:nlevels(x)), ...)
+
+\method{normalize}{numeric}(x, range = c(0, 1), domain = range(x, na.rm =
+  TRUE), ...)
+
+\method{normalize}{default}(x, range = c(0, 1), domain, ...)
+
+\method{normalize}{character}(x, range = c(0, 1), domain, ...)
 }
 \arguments{
-\item{var}{is a vector to be normalized}
+\item{x}{is a vector to be normalized.}
 
-\item{range}{is a valid range, default is \code{c(0,1)}.}
+\item{range}{isa numeric vector of length 2 for min and max values, default is \code{c(0,1)}.}
+
+\item{domain}{a numeric vector of length 2.}
+
+\item{...}{additional arguments.}
 }
 \value{
 Normalized values in an object of the same class as \code{var}.

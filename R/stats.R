@@ -456,3 +456,342 @@ sampleCovariance <- function(x, y, verbose = TRUE) {
   return(covariance)
 }
 NULL
+
+
+
+#' @encoding UTF-8
+#' @title Odds Ratio for 2x2 table 
+#' @param tab a 2x2 table object
+#' @param addtocounts
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @examples
+#' data <- data.frame(cbind(gender=c("men", "men", "women", "women"), race=c("black", "white", "white", "black"), perc=c(90.6, 90.6, 90.6,78.8)))
+#' 
+#' @export
+odds.ratio <- function(tab, addtocounts = 0) {
+  tab <- tab + addtocounts
+  (tab[1,1] * tab[2,2])/(tab[1,2] * tab[2,1])
+}
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Stukel's test of the logistic link
+#' @description The Stukel's test is an alternative to the goodness-of-fit test for logistic regression.
+#'  It tests if significant change occurs in the model with the addition of new coefficients.
+#'  
+#' @param object an object of class \code{glm}.
+#' @param alternative add both \code{z1} and \code{z2} to model or just one of them.
+#' 
+#' @details Two new covariates, z1 and z2 are generated such that \eqn{z1 = 0.5 ∗ logit^2 ∗ I(pi>=0.5),
+#' z2 = −0.5 ∗ logit^2 ∗ I(pi <= 0.5)} where \eqn{I(arg) = 1} where arg is true and = 0 if false.
+#' @note Adapted from program published by Brett Presnell's code available at the Florida University. 
+#'@references 
+#' Stukel, T.A. (1988) Generalized logistic models. \emph{Journal of the American Statistical Association} 83: 426–431.
+#'@references
+#' Hosmer, David W., et al (1997) A comparison of goodness-of-fit tests for the logistic regression model. \emph{Statistics in medicine} 16.9, 965-980.
+#' @references 
+#'Allison,  Paul (2014) Another Goodness-of-Fit Test for Logistic Regression. \url{http://www.statisticalhorizons.com/another-goodness-of-fit-test-for-logistic-regression}
+#'
+#' @export
+stukel <- function(object, alternative = c("both", "alpha1", "alpha2")) {
+  DNAME <- deparse(substitute(object))
+  METHOD <- "Stukel's test of the logistic link"
+  alternative <- match.arg(alternative)
+  eta <- predict(object, type = "link")
+  etasq <- 0.5 * eta * eta
+  etapos <- eta > 0
+  dv <- matrix(0, nrow = length(eta), ncol = 2)
+  dv[etapos,1] <- etasq[etapos]
+  dv[!etapos,2] <- - etasq[!etapos]
+  colnames(dv) <- c("z1","z2")
+  oinfo <- vcov(object)
+  oX <- qr.X(object$qr)
+  ImH <- - oX %*% oinfo %*% t(oX)
+  diag(ImH) <- 1 + diag(ImH)
+  wdv <- sqrt(object$weights) * dv
+  qmat <- t(wdv) %*% ImH %*% wdv
+  sc <- apply(dv * (object$weights * residuals(object, "working")), 2, sum)
+  allstat <- c(sc * sc / diag(qmat), sc %*% solve(qmat) %*% sc)
+  names(allstat) <- c("alpha1", "alpha2", "both")
+  allpar <- c(1,1,2)
+  names(allpar) <- names(allstat)
+  allpval <- pchisq(allstat, allpar, lower.tail=FALSE)
+  STATISTIC <- allstat[alternative]
+  PARAMETER <- allpar[alternative]
+  names(PARAMETER) <- "df"
+  PVAL <- allpval[alternative]
+  names(allpar) <- rep("df", 3)
+  structure(list(statistic = STATISTIC,
+                 parameter = PARAMETER,
+                 p.value = PVAL,
+                 alternative = alternative, 
+                 method = METHOD, data.name = DNAME,
+                 allstat = allstat, allpar = allpar, allpval = allpval
+  ),
+  class = "htest")
+}
+NULL
+
+
+
+
+
+#' @encoding UTF-8
+#' @title Cumulative Logit
+#' 
+#' @param y the dependent variable
+#' @param adj adjustment constant 
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'@export
+cumlogit <- function(y, adj = 0.5) {
+  ncol <- dim(y)[2]
+  y <- t(apply(y, 1, cumsum))
+  log((y[,-ncol] + adj)/(y[,ncol] - y[,-ncol] + adj))
+}
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Adjusted Residuals
+#' 
+#' @param fit
+#' @param \dots Extra 
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'@export
+adj.residuals <- function(fit, ...) {
+  residuals(fit, ...) / sqrt(1 - lm.influence(fit)$hat)
+}
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Compute z-scores
+#' 
+#' @description Compute z-scores
+#' @param x a numeric vector
+#' @param na.rm a logical indicating whether missing values should be removed
+#' @export
+#' @examples
+#' iris %>% 
+#'   group_by(Species) %>% 
+#'   mutate(zSepal.Length = zscore(Sepal.Length)) %>% 
+#'   head()
+zscore <- function( x, na.rm=getOption("na.rm", FALSE) ) {
+  ( x - mean(x, na.rm=na.rm)) / sd(x, na.rm=na.rm)
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Compare means between 2 groups
+#' 
+#' @description A function to calculate the difference between the means of a continuous
+#' variable for two groups.
+#' 
+#' @rdname compareMeans
+#' @param formula a formula 
+#' @param data a data frame in which \code{formula} is evaluated.
+#' Note that the default is \code{data=parent.frame()}. This makes it convenient to
+#' use this function interactively by treating the working envionment as if it were 
+#' a data frame.
+#' @param \dots other arguments
+#' @return the difference in means between the second and first group 
+#' @keywords stats
+#' @examples
+#' # Some data:
+#' ID=1:10
+#' Age=round(rnorm(10,50,1))
+#' diag=c("Depression","Bipolar");
+#' Diagnosis=sample(diag,10,replace=T);
+#' data=data.frame(ID,Age,Diagnosis);
+#' 
+#' mean(Age ~ Diagnosis, data=data)
+#' compareMeans(Age ~ Diagnosis, data=data);
+#' 
+#' 
+#' @export
+compareMeans <- function(formula, data=parent.frame(), ...) {
+  means <- mean( formula, data=data, ... )
+  if (length(means) != 2) {
+    stop("the number of levels for grouping variable must be 2\n")
+  }
+  names(means) <- NULL
+  return(diff(means))
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Odds Ratio and Relative Risk for 2 x 2 Contingency Tables
+#' 
+#' @description Calculates odds ratios, relative risk, and confidence intervals on odds ratios.
+
+#' @details \code{x} should be a matrix, data frame or table. "Successes"
+#' should be located in column 1 of \code{x}, and the treatment of interest
+#' should be located in row 2. The odds ratio is calculated as (Odds row 2) /
+#' (Odds row 1). The confidence interval is calculated from the log(OR) and
+#' backtransformed.
+#' 
+#' 
+#' @rdname oddsRatio
+#' @param x a 2 X 2 matrix, data frame or table of counts
+#' @param object an R object to print or summarise.  Here an object of class
+#' \code{"oddsRatio"} or \code{"relrisk"}.
+#' @param conf.level the confidence interval level
+#' @param verbose a logical indicating whether verbose output should be displayed
+#' @param quiet a logical indicating whether verbose outoput should be supressed
+#' @param relrisk a logical indicating whether the relative risk should be returned
+#' instead of the odds ratio
+#' @param digits number of digits to display
+
+#' @param ... additional arguments
+#' @return an odds ratio or relative risk.  If \code{verpose} is true,
+#' more details and the confidence intervals are displayed.
+#' @author Kevin Middleton (\email{kmm@@csusb.edu}); modified by 
+#' Daniel Marcelino.
+#' @seealso \code{\link{chisq.test}}, \code{\link{fisher.test}}
+#' @keywords stats
+#' @examples
+#' M1 <- matrix(c(14, 38, 51, 11), nrow = 2)
+#' M1
+#' oddsRatio(M1)
+#' 
+#' M2 <- matrix(c(18515, 18496, 1427, 1438), nrow = 2)
+#' rownames(M2) <- c("Placebo", "Aspirin")
+#' colnames(M2) <- c("No", "Yes")
+#' M2
+#' oddsRatio(M2)
+#' oddsRatio(M2, verbose=TRUE)
+#' relrisk(M2, verbose=TRUE)
+#' @export
+orrr <- function(x, conf.level = 0.95, verbose=!quiet, quiet=TRUE, digits=3,
+                 relrisk=FALSE){
+  if (any(dim(x) != c(2,2))) {
+    stop("expecting something 2 x 2")
+  }
+  names(x) <- NULL
+  row.names(x) <- NULL
+  colnames(x) <- NULL
+  rowsums <- rowSums(x)
+  p1 <- x[1, 1] / rowsums[1]
+  p2 <- x[2, 1] / rowsums[2]
+  o1 <- p1 / (1 - p1)
+  o2 <- p2 / (1 - p2)
+  RR <- p2 / p1
+  OR <- o2 / o1
+  crit <- qnorm((1 - conf.level)/2, lower.tail = FALSE)
+  
+  names(RR) <- "RR"
+  log.RR <- log(RR)
+  SE.log.RR <- sqrt( sum( x[,2]/x[,1]/rowsums) )
+  log.lower.RR <- log.RR - crit * SE.log.RR
+  log.upper.RR <- log.RR + crit * SE.log.RR
+  lower.RR <- exp(log.lower.RR)
+  upper.RR <- exp(log.upper.RR)
+  
+  names(OR) <- "OR"
+  log.OR <- log(OR)
+  SE.log.OR <- sqrt(sum(1/x))
+  log.lower.OR <- log.OR - crit * SE.log.OR
+  log.upper.OR <- log.OR + crit * SE.log.OR
+  lower.OR <- exp(log.lower.OR)
+  upper.OR <- exp(log.upper.OR)
+  
+  res <- if (relrisk) {
+    structure(RR,
+              p1 = p1, 
+              p2 = p2, 
+              o1 = o1, 
+              o2 = o2, 
+              OR = OR, 
+              lower.OR = lower.OR, 
+              upper.OR = upper.OR, 
+              RR = RR,
+              lower.RR = lower.RR, 
+              upper.RR = upper.RR, 
+              conf.level = conf.level,
+              class=c("relrisk", "numeric"))
+  } else {  
+    structure(OR,
+              p1 = p1, 
+              p2 = p2, 
+              o1 = o1, 
+              o2 = o2, 
+              OR = OR, 
+              lower.OR = lower.OR, 
+              upper.OR = upper.OR, 
+              RR = RR,
+              lower.RR = lower.RR, 
+              upper.RR = upper.RR, 
+              conf.level = conf.level,
+              class=c("oddsRatio", "numeric"))
+  }
+  if (verbose) print(summary(res))
+  res
+}
+
+#' @rdname oddsRatio
+#' @export
+oddsRatio <- function(x, conf.level = 0.95, verbose=!quiet, quiet=TRUE, digits=3) {
+  orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=FALSE)
+}
+
+#' @rdname oddsRatio
+#' @export
+relrisk <- function(x, conf.level = 0.95, verbose=!quiet, quiet=TRUE, digits=3) {
+  orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=TRUE)
+}
+
+#' @rdname oddsRatio
+#' @export
+print.oddsRatio <- function(x, digits  = 4, ...) {
+  print(as.numeric(x))
+}
+
+#' @rdname oddsRatio
+#' @export
+print.relrisk <- function(x, digits  = 4, ...) {
+  print(as.numeric(x))
+}
+
+#' @rdname oddsRatio
+#' @export
+summary.oddsRatio <-
+  function(object, digits = 4, ...){
+    summary_relrisk_oddsratio(object, digits=digits, ...) 
+  }
+
+#' @rdname oddsRatio
+#' @export
+summary.relrisk <- 
+  function(object, digits = 4, ...){
+    summary_relrisk_oddsratio(object, digits=digits, ...) 
+  }
+
+summary_relrisk_oddsratio <- function(x, digits = 4, ...){
+  cat("\n")
+  cat("Odds Ratio\n")
+  cat("\n")
+  cat("Proportions\n")
+  cat("\t   Prop. 1:\t", format(attr(x,"p1"), digits = digits), "\n")
+  cat("\t   Prop. 2:\t", format(attr(x,"p2"), digits = digits), "\n")
+  cat("\t Rel. Risk:\t", format(attr(x,"RR"), digits = digits), "\n\n")
+  cat("Odds\n")
+  cat("\t    Odds 1:\t", format(attr(x,"o1"), digits = digits), "\n")
+  cat("\t    Odds 2:\t", format(attr(x,"o2"), digits = digits), "\n")
+  cat("\tOdds Ratio:\t", format(attr(x,"OR"), digits = digits), "\n\n")
+  cat(format(100 * attr(x,"conf.level")), "percent confidence interval:\n")
+  cat("\t", format(attr(x,"lower.RR"), digits = digits), "< RR <", 
+      format(attr(x,"upper.RR"), digits = digits), "\n")
+  cat("\t", format(attr(x,"lower.OR"), digits = digits), "< OR <", 
+      format(attr(x,"upper.OR"), digits = digits), "\n")
+}
+NULL

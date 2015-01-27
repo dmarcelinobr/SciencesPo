@@ -802,9 +802,10 @@ NULL
 #' 
 #' @description Normalizes as feature scaling, \code{min - max}, or unity-based normalization. Typically used to bring all values into the range [0,1]. However, this can be generalized to restrict the range of values in the dataset between any arbitrary points  \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})} }.
 #' 
-#' @param var is a vector to be normalized
-#' @param range is a valid range, default is \code{c(0,1)}.
-#' 
+#' @param x is a vector to be normalized.
+#' @param range isa numeric vector of length 2 for min and max values, default is \code{c(0,1)}.
+#' @param domain a numeric vector of length 2.
+#' @param ... additional arguments.
 #' @return Normalized values in an object of the same class as \code{var}.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
@@ -819,25 +820,36 @@ NULL
 #'
 #' @seealso  \code{\link{scale}}, \code{\link{unscale}}
 #' @export
-#'
-normalize <-function(var, range) {
-  if(nargs() > 1 && is.numeric(var) && is.numeric(range)) {
-    # if newrange has max first, reverse it
-    if(range[1] > range[2]) {
-      newmin<-range[2]
-      range[2]<-range[1]
-      range[1]<-newmin
-    }
-    data.range<-range(var)
-    if(data.range[1] == data.range[2]) stop("cannot rescale a constant vector!")
-    # range[1]+(x - min(x) )*(range[2]-range[1])/(max(x)-min(x))
-    # elegantly: 
-    sFactor <-(range[2]-range[1])/(data.range[2]-data.range[1])
-    return(range[1]+(var-data.range[1])*sFactor)
-  }
-  else {
-    cat("Usage: normalize(var, c(0,1)\n")
-    cat("\twhere `var` is a numeric vector and range is the `min` and `max` of the new range\n")  }
+normalize <- function(x, range, domain, ...) {
+  UseMethod("normalize")
+}
+
+#' @rdname normalize
+#' @export
+normalize.factor <- function(x, range, domain=range(1:nlevels(x)), ...) {
+  width <- diff(range)
+  n <- length(levels(x)) - 1
+  range[1]  - 1/n + width * as.numeric(x) / n
+}
+
+#' @rdname normalize
+#' @export
+normalize.numeric <- function(x, range=c(0,1), domain=range(x, na.rm=TRUE), ...) {
+  range_width  <- diff(range)
+  domain_width <- diff(domain)
+  range[1] + range_width * (x - min(x)) / domain_width
+}
+
+#' @rdname normalize
+#' @export
+normalize.default <- function(x, range=c(0,1), domain, ...) {
+  normalize( as.numeric(x, range=range, domain, ...) )
+}
+
+#' @rdname normalize
+#' @export
+normalize.character <- function(x, range=c(0,1), domain, ...) {
+  normalize( as.factor(x), range=range, domain=domain)
 }
 NULL
 
@@ -853,11 +865,14 @@ NULL
 #' @return two columns or a list.
 #' @seealso \link{unnest}.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @details The way one may split a name is region dependent, so this function may only apply to very few contexts. See for instance \url{http://www.w3.org/International/questions/qa-personal-names} 
 #' @examples
 #' df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Simon Bolivar") )
-#' name.split(df$name)
+#' nameSplit(df$name)
+#' df$n<- nameSplit(df$name)
+#'  # df[]<- nameSplit(df$name)
 #' @export
-name.split<- function(name, data=.data){
+nameSplit<- function(name, data=.data){
   #nl <- as.list(1:ncol(data))
   # names(nl) <- names(data)
   # - TODO maybe warn about replacing existing variable with the same names (first and last)
@@ -885,10 +900,10 @@ NULL
 
 
 
-
-#' Extraction of Categorical Values as a Preprocessing Step for Making Dummy Variables
+#' @encoding UTF-8
+#' @title Extraction of Categorical Values as a Preprocessing Step for Making Dummy Variables
 #' 
-#'  \code{categories} stores all the categorical values that are present in the factors and character vectors of a data frame. Numeric and integer vectors are ignored. It is a preprocessing step for the \code{dummy} function. This function is appropriate for settings in which the user only wants to compute dummies for the categorical values that were present in another data set. This is especially useful in predictive modeling, when the new (test) data has more or other categories than the training data.
+#' @description  \code{categories} stores all the categorical values that are present in the factors and character vectors of a data frame. Numeric and integer vectors are ignored. It is a preprocessing step for the \code{dummy} function. This function is appropriate for settings in which the user only wants to compute dummies for the categorical values that were present in another data set. This is especially useful in predictive modeling, when the new (test) data has more or other categories than the training data.
 #'
 #' @param x data frame containing factors or character vectors that need to be transformed to dummies. Numerics, dates and integers will be ignored.
 #' @param p select the top p values in terms of frequency. Either "all" (all categories in all variables), an integer scalar (top p categories in all variables), or a vector of integers (number of top categories per variable in order of appearance.
