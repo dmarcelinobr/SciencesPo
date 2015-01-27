@@ -15,9 +15,7 @@ zscore(x, na.rm = getOption("na.rm", FALSE))
 Compute z-scores
 }
 \examples{
-iris \%>\%
-  group_by(Species) \%>\%
-  mutate(zSepal.Length = zscore(Sepal.Length)) \%>\%
-  head()
+x <- sample(10)
+zscore(x)
 }
 
