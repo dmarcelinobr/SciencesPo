@@ -4,8 +4,7 @@
 #'  @description Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
 #'  
 #'  @param data = .data
-#'  #'  @param select the columns to select from \code{data}.
-#'  @param exclude the columns to remove from \code{data}.
+#'  @param select the columns to select from \code{data}.
 #'  @param subset the elements or rows to keep from \code{data} (missing values are taken as false).
 #'  @param drop passed on to [ indexing operator.
 #'  @param refactor whether the levels of variable(s) with zero count should be removed after subsetting. The default is \code{refactor="subset.vars"}, which means that the levels of the variables not being used will be recycled.
@@ -13,21 +12,23 @@
 #' @param \dots typically unecessary parameters.
 #'  
 #' @examples
-#' data(ssex)
+#'  data(ssex)
+#' info(ssex)
 #' keep(ssex, select = c(Date, Oppose, Favor))
-
+#' 
+#' keep(ssex, subset=Oppose!="NA") # subset
 #' @export
 #'
 keep <-
-  function (data = .data, select, exclude = NULL, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
+  function (data = .data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
   {
 
     data.name <- as.character(substitute(data))
-    data1 <- data
-    datalabel <- attr(data1, "datalabel")
-    val.labels <- attr(data1, "val.labels")
-    var.labels <- attr(data1, "var.labels")
-    label.table <- attr(data1, "label.table")
+    dataset <- data
+    datalabel <- attr(dataset, "datalabel")
+    val.labels <- attr(dataset, "val.labels")
+    var.labels <- attr(dataset, "var.labels")
+    label.table <- attr(dataset, "label.table")
     if (!is.null(sample)) {
       if (!is.numeric(sample) | sample <= 0 | length(sample) > 
             1 | (trunc(sample) != sample) & sample > 1) {
@@ -35,18 +36,18 @@ keep <-
       }
       if (sample < 1) {
         sample0 <- sample
-        sample <- trunc(sample * nrow(data1))
+        sample <- trunc(sample * nrow(dataset))
         cat("Keep only ", round(sample0 * 100, 2), "% or ", 
-            sample, " of the total ", nrow(data1), " records", 
+            sample, " of the total ", nrow(dataset), " records", 
             "\n", sep = "")
       }
       data <- data[sample(nrow(data), sample), 
                              ]
-      data1 <- data
-      attr(data1, "datalabel") <- paste(datalabel, "(subset)")
-      attr(data1, "val.labels") <- val.labels
-      attr(data1, "var.labels") <- var.labels
-      attr(data1, "label.table") <- label.table
+      dataset <- data
+      attr(dataset, "datalabel") <- paste(datalabel, "(subset)")
+      attr(dataset, "val.labels") <- val.labels
+      attr(dataset, "var.labels") <- var.labels
+      attr(dataset, "label.table") <- label.table
     }
     if (missing(subset)) 
       r <- TRUE
@@ -59,23 +60,6 @@ keep <-
     }
     if (missing(select)) {
       vars <- TRUE
-      if (suppressWarnings(!is.null(exclude))) {
-        nl <- as.list(1:ncol(data))
-        names(nl) <- names(data)
-        if ((length(grep(pattern = "[*]", as.character(substitute(exclude)))) == 
-               1) | (length(grep(pattern = "[?]", as.character(substitute(exclude)))) == 
-                       1)) {
-          vars <- -grep(pattern = glob2rx(as.character(substitute(exclude))), 
-                        names(data))
-          if (length(vars) == 0) {
-            stop(paste(as.character(substitute(exclude)), 
-                       "not matchable with any variable name."))
-          }
-        }
-        else {
-          vars <- -eval(substitute(exclude), nl, parent.frame())
-        }
-      }
     }
     else {
       nl <- as.list(1:ncol(data))
@@ -93,32 +77,32 @@ keep <-
         vars <- eval(substitute(select), nl, parent.frame())
       }
     }
-    data1 <- data[r, vars, drop = drop]
-    attr(data1, "datalabel") <- paste(datalabel, "(subset)")
-    attr(data1, "val.labels") <- val.labels[vars]
-    attr(data1, "var.labels") <- var.labels[vars]
-    attr(data1, "label.table") <- label.table[is.element(names(label.table), 
+    dataset <- data[r, vars, drop = drop]
+    attr(dataset, "datalabel") <- paste(datalabel, "(subset)")
+    attr(dataset, "val.labels") <- val.labels[vars]
+    attr(dataset, "var.labels") <- var.labels[vars]
+    attr(dataset, "label.table") <- label.table[is.element(names(label.table), 
                                                          val.labels[vars])]
     if(length(refactor)==3) refactor <- "subset.vars"
     if(!missing(subset) & refactor == "all") {
-      for(i in 1:ncol(data1)) {
-        if(class(data1[,i]) == "factor") {
-          data1[,i] <- factor(data1[,i])
+      for(i in 1:ncol(dataset)) {
+        if(class(dataset[,i]) == "factor") {
+          dataset[,i] <- factor(dataset[,i])
         }
       }
     }
     if(!missing(subset) & refactor == "subset.vars") {
-      for(i in 1:ncol(data1)) {
-        if(length(grep(names(data1)[i], deparse(substitute(subset)))) >0 
-           & class(data1[,i]) == "factor") {
-          data1[,i] <- factor(data1[,i])
+      for(i in 1:ncol(dataset)) {
+        if(length(grep(names(dataset)[i], deparse(substitute(subset)))) >0 
+           & class(dataset[,i]) == "factor") {
+          dataset[,i] <- factor(dataset[,i])
         }
       }
     }
-    assign(data.name, data1, pos = 1)
+    assign(data.name, dataset, pos = 1)
     if (is.element(data.name, search())) {
       detach(pos = which(search() %in% data.name))
-      attach(data1, name = data.name, warn.conflicts = FALSE)
+      attach(dataset, name = data.name, warn.conflicts = FALSE)
     }
   }
 NULL
@@ -149,21 +133,22 @@ NULL
 recode <-
   function (vars, from, to, data = .data, ...) 
   {
-    data1 <- data
-    nl <- as.list(1:ncol(data1))
-    names(nl) <- names(data1)
+    .data <- NULL
+    dataset <- data
+    nl <- as.list(1:ncol(dataset))
+    names(nl) <- names(dataset)
     var.order <- eval(substitute(vars), nl, parent.frame())
     if(all(var.order < 0)) var.order <- (1:ncol(data))[var.order]
-    if (exists(names(data1)[var.order], where = 1, inherits = FALSE)) 
+    if (exists(names(dataset)[var.order], where = 1, inherits = FALSE)) 
       warning("Name(s) of vars duplicates with an object outside the `data`.")
     tx <- cbind(from, to)
-    if (is.numeric(from) | is.integer(from) | any(class(data1[, 
+    if (is.numeric(from) | is.integer(from) | any(class(dataset[, 
                                                                         var.order]) == "POSIXt")) {
       if (length(from) == 1) {
-        if(all(is.integer(data1[, var.order]))){
-          data1[, var.order][data1[, var.order] == from] <- as.integer(to)
+        if(all(is.integer(dataset[, var.order]))){
+          dataset[, var.order][dataset[, var.order] == from] <- as.integer(to)
         }else{
-          data1[, var.order][data1[, var.order] == from] <- to
+          dataset[, var.order][dataset[, var.order] == from] <- to
         }
         
       }
@@ -172,62 +157,62 @@ recode <-
               1) 
           stop("Lengths of old and new values are not equal")
         for (i in var.order) {
-          if(is.integer(data1[,i])){
-            data1[, i] <- as.integer(lookup(data1[, i, drop = TRUE], 
+          if(is.integer(dataset[,i])){
+            dataset[, i] <- as.integer(lookup(dataset[, i, drop = TRUE], 
                                             tx))
             
           }else{
-            data1[, i] <- lookup(data1[, i, drop = TRUE], 
+            dataset[, i] <- lookup(dataset[, i, drop = TRUE], 
                                  tx)
           }
         }
       }
     }
     else for (i in var.order) {
-      if (is.factor(data1[, i])) {
+      if (is.factor(dataset[, i])) {
         if (length(from) != length(to) & length(to) != 
               1) 
           stop("Lengths of `from` and `to` are not equal")
         if (is.character(from)) {
-          if (any(!is.element(from, levels(data1[, 
+          if (any(!is.element(from, levels(dataset[, 
                                                       i])))) 
             warning(paste("The from is/are not element of levels of '", 
-                          names(data1)[i], "'", sep = ""))
+                          names(dataset)[i], "'", sep = ""))
           for (j in 1:nrow(tx)) {
-            levels(data1[, i])[levels(data1[, i]) == tx[j, 
+            levels(dataset[, i])[levels(dataset[, i]) == tx[j, 
                                                         1]] <- tx[j, 2]
           }
         }
       }
-      if (is.character(data1[, i])) {
+      if (is.character(dataset[, i])) {
         if (length(from) == 1) {
-          data1[, var.order][data1[, var.order] == from] <- to
+          dataset[, var.order][dataset[, var.order] == from] <- to
         }
         else {
           if (length(from) != length(to) & 
                 length(to) != 1) 
             stop("Lengths of old and new values are not equal")
-          data1[, i] <- lookup(data1[, i, drop = TRUE], 
+          dataset[, i] <- lookup(dataset[, i, drop = TRUE], 
                                tx)
         }
       }
     }
-    if (length(from) == nrow(data1)) {
+    if (length(from) == nrow(dataset)) {
       if (length(var.order) == 1) {
-        data1[, var.order] <- replace(data1[, var.order], 
+        dataset[, var.order] <- replace(dataset[, var.order], 
                                       from, to)
       }
       else {
         for (i in 1:length(var.order)) {
-          data1[, var.order[i]] <- replace(data1[, var.order[i]], 
+          dataset[, var.order[i]] <- replace(dataset[, var.order[i]], 
                                            from, to)
         }
       }
     }
-    assign(as.character(substitute(data)), data1, pos = 1)
+    assign(as.character(substitute(data)), dataset, pos = 1)
     if (is.element(as.character(substitute(data)), search())) {
       detach(pos = which(search() %in% as.character(substitute(data))))
-      attach(data1, name = as.character(substitute(data)), 
+      attach(dataset, name = as.character(substitute(data)), 
              warn.conflicts = FALSE)
     }
   }
@@ -661,24 +646,24 @@ NULL
 # For 'recode'ing missing values of one or more variables into a new value
 # NAto0 <-
 #  function (vars, value=0, data = .data, ...){
-#    data1 <- data
-#    nl <- as.list(1:ncol(data1))
-#    names(nl) <- names(data1)
+#    dataset <- data
+#    nl <- as.list(1:ncol(dataset))
+#    names(nl) <- names(dataset)
 #    var.order <- eval(substitute(vars), nl, parent.frame())
-#    if (exists(names(data1)[var.order], where = 1, inherits = FALSE))
+#    if (exists(names(dataset)[var.order], where = 1, inherits = FALSE))
 #      warning("Name(s) of vars duplicates with an object outside the data.")
 #    for (i in var.order) {
-#      temp.vector <- data1[, i, drop=TRUE]
+#      temp.vector <- dataset[, i, drop=TRUE]
 #      if (is.factor(temp.vector)){
 #        levels(temp.vector) <- c(levels(temp.vector), value)
 #      }
 #      temp.vector[is.na(temp.vector)] <- value
-#      temp.vector -> data1[, i]
+#      temp.vector -> dataset[, i]
 #    }
-#    assign(as.character(substitute(data)), data1, pos = 1)
+#    assign(as.character(substitute(data)), dataset, pos = 1)
 #    if (is.element(as.character(substitute(data)), search())) {
 #      detach(pos = which(search() %in% as.character(substitute(data))))
-#      attach(data1, name = as.character(substitute(data)),
+#      attach(dataset, name = as.character(substitute(data)),
 #             warn.conflicts = FALSE)
 #    }
 # }
@@ -738,21 +723,22 @@ NULL
 #' @export
 wrap <- function (data = .data) 
 {
-  data1 <- data
+  .data <- NULL
+  dataset <- data
   j <- NULL
-  k <- attr(data1, "var.labels")
+  k <- attr(dataset, "var.labels")
   candidate.objects <- setdiff(lsNoFunction(), as.character(ls.str(mode = "list")[]))
   if (length(candidate.objects) == 0) 
     stop("No related vector outside the default data frame")
   for (i in 1:length(candidate.objects)) {
-    if (length(get(candidate.objects[i])) == nrow(data1)) {
-      if (any(names(data1) == candidate.objects[i])) {
-        data1[, names(data1) == candidate.objects[i]] <- get(candidate.objects[i])
+    if (length(get(candidate.objects[i])) == nrow(dataset)) {
+      if (any(names(dataset) == candidate.objects[i])) {
+        dataset[, names(dataset) == candidate.objects[i]] <- get(candidate.objects[i])
         j <- c(j, i)
       }
       else {
-        data1 <- data.frame(data1, get(candidate.objects[i]))
-        names(data1)[ncol(data1)] <- candidate.objects[i]
+        dataset <- data.frame(dataset, get(candidate.objects[i]))
+        names(dataset)[ncol(dataset)] <- candidate.objects[i]
         j <- c(j, i)
         if (!is.null(k)) {
           k <- c(k, "")
@@ -760,12 +746,12 @@ wrap <- function (data = .data)
       }
     }
   }
-  attr(data1, "var.labels") <- k
+  attr(dataset, "var.labels") <- k
   rm(list = candidate.objects[j], pos = 1)
-  assign(as.character(substitute(data)), data1, pos=1)
+  assign(as.character(substitute(data)), dataset, pos=1)
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
-    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+    attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
 NULL
@@ -890,6 +876,7 @@ NULL
 #'  # df[]<- nameSplit(df$name)
 #' @export
 nameSplit<- function(name, data=.data){
+  .data <- NULL
   #nl <- as.list(1:ncol(data))
   # names(nl) <- names(data)
   # - TODO maybe warn about replacing existing variable with the same names (first and last)

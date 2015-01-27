@@ -19,6 +19,7 @@
 #' @export
 fillin <- function(x, by, fill=NA)
 {
+  Freq <- NULL
   if(missing(by)) by=1:ncol(x)
   nl <- as.list(1:ncol(x))
   names(nl) <- names(x)

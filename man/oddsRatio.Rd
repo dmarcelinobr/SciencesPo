@@ -49,11 +49,10 @@ more details and the confidence intervals are displayed.
 Calculates odds ratios, relative risk, and confidence intervals on odds ratios.
 }
 \details{
-\code{x} should be a matrix, data frame or table. "Successes"
+\code{x} should be a matrix, data frame or table. \dQuote{Successes}
 should be located in column 1 of \code{x}, and the treatment of interest
-should be located in row 2. The odds ratio is calculated as (Odds row 2) /
-(Odds row 1). The confidence interval is calculated from the log(OR) and
-backtransformed.
+should be located in row 2. The odds ratio is calculated as \deqn{(Odds row 2)/(Odds row 1)}.
+The confidence interval is calculated from the \code{log(OR)} and back transformed.
 }
 \examples{
 mat <- matrix(c(100, 100, 100, 100), nrow = 2)

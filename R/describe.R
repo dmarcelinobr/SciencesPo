@@ -49,17 +49,17 @@ info <- function (data = .data, show, ignore)
             vars <- vars[vars.shown]
         if (exists("vars.ignored")) 
             vars <- vars[-vars.ignored]
-data1 <- data[1,]
+dataset <- data[1,]
         class.a <- rep("", length(vars))
         for (i in 1:length(vars)) {
-            class.a[i] <- class(data1[,vars[i]])[1]
+            class.a[i] <- class(dataset[,vars[i]])[1]
         }
         if (is.null(attr(data, "var.labels"))) {
-            a <- cbind(colnames(data1)[vars], class.a, rep("", 
+            a <- cbind(colnames(dataset)[vars], class.a, rep("", 
                 length(vars)))
         }
         else {
-            a <- cbind(colnames(data1)[vars], class.a, attr(data, 
+            a <- cbind(colnames(dataset)[vars], class.a, attr(data, 
                 "var.labels")[vars])
         }
         colnames(a) <- c("Variable     ", "Class          ", 
@@ -78,17 +78,17 @@ header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\
                   stop(paste(data, "not matchable with any variable name."))
                 }
                 
-data1 <- .data[1,]
+dataset <- .data[1,]
                 class.a <- rep("", length(vars))
                 for (i in 1:length(vars)) {
-                class.a[i] <- class(data1[,vars[i]])[1]
+                class.a[i] <- class(dataset[,vars[i]])[1]
                 }
                 if (is.null(attr(.data, "var.labels"))) {
-                  a <- cbind(colnames(data1)[vars], class.a, 
+                  a <- cbind(colnames(dataset)[vars], class.a, 
                     rep("", length(vars)))
                 }
                 else {
-                  a <- cbind(colnames(data1)[vars], class.a, 
+                  a <- cbind(colnames(dataset)[vars], class.a, 
                     attr(.data, "var.labels")[vars])
                 }
                 colnames(a) <- c("Variable     ", "Class          ", 
@@ -156,7 +156,7 @@ header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\
             }
         }
         else {
-data1 <- data[1,]
+dataset <- data[1,]
             if (is.null(attr(data, "var.labels"))) {
                 b <- " "
             }
@@ -166,11 +166,11 @@ data1 <- data[1,]
                   options(warn = -1)
                 }
             }
-            class.a <- rep("", ncol(data1))
-            for (i in 1:ncol(data1)) {
-                class.a[i] <- class(data1[, i])[1]
+            class.a <- rep("", ncol(dataset))
+            for (i in 1:ncol(dataset)) {
+                class.a[i] <- class(dataset[, i])[1]
             }
-            a <- cbind(colnames(data1), class.a, b)
+            a <- cbind(colnames(dataset), class.a, b)
             colnames(a) <- c("Variable     ", "Class          ", 
                 "Description")
             rownames(a) <- 1:nrow(a)
@@ -214,25 +214,26 @@ NULL
 #' 
 #' @export
 labelvar <-function(var, label, drop=TRUE, data = .data){
+  .data <- NULL
   # Store list of variable labels, 
   #if exist, in a temporary vector
-  data1 <- data
-  if(any(names(data1)==as.character(substitute(var)))){
-    if(is.null(attributes(data1)$var.labels)){
-      attributes(data1)$var.labels <- rep("", length(names(data1)))
+  dataset <- data
+  if(any(names(dataset)==as.character(substitute(var)))){
+    if(is.null(attributes(dataset)$var.labels)){
+      attributes(dataset)$var.labels <- rep("", length(names(dataset)))
     }
-    attributes(data1)$var.labels[names(data1)==as.character(substitute(var))] <- label
+    attributes(dataset)$var.labels[names(dataset)==as.character(substitute(var))] <- label
   }else{
     if(length(var) != nrow(data)){
       stop(paste("The length of", as.character(substitute(var)), "is not equal to number of rows of", as.character(substitute(data))))
     }
-    old.labels <-attributes(data1)$var.labels
-    data1[,ncol(data1)+1]<- var
-    names(data1)[length(names(data1))] <- as.character(substitute(var))
+    old.labels <-attributes(dataset)$var.labels
+    dataset[,ncol(dataset)+1]<- var
+    names(dataset)[length(names(dataset))] <- as.character(substitute(var))
     if(is.null(old.labels)){
-      attributes(data1)$var.labels <- c(rep("", length(names(data1))-1),label)
+      attributes(dataset)$var.labels <- c(rep("", length(names(dataset))-1),label)
     }else{
-      attributes(data1)$var.labels <- c(old.labels,label)
+      attributes(dataset)$var.labels <- c(old.labels,label)
     }
   }
   if(exists(as.character(substitute(var)))){
@@ -247,7 +248,7 @@ labelvar <-function(var, label, drop=TRUE, data = .data){
                        " labelvar(newname,\"", as.character(substitute(label)),"\")", sep=""), "\n"))
     }
     if(length(var)==nrow(data)){
-      data1[,names(data1)==as.character(substitute(var))] <- var
+      dataset[,names(dataset)==as.character(substitute(var))] <- var
     }else{
       stop(paste("The length of", as.character(substitute(var)), "is not equal to number of rows of", as.character(substitute(data))))
     }
@@ -255,13 +256,13 @@ labelvar <-function(var, label, drop=TRUE, data = .data){
   if(drop){
     suppressWarnings(rm(list=as.character(substitute(var)), pos=1))
   }
-  assign(as.character(substitute(data)), data1, pos=1)
+  assign(as.character(substitute(data)), dataset, pos=1, envir = .SciencesPoEnv)
   if(is.element(as.character(substitute(data)), search())){
     if(length(which(search() %in% as.character(substitute(data))))>1){
       warning(paste("\n","There are more than one '", as.character(substitute(data)),"' attached!","\n", sep=""))
     }
     detach(pos=which(search() %in% as.character(substitute(data)))[1])
-    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+    attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
 NULL

@@ -5,7 +5,6 @@
 #' @importFrom devtools install_github
 #' @export
 updateSciencesPo<-function(){
-  require(devtools)
-  install_github("danielmarcelino/SciencesPo")
+  devtools::install_github("danielmarcelino/SciencesPo")
   require(SciencesPo)
 }

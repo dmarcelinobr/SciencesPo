@@ -467,8 +467,7 @@ NULL
 #' @param object an object of class \code{glm}.
 #' @param alternative add both \code{z1} and \code{z2} to model or just one of them.
 #' 
-#' @details Two new covariates, z1 and z2 are generated such that \eqn{z1 = 0.5 ∗ logit^2 ∗ I(pi>=0.5),
-#' z2 = −0.5 ∗ logit^2 ∗ I(pi <= 0.5)} where \eqn{I(arg) = 1} where arg is true and = 0 if false.
+#' @details Two new covariates, z1 and z2 are generated such that \deqn{z1 = 0.5 \* logit^{2} * I(pi >= 0.5)}, \deqn{z2 = - 0.5 \* logit^{2} \* I(pi <= 0.5)}, where \deqn{I(arg) = 1} if arg is \code{TRUE} and \deqn{I(arg) = 1} if \code{FALSE}.
 #' @note Adapted from program published by Brett Presnell's code available at the Florida University. 
 #'@references 
 #' Stukel, T.A. (1988) Generalized logistic models. \emph{Journal of the American Statistical Association} 83: 426–431.
@@ -558,12 +557,10 @@ NULL
 #' 
 #' @description Calculates odds ratios, relative risk, and confidence intervals on odds ratios.
 
-#' @details \code{x} should be a matrix, data frame or table. "Successes"
+#' @details \code{x} should be a matrix, data frame or table. \dQuote{Successes}
 #' should be located in column 1 of \code{x}, and the treatment of interest
-#' should be located in row 2. The odds ratio is calculated as (Odds row 2) /
-#' (Odds row 1). The confidence interval is calculated from the log(OR) and
-#' backtransformed.
-#' 
+#' should be located in row 2. The odds ratio is calculated as \deqn{(Odds row 2)/(Odds row 1)}. 
+#' The confidence interval is calculated from the \code{log(OR)} and back transformed.
 #' 
 #' @rdname oddsRatio
 #' @param x a 2 X 2 matrix, data frame or table of counts

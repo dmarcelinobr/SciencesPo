@@ -6,12 +6,12 @@
 
 This method is intended to be provides statistical models that support  bootstrapping.}
 \usage{
-bootstrap(x, ...)
+bootstrap(x, boots, FUN)
 }
 \arguments{
 \item{x}{a a vector or a fitted model object that will be used to produce bootstrapped parameters. Model objects are from the class \dQuote{glm} or \dQuote{lm}.}
 
-\item{...}{unspecified parameters}
+\item{\dots}{unspecified parameters}
 }
 \value{
 a list with the \dQuote{alpha} and \dQuote{beta} slots set. Note that \dQuote{alpha} corresponds to ancillary parameters and \dQuote{beta} corresponds to systematic components of the model.

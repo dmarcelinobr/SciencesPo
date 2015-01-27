@@ -16,8 +16,7 @@ The Stukel's test is an alternative to the goodness-of-fit test for logistic reg
  It tests if significant change occurs in the model with the addition of new coefficients.
 }
 \details{
-Two new covariates, z1 and z2 are generated such that \eqn{z1 = 0.5 ∗ logit^2 ∗ I(pi>=0.5),
-z2 = −0.5 ∗ logit^2 ∗ I(pi <= 0.5)} where \eqn{I(arg) = 1} where arg is true and = 0 if false.
+Two new covariates, z1 and z2 are generated such that \deqn{z1 = 0.5 \* logit^{2} * I(pi >= 0.5)}, \deqn{z2 = - 0.5 \* logit^{2} \* I(pi <= 0.5)}, where \deqn{I(arg) = 1} if arg is \code{TRUE} and \deqn{I(arg) = 1} if \code{FALSE}.
 }
 \note{
 Adapted from program published by Brett Presnell's code available at the Florida University.

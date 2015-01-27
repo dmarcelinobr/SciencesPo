@@ -10,7 +10,7 @@ This method is used for bootstrapping statistical models typically of class \dQu
 \arguments{
 \item{x}{A fitted model object, typically of class \dQuote{lm} or \dQuote{glm}}
 
-\item{...}{A list of optional parameters}
+\item{\dots}{A list of optional parameters}
 }
 \value{
 a list with the \dQuote{alpha} and \dQuote{beta} slots set

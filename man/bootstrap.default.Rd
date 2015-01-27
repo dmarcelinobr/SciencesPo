@@ -3,21 +3,21 @@
 \alias{bootstrap.default}
 \title{Bootstrap}
 \usage{
-\method{bootstrap}{default}(x, boots = 100, fn)
+\method{bootstrap}{default}(x, boots = 100, FUN)
 }
 \arguments{
 \item{x}{a vector.}
 
 \item{boots}{The number of bootstraps.}
 
-\item{fn}{the function you want to bootstrap, ie., mean, var, cov, etc.}
+\item{FUN}{the function you want to bootstrap, ie., mean, var, cov, etc.}
 }
 \description{
 This function is used for estimating standard errors when the distribution is not know.
 }
 \examples{
 x = runif(10, 0, 1)
-bootstrap(x,fn=mean)
+bootstrap(x,FUN=mean)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

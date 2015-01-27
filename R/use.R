@@ -22,6 +22,7 @@
 "use" <-
   function (file, data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE) 
   {
+    .data <- NULL
     if (clear) {
       detachAll()
     }
@@ -30,37 +31,37 @@
       ext <- tolower(substring(file, first = nchar(file) - 
                                  3, last = nchar(file)))
       if (ext == ".dta") {
-        data1 <- read.dta(file)
+        dataset <- read.dta(file)
       }
       else {
         if (ext == ".sav") {
           data0 <- read.spss(file)
           var.labels <- attr(data0, "variable.labels")
-          data1 <- read.spss(file, to.data.frame=TRUE, trim.factor.names=TRUE)
-          data1 <- data1[1:nrow(data1), 1:ncol(data1)]
-          attr(data1, "var.labels") <- var.labels
+          dataset <- read.spss(file, to.data.frame=TRUE, trim.factor.names=TRUE)
+          dataset <- dataset[1:nrow(dataset), 1:ncol(dataset)]
+          attr(dataset, "var.labels") <- var.labels
           if(spss.missing){
-            for(i in 1:ncol(data1)){
+            for(i in 1:ncol(dataset)){
               if(!is.null(attr(data0, "missing")[[i]]$value)){
-                data1[,i] <- ifelse((data1[,i] %in% attr(data0, "missing")[[i]]$value),NA,data1[,i])
+                dataset[,i] <- ifelse((dataset[,i] %in% attr(data0, "missing")[[i]]$value),NA,dataset[,i])
               }
               if(!is.null(attributes(data0[[i]])$value.labels)){
-                data1[,i] <- ifelse((data1[,i] %in% attributes(data0[[i]])$value.labels),NA,data1[,i])
+                dataset[,i] <- ifelse((dataset[,i] %in% attributes(data0[[i]])$value.labels),NA,dataset[,i])
               }
           }
           if (tolower) 
-            names(data1) <- tolower(names(data1))
+            names(dataset) <- tolower(names(dataset))
         }
         else {
           if (substring(file, first = nchar(file) - 
                           3, last = nchar(file)) == ".tsv") {
-            data1 <- read.delim(file, header = TRUE, 
+            dataset <- read.delim(file, header = TRUE, 
                                 sep = "\t", stringsAsFactors=FALSE)
           }
           else {
             if (substring(file, first = nchar(file) - 
                             3, last = nchar(file)) == ".csv") {
-              data1 <- read.csv(file, header = TRUE, 
+              dataset <- read.csv(file, header = TRUE, 
                                 sep = ",", stringsAsFactors=FALSE )
             }
             else {
@@ -73,13 +74,13 @@
   }
 else {
   if (is.data.frame(file)) {
-    data1 <- file
+    dataset <- file
   }
   else {
     stop("The argument is not a data frame or no such file")
   }
 }
-assign(as.character(substitute(data)), data1, pos = 1)
-attach(data1, name = as.character(substitute(data)), 
+assign(as.character(substitute(data)), dataset, pos = 1)
+attach(dataset, name = as.character(substitute(data)), 
        warn.conflicts = FALSE)
 }

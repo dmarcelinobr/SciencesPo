@@ -48,8 +48,6 @@
 
 
 .SciencesPoEnv <- new.env(parent=emptyenv()) # not exported
-
-assign("SciencesPo.theme",   list(), envir = .SciencesPoEnv)
 assign("SciencesPo.options", list(), envir = .SciencesPoEnv)
 
 isLoaded <- function(.data) {

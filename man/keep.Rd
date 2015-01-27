@@ -4,16 +4,13 @@
 \alias{keep}
 \title{Subset data}
 \usage{
-keep(data = .data, select, exclude = NULL, subset, drop = FALSE,
+keep(data = .data, select, subset, drop = FALSE,
   refactor = c("subset.vars", "all", "none"), sample = NULL, ...)
 }
 \arguments{
-\item{data}{= .data
-#'}
+\item{data}{= .data}
 
 \item{select}{the columns to select from \code{data}.}
-
-\item{exclude}{the columns to remove from \code{data}.}
 
 \item{subset}{the elements or rows to keep from \code{data} (missing values are taken as false).}
 
@@ -23,13 +20,18 @@ keep(data = .data, select, exclude = NULL, subset, drop = FALSE,
 
 \item{sample}{an integer for the size of random sample to retain from the \code{data}.}
 
+\item{exclude}{the columns to remove from \code{data}.}
+
 \item{\dots}{typically unecessary parameters.}
 }
 \description{
 Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
 }
 \examples{
-data(ssex)
-keep(ssex, select = c(Date, Oppose, Favor))
+use(ssex)
+info(ssex)
+keep(select = c(Date, Oppose, Favor))
+
+keep(subset=Oppose!="NA") # subset
 }
 
