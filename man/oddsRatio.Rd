@@ -10,22 +10,19 @@
 \alias{summary.relrisk}
 \title{Odds Ratio and Relative Risk for 2 x 2 Contingency Tables}
 \usage{
-orrr(x, conf.level = 0.95, verbose = !quiet, quiet = TRUE, digits = 3,
-  relrisk = FALSE)
+orrr(x, conf.level = 0.95, verbose = TRUE, digits = 3, relrisk = FALSE)
 
-oddsRatio(x, conf.level = 0.95, verbose = !quiet, quiet = TRUE,
-  digits = 3)
+oddsRatio(x, conf.level = 0.95, verbose = TRUE, digits = 3)
 
-relrisk(x, conf.level = 0.95, verbose = !quiet, quiet = TRUE,
-  digits = 3)
+relrisk(x, conf.level = 0.95, verbose = TRUE, digits = 3)
 
-\method{print}{oddsRatio}(x, digits = 4, ...)
+\method{print}{oddsRatio}(x, digits = 3, ...)
 
-\method{print}{relrisk}(x, digits = 4, ...)
+\method{print}{relrisk}(x, digits = 3, ...)
 
-\method{summary}{oddsRatio}(object, digits = 4, ...)
+\method{summary}{oddsRatio}(object, digits = 3, ...)
 
-\method{summary}{relrisk}(object, digits = 4, ...)
+\method{summary}{relrisk}(object, digits = 3, ...)
 }
 \arguments{
 \item{x}{a 2 X 2 matrix, data frame or table of counts}
@@ -34,20 +31,18 @@ relrisk(x, conf.level = 0.95, verbose = !quiet, quiet = TRUE,
 
 \item{verbose}{a logical indicating whether verbose output should be displayed}
 
-\item{quiet}{a logical indicating whether verbose outoput should be supressed}
-
 \item{digits}{number of digits to display}
 
 \item{relrisk}{a logical indicating whether the relative risk should be returned
 instead of the odds ratio}
 
-\item{...}{additional arguments}
-
 \item{object}{an R object to print or summarise.  Here an object of class
 \code{"oddsRatio"} or \code{"relrisk"}.}
+
+\item{\dots}{additional arguments}
 }
 \value{
-an odds ratio or relative risk.  If \code{verpose} is true,
+an odds ratio or relative risk.  If \code{verpose=TRUE},
 more details and the confidence intervals are displayed.
 }
 \description{
@@ -61,17 +56,17 @@ should be located in row 2. The odds ratio is calculated as (Odds row 2) /
 backtransformed.
 }
 \examples{
-M1 <- matrix(c(14, 38, 51, 11), nrow = 2)
-M1
-oddsRatio(M1)
+mat <- matrix(c(100, 100, 100, 100), nrow = 2)
+mat
+oddsRatio(mat)
 
-M2 <- matrix(c(18515, 18496, 1427, 1438), nrow = 2)
-rownames(M2) <- c("Placebo", "Aspirin")
-colnames(M2) <- c("No", "Yes")
-M2
-oddsRatio(M2)
-oddsRatio(M2, verbose=TRUE)
-relrisk(M2, verbose=TRUE)
+mat2 <- matrix(c(18515, 18496, 1427, 1438), nrow = 2)
+rownames(mat2) <- c("Placebo", "Aspirin")
+colnames(mat2) <- c("No", "Yes")
+mat2
+oddsRatio(mat2)
+oddsRatio(mat2, verbose=FALSE)
+relrisk(mat2, verbose=FALSE)
 }
 \author{
 Kevin Middleton (\email{kmm@csusb.edu}); modified by

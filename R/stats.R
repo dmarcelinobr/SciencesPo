@@ -460,23 +460,6 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Odds Ratio for 2x2 table 
-#' @param tab a 2x2 table object
-#' @param addtocounts
-#' @author Daniel Marcelino \email{dmarcelino@@live.com}
-#' @examples
-#' data <- data.frame(cbind(gender=c("men", "men", "women", "women"), race=c("black", "white", "white", "black"), perc=c(90.6, 90.6, 90.6,78.8)))
-#' 
-#' @export
-odds.ratio <- function(tab, addtocounts = 0) {
-  tab <- tab + addtocounts
-  (tab[1,1] * tab[2,2])/(tab[1,2] * tab[2,1])
-}
-NULL
-
-
-
-#' @encoding UTF-8
 #' @title Stukel's test of the logistic link
 #' @description The Stukel's test is an alternative to the goodness-of-fit test for logistic regression.
 #'  It tests if significant change occurs in the model with the addition of new coefficients.
@@ -557,12 +540,12 @@ NULL
 #' @encoding UTF-8
 #' @title Adjusted Residuals
 #' 
-#' @param fit
+#' @param object a model object of type \code{glm} or \code{lm}.
 #' @param \dots Extra 
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-adj.residuals <- function(fit, ...) {
-  residuals(fit, ...) / sqrt(1 - lm.influence(fit)$hat)
+adj.residuals <- function(object, ...) {
+  residuals(object, ...) / sqrt(1 - lm.influence(object)$hat)
 }
 NULL
 
@@ -588,32 +571,31 @@ NULL
 #' \code{"oddsRatio"} or \code{"relrisk"}.
 #' @param conf.level the confidence interval level
 #' @param verbose a logical indicating whether verbose output should be displayed
-#' @param quiet a logical indicating whether verbose outoput should be supressed
 #' @param relrisk a logical indicating whether the relative risk should be returned
 #' instead of the odds ratio
 #' @param digits number of digits to display
 
-#' @param ... additional arguments
-#' @return an odds ratio or relative risk.  If \code{verpose} is true,
+#' @param \dots additional arguments
+#' @return an odds ratio or relative risk.  If \code{verpose=TRUE},
 #' more details and the confidence intervals are displayed.
 #' @author Kevin Middleton (\email{kmm@@csusb.edu}); modified by 
 #' Daniel Marcelino.
 #' @seealso \code{\link{chisq.test}}, \code{\link{fisher.test}}
 #' @keywords stats
 #' @examples
-#' M1 <- matrix(c(14, 38, 51, 11), nrow = 2)
-#' M1
-#' oddsRatio(M1)
+#' mat <- matrix(c(100, 100, 100, 100), nrow = 2)
+#' mat
+#' oddsRatio(mat)
 #' 
-#' M2 <- matrix(c(18515, 18496, 1427, 1438), nrow = 2)
-#' rownames(M2) <- c("Placebo", "Aspirin")
-#' colnames(M2) <- c("No", "Yes")
-#' M2
-#' oddsRatio(M2)
-#' oddsRatio(M2, verbose=TRUE)
-#' relrisk(M2, verbose=TRUE)
+#' mat2 <- matrix(c(18515, 18496, 1427, 1438), nrow = 2)
+#' rownames(mat2) <- c("Placebo", "Aspirin")
+#' colnames(mat2) <- c("No", "Yes")
+#' mat2
+#' oddsRatio(mat2)
+#' oddsRatio(mat2, verbose=FALSE)
+#' relrisk(mat2, verbose=FALSE)
 #' @export
-orrr <- function(x, conf.level = 0.95, verbose=!quiet, quiet=TRUE, digits=3,
+orrr <- function(x, conf.level = 0.95, verbose=TRUE, digits=3,
                  relrisk=FALSE){
   if (any(dim(x) != c(2,2))) {
     stop("expecting something 2 x 2")
@@ -681,43 +663,43 @@ orrr <- function(x, conf.level = 0.95, verbose=!quiet, quiet=TRUE, digits=3,
 
 #' @rdname oddsRatio
 #' @export
-oddsRatio <- function(x, conf.level = 0.95, verbose=!quiet, quiet=TRUE, digits=3) {
+oddsRatio <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
   orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=FALSE)
 }
 
 #' @rdname oddsRatio
 #' @export
-relrisk <- function(x, conf.level = 0.95, verbose=!quiet, quiet=TRUE, digits=3) {
+relrisk <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
   orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=TRUE)
 }
 
 #' @rdname oddsRatio
 #' @export
-print.oddsRatio <- function(x, digits  = 4, ...) {
+print.oddsRatio <- function(x, digits  = 3, ...) {
   print(as.numeric(x))
 }
 
 #' @rdname oddsRatio
 #' @export
-print.relrisk <- function(x, digits  = 4, ...) {
+print.relrisk <- function(x, digits  = 3, ...) {
   print(as.numeric(x))
 }
 
 #' @rdname oddsRatio
 #' @export
 summary.oddsRatio <-
-  function(object, digits = 4, ...){
+  function(object, digits = 3, ...){
     summary_relrisk_oddsratio(object, digits=digits, ...) 
   }
 
 #' @rdname oddsRatio
 #' @export
 summary.relrisk <- 
-  function(object, digits = 4, ...){
+  function(object, digits = 3, ...){
     summary_relrisk_oddsratio(object, digits=digits, ...) 
   }
 
-summary_relrisk_oddsratio <- function(x, digits = 4, ...){
+summary_relrisk_oddsratio <- function(x, digits = 3, ...){
   cat("\n")
   cat("Odds Ratio\n")
   cat("\n")

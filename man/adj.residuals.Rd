@@ -4,10 +4,10 @@
 \alias{adj.residuals}
 \title{Adjusted Residuals}
 \usage{
-adj.residuals(fit, ...)
+adj.residuals(object, ...)
 }
 \arguments{
-\item{fit}{}
+\item{object}{a model object of type \code{glm} or \code{lm}.}
 
 \item{\dots}{Extra}
 }

@@ -199,19 +199,19 @@ NULL
 
 
 
-#' Functions for teaching linear algebra.
+#' @title Functions for teaching linear algebra.
 #'
-#' These functions provide a formula based interface to the construction
+#' @description These functions provide a formula based interface to the construction
 #' of matrices from data and for fitting.  You can use them both for numerical vectors
 #' and for functions of variables in data frames.
 #' These functions are intended to support teaching basic linear algebra
 #' with a particular connection to statistics.
 #'
-#' @rdname linear.algebra
-#' @name linear.algebra
+#' @rdname linearAlgebra
+#' @name linearAlgebra
 # @aliases mat singvals dot
 #'
-#' @param A a formula.  In \code{mat} and \code{singvals},
+#' @param formula a formula as \code{~ a or ~ a + b}.  In \code{mat} and \code{singvals},
 #' only the right-hand side is used.
 #' 
 #' @param data a data frame from which to pull out numerical values
@@ -225,11 +225,7 @@ NULL
 #' To demonstrate singularity, use \code{singvals}.
 #' 
 #' @return \code{mat} returns a matrix 
-#' 
-#' @seealso \code{\link{project}}
 #'
-# @usage mat(A,data=NULL)
-#' @seealso \code{\link{linearModel}}, which returns a function.
 #' @examples
 #' a <- c(1,0,0); b <- c(1,2,3); c <- c(4,5,6); x <- rnorm(3)
 #' # Formula interface
@@ -239,32 +235,31 @@ NULL
 #' singvals(~SURVIVED*CLASS*SEX, data=titanic)
 #'
 #' @export
-
-mat <- function(A, data=parent.frame()) {
-  if( class(A) != "formula" ) stop("Must provide a formula, e.g., ~ a or ~ a + b ")
-  A <- update(A, ~-1+.) # kill off automatic Intercept term
+mat <- function(formula, data=parent.frame()) {
+  if( class(formula) != "formula" ) stop("Must provide a formula, e.g., ~ a or ~ a + b ")
+  xformula <- update(formula, ~-1+.) # kill off automatic Intercept term
   if( is.null(data) )
-    M <- model.matrix( A )
+    mat <- model.matrix( xformula)
   else
-    M <- model.matrix( A, data=data ) 
+    mat <- model.matrix(xformula, data=data ) 
   
-  attr(M, "assign") <- NULL
-  rownames(M) <- NULL
+  attr(mat, "assign") <- NULL
+  rownames(mat) <- NULL
   
-  return(M)
+  return(mat)
 }
 
 #
 ##################
-#' @rdname linear.algebra
+#' @rdname linearAlgebra
 #' @return \code{singvals} gives singular values for each column in the model matrix
 #' @export
 
-singvals <- function(A, data=parent.frame()){
-  M <- mat(A, data=data)
+singvals <- function(formula, data=parent.frame()){
+  mat <- mat(formula, data=data)
   # formulated to give one singular value for each column in A
-  svs <- La.svd(M, nv=ncol(M), nu=ncol(M))$d;
-  c( svs, rep(0, ncol(M) - length(svs)));
+  svs <- La.svd(mat, nv=ncol(mat), nu=ncol(mat))$d;
+  c( svs, rep(0, ncol(mat) - length(svs)));
 }
 NULL
 

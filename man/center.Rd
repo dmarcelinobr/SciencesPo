@@ -28,8 +28,9 @@ age=rnorm(n, mean = 40, sd = 30), female=sample(c(TRUE, FALSE), n, rep = TRUE) )
 mod = lm(y ~ x, data=df)
 summary(mod)
 ggplot(df, aes(x=x, y=y)) + geom_point()
-ggplot(df, aes(x=x, y=y)) + geom_point() + geom_abline(intercept=mod$coefficients[1], slope=mod$coefficients[2]) + stat_smooth()
-
+ggplot(df, aes(x=x, y=y)) + geom_point() +
+geom_abline(intercept=mod$coefficients[1], slope=mod$coefficients[2]) +
+stat_smooth()
 
 # centering
 mod = lm(center(y) ~ center(x), data=df)
