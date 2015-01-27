@@ -35,7 +35,7 @@ applied to a data frame, this is applied to each variable in the data frame.
 #Some data
 ID=1:10
 Age=round(rnorm(10,50,1)) #round makes the ages, with mean of 50 sd 1, whole numbers
-diag=c("Depression","Bipolar");Diagnosis=sample(diag,10,replace=T)
+diag=c("Depression","Bipolar");Diagnosis=sample(diag,10,replace=TRUE)
 data=data.frame(ID,Age,Diagnosis)
 factorize(data$Diagnosis)
 str(factorize(data))

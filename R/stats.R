@@ -589,47 +589,6 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Compare means between 2 groups
-#' 
-#' @description A function to calculate the difference between the means of a continuous
-#' variable for two groups.
-#' 
-#' @rdname compareMeans
-#' @param formula a formula 
-#' @param data a data frame in which \code{formula} is evaluated.
-#' Note that the default is \code{data=parent.frame()}. This makes it convenient to
-#' use this function interactively by treating the working envionment as if it were 
-#' a data frame.
-#' @param \dots other arguments
-#' @return the difference in means between the second and first group 
-#' @keywords stats
-#' @examples
-#' # Some data:
-#' ID=1:10
-#' Age=round(rnorm(10,50,1))
-#' diag=c("Depression","Bipolar");
-#' Diagnosis=sample(diag,10,replace=T);
-#' data=data.frame(ID,Age,Diagnosis);
-#' 
-#' mean(Age ~ Diagnosis, data=data)
-#' compareMeans(Age ~ Diagnosis, data=data);
-#' 
-#' 
-#' @export
-compareMeans <- function(formula, data=parent.frame(), ...) {
-  means <- mean( formula, data=data, ... )
-  if (length(means) != 2) {
-    stop("the number of levels for grouping variable must be 2\n")
-  }
-  names(means) <- NULL
-  return(diff(means))
-}
-NULL
-
-
-
-
-#' @encoding UTF-8
 #' @title Odds Ratio and Relative Risk for 2 x 2 Contingency Tables
 #' 
 #' @description Calculates odds ratios, relative risk, and confidence intervals on odds ratios.

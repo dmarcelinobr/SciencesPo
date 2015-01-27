@@ -15,7 +15,7 @@ rowSample(.data, n)
 Sample rows of a data object.
 }
 \examples{
-rowSample(iris, 250)
+rowSample(iris, 20)
 }
 \author{
 Daniel Marcelino \email{dmarcelino@live.com}
