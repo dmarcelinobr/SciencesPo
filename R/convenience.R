@@ -300,6 +300,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Parallel sum
 #' 
 #' @description Provides parallel sum like \code{pmin} and \code{pmax} from the base package. The function \code{sum} simply does not help when the objective is to obtain a vector with parallel sum rather than a scalar value.
@@ -327,6 +329,7 @@ psum <-
 
 
 
+
 #' @encoding UTF-8
 #' @title Strip white spaces
 #' @param x is a character vector.
@@ -339,6 +342,7 @@ stripWhite <- function(x, delim = " ") {
                     delim, delim, delim), delim, x))
 }
 NULL
+
 
 
 
@@ -491,6 +495,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Writes a delimited text file
 #'
 #' @param .data the data frame to be written 
@@ -509,6 +515,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Places quotation marks
 #'
 #'@param vec the vector whose values will be surounded by quotes 
@@ -528,6 +535,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Functions for teaching linear algebra.
 #'
 #' @description These functions provide a formula based interface to the construction
@@ -560,8 +569,10 @@ NULL
 #' # Formula interface
 #' mat(~a+b)
 #' mat(~a+b+1)
-#' mat(~SURVIVED+CLASS, data=titanic)
-#' singvals(~SURVIVED*CLASS*SEX, data=titanic)
+#' 
+#' data(tobaccovote)
+#' mat(~votedpro+party, data=tobaccovote)
+#' singvals(~votedpro*party*money*acres, data=tobaccovote)
 #'
 #' @export
 mat <- function(formula, data=parent.frame()) {
@@ -578,12 +589,9 @@ mat <- function(formula, data=parent.frame()) {
   return(mat)
 }
 
-#
-##################
 #' @rdname linearAlgebra
 #' @return \code{singvals} gives singular values for each column in the model matrix
 #' @export
-
 singvals <- function(formula, data=parent.frame()){
   mat <- mat(formula, data=data)
   # formulated to give one singular value for each column in A
@@ -595,9 +603,11 @@ NULL
 
 
 
-#' Factor cross products
+
+#' @encoding UTF-8
+#' @title Factor cross products
 #' 
-#' Construct a product of factors.
+#' @description Construct a product of factors.
 #'
 #' @param \dots  factors to be crossed.
 #' @param sep  separator between levels
@@ -643,9 +653,12 @@ NULL
 
 
 
-#' Conditionally convert vectors to factors
+
+
+#' @encoding UTF-8
+#' @title Conditionally convert vectors to factors
 #' 
-#' A generic function and several instances for creating factors from
+#' @description A generic function and several instances for creating factors from
 #' other sorts of data.  The primary use case is for vectors that contain
 #' few unique values and might be better considered as factors.  When
 #' applied to a data frame, this is applied to each variable in the data frame.
@@ -700,6 +713,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Make Data Anonymous
 #' 
 #' @description This function replaces factor and character variables by a combination of letters and numbers, and numeric columns are also transformed.
@@ -755,8 +770,87 @@ NULL
 
 
 
+#' @title Fill NA by Previous Value
+#' @description Fill NA by Previous Value
+#' @param column the column that constains NAs
+#' @examples
+#' data(ssex)
+#' peek(ssex)
+#' 
+#' fillNAByPreviousData(ssex$Favor)
+#' 
+#' @export
+fillNAByPreviousData <- function(column) {
+  # At first we find out which columns contain NAs
+  navals <- which(is.na(column))
+  # and which columns are filled with data.
+  filledvals <- which(! is.na(column))
+  
+  # If there would be no NAs following each other, navals-1 would give the
+  # entries we need. In our case, however, we have to find the last column filled for
+  # each value of NA. We may do this using the following sapply trick:
+  fillup <- sapply(navals, function(x) max(filledvals[filledvals < x]))
+  
+  # And finally replace the NAs with our data.
+  column[navals] <- column[fillup]
+  column
+}
+NULL
 
 
+
+
+
+#' @encoding UTF-8
+#' @title Rectangularize a dataframe Fill in missing records
+#' 
+#' @description This function produces a complete rectangularization by adding observations with missing data so that all combinations (interactions) of the specified variables exist.
+#' 
+#' @param x a data frame.
+#' @param by a vector of at least 2 variables from the data frame. If missing all variables in the data frame will be used.
+#' @param fill the value used to fill in all other variables from the data frame, default is \code{fill = TRUE}.
+#' 
+#' @return a data object of the same class as \code{x}.
+#'  
+#' @examples
+#' data <- data.frame(sex=c("female","male","male"), 
+#' race=c("black","black","white"), y=c(.5,.4,.1), x=c(32,40,53))
+#' 
+#' data
+#' 
+#' fillin(data, by=c(sex,race))
+#' 
+#' fillin(data, by=c(sex,race), fill=0)
+#' 
+#' @export
+fillin <- function(x, by, fill=NA)
+{
+  Freq <- NULL
+  if(missing(by)) by=1:ncol(x)
+  nl <- as.list(1:ncol(x))
+  names(nl) <- names(x)
+  vars <- eval(substitute(by), nl, parent.frame())            
+  xt <- data.frame(table(x[,vars]))
+  x0 <- subset(xt, Freq==0)[,-length(xt)]
+  
+  if(nrow(x0)==0){
+    x
+    warning("Nothing to fill")}
+  else{
+    z <- as.data.frame(x[1:nrow(x0), -vars, drop=FALSE])
+    if(dim(z)[2]==1)
+      names(z) <- names(x)[-vars]
+    z[,] <- fill
+    rbind(x, cbind(x0, z))
+  }
+}
+NULL
+
+
+
+
+
+#' @encoding UTF-8
 #' @title Find the Values Around a Particular Value
 #' 
 #' @description Find the location of values around a specified value
@@ -777,7 +871,6 @@ NULL
 #' 
 #' 
 #' @export 
-
 around<-function(x, value){
   x<-sort(x)
   lo<-x[nearest.loc(x, value)]
@@ -793,6 +886,9 @@ around<-function(x, value){
 NULL
 
 
+
+
+#' @encoding UTF-8
 #' @title Find Location of Nearest Value
 #' 
 #' @description Find the location of the nearest value to a number that you specify.
@@ -809,6 +905,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Find the Nearest Value
 #' 
 #' @description Find the the nearest value to a number that you specify.

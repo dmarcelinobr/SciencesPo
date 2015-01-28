@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Attach exclusively various file formats
 #' 
 #' @description This works rigoroulsy as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear=FALSE} is specified.

@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Variance Inflation Factor
 #' 
 #' @description Extracts Variance Inflation Factor from a model of class \dQuote{lm}
