@@ -4,10 +4,10 @@
 \alias{labelvar}
 \title{Labels variables}
 \usage{
-labelvar(var, label, drop = TRUE, data = .data)
+labelvar(variable, label, drop = TRUE, data = .data)
 }
 \arguments{
-\item{var}{the variable to be labeled}
+\item{variable}{the variable to be labeled}
 
 \item{label}{the label, a short description text.}
 

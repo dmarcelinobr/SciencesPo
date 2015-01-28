@@ -53,3 +53,13 @@ assign("SciencesPo.options", list(), envir = .SciencesPoEnv)
 isLoaded <- function(.data) {
   exists(.data, .SciencesPoEnv)
 }
+
+
+getData <- function(.data) {
+  if (!isLoaded(.data))
+    data(.data, envir=.SciencesPoEnv)
+  .SciencesPoEnv[[.data]]
+}
+
+
+

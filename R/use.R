@@ -22,7 +22,7 @@
 "use" <-
   function (file, data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE) 
   {
-    .data <- NULL
+    
     if (clear) {
       detachAll()
     }
@@ -65,7 +65,7 @@
                                 sep = ",", stringsAsFactors=FALSE )
             }
             else {
-              stop("This type of file cannot be 'use'd.")
+              stop("This type of file cannot be 'used'.")
             }
           }
         }

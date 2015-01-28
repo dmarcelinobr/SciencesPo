@@ -1,4 +1,92 @@
 #' @encoding UTF-8
+#' @title Rename 
+#' 
+rename <- function(x1, x2, dataFrame = .data, ...){
+  UseMethod("rename")
+}
+ren <- rename
+rename.default <- function (x1, x2, dataFrame = .data, ...) 
+{
+  data1 <- dataFrame
+  if (any(names(data1) == as.character(substitute(x1)))) {
+    names(data1)[names(data1) == as.character(substitute(x1))] <- as.character(substitute(x2))
+    assign(as.character(substitute(dataFrame)), data1, pos=1)
+    if(is.element(as.character(substitute(dataFrame)), search())){
+      detach(pos=which(search() %in% as.character(substitute(dataFrame))))
+      attach(data1, name=as.character(substitute(dataFrame)), warn.conflicts = FALSE)
+    }
+  }
+  else {
+    if (length(grep(pattern = x1, x = names(data1))) > 0) {
+      rename.pattern(x1, x2, printNote = TRUE, dataFrame = .data)
+    }
+    else {
+      stop(paste("\n", "\"", as.character(substitute(x1)), 
+                 "\"", " is neither a var name nor an available pattern"))
+    }
+  }
+}
+
+## Rename a variable
+rename.var <- function (x1, x2, dataFrame = .data, ...) 
+{
+  data1 <- dataFrame
+  if (any(names(data1) == as.character(substitute(x1)))) {
+    names(data1)[names(data1) == as.character(substitute(x1))] <- as.character(substitute(x2))
+    assign(as.character(substitute(dataFrame)), data1, pos=1)
+    if(is.element(as.character(substitute(dataFrame)), search())){
+      detach(pos=which(search() %in% as.character(substitute(dataFrame))))
+      attach(data1, name=as.character(substitute(dataFrame)), warn.conflicts = FALSE)
+    }
+  }
+  else {
+    if (any(names(data1) == x1)) {
+      names(data1)[names(data1) == x1] <- as.character(substitute(x2))
+      assign(as.character(substitute(dataFrame)), data1, pos=1)
+      if(is.element(as.character(substitute(dataFrame)), search())){
+        detach(pos=which(search() %in% as.character(substitute(dataFrame))))
+        attach(data1, name=as.character(substitute(dataFrame)), warn.conflicts = FALSE)
+      }
+    }
+    else {
+      stop(paste("\n", "\"", as.character(substitute(x1)), 
+                 "\"", " does not exist in the data frame", 
+                 sep = ""))
+    }
+  }
+}
+
+## Rename pattern of variables
+rename.pattern <- function (x1, x2, dataFrame = .data, printNote = TRUE, ...) 
+{
+  data1 <- dataFrame
+  if (length(grep(pattern = x1, x = names(data1))) == 0) 
+    stop(paste("Pattern ", "\"", as.character(substitute(x1)), 
+               "\"", " does not exist", sep = ""))
+  table1 <- cbind(names(data1)[grep(pattern = x1, x = names(data1))], 
+                  sub(pattern = x1, replacement = x2, x = names(data1))[grep(pattern = x1, 
+                                                                             x = names(data1))])
+  rownames(table1) <- rep("    ", length(names(data1)[grep(pattern = x1, 
+                                                           x = names(data1))]))
+  colnames(table1) <- c("Old var names  ", "New var names")
+  if (printNote) {
+    cat("Note the following change(s) in variable name(s):", 
+        "\n")
+    print(table1)
+  }
+  names(data1) <- sub(pattern = x1, replacement = x2, x = names(data1))
+  assign(as.character(substitute(dataFrame)), data1, pos=1)
+  if(is.element(as.character(substitute(dataFrame)), search())){
+    detach(pos=which(search() %in% as.character(substitute(dataFrame))))
+    attach(data1, name=as.character(substitute(dataFrame)), warn.conflicts = FALSE)
+  }
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
 #' @title Subset data 
 #' 
 #'  @description Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
@@ -820,8 +908,9 @@ NULL
 #' normalize(x)
 #' 
 #' @keywords Rescaling
-#'
+#' @keywords Normalization
 #' @seealso  \code{\link{scale}}, \code{\link{unscale}}
+#' 
 #' @export
 normalize <- function(x, range, domain, ...) {
   UseMethod("normalize")

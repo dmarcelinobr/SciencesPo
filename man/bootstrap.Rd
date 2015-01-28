@@ -2,14 +2,24 @@
 \encoding{UTF-8}
 \name{bootstrap}
 \alias{bootstrap}
+\alias{bootstrap.default}
+\alias{bootstrap.model}
 \title{Method for Bootstrap
 
 This method is intended to be provides statistical models that support  bootstrapping.}
 \usage{
-bootstrap(x, boots, FUN)
+bootstrap(x, ...)
+
+\method{bootstrap}{default}(x, boots = 100, FUN, ...)
+
+\method{bootstrap}{model}(x, ...)
 }
 \arguments{
 \item{x}{a a vector or a fitted model object that will be used to produce bootstrapped parameters. Model objects are from the class \dQuote{glm} or \dQuote{lm}.}
+
+\item{boots}{The number of bootstraps.}
+
+\item{FUN}{the statistic to bootstrap, ie., mean, var, cov, etc.}
 
 \item{\dots}{unspecified parameters}
 }
@@ -20,8 +30,20 @@ a list with the \dQuote{alpha} and \dQuote{beta} slots set. Note that \dQuote{al
 Method for Bootstrap
 
 This method is intended to be provides statistical models that support  bootstrapping.
+
+This function is used for estimating standard errors when the distribution is not know.
+
+Bootstrap Parameters of a Statistical Model
+
+This method is used for bootstrapping statistical models typically of class \dQuote{lm} or \dQuote{glm}.
+}
+\examples{
+x = runif(10, 0, 1)
+bootstrap(x,FUN=mean)
 }
 \author{
+Daniel Marcelino, \email{dmarcelino@live.com}
+
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 

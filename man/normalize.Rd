@@ -45,5 +45,6 @@ Daniel Marcelino, \email{dmarcelino@live.com}
 \seealso{
 \code{\link{scale}}, \code{\link{unscale}}
 }
+\keyword{Normalization}
 \keyword{Rescaling}
 

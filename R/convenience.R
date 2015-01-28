@@ -1,4 +1,333 @@
 #' @encoding UTF-8
+#' @title Get Information on Data Objects 
+#'
+#' @param data the data frame to be detailed.
+#' @param show the selection of columns from \code{data}, if not all.
+#' @param ignore columns from \code{data} to prevent of showing.
+#' 
+#' @examples
+#' data(titanic)
+#' use(titanic)
+#' ## Wildcard for variables
+#' info("C*") # Show all variables starting with 'C'
+#' ## Subset of variables
+#' info(show = CLASS:SEX) # Same results
+#' info(show = 1:3)
+#' ## Exclusion using wildcard.
+#' info(ignore = "C*")
+#' 
+#' @export
+info <- function (data = .data, show, ignore) 
+{
+  if (!missing(show) | !missing(ignore)) {
+    nl <- as.list(1:ncol(data))
+    names(nl) <- names(data)
+    if (!missing(show)) 
+      vars.shown <- eval(substitute(show), nl, parent.frame())
+    if (!missing(ignore)) 
+      vars.ignored <- eval(substitute(ignore), nl, parent.frame())
+    if ((length(grep(pattern = "[*]", as.character(substitute(show)))) == 
+           1) | (length(grep(pattern = "[?]", as.character(substitute(show)))) == 
+                   1)) {
+      vars.shown <- grep(pattern = glob2rx(as.character(substitute(show))), 
+                         names(data))
+      if (length(vars.shown) == 0) {
+        stop(paste(show, "not matchable with any variable name."))
+      }
+    }
+    if ((length(grep(pattern = "[*]", as.character(substitute(ignore)))) == 
+           1) | (length(grep(pattern = "[?]", as.character(substitute(ignore)))) == 
+                   1)) {
+      vars.ignored <- grep(pattern = glob2rx(as.character(substitute(ignore))), 
+                           names(data))
+      if (length(vars.ignored) == 0) {
+        stop(paste(ignore, "not matchable with any variable name."))
+      }
+    }
+    vars <- 1:ncol(data)
+    if (exists("vars.shown")) 
+      vars <- vars[vars.shown]
+    if (exists("vars.ignored")) 
+      vars <- vars[-vars.ignored]
+    dataset <- data[1,]
+    class.a <- rep("", length(vars))
+    for (i in 1:length(vars)) {
+      class.a[i] <- class(dataset[,vars[i]])[1]
+    }
+    if (is.null(attr(data, "var.labels"))) {
+      a <- cbind(colnames(dataset)[vars], class.a, rep("", 
+                                                       length(vars)))
+    }
+    else {
+      a <- cbind(colnames(dataset)[vars], class.a, attr(data, 
+                                                        "var.labels")[vars])
+    }
+    colnames(a) <- c("Variable     ", "Class          ", 
+                     "Description")
+    rownames(a) <- vars
+    header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\n")
+    options(warn = 0)
+  }
+  else {
+    if (!is.data.frame(data)) {
+      if (is.character(data) & (length(grep(pattern = "[*]", 
+                                            data)) == 1) | (length(grep(pattern = "[?]", data) == 
+                                                                     1))) {
+        vars <- grep(pattern = glob2rx(data), names(.data))
+        if (length(vars) == 0) {
+          stop(paste(data, "not matchable with any variable name."))
+        }
+        
+        dataset <- .data[1,]
+        class.a <- rep("", length(vars))
+        for (i in 1:length(vars)) {
+          class.a[i] <- class(dataset[,vars[i]])[1]
+        }
+        if (is.null(attr(.data, "var.labels"))) {
+          a <- cbind(colnames(dataset)[vars], class.a, 
+                     rep("", length(vars)))
+        }
+        else {
+          a <- cbind(colnames(dataset)[vars], class.a, 
+                     attr(.data, "var.labels")[vars])
+        }
+        colnames(a) <- c("Variable     ", "Class          ", 
+                         "Description")
+        rownames(a) <- vars
+        header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\n")
+        options(warn = 0)
+      }
+      else {
+        candidate.position <- NULL
+        for (search.position in 1:length(search())) {
+          if (exists(as.character(substitute(data)), where = search.position)) {
+            if (any(names(get(search()[search.position])) == 
+                      as.character(substitute(data))) | any(ls(all.names = TRUE, 
+                                                               pos = 1) == as.character(substitute(data)))) 
+              candidate.position <- c(candidate.position, 
+                                      search.position)
+          }
+        }
+        var.order <- as.character(NULL)
+        var.class <- NULL
+        var.size <- NULL
+        var.lab <- NULL
+        for (i in candidate.position) {
+          if (i == 1) {
+            var.order <- c(var.order, "")
+          }
+          else {
+            var.order <- c(var.order, which(as.character(substitute(data)) == 
+                                              names(get(search()[i]))))
+          }
+          if (i == 1) {
+            var.class <- c(var.class, class(data))
+          }
+          else {
+            var.class <- c(var.class, class(get(search()[i])[, 
+                                                             which(as.character(substitute(data)) == names(get(search()[i])))]))
+          }
+          if (i == 1) {
+            var.size <- c(var.size, length(data))
+          }
+          else {
+            var.size <- c(var.size, nrow(get(search()[i])))
+          }
+          if (i == 1 | is.null(attr(get(search()[i]), 
+                                    "var.labels")[attr(get(search()[i]), "names") == 
+                                                    substitute(data)])) {
+            var.lab <- c(var.lab, " ")
+          }
+          else {
+            var.lab <- c(var.lab, attr(get(search()[i]), 
+                                       "var.labels")[attr(get(search()[i]), "names") == 
+                                                       substitute(data)])
+          }
+        }
+        a <- cbind(search()[candidate.position], var.order, 
+                   var.class, var.size, var.lab)
+        dim(a)
+        colnames(a) <- c("Var. source ", "Var. order", 
+                         "Class  ", "# records", "Description")
+        rownames(a) <- rep("", length(candidate.position))
+        header <- paste("'", deparse(substitute(data)), "'",
+                        " is a variable found in the following source(s):", 
+                        "\n", "\n", sep = "")
+      }
+    }
+    else {
+      dataset <- data[1,]
+      if (is.null(attr(data, "var.labels"))) {
+        b <- " "
+      }
+      else {
+        b <- attr(data, "var.labels")
+        if (length(b) < length(colnames(data))) {
+          options(warn = -1)
+        }
+      }
+      class.a <- rep("", ncol(dataset))
+      for (i in 1:ncol(dataset)) {
+        class.a[i] <- class(dataset[, i])[1]
+      }
+      a <- cbind(colnames(dataset), class.a, b)
+      colnames(a) <- c("Variable     ", "Class          ", 
+                       "Description")
+      rownames(a) <- 1:nrow(a)
+      header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\n")
+      options(warn = 0)
+    }
+  }
+  results <- list(table=a, header=header)
+  class(results) <- c("info","matrix")
+  results
+}
+#####
+print.info <- function(data, ...)
+{
+  cat(data$header)
+  print.noquote(data$table)
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Labels variables
+#'
+#' @description Labels variables
+#' 
+#' @param variable the variable to be labeled 
+#' @param label the label, a short description text. 
+#' @param drop is logical. If \code{TRUE}, replaces the original column with the new one with label.
+#' @param data the \code{data.frame} where \code{var} is.
+#'
+#' @examples
+#' data(titanic)
+#' 
+#' info(titanic)
+#' 
+#' labelvar(CLASS, "4 categories for CLASS", data = titanic)
+#' 
+#' info(titanic)
+#' 
+#' @export
+labelvar <-function(variable, label, drop=TRUE, data = .data){
+  # Store list of variable labels, 
+  #if exist, in a temporary vector
+  dataset <- data
+  if(any(names(dataset)==as.character(substitute(variable)))){
+    if(is.null(attributes(dataset)$var.labels)){
+      attributes(dataset)$var.labels <- rep("", length(names(dataset)))
+    }
+    attributes(dataset)$var.labels[names(dataset)==as.character(substitute(var))] <- label
+  }else{
+    if(length(variable) != nrow(data)){
+      stop(paste("The length of", as.character(substitute(variable)), "is not equal to number of rows of", as.character(substitute(data))))
+    }
+    old.labels <-attributes(dataset)$variable.labels
+    dataset[,ncol(dataset)+1]<- variable
+    names(dataset)[length(names(dataset))] <- as.character(substitute(variable))
+    if(is.null(old.labels)){
+      attributes(dataset)$var.labels <- c(rep("", length(names(dataset))-1),label)
+    }else{
+      attributes(dataset)$var.labels <- c(old.labels,label)
+    }
+  }
+  if(exists(as.character(substitute(variable)))){
+    if(!is.atomic(variable)){
+      stop(paste("A non-variable object", as.character(substitute( variable)),"exists in the environment and cannot be labelled.","\n", 
+                 " If this variable in the data frame is to be labelled,","\n",
+                 " either the non-variable object of this name must be removed before labelling","\n", "\n",
+                 paste("   rm(",as.character(substitute( variable)),")",";             ",
+                       " labelvar(", as.character(substitute(variable)),", \"", as.character(substitute(label)),"\")",sep=""),"\n", "\n",
+                 " or the variable in the data frame must be prior renamed","\n",  "\n",
+                 paste("   ren(", as.character(substitute( variable)),", newname)", "; ",
+                       " labelvar(newname,\"", as.character(substitute(label)),"\")", sep=""), "\n"))
+    }
+    if(length(variable)==nrow(data)){
+      dataset[,names(dataset)==as.character(substitute(variable))] <- variable
+    }else{
+      stop(paste("The length of", as.character(substitute(variable)), "is not equal to number of rows of", as.character(substitute(data))))
+    }
+  }
+  if(drop){
+    suppressWarnings(rm(list=as.character(substitute(variable)), pos=1))
+  }
+  assign(as.character(substitute(data)), dataset, pos=1)
+  if(is.element(as.character(substitute(data)), search())){
+    if(length(which(search() %in% as.character(substitute(data))))>1){
+      warning(paste("\n","There are more than one '", as.character(substitute(data)),"' attached!","\n", sep=""))
+    }
+    detach(pos=which(search() %in% as.character(substitute(data)))[1])
+    attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+  }
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Show Observations Randomly Drawn from the Data
+#' 
+#' @description Provide a sly view of the data by randomly draw observations, instead of showing only the first \code{head()} or the last \code{tail()} rows of an object.
+#' 
+#' @param x A matrix or data.frame object
+#' @param n The number of rows to be shown
+#'  
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' 
+#' @keywords Tables
+#' @examples
+#' data(titanic)
+#' peek(titanic)
+#' 
+#' @export
+#' 
+peek <- function(x, n = 10) {
+  if(is.matrix(x) | is.data.frame(x)) {
+    rows <- nrow(x)
+    print(x[sort(sample(rows, size = n)),])
+  } else {
+    cat("'peek' only anticipates matrices and data.frames.\n")
+  }
+}
+NULL
+
+
+
+
+#' @title Parallel sum
+#' 
+#' @description Provides parallel sum like \code{pmin} and \code{pmax} from the base package. The function \code{sum} simply does not help when the objective is to obtain a vector with parallel sum rather than a scalar value.
+#' 
+#' @param \dots One or more unit objects
+#' @param na.rm A logical value \code{TRUE} or \code{FALSE}, the default
+#' 
+#' @return A vector containing the parallel sum.
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' @keywords Misc
+#' 
+#' @examples 
+#' data(us2012)
+#' psum(us2012$Obama, us2012$Romney)
+#' Swingy <-psum(us2012$Obama, us2012$Romney-100)
+#' 
+#' @export
+psum <-
+  function(..., na.rm=FALSE) { 
+    x <- list(...)
+    rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
+  }
+
+
+
+#' @encoding UTF-8
 #' @title Strip white spaces
 #' @param x is a character vector.
 #' @param delim is the delimiter, default is white spaces \code{" "} 
@@ -366,4 +695,136 @@ factorize.character <- function(x, max.levels = 5L, ...){
 factorize.data.frame <- function(x, max.levels=5L, ...) {
   as.data.frame( lapply(x, factorize, max.levels=max.levels) )
 }
+NULL
+
+
+
+
+#' @title Make Data Anonymous
+#' 
+#' @description This function replaces factor and character variables by a combination of letters and numbers, and numeric columns are also transformed.
+#' 
+#' @param x A vector or a data frame
+#' 
+#' @param keep.names A logical argument. If \code{FALSE}, variable names will be replaced by Xs
+#' 
+#' @details By making difficult to recognize the original data while keeping the same data structure, this function is  quite useful for sharing data on help lists.
+#'
+#' @return An object of the same type as \code{x}
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @examples
+#' # setup data
+#' data(ssex)
+#' anonymize(ssex)
+#' anonymize(ssex, keep.names=FALSE)
+#'
+#' @keywords Tables
+#'
+#' @export
+#'
+anonymize <-
+  function(x, keep.names=TRUE){
+    truenames <- names(x)
+    if(length(x)>26){
+      # letters <-replicate(floor(length(x)/26),{letters <-c(LETTERS, paste(LETTERS, LETTERS, sep=""))})
+    }
+    names(x)<-paste(sample(letters[1:length(x)]))
+    level.x<-function(x){
+      level.obs<-function(i){
+        if(class(x[,i])=="factor" | class(x[,i])=="character"){
+          var <-paste(names(x)[i],as.numeric(as.factor(x[,i])), sep="")
+        }else if(is.numeric(x[,i])){
+          var <-x[,i]- mean(x[,i], na.rm=T)}else{var<-x[,i]}
+        return(var)
+      }
+      x <- data.frame(sapply(seq_along(x), level.obs))
+      
+      if(keep.names==TRUE){
+        names(x) <- truenames 
+      }else{
+        names(x) <- names(x)
+      }
+      return(x)
+    }
+    x <-level.x(x)
+    return(x)
+  }
+NULL
+
+
+
+
+
+#' @title Find the Values Around a Particular Value
+#' 
+#' @description Find the location of values around a specified value
+#' 
+#' @param x A vector.
+#' @param value Specified value
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' @return lo The maximum value of x that is less than or equal to the value parameter.
+#' @return hi The minimum value of x that is greater than or equal to the value parameter.
+#' 
+#' @examples
+#' set.seed(123)
+#' x = rnorm(25, 5, 10)
+#' value = 9
+#' around(x, value)
+#' 
+#' 
+#' @export 
+
+around<-function(x, value){
+  x<-sort(x)
+  lo<-x[nearest.loc(x, value)]
+  if(lo>=value)
+    lo<-x[nearest.loc(x, value)-1]
+  
+  hi<-x[nearest.loc(x, value)]
+  if(hi<value)
+    hi<-x[nearest.loc(x, value)+1]
+  
+  c(lo, hi)
+}
+NULL
+
+
+#' @title Find Location of Nearest Value
+#' 
+#' @description Find the location of the nearest value to a number that you specify.
+#' 
+#' @param x A vector.
+#' @param value The value that you want to find.
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @export
+nearest.loc<-function(x, value){
+  which(abs(x-value)==min(abs(x-value)))
+}
+NULL
+
+
+
+#' @title Find the Nearest Value
+#' 
+#' @description Find the the nearest value to a number that you specify.
+#' 
+#' @param x A vector.
+#' @param value The value that you want to find.
+#' 
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @export
+nearest<-function(x, value){
+  nearloc<-nearest.loc(x, value)
+  x[nearloc]
+}
+NULL
+
+
+
 

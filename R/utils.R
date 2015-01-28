@@ -1,10 +1,13 @@
 
-getData <- function(.data) {
-  if (!isLoaded(.data))
-    data(.data, envir=.SciencesPoEnv)
-  .SciencesPoEnv[[.data]]
-}
 
+### Zap
+zap <- 
+  function () 
+  {
+    detachAll()
+    vector1 <- setdiff(ls(envir = .GlobalEnv), lsf.str(envir = .GlobalEnv)[])
+    rm(list = vector1, pos = 1)
+  }
 ### List objects excluding function
 lsNoFunction <- function() {
  setdiff(ls(envir= .GlobalEnv), as.character(lsf.str()[])

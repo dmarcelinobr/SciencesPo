@@ -7,9 +7,10 @@
 #' @param verbose if \code{TRUE} messages maybe be displayed.
 #' 
 #' @details The original function was published at \url{https://stackoverflow.com/questions/16045161/unique-identifier-in-data-table}. This was berely touched. 
-#' 
+#'  
 #' @export
 isid <- function(columns, data, verbose  = TRUE){
+  is.data.table <- haskey <- setkey <- data.table <- copy <- NULL
   if(!is.data.table(data)){
     copyd <- data.table(data)
   } else{ 

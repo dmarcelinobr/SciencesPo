@@ -20,18 +20,16 @@ keep(data = .data, select, subset, drop = FALSE,
 
 \item{sample}{an integer for the size of random sample to retain from the \code{data}.}
 
-\item{exclude}{the columns to remove from \code{data}.}
-
 \item{\dots}{typically unecessary parameters.}
 }
 \description{
 Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
 }
 \examples{
-use(ssex)
+data(ssex)
 info(ssex)
-keep(select = c(Date, Oppose, Favor))
+keep(ssex, select = c(Date, Oppose, Favor))
 
-keep(subset=Oppose!="NA") # subset
+keep(ssex, subset=Oppose!="NA") # subset
 }
 
