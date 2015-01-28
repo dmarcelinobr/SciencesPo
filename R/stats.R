@@ -4,7 +4,7 @@
 #' @description Extracts Variance Inflation Factor from a model of class \dQuote{lm}
 #' 
 #' @param model a model object
-#' @param \dots Options to pass to
+#' @param \dots further arguments passed to or used by other methods.
 #' 
 #' @return A numeric value indicating the variance inflation in the model
 #' 
@@ -594,7 +594,7 @@ NULL
 #' @title Adjusted Residuals
 #' 
 #' @param object a model object of type \code{glm} or \code{lm}.
-#' @param \dots Extra 
+#' @param \dots further arguments passed to or used by other methods. 
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
 adj.residuals <- function(object, ...) {
@@ -626,7 +626,7 @@ NULL
 #' instead of the odds ratio
 #' @param digits number of digits to display
 
-#' @param \dots additional arguments
+#' @param \dots further arguments passed to or used by other methods.
 #' @return an odds ratio or relative risk.  If \code{verpose=TRUE},
 #' more details and the confidence intervals are displayed.
 #' @author Kevin Middleton (\email{kmm@@csusb.edu}); modified by 

@@ -3,7 +3,7 @@
 #'
 #' This method is intended to be provides statistical models that support  bootstrapping.
 #' @param x a a vector or a fitted model object that will be used to produce bootstrapped parameters. Model objects are from the class \dQuote{glm} or \dQuote{lm}.
-#' @param  \dots unspecified parameters
+#' @param  \dots further arguments passed to or used by other methods.
 #' @return a list with the \dQuote{alpha} and \dQuote{beta} slots set. Note that \dQuote{alpha} corresponds to ancillary parameters and \dQuote{beta} corresponds to systematic components of the model.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
@@ -15,7 +15,7 @@ bootstrap <- function (x, ...)
 #' @description
 #' This function is used for estimating standard errors when the distribution is not know.
 #' 
-#' @param boots The number of bootstraps.
+#' @param nboots The number of bootstraps.
 #' @param FUN the statistic to bootstrap, ie., mean, var, cov, etc.
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
@@ -26,9 +26,9 @@ bootstrap <- function (x, ...)
 #' 
 #' @rdname bootstrap
 #' @export
-bootstrap.default<-function(x, boots=100, FUN,  ...){
+bootstrap.default<-function(x, nboots=100, FUN,  ...){
 	n=length(x)
-	lings <-replicate(boots, FUN(sample(x, n, replace=TRUE)))
+	lings <-replicate(nboots, FUN(sample(x, n, replace=TRUE)))
 	list(se = sd(lings), 
        lings = lings)
 }

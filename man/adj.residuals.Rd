@@ -9,7 +9,7 @@ adj.residuals(object, ...)
 \arguments{
 \item{object}{a model object of type \code{glm} or \code{lm}.}
 
-\item{\dots}{Extra}
+\item{\dots}{further arguments passed to or used by other methods.}
 }
 \description{
 Adjusted Residuals

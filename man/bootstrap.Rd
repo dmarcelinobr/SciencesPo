@@ -10,18 +10,18 @@ This method is intended to be provides statistical models that support  bootstra
 \usage{
 bootstrap(x, ...)
 
-\method{bootstrap}{default}(x, boots = 100, FUN, ...)
+\method{bootstrap}{default}(x, nboots = 100, FUN, ...)
 
 \method{bootstrap}{model}(x, ...)
 }
 \arguments{
 \item{x}{a a vector or a fitted model object that will be used to produce bootstrapped parameters. Model objects are from the class \dQuote{glm} or \dQuote{lm}.}
 
-\item{boots}{The number of bootstraps.}
+\item{nboots}{The number of bootstraps.}
 
 \item{FUN}{the statistic to bootstrap, ie., mean, var, cov, etc.}
 
-\item{\dots}{unspecified parameters}
+\item{\dots}{further arguments passed to or used by other methods.}
 }
 \value{
 a list with the \dQuote{alpha} and \dQuote{beta} slots set. Note that \dQuote{alpha} corresponds to ancillary parameters and \dQuote{beta} corresponds to systematic components of the model.

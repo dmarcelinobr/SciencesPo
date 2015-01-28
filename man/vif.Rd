@@ -9,7 +9,7 @@ vif(model, ...)
 \arguments{
 \item{model}{a model object}
 
-\item{\dots}{Options to pass to}
+\item{\dots}{further arguments passed to or used by other methods.}
 }
 \value{
 A numeric value indicating the variance inflation in the model

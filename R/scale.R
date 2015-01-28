@@ -1,7 +1,7 @@
 #' @encoding UTF-8
 #' @title Scalling Method
 #' 
-#' @param x data vector or variable to be scaled.
+#' @param x a data vector or model object of class \code{"glm"} or \code{"lm"} to be standardized.
 #' @param \dots optional arguments that are passed to scale.
 #'  
 #' @export
@@ -14,7 +14,6 @@ NULL
 #' @title  Standardized Beta Coefficients 
 #' 
 #' @description Calculates standardized beta coefficients from \code{lm} or \code{glm} class model objects. Standardized coefficients refer to how many standard deviations a dependent variable will change per standard deviation increase in the predictor variable. See details.
-#' @param x a model object.
 #' @param std.dev an integer value for the standard deviation, default is \code{std.dev = 1}.
 #' 
 #' @return Standardized coefficients
@@ -49,8 +48,9 @@ NULL
 #' # Andrew Gelman makes a compelling argument for standardizing variables by 2 standard deviations
 #' # so that the variance is similar to a binary variable (provided p is not too far from 0.5).
 #' 
+#' @rdname scale
 #' @export
-scale.lm  <- function(x, std.dev=1)
+scale.lm  <- function(x, std.dev=1, ...)
 {
     if (!inherits(x, c("lm","glm") )) stop("object not of class \"lm\"")
     
@@ -63,12 +63,13 @@ scale.lm  <- function(x, std.dev=1)
         cat("Standardized = ", round(beta, 4), ".\n", sep = "")
         return(beta)
       }else{
-        beta <- coef*((stdev*sd.x)/(stdev*sd.y))
+        beta <- coef*((std.dev*sd.x)/(std.dev*sd.y))
     cat("Standardized = ", round(beta, 4), ".\n", sep = "")
     return(beta)
       }
     }
 NULL
+
 
 
 #' @encoding UTF-8

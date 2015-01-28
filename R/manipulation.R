@@ -910,7 +910,7 @@ NULL
 #' @param x is a vector to be normalized.
 #' @param range isa numeric vector of length 2 for min and max values, default is \code{c(0,1)}.
 #' @param domain a numeric vector of length 2.
-#' @param ... additional arguments.
+#' @param \dots further arguments passed to or used by other methods.
 #' @return Normalized values in an object of the same class as \code{var}.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}

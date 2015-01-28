@@ -39,7 +39,7 @@ instead of the odds ratio}
 \item{object}{an R object to print or summarise.  Here an object of class
 \code{"oddsRatio"} or \code{"relrisk"}.}
 
-\item{\dots}{additional arguments}
+\item{\dots}{further arguments passed to or used by other methods.}
 }
 \value{
 an odds ratio or relative risk.  If \code{verpose=TRUE},

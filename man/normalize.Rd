@@ -26,7 +26,7 @@ normalize(x, range, domain, ...)
 
 \item{domain}{a numeric vector of length 2.}
 
-\item{...}{additional arguments.}
+\item{\dots}{further arguments passed to or used by other methods.}
 }
 \value{
 Normalized values in an object of the same class as \code{var}.

@@ -8,6 +8,7 @@ zap <-
     vector1 <- setdiff(ls(envir = .GlobalEnv), lsf.str(envir = .GlobalEnv)[])
     rm(list = vector1, pos = 1)
   }
+
 ### List objects excluding function
 lsNoFunction <- function() {
  setdiff(ls(envir= .GlobalEnv), as.character(lsf.str()[])
@@ -69,6 +70,3 @@ otherNames <- function(data, check) {
   setdiff(names(data), colNames(data, check))
 }
 NULL
-
-
-
