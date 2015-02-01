@@ -59,12 +59,10 @@
 #' 
 #' @keywords The Basics
 #' @keywords Political Behavior 
-#'
+#' 
 #' @export
-#'
-#'
-effectiveNumber <-
-function(seats=NULL, votes=NULL, total=NA, method="Laakso/Taagepera"){
+#' 
+effectiveNumber <- function(seats=NULL, votes=NULL, total=NA, method="Laakso/Taagepera"){
   if (is.object(seats) || is.object(votes)) {
       stop("Either `seats` or `votes` is not a primitive type", call. = FALSE)
       }
@@ -94,3 +92,4 @@ function(seats=NULL, votes=NULL, total=NA, method="Laakso/Taagepera"){
     return(invHHIs)
     }
 }
+NULL

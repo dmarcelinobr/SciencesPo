@@ -4,8 +4,8 @@
 \alias{keep}
 \title{Subset data}
 \usage{
-keep(data = .data, select, subset, drop = FALSE,
-  refactor = c("subset.vars", "all", "none"), sample = NULL, ...)
+keep(data, select, subset, drop = FALSE, refactor = c("subset.vars", "all",
+  "none"), sample = NULL, ...)
 }
 \arguments{
 \item{data}{= .data}

@@ -3,8 +3,9 @@
 ##################################################################  
 
 .onAttach <- function(libname, pkgname) {
-  pkgEnv = pos.to.env(match('package:SciencesPo', search()))
-  # vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
+  .SciencesPoEnv <- new.env(parent=emptyenv()) # not exported
+  assign("SciencesPo.options", list(), envir = .SciencesPoEnv)
+ # pkgEnv = pos.to.env(match('package:SciencesPo', search()))
   ## Send message
   msg <- paste("\n\n")
   msg <- paste(msg,"                        000--------001\n")
@@ -47,19 +48,13 @@
 
 
 
-.SciencesPoEnv <- new.env(parent=emptyenv()) # not exported
-assign("SciencesPo.options", list(), envir = .SciencesPoEnv)
-
 isLoaded <- function(.data) {
   exists(.data, .SciencesPoEnv)
 }
 
-
 getData <- function(.data) {
   if (!isLoaded(.data))
-    data(.data, envir=.SciencesPoEnv)
+    data(.data, envir =.SciencesPoEnv)
   .SciencesPoEnv[[.data]]
 }
-
-
 

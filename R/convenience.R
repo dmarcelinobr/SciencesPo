@@ -923,6 +923,3 @@ nearest<-function(x, value){
 }
 NULL
 
-
-
-

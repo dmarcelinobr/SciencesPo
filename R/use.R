@@ -27,7 +27,6 @@
     if (clear) {
       detachAll()
     }
-    library(foreign)
     if (is.character(file)) {
       ext <- tolower(substring(file, first = nchar(file) - 
                                  3, last = nchar(file)))

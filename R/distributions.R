@@ -195,5 +195,3 @@ NULL
     dbinom(x,size=n,prob=p)
   }
 NULL
-
-

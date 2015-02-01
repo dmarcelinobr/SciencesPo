@@ -13,14 +13,13 @@ Description: SciencesPo is a facility package for the political science crowd.
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: LGPL (>= 2.0, < 3)
 Depends:
-    R (>= 3.0),stats,utils,graphics,grDevices,ggplot2
+    R (>= 3.0),stats,utils,graphics,grDevices,ggplot2,
+    foreign
 Imports:
     grid,
     lubridate,
     devtools,
-    foreign,
     xtable,
-    gdata
 Suggests:
     Zelig,
     MCMCpack

@@ -1,18 +1,18 @@
 #' @encoding UTF-8
 #' @title Rename a variable
 #' @description Rename a variable.
-#' @param old a variable or a pattern among the names of the variables inside .data.
+#' @param old a variable or a pattern among the names of the variables inside data.
 #' @param new new name or new pattern of the variable(s).
-#' @param data a data frame of which the variables will be renamed.
+#' @param data a data.frame of which the variables will be renamed.
 #' @param \dots  further arguments passed to or used by other methods.
 #' @export
-rename <- function(old, new, data = .data, ...){
+rename <- function(old, new, data, ...){
   UseMethod("rename")
 }
 
 #' @rdname rename
 #' @export
-rename.default <- function (old, new, data = .data, ...) 
+rename.default <- function (old, new, data, ...) 
 {
   data1 <- data
   if (any(names(data1) == as.character(substitute(old)))) {
@@ -25,7 +25,7 @@ rename.default <- function (old, new, data = .data, ...)
   }
   else {
     if (length(grep(pattern = old, x = names(data1))) > 0) {
-      rename.pattern(old, new, printNote = TRUE, data = .data)
+      rename.pattern(old, new, printNote = TRUE, data)
     }
     else {
       stop(paste("\n", "\"", as.character(substitute(old)), 
@@ -41,7 +41,7 @@ rename.default <- function (old, new, data = .data, ...)
 ## Rename a variable
 #' @rdname rename
 #' @export
-rename.var <- function (old, new, data = .data, ...) 
+rename.var <- function (old, new, data, ...) 
 {
   data1 <- data
   if (any(names(data1) == as.character(substitute(old)))) {
@@ -73,7 +73,7 @@ rename.var <- function (old, new, data = .data, ...)
 #' @rdname rename
 #' @param verbose whether the old and new names of the variables(s) should be printed out.
 #' @export
-rename.pattern <- function (old, new, data = .data, verbose = TRUE, ...) 
+rename.pattern <- function (old, new, data, verbose = TRUE, ...) 
 {
   data1 <- data
   if (length(grep(pattern = old, x = names(data1))) == 0) 
@@ -122,7 +122,7 @@ NULL
 #' @export
 #'
 keep <-
-  function (data = .data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
+  function (data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
   {
 
     data.name <- as.character(substitute(data))
@@ -668,10 +668,12 @@ NULL
 #' @param x A numeric vector
 #' @param by The number by which to split the vector
 #' @param pattern The number of blocks
-#' 
+#' @details When using \code{pattern}, the formule used to break the vector is \code{length(x)/pattern)+1}.
 #' @examples
 #' x <- seq(1:15)
-#' slice(x, by = 2, pattern = 4)
+#' slice(x, by = 2)
+#' slice(x, pattern = 4)
+#' slice(sample(x), by= 2) # draw random pairs
 #'  
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
@@ -682,8 +684,7 @@ slice <-
       starts <- seq(1, length(x), by)
       tt <- lapply(starts, function(y) x[y:(y + (by - 1))])
       lapply(tt, function(x) x[!is.na(x)])
-    } else
-    {
+    } else {
       splitby <- round(length(x)/pattern)+1
       starts <- seq(1, length(x), splitby)
       tt <- lapply(starts, function(y) x[y:(y + (splitby - 1))])

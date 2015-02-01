@@ -18,10 +18,14 @@ Break up a vector by certain N sized chunks.
 }
 \details{
 
+
+When using \code{pattern}, the formule used to break the vector is \code{length(x)/pattern)+1}.
 }
 \examples{
 x <- seq(1:15)
-slice(x, by = 2, pattern = 4)
+slice(x, by = 2)
+slice(x, pattern = 4)
+slice(sample(x), by= 2) # draw random pairs
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
