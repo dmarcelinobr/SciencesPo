@@ -12,7 +12,7 @@ use(file, data = .data, clear = TRUE, spss.missing = TRUE,
 
 \item{data}{the internal name after attaching the data file.}
 
-\item{clear}{if \code{TRUE}, all attached data in the environment will be detached first.}
+\item{clear}{if \code{clear=TRUE}, all attached data in the environment will be detached first.}
 
 \item{spss.missing}{, whether the values for missing is a SPSS dataset should be replaced with NA, the default is \code{spss.missing = TRUE}.}
 

@@ -4,11 +4,16 @@
 \title{Detach All Data From the Memory}
 \usage{
 detachAll()
+
+detachAll()
 }
 \description{
 Detach all data from the memory.
+
+Detach all data from the memory.
 }
 \examples{
+detachAll()
 detachAll()
 }
 

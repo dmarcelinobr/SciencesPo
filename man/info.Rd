@@ -4,7 +4,7 @@
 \alias{info}
 \title{Get Information on Data Objects}
 \usage{
-info(data = .data, show, ignore)
+info(data, show, ignore)
 }
 \arguments{
 \item{data}{the data frame to be detailed.}
@@ -20,11 +20,11 @@ Get Information on Data Objects
 data(titanic)
 use(titanic)
 ## Wildcard for variables
-info("C*") # Show all variables starting with 'C'
+info(titanic, "C*") # Show all variables starting with 'C'
 ## Subset of variables
-info(show = CLASS:SEX) # Same results
-info(show = 1:3)
+info(titanic, show = CLASS:SEX) # Same results
+info(titanic, show = 1:3)
 ## Exclusion using wildcard.
-info(ignore = "C*")
+info(titanic, ignore = "C*")
 }
 

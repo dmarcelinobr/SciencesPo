@@ -48,13 +48,13 @@
 
 
 
-isLoaded <- function(.data) {
-  exists(.data, .SciencesPoEnv)
-}
+#isLoaded <- function(.data) {
+#  exists(.data, .SciencesPoEnv)
+#}
 
-getData <- function(.data) {
-  if (!isLoaded(.data))
-    data(.data, envir =.SciencesPoEnv)
-  .SciencesPoEnv[[.data]]
-}
+#getData <- function(.data) {
+#  if (!isLoaded(.data))
+#    data(.data, envir =.SciencesPoEnv)
+#  .SciencesPoEnv[[.data]]
+#}
 

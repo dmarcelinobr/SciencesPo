@@ -4,16 +4,16 @@
 \alias{labelvar}
 \title{Labels variables}
 \usage{
-labelvar(variable, label, drop = TRUE, data = .data)
+labelvar(variable, label, data, drop = TRUE)
 }
 \arguments{
 \item{variable}{the variable to be labeled}
 
 \item{label}{the label, a short description text.}
 
-\item{drop}{is logical. If \code{TRUE}, replaces the original column with the new one with label.}
-
 \item{data}{the \code{data.frame} where \code{var} is.}
+
+\item{drop}{is logical. If \code{TRUE}, replaces the original column with the new one with label.}
 }
 \description{
 Labels variables
