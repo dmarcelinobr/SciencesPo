@@ -1019,3 +1019,27 @@ nearest<-function(x, value){
 }
 NULL
 
+
+
+
+#' @encoding UTF-8
+#' @title  Write a tab separated file tsv
+#'
+#' @description Write a tab separated tsv, use tab as seperator
+#'
+#' @param data the data object to write the csv.
+#' @param name the filename to be stored.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}.
+#'@examples
+#'df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), y=rnorm(20, mean=5, sd=2))
+#' exportData(df, "MyData")
+#'
+#' @export
+exportData <- function(data, name) {
+  filename = paste(name,"_", Sys.Date(),".txt", sep="")
+  source <- data
+  # write a tab separated tsv, use tab as seperator
+  write.table(source, filename, sep="\t", row.names=FALSE, col.names=TRUE)
+}
+NULL

@@ -6,10 +6,9 @@ Version: 1.01.20
 Date: 2015-01-20
 Author: Daniel Marcelino
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
-Description: SciencesPo is a facility package for the political science crowd.
-    It provides a collection of functions for ease of analyze and presentation
-    of random and nonrandom data. Future updates will focus on innovative
-    techniques published on relevant journals in the field.
+Description: SciencesPo is a data-analysis tool for the political science crowd.
+    It provides a collection of functions for ease analyzing and displaying
+    random and nonrandom data.
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: LGPL (>= 2.0, < 3)
 Depends:

@@ -4,16 +4,21 @@
 \alias{exportData}
 \title{Write a tab separated file tsv}
 \usage{
-exportData(dataset)
+exportData(data, name)
 }
 \arguments{
-\item{dataset}{the filename where to write the csv}
+\item{data}{the data object to write the csv.}
+
+\item{name}{the filename to be stored.}
 }
 \description{
 Write a tab separated tsv, use tab as seperator
 }
 \examples{
 df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), y=rnorm(20, mean=5, sd=2))
-exportData(df)
+exportData(df, "MyData")
+}
+\author{
+Daniel Marcelino \email{dmarcelino@live.com}.
 }
 
