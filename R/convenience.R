@@ -81,7 +81,9 @@
         stop("The argument is not a data frame or no such file")
       }
     }
-    assign(as.character(substitute(data)), dataset, pos = 1)
+    pos = 1 # does nothing just to trick the environment 
+    assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
+    message(paste0("file assigned to `.data`"))
     attach(dataset, name = as.character(substitute(data)), 
            warn.conflicts = FALSE)
   }
@@ -348,7 +350,8 @@ labelvar <-function(variable, label, data, drop=TRUE){
   if(drop){
     suppressWarnings(rm(list=as.character(substitute(variable)), pos=1))
   }
-  assign(as.character(substitute(data)), dataset, pos=1)
+  pos = 1 # does nothing just to trick the environment 
+  assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
   if(is.element(as.character(substitute(data)), search())){
     if(length(which(search() %in% as.character(substitute(data))))>1){
       warning(paste("\n","There are more than one '", as.character(substitute(data)),"' attached!","\n", sep=""))

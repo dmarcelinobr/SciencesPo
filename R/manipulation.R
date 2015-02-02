@@ -17,7 +17,8 @@ rename.default <- function (old, new, data, ...)
   data1 <- data
   if (any(names(data1) == as.character(substitute(old)))) {
     names(data1)[names(data1) == as.character(substitute(old))] <- as.character(substitute(new))
-    assign(as.character(substitute(data)), data1, pos=1)
+    pos = 1 # does nothing just to trick the environment 
+    assign(as.character(substitute(data)), data1, envir = as.environment(pos))
     if(is.element(as.character(substitute(data)), search())){
       detach(pos=which(search() %in% as.character(substitute(data))))
       attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
@@ -44,9 +45,11 @@ rename.default <- function (old, new, data, ...)
 rename.var <- function (old, new, data, ...) 
 {
   data1 <- data
+  pos = 1 # does nothing just to trick the environment
   if (any(names(data1) == as.character(substitute(old)))) {
     names(data1)[names(data1) == as.character(substitute(old))] <- as.character(substitute(new))
-    assign(as.character(substitute(data)), data1, pos=1)
+ 
+    assign(as.character(substitute(data)), data1, envir = as.environment(pos))
     if(is.element(as.character(substitute(data)), search())){
       detach(pos=which(search() %in% as.character(substitute(data))))
       attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
@@ -55,7 +58,7 @@ rename.var <- function (old, new, data, ...)
   else {
     if (any(names(data1) == old)) {
       names(data1)[names(data1) == old] <- as.character(substitute(new))
-      assign(as.character(substitute(data)), data1, pos=1)
+      assign(as.character(substitute(data)), data1, envir = as.environment(pos))
       if(is.element(as.character(substitute(data)), search())){
         detach(pos=which(search() %in% as.character(substitute(data))))
         attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
@@ -76,6 +79,7 @@ rename.var <- function (old, new, data, ...)
 rename.pattern <- function (old, new, data, verbose = TRUE, ...) 
 {
   data1 <- data
+  pos = 1 # does nothing just to trick the environment
   if (length(grep(pattern = old, x = names(data1))) == 0) 
     stop(paste("Pattern ", "\"", as.character(substitute(old)), 
                "\"", " does not exist", sep = ""))
@@ -91,7 +95,7 @@ rename.pattern <- function (old, new, data, verbose = TRUE, ...)
     print(table1)
   }
   names(data1) <- sub(pattern = old, replacement = new, x = names(data1))
-  assign(as.character(substitute(data)), data1, pos=1)
+  assign(as.character(substitute(data)), data1, envir = as.environment(pos))  
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
     attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
@@ -124,7 +128,8 @@ NULL
 keep <-
   function (data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
   {
-
+    pos = 1 # does nothing just to trick the environment
+    
     data.name <- as.character(substitute(data))
     dataset <- data
     datalabel <- attr(dataset, "datalabel")
@@ -201,7 +206,7 @@ keep <-
         }
       }
     }
-    assign(data.name, dataset, pos = 1)
+    assign(data.name, dataset,  envir = as.environment(pos))
     if (is.element(data.name, search())) {
       detach(pos = which(search() %in% data.name))
       attach(dataset, name = data.name, warn.conflicts = FALSE)
@@ -237,6 +242,7 @@ recode <-
   {
     .data <- NULL
     dataset <- data
+    pos = 1 # does nothing just to trick the environment
     nl <- as.list(1:ncol(dataset))
     names(nl) <- names(dataset)
     var.order <- eval(substitute(vars), nl, parent.frame())
@@ -311,7 +317,7 @@ recode <-
         }
       }
     }
-    assign(as.character(substitute(data)), dataset, pos = 1)
+    assign(as.character(substitute(data)), dataset, envir = as.environment(pos) )
     if (is.element(as.character(substitute(data)), search())) {
       detach(pos = which(search() %in% as.character(substitute(data))))
       attach(dataset, name = as.character(substitute(data)), 
@@ -746,37 +752,6 @@ NULL
 
 
 
-# For 'recode'ing missing values of one or more variables into a new value
-# NAto0 <-
-#  function (vars, value=0, data = .data, ...){
-#    dataset <- data
-#    nl <- as.list(1:ncol(dataset))
-#    names(nl) <- names(dataset)
-#    var.order <- eval(substitute(vars), nl, parent.frame())
-#    if (exists(names(dataset)[var.order], where = 1, inherits = FALSE))
-#      warning("Name(s) of vars duplicates with an object outside the data.")
-#    for (i in var.order) {
-#      temp.vector <- dataset[, i, drop=TRUE]
-#      if (is.factor(temp.vector)){
-#        levels(temp.vector) <- c(levels(temp.vector), value)
-#      }
-#      temp.vector[is.na(temp.vector)] <- value
-#      temp.vector -> dataset[, i]
-#    }
-#    assign(as.character(substitute(data)), dataset, pos = 1)
-#    if (is.element(as.character(substitute(data)), search())) {
-#      detach(pos = which(search() %in% as.character(substitute(data))))
-#      attach(dataset, name = as.character(substitute(data)),
-#             warn.conflicts = FALSE)
-#    }
-# }
-#
-
-
-
-
-
-
 #' @encoding UTF-8
 #' @title Lookup
 #' 
@@ -828,6 +803,7 @@ wrap <- function (data = .data)
 {
   .data <- NULL
   dataset <- data
+  pos =  1 # does nothing but trick the environment 
   j <- NULL
   k <- attr(dataset, "var.labels")
   candidate.objects <- setdiff(lsNoFunction(), as.character(ls.str(mode = "list")[]))
@@ -851,7 +827,7 @@ wrap <- function (data = .data)
   }
   attr(dataset, "var.labels") <- k
   rm(list = candidate.objects[j], pos = 1)
-  assign(as.character(substitute(data)), dataset, pos=1)
+  assign(as.character(substitute(data)), dataset, envir = as.environment(pos) )
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
     attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
