@@ -51,7 +51,7 @@
 #' margins(A2.tbl)
 #'
 #'@export
-margins <- function(table,margin=seq_along(dim(table)),...) {
+margins <- function(table, margin = seq_along(dim(table)),...) {
   if (length(dim(table))>2) stop("margins only works with one or two dimensional tables.\n  See addmargins() for more complex tables.\n",call.=FALSE)
   if (length(dim(table))==2 & length(margin)==1) ifelse(margin==1,margin <- 2,margin <- 1)
   

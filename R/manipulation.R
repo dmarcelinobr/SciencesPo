@@ -225,8 +225,8 @@ NULL
 #' @description Change values of a variable in a \code{data.frame}.
 #' label.var
 #' @param vars varaible(s) to be recoded 
-#' @param from old values or arithmetic conditions. 
-#' @param to new values for all variables listed.
+#' @param old the old values or arithmetic conditions. 
+#' @param new the new values for all variables listed.
 #' @param data a \code{data.frame} object.
 #' @param \dots typically not needed parameters. 
 #' 
@@ -235,10 +235,10 @@ NULL
 #' z=sample(5, 20, rep=TRUE) )
 #' use(df)
 #' # recoding x  to missing value:
-#' recode(z, from = c(1,2,3,4,5), to = c(5,4,3,2,1), data=df)
+#' recode(z, old = c(1,2,3,4,5), new = c(5,4,3,2,1), data=df)
 #' @export
 recode <-
-  function (vars, from, to, data = .data, ...) 
+  function (vars, old, new, data = .data, ...) 
   {
     .data <- NULL
     dataset <- data
@@ -249,21 +249,21 @@ recode <-
     if(all(var.order < 0)) var.order <- (1:ncol(data))[var.order]
     if (exists(names(dataset)[var.order], where = 1, inherits = FALSE)) 
       warning("Name(s) of vars duplicates with an object outside the `data`.")
-    tx <- cbind(from, to)
-    if (is.numeric(from) | is.integer(from) | any(class(dataset[, 
+    tx <- cbind(old, new)
+    if (is.numeric(old) | is.integer(old) | any(class(dataset[, 
                                                                         var.order]) == "POSIXt")) {
-      if (length(from) == 1) {
+      if (length(old) == 1) {
         if(all(is.integer(dataset[, var.order]))){
-          dataset[, var.order][dataset[, var.order] == from] <- as.integer(to)
+          dataset[, var.order][dataset[, var.order] == old] <- as.integer(new)
         }else{
-          dataset[, var.order][dataset[, var.order] == from] <- to
+          dataset[, var.order][dataset[, var.order] == old] <- new
         }
         
       }
       else {
-        if (length(from) != length(to) & length(to) != 
+        if (length(old) != length(new) & length(new) != 
               1) 
-          stop("Lengths of old and new values are not equal")
+          stop("Lengths of `old` and `new` values are not equal")
         for (i in var.order) {
           if(is.integer(dataset[,i])){
             dataset[, i] <- as.integer(lookup(dataset[, i, drop = TRUE], 
@@ -278,13 +278,13 @@ recode <-
     }
     else for (i in var.order) {
       if (is.factor(dataset[, i])) {
-        if (length(from) != length(to) & length(to) != 
+        if (length(old) != length(new) & length(new) != 
               1) 
-          stop("Lengths of `from` and `to` are not equal")
-        if (is.character(from)) {
-          if (any(!is.element(from, levels(dataset[, 
+          stop("Lengths of `old` and `to` are not equal")
+        if (is.character(old)) {
+          if (any(!is.element(old, levels(dataset[, 
                                                       i])))) 
-            warning(paste("The from is/are not element of levels of '", 
+            warning(paste("The `old` is/are not element of levels of '", 
                           names(dataset)[i], "'", sep = ""))
           for (j in 1:nrow(tx)) {
             levels(dataset[, i])[levels(dataset[, i]) == tx[j, 
@@ -293,27 +293,27 @@ recode <-
         }
       }
       if (is.character(dataset[, i])) {
-        if (length(from) == 1) {
-          dataset[, var.order][dataset[, var.order] == from] <- to
+        if (length(old) == 1) {
+          dataset[, var.order][dataset[, var.order] == from] <- new
         }
         else {
-          if (length(from) != length(to) & 
-                length(to) != 1) 
-            stop("Lengths of old and new values are not equal")
+          if (length(old) != length(new) & 
+                length(new) != 1) 
+            stop("Lengths of `old` and `new` values are not equal")
           dataset[, i] <- lookup(dataset[, i, drop = TRUE], 
                                tx)
         }
       }
     }
-    if (length(from) == nrow(dataset)) {
+    if (length(old) == nrow(dataset)) {
       if (length(var.order) == 1) {
         dataset[, var.order] <- replace(dataset[, var.order], 
-                                      from, to)
+                                        old, new)
       }
       else {
         for (i in 1:length(var.order)) {
           dataset[, var.order[i]] <- replace(dataset[, var.order[i]], 
-                                           from, to)
+                                             old, new)
         }
       }
     }

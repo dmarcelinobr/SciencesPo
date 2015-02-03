@@ -1004,12 +1004,10 @@ NULL
 
 #' @encoding UTF-8
 #' @title Find the Nearest Value
-#' 
+#'
 #' @description Find the the nearest value to a number that you specify.
-#' 
 #' @param x A vector.
 #' @param value The value that you want to find.
-#' 
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
@@ -1043,3 +1041,25 @@ exportData <- function(data, name) {
   write.table(source, filename, sep="\t", row.names=FALSE, col.names=TRUE)
 }
 NULL
+
+
+
+#' @encoding UTF-8
+#' @title Converts into percentile
+#' @description Converts numeric vector into its percentile.
+#' @param x a numeric vector.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @examples
+#' vec <- seq(1:5)
+#' percentile(vec)
+#' @export
+percentile <-
+function (x) 
+{
+  pt1 <- quantile(x, probs = seq(0, 1, by = 0.01), type = 7)
+  pt2 <- unique(as.data.frame(pt1), fromLast = TRUE)
+  pt3 <- rownames(pt2)
+  pt4 <- as.integer(strsplit(pt3, "%"))
+  ans <- pt4[as.integer(cut(x, c(0, pt2$pt1), labels = 1:length(pt3)))]
+  return(ans)
+}

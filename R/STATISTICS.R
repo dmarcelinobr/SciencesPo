@@ -645,6 +645,11 @@ NULL
 #' oddsRatio(mat2)
 #' oddsRatio(mat2, verbose=FALSE)
 #' relrisk(mat2, verbose=FALSE)
+#' # example 2
+#' out <- matrix(c(131,75,27, 6), nrow=2)
+#'  rownames(out) <- c("No disease", "Have disease")
+#'  colnames(out) <- c("<40%", ">40%")
+#'  oddsRatio(out)
 #' @export
 orrr <- function(x, conf.level = 0.95, verbose=TRUE, digits=3,
                  relrisk=FALSE){
@@ -767,5 +772,60 @@ summary_relrisk_oddsratio <- function(x, digits = 3, ...){
       format(attr(x,"upper.RR"), digits = digits), "\n")
   cat("\t", format(attr(x,"lower.OR"), digits = digits), "< OR <", 
       format(attr(x,"upper.OR"), digits = digits), "\n")
+}
+NULL
+
+
+
+#' @encoding UTF-8
+#'@title Calculates the true median
+#' @description Usually median for data with ties, the tied values are treated as exactly the same. For instance, taking a median of 3, 3, 4, 4, 4 will be 4. However, the values to be measured are usually rounded off, so that we can assume evenly distributed true values for tied values. For instance, the previous data can be treated as rounded values of 2.75, 3.25, 11/3, 4, 13/3. From this viewpoint, the true median of 3, 3, 4, 4, 4 could be 11/3 (=3.66...).
+#' @param x a numeric vector.
+#' @param h	width of measurement unit. Default is \code{h=1}.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'@examples
+#' s <-c(3, 3, 4, 4, 4)
+#' trueMedian(s)
+#' median(s)
+#' z <- c(2.75, 3.25, 11/3, 4, 13/3)
+#' trueMedian(z)
+#' median(s)
+#' @export
+trueMedian <- function(x,h=1) { 
+  YY <- rep(0,length(x))
+  XX <- table(x)
+  q <- length(XX)
+  k <- 0
+  for (i in 1:q) {
+    L <- as.numeric(names(XX)[i])-h/2
+    for (j in 1:XX[[i]]) {
+      k <- k+1
+      YY[k] <- L+h*(2*j-1)/(2*XX[[i]])
+    }
+  }
+  median(YY)
+}
+NULL
+
+
+#' @encoding UTF-8
+#' @title Geary's test for normality
+#' @description Geary's test for normality. Null hypothesis is that the data obeys to normal distribution.
+#' @param x the numeric vector.
+#' 
+#' @return statistic The Geary's test statistic G
+#' @return p.value The significant probability of the null-hypothesis testing.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @examples
+#' s <-sample(100, 20)
+#' geary.test(s)
+#' geary.test(rnorm(100))
+#' @export
+geary.test <- function(x) {
+mu <- mean(x)
+n <- length(x)
+G <- sum(abs(x-mu))/sqrt(n*sum((x-mu)^2))
+p <- (1-pnorm((G-sqrt(2/pi))/sqrt(1-3/pi)*sqrt(n)))*2
+cat("Geary's test for normality: G=",G," / p=",p,"\n")
 }
 NULL

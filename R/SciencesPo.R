@@ -1,9 +1,6 @@
 #' @encoding UTF-8
 #' @title A Tool Set For Analyzing Political Behavior Data
-#'
-#' @description SciencesPo is a data-analysis tool for the political science crowd. It provides a collection of functions for ease analyzing and displaying random and nonrandom data. Use \code{help("SciencesPo")} for list all functions.
 #' @import parallel
-#'
 #' @references Marcelino, Daniel (2013). \emph{SciencesPo: A Tool Set for Analyzing Political Behaviour Data}. Available at SSRN: \url{http://dx.doi.org/10.2139/ssrn.2320547}
 #' @name SciencesPo
 #' @docType package

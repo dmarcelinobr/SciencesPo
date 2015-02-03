@@ -1,3 +1,7 @@
+tryCatch(utils::globalVariables(c('.SciencesPoEnv')),
+         error=function(e) message('Looks like you should update R.'))
+
+
 
 #' @title Detach All Data From the Memory
 #'
