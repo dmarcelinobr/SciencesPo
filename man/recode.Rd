@@ -4,14 +4,14 @@
 \alias{recode}
 \title{Recode variable}
 \usage{
-recode(vars, from, to, data = .data, ...)
+recode(vars, old, new, data = .data, ...)
 }
 \arguments{
 \item{vars}{varaible(s) to be recoded}
 
-\item{from}{old values or arithmetic conditions.}
+\item{old}{the old values or arithmetic conditions.}
 
-\item{to}{new values for all variables listed.}
+\item{new}{the new values for all variables listed.}
 
 \item{data}{a \code{data.frame} object.}
 
@@ -26,6 +26,6 @@ df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5),
 z=sample(5, 20, rep=TRUE) )
 use(df)
 # recoding x  to missing value:
-recode(z, from = c(1,2,3,4,5), to = c(5,4,3,2,1), data=df)
+recode(z, old = c(1,2,3,4,5), new = c(5,4,3,2,1), data=df)
 }
 

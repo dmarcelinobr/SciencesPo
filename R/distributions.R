@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Inverse Cumulative Standard Normal Distribution 
 #' 
 #' @description Computes the inverse cumulative distribution of \code{x} associated with an \emph{area} under the normal distribution curve given by \eqn{\mu} and standard deviation  \eqn{\sigma}. 
@@ -21,6 +22,8 @@
   }
 NULL
 
+
+#' @encoding UTF-8
 #' @title Normal probability density function 
 #' 
 #' @description Computes the pdf at each of the values in \emph{x} using the normal distribution with mean \eqn{\mu = 0} and standard deviation \eqn{\sigma = 1}.
@@ -48,7 +51,8 @@ NULL
 NULL
 
 
- 
+
+#' @encoding UTF-8
 #' @title Normal Cumulative Distribution 
 #' 
 #' @description Calculates the normal distribution probability using \emph{lower bound} e \emph{upper bound} by the mean \eqn{\mu} and standard deviation.
@@ -75,10 +79,10 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Samples from Dirichlet distribution
 #' 
-#' @description Generates random deviates from the Dirichlet distribution. This code was originally posted by Ben Bolker to R-News on Fri Dec 15 2000. See \url{http://www.r-project.org/nocvs/mail/r-help/2000/3865.html}. But Ben Bolker attributed the code to Ian Wilson.
+#' @description Generates random deviates from the Dirichlet distribution. This code was originally posted by Ben Bolker in the R-News on Fri Dec 15 2000. But Ben attributed the code to Ian Wilson.
 #' 
 #' @param n Number of random vectors to generate
 #' @param alpha Vector containing shape parameters
@@ -149,6 +153,8 @@ rDirichlet <-
 NULL
 
 
+
+#' @encoding UTF-8
 #' @title Binomial cumulative distribution function
 #' 
 #' @description Computes a binomial cdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}.  
@@ -172,7 +178,7 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Binomial probability density function
 #' 
 #' @description Computes the binomial pdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}. 
@@ -181,8 +187,7 @@ NULL
 #' @param p a vector of probabilities.
 #' @param x the number of success.
 #' 
-#' @note The probability density function (pdf) is given by: \deqn{p(x) = {n \choose k} p^x (1 - p)^{n - x}}{p(x) = choose(n,x) p^x (1-p)^(n-x)} with \eqn{x = 0, 1, 2, \ldots}
-
+#' @note The probability density function (pdf) is given by: \deqn{p(x) = {n \choose k} p^x (1 - p)^{n - x}}{p(x) = choose(n,x) p^x (1-p)^(n-x)} with \eqn{x = 0, 1, 2, \dots}
 #' @examples
 #' trials = 10
 #' prob = c(.2,.25,.3,.35)

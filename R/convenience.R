@@ -591,26 +591,6 @@ NULL
 
 
 
-
-#' @encoding UTF-8
-#' @title Writes a delimited text file
-#'
-#' @param .data the data frame to be written 
-#' @param file the name of the file
-#' @param quote If \code{TRUE}, any character or factor columns will be surrounded by double quotes. Default is \code{quote=FALSE}.
-#' @param row.names if \code{TRUE}, the row names will be write to file. Default is \code{ row.names=FALSE}.
-#' @param sep the field separator string.
-#' @param \dots other uncommon arguments to write.table (ex: fileEncoding).
-#'
-#'@export
-write.delim <- function(.data, file, quote=FALSE, row.names=FALSE, sep='\t', ...){
-  write.table(.data, file,  quote=quote, row.names=row.names, sep=sep, ...)
-}
-NULL
-
-
-
-
 #' @encoding UTF-8
 #' @title Places quotation marks
 #'
@@ -1021,26 +1001,31 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title  Write a tab separated file tsv
+#' @title Writes a delimited text file
 #'
-#' @description Write a tab separated tsv, use tab as seperator
+#' @description Writes a delimited text file, using tab as seperator.
 #'
 #' @param data the data object to write the csv.
 #' @param name the filename to be stored.
-#'
+#' @param quote If \code{TRUE}, any character or factor columns will be surrounded by double quotes. Default is \code{quote=FALSE}
+#' @param row.names if \code{TRUE}, the row names will be write to file. Default is \code{ row.names=FALSE}.
+#' @param sep the field separator string.
+#' @param \dots other uncommon arguments to write.table (ex: fileEncoding)
+#' 
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}.
 #'@examples
 #'df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), y=rnorm(20, mean=5, sd=2))
-#' exportData(df, "MyData")
+#' \dontrun{exportData(df, "MyData")}
 #'
 #' @export
-exportData <- function(data, name) {
+exportData <- function(data, name, quote=FALSE, row.names=FALSE, sep='\t', ...) {
   filename = paste(name,"_", Sys.Date(),".txt", sep="")
   source <- data
   # write a tab separated tsv, use tab as seperator
-  write.table(source, filename, sep="\t", row.names=FALSE, col.names=TRUE)
+  write.table(source, filename, quote=quote, row.names=row.names, col.names=TRUE, sep=sep, ...)
 }
 NULL
+
 
 
 

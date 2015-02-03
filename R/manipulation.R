@@ -107,7 +107,7 @@ NULL
 #' @encoding UTF-8
 #' @title Subset data 
 #' 
-#'  @description Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
+#' @description Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
 #'  
 #'  @param data = .data
 #'  @param select the columns to select from \code{data}.
@@ -294,7 +294,7 @@ recode <-
       }
       if (is.character(dataset[, i])) {
         if (length(old) == 1) {
-          dataset[, var.order][dataset[, var.order] == from] <- new
+          dataset[, var.order][dataset[, var.order] == old] <- new
         }
         else {
           if (length(old) != length(new) & 

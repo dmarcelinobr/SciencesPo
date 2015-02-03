@@ -23,10 +23,9 @@ NULL
 #'
 #' @description The Effective Number of Parties \bold{ENP} is a measure of fragmentation. The intutiton is to count parties while weighting them by their relative strength in the legislature.
 
-#' @param seats a numeric value or a vector (may be as proportion
-#' @param votes a numeric value or a vector as the number of votes received by each party
+#' @param seats a numeric value or a vector (may be proportion).
 #' @param total a numeric value for the total either of seats or votes
-#' @param method the method using for computing the ENP, the default is Laakso/Taagepera, see details below. 
+#' @param method the method using for computing the ENP, the default is \code{Laakso/Taagepera}, see details below. 
 #'
 #' @return The Effective Number of Parties
 #'
@@ -39,10 +38,7 @@ NULL
 #' Another measure is the \bold{Least squares index (LSq)}, which typically measures the disproportionality produced by the election. Specifically, by the disparity between the distribution of votes and seats allocation. 
 #'  
 #' Recently, Grigorii Golosov proposed a new method for computing the effective number of parties  in which both larger and smaller parties are not attributed unrealistic scores as those resulted by using the Laakso—Taagepera index.I will call this as (\bold{Golosov}) and is given by the following formula: \deqn{N = \sum_{i=1}^{n}\frac{p_{i}}{p_{i}+p_{i}^{2}-p_{i}^{2}}}
-
-#' @note So far, I have implemented the following methods: LSq, Laakso and Taagepera, and Golosov.
-
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}. 
 #' 
 #'  @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
 #'  @references Golosov, Grigorii (2010) The Effective Number of Parties: A New Approach, \emph{Party Politics,} \bold{16:} 171--192. \bold{DOI: 10.1177/1354068809339538}.
@@ -56,8 +52,8 @@ NULL
 #' B <- c(.35,.35,.30)
 #' C <- c(.75,.10,rep(0.01,15))
 #'
-#'effectiveNumber(seats=A, votes=NULL, total=1)
-#' effectiveNumber(seats=B, votes=NULL, total=1, method="Golosov")
+#' ENPs(seats=A, total=1)
+#' ENPs(seats=B, total=1, method="Golosov")
 #'
 #' # Non-trivial example: 
 #' # 2010 Election outcome
@@ -70,45 +66,34 @@ NULL
 #' # 2010 Election outcome passed as proportion of seats
 #' seats_2010 = c(88,79,53,43,41,41,34,28,21,17,15,15,12,8,4,3,3,2,2,2,1,1)/513
 #'
-#' effectiveNumber(seats=seats_2010, votes=NULL, total=NULL, method="Golosov")
+#' ENPs(seats=seats_2010, total=NULL, method="Golosov")
 #'
 #' # 2014 Election outcome passed as proportion of seats
 #' seats_2014 = c(70,66,55,37,38,34,34,26,22,20,19,15,12,11,10,9,8,5,4,3,3,3,2,2,2,1,1,1)/513
 #'
-#' effectiveNumber(seats=seats_2014, votes=NULL, total=NULL, method="Golosov")
+#' ENPs(seats_2014, method="Golosov")
 #' 
-#' @keywords The Basics
-#' @keywords Political Behavior 
-#' 
+#' @keywords Basics
+#' @keywords Electoral 
 #' @export
-#' # ENPs <- function(seats=NULL, votes=NULL, total=NA, method="Laakso/Taagepera"){
-  if(!is.null(seats)){
+ENPs <- function(seats=NULL, total=NULL, method=c("Laakso/Taagepera", "LSq", "Golosov") ){
+  if(is.null(seats)){
     stop("Are you kidding me? `seats` must be provided.", call. = FALSE)
   }
-  if (is.object(seats) {
+  if (is.object(seats)){
     stop("`seats` is not a primitive type.", call. = FALSE)
   }
-  if(method=="Golosov"){
-      round(sum((seats)/((seats)+((seats[1])^2)-((seats)^2))),2) -> Golosov
-    } else{
-    }
-    return(Golosov)
-  } 
+  if(!is.null(total) && sum(seats)!=total){
+    stop("Sum of `seats` and `total` are not equal.", call. = FALSE)
+  }
+  if(method == "Golosov"){
+      round(sum((seats)/((seats)+((seats[1])^2)-((seats)^2))),2)
+  } else {
   if(method=="LSq"){
-    if(!is.null(seats)){
-      round(sum((seats)/((seats)+((seats[1])^2)-((seats)^2))),2) -> LSq
-    } else{
-          }
-    return(LSq) 
-    
-  }else {
-    if(!is.null(seats)){
-      round(1/sum(table(seats)*(seats/sum(seats))^2),2) -> invHHIs
-    }else{
-    }
-    return(invHHIs)
+      round(sum((seats)/((seats)+((seats[1])^2)-((seats)^2))),2)
+  }else{
+      round(1/sum(table(seats)*(seats/sum(seats))^2),2)
+  }
   }
 }
 NULL
-
-

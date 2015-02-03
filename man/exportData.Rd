@@ -2,21 +2,29 @@
 \encoding{UTF-8}
 \name{exportData}
 \alias{exportData}
-\title{Write a tab separated file tsv}
+\title{Writes a delimited text file}
 \usage{
-exportData(data, name)
+exportData(data, name, quote = FALSE, row.names = FALSE, sep = "\\t", ...)
 }
 \arguments{
 \item{data}{the data object to write the csv.}
 
 \item{name}{the filename to be stored.}
+
+\item{quote}{If \code{TRUE}, any character or factor columns will be surrounded by double quotes. Default is \code{quote=FALSE}}
+
+\item{row.names}{if \code{TRUE}, the row names will be write to file. Default is \code{ row.names=FALSE}.}
+
+\item{sep}{the field separator string.}
+
+\item{\dots}{other uncommon arguments to write.table (ex: fileEncoding)}
 }
 \description{
-Write a tab separated tsv, use tab as seperator
+Writes a delimited text file, using tab as seperator.
 }
 \examples{
 df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), y=rnorm(20, mean=5, sd=2))
-exportData(df, "MyData")
+\dontrun{exportData(df, "MyData")}
 }
 \author{
 Daniel Marcelino \email{dmarcelino@live.com}.

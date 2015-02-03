@@ -66,6 +66,11 @@ mat2
 oddsRatio(mat2)
 oddsRatio(mat2, verbose=FALSE)
 relrisk(mat2, verbose=FALSE)
+# example 2
+out <- matrix(c(131,75,27, 6), nrow=2)
+ rownames(out) <- c("No disease", "Have disease")
+ colnames(out) <- c("<40\%", ">40\%")
+ oddsRatio(out)
 }
 \author{
 Kevin Middleton (\email{kmm@csusb.edu}); modified by

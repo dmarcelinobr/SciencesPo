@@ -6,7 +6,7 @@
 \alias{SciencesPo-package}
 \title{A Tool Set For Analyzing Political Behavior Data}
 \description{
-SciencesPo is a data-analysis tool for the political science crowd. It provides a collection of functions for ease analyzing and displaying random and nonrandom data. Use \code{help("SciencesPo")} for list all functions.
+A Tool Set For Analyzing Political Behavior Data
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
