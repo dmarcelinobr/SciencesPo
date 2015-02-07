@@ -308,7 +308,7 @@ NULL
 #' info(titanic)
 #' 
 #' @export
-labelvar <-function(variable, label, data, drop=TRUE){
+labelvar <-function(variable, label, data, wrap=TRUE){
   # Store list of variable labels, 
   #if exist, in a temporary vector
   dataset <- data
@@ -347,7 +347,7 @@ labelvar <-function(variable, label, data, drop=TRUE){
       stop(paste("The length of", as.character(substitute(variable)), "is not equal to number of rows of", as.character(substitute(data))))
     }
   }
-  if(drop){
+  if(wrap){
     suppressWarnings(rm(list=as.character(substitute(variable)), pos=1))
   }
   pos = 1 # does nothing just to trick the environment 
@@ -453,15 +453,17 @@ NULL
 #' @param to The up to date to compute the age
 #' @param breaks The numeric break guide for grouping age
 #' @param labels The labels for the age groups, can also be set to \code{labels=NULL}
-#' @param age.var If an age var is present
+#' @param age If an age var is present
 #' 
 #' @author Daniel Marcelino <dmarcelino@@live.com>
 #'
 #' @examples
 #' # The age groupings used by IBGE (grandes grupos).
-#' x <- sample(100)
-#' ageGroups(age.var = x, breaks = c(0, 14, 64, Inf), labels = NULL )
-#' ageGroups(age.var = x, breaks = c(0, 14, 64, Inf), 
+#' # simulate vector with 1000 age values
+#' age <- sample(0:100, 1000, replace = TRUE)
+#'  mean(age); sd(age); 
+#' ageGroups(age, breaks = c(0, 14, 64, Inf), labels = NULL )
+#' ageGroups(age, breaks = c(0, 14, 64, Inf), 
 #' labels = c("<14", "15-64", "65+") )
 #' 
 #' 
@@ -469,18 +471,18 @@ NULL
 #' ibge_lbls = c("0-4", "5-9", "10-14", "15-19", "20-24",
 #'		"25-29", "30-34", "35-39", "40-44", "45-49", "50-54", 
 #'  	"55-59", "60-64", "65-69", "70+")
-#' ageGroups(age.var = x, breaks = ibge_brks, labels = ibge_lbls )
+#' ageGroups(age, breaks = ibge_brks, labels = ibge_lbls )
 #'
 #'
 #' @export
 #'
 ageGroups <- function (from, to, breaks, labels,
-		age.var = NULL) {
-    if (is.null(age.var)) {
+		x = NULL) {
+    if (is.null(x)) {
         age = elapsed(from, to)
     }
     else {
-        age = age.var
+        age = x
     }
     ans <- cut(age, breaks = breaks, labels = labels)
     class(ans) <- c("SciencesPo", "factor")
