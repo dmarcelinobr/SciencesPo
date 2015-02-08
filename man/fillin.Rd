@@ -2,7 +2,7 @@
 \encoding{UTF-8}
 \name{fillin}
 \alias{fillin}
-\title{Rectangularize a dataframe Fill in missing records}
+\title{Rectangularize a data.frame by filling missing records}
 \usage{
 fillin(x, by, fill = NA)
 }
@@ -22,8 +22,6 @@ This function produces a complete rectangularization by adding observations with
 \examples{
 data <- data.frame(sex=c("female","male","male"),
 race=c("black","black","white"), y=c(.5,.4,.1), x=c(32,40,53))
-
-data
 
 fillin(data, by=c(sex,race))
 

@@ -19,12 +19,12 @@ A list containing the variable names and the categories
 }
 \examples{
 #create toy data
-(traindata <- data.frame(var1=as.factor(c("a","b","b","c")),
-                         var2=as.factor(c(1,1,2,3)),
+(traindata <- data.frame(xvar=as.factor(c("a","b","b","c")),
+                         yvar=as.factor(c(1,1,2,3)),
                          var3=c("val1","val2","val3","val3"),
                          stringsAsFactors=FALSE))
-(newdata <- data.frame(var1=as.factor(c("a","b","b","c","d","d")),
-                       var2=as.factor(c(1,1,2,3,4,5)),
+(newdata <- data.frame(xvar=as.factor(c("a","b","b","c","d","d")),
+                       yvar=as.factor(c(1,1,2,3,4,5)),
                        var3=c("val1","val2","val3","val3","val4","val4"),
                        stringsAsFactors=FALSE))
 

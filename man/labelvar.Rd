@@ -4,7 +4,7 @@
 \alias{labelvar}
 \title{Labels variables}
 \usage{
-labelvar(variable, label, data, drop = TRUE)
+labelvar(variable, label, data, wrap = TRUE)
 }
 \arguments{
 \item{variable}{the variable to be labeled}

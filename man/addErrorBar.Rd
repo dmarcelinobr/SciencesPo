@@ -13,14 +13,14 @@ addErrorBar(x, y, ebl, ebu = ebl, length = 0.08, ...)
 
 \item{ebl}{length of the error bars, which should be 1 se in each direction.}
 
-\item{ebu}{the error bars}
+\item{ebu}{the error bars.}
 
-\item{length}{the length}
+\item{length}{the length.}
 
 \item{\dots}{typically additional noninteresting arguments to pass.}
 }
 \description{
-Draw error bars on the graph
+Draw error bars on the graph.
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

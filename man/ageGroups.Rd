@@ -4,18 +4,18 @@
 \alias{ageGroups}
 \title{Return a factor variable of age groups}
 \usage{
-ageGroups(from, to, breaks, labels, age.var = NULL)
+ageGroups(x = NULL, from, to, breaks, labels)
 }
 \arguments{
-\item{from}{The date of origin, typically birthdate}
+\item{x}{if a var containing the age already exists.}
 
-\item{to}{The up to date to compute the age}
+\item{from}{The date of origin, typically birthdate.}
 
-\item{breaks}{The numeric break guide for grouping age}
+\item{to}{The up to date to compute the age.}
 
-\item{labels}{The labels for the age groups, can also be set to \code{labels=NULL}}
+\item{breaks}{The numeric break guide for grouping age.}
 
-\item{age.var}{If an age var is present}
+\item{labels}{The labels for the age groups, can also be set to \code{labels=NULL}.}
 }
 \description{
 Return a factor variable using breaks and labels. The function will calculate the
@@ -23,9 +23,11 @@ age based upon the \code{to} if given, otherwise the \code{age.var} will be used
 }
 \examples{
 # The age groupings used by IBGE (grandes grupos).
-x <- sample(100)
-ageGroups(age.var = x, breaks = c(0, 14, 64, Inf), labels = NULL )
-ageGroups(age.var = x, breaks = c(0, 14, 64, Inf),
+# simulate vector with 1000 age values
+age <- sample(0:100, 1000, replace = TRUE)
+ mean(age); sd(age);
+ageGroups(age, breaks = c(0, 14, 64, Inf), labels = NULL )
+ageGroups(age, breaks = c(0, 14, 64, Inf),
 labels = c("<14", "15-64", "65+") )
 
 
@@ -33,7 +35,7 @@ ibge_brks = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, Inf)
 ibge_lbls = c("0-4", "5-9", "10-14", "15-19", "20-24",
 		"25-29", "30-34", "35-39", "40-44", "45-49", "50-54",
  	"55-59", "60-64", "65-69", "70+")
-ageGroups(age.var = x, breaks = ibge_brks, labels = ibge_lbls )
+ageGroups(age, breaks = ibge_brks, labels = ibge_lbls )
 }
 \author{
 Daniel Marcelino <dmarcelino@live.com>
