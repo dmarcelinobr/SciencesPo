@@ -295,8 +295,7 @@ NULL
 #' @param variable the variable to be labeled 
 #' @param label the label, a short description text. 
 #' @param data the \code{data.frame} where \code{var} is.
-#' @param drop is logical. If \code{TRUE}, replaces the original column with the new one with label.
-
+#' @param replace is logical. If \code{TRUE}, replaces the original column with the new one with label.
 #'
 #' @examples
 #' data(titanic)
@@ -308,7 +307,7 @@ NULL
 #' info(titanic)
 #' 
 #' @export
-labelvar <-function(variable, label, data, wrap=TRUE){
+labelvar <-function(variable, label, data, replace=TRUE){
   # Store list of variable labels, 
   #if exist, in a temporary vector
   dataset <- data
@@ -347,7 +346,7 @@ labelvar <-function(variable, label, data, wrap=TRUE){
       stop(paste("The length of", as.character(substitute(variable)), "is not equal to number of rows of", as.character(substitute(data))))
     }
   }
-  if(wrap){
+  if(replace){
     suppressWarnings(rm(list=as.character(substitute(variable)), pos=1))
   }
   pos = 1 # does nothing just to trick the environment 
@@ -853,10 +852,10 @@ NULL
 #'
 #' \code{FillIn} uses values of a variable from one data set to fill in missing values in another.
 #' 
-#' @param D1 the data frame with the variable you would like to fill in.
-#' @param D2 the data frame with the variable you would like to use to fill in \code{D1}.
-#' @param Var1 a character string of the name of the variable in \code{D1} you want to fill in.
-#' @param Var2 an optional character string of variable name in \code{D2} that you would like to use to fill in.
+#' @param x the data frame with the variable you would like to fill in.
+#' @param y the data frame with the variable you would like to use to fill in \code{D1}.
+#' @param xvar a character string of the name of the variable in \code{D1} you want to fill in.
+#' @param yvar an optional character string of variable name in \code{D2} that you would like to use to fill in.
 #' @param KeyVar a character vector of variable names that are shared by \code{D1} and \code{D2} that can be used to join the data frames.
 #' 
 #' @examples 
@@ -871,28 +870,29 @@ NULL
 #'                      fFull = c(100, 200, 300, 400))
 #'
 #' # Fill in missing f's from naDF with values from fillDF
-#' FilledInData <- fillNA(naDF, fillDF, Var1 = "fNA", Var2 = "fFull", KeyVar = c("a", "b"))
+#' FilledInData <- fillNA(naDF, fillDF, xvar = "fNA", yvar = "fFull", KeyVar = c("a", "b"))
 #' @import data.table
 #' @export
-fillNA  <- function(D1, D2, Var1, Var2 = NULL, KeyVar)
+fillNA  <- function(x, y, xvar, yvar = NULL, KeyVar)
 {
   # Give Var2 the same name as var1 if Var2 is NULL
-  if (is.null(Var2)){
-    Var2 <- Var1
+  if (is.null(yvar)){
+    yvar <- xvar
   } else {
-    Var2 <- Var2
+    yvar <- yvar
   }
+  VarGen <- VarGen.1 <- NULL
   
   # Give var a generic name
-  names(D1)[match(Var1, names(D1))] <- "VarGen"
-  names(D2)[match(Var2, names(D2))] <- "VarGen.1"
+  names(x)[match(xvar, names(x))] <- "VarGen"
+  names(y)[match(yvar, names(y))] <- "VarGen.1"
   
   # Convert data frames to data.table type objects
-  D1Temp <- data.table(D1, key = KeyVar)
-  D2Temp <- data.table(D2, key = KeyVar)
+  xTemp <- data.table(x, key = KeyVar)
+  yTemp <- data.table(y, key = KeyVar)
   
   # Merge data.tables
-  OutDT <- D2Temp[D1Temp]
+  OutDT <- yTemp[xTemp]
   
   # Tell the user how many values will be filled in
   SubNA <- OutDT[, list(VarGen, VarGen.1)]
@@ -909,10 +909,10 @@ fillNA  <- function(D1, D2, Var1, Var2 = NULL, KeyVar)
   SubNoNA <- subset(OutDF, !is.na(VarGen) & !is.na(VarGen.1))
   HowMany <- nrow(SubNoNA)
   CORR <- cor(SubNoNA$VarGen, SubNoNA$VarGen.1, use = "complete.obs")
-  print(paste("The correlation between", Var1, "and", Var2, "is", round(CORR, digits = 3), "based on", HowMany, "shared observations." ))
+  print(paste("The correlation between", xvar, "and", yvar, "is", round(CORR, digits = 3), "based on", HowMany, "shared observations." ))
   
   # Remove uncombined variable and return main variable's name
-  names(OutDF)[match("VarGen", names(OutDF))] <- Var1
+  names(OutDF)[match("VarGen", names(OutDF))] <- xvar
   Keepers <- setdiff(names(OutDF), "VarGen.1")
   OutDF <- OutDF[, Keepers]
   OutDF
@@ -1127,17 +1127,5 @@ NULL
 
 
 
-#' Simple function to transform a dependent variable that in [0,1] rather than 
-#' (0, 1) to beta regression. Suggested by Smithson & Verkuilen (2006).
-#' 
-#' @param y vector of the dependent variable that is in [0, 1].
-
-svTransform <- function(y)
-{
-  n <- length(y)
-  transformed <- (y * (n-1) + 0.5)/n
-  return(transformed)
-}
-NULL
 
 

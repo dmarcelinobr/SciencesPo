@@ -4,7 +4,7 @@
 \alias{labelvar}
 \title{Labels variables}
 \usage{
-labelvar(variable, label, data, wrap = TRUE)
+labelvar(variable, label, data, replace = TRUE)
 }
 \arguments{
 \item{variable}{the variable to be labeled}
@@ -13,7 +13,7 @@ labelvar(variable, label, data, wrap = TRUE)
 
 \item{data}{the \code{data.frame} where \code{var} is.}
 
-\item{drop}{is logical. If \code{TRUE}, replaces the original column with the new one with label.}
+\item{replace}{is logical. If \code{TRUE}, replaces the original column with the new one with label.}
 }
 \description{
 Labels variables

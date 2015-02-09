@@ -43,6 +43,8 @@ normalize(x)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
+svTransform
+
 \code{\link{scale}}, \code{\link{unscale}}
 }
 \keyword{Normalization}

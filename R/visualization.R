@@ -104,9 +104,9 @@ NULL
 #'  # Create a scatterplot
 #' plot2 <- qplot(carat,price,data=diamonds)
 #' # Arrange and display the plots into a 1x2 grid
-#' multiplot(plot1, plot2, ncols=2)
+#' multiPlot(plot1, plot2, ncols=2)
 #' @export
-multiplot <- function(..., ncols=1, layout=NULL) {
+multiPlot <- function(..., ncols=1, layout=NULL) {
   .plotlist=NULL
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), .plotlist)

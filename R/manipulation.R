@@ -891,7 +891,7 @@ NULL
 #' @return Normalized values in an object of the same class as \code{var}.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#'
+#' @seealso svTransform
 #'
 #' @examples
 #' x <- sample(10)
