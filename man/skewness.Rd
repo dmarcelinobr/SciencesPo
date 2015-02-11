@@ -11,7 +11,7 @@ skewness(x, na.rm = TRUE, type = 2)
 
 \item{na.rm}{a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.}
 
-\item{type}{an integer between 1 and 3 selecting one of the algorithms for computing skewness detailed below.}
+\item{type}{an integer between 1 and 3 for selecting the algorithms for computing the skewness, see details below.}
 }
 \value{
 An object of the same type as \code{x}

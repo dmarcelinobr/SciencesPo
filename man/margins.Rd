@@ -63,7 +63,7 @@ A2.tbl <- prop.table(A2)
 margins(A2.tbl)
 }
 \seealso{
-\code{\link{table}}, \code{\link{addmargins}}, and \code{percTable} in \pkg{NCStats}.
+and \code{percTable} in \pkg{NCStats}.
 }
 \keyword{array}
 \keyword{manip}

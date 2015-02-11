@@ -3,12 +3,12 @@
 \alias{jackknife}
 \title{Resamples Data Using the Jackknife Method}
 \usage{
-jackknife(x, t)
+jackknife(x, p)
 }
 \arguments{
 \item{x}{a vector}
 
-\item{t}{estimation of parameter}
+\item{p}{estimation of parameter}
 }
 \value{
 est orignial estimation of parameter

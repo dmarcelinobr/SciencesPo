@@ -148,7 +148,7 @@ NULL
 #'  
 #'  @param x a numeric vector containing the values whose skewness is to be computed.
 #'  @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
-#'  @param type an integer between 1 and 3 selecting one of the algorithms for computing skewness detailed below.
+#'  @param type an integer between 1 and 3 for selecting the algorithms for computing the skewness, see details below.
 #'  
 #'  @details The skewness is a measure of symmetry distribution. Intuitively, negative skewness (g_1 < 0) indicates that the mean of the data distribution is less than the median, and the data distribution is left-skewed. Positive skewness (g_1 > 0) indicates that the mean of the data values is larger than the median, and the data distribution is right-skewed. Values of g_1 near zero indicate a symmetric distribution. The skewness function will ignore missing values in \sQuote{x} for its computation purpose. There are several methods to compute skewness, Joanes and Gill (1998) discuss three of the most traditional methods. According to them, \bold{type 3} performs better in non-normal population distribution, whereas in normal-like population distribution type 2 fits better the data. Such difference between the two formulae tend to disappear in large samples.
 #'  \bold{Type 1:} g_1 = m_3/m_2^(3/2). 
@@ -528,8 +528,7 @@ NULL
 #'@references
 #' Hosmer, David W., et al (1997) A comparison of goodness-of-fit tests for the logistic regression model. \emph{Statistics in medicine} 16.9, 965-980.
 #' @references 
-#'Allison,  Paul (2014) Another Goodness-of-Fit Test for Logistic Regression. \url{http://www.statisticalhorizons.com/another-goodness-of-fit-test-for-logistic-regression}
-#'
+#'Allison, Paul (2014) \emph{Another Goodness-of-Fit Test for Logistic Regression}.
 #' @export
 stukel <- function(object, alternative = c("both", "alpha1", "alpha2")) {
   DNAME <- deparse(substitute(object))
@@ -629,9 +628,7 @@ NULL
 #' @param \dots further arguments passed to or used by other methods.
 #' @return an odds ratio or relative risk.  If \code{verpose=TRUE},
 #' more details and the confidence intervals are displayed.
-#' @author Kevin Middleton (\email{kmm@@csusb.edu}); modified by 
-#' Daniel Marcelino.
-#' @seealso \code{\link{chisq.test}}, \code{\link{fisher.test}}
+#' @author Kevin Middleton (\email{kmm@@csusb.edu}); modified by Daniel Marcelino.
 #' @keywords stats
 #' @examples
 #' mat <- matrix(c(100, 100, 100, 100), nrow = 2)
@@ -827,5 +824,47 @@ n <- length(x)
 G <- sum(abs(x-mu))/sqrt(n*sum((x-mu)^2))
 p <- (1-pnorm((G-sqrt(2/pi))/sqrt(1-3/pi)*sqrt(n)))*2
 cat("Geary's test for normality: G=",G," / p=",p,"\n")
+}
+NULL
+
+
+
+
+#' @title Resamples Data Using the Jackknife Method
+#' 
+#' @description 
+#' This function is used for estimating standard errors when the distribution is not know.
+#'  
+#' @param x a vector
+#' @param p estimation of parameter
+#' 
+#' @return est orignial estimation of parameter
+#' @return jkest jackknife estimation of parameter
+#' @return jkvar jackknife estimation of variance
+#' @return jkbias jackknife estimate of biasness of parameter
+#' @return jkbiascorr bias corrected parameter estimate
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' @examples 
+#' x = runif(10, 0, 1)
+#' mean(x)
+#' jackknife(x,mean)
+#' 
+#' @export
+jackknife<-function (x,p)
+{
+    n=length(x)
+    jk=rep(NA,n)
+    
+    for (i in 1:n)
+    {
+        jk[i]=p(x[-i])
+        jkest=mean(jk)
+        jkvar=(n-1)/n*sum((jk-jkest)^2)
+        jkbias=(n-1)*(jkest-p(x))
+        jkbiascorr=n*p(x)-(n-1)*jkest
+    }
+    list(est=p(x), jkest=jkest, jkvar=jkvar, jkbias=jkbias, jkbiascorr=jkbiascorr)
 }
 NULL

@@ -23,7 +23,6 @@ Imports:
     data.table,
     grid,
     lubridate,
-    devtools,
     xtable,
 Suggests:
     Zelig,

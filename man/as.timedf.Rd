@@ -33,9 +33,6 @@ peek(Obama.ts)
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
-\references{
-Ripley, B. D. and Hornik, K. (2001) Date-time classes. \emph{R News}, 1/2, 8–11 \url{http://www.r-project.org/doc/Rnews/Rnews_2001-2.pdf}
-}
 \seealso{
 \link{tsCollapse}
 }

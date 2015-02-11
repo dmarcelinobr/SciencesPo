@@ -39,7 +39,7 @@ NULL
 #'   \item DK Percent of Don't Know
 #' }
 #'
-#' @references PEW Research Center. \emph{Support for same-sex marriage}. \url{http://www.pewresearch.org/data-trend/domestic-issues/attitudes-on-gay-marriage/}
+#' @references PEW Research Center. \emph{Support for same-sex marriage}. \url{http://www.pewresearch.org}
 #'
 #' @docType data
 #' @keywords datasets

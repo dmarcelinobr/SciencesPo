@@ -27,12 +27,12 @@ Generate block-randimized designs based on the number of units \code{n} and bloc
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
 
-(blk<- rand.block(blocksize=20, n=80, seed=51) )
+(blk<- rand.block(blocksize = 20, n = 80, seed = 51) )
 
 # table(blk$block, blk$condition)
 # let's do some immaginary analysis
 set.seed(51);
-blk$y <- rnorm(n=80, mean=20, sd=5)
+blk$y <- rnorm(n = 80, mean = 20, sd = 5)
 
 # Let's look at some descriptives:
 tapply(blk$y, list(blk$condition, blk$block), mean)
@@ -40,7 +40,7 @@ tapply(blk$y, list(blk$condition, blk$block), sd)
 
 # Do the ANOVA and Make Some Graphs
 # This formula that describes the response `y` by both the treatment factor (condition) and the block control (block).
-# Note that aov() treats block as a **random** error component of variance, while lm() treats block as a **fixed effect**.
+# Note that aov() treats block as a random error component of variance, while lm() treats block as a fixed effect.
 
 fit.aov <- aov(y ~ factor(condition) + factor(block), data=blk)
 summary(fit.aov) # display Type I ANOVA table
@@ -48,13 +48,13 @@ drop1(fit.aov,~.,test="F") # type III SS and F Tests
 
 # Since the p-value of 0.254 is much greater than the .05 significance level, we cannot reject the null hypothesis that the mean of `y` for each  treatment conditions are all equal.
 
-model.tables(fit.aov,"means", se=TRUE) # SE for differences, **NOT** for means
+model.tables(fit.aov, "means", se=TRUE) # SE for differences, NOT for means
 # Calculate the pooled standard error of the means.
 pooled.se = sqrt(1688.1/4)
 
 block <- c(1,2,3,4) # the values of the x axis
 outcome <- c(19.76, 20.03, 18.44, 18.16) # the results from the means output
-plot(block,outcome,type="b", ylab="outcome",xlab="blocks of experimental conditions",ylim=c(0,30))
+plot(block, outcome, type="b", ylab="outcome", xlab="blocks of experimental conditions", ylim=c(0,30))
 
 fit.lm <- lm(y ~ factor(condition) + factor(block), data=blk)
 anova(fit.aov)
@@ -62,6 +62,6 @@ anova(fit.aov)
 \references{
 Alan S Gerber, Donald P Green (2012). \emph{Field experiments: Design, analysis, and interpretation}. WW Norton.
 
-RB Morton, KC Williams (2010). \emph{Experimental political science and the study of causality: From nature to the lab}.  Cambridge University Press.
+RB Morton, KC Williams (2010). \emph{Experimental political science and the study of causality: From nature to the lab}. Cambridge University Press.
 }
 

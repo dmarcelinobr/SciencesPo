@@ -16,6 +16,6 @@ isid(columns, data, verbose = TRUE)
 Finds unique id combination
 }
 \details{
-The original function was published at \url{https://stackoverflow.com/questions/16045161/unique-identifier-in-data-table}. This was berely touched.
+The original code published at \url{https://stackoverflow.com/} was berely touched.
 }
 

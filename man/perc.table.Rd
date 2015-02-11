@@ -49,8 +49,5 @@ perc.table(A)
 ## No marginal totals
 perc.table(A,margins=FALSE)
 }
-\seealso{
-\code{\link{prop.table}}, \code{\link{addmargins}}, and \code{addMargins} in \pkg{FSA}.
-}
 \keyword{manip}
 

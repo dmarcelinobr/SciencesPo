@@ -92,6 +92,7 @@ NULL
 
 
 
+
 #' @encoding UTF-8
 #' @title Get Information on Data Objects 
 #'
@@ -101,7 +102,6 @@ NULL
 #' 
 #' @examples
 #' data(titanic)
-#' use(titanic)
 #' ## Wildcard for variables
 #' info(titanic, "C*") # Show all variables starting with 'C'
 #' ## Subset of variables
@@ -522,8 +522,6 @@ NULL
 #' 
 #' @return two matrices.
 #'
-#' @seealso \code{\link{complete.cases}}
-#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
 #' id <- 1:10; var1 <- rnorm(10); var2 <- rgamma(10, 2, 1);
@@ -735,22 +733,22 @@ NULL
 #' @title Conditionally convert vectors to factors
 #' 
 #' @description A generic function and several instances for creating factors from
-#' other sorts of data.  The primary use case is for vectors that contain
-#' few unique values and might be better considered as factors.  When
+#' other sorts of data. The primary use case is for vectors that contain
+#' few unique values and might be better considered as factors. When
 #' applied to a data frame, this is applied to each variable in the data frame.
 #' 
-#' @param x an object
-#' @param max.levels an integer.  Only convert if the number of unique values is no 
-#' more than \code{max.levels}.
+#' @param x an object.
+#' @param max.levels an integer. Only convert if the number of unique values is no more than \code{max.levels}.
 #' @param ... additional arguments (currently ignored)
 #' 
 #' @export
 #' @examples
 #' #Some data
-#' ID=1:10
-#' Age=round(rnorm(10,50,1)) #round makes the ages, with mean of 50 sd 1, whole numbers
-#' diag=c("Depression","Bipolar");Diagnosis=sample(diag,10,replace=TRUE)
-#' data=data.frame(ID,Age,Diagnosis)
+#' ID = 1:10
+#' Age = round(rnorm(10,50,1))
+#' diag = c("Depression","Bipolar");
+#' Diagnosis = sample(diag,10,replace=TRUE)
+#' data = data.frame(ID,Age,Diagnosis)
 
 #' factorize(data$Diagnosis)
 #' str(factorize(data))
@@ -850,7 +848,7 @@ NULL
 
 #' @title Filling in missing values
 #'
-#' \code{FillIn} uses values of a variable from one data set to fill in missing values in another.
+#' \code{fillNA} uses values of a variable from one data set to fill in missing values in another.
 #' 
 #' @param x the data frame with the variable you would like to fill in.
 #' @param y the data frame with the variable you would like to use to fill in \code{D1}.
@@ -870,8 +868,9 @@ NULL
 #'                      fFull = c(100, 200, 300, 400))
 #'
 #' # Fill in missing f's from naDF with values from fillDF
-#' FilledInData <- fillNA(naDF, fillDF, xvar = "fNA", yvar = "fFull", KeyVar = c("a", "b"))
-#' @import data.table
+#' Filled <- fillNA(naDF, fillDF, xvar = "fNA", yvar = "fFull", KeyVar = c("a", "b"))
+#' @importFrom data.table data.table
+#' @importFrom data.table  := 
 #' @export
 fillNA  <- function(x, y, xvar, yvar = NULL, KeyVar)
 {
@@ -961,7 +960,7 @@ NULL
 #' 
 #' @param x a data frame.
 #' @param by a vector of at least 2 variables from the data frame. If missing all variables in the data frame will be used.
-#' @param fill the value used to fill in all other variables from the data frame, default is \code{fill = TRUE}.
+#' @param fill the value used to fill in, default is \code{fill = 0}.
 #' 
 #' @return a data object of the same class as \code{x}.
 #'  
@@ -1125,6 +1124,124 @@ function (x)
 }
 NULL
 
+
+
+
+#' @title Finds ID combination
+#' 
+#' @description Finds unique id combination
+#' 
+#' @param columns columns to combine 
+#' @param data the data object
+#' @param verbose if \code{TRUE} messages maybe be displayed.
+#' 
+#' @details The original code published at \url{https://stackoverflow.com/} was berely touched.
+#' @importFrom data.table data.table
+#' @importFrom data.table copy
+#' @importFrom data.table setkey 
+#' @importFrom data.table haskey 
+#' @importFrom data.table is.data.table
+#' 
+#' @export
+isid <- function(columns, data, verbose  = TRUE){
+  if(!is.data.table(data)){
+    copyd <- data.table(data)
+  } else{ 
+    copyd <- copy(data)
+  }
+  if(haskey(copyd)){
+    setkey(copyd, NULL)
+  }
+  # NA values don't work in keys for data.tables
+  any.NA <- Filter(columns, f= function(x) any(is.na(copyd[[x]])))
+  if(verbose){
+    for(aa in seq_along(any.NA)){message(sprintf('Column %s contains NA values', any.NA[aa] ))}
+  }
+  validCols <- setdiff(columns, any.NA)
+  # cycle through columns 1 at a time
+  ncol <- 1L
+  validKey <- FALSE
+  while(!isTRUE(validKey) && ncol <= length(validCols)){
+    anyValid <- combn(x = validCols, m = ncol, FUN = function(xn){
+      subd <- copyd[, xn, with = FALSE]
+      result <- nrow(subd) == nrow(unique(subd))
+      list(cols = xn, valid = result)
+    }, simplify = FALSE)
+    
+    whichValid <- sapply(anyValid, `[[`, 'valid')
+    validKey <- any(whichValid)
+    ncol <- ncol + 1L
+  }
+  
+  if(!validKey){
+    warning('No combinations are unique')
+    return(NULL)} else {
+      valid.combinations <- lapply(anyValid, `[[`, 'cols')[whichValid]
+      if(length(valid.combinations) > 1){
+        warning('More than one combination valid, returning the first only')
+      }
+      return(valid.combinations[[1]])
+    }
+}
+NULL
+
+
+
+
+#' @title Detect Outliers
+#' 
+#' @description Perform an exploaratory test to detect \emph{outliers}. This function returns the minimum and maximum values, respectively preceded by their positions in the \code{vector}, \code{matrix} or \code{data.frame}. The quantity for \emph{min} reveals the minimum deviation from the mean, the integer in \emph{closest} highlights the position of the element. In the same vein, the quantity for \emph{max} is the maximum deviation from the mean, and the \code{farthest} integer is the position of such higher quantity.
+#' 
+#' @param x A numeric object
+#' @param index A numeric value to be considered in the computations
+#' 
+#' @return The returning object will depend on the inputing object, either a vector or a data frame.
+#' 
+#' @references Dixon, W.J. (1950) Analysis of extreme values. \emph{Ann. Math. Stat.} \bold{21(4),} 488--506.
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#' @seealso \link{winsorize} for diminishing the impact of outliers.
+#' 
+#' @examples
+#' outliers(x <- rnorm(20))
+#' 
+#' #data frame:
+#' data(ssex)
+#' outliers(ssex)
+#' 
+#' @export
+#' 
+outliers <-
+  function(x, index=NULL) {
+    if (is.data.frame(x)) {
+      as.data.frame(sapply(x, outliers, index))
+    } else if (is.matrix(x)) {
+      apply(x, 2, outliers, index)
+    } else if (is.list(x)) {
+      lapply(x, outliers, index)
+    } else if (is.vector(x)) {
+      if (!is.null(index)) {
+        if (!is.list(index)) {
+          index <- list(index) # make sure index is a list
+        }
+        unsplit(outliers(split(x,index),index=NULL),index)
+      } else {
+        
+        mu <- mean(x)
+        dev <- abs(x - mu)
+        closest <- which.min(dev)
+        farthest <- which.max(dev)
+        min <- dev[closest]
+        max <- dev[ farthest]
+        output <- data.frame(closest, min, farthest, max)
+        return(output)
+      }
+    } else {
+      cat("non-numeric argument to 'outlier'",class(x),"\n",sep="")
+    }
+  }
+NULL
 
 
 

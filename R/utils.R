@@ -87,7 +87,6 @@ NULL
 #' @param check The \code{names} you want to check.
 #' 
 #'  @return A character vector of the remaining names.
-#'   @seealso \code{\link{setdiff}}
 #'  @examples
 #' \dontrun{ bigdf <- data.frame(a = 1:2, b = 3:4, c = 5:6)
 #' otherNames(bigdf, "b")}

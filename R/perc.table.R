@@ -16,7 +16,6 @@
 #'\code{margin=}.
 #'@return Same type as \code{x} except with percentages of a margin rather than
 #'frequencies.
-#'@seealso \code{\link{prop.table}}, \code{\link{addmargins}}, and \code{addMargins} in \pkg{FSA}.
 #'@keywords manip
 #'@examples
 #'Aye <- sample(c("Yes", "Si", "Oui"), 177, replace = TRUE)

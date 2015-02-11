@@ -3,7 +3,7 @@
 \alias{fillNA}
 \title{Filling in missing values
 
-\code{FillIn} uses values of a variable from one data set to fill in missing values in another.}
+\code{fillNA} uses values of a variable from one data set to fill in missing values in another.}
 \usage{
 fillNA(x, y, xvar, yvar = NULL, KeyVar)
 }
@@ -21,7 +21,7 @@ fillNA(x, y, xvar, yvar = NULL, KeyVar)
 \description{
 Filling in missing values
 
-\code{FillIn} uses values of a variable from one data set to fill in missing values in another.
+\code{fillNA} uses values of a variable from one data set to fill in missing values in another.
 }
 \examples{
 # Create data set with missing values
@@ -35,6 +35,6 @@ fillDF <- data.frame(a = c(1,2,1,2),
                      fFull = c(100, 200, 300, 400))
 
 # Fill in missing f's from naDF with values from fillDF
-FilledInData <- fillNA(naDF, fillDF, xvar = "fNA", yvar = "fFull", KeyVar = c("a", "b"))
+Filled <- fillNA(naDF, fillDF, xvar = "fNA", yvar = "fFull", KeyVar = c("a", "b"))
 }
 

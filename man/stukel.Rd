@@ -26,6 +26,6 @@ Stukel, T.A. (1988) Generalized logistic models. \emph{Journal of the American S
 
 Hosmer, David W., et al (1997) A comparison of goodness-of-fit tests for the logistic regression model. \emph{Statistics in medicine} 16.9, 965-980.
 
-Allison,  Paul (2014) Another Goodness-of-Fit Test for Logistic Regression. \url{http://www.statisticalhorizons.com/another-goodness-of-fit-test-for-logistic-regression}
+Allison, Paul (2014) \emph{Another Goodness-of-Fit Test for Logistic Regression}.
 }
 

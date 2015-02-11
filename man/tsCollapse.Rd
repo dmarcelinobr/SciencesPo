@@ -10,7 +10,7 @@ tsCollapse(data, by = c("day", "month", "year"), FUN, na.rm = FALSE,
 \arguments{
 \item{data}{a \bold{timedf} object}
 
-\item{by}{the method used to break the dependent variable \code{y} in \code{data}; three options \code{"day","month",or "year"}.}
+\item{by}{the method used to break up the dependent variable; options \code{"day", "month", or "year"}.}
 
 \item{FUN}{a function to aggregate data \code{sum, mean, min, max, etc}.}
 
@@ -49,9 +49,6 @@ bimonthly <-tsCollapse(Obama.ts,by = "month", mean, factor = 2)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
-}
-\references{
-Ripley, B. D. and Hornik, K. (2001) Date-time classes. \emph{R News}, 1/2, 8–11 \url{http://www.r-project.org/doc/Rnews/Rnews_2001-2.pdf}
 }
 \keyword{Data-Manipulation}
 

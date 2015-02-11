@@ -24,7 +24,4 @@ eliminateNA(df)
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
-\seealso{
-\code{\link{complete.cases}}
-}
 

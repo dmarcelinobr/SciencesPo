@@ -23,7 +23,7 @@ The Effective Number of Parties \bold{ENP} is a measure of fragmentation. The in
 \details{
 Very often, political analysts say things like \sQuote{two-party system} and \sQuote{multi-party system} to refer to a particular kind of political party systems. However, these terms alone does not tell exactly how fragmented--or concentrated a party system actually is. For instance, after the 2010 general election in Brazil, 22 parties obtained representation in the country's Lower Chamber. Nonetheless, nine parties returned only 28 MPs together. Thus, an algorithm to (weigh) or to calculate the \bold{Effective Number of Parties} in such circumstances helps to go beyond the simple number of parties in a legislative branch.
 
-A widely accepted algorithm was proposed by M. Laakso and R. Taagepera: \deqn{N = \frac{1}{\sum p_i^2}}{N = 1/ \sum p_i^2}, where \bold{N} denotes the effective number of parties and \bold{p_i} denotes the \deqn{it^h} party's fraction of the seats.
+A widely accepted algorithm was proposed by M. Laakso and R. Taagepera: \deqn{N = \frac{1}{\sum p_i^2}}{N = 1/ \sum p_i^2}, where \bold{N} denotes the effective number of parties and \bold{p_i} denotes the \eqn{it^h} party's fraction of the seats.
 
 The same process can be used to compute the vote share for each party. This formula is the reciprocal of a well-known concentration index (\bold{the Herfindahl-Hirschman index}) used in economics to study the degree to which ownership of firms in an industry is concentrated. Laakso and Taagepera correctly saw that the effective number of parties is simply an instance of the inverse measurement problem to that one. This index makes rough but fairly reliable international comparisons of party systems possible.
 
@@ -49,12 +49,14 @@ votes = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345,
 605768, 968475, 719611, 283047, 232530, 457490, 563145)
 
 # 2010 Election outcome passed as proportion of seats
-seats_2010 = c(88,79,53,43,41,41,34,28,21,17,15,15,12,8,4,3,3,2,2,2,1,1)/513
+seats_2010 = c(88, 79, 53, 43, 41, 41, 34, 28, 21,
+17, 15, 15, 12, 8, 4, 3, 3, 2, 2, 2, 1, 1)/513
 
 ENPs(seats=seats_2010, total=NULL, method="Golosov")
 
 # 2014 Election outcome passed as proportion of seats
-seats_2014 = c(70,66,55,37,38,34,34,26,22,20,19,15,12,11,10,9,8,5,4,3,3,3,2,2,2,1,1,1)/513
+seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12,
+11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 
 ENPs(seats_2014, method="Golosov")
 }
@@ -64,9 +66,9 @@ Daniel Marcelino, \email{dmarcelino@live.com}.
 \references{
 Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
 
-Golosov, Grigorii (2010) The Effective Number of Parties: A New Approach, \emph{Party Politics,} \bold{16:} 171--192. \bold{DOI: 10.1177/1354068809339538}.
+Golosov, Grigorii (2010) The Effective Number of Parties: A New Approach, \emph{Party Politics,} \bold{16:} 171--192.
 
-Laakso, Markku and Rein Taagepera (1979) Effective Number of Parties: A Measure with Application to West Europe, \emph{Comparative Political Studies,} \bold{12:} 3-–27. \bold{DOI: 10.1177/001041407901200101}.
+Laakso, Markku and Rein Taagepera (1979) Effective Number of Parties: A Measure with Application to West Europe, \emph{Comparative Political Studies,} \bold{12:} 3-–27.
 
 Nicolau, Jairo (2008) \emph{Sistemas Eleitorais.} Rio de Janeiro, FGV.
 

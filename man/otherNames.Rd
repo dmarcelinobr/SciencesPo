@@ -21,7 +21,4 @@ Extracts names from a dataset other than the ones indicates
 \dontrun{ bigdf <- data.frame(a = 1:2, b = 3:4, c = 5:6)
 otherNames(bigdf, "b")}
 }
-\seealso{
-\code{\link{setdiff}}
-}
 

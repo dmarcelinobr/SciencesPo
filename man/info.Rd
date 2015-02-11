@@ -18,7 +18,6 @@ Get Information on Data Objects
 }
 \examples{
 data(titanic)
-use(titanic)
 ## Wildcard for variables
 info(titanic, "C*") # Show all variables starting with 'C'
 ## Subset of variables

@@ -11,7 +11,7 @@ fillin(x, by, fill = NA)
 
 \item{by}{a vector of at least 2 variables from the data frame. If missing all variables in the data frame will be used.}
 
-\item{fill}{the value used to fill in all other variables from the data frame, default is \code{fill = TRUE}.}
+\item{fill}{the value used to fill in, default is \code{fill = 0}.}
 }
 \value{
 a data object of the same class as \code{x}.

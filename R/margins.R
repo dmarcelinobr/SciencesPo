@@ -15,7 +15,7 @@
 #'@return A table or array with the same number of dimensions as \code{A}, but
 #'with extra levels of the dimensions mentioned in \code{margin}.
 #'@note This is primarily a wrapper function for \code{addmargins} in \pkg{stats}.
-#'@seealso \code{\link{table}}, \code{\link{addmargins}}, and \code{percTable} in \pkg{NCStats}.
+#'@seealso and \code{percTable} in \pkg{NCStats}.
 #'@keywords manip array
 #'@examples
 #' Aye <- sample(c("Yes", "Si", "Oui"), 177, replace = TRUE)

@@ -73,11 +73,7 @@ out <- matrix(c(131,75,27, 6), nrow=2)
  oddsRatio(out)
 }
 \author{
-Kevin Middleton (\email{kmm@csusb.edu}); modified by
-Daniel Marcelino.
-}
-\seealso{
-\code{\link{chisq.test}}, \code{\link{fisher.test}}
+Kevin Middleton (\email{kmm@csusb.edu}); modified by Daniel Marcelino.
 }
 \keyword{stats}
 

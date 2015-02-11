@@ -18,7 +18,7 @@ Data set fielded by the PEW Research Center on same sex marriage support in US. 
 }
 }
 \references{
-PEW Research Center. \emph{Support for same-sex marriage}. \url{http://www.pewresearch.org/data-trend/domestic-issues/attitudes-on-gay-marriage/}
+PEW Research Center. \emph{Support for same-sex marriage}. \url{http://www.pewresearch.org}
 }
 \keyword{datasets}
 
