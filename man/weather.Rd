@@ -18,7 +18,7 @@ Data represents average daily temperatures.
   character vector for date.
  \item day the day of the month.
  \item year the year.
- \item temp the average daily temperatures ( \dQuote{24 hour} and \deqn{(min + max)/2}).
+ \item temp the average daily temperatures ( \dQuote{24 hour} and \eqn{(min + max)/2}).
  }
 }
 \note{

@@ -2,7 +2,7 @@
 \encoding{UTF-8}
 \name{nearest.loc}
 \alias{nearest.loc}
-\title{Find Location of Nearest Value}
+\title{Find Location of the Nearest Value}
 \usage{
 nearest.loc(x, value)
 }

@@ -14,18 +14,18 @@ rename <- function(old, new, data, ...){
 #' @export
 rename.default <- function (old, new, data, ...) 
 {
-  data1 <- data
-  if (any(names(data1) == as.character(substitute(old)))) {
-    names(data1)[names(data1) == as.character(substitute(old))] <- as.character(substitute(new))
+  dataset <- data
+  if (any(names(dataset) == as.character(substitute(old)))) {
+    names(dataset)[names(dataset) == as.character(substitute(old))] <- as.character(substitute(new))
     pos = 1 # does nothing just to trick the environment 
-    assign(as.character(substitute(data)), data1, envir = as.environment(pos))
+    assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
     if(is.element(as.character(substitute(data)), search())){
       detach(pos=which(search() %in% as.character(substitute(data))))
-      attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+      attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
     }
   }
   else {
-    if (length(grep(pattern = old, x = names(data1))) > 0) {
+    if (length(grep(pattern = old, x = names(dataset))) > 0) {
       rename.pattern(old, new, printNote = TRUE, data)
     }
     else {
@@ -44,24 +44,24 @@ rename.default <- function (old, new, data, ...)
 #' @export
 rename.var <- function (old, new, data, ...) 
 {
-  data1 <- data
+  dataset <- data
   pos = 1 # does nothing just to trick the environment
-  if (any(names(data1) == as.character(substitute(old)))) {
-    names(data1)[names(data1) == as.character(substitute(old))] <- as.character(substitute(new))
+  if (any(names(dataset) == as.character(substitute(old)))) {
+    names(dataset)[names(dataset) == as.character(substitute(old))] <- as.character(substitute(new))
  
-    assign(as.character(substitute(data)), data1, envir = as.environment(pos))
+    assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
     if(is.element(as.character(substitute(data)), search())){
       detach(pos=which(search() %in% as.character(substitute(data))))
-      attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+      attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
     }
   }
   else {
-    if (any(names(data1) == old)) {
-      names(data1)[names(data1) == old] <- as.character(substitute(new))
-      assign(as.character(substitute(data)), data1, envir = as.environment(pos))
+    if (any(names(dataset) == old)) {
+      names(dataset)[names(dataset) == old] <- as.character(substitute(new))
+      assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
       if(is.element(as.character(substitute(data)), search())){
         detach(pos=which(search() %in% as.character(substitute(data))))
-        attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+        attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
       }
     }
     else {
@@ -78,27 +78,27 @@ rename.var <- function (old, new, data, ...)
 #' @export
 rename.pattern <- function (old, new, data, verbose = TRUE, ...) 
 {
-  data1 <- data
+  dataset <- data
   pos = 1 # does nothing just to trick the environment
-  if (length(grep(pattern = old, x = names(data1))) == 0) 
+  if (length(grep(pattern = old, x = names(dataset))) == 0) 
     stop(paste("Pattern ", "\"", as.character(substitute(old)), 
                "\"", " does not exist", sep = ""))
-  table1 <- cbind(names(data1)[grep(pattern = old, x = names(data1))], 
-                  sub(pattern = old, replacement = new, x = names(data1))[grep(pattern = old, 
-                                                                               x = names(data1))])
-  rownames(table1) <- rep("    ", length(names(data1)[grep(pattern = old, 
-                                                           x = names(data1))]))
+  table1 <- cbind(names(dataset)[grep(pattern = old, x = names(dataset))], 
+                  sub(pattern = old, replacement = new, x = names(dataset))[grep(pattern = old, 
+                                                                               x = names(dataset))])
+  rownames(table1) <- rep("    ", length(names(dataset)[grep(pattern = old, 
+                                                           x = names(dataset))]))
   colnames(table1) <- c("Old var names  ", "New var names")
   if (verbose) {
     cat("Note the following change(s) in variable name(s):", 
         "\n")
     print(table1)
   }
-  names(data1) <- sub(pattern = old, replacement = new, x = names(data1))
-  assign(as.character(substitute(data)), data1, envir = as.environment(pos))  
+  names(dataset) <- sub(pattern = old, replacement = new, x = names(dataset))
+  assign(as.character(substitute(data)), dataset, envir = as.environment(pos))  
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
-    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+    attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
 NULL
@@ -471,11 +471,10 @@ NULL
 #' 
 #' @examples
 #' mtcars$cars <- row.names(mtcars)
-#' df1 <- mtcars[,c(1:2,12)]
-#' df2 <- mtcars[,c(3:4,12)]
-#' df3 <- mtcars[,c(5:6,12)]
-#' joinLists(x=list(df1, df2, df3), by="cars")
-
+#' df1 <- mtcars[, c(1:2, 12)]
+#' df2 <- mtcars[, c(3:4, 12)]
+#' df3 <- mtcars[, c(5:6, 12)]
+#' joinLists(x = list(df1, df2, df3), by = "cars")
 #' @export
 joinLists <-
   function(x, ...)
@@ -485,7 +484,7 @@ joinLists <-
     for(i in 1:length(dfs2)){
       dfs1 <- merge(dfs1, dfs2[[i]], all = TRUE, sort = FALSE, ...)
     }
-    return( dfs1 )
+    return(dfs1)
   }
 NULL
 
@@ -588,15 +587,14 @@ NULL
 #' 
 #' @examples 
 #' data(sheston91)
-#' attach(sheston91)
+#' use(sheston91)
 #' peek(sheston91)
-#' ## lag
+#' # lag
 #' sheston91$L.pop <- shift(x = pop, id = country, time = year, delta = 1) 
 #' head(sheston91)
-#' 
 #' # lead
 #'  sheston91$pop.L <- shift(x = pop, id = country, time = year, delta =  -1) 
-#' head(sheston91)
+#'  head(sheston91)
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
@@ -882,10 +880,10 @@ NULL
 #' @encoding UTF-8
 #' @title Unity-based normalization
 #' 
-#' @description Normalizes as feature scaling, \code{min - max}, or unity-based normalization. Typically used to bring all values into the range [0,1]. However, this can be generalized to restrict the range of values in the dataset between any arbitrary points  \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})} }.
+#' @description Normalizes as feature scaling, \code{min - max}, or unity-based normalization. Typically used to bring all values into the range [0,1]. However, this can be generalized to restrict the range of values in the dataset between any arbitrary points  \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})}}.
 #' 
 #' @param x is a vector to be normalized.
-#' @param range isa numeric vector of length 2 for min and max values, default is \code{c(0,1)}.
+#' @param range is a numeric vector of length 2 for min and max values, default is \code{c(0,1)}.
 #' @param domain a numeric vector of length 2.
 #' @param \dots further arguments passed to or used by other methods.
 #' @return Normalized values in an object of the same class as \code{var}.
@@ -973,11 +971,12 @@ NULL
 #' @seealso \link{unnest}.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @details The way one may split a name is region dependent, so this function may only apply to very few contexts. See for instance \url{http://www.w3.org/International/questions/qa-personal-names} 
+#' 
 #' @examples
 #' df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Simon Bolivar") )
 #' nameSplit(df$name)
 #' df$n<- nameSplit(df$name)
-#'  # df[]<- nameSplit(df$name)
+#'
 #' @export
 nameSplit<- function(name, data=.data){
   .data <- NULL
@@ -1138,7 +1137,7 @@ NULL
 #' @description Return a \code{data.frame} with aggregated data by time parameters. In order to use this function, you have to have a \link{as.timedf} data.frame.
 #' 
 #' @param data a \bold{timedf} object
-#' @param by the method used to break up the dependent variable; options \code{"day", "month", or "year"}.
+#' @param by the method to break up the dependent variable; options: \code{"day"},\code{ "month"}, or \code{"year"}.
 #' @param FUN a function to aggregate data \code{sum, mean, min, max, etc}.
 #' @param factor is the aggregator factor; a numeric value representing days, months or years to perform aggregation by.
 #' @param na.rm A logical value for \code{na.rm}, default is \code{FALSE}
@@ -1146,7 +1145,7 @@ NULL
 #' @param plot whether the data.frame to be plotted, default is \code{plot = TRUE}.
 #' 
 #' @details A data.frame of type long with summarized time series data (y) and time parameters formatted as POSIXct. 
-#' @note To weekly aggregation, set \code{by="day"} and \code{factor = 7}
+#' @note To weekly aggregation, set \code{by = "day"} and \code{factor = 7}
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
@@ -1157,16 +1156,16 @@ NULL
 #' Obama.ts <- as.timedf(us2012[,3], '%Y-%m-%d', us2012[,8])
 #'
 #' # Daily aggregated means for data:
-#' daily <- tsCollapse(Obama.ts, by="day", mean)
+#' daily <- tsCollapse(Obama.ts, by = "day", mean)
 #' 
 #' # Weekly aggregated means for data:
-#' weekly <-tsCollapse(Obama.ts, by = "day", factor =7, mean)
+#' weekly <- tsCollapse(Obama.ts, by = "day", factor = 7, mean)
 #' 
 #' # monthly aggregated means for data:
-#' monthly <-tsCollapse(Obama.ts, by = "month", mean)
+#' monthly <- tsCollapse(Obama.ts, by = "month", mean)
 #'
 #' # bimonthly or semimonthly aggregated means for data:
-#' bimonthly <-tsCollapse(Obama.ts,by = "month", mean, factor = 2)
+#' bimonthly <- tsCollapse(Obama.ts,by = "month", mean, factor = 2)
 #' 
 #' @export
 #' 

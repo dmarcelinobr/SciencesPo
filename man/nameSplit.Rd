@@ -24,7 +24,6 @@ The way one may split a name is region dependent, so this function may only appl
 df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Simon Bolivar") )
 nameSplit(df$name)
 df$n<- nameSplit(df$name)
- # df[]<- nameSplit(df$name)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

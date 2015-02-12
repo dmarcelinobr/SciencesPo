@@ -5,7 +5,7 @@
 \title{Christensen's and Greene's (1976) Data}
 \format{A data frame with 99 observations on the following 8 variables. See Hayashi (2000) for more details.}
 \source{
-Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
 \usage{
 data(cgreene76)

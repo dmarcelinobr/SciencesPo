@@ -16,10 +16,10 @@ Recursively join data frames
 }
 \examples{
 mtcars$cars <- row.names(mtcars)
-df1 <- mtcars[,c(1:2,12)]
-df2 <- mtcars[,c(3:4,12)]
-df3 <- mtcars[,c(5:6,12)]
-joinLists(x=list(df1, df2, df3), by="cars")
+df1 <- mtcars[, c(1:2, 12)]
+df2 <- mtcars[, c(3:4, 12)]
+df3 <- mtcars[, c(5:6, 12)]
+joinLists(x = list(df1, df2, df3), by = "cars")
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

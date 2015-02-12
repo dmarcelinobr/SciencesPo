@@ -6,15 +6,15 @@
 center(x, by)
 }
 \arguments{
-\item{x}{A variable name whose values is to be centered}
+\item{x}{A variable name whose values is to be centered.}
 
-\item{by}{A factor variable}
+\item{by}{A factor variable.}
 }
 \value{
 Scaled values
 }
 \description{
-Perform column centering and allow for centering by groups. By centering, I simply mean to subtract a constant from every value of a variable \deqn{(x - \bar{x})}, which produces an equivalent as \code{scale(x, scale = FALSE)} in the \pkg{base} package.
+Perform column centering and allow for centering by groups. By centering, I simply mean to subtract a constant from every value of a variable \eqn{(x - \bar{x})}, which produces an equivalent as \code{scale(x, scale = FALSE)} in the \pkg{base} package.
 }
 \details{
 Essentially, what it does is redefine the 0 point for that predictor to be whatever value you subtracted.  It shifts the scale over, but retains the units. In a linear model, the effect is that the slope between that predictor and the response variable doesn't change at all. But the interpretation of the intercept does.  When 0 is out of the range of data, the intercept value is \dQuote{meaningless}. But when \code{x} is centered, the mean of the response when all predictors = 0, becomes actually 0; thus the intercept becomes the mean of Y at the value you centered on.

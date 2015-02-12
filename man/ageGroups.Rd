@@ -25,11 +25,10 @@ age based upon the \code{to} if given, otherwise the \code{age.var} will be used
 # The age groupings used by IBGE (grandes grupos).
 # simulate vector with 1000 age values
 age <- sample(0:100, 1000, replace = TRUE)
- mean(age); sd(age);
+mean(age); sd(age);
 ageGroups(age, breaks = c(0, 14, 64, Inf), labels = NULL )
 ageGroups(age, breaks = c(0, 14, 64, Inf),
 labels = c("<14", "15-64", "65+") )
-
 
 ibge_brks = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, Inf)
 ibge_lbls = c("0-4", "5-9", "10-14", "15-19", "20-24",

@@ -6,7 +6,7 @@
 fillNAByPreviousData(column)
 }
 \arguments{
-\item{column}{the column that constains NAs}
+\item{column}{the column that contains NAs}
 }
 \description{
 Fill NA by Previous Value

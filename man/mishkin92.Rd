@@ -5,7 +5,7 @@
 \title{Mishkin's (1992) Data}
 \format{A data frame with 491 observations on the following 8 variables.}
 \source{
-Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
 \usage{
 data(mishkin92)

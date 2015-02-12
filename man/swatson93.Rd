@@ -5,7 +5,7 @@
 \title{Stock's and Watson's (1993) Data.}
 \format{A data frame with 90 observations on the following 5 variables.}
 \source{
-Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
 \usage{
 data(swatson93)

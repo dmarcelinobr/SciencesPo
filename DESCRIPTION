@@ -2,8 +2,8 @@ Package: SciencesPo
 Type: Package
 Title: A Tool Set For Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
-Version: 1.01.20
-Date: 2015-01-20
+Version: 1.02.12
+Date: 2015-02-12
 Author: Daniel Marcelino
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: SciencesPo is a data-analysis tool for the political science crowd.

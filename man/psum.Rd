@@ -20,7 +20,7 @@ Provides parallel sum like \code{pmin} and \code{pmax} from the base package. Th
 \examples{
 data(us2012)
 psum(us2012$Obama, us2012$Romney)
-Swingy <-psum(us2012$Obama, us2012$Romney-100)
+swingy <-psum(us2012$Obama, us2012$Romney-100)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

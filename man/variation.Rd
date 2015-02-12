@@ -13,10 +13,10 @@ variation(x)
 The coefficient of variation.
 }
 \description{
-Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Karl Pearson, which is given by the division of standard deviation by the mean. The CV reflects a normalized measure of the dispersion of a given probability distribution. Conversely, distributions with \deqn{cv < 1} are considered \dQuote{low-variance}, while those with \deqn{cv > 1} \dQuote{high-variance}.
+Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Karl Pearson, which is given by the division of standard deviation by the mean. The CV reflects a normalized measure of the dispersion of a given probability distribution. Conversely, distributions with \eqn{cv < 1} are considered \dQuote{low-variance}, while those with \eqn{cv > 1} \dQuote{high-variance}.
 }
 \details{
-\code{sd(x)/mean(x) = cv}, which is the inverse of signal-to-noise ratio.
+\eqn{\frac{sd(x)}{mean(x)} = cv}, which is the inverse of signal-to-noise ratio.
 }
 \examples{
 myvar <- sample(100)

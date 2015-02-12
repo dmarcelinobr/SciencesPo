@@ -26,15 +26,14 @@ The combination of \code{id} and \code{time} must yelds to a unique identificati
 }
 \examples{
 data(sheston91)
-attach(sheston91)
+use(sheston91)
 peek(sheston91)
-## lag
+# lag
 sheston91$L.pop <- shift(x = pop, id = country, time = year, delta = 1)
 head(sheston91)
-
 # lead
  sheston91$pop.L <- shift(x = pop, id = country, time = year, delta =  -1)
-head(sheston91)
+ head(sheston91)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

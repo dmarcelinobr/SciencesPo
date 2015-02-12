@@ -5,7 +5,7 @@
 \title{Lothian's and Taylor's (1996) Data Set}
 \format{A data frame with 200 observations on the following 4 variables.}
 \source{
-Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
 \usage{
 data(ltaylor96)

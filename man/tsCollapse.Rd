@@ -10,7 +10,7 @@ tsCollapse(data, by = c("day", "month", "year"), FUN, na.rm = FALSE,
 \arguments{
 \item{data}{a \bold{timedf} object}
 
-\item{by}{the method used to break up the dependent variable; options \code{"day", "month", or "year"}.}
+\item{by}{the method to break up the dependent variable; options: \code{"day"},\code{ "month"}, or \code{"year"}.}
 
 \item{FUN}{a function to aggregate data \code{sum, mean, min, max, etc}.}
 
@@ -29,23 +29,23 @@ Return a \code{data.frame} with aggregated data by time parameters. In order to 
 A data.frame of type long with summarized time series data (y) and time parameters formatted as POSIXct.
 }
 \note{
-To weekly aggregation, set \code{by="day"} and \code{factor = 7}
+To weekly aggregation, set \code{by = "day"} and \code{factor = 7}
 }
 \examples{
 data(us2012)
 Obama.ts <- as.timedf(us2012[,3], '\%Y-\%m-\%d', us2012[,8])
 
 # Daily aggregated means for data:
-daily <- tsCollapse(Obama.ts, by="day", mean)
+daily <- tsCollapse(Obama.ts, by = "day", mean)
 
 # Weekly aggregated means for data:
-weekly <-tsCollapse(Obama.ts, by = "day", factor =7, mean)
+weekly <- tsCollapse(Obama.ts, by = "day", factor = 7, mean)
 
 # monthly aggregated means for data:
-monthly <-tsCollapse(Obama.ts, by = "month", mean)
+monthly <- tsCollapse(Obama.ts, by = "month", mean)
 
 # bimonthly or semimonthly aggregated means for data:
-bimonthly <-tsCollapse(Obama.ts,by = "month", mean, factor = 2)
+bimonthly <- tsCollapse(Obama.ts,by = "month", mean, factor = 2)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

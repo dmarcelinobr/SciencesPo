@@ -22,7 +22,7 @@ normalize(x, range, domain, ...)
 \arguments{
 \item{x}{is a vector to be normalized.}
 
-\item{range}{isa numeric vector of length 2 for min and max values, default is \code{c(0,1)}.}
+\item{range}{is a numeric vector of length 2 for min and max values, default is \code{c(0,1)}.}
 
 \item{domain}{a numeric vector of length 2.}
 
@@ -32,7 +32,7 @@ normalize(x, range, domain, ...)
 Normalized values in an object of the same class as \code{var}.
 }
 \description{
-Normalizes as feature scaling, \code{min - max}, or unity-based normalization. Typically used to bring all values into the range [0,1]. However, this can be generalized to restrict the range of values in the dataset between any arbitrary points  \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})} }.
+Normalizes as feature scaling, \code{min - max}, or unity-based normalization. Typically used to bring all values into the range [0,1]. However, this can be generalized to restrict the range of values in the dataset between any arbitrary points  \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})}}.
 }
 \examples{
 x <- sample(10)

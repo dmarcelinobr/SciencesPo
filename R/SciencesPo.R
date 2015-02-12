@@ -7,6 +7,7 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 NULL
 
+
 #' @title Galton's Family Data on Human Stature.
 #' 
 #' @description It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas.
@@ -66,7 +67,7 @@ NULL
 #'
 #' @references Summers, R. and Heston, A. (1991) The Penn World Table (Mark 5): an expanded set of international comparisons, 1950--1988. \emph{The Quarterly Journal of Economics,} \bold{106(2),} 327--368.
 #' 
-#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #' 
 #'
 #' @docType data
@@ -105,7 +106,7 @@ NULL
 #' \item lw80 a numeric vector.
 #' }
 #'
-#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #'
 #' @references Griliches, Z. (1976) Wages of very young men. \emph{The Journal of Political Economy,} \bold{84(4),} 69--85. 
 #'
@@ -130,7 +131,7 @@ NULL
 #'  }
 #'
 #'
-#'#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#'#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #'
 #' @references Nerlove, M. (1963) Returns to Scale in Electricity Supply. In \emph{Measurement in Economics-Studies in Mathematical Economics and Econometrics in Memory of Yehuda Grunfeld,} edited by Carl F. Christ. Stanford: Stanford. 
 #'
@@ -153,7 +154,7 @@ NULL
 #' \item year Commercial paper rate.
 #'  }
 #'
-#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #' 
 #' @references Stock, J. H., and Watson, M. W. (1993) A simple estimator of cointegrating vectors in higher order integrated systems. \emph{Econometrica: Journal of the Econometric Society,} 783--820.
 #'
@@ -178,7 +179,7 @@ NULL
 #' \item UKwpi U.K. wholesale price index, 1914==100.
 #' }
 #'
-#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #' 
 #' 
 #' @references Lothian, J. R., and Taylor, M. P. (1996) Real exchange rate behavior: the recent float from the perspective of the past two centuries. \emph{Journal of Political Economy,} 488--509.
@@ -207,7 +208,7 @@ NULL
 #' \item kapshr Capital's cost share.
 #' }
 #'
-#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #'
 #' @references Christensen, L. R., and Greene, W. H. (1976) Economies of scale in US electric power generation. \emph{The Journal of Political Economy,} 655--676.
 #'
@@ -235,7 +236,7 @@ NULL
 #' \item quote a numeric vector
 #' }
 #'
-#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #' 
 #' @references Mishkin, F. S. (1992) Is the Fisher effect for real?: A reexamination of the relationship between inflation and interest rates. \emph{Journal of Monetary Economics,} \bold{30(2),} 195--215.
 #'
@@ -265,7 +266,7 @@ NULL
 #' \item quote A numeric vector.
 #' }
 #'
-#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University.\url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
+#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #' 
 #' @references Bekaert, G., and Hodrick, R. J. (1993) On biases in the measurement of foreign exchange risk premiums. \emph{Journal of International Money and Finance,} \bold{12(2),} 115-138.
 #'
@@ -314,7 +315,7 @@ NULL
 #'   character vector for date.
 #'  \item day the day of the month.
 #'  \item year the year.
-#'  \item temp the average daily temperatures ( \dQuote{24 hour} and \deqn{(min + max)/2}).
+#'  \item temp the average daily temperatures ( \dQuote{24 hour} and \eqn{(min + max)/2}).
 #'  }
 #' @note In the original files, missing data is recorded as \dQuote{-99}, so must be replaced.
 #' 

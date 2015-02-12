@@ -1,15 +1,15 @@
 #' @encoding UTF-8
 #' @title Attach exclusively various file formats
 #' 
-#' @description This works rigoroulsy as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear=FALSE} is specified.
+#' @description This works rigorously as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear = FALSE} is specified.
 #' 
 #' @param file the name of the file which the data are to be read from.
 #' @param data the internal name after attaching the data file.
-#' @param clear if \code{clear=TRUE}, all attached data in the environment will be detached first.
-#' @param spss.missing , whether the values for missing is a SPSS dataset should be replaced with NA, the default is \code{spss.missing = TRUE}.
-#' @param tolower  whether the variable names should be forced to lower case, default is \code{tolower = TRUE}.
+#' @param clear if \code{clear = TRUE}, all attached data in the environment will be detached first.
+#' @param spss.missing whether SPSS missing values should be replaced with NA; default is \code{spss.missing = TRUE}.
+#' @param tolower  whether variable names should be forced to lower case; default is \code{tolower = TRUE}.
 #' 
-#' @details By using this \dQuote{attach} version, the data becomes available globally usually positioned in the second place, see for instance \code{search()}. 
+#' @details By using this \dQuote{attach} version, the data becomes available globally usually positioned in the second place, \code{search()}. 
 #' 
 #' @importFrom foreign read.dta 
 #' @importFrom foreign read.spss
@@ -20,7 +20,7 @@
 #' 
 #' @export
 
-"use" <-
+use <-
   function (file,  data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE) 
   { 
     if (clear) {
@@ -413,7 +413,7 @@ NULL
 #' @examples 
 #' data(us2012)
 #' psum(us2012$Obama, us2012$Romney)
-#' Swingy <-psum(us2012$Obama, us2012$Romney-100)
+#' swingy <-psum(us2012$Obama, us2012$Romney-100)
 #' 
 #' @export
 psum <-
@@ -421,7 +421,7 @@ psum <-
     x <- list(...)
     rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
   }
-
+NULL
 
 
 
@@ -460,11 +460,10 @@ NULL
 #' # The age groupings used by IBGE (grandes grupos).
 #' # simulate vector with 1000 age values
 #' age <- sample(0:100, 1000, replace = TRUE)
-#'  mean(age); sd(age); 
+#' mean(age); sd(age); 
 #' ageGroups(age, breaks = c(0, 14, 64, Inf), labels = NULL )
 #' ageGroups(age, breaks = c(0, 14, 64, Inf), 
 #' labels = c("<14", "15-64", "65+") )
-#' 
 #' 
 #' ibge_brks = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, Inf)
 #' ibge_lbls = c("0-4", "5-9", "10-14", "15-19", "20-24",
@@ -735,24 +734,22 @@ NULL
 #' @description A generic function and several instances for creating factors from
 #' other sorts of data. The primary use case is for vectors that contain
 #' few unique values and might be better considered as factors. When
-#' applied to a data frame, this is applied to each variable in the data frame.
+#' applied to a data frame, this is applied to each column in the data.frame.
 #' 
 #' @param x an object.
-#' @param max.levels an integer. Only convert if the number of unique values is no more than \code{max.levels}.
+#' @param max.levels an integer that determines the number of unique values to be coverted. Default is \code{max.levels = 10}.
 #' @param ... additional arguments (currently ignored)
 #' 
-#' @export
 #' @examples
 #' #Some data
 #' ID = 1:10
 #' Age = round(rnorm(10,50,1))
 #' diag = c("Depression","Bipolar");
-#' Diagnosis = sample(diag,10,replace=TRUE)
-#' data = data.frame(ID,Age,Diagnosis)
-
+#' Diagnosis = sample(diag, 10, replace=TRUE)
+#' data = data.frame(ID, Age, Diagnosis)
 #' factorize(data$Diagnosis)
 #' str(factorize(data))
-
+#' @export
 factorize <- function(x,  ...) {
   UseMethod("factorize")
 }
@@ -765,21 +762,21 @@ factorize.default <- function(x, ...) {
 
 #' @rdname factorize
 #' @export
-factorize.numeric <- function(x, max.levels = 5L, ...){
+factorize.numeric <- function(x, max.levels = 10L, ...){
   if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )  
   x
 }
 
 #' @rdname factorize
 #' @export
-factorize.character <- function(x, max.levels = 5L, ...){
+factorize.character <- function(x, max.levels = 10L, ...){
   if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )  
   x
 }
 
 #' @rdname factorize
 #' @export
-factorize.data.frame <- function(x, max.levels=5L, ...) {
+factorize.data.frame <- function(x, max.levels=10L, ...) {
   as.data.frame( lapply(x, factorize, max.levels=max.levels) )
 }
 NULL
@@ -924,7 +921,7 @@ NULL
 
 #' @title Fill NA by Previous Value
 #' @description Fill NA by Previous Value
-#' @param column the column that constains NAs
+#' @param column the column that contains NAs
 #' @examples
 #' data(ssex)
 #' peek(ssex)
@@ -933,16 +930,12 @@ NULL
 #' 
 #' @export
 fillNAByPreviousData <- function(column) {
-  # At first we find out which columns contain NAs
   navals <- which(is.na(column))
-  # and which columns are filled with data.
-  filledvals <- which(! is.na(column))
-  
+  filledvals <- which(! is.na(column))  
   # If there would be no NAs following each other, navals-1 would give the
   # entries we need. In our case, however, we have to find the last column filled for
   # each value of NA. We may do this using the following sapply trick:
   fillup <- sapply(navals, function(x) max(filledvals[filledvals < x]))
-  
   # And finally replace the NAs with our data.
   column[navals] <- column[fillup]
   column
@@ -954,7 +947,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Rectangularize a data.frame by filling missing records
+#' @title Make a data.frame Rectangular by filling missing records
 #' 
 #' @description This function produces a complete rectangularization by adding observations with missing data so that all combinations (interactions) of the specified variables exist.
 #' 
@@ -966,7 +959,7 @@ NULL
 #'  
 #' @examples
 #' data <- data.frame(sex=c("female","male","male"), 
-#' race=c("black","black","white"), y=c(.5,.4,.1), x=c(32,40,53))
+#' race = c("black","black","white"), y = c(.5,.4,.1), x = c(32,40,53))
 #' 
 #' fillin(data, by=c(sex,race))
 #' 
@@ -1039,7 +1032,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Find Location of Nearest Value
+#' @title Find Location of the Nearest Value
 #' 
 #' @description Find the location of the nearest value to a number that you specify.
 #' 
@@ -1048,8 +1041,8 @@ NULL
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
-nearest.loc<-function(x, value){
-  which(abs(x-value)==min(abs(x-value)))
+nearest.loc <- function(x, value){
+  which(abs(x - value) == min(abs(x - value)))
 }
 NULL
 
@@ -1065,8 +1058,8 @@ NULL
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
-nearest<-function(x, value){
-  nearloc<-nearest.loc(x, value)
+nearest <- function(x, value){
+  nearloc <- nearest.loc(x, value)
   x[nearloc]
 }
 NULL
