@@ -1,14 +1,13 @@
 Package: SciencesPo
 Type: Package
-Title: A Tool Set For Analyzing Political Behavior Data
+Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
 Version: 1.02.12
 Date: 2015-02-12
 Author: Daniel Marcelino
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
-Description: SciencesPo is a data-analysis tool for the political science crowd.
-    It provides a collection of functions for ease analyzing and displaying
-    random and nonrandom data.
+Description: A data analysis tool for the political science crowd
+    for ease analyzing random and nonrandom data.
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: LGPL (>= 2.0, < 3)
 Depends:
@@ -20,6 +19,7 @@ Depends:
     ggplot2,
     foreign
 Imports:
+    MASS,
     data.table,
     grid,
     lubridate,

@@ -1,28 +1,19 @@
 #' @title Create an Empty Persp Plot 
 #'
-#' Creates an empty persp plot objtect
+#' @description Creates an empty persp plot objtect. 
 #'
-##' Regression demonstrations require a blank slate in which
-##' points and planes can be drawn. This function creates that
-##' blank persp canvas for those projects. It is not necessary
-##' that x1, x2 and y be vectors of the same length, since this
-##' function's only purpose is to plot an empty box with ranges
-##' determined by the input variables. persp calls the 3 axes
-##' x, y, and z, but here they are called x1, x2, and y.
-##'
-##' @param x1 data for the first horizontal axis, an R vector
-##' @param x2 data for the second horizontal axis, an R vector
-##' @param y data for the vertical axis, an R vector
-##' @param x1lab label for the x1 axis, (the one called "xlab" inside persp)
-##' @param x2lab label for the x2 axis, (the one called "ylab" inside persp)
-##' @param ylab label for the y (vertical) axis (the one called "zlab" inside persp)
-##' @param x1lim Optional: limits for x1 axis (should be a vector with 2 elements)
-##' @param x2lim Optional: limits for x2 axis (should be a vector with 2 elements)
-##' @param ... further arguments that are passed to persp. Please note
-##' Please remember that y is the vertical axis, but for persp, that
-##' is the one I call x2.  Thus dot-dot-dot arguments including xlab,
-##' ylab, zlab, xlim, ylim, and zlim are going to be ignored.
-##' @return The perspective matrix that is returned by persp
+#' @param x1 data for the first horizontal axis, an R vector
+#' @param x2 data for the second horizontal axis, an R vector
+#' @param y data for the vertical axis, an R vector
+#' @param x1lab label for the x1 axis, (the one called "xlab" inside persp)
+#' @param x2lab label for the x2 axis, (the one called "ylab" inside persp)
+#' @param ylab label for the y (vertical) axis (the one called "zlab" inside persp)
+#' @param x1lim Optional: limits for x1 axis (should be a vector with 2 elements)
+#' @param x2lim Optional: limits for x2 axis (should be a vector with 2 elements)
+#' @param ... further arguments that are passed to persp, including xlab,
+#' ylab, zlab, xlim, ylim, and zlim are going to be ignored.
+#' 
+#' @return The perspective matrix that is returned by persp
 #' @examples
 #' x1 <- 1:10
 #' x2 <- 41:50
@@ -48,7 +39,7 @@ perspBox <-
     dotargs[["zlab"]] <- ylab
     if (!missing(x1lim)) dotargs[["xlim"]] <- x1lim
     if (!missing(x2lim)) dotargs[["ylim"]] <- x2lim
-    my_param <- list(x = x1, y = x2, z = zero, zlim = yrange, lwd = 1, theta = -20, phi = 15)
+    my_param <- list(x = x1, y = x2, z = zero, zlim = yrange, lwd = .5, theta = -25, phi = 25)
 
     myargs <- modifyList(my_param, dotargs)
     ans <- do.call("persp", myargs)

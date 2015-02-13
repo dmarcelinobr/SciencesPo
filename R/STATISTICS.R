@@ -358,7 +358,6 @@ NULL
 #' loglik(x,3,7)
 #' 
 #' @export 
-
 loglik<-function(x=data, mu, var)
 {
   n=length(x)
@@ -370,73 +369,31 @@ NULL
 
 
 
-
-
 #' @encoding UTF-8
-#' @title Cramer's V for a contingency table
-#'
-#' @description Produce the Cramér V / Phi test using two vectors with more than 2 levels.
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @title Association tests for contingency tables
+#' @description Calculates the Likelihood Ratio chi-Squared test, the Pearson chi-Squared test, the phi coefficient, the contingency coefficient and Cramer's V. Cramer V / Phi test using two vectors with more than 2 levels.
 #'  
-#' @param x one vector
-#' @param y the other vector
-#' 
-#' @return The table's Cramer's V.
-#' 
-#' @details Compute Cramer's V for a resulting table with more than 2x2 fields.
+#' @param x an \code{r x c} table.
+#' @return The association statistics tests for \code{r x c} table.
+#' @importFrom MASS loglm
 #' 
 #' @examples
-#'  x =sample(1:2, 30, TRUE); 
-#'  y= sample(1:3, 30, TRUE)
-#'  cramer(x, y)
+#'  x = sample(1:2, 30, TRUE); 
+#'  y = sample(1:3, 30, TRUE)
+#'  testAssociation(table(x, y))
 #'
 #' @export
-cramer <- function(x, y) {
-  chisq_test <- function (x, y) {
-    O <- table(x, y)
-    n <- sum(O)
-    
-    E <- outer(rowSums(O), colSums(O), "*")/n
-    
-    sum((abs(O - E))^2 / E)
-  }
-  chi <- chisq_test(x, y)
-  
-  ulength_x <- length(unique(x))
-  ulength_y <- length(unique(y))
-  # Cramér V / Phi:
-  sqrt(chi / (length(x) * (min(ulength_x, ulength_y) - 1)))
+testAssociation <- function(x) {
+  if (!is.matrix(x)) 
+    stop("Function only defined for 2-way tables.")
+  tab <- summary(loglm(~1 + 2, x))$tests
+  phi <- sqrt(tab[2, 1]/sum(x))
+  cont <- sqrt(phi^2/(1 + phi^2))
+  cramer <- sqrt(phi^2/min(dim(x) - 1))
+  structure(list(table = x, chisq_tests = tab, phi = phi, contingency = cont, 
+                 cramer = cramer))
 }
 NULL
-
- # Cramer's V for a contingency table
-# Compute Cramer's V for a table with more than 2x2 fields.
- # @param tab a table or ftable object. Tables of class xtabs and other will be coerced to ftable internally.
- # cramer <-
- # function (tab) 
- # {
- #  if (class(tab) != "ftable") 
- #    tab <- ftable(tab)
- #  phi <- sjs.phi(tab)
- #  cramer <- sqrt(phi^2/min(dim(tab) - 1))
- #  return(cramer)
- # }
-
- #x <- vcd::Arthritis$Improved
- #y <- vcd::Arthritis$Treatment
- #correct <- vcd::assocstats(table(x, y))$cramer
- #correct
- # is_ok <- function(x) stopifnot(all.equal(x, correct))
-  # is_ok(cramer(x, y))
- #
- #microbenchmark(
-#  cramer1(x, y),
-#  cramer(x, y),
- #  cramer_c(x, y)
- #)
- # cramer_c <- compiler::cmpfun(cramer)
-
 
 
 
@@ -448,7 +405,8 @@ NULL
 #' 
 #' @param x A data vector
 #' @param na.rm A logical value, default is \code{FALSE}
-#'
+#' @note this function replaces the \code{base} function with the same name, but is does different thing. While \code{SciencesPo::mode} intuitively calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
+#' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
 #' @examples 
@@ -524,7 +482,7 @@ NULL
 #' @details Two new covariates, z1 and z2 are generated such that \deqn{z1 = 0.5 \* logit^{2} * I(pi >= 0.5)}, \deqn{z2 = - 0.5 \* logit^{2} \* I(pi <= 0.5)}, where \deqn{I(arg) = 1} if arg is \code{TRUE} and \deqn{I(arg) = 1} if \code{FALSE}.
 #' @note Adapted from program published by Brett Presnell's code available at the Florida University. 
 #'@references 
-#' Stukel, T.A. (1988) Generalized logistic models. \emph{Journal of the American Statistical Association} 83: 426–431.
+#' Stukel, T.A. (1988) Generalized logistic models. \emph{Journal of the American Statistical Association} 83: 426-431.
 #'@references
 #' Hosmer, David W., et al (1997) A comparison of goodness-of-fit tests for the logistic regression model. \emph{Statistics in medicine} 16.9, 965-980.
 #' @references 

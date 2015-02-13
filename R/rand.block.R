@@ -1,19 +1,11 @@
 #' @encoding UTF-8
 #' @title Create Block-randomized Designs
 #' 
-#' @description Generate block-randimized designs based on the number of units \code{n} and block size, where the block size is the number of experimental conditions. The number of Independent Variables and the number of levels in each IV are specified as input. The output is a the block randomized design. This function is intended for planning randomized trails.
+#' @description Generate block-randomized designs based on the number of units \code{n} and block size, where the block size is the number of experimental conditions. The number of Independent Variables and the number of levels in each IV are specified as input. The output is a the block randomized design. This function is intended for planning randomized trails.
 #' 
 #' @param blocksize is the number of control blocks or n per block/group.
-#' @param n is the total numer of subjects or units. 
+#' @param n is the total number of subjects or units. 
 #' @param seed the random number generation seed.
-#'
-#' @return 
-#' \itemize{
-#' \item id is the id of subject or unit.
-#' \item block is blocking factor.
-#' \item rand is the 
-#' \item condition is the treatment levels
-#' }
 #' 
 #' @references
 #' Alan S Gerber, Donald P Green (2012). \emph{Field experiments: Design, analysis, and interpretation}. WW Norton.
@@ -25,7 +17,7 @@
 #' blk <- rand.block(blocksize = 20, n = 80, seed = 51)
 #' blk;
 #' table(blk$block, blk$condition)
-#' # let's do some immaginary analysis
+#' # let's do some imaginary analysis
 #' set.seed(51);
 #' blk$y <- rnorm(n = 80, mean = 20, sd = 5)
 #' 

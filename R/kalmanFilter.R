@@ -35,7 +35,8 @@ NULL
 #' @param mean2 New mean
 #' @param var2 New variance
 #'
-#' @references Kalman, R.E. (1960) A new approach to linear filtering and prediction problems. \emph{Journal of Basic Engineering} \bold{82 (1):} 35–45.
+#' @references 
+#' Kalman, R.E. (1960) A new approach to linear filtering and prediction problems. \emph{Journal of Basic Engineering} \bold{82(1):} 35-45.
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples

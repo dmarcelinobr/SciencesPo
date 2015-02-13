@@ -940,8 +940,9 @@ NULL
 #' @title Transform dependent variable
 #' @description Simple function to transform a dependent variable that in [0,1] rather than (0, 1) to beta regression. Suggested by Smithson & Verkuilen (2006).
 #' 
-#' @param y vector of the dependent variable that is in [0, 1].
-#' @references Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regres- sion with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54–71.
+#' @param y the dependent variable in [0, 1] interval.
+#' @references 
+#' Smithson M, Verkuilen J (2006) A Better Lemon Squeezer? Maximum-Likelihood Regres- sion with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54-71.
 #' 
 #' @seealso normalize
 #' @examples

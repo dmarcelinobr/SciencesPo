@@ -21,7 +21,7 @@ NULL
 #' @details Standardized beta coefficients are values estimated from unstandardized coefficients, which are only partially adjusted by the quotient of the standard deviation of the independent variable (IV), and the standard deviation of the dependent variable. Essentially, \bold{beta coefficients report the relative importance of each independent variables}. Therefore, standardized coefficients are important for multiple regression models, once they may aid on identifying critical IVs. Despite standardized coefficients improve transparency on the sizes of the effects, the example below points to a potential weakness of standardized regression coefficients. The homeless variable can take on values either 0 or 1, and a 1 standard deviation change of a binary variable is hard to interpret. Andrew Gelman makes a compelling argument for standardizing variables by 2 standard deviations instead, so the variance will be similar to a binary variable.
 #' 
 #' Baguley, T. (2009) Standardized or simple effect size: What should be reported?. \emph{British Journal of Psychology,} \bold{100(3),} 603-617.
-#' Gelman, A. (2008) Scaling regression inputs by dividing by two standard deviations. \emph{Statistics in Medicine}, \bold{27:} 2865–2873.
+#' Gelman, A. (2008) Scaling regression inputs by dividing by two standard deviations. \emph{Statistics in Medicine}, \bold{27:} 2865-2873.
 #' Gelman, A., and Hill, J. (2006) \emph{Data analysis using regression and multilevel/hierarchical models.} Cambridge University Press.
 #' Kleinman, Ken and Horton, Nicholas (2014). \emph{SAS and R: Data Management, Statistical Analysis, and Graphics}.Chapman and Hall/CRC.
 #' 
