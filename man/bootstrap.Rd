@@ -16,7 +16,7 @@ bootstrap(x, ...)
 \method{bootstrap}{model}(x, ...)
 }
 \arguments{
-\item{x}{a a vector or a fitted model object that will be used to produce bootstrapped parameters. Model objects are from the class \dQuote{glm} or \dQuote{lm}.}
+\item{x}{is a vector or a fitted model object whose parameters will be used to produce bootstrapped statistics. Model objects are from the class \dQuote{glm} or \dQuote{lm}.}
 
 \item{nboots}{The number of bootstraps.}
 
@@ -25,18 +25,18 @@ bootstrap(x, ...)
 \item{\dots}{further arguments passed to or used by other methods.}
 }
 \value{
-a list with the \dQuote{alpha} and \dQuote{beta} slots set. Note that \dQuote{alpha} corresponds to ancillary parameters and \dQuote{beta} corresponds to systematic components of the model.
+A list with the \dQuote{alpha} and \dQuote{beta} slots set. Note that \dQuote{alpha} corresponds to ancillary parameters and \dQuote{beta} corresponds to systematic components of the model.
 }
 \description{
 Method for Bootstrap
 
 This method is intended to be provides statistical models that support  bootstrapping.
 
-This function is used for estimating standard errors when the distribution is not know.
+This function is used to estimating standard errors when the distribution is not know.
 
 Bootstrap Parameters of a Statistical Model
 
-This method is used for bootstrapping statistical models typically of class \dQuote{lm} or \dQuote{glm}.
+This method is used to bootstrapping statistical models, typically of class \dQuote{lm} or \dQuote{glm}.
 }
 \examples{
 x = runif(10, 0, 1)
