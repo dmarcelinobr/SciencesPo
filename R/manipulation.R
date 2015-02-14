@@ -17,11 +17,10 @@ rename.default <- function (old, new, data, ...)
   dataset <- data
   if (any(names(dataset) == as.character(substitute(old)))) {
     names(dataset)[names(dataset) == as.character(substitute(old))] <- as.character(substitute(new))
-    pos = 1 # does nothing just to trick the environment 
-    assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
+    assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
     if(is.element(as.character(substitute(data)), search())){
       detach(pos=which(search() %in% as.character(substitute(data))))
-      attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+     # attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
     }
   }
   else {
@@ -49,19 +48,19 @@ rename.var <- function (old, new, data, ...)
   if (any(names(dataset) == as.character(substitute(old)))) {
     names(dataset)[names(dataset) == as.character(substitute(old))] <- as.character(substitute(new))
  
-    assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
+    assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
     if(is.element(as.character(substitute(data)), search())){
       detach(pos=which(search() %in% as.character(substitute(data))))
-      attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+      #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
     }
   }
   else {
     if (any(names(dataset) == old)) {
       names(dataset)[names(dataset) == old] <- as.character(substitute(new))
-      assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
+      assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
       if(is.element(as.character(substitute(data)), search())){
         detach(pos=which(search() %in% as.character(substitute(data))))
-        attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+        #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
       }
     }
     else {
@@ -95,10 +94,10 @@ rename.pattern <- function (old, new, data, verbose = TRUE, ...)
     print(table1)
   }
   names(dataset) <- sub(pattern = old, replacement = new, x = names(dataset))
-  assign(as.character(substitute(data)), dataset, envir = as.environment(pos))  
+  assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))  
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
-    attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+    #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
 NULL
@@ -206,10 +205,10 @@ keep <-
         }
       }
     }
-    assign(data.name, dataset,  envir = as.environment(pos))
+    assign(data.name, value=dataset, envir = sys.frame(-1))
     if (is.element(data.name, search())) {
       detach(pos = which(search() %in% data.name))
-      attach(dataset, name = data.name, warn.conflicts = FALSE)
+      #attach(dataset, name = data.name, warn.conflicts = FALSE)
     }
   }
 NULL
@@ -317,11 +316,10 @@ recode <-
         }
       }
     }
-    assign(as.character(substitute(data)), dataset, envir = as.environment(pos) )
+    assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
     if (is.element(as.character(substitute(data)), search())) {
       detach(pos = which(search() %in% as.character(substitute(data))))
-      attach(dataset, name = as.character(substitute(data)), 
-             warn.conflicts = FALSE)
+      #attach(dataset, name = as.character(substitute(data)), warn.conflicts = FALSE)
     }
   }
 NULL
@@ -587,13 +585,11 @@ NULL
 #' 
 #' @examples 
 #' data(sheston91)
-#' use(sheston91)
-#' peek(sheston91)
 #' # lag
-#' sheston91$L.pop <- shift(x = pop, id = country, time = year, delta = 1) 
+#' sheston91$L.pop <- with(sheston91, shift(x = pop, id = country, time = year, delta = 1) ) 
 #' head(sheston91)
 #' # lead
-#'  sheston91$pop.L <- shift(x = pop, id = country, time = year, delta =  -1) 
+#'  sheston91$pop.L <- with(sheston91, shift(x = pop, id = country, time = year, delta =  -1) )
 #'  head(sheston91)
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
@@ -825,10 +821,10 @@ wrap <- function (data = .data)
   }
   attr(dataset, "var.labels") <- k
   rm(list = candidate.objects[j], pos = 1)
-  assign(as.character(substitute(data)), dataset, envir = as.environment(pos) )
+  assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1) )
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
-    attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+    #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
 NULL

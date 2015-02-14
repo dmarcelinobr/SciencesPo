@@ -1,3 +1,6 @@
+# Note: this is necessary to prevent Rcmd CHECK from throwing a note;
+utils::globalVariables(c('.data', 'Freq', 'candidate.position', 'var.order', 'var.class','var.size','var.lab', 'VarGen', 'VarGen.1'));
+
 #' @encoding UTF-8
 #' @title Attach exclusively various file formats
 #' 
@@ -19,14 +22,12 @@
 #' use(ssex)
 #' 
 #' @export
-
 use <-
   function (file,  data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE) 
   { 
     if (clear) {
       detachAll()
     }
-    .data <- NULL
     
     if (is.character(file)) {
       ext <- tolower(substring(file, first = nchar(file) - 
@@ -81,12 +82,12 @@ use <-
         stop("The argument is not a data frame or no such file")
       }
     }
-    pos = 1 # does nothing just to trick the environment 
-    assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
-    message(paste0("file assigned to `.data`"))
-    attach(dataset, name = as.character(substitute(data)), 
-           warn.conflicts = FALSE)
-  }
+    nrOfRows <- nrow(dataset);
+    nrOfCols <- ncol(dataset);
+    assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
+    message(paste0('[', nrOfRows, " x ", nrOfCols, ']', " assigned to `.data`", sep=""));
+    #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+}
 NULL
 
 
@@ -192,7 +193,6 @@ info <- function (data, show, ignore)
         options(warn = 0)
       }
       else {
-        candidate.position <- NULL
         for (search.position in 1:length(search())) {
           if (exists(as.character(substitute(data)), where = search.position)) {
             if (any(names(get(search()[search.position])) == 
@@ -202,10 +202,6 @@ info <- function (data, show, ignore)
                                       search.position)
           }
         }
-        var.order <- as.character(NULL)
-        var.class <- NULL
-        var.size <- NULL
-        var.lab <- NULL
         for (i in candidate.position) {
           if (i == 1) {
             var.order <- c(var.order, "")
@@ -349,14 +345,13 @@ labelvar <-function(variable, label, data, replace=TRUE){
   if(replace){
     suppressWarnings(rm(list=as.character(substitute(variable)), pos=1))
   }
-  pos = 1 # does nothing just to trick the environment 
-  assign(as.character(substitute(data)), dataset, envir = as.environment(pos))
+  assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
   if(is.element(as.character(substitute(data)), search())){
     if(length(which(search() %in% as.character(substitute(data))))>1){
       warning(paste("\n","There are more than one '", as.character(substitute(data)),"' attached!","\n", sep=""))
     }
     detach(pos=which(search() %in% as.character(substitute(data)))[1])
-    attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+    #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
 NULL
@@ -426,12 +421,13 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Strip white spaces
+#' @title Trim white spaces
+#' @description Simply trims spaces from the start, end, and within of a string
 #' @param x is a character vector.
 #' @param delim is the delimiter, default is white spaces \code{" "} 
 #' 
-# stripWhite(" Daniel   Marcelino   Silva ")
-stripWhite <- function(x, delim = " ") {
+# trim(" Daniel   Marcelino   Silva ")
+trim <- function(x, delim = " ") {
   gsub("^\\s+|\\s+$", "",
        gsub(sprintf("\\s+[%s]\\s+|\\s+[%s]|[%s]\\s+",
                     delim, delim, delim), delim, x))
@@ -877,8 +873,6 @@ fillNA  <- function(x, y, xvar, yvar = NULL, KeyVar)
   } else {
     yvar <- yvar
   }
-  VarGen <- VarGen.1 <- NULL
-  
   # Give var a generic name
   names(x)[match(xvar, names(x))] <- "VarGen"
   names(y)[match(yvar, names(y))] <- "VarGen.1"
@@ -968,7 +962,6 @@ NULL
 #' @export
 fillin <- function(x, by, fill=NA)
 {
-  Freq <- NULL
   if(missing(by)) by=1:ncol(x)
   nl <- as.list(1:ncol(x))
   names(nl) <- names(x)
@@ -1238,4 +1231,33 @@ NULL
 
 
 
+#' @title Pause
+#' @description A replication of MatLab pause function.
+#' @param x is optional. If x>0 a call is made to \code{\link{Sys.sleep}}. Else, execution pauses until a key is entered.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @export
+pause <-
+  function (x=0) { 
+    if(x > 0){
+      Sys.sleep(x)
+    }else{
+      cat("Hit <enter> to continue...")
+      readline()
+      invisible()
+    }
+  }
+NULL
+
+
+
+#' @title Safe require
+#' @description This function checks whether a package is installed; if not, it installs it. It then loads the package.
+#' @param packageName the name of a package.
+#' @export
+safeRequire <- function(packageName) {
+  if (!is.element(packageName, installed.packages()[,1])) {
+    install.packages(packageName);
+  }
+  require(package = packageName, character.only=TRUE);
+}
 

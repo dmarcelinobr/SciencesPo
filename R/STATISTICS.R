@@ -826,3 +826,5 @@ jackknife<-function (x,p)
     list(est=p(x), jkest=jkest, jkvar=jkvar, jkbias=jkbias, jkbiascorr=jkbiascorr)
 }
 NULL
+
+
