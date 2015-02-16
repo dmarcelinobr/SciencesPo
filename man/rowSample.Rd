@@ -4,10 +4,10 @@
 \alias{rowSample}
 \title{Row Sample}
 \usage{
-rowSample(.data, n)
+rowSample(x = .data, n)
 }
 \arguments{
-\item{.data}{the data object.}
+\item{x}{the data object.}
 
 \item{n}{the number of items to choose from.}
 }

@@ -4,7 +4,7 @@
 \alias{peek}
 \title{Show Observations Randomly Drawn from the Data}
 \usage{
-peek(x, n = 10)
+peek(x = .data, n = 10)
 }
 \arguments{
 \item{x}{A matrix or data.frame object}
@@ -15,7 +15,7 @@ peek(x, n = 10)
 Provide a sly view of the data by randomly draw observations, instead of showing only the first \code{head()} or the last \code{tail()} rows of an object.
 }
 \examples{
-data(titanic)
+use(titanic)
 peek(titanic)
 }
 \author{

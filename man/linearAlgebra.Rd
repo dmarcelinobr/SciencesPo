@@ -3,31 +3,28 @@
 \name{linearAlgebra}
 \alias{linearAlgebra}
 \alias{mat}
-\alias{singvals}
+\alias{singVals}
 \title{Functions for teaching linear algebra.}
 \usage{
 mat(formula, data = parent.frame())
 
-singvals(formula, data = parent.frame())
+singVals(formula, data = parent.frame())
 }
 \arguments{
 \item{formula}{a formula as \code{~ a or ~ a + b}.  In \code{mat} and \code{singvals},
 only the right-hand side is used.}
 
 \item{data}{a data frame from which to pull out numerical values
-for the variables in the formula}
+for the variables in the formula.}
 
-\item{\dots}{additional arguments (currently ignored)
-
-
-\code{mat} returns a model matrix
-
-To demonstrate singularity, use \code{singvals}.}
+\item{\dots}{additional arguments (currently ignored),
+\code{mat} returns a model matrix,
+To demonstrate singularity, use \code{singVals}.}
 }
 \value{
 \code{mat} returns a matrix
 
-\code{singvals} gives singular values for each column in the model matrix
+\code{singVals} gives singular values for each column in the model matrix
 }
 \description{
 These functions provide a formula based interface to the construction
@@ -44,6 +41,6 @@ mat(~a+b+1)
 
 data(tobaccovote)
 mat(~votedpro+party, data=tobaccovote)
-singvals(~votedpro*party*money*acres, data=tobaccovote)
+singVals(~votedpro*party*money*acres, data=tobaccovote)
 }
 

@@ -83,12 +83,9 @@ NULL
 #' @title Samples from Dirichlet distribution
 #' 
 #' @description Generates random deviates from the Dirichlet distribution. This code was originally posted by Ben Bolker in the R-News on Fri Dec 15 2000. But Ben attributed the code to Ian Wilson.
-#' 
 #' @param n Number of random vectors to generate
 #' @param alpha Vector containing shape parameters
-#' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
 #' @return Returns a matrix with n rows, each containing a single Dirichlet random deviate.
 
 #' @examples
@@ -103,12 +100,12 @@ NULL
 #' alpha / alpha.0
 #' apply( test, 2, var )
 #' alpha * ( alpha.0 - alpha ) / ( alpha.0^2 * ( alpha.0 + 1 ) )
-#' # 3 - Brazil poll, by Datafolha 
+#' # 3 - Brazilian poll by Datafolha 
 #' ## Face-to-face interviews conducted on Oct 03-04 with n = 18116
 #' n <- 18116
 #' poll <- c(40,24,22,5,5,4) / 100 * n # data
-
-### draw a sample from the posterior
+#' 
+#' ## draw a sample from the posterior
 #' set.seed(1234)
 #' mcmc <- 100000
 #' sim <- rDirichlet(mcmc, alpha = poll + 1)
@@ -127,29 +124,125 @@ NULL
 #'     breaks = "FD", xlab = expression(p[2] - p[3]),
 #'     main = expression(paste(bold("Posterior distribution of "), p[2] - p[3])))
 #' abline(v=mn, col='red', lwd=3, lty=3)
-#' 
-#' 
+#'
 #' @keywords Distributions
 #' 
 #' @export
-rDirichlet <-
-  function( n, alpha ) {
-    
+"rDirichlet" <- function( n, alpha ){
     l = length( alpha )
-    
     theta = matrix( 0, n, l )
-    
     for ( j in 1:l ) {
-      
       theta[ , j ] = rgamma( n, alpha[ j ], 1 )
-      
     }
-    
     theta = theta / apply( theta, 1, sum )
-    
     return( theta )
-    
   }
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Dirichlet distribution
+#' @description Density function and random number generation for the Dirichlet distribution
+#' @param n number of random observations to draw.
+#' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.
+#'
+#' If \code{alpha} is a matrix, a complete set of \eqn{\alpha}{alpha}-parameters must be supplied for each observation.
+#' \code{log} returns the logarithm of the densities (therefore the log-likelihood) and \code{sum.up} returns the product or sum and thereby the likelihood or log-likelihood.
+#' Dirichlet (log-)densities are by default computed using C-routines (\code{ddirichlet_log_vector} and \code{ddirichlet_log_matrix}), a version only using R is provided by \code{ddirichlet_R}.
+#' Caution: Although \code{.C()} can be used to call the C routines directly, R will crash or produce wrong values, if, e.g., data types are not set properly.
+#' @return
+#' rdirichlet returns a matrix with random numbers according to the supplied alpha vector or matrix.
+#' ddirichlet returns a vector of densities (if \code{sum.up = FALSE}) or the (log-)likelihood (if \code{sum.up = TRUE}) for the given data and alphas.
+
+#' @examples
+#' X1 <- rdirichlet(100, c(5, 5, 10))
+#' a.mat <- cbind(1:10, 5, 10:1)
+#' a.mat
+#' X2 <- rdirichlet(10, a.mat)
+#' # note how the probabilities in the first an last column relate to a.mat
+#' @useDynLib SciencesPo
+#' @export
+"rdirichlet" <- function(n,     
+                       alpha  
+){
+  if( ((n %% 1) != 0) | (n <= 0)) stop("n must be an integer > 0")
+  if( any(alpha <= 0) ) stop("all values in alpha must be > 0")
+  .vec <- is.vector(alpha)
+  .mat <- is.matrix(alpha)
+  if(!.vec & !.mat){
+    stop("alpha must be a vector or a matrix")
+  } else if(.vec & !.mat){
+    X <- .Call("rdirichlet_vector", n, alpha)
+  } else {
+    if(n != nrow(alpha)) stop("when alpha is a matrix, the number of its rows must be equal to n")
+    X <- .Call("rdirichlet_matrix", n, alpha, dim(alpha))
+  } 
+  return(X)
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Dirichlet distribution
+#' @description Density function and random number generation for the Dirichlet distribution
+#' @param x a matrix containing observations.
+#' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.
+#' @param log if \code{TRUE}, logarithmic densities are returned.
+#' @param sum.up if \code{TRUE}, the (log-)likelihood is returned.
+#' @examples
+#' a.mat <- cbind(1:10, 5, 10:1);
+#' a.mat;
+#' X2 <- rdirichlet(10, a.mat);
+#' ddirichlet(X2, a.mat);
+#' 
+#' @useDynLib SciencesPo
+#' @export
+"ddirichlet" <- function(x, alpha, log = FALSE, sum.up = FALSE){
+  
+  if(is.null(dim(x))) stop("x must be a matrix")
+  x_dims <- dim(x)
+  if( any(alpha <= 0) ) stop('all values in alpha must be > 0.')
+  
+  res <- if(is.vector(alpha)){
+    .Call("ddirichlet_log_vector", x, alpha, dim(x))
+  } else {
+    if(any(dim(alpha) != dim(x))) stop("check if x and alpha are correctly specified")
+    .Call("ddirichlet_log_matrix", x, alpha, dim(x), dim(alpha))
+  }
+  
+  if(sum.up){
+    if(log) return(sum(res)) else return(exp(sum(res)))
+  } else {
+    if(log) return(res) else return(exp(res))
+  }
+}
+NULL
+
+
+
+
+"ddirichlet_R" <- function(x, alpha, log = FALSE, sum.up = FALSE){               
+  
+  if(is.null(dim(x))) stop("x must be a matrix")
+  if(is.vector(alpha)){
+    if(ncol(x) != length(alpha)) stop("alpha must be a vector/matrix fitting to the data in x")
+    alpha <- matrix(rep(alpha,nrow(x)),nrow(x),byrow=T)
+  }
+  if(any(dim(alpha) != dim(x))) stop("check if x and alpha are correctly specified")
+  if( any(alpha <= 0) ) stop('all values in alpha must be > 0.')
+  
+  res <- lgamma(rowSums(alpha)) - rowSums(lgamma(alpha)) + rowSums((alpha-1)*log(x))
+  
+  if(sum.up){
+    if(log) return(sum(res)) else return(exp(sum(res)))
+  } else {
+    if(log) return(res) else return(exp(res))
+  }
+}
 NULL
 
 

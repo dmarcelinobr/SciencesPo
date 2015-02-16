@@ -27,7 +27,7 @@
 tableau <-
 function(var, title = NULL){
         counts <- table(var)
-        percts <- 100 * prop.table(counts)       
+        percts <- 100 * prop.table(counts)
         
         print(
             xtable(

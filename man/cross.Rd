@@ -13,9 +13,6 @@ cross(..., sep = ":", drop.unused.levels = FALSE)
 
 \item{\dots}{factors to be crossed.}
 }
-\value{
-a factor
-}
 \description{
 Construct a product of factors.
 }

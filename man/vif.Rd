@@ -13,7 +13,6 @@ vif(model, ...)
 }
 \value{
 A numeric value indicating the variance inflation in the model
-
 #'
 }
 \description{

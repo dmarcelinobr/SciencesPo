@@ -2,7 +2,7 @@
 \encoding{UTF-8}
 \name{percentile}
 \alias{percentile}
-\title{Converts into percentile}
+\title{Converts into percentiles}
 \usage{
 percentile(x)
 }

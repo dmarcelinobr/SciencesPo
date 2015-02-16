@@ -1,24 +1,17 @@
 #' @encoding UTF-8
 #' @title Variance Inflation Factor
-#' 
 #' @description Extracts Variance Inflation Factor from a model of class \dQuote{lm}
-#' 
 #' @param model a model object
 #' @param \dots further arguments passed to or used by other methods.
-#' 
 #' @return A numeric value indicating the variance inflation in the model
-#' 
 #' #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
-#' @keywords Models
-#' 
+#' @keywords Models 
 #' @examples
 #' data(mtcars)
 #' m1 <- lm(mpg ~ qsec + hp, data=mtcars)
 #' vif(m1)
 #' @export
-#' 
-vif <-
+"vif" <-
   function(model, ...) {
     if (any(is.na(coef(model)))) 
       stop ("there are aliased coefficients in the model")
@@ -74,12 +67,11 @@ NULL
 #' variation(myvar)
 #'
 #' @export
-variation <-  
+"variation" <-  
 function(x){ 
   sd(x)/mean(x)
 }
 NULL
-
 
 
 
@@ -114,7 +106,7 @@ NULL
 #' 
 #' 
 #' @export
-kurtosis <-
+"kurtosis" <-
   function (x, na.rm = FALSE, type = 2) 
   {
     if (any(i.na <- is.na(x))) {
@@ -173,7 +165,7 @@ NULL
 #' 
 #' @export
 #' 
-skewness <-
+"skewness" <-
   function (x, na.rm = TRUE, type = 2) 
   {
     if (length(dim(x)) == 0) {
@@ -231,7 +223,7 @@ NULL
 #'@param x the varaible 
 #'@param w the variance
 #'
-weighted.var <- function(x, w){
+"weighted.var" <- function(x, w){
   return(sum(w * (x - weighted.mean(x,w))^2)/((length(x)-1)*mean(w)))
 } 
 NULL
@@ -270,7 +262,7 @@ NULL
 #' 
 #' @export
 #'
-winsorize <-
+"winsorize" <-
   function (x, k = 1, na.rm=TRUE) {
     if (any(is.na <- is.na(x))) {
       if (na.rm) 
@@ -313,7 +305,7 @@ NULL
 #' se(x)
 #'
 #' @export 
-se <-
+"se" <-
   function (x, na.rm = TRUE) 
   {
     valid <- function(x) return(sum(!is.na(x)))
@@ -358,7 +350,7 @@ NULL
 #' loglik(x,3,7)
 #' 
 #' @export 
-loglik<-function(x=data, mu, var)
+"loglik" <-function(x=data, mu, var)
 {
   n=length(x)
   ll = -n/2* log(2*pi*var) - .5/var*sum((mu-x)^2)
@@ -383,7 +375,7 @@ NULL
 #'  testAssociation(table(x, y))
 #'
 #' @export
-testAssociation <- function(x) {
+"testAssociation" <- function(x) {
   if (!is.matrix(x)) 
     stop("Function only defined for 2-way tables.")
   tab <- summary(loglm(~1 + 2, x))$tests
@@ -416,7 +408,7 @@ NULL
 #' mode(myvar, FALSE)
 #' 
 #' @export
-mode <- function(x, na.rm = FALSE) {
+"mode" <- function(x, na.rm = FALSE) {
   if(na.rm){
     x = subset(x, !is.na(x))
   }
@@ -452,7 +444,7 @@ NULL
 #'   sampleCovariance(df$x, df$y)
 #'
 #' @export
-sampleCovariance <- function(x, y, verbose = TRUE) {
+"sampleCovariance" <- function(x, y, verbose = TRUE) {
   n <- length(x)
   # Error handling
   if (n <= 1 || n != length(y)) {
@@ -488,7 +480,7 @@ NULL
 #' @references 
 #'Allison, Paul (2014) \emph{Another Goodness-of-Fit Test for Logistic Regression}.
 #' @export
-stukel <- function(object, alternative = c("both", "alpha1", "alpha2")) {
+"stukel" <- function(object, alternative = c("both", "alpha1", "alpha2")) {
   DNAME <- deparse(substitute(object))
   METHOD <- "Stukel's test of the logistic link"
   alternative <- match.arg(alternative)
@@ -538,7 +530,7 @@ NULL
 #' @param adj adjustment constant 
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-cumlogit <- function(y, adj = 0.5) {
+"cumlogit" <- function(y, adj = 0.5) {
   ncol <- dim(y)[2]
   y <- t(apply(y, 1, cumsum))
   log((y[,-ncol] + adj)/(y[,ncol] - y[,-ncol] + adj))
@@ -554,7 +546,7 @@ NULL
 #' @param \dots further arguments passed to or used by other methods. 
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-adj.residuals <- function(object, ...) {
+"adj.residuals" <- function(object, ...) {
   residuals(object, ...) / sqrt(1 - lm.influence(object)$hat)
 }
 NULL
@@ -606,7 +598,7 @@ NULL
 #'  colnames(out) <- c("<40%", ">40%")
 #'  oddsRatio(out)
 #' @export
-orrr <- function(x, conf.level = 0.95, verbose=TRUE, digits=3,
+"orrr" <- function(x, conf.level = 0.95, verbose=TRUE, digits=3,
                  relrisk=FALSE){
   if (any(dim(x) != c(2,2))) {
     stop("expecting something 2 x 2")
@@ -674,38 +666,38 @@ orrr <- function(x, conf.level = 0.95, verbose=TRUE, digits=3,
 
 #' @rdname oddsRatio
 #' @export
-oddsRatio <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
+"oddsRatio" <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
   orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=FALSE)
 }
 
 #' @rdname oddsRatio
 #' @export
-relrisk <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
+"relrisk" <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
   orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=TRUE)
 }
 
 #' @rdname oddsRatio
 #' @export
-print.oddsRatio <- function(x, digits  = 3, ...) {
+"print.oddsRatio" <- function(x, digits  = 3, ...) {
   print(as.numeric(x))
 }
 
 #' @rdname oddsRatio
 #' @export
-print.relrisk <- function(x, digits  = 3, ...) {
+"print.relrisk" <- function(x, digits  = 3, ...) {
   print(as.numeric(x))
 }
 
 #' @rdname oddsRatio
 #' @export
-summary.oddsRatio <-
+"summary.oddsRatio" <-
   function(object, digits = 3, ...){
     summary_relrisk_oddsratio(object, digits=digits, ...) 
   }
 
 #' @rdname oddsRatio
 #' @export
-summary.relrisk <- 
+"summary.relrisk" <- 
   function(object, digits = 3, ...){
     summary_relrisk_oddsratio(object, digits=digits, ...) 
   }
@@ -746,7 +738,7 @@ NULL
 #' trueMedian(z)
 #' median(s)
 #' @export
-trueMedian <- function(x,h=1) { 
+"trueMedian" <- function(x,h=1) { 
   YY <- rep(0,length(x))
   XX <- table(x)
   q <- length(XX)
@@ -776,7 +768,7 @@ NULL
 #' geary.test(s)
 #' geary.test(rnorm(100))
 #' @export
-geary.test <- function(x) {
+"geary.test" <- function(x) {
 mu <- mean(x)
 n <- length(x)
 G <- sum(abs(x-mu))/sqrt(n*sum((x-mu)^2))
@@ -801,7 +793,6 @@ NULL
 #' @return jkvar jackknife estimation of variance
 #' @return jkbias jackknife estimate of biasness of parameter
 #' @return jkbiascorr bias corrected parameter estimate
-#' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
 #' @examples 
@@ -810,7 +801,7 @@ NULL
 #' jackknife(x,mean)
 #' 
 #' @export
-jackknife<-function (x,p)
+"jackknife" <-function (x,p)
 {
     n=length(x)
     jk=rep(NA,n)
@@ -824,6 +815,97 @@ jackknife<-function (x,p)
         jkbiascorr=n*p(x)-(n-1)*jkest
     }
     list(est=p(x), jkest=jkest, jkvar=jkvar, jkbias=jkbias, jkbiascorr=jkbiascorr)
+}
+NULL
+
+
+
+
+#'@title Calculates the effect size
+#'@description Computes the effect size 
+#'@param n
+#'@param a
+#'@param b
+#'@param SSa
+#'@param SSb
+#'@param SSab
+#'@param SSr
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @examples
+#' omegaFactorial(8,2,3,169,3332,1978,3488)
+#' @export
+"omegaFactorial" <-function(n, a, b, SSa, SSb, SSab, SSr)
+{
+  MSa<-SSa/(a-1)
+  MSb<-SSb/(b-1)
+  MSab<-SSab/((a-1)*(b-1))
+  MSr<-SSr/(a*b*(n-1))
+  varA<-((a-1)*(MSa-MSr))/(n*a*b)
+  varB<-((b-1)*(MSb-MSr))/(n*a*b)
+  varAB<-((a-1)*(b-1)*(MSab-MSr))/(n*a*b)
+  varTotal<-varA + varB + varAB + MSr
+  cat("Omega^2  A: ", formatR(varA/varTotal), " \n")
+  cat("Omega^2  B: ", formatR(varB/varTotal), " \n")
+  cat("Omega^2 AB: ", formatR(varAB/varTotal), " \n")
+}
+NULL
+
+
+
+
+#' @title Computes the region significance 
+#' @description Probing Regression Interactions
+#' @param y the dependent variable.
+#' @param x the independent variable.
+#' @param z the moderator variable.
+#' @param zval an specific value for the moderator (z).
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#'@export 
+"regionSignificance" = function(y, x, z , zval){
+  mod = lm(y~x + z + predictor:z)
+  gam1.v = vcov(mod)["x","x"]
+  gam3.v = vcov(mod)["x:z","x:z"]
+  gam1gam3.cv = vcov(mod)["x","z"]
+  df = length(y)-length(coef(mod))
+  se.w1 = sqrt(gam1.v + 2*zval*gam1gam3.cv + zval^2*gam3.v)
+  w1.hat = coef(mod)["x"]+coef(mod)["x:z"]*zval
+  p.value = (1-pt(w1.hat/se.w1,df=df))*2 
+  w1.tab = cbind(w1.hat,se.w1,zval,p.value)
+  rownames(w1.tab) = "Moderator"
+  colnames(w1.tab) = c("Est","SE","Z","p-value")
+  w1.tab
+}
+NULL
+
+
+
+
+#' @title Johnson-Neyman Regression
+#' @description Probing Regression Interactions
+#' @param y the dependent variable.
+#' @param x the independent variable.
+#' @param z the moderator variable.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' 
+#'@export 
+"johnsonNeyman" = function(y,x,z){
+  mod = lm(y~x + z + x:z)
+  gam1.v = vcov(mod)["x","x"]
+  gam3.v = vcov(mod)["x:z","x:z"]
+  gam1gam3.cv = vcov(mod)["x","z"]
+  df = length(y)-length(coef(mod))
+  t = qt(.975,df)
+  zz = seq(min(z),max(z),by=.01)
+  se.w1 = sqrt(gam1.v + 2*zz*gam1gam3.cv + zz^2*gam3.v)
+  w1.hat = coef(mod)["x"]+coef(mod)["x:z"]*zz
+  z.tab = cbind(zz,t<abs(w1.hat/se.w1))  
+  ci.low = w1.hat - t*se.w1
+  ci.upp = w1.hat + t*se.w1
+  w1.tab = data.frame(w1.hat,z=z.tab[,1],z.tab[,2],ci.low,ci.upp)
+  colnames(w1.tab) = c("Est","Z","Significant","LB95", "UB95")
+  w1.tab[,3] = ifelse(w1.tab[,3]=="1","Yes","No")
+  w1.tab
 }
 NULL
 
