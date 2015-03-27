@@ -910,3 +910,28 @@ NULL
 NULL
 
 
+#' @title Confidence Interval
+#' @description Calculates the confidence interval of a vector of data.
+#' @keywords univariate
+#' @param x a vector of data.
+#' @param conf.level confidence level. Default is 0.95.
+#' @return
+#' \item{upper}{Upper bound of interval.}
+#' \item{mean}{Mean of data.}
+#' \item{lower}{Lower bound of interval.}
+#' @export
+#' @examples
+#' x = rnorm(1000)
+#' CI(x, conf.level=.95)
+#'
+calculateCI <-
+function(x,conf.level=.95) {
+a<-mean(x)
+s<-sd(x)
+n<-length(x)
+error<-qt(conf.level+(1-conf.level)/2,df=n-1)*s/sqrt(n)
+return(c(upper=a+error,mean=a,lower=a-error))
+}
+NULL
+
+
