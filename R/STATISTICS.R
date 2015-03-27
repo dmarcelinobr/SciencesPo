@@ -915,23 +915,60 @@ NULL
 #' @keywords univariate
 #' @param x a vector of data.
 #' @param conf.level confidence level. Default is 0.95.
+#' @param alpha confidence level. Default is 1-conf.level.
+#' @param \dots Extra parameters.
 #' @return
-#' \item{upper}{Upper bound of interval.}
-#' \item{mean}{Mean of data.}
-#' \item{lower}{Lower bound of interval.}
+#' \item{CI lower}{Lower bound of interval.}
+#' \item{Est. Mean}{Mean of data.}
+#' \item{CI upper}{Upper bound of interval.}
+#' \item{Std. Error}{Standard Error of the mean.}
 #' @export
 #' @examples
 #' x = rnorm(1000)
-#' CI(x, conf.level=.95)
+#' ci(x, conf.level=.95)
 #'
-calculateCI <-
-function(x,conf.level=.95) {
-a<-mean(x)
-s<-sd(x)
-n<-length(x)
-error<-qt(conf.level+(1-conf.level)/2,df=n-1)*s/sqrt(n)
-return(c(upper=a+error,mean=a,lower=a-error))
+ci <- function(x, conf.level=0.95,alpha=1-conf.level,...)
+    UseMethod("ci")
+ci.default <- function(x, conf.level=0.95,alpha=1-conf.level,na.rm=FALSE,...)
+{
+    est <- mean(x, na.rm=na.rm)
+    stderr <- sd(x, na.rm=na.rm)/sqrt(nobs(x));
+    ci.low <- est + qt(alpha/2, nobs(x)-1) * stderr
+    ci.high <- est - qt(alpha/2, nobs(x)-1) * stderr
+    retval <- c(
+        "CI lower"=ci.low,
+        "Est. Mean"=est,
+        "CI upper"=ci.high,
+        "Std. Error"=stderr
+    )
+    retval
+}
+ci.binom <- function(x, conf.level=0.95,alpha=1-conf.level,...)
+{
+    if( !(all(x) %in% c(0,1)) ) stop("Binomial values must be either 0 or 1.")
+    est <- mean(x, na.rm=TRUE)
+    n <- nobs(x)
+    stderr <- sqrt(est*(1-est)/n)
+    ci.low <- qbinom(p=alpha/2, prob=est, size=n)/n
+    ci.high <- qbinom(p=1-alpha/2, prob=est, size=n)/n
+    retval <- cbind("CI lower"=ci.low,
+                    "Est. Mean"=est,
+                    "CI upper"=ci.high,
+                    "Std. Error"= stderr
+    )
+    retval
+}
+ci.lm <- function(x,conf.level=0.95,alpha=1-conf.level,...)
+{
+    x <- summary(x)
+    est <- coef(x)[,1] ;
+    ci.low <- est + qt(alpha/2, x$df[2]) * coef(x)[,2] ;
+    ci.high <- est - qt(alpha/2, x$df[2]) * coef(x)[,2] ;
+    retval <- cbind("CI lower"=ci.low,
+                    "Est. Mean"=est,
+                    "CI upper"=ci.high,
+                    "Std. Error"= coef(x)[,2],
+                    "p-value" = coef(x)[,4])
+    retval
 }
 NULL
-
-
