@@ -11,7 +11,7 @@
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
-#' @keywords distribution
+#' @keywords Distribution
 #'  @examples
 #' invNormal(area=0.35,mu=0,sigma=1)
 #' 
@@ -35,7 +35,7 @@ NULL
 #' @note The pdf function is given by:  \deqn{f(x) = \frac{1}{\sqrt{2 \pi} \sigma} \exp\left(\frac{- (x - \mu)^2}{2 \sigma^2}\right)}{f(x) = 1/(sqrt(2 \pi) \sigma) e^-((x - \mu)^2/(2 \sigma^2))} 
 #' for \eqn{\sigma > 0}
 
-#' @keywords distribution
+#' @keywords Distribution
 #' 
 #' @seealso \code{\link{normalcdf}}, \code{\link{invNormal}}.
 #' #' 
@@ -66,7 +66,7 @@ NULL
 #' 
 #' @seealso \code{\link{normalpdf}}, \code{\link{invNormal}}.
 #' 
-#' @keywords distribution
+#' @keywords Distribution
 #' 
 #' @examples
 #' normalcdf(lower=-1.96,upper=1.96,mu=0,sigma=1)
@@ -80,88 +80,61 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Samples from Dirichlet distribution
-#' 
-#' @description Generates random deviates from the Dirichlet distribution. This code was originally posted by Ben Bolker in the R-News on Fri Dec 15 2000. But Ben attributed the code to Ian Wilson.
-#' @param n Number of random vectors to generate
-#' @param alpha Vector containing shape parameters
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @return Returns a matrix with n rows, each containing a single Dirichlet random deviate.
-
-#' @examples
-#' 
-#' # 1 - Simple usage
-#' rDirichlet(20, c(1,1,1) )
-#' # 2 - 
-#' alpha = c( 5.0, 1.0, 2.0 )
-#' alpha.0 = sum( alpha )
-#' test = rDirichlet( 100000, alpha )
-#' apply( test, 2, mean )
-#' alpha / alpha.0
-#' apply( test, 2, var )
-#' alpha * ( alpha.0 - alpha ) / ( alpha.0^2 * ( alpha.0 + 1 ) )
-#' # 3 - Brazilian poll by Datafolha 
-#' ## Face-to-face interviews conducted on Oct 03-04 with n = 18116
-#' n <- 18116
-#' poll <- c(40,24,22,5,5,4) / 100 * n # data
-#' 
-#' ## draw a sample from the posterior
-#' set.seed(1234)
-#' mcmc <- 100000
-#' sim <- rDirichlet(mcmc, alpha = poll + 1)
-### look at the margins of Aecio over Marina in the very last minute of the campaign:
-#' margin <- sim[,2] - sim[,3]
-#' mn <- mean(margin) # Bayes estimate
-#' mn
-#' s <- sd(margin) # posterior standard deviation
-#'
-#' qnts <- quantile(margin, probs = c(0.025, 0.975)) # 90% credible interval
-#' qnts
-#' pr <- mean(margin > 0) # posterior probability of a positive margin
-#' pr
-## plot posterior density
-#' hist(margin, prob = TRUE, # posterior distribution
-#'     breaks = "FD", xlab = expression(p[2] - p[3]),
-#'     main = expression(paste(bold("Posterior distribution of "), p[2] - p[3])))
-#' abline(v=mn, col='red', lwd=3, lty=3)
-#'
-#' @keywords Distributions
-#' 
-#' @export
-"rDirichlet" <- function( n, alpha ){
-    l = length( alpha )
-    theta = matrix( 0, n, l )
-    for ( j in 1:l ) {
-      theta[ , j ] = rgamma( n, alpha[ j ], 1 )
-    }
-    theta = theta / apply( theta, 1, sum )
-    return( theta )
-  }
-NULL
-
-
-
-
-#' @encoding UTF-8
 #' @title Dirichlet distribution
 #' @description Density function and random number generation for the Dirichlet distribution
 #' @param n number of random observations to draw.
 #' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.
 #'
-#' If \code{alpha} is a matrix, a complete set of \eqn{\alpha}{alpha}-parameters must be supplied for each observation.
+#' If \code{alpha} is a matrix, a complete set of \eqn{\alpha}-parameters must be supplied for each observation.
 #' \code{log} returns the logarithm of the densities (therefore the log-likelihood) and \code{sum.up} returns the product or sum and thereby the likelihood or log-likelihood.
-#' Dirichlet (log-)densities are by default computed using C-routines (\code{ddirichlet_log_vector} and \code{ddirichlet_log_matrix}), a version only using R is provided by \code{ddirichlet_R}.
-#' Caution: Although \code{.C()} can be used to call the C routines directly, R will crash or produce wrong values, if, e.g., data types are not set properly.
+#'
 #' @return
-#' rdirichlet returns a matrix with random numbers according to the supplied alpha vector or matrix.
-#' ddirichlet returns a vector of densities (if \code{sum.up = FALSE}) or the (log-)likelihood (if \code{sum.up = TRUE}) for the given data and alphas.
-
+#' the \code{rdirichlet} returns a matrix with n rows, each containing a single random number according to the supplied alpha vector or matrix. 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @keywords Distributions
 #' @examples
-#' X1 <- rdirichlet(100, c(5, 5, 10))
-#' a.mat <- cbind(1:10, 5, 10:1)
-#' a.mat
-#' X2 <- rdirichlet(10, a.mat)
-#' # note how the probabilities in the first an last column relate to a.mat
+#' # 1) General usage:
+#' rDirichlet(20, c(1,1,1) )
+#' rdirichlet(100, c(5, 5, 10))
+#' alphas <- cbind(1:10, 5, 10:1)
+#' alphas
+#' rdirichlet(10, alphas )
+#'  alpha.0 = sum( alphas )
+#' test = rdirichlet(10000, alphas )
+#' apply( test, 2, mean )
+#' alphas / alpha.0
+#' apply( test, 2, var )
+#' alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) )
+#'
+#' # 2) A pratical example of usage: 
+#' # A Brazilian face-to-face poll by Datafolha conducted on Oct 03-04
+#' # with 18,116 insterviews asking for their preferences for the
+#' # presidential candidates.  
+#' 
+#' ## First, draw a sample from the posterior
+#' set.seed(1234)
+#' n <- 18116
+#' poll <- c(40,24,22,5,5,4) / 100 * n # The data
+#' mcmc <- 100000
+#' sim <- rdirichlet(mcmc, alpha = poll + 1)
+#'
+#' ## Second, look at the margins of Aecio over Marina in the very last minute of the campaign:
+#' margin <- sim[,2] - sim[,3]
+#' mn <- mean(margin) # Bayes estimate
+#' mn;
+#' s <- sd(margin) # posterior standard deviation
+#'
+#' qnts <- quantile(margin, probs = c(0.025, 0.975)) # 90% credible interval
+#' qnts;
+#' pr <- mean(margin > 0) # posterior probability of a positive margin
+#' pr;
+#'
+#' ## Third, plot the posterior density
+#' hist(margin, prob = TRUE, # posterior distribution
+#'   breaks = "FD", xlab = expression(p[2] - p[3]),
+#'   main = expression(paste(bold("Posterior distribution of "), p[2] - p[3])))
+#' abline(v=mn, col='red', lwd=3, lty=3)
+
 #' @useDynLib SciencesPo
 #' @export
 "rdirichlet" <- function(n,     
@@ -184,6 +157,16 @@ NULL
 NULL
 
 
+"rDirichlet" <- function( n, alpha ){
+    l = length( alpha )
+    theta = matrix( 0, n, l )
+    for ( j in 1:l ) {
+      theta[ , j ] = rgamma( n, alpha[ j ], 1 )
+    }
+    theta = theta / apply( theta, 1, sum )
+    return( theta )
+  }
+NULL
 
 
 #' @encoding UTF-8
@@ -191,17 +174,20 @@ NULL
 #' @description Density function and random number generation for the Dirichlet distribution
 #' @param x a matrix containing observations.
 #' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.
+#' @return the \code{ddirichlet} returns a vector of densities (if \code{sum = FALSE}) or the (log-)likelihood (if \code{sum = TRUE}) for the given data and alphas.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @param log if \code{TRUE}, logarithmic densities are returned.
-#' @param sum.up if \code{TRUE}, the (log-)likelihood is returned.
+#' @param sum if \code{TRUE}, the (log-)likelihood is returned.
+#' @keywords Distributions
 #' @examples
-#' a.mat <- cbind(1:10, 5, 10:1);
-#' a.mat;
-#' X2 <- rdirichlet(10, a.mat);
-#' ddirichlet(X2, a.mat);
+#' mat <- cbind(1:10, 5, 10:1);
+#' mat;
+#' x <- rdirichlet(10, mat);
+#' ddirichlet(x, mat);
 #' 
 #' @useDynLib SciencesPo
 #' @export
-"ddirichlet" <- function(x, alpha, log = FALSE, sum.up = FALSE){
+"ddirichlet" <- function(x, alpha, log = FALSE, sum = FALSE){
   
   if(is.null(dim(x))) stop("x must be a matrix")
   x_dims <- dim(x)
@@ -214,7 +200,7 @@ NULL
     .Call("ddirichlet_log_matrix", x, alpha, dim(x), dim(alpha))
   }
   
-  if(sum.up){
+  if(sum){
     if(log) return(sum(res)) else return(exp(sum(res)))
   } else {
     if(log) return(res) else return(exp(res))
@@ -223,9 +209,7 @@ NULL
 NULL
 
 
-
-
-"ddirichlet_R" <- function(x, alpha, log = FALSE, sum.up = FALSE){               
+"dDirichlet" <- function(x, alpha, log = FALSE, sum = FALSE){               
   
   if(is.null(dim(x))) stop("x must be a matrix")
   if(is.vector(alpha)){
@@ -237,7 +221,7 @@ NULL
   
   res <- lgamma(rowSums(alpha)) - rowSums(lgamma(alpha)) + rowSums((alpha-1)*log(x))
   
-  if(sum.up){
+  if(sum){
     if(log) return(sum(res)) else return(exp(sum(res)))
   } else {
     if(log) return(res) else return(exp(res))
@@ -256,6 +240,7 @@ NULL
 #' @param p a vector of probabilities.
 #' @param x the number of success.
 #' 
+#' @keywords Distributions
 #' @examples
 #' trials = 10
 #' prob = c(.2,.25,.3,.35)

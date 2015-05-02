@@ -100,8 +100,7 @@ NULL
 #' @title nobs method
 #' @param object the input object.
 #' @param \dots Some extra arguments.
-#' @note nobs generic is defined only in R 2.13.0: define here for older R
-if (getRversion() < "2.13.0")
+#' @note nobs generic is defined only in R 2.13.0: define here for older R.
 nobs <- function(object, ...) UseMethod("nobs")
 #' add some nobs() methods
 `nobs.numeric` <- function(object, ...) {

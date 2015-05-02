@@ -4,3 +4,4 @@ packrat/lib*/
 .RData
 .DS_Store
 .Rprofile
+packrat/src/
