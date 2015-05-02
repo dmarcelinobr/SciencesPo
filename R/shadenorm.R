@@ -40,12 +40,12 @@
 #' shadenorm(mu=2, sig=15, between=c(-3, 12),lines=TRUE, col="blue",dens=15)
 #' ## Example: Plotting a Hypothesis Test for the mean
 #' ## Truth:      mu.true  = 8
-#'   ## Hypothesis: mu.ho    = 6
-#'   ## Generate Data Under Truth
-#'   mu.true = 5                   ## Alternative Mean
+#' ## Hypothesis: mu.ho    = 6
+#' ## Generate Data Under Truth
+#' mu.true = 5 ## Alternative Mean
 #' mu.ho   = 6
 #' sig     = 8
-#' N       = 250                 ## Sample Size
+#' N       = 250 ## Sample Size
 #' 
 #' std.err = sig/sqrt(N)
 #' crits = qnorm(c(0.025,0.975),mean=mu.ho, sd = std.err)
