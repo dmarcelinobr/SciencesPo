@@ -889,7 +889,7 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
 #'@export 
-"johnsonNeyman" = function(y,x,z){
+"johnson.neyman" = function(y,x,z){
   mod = lm(y~x + z + x:z)
   gam1.v = vcov(mod)["x","x"]
   gam3.v = vcov(mod)["x:z","x:z"]
@@ -922,14 +922,13 @@ NULL
 #' \item{Est. Mean}{Mean of data.}
 #' \item{CI upper}{Upper bound of interval.}
 #' \item{Std. Error}{Standard Error of the mean.}
-#' @export
 #' @examples
 #' x = rnorm(1000)
 #' ci(x, conf.level=.95)
-#'
-ci <- function(x, conf.level=0.95,alpha=1-conf.level,...)
+#' @export
+"ci" <- function(x, conf.level=0.95,alpha=1-conf.level,...)
     UseMethod("ci")
-ci.default <- function(x, conf.level=0.95,alpha=1-conf.level,na.rm=FALSE,...)
+"ci.default" <- function(x, conf.level=0.95,alpha=1-conf.level,na.rm=FALSE,...)
 {
     est <- mean(x, na.rm=na.rm)
     stderr <- sd(x, na.rm=na.rm)/sqrt(nobs(x));
@@ -943,7 +942,7 @@ ci.default <- function(x, conf.level=0.95,alpha=1-conf.level,na.rm=FALSE,...)
     )
     retval
 }
-ci.binom <- function(x, conf.level=0.95,alpha=1-conf.level,...)
+"ci.binom" <- function(x, conf.level=0.95,alpha=1-conf.level,...)
 {
     if( !(all(x) %in% c(0,1)) ) stop("Binomial values must be either 0 or 1.")
     est <- mean(x, na.rm=TRUE)
@@ -958,7 +957,7 @@ ci.binom <- function(x, conf.level=0.95,alpha=1-conf.level,...)
     )
     retval
 }
-ci.lm <- function(x,conf.level=0.95,alpha=1-conf.level,...)
+"ci.lm" <- function(x,conf.level=0.95,alpha=1-conf.level,...)
 {
     x <- summary(x)
     est <- coef(x)[,1] ;
