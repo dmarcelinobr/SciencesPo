@@ -9,7 +9,7 @@ Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: A data analysis tool for the political science crowd
     for ease analyzing random and nonrandom data.
 URL: http://CRAN.R-project.org/package=SciencesPo
-License: LGPL (>= 2.0, < 3)
+License: GPL (>= 2)
 Depends:
     R (>= 3.0),
     stats,
