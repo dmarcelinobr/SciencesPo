@@ -254,10 +254,13 @@ NULL
 #'  
 #'  
 #'  @examples  
-#'  x <- rnorm(100) 
+#' set.seed(51)  # for reproducibility
+#' x <- rnorm(50)
+#' ## introduce outliers
+#' x[1] <- x[1] * 10
+#' # Compare to mean:
+#'  mean(x)
 #'  winsorize(x)
-#'  # see this function in context.
-#'
 #' @keywords Descriptive
 #' 
 #' @export
