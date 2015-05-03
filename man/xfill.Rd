@@ -16,7 +16,8 @@ xfill(x, by = NULL)
 \code{xfill} 'fills in' static variables, replacing missing values in a cluster with the unique non-missing value within that cluster.
 }
 \examples{
-df = data.frame(year = c(2000, 2000, 2000, 2001, 2001, 2002, 2002, 2003), value= c("yes", NA, NA, NA, "yes", "no", NA, NA) )
+df = data.frame(year = c(2000, 2000, 2000, 2001, 2001, 2002,
+	2002, 2003), value= c("yes", NA, NA, NA, "yes", "no", NA, NA) )
 
 #xfill(value, by=year)
 }

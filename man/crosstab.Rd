@@ -44,14 +44,18 @@ crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "r")
 crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "c")
 
 # Joint percentages (sums to 100 within final two table dimensions)
-crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = "SURVIVED", type = "c")
+crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
+"SURVIVED", type = "c")
 
 # Total percentages (sums to 100 across entire table)
-crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = "SURVIVED", type = "t")
+crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
+"SURVIVED", type = "t")
 # Style = 'long'
-crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = "SURVIVED", type = "t",style = "long", margins = FALSE)
+crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
+"SURVIVED", type = "t",style = "long", margins = FALSE)
 
 # Style = 'wide' [default]
-crosstab(titanic, row.vars = "AGE", col.vars = "SURVIVED", type = "t", style = "long", margins = FALSE)
+crosstab(titanic, row.vars = "AGE", col.vars =
+"SURVIVED", type = "t", style = "long", margins = FALSE)
 }
 

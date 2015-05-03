@@ -6,13 +6,13 @@
 #' @param data a data.frame of which the variables will be renamed.
 #' @param \dots  further arguments passed to or used by other methods.
 #' @export
-rename <- function(old, new, data, ...){
+`rename` <- function(old, new, data, ...){
   UseMethod("rename")
 }
 
 #' @rdname rename
 #' @export
-rename.default <- function (old, new, data, ...) 
+`rename.default` <- function (old, new, data, ...) 
 {
   dataset <- data
   if (any(names(dataset) == as.character(substitute(old)))) {
@@ -41,7 +41,7 @@ rename.default <- function (old, new, data, ...)
 ## Rename a variable
 #' @rdname rename
 #' @export
-rename.var <- function (old, new, data, ...) 
+`rename.var` <- function (old, new, data, ...) 
 {
   dataset <- data
   pos = 1 # does nothing just to trick the environment
@@ -75,7 +75,7 @@ rename.var <- function (old, new, data, ...)
 #' @rdname rename
 #' @param verbose whether the old and new names of the variables(s) should be printed out.
 #' @export
-rename.pattern <- function (old, new, data, verbose = TRUE, ...) 
+`rename.pattern` <- function (old, new, data, verbose = TRUE, ...) 
 {
   dataset <- data
   pos = 1 # does nothing just to trick the environment
@@ -124,8 +124,7 @@ NULL
 #' keep(ssex, subset=Oppose!="NA") # subset
 #' @export
 #'
-keep <-
-  function (data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
+`keep` <- function (data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
   {
     pos = 1 # does nothing just to trick the environment
     
@@ -236,7 +235,7 @@ NULL
 #' # recoding x  to missing value:
 #' recode(z, old = c(1,2,3,4,5), new = c(5,4,3,2,1), data=df)
 #' @export
-recode <-
+`recode` <-
   function (vars, old, new, data = .data, ...) 
   {
     .data <- NULL
@@ -344,7 +343,7 @@ NULL
 #' @keywords Misc
 #'
 #' @export
-destring <- function(x) {
+`destring` <- function(x) {
   ## convert factor to strings
   if(is.character(x)) {
     as.numeric(x)
@@ -381,7 +380,7 @@ NULL
 #' dummy(df$sex)
 #' 
 #' @export
-dummy <-
+`dummy` <-
   function (x, data = NULL, drop = TRUE) 
   {
     if (is.null(data)) {
@@ -444,7 +443,7 @@ NULL
 #'
 #' @export
 #'
-modify <-
+`modify` <-
   function(x, position, value) {
     x[position] <- value
     x
@@ -474,7 +473,7 @@ NULL
 #' df3 <- mtcars[, c(5:6, 12)]
 #' joinLists(x = list(df1, df2, df3), by = "cars")
 #' @export
-joinLists <-
+`joinLists` <-
   function(x, ...)
   {
     dfs1 <- x[[1]]
@@ -514,7 +513,7 @@ NULL
 #' unnest(inerlist)
 #' 
 #' @export 
-unnest <-
+`unnest` <-
   function(x) {
     if(is.null(names(x))) {
       list(unname(unlist(x)))
@@ -547,7 +546,7 @@ NULL
 #' 
 #' 
 #' @export
-reverseLevels <- function(x) {
+`reverseLevels` <- function(x) {
   if(is.factor(x)) {
     x <- factor(as.character(x), levels=rev(levels(x)), ordered=TRUE)
   } else if(is.data.frame(x)) {
@@ -596,7 +595,7 @@ NULL
 #' 
 #' @export
 #'
-shift <- function (x, id, time, delta = 1) 
+`shift` <- function (x, id, time, delta = 1) 
 {
   if (!is.integer(delta)) 
     delta <- as.integer(delta)
@@ -678,7 +677,7 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
 #' @export
-slice <-
+`slice` <-
   function(x, by = 2, pattern  = NULL) {
     if(is.null(pattern)){	
       starts <- seq(1, length(x), by)
@@ -716,7 +715,7 @@ NULL
 #' replaceCommas(x)
 #'
 #' @export
-replaceCommas <- function(x){
+`replaceCommas` <- function(x){
   round(as.numeric(gsub(",", ".", gsub("\\.", "", x))),2)
 }
 NULL
@@ -736,7 +735,7 @@ NULL
 #' rownames(x) <- c("B", "H","I","J", "K","L") 
 #' rownames2col(x)
 #' @export
-rownames2col <-function(data,  rowname = "rowname") {
+`rownames2col` <-function(data,  rowname = "rowname") {
   ans <- data.frame(rownames(data), data, row.names = NULL)
   names(ans)[1] <- rowname
   ans
@@ -756,7 +755,7 @@ NULL
 #'
 #'  
 #' @export
-lookup <- function (x, lookup.array) 
+`lookup` <- function (x, lookup.array) 
 {
   if (any(table(lookup.array[, 1]) > 1)) {
     stop("Index value in lookup array not unique!!")
@@ -793,7 +792,7 @@ NULL
 #' @param data is the .data object
 #'
 #' @export
-wrap <- function (data = .data) 
+`wrap` <- function (data = .data) 
 {
   .data <- NULL
   dataset <- data
@@ -839,7 +838,7 @@ NULL
 #' just converts an rle object to a data.frame
 #   with columns: value, length, startIndex, endIndex
 #' @export 
-rleFrame = function(r) {
+`rleFrame` = function(r) {
   y <- data.frame(cbind(r[[2]], as.integer(r[[1]])),
                   stringsAsFactors=FALSE)
   y[,2] <- as.integer(y[,2])
@@ -865,12 +864,100 @@ NULL
 #' @examples
 #' x <- sample(10)
 #' zscore(x)
-zscore <- function( x, na.rm=getOption("na.rm", FALSE) ) {
+`zscore` <- function( x, na.rm=getOption("na.rm", FALSE) ) {
   ( x - mean(x, na.rm=na.rm)) / sd(x, na.rm=na.rm)
 }
 NULL
 
 
+
+#' @encoding UTF-8
+#' @title Scalling Method
+#' 
+#' @param x a data vector or model object of class \code{"glm"} or \code{"lm"} to be standardized.
+#' @param \dots optional arguments that are passed to scale.
+#'  
+#' @export
+`scale` <- function(x, ...) 
+  UseMethod("scale")
+NULL
+
+
+#' @encoding UTF-8
+#' @title  Standardized Beta Coefficients 
+#' 
+#' @description Calculates standardized beta coefficients from \code{lm} or \code{glm} class model objects. Standardized coefficients refer to how many standard deviations a dependent variable will change per standard deviation increase in the predictor variable. See details.
+#' @param std.dev an integer value for the standard deviation, default is \code{std.dev = 1}.
+#' 
+#' @return Standardized coefficients
+#' 
+#' @details Standardized beta coefficients are values estimated from unstandardized coefficients, which are only partially adjusted by the quotient of the standard deviation of the independent variable (IV), and the standard deviation of the dependent variable. Essentially, \bold{beta coefficients report the relative importance of each independent variables}. Therefore, standardized coefficients are important for multiple regression models, once they may aid on identifying critical IVs. Despite standardized coefficients improve transparency on the sizes of the effects, the example below points to a potential weakness of standardized regression coefficients. The homeless variable can take on values either 0 or 1, and a 1 standard deviation change of a binary variable is hard to interpret. Andrew Gelman makes a compelling argument for standardizing variables by 2 standard deviations instead, so the variance will be similar to a binary variable.
+#' 
+#' Baguley, T. (2009) Standardized or simple effect size: What should be reported?. \emph{British Journal of Psychology,} \bold{100(3),} 603-617.
+#' Gelman, A. (2008) Scaling regression inputs by dividing by two standard deviations. \emph{Statistics in Medicine}, \bold{27:} 2865-2873.
+#' Gelman, A., and Hill, J. (2006) \emph{Data analysis using regression and multilevel/hierarchical models.} Cambridge University Press.
+#' Kleinman, Ken and Horton, Nicholas (2014). \emph{SAS and R: Data Management, Statistical Analysis, and Graphics}.Chapman and Hall/CRC.
+#' 
+#' @keywords Data-Analysis 
+#' @keywords Models
+#' @keywords Standardization 
+#'
+#' @examples
+#' data(turnout)
+#'
+#' # fit a linear regression (OLS) model.
+#' (model <- lm(v8 ~ v9 + v11 , data=turnout));
+#' 
+#' # finally, apply standardization to the coefficients.
+#' scale(model)
+#' 
+#' # Possible interpretation: a change in 1 standard deviation of v11 has  
+#' # 1.7 times the impact on v8 than a 1 standard deviation change in the v9 variable.
+#'
+#' @rdname scale
+#' @export
+`scale.lm`  <- function(x, std.dev=1, ...)
+{
+    if (!inherits(x, c("lm","glm") )) stop("object not of class \"lm\"")
+    
+      coef <- summary(x)$coef[-1, 1]
+      sd.x <- sapply(x$model[-1], sd)
+      sd.y <- sapply(x$model[1], sd)
+      if(std.dev==1){
+        #calculate z-scores
+        beta <- coef*(sd.x/sd.y)
+        cat("Standardized = ", round(beta, 4), ".\n", sep = "")
+        return(beta)
+      }else{
+        beta <- coef*((std.dev*sd.x)/(std.dev*sd.y))
+    cat("Standardized = ", round(beta, 4), ".\n", sep = "")
+    return(beta)
+      }
+    }
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Unscale Data
+#' 
+#' @description Unscale objects by dropping \code{scaled:scale} and \code{scaled:center} attributes from parameters.
+#' 
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @param x a scaled object 
+#' @return Unscaled parameters 
+#' @keywords Models
+#' @export
+`unscale` <- function(x)
+{
+  if(!is.null(attr(x,"scaled:scale")))
+    x <- sweep(x, FUN="*", 2, attr(x,"scaled:scale"))
+  if(!is.null(attr(x,"scaled:scale")))
+    x <- sweep(x, FUN="+", 2, attr(x,"scaled:center"))
+  attr(x,"scaled:scale") <- NULL
+  attr(x,"scaled:center") <- NULL
+  x
+}
 
 
 #' @encoding UTF-8
@@ -897,13 +984,13 @@ NULL
 #' @seealso  \code{\link{scale}}, \code{\link{unscale}}
 #' 
 #' @export
-normalize <- function(x, range, domain, ...) {
+`normalize` <- function(x, range, domain, ...) {
   UseMethod("normalize")
 }
 
 #' @rdname normalize
 #' @export
-normalize.factor <- function(x, range, domain=range(1:nlevels(x)), ...) {
+`normalize.factor` <- function(x, range, domain=range(1:nlevels(x)), ...) {
   width <- diff(range)
   n <- length(levels(x)) - 1
   range[1]  - 1/n + width * as.numeric(x) / n
@@ -911,7 +998,7 @@ normalize.factor <- function(x, range, domain=range(1:nlevels(x)), ...) {
 
 #' @rdname normalize
 #' @export
-normalize.numeric <- function(x, range=c(0,1), domain=range(x, na.rm=TRUE), ...) {
+`normalize.numeric` <- function(x, range=c(0,1), domain=range(x, na.rm=TRUE), ...) {
   range_width  <- diff(range)
   domain_width <- diff(domain)
   range[1] + range_width * (x - min(x)) / domain_width
@@ -919,13 +1006,13 @@ normalize.numeric <- function(x, range=c(0,1), domain=range(x, na.rm=TRUE), ...)
 
 #' @rdname normalize
 #' @export
-normalize.default <- function(x, range=c(0,1), domain, ...) {
+`normalize.default` <- function(x, range=c(0,1), domain, ...) {
   normalize( as.numeric(x, range=range, domain, ...) )
 }
 
 #' @rdname normalize
 #' @export
-normalize.character <- function(x, range=c(0,1), domain, ...) {
+`normalize.character` <- function(x, range=c(0,1), domain, ...) {
   normalize( as.factor(x), range=range, domain=domain)
 }
 NULL
@@ -947,7 +1034,7 @@ NULL
 #'  y;
 #'  svTransform(y)
 #' @export
-svTransform <- function(y)
+`svTransform` <- function(y)
 {
   n <- length(y)
   trans <- (y * (n-1) + 0.5)/n
@@ -975,7 +1062,7 @@ NULL
 #' df$n<- nameSplit(df$name)
 #'
 #' @export
-nameSplit<- function(name, data=.data){
+`nameSplit`<- function(name, data=.data){
   .data <- NULL
   #nl <- as.list(1:ncol(data))
   # names(nl) <- names(data)
@@ -1029,7 +1116,7 @@ NULL
 #' @return  A list containing the variable names and the categories
 #' @author Authors: Michel Ballings, and Dirk Van den Poel, Maintainer: \email{Michel.Ballings@@GMail.com}
 #' @export
-categories <- function(x,p="all"){
+`categories` <- function(x,p="all"){
   categoricals <- which(sapply(x,function(x) is.factor(x) || is.character(x)))
   x <- data.frame(x[,categoricals])
   cats <- sapply(1:ncol(x),function(z) {
@@ -1089,8 +1176,7 @@ NULL
 #' 
 #' @export
 #' 
-as.timedf <-
-function (timevar, format, x = NULL, tz = "GMT") 
+`as.timedf` <- function (timevar, format, x = NULL, tz = "GMT") 
 {
   dimensions <- dim(x)
   clss <- lapply(x, class)
@@ -1166,8 +1252,7 @@ NULL
 #' 
 #' @export
 #' 
-tsCollapse <-
-function (data,  by = c("day","month","year"), FUN, na.rm = FALSE, factor = NULL, civil = FALSE, plot = TRUE) 
+`tsCollapse` <- function (data,  by = c("day","month","year"), FUN, na.rm = FALSE, factor = NULL, civil = FALSE, plot = TRUE) 
 {
   if (!inherits(data, c("timedf") )) stop("object not of class \"timedf\". Please, use as.timedf() before proceed.")
 	  #if (by != c("day","month","year")) stop("a method for `by` should be supplied.")

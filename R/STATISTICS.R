@@ -11,7 +11,7 @@
 #' m1 <- lm(mpg ~ qsec + hp, data=mtcars)
 #' vif(m1)
 #' @export
-"vif" <-
+`vif` <-
   function(model, ...) {
     if (any(is.na(coef(model)))) 
       stop ("there are aliased coefficients in the model")
@@ -67,7 +67,7 @@ NULL
 #' variation(myvar)
 #'
 #' @export
-"variation" <-  
+`variation` <-  
 function(x){ 
   sd(x)/mean(x)
 }
@@ -106,7 +106,7 @@ NULL
 #' 
 #' 
 #' @export
-"kurtosis" <-
+`kurtosis` <-
   function (x, na.rm = FALSE, type = 2) 
   {
     if (any(i.na <- is.na(x))) {
@@ -165,7 +165,7 @@ NULL
 #' 
 #' @export
 #' 
-"skewness" <-
+`skewness` <-
   function (x, na.rm = TRUE, type = 2) 
   {
     if (length(dim(x)) == 0) {
@@ -223,7 +223,7 @@ NULL
 #'@param x the varaible 
 #'@param w the variance
 #'
-"weighted.var" <- function(x, w){
+`weighted.var` <- function(x, w){
   return(sum(w * (x - weighted.mean(x,w))^2)/((length(x)-1)*mean(w)))
 } 
 NULL
@@ -262,7 +262,7 @@ NULL
 #' 
 #' @export
 #'
-"winsorize" <-
+`winsorize` <-
   function (x, k = 1, na.rm=TRUE) {
     if (any(is.na <- is.na(x))) {
       if (na.rm) 
@@ -305,7 +305,7 @@ NULL
 #' se(x)
 #'
 #' @export 
-"se" <-
+`se` <-
   function (x, na.rm = TRUE) 
   {
     valid <- function(x) return(sum(!is.na(x)))
@@ -350,7 +350,7 @@ NULL
 #' loglik(x,3,7)
 #' 
 #' @export 
-"loglik" <-function(x=data, mu, var)
+`loglik` <-function(x=data, mu, var)
 {
   n=length(x)
   ll = -n/2* log(2*pi*var) - .5/var*sum((mu-x)^2)
@@ -372,10 +372,10 @@ NULL
 #' @examples
 #'  x = sample(1:2, 30, TRUE); 
 #'  y = sample(1:3, 30, TRUE)
-#'  testAssociation(table(x, y))
+#'  a.test(table(x, y))
 #'
 #' @export
-"testAssociation" <- function(x) {
+`a.test` <- function(x) {
   if (!is.matrix(x)) 
     stop("Function only defined for 2-way tables.")
   tab <- summary(loglm(~1 + 2, x))$tests
@@ -408,7 +408,7 @@ NULL
 #' mode(myvar, FALSE)
 #' 
 #' @export
-"mode" <- function(x, na.rm = FALSE) {
+`mode` <- function(x, na.rm = FALSE) {
   if(na.rm){
     x = subset(x, !is.na(x))
   }
@@ -444,7 +444,7 @@ NULL
 #'   sampleCovariance(df$x, df$y)
 #'
 #' @export
-"sampleCovariance" <- function(x, y, verbose = TRUE) {
+`sampleCovariance` <- function(x, y, verbose = TRUE) {
   n <- length(x)
   # Error handling
   if (n <= 1 || n != length(y)) {
@@ -480,7 +480,7 @@ NULL
 #' @references 
 #'Allison, Paul (2014) \emph{Another Goodness-of-Fit Test for Logistic Regression}.
 #' @export
-"stukel" <- function(object, alternative = c("both", "alpha1", "alpha2")) {
+`stukel` <- function(object, alternative = c("both", "alpha1", "alpha2")) {
   DNAME <- deparse(substitute(object))
   METHOD <- "Stukel's test of the logistic link"
   alternative <- match.arg(alternative)
@@ -530,7 +530,7 @@ NULL
 #' @param adj adjustment constant 
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-"cumlogit" <- function(y, adj = 0.5) {
+`cumlogit` <- function(y, adj = 0.5) {
   ncol <- dim(y)[2]
   y <- t(apply(y, 1, cumsum))
   log((y[,-ncol] + adj)/(y[,ncol] - y[,-ncol] + adj))
@@ -546,7 +546,7 @@ NULL
 #' @param \dots further arguments passed to or used by other methods. 
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-"adj.residuals" <- function(object, ...) {
+`adj.residuals` <- function(object, ...) {
   residuals(object, ...) / sqrt(1 - lm.influence(object)$hat)
 }
 NULL
@@ -598,7 +598,7 @@ NULL
 #'  colnames(out) <- c("<40%", ">40%")
 #'  oddsRatio(out)
 #' @export
-"orrr" <- function(x, conf.level = 0.95, verbose=TRUE, digits=3,
+`orrr` <- function(x, conf.level = 0.95, verbose=TRUE, digits=3,
                  relrisk=FALSE){
   if (any(dim(x) != c(2,2))) {
     stop("expecting something 2 x 2")
@@ -666,43 +666,43 @@ NULL
 
 #' @rdname oddsRatio
 #' @export
-"oddsRatio" <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
+`oddsRatio` <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
   orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=FALSE)
 }
 
 #' @rdname oddsRatio
 #' @export
-"relrisk" <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
+`relrisk` <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
   orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=TRUE)
 }
 
 #' @rdname oddsRatio
 #' @export
-"print.oddsRatio" <- function(x, digits  = 3, ...) {
+`print.oddsRatio` <- function(x, digits  = 3, ...) {
   print(as.numeric(x))
 }
 
 #' @rdname oddsRatio
 #' @export
-"print.relrisk" <- function(x, digits  = 3, ...) {
+`print.relrisk` <- function(x, digits  = 3, ...) {
   print(as.numeric(x))
 }
 
 #' @rdname oddsRatio
 #' @export
-"summary.oddsRatio" <-
+`summary.oddsRatio` <-
   function(object, digits = 3, ...){
     summary_relrisk_oddsratio(object, digits=digits, ...) 
   }
 
 #' @rdname oddsRatio
 #' @export
-"summary.relrisk" <- 
+`summary.relrisk` <- 
   function(object, digits = 3, ...){
     summary_relrisk_oddsratio(object, digits=digits, ...) 
   }
 
-summary_relrisk_oddsratio <- function(x, digits = 3, ...){
+`summary_relrisk_oddsratio` <- function(x, digits = 3, ...){
   cat("\n")
   cat("Odds Ratio\n")
   cat("\n")
@@ -738,7 +738,7 @@ NULL
 #' trueMedian(z)
 #' median(s)
 #' @export
-"trueMedian" <- function(x,h=1) { 
+`trueMedian` <- function(x,h=1) { 
   YY <- rep(0,length(x))
   XX <- table(x)
   q <- length(XX)
@@ -768,7 +768,7 @@ NULL
 #' geary.test(s)
 #' geary.test(rnorm(100))
 #' @export
-"geary.test" <- function(x) {
+`geary.test` <- function(x) {
 mu <- mean(x)
 n <- length(x)
 G <- sum(abs(x-mu))/sqrt(n*sum((x-mu)^2))
@@ -801,7 +801,7 @@ NULL
 #' jackknife(x,mean)
 #' 
 #' @export
-"jackknife" <-function (x,p)
+`jackknife` <-function (x,p)
 {
     n=length(x)
     jk=rep(NA,n)
@@ -834,7 +834,7 @@ NULL
 #' @examples
 #' omegaFactorial(8,2,3,169,3332,1978,3488)
 #' @export
-"omegaFactorial" <-function(n, a, b, SSa, SSb, SSab, SSr)
+`omegaFactorial` <-function(n, a, b, SSa, SSb, SSab, SSr)
 {
   MSa<-SSa/(a-1)
   MSb<-SSb/(b-1)
@@ -862,7 +862,7 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
 #'@export 
-"regionSignificance" = function(y, x, z , zval){
+`regionSignificance` = function(y, x, z , zval){
   mod = lm(y~x + z + predictor:z)
   gam1.v = vcov(mod)["x","x"]
   gam3.v = vcov(mod)["x:z","x:z"]
@@ -889,7 +889,7 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
 #'@export 
-"johnson.neyman" = function(y,x,z){
+`johnson.neyman` = function(y,x,z){
   mod = lm(y~x + z + x:z)
   gam1.v = vcov(mod)["x","x"]
   gam3.v = vcov(mod)["x:z","x:z"]
@@ -910,64 +910,3 @@ NULL
 NULL
 
 
-#' @title Confidence Interval
-#' @description Calculates the confidence interval of a vector of data.
-#' @keywords univariate
-#' @param x a vector of data.
-#' @param conf.level confidence level. Default is 0.95.
-#' @param alpha confidence level. Default is 1-conf.level.
-#' @param \dots Extra parameters.
-#' @return
-#' \item{CI lower}{Lower bound of interval.}
-#' \item{Est. Mean}{Mean of data.}
-#' \item{CI upper}{Upper bound of interval.}
-#' \item{Std. Error}{Standard Error of the mean.}
-#' @examples
-#' x = rnorm(1000)
-#' ci(x, conf.level=.95)
-#' @export
-"ci" <- function(x, conf.level=0.95,alpha=1-conf.level,...)
-    UseMethod("ci")
-"ci.default" <- function(x, conf.level=0.95,alpha=1-conf.level,na.rm=FALSE,...)
-{
-    est <- mean(x, na.rm=na.rm)
-    stderr <- sd(x, na.rm=na.rm)/sqrt(nobs(x));
-    ci.low <- est + qt(alpha/2, nobs(x)-1) * stderr
-    ci.high <- est - qt(alpha/2, nobs(x)-1) * stderr
-    retval <- c(
-        "CI lower"=ci.low,
-        "Est. Mean"=est,
-        "CI upper"=ci.high,
-        "Std. Error"=stderr
-    )
-    retval
-}
-"ci.binom" <- function(x, conf.level=0.95,alpha=1-conf.level,...)
-{
-    if( !(all(x) %in% c(0,1)) ) stop("Binomial values must be either 0 or 1.")
-    est <- mean(x, na.rm=TRUE)
-    n <- nobs(x)
-    stderr <- sqrt(est*(1-est)/n)
-    ci.low <- qbinom(p=alpha/2, prob=est, size=n)/n
-    ci.high <- qbinom(p=1-alpha/2, prob=est, size=n)/n
-    retval <- cbind("CI lower"=ci.low,
-                    "Est. Mean"=est,
-                    "CI upper"=ci.high,
-                    "Std. Error"= stderr
-    )
-    retval
-}
-"ci.lm" <- function(x,conf.level=0.95,alpha=1-conf.level,...)
-{
-    x <- summary(x)
-    est <- coef(x)[,1] ;
-    ci.low <- est + qt(alpha/2, x$df[2]) * coef(x)[,2] ;
-    ci.high <- est - qt(alpha/2, x$df[2]) * coef(x)[,2] ;
-    retval <- cbind("CI lower"=ci.low,
-                    "Est. Mean"=est,
-                    "CI upper"=ci.high,
-                    "Std. Error"= coef(x)[,2],
-                    "p-value" = coef(x)[,4])
-    retval
-}
-NULL

@@ -23,17 +23,16 @@ Density function and random number generation for the Dirichlet distribution
 }
 \examples{
 # 1) General usage:
-rDirichlet(20, c(1,1,1) )
-rdirichlet(100, c(5, 5, 10))
-alphas <- cbind(1:10, 5, 10:1)
-alphas
-rdirichlet(10, alphas )
- alpha.0 = sum( alphas )
-test = rdirichlet(10000, alphas )
-apply( test, 2, mean )
-alphas / alpha.0
-apply( test, 2, var )
-alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) )
+rdirichlet(20, c(1,1,1) );
+alphas <- cbind(1:10, 5, 10:1);
+alphas;
+rdirichlet(10, alphas );
+alpha.0 <- sum( alphas );
+test <- rdirichlet(10, alphas );
+apply( test, 2, mean );
+alphas / alpha.0;
+apply( test, 2, var );
+alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) );
 
 # 2) A pratical example of usage:
 # A Brazilian face-to-face poll by Datafolha conducted on Oct 03-04
@@ -41,28 +40,28 @@ alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) )
 # presidential candidates.
 
 ## First, draw a sample from the posterior
-set.seed(1234)
-n <- 18116
-poll <- c(40,24,22,5,5,4) / 100 * n # The data
-mcmc <- 100000
-sim <- rdirichlet(mcmc, alpha = poll + 1)
+set.seed(1234);
+n <- 18116;
+poll <- c(40,24,22,5,5,4) / 100 * n; # The data
+mcmc <- 100000;
+sim <- rdirichlet(mcmc, alpha = poll + 1);
 
 ## Second, look at the margins of Aecio over Marina in the very last minute of the campaign:
-margin <- sim[,2] - sim[,3]
-mn <- mean(margin) # Bayes estimate
+margin <- sim[,2] - sim[,3];
+mn <- mean(margin); # Bayes estimate
 mn;
-s <- sd(margin) # posterior standard deviation
+s <- sd(margin); # posterior standard deviation
 
-qnts <- quantile(margin, probs = c(0.025, 0.975)) # 90\% credible interval
+qnts <- quantile(margin, probs = c(0.025, 0.975)); # 90\% credible interval
 qnts;
-pr <- mean(margin > 0) # posterior probability of a positive margin
+pr <- mean(margin > 0); # posterior probability of a positive margin
 pr;
 
 ## Third, plot the posterior density
 hist(margin, prob = TRUE, # posterior distribution
   breaks = "FD", xlab = expression(p[2] - p[3]),
-  main = expression(paste(bold("Posterior distribution of "), p[2] - p[3])))
-abline(v=mn, col='red', lwd=3, lty=3)
+  main = expression(paste(bold("Posterior distribution of "), p[2] - p[3])));
+abline(v=mn, col='red', lwd=3, lty=3);
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

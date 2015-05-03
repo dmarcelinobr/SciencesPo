@@ -22,7 +22,7 @@ utils::globalVariables(c('.data', 'Freq', 'candidate.position', 'var.order', 'va
 #' use(ssex)
 #' 
 #' @export
-"use" <-
+`use` <-
   function (file,  data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE) 
   { 
     if (clear) {
@@ -112,7 +112,7 @@ NULL
 #' info(titanic, ignore = "C*")
 #' 
 #' @export
-"info" <- function (data, show, ignore) 
+`info` <- function (data, show, ignore) 
 {
   if (!missing(show) | !missing(ignore)) {
     nl <- as.list(1:ncol(data))
@@ -303,7 +303,7 @@ NULL
 #' info(titanic)
 #' 
 #' @export
-"labelvar" <-function(variable, label, data, replace=TRUE){
+`labelvar` <-function(variable, label, data, replace=TRUE){
   # Store list of variable labels, 
   #if exist, in a temporary vector
   dataset <- data
@@ -377,7 +377,7 @@ NULL
 #' 
 #' @export
 #' 
-"peek" <- function(x=.data, n = 10) {
+`peek` <- function(x=.data, n = 10) {
   if(is.matrix(x) | is.data.frame(x)) {
     rows <- nrow(x)
     print(x[sort(sample(rows, size = n)),])
@@ -411,7 +411,7 @@ NULL
 #' swingy <-psum(us2012$Obama, us2012$Romney-100)
 #' 
 #' @export
-"psum" <-
+`psum` <-
   function(..., na.rm=FALSE) { 
     x <- list(...)
     rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
@@ -427,7 +427,7 @@ NULL
 #' @param delim is the delimiter, default is white spaces \code{" "} 
 #' 
 # trim(" Daniel   Marcelino   Silva ")
-"trim" <- function(x, delim = " ") {
+`trim` <- function(x, delim = " ") {
   gsub("^\\s+|\\s+$", "",
        gsub(sprintf("\\s+[%s]\\s+|\\s+[%s]|[%s]\\s+",
                     delim, delim, delim), delim, x))
@@ -470,7 +470,7 @@ NULL
 #'
 #' @export
 #'
-"ageGroups" <- function (x = NULL, from, to, breaks, labels) {
+`ageGroups` <- function (x = NULL, from, to, breaks, labels) {
     if (is.null(x)) {
         age = elapsed(from, to)
     }
@@ -500,7 +500,7 @@ NULL
 #' NAto0(v)
 #'
 #'@export
-"NAto0" <- function(x, value = 0){
+`NAto0` <- function(x, value = 0){
   x[is.na(x) == TRUE] <- value
   return(x)
 }
@@ -521,7 +521,7 @@ NULL
 #' df[c(5, 9), 3] <- NA
 #' eliminateNA(df) 
 #'@export
-"eliminateNA" <- function(data){
+`eliminateNA` <- function(data){
   rows <- dim(data)[1]
   cols <- dim(data)[2]
   tmp <- matrix(NA, ncol = cols, nrow = rows)
@@ -550,7 +550,7 @@ NULL
 #' 
 #' elapsed("1jan1960", "2jan1990", "%d%b%Y")
 #' @export
-"elapsed" <- function (from, to, format) {
+`elapsed` <- function (from, to, format) {
   round(as.numeric((as.Date(to, format=format) - as.Date(from, format=format))/365.25),1)
 }
 NULL
@@ -566,7 +566,7 @@ NULL
 #' @examples
 #' rowSample(iris, 20)
 #' @export
-"rowSample" <- function(x=.data, n) {
+`rowSample` <- function(x=.data, n) {
   x[sample(1:nrow(x), n, replace=FALSE), ] 
 }
 NULL
@@ -584,7 +584,7 @@ NULL
 #' noquote(quotize(a))
 #' 
 #'@export 
-"quotize" <- function(vec){
+`quotize` <- function(vec){
   sapply(vec, function(x) paste("'",x,"'",sep=''))}
 NULL
 
@@ -623,7 +623,7 @@ NULL
 #' singVals(~votedpro*party*money*acres, data=tobaccovote)
 #'
 #' @export
-"mat" <- function(formula, data=parent.frame()) {
+`mat` <- function(formula, data=parent.frame()) {
   if( class(formula) != "formula" ) stop("Must provide a formula, e.g., ~ a or ~ a + b ")
   xformula <- update(formula, ~-1+.) # kill off automatic Intercept term
   if( is.null(data) )
@@ -640,7 +640,7 @@ NULL
 #' @rdname linearAlgebra
 #' @return \code{singVals} gives singular values for each column in the model matrix
 #' @export
-"singVals" <- function(formula, data=parent.frame()){
+`singVals` <- function(formula, data=parent.frame()){
   mat <- mat(formula, data=data)
   # formulated to give one singular value for each column in A
   svs <- La.svd(mat, nv=ncol(mat), nu=ncol(mat))$d;
@@ -666,7 +666,7 @@ NULL
 #' 
 #' @keywords manipulate 
 #' @export
-"cross" <- function(..., sep=":", drop.unused.levels=FALSE) {
+`cross` <- function(..., sep=":", drop.unused.levels=FALSE) {
   factors <- list(...)
   factors <- lapply( factors, function(x) { as.factor(x) } )
   if ( length(factors) < 1 ) {
@@ -716,33 +716,33 @@ NULL
 #' factorize(data$Diagnosis)
 #' str(factorize(data))
 #' @export
-"factorize" <- function(x,  ...) {
+`factorize` <- function(x,  ...) {
   UseMethod("factorize")
 }
 
 #' @rdname factorize
 #' @export
-"factorize.default" <- function(x, ...) {
+`factorize.default` <- function(x, ...) {
   x
 }
 
 #' @rdname factorize
 #' @export
-"factorize.numeric" <- function(x, max.levels = 10L, ...){
+`factorize.numeric` <- function(x, max.levels = 10L, ...){
   if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )  
   x
 }
 
 #' @rdname factorize
 #' @export
-"factorize.character" <- function(x, max.levels = 10L, ...){
+`factorize.character` <- function(x, max.levels = 10L, ...){
   if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )  
   x
 }
 
 #' @rdname factorize
 #' @export
-"factorize.data.frame" <- function(x, max.levels=10L, ...) {
+`factorize.data.frame` <- function(x, max.levels=10L, ...) {
   as.data.frame( lapply(x, factorize, max.levels=max.levels) )
 }
 NULL
@@ -766,7 +766,7 @@ NULL
 #' @keywords Tables
 #'
 #' @export
-"anonymize" <-
+`anonymize` <-
   function(x, keep.names=TRUE){
     truenames <- names(x)
     if(length(x)>26){
@@ -824,7 +824,7 @@ NULL
 #' @importFrom data.table data.table
 #' @importFrom data.table  := 
 #' @export
-"fillin" <- function(x, y, x.var, y.var = NULL, key){
+`fillin` <- function(x, y, x.var, y.var = NULL, key){
   # Give Var2 the same name as var1 if Var2 is NULL
   if (is.null(y.var)){
     y.var <- x.var
@@ -875,7 +875,7 @@ NULL
 #' fillForward(ssex$Favor)
 #' 
 #' @export
-"fillForward" <- function(var) {
+`fillForward` <- function(var) {
   navals <- which(is.na(var))
   filledvals <- which(! is.na(var))  
   # If there would be no NAs following each other, navals-1 would give the
@@ -898,11 +898,12 @@ NULL
 #' @param by the cluster variable.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
-#' df = data.frame(year = c(2000, 2000, 2000, 2001, 2001, 2002, 2002, 2003), value= c("yes", NA, NA, NA, "yes", "no", NA, NA) )
+#' df = data.frame(year = c(2000, 2000, 2000, 2001, 2001, 2002, 
+#'	2002, 2003), value= c("yes", NA, NA, NA, "yes", "no", NA, NA) )
 #'
 #' #xfill(value, by=year)
 #' @export
-"xfill" <- function(x, by=NULL){
+`xfill` <- function(x, by=NULL){
   locf <- function(x){
     # might want to think about the end of this loop
     # this works here but you might need to add another case
@@ -959,7 +960,7 @@ NULL
 #' rfill(data, by=c(sex,race), fill=0)
 #' 
 #' @export
-"rfill" <- function(x, by, fill=NA)
+`rfill` <- function(x, by, fill=NA)
 {
   if(missing(by)) by=1:ncol(x)
   nl <- as.list(1:ncol(x))
@@ -999,15 +1000,15 @@ NULL
 #' value = 9
 #' around(x, value)
 #' @export 
-"around" <-function(x, value){
+`around` <-function(x, value){
   x<-sort(x)
-  lo<-x[nearest.loc(x, value)]
+  lo<-x[nearestLocation(x, value)]
   if(lo>=value)
-    lo<-x[nearest.loc(x, value)-1]
+    lo<-x[nearestLocation(x, value)-1]
   
-  hi<-x[nearest.loc(x, value)]
+  hi<-x[nearestLocation(x, value)]
   if(hi<value)
-    hi<-x[nearest.loc(x, value)+1]
+    hi<-x[nearestLocation(x, value)+1]
   
   c(lo, hi)
 }
@@ -1023,7 +1024,7 @@ NULL
 #' @param value The value that you want to find.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
-"nearest.loc" <- function(x, value){
+`nearestLocation` <- function(x, value){
   which(abs(x - value) == min(abs(x - value)))
 }
 NULL
@@ -1039,8 +1040,8 @@ NULL
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
-"nearest" <- function(x, value){
-  nearloc <- nearest.loc(x, value)
+`nearest` <- function(x, value){
+  nearloc <- nearestLocation(x, value)
   x[nearloc]
 }
 NULL
@@ -1066,7 +1067,7 @@ NULL
 #' \dontrun{exportData(df, "MyData")}
 #'
 #' @export
-"exportData" <- function(data, name, quote=FALSE, row.names=FALSE, sep='\t', ...) {
+`exportData` <- function(data, name, quote=FALSE, row.names=FALSE, sep='\t', ...) {
   filename = paste(name,"_", Sys.Date(),".txt", sep="")
   source <- data
   # write a tab separated tsv, use tab as seperator
@@ -1086,7 +1087,7 @@ NULL
 #' vec <- seq(1:5)
 #' percentile(vec)
 #' @export
-"percentile" <- function(x){
+`percentile` <- function(x){
   pt1 <- quantile(x, probs = seq(0, 1, by = 0.01), type = 7)
   pt2 <- unique(as.data.frame(pt1), fromLast = TRUE)
   pt3 <- rownames(pt2)
@@ -1116,7 +1117,7 @@ NULL
 #' @importFrom data.table is.data.table
 #' 
 #' @export
-"isid" <- function(columns, data, verbose  = TRUE){
+`isid` <- function(columns, data, verbose  = TRUE){
   if(!is.data.table(data)){
     copyd <- data.table(data)
   } else{ 
@@ -1184,7 +1185,7 @@ NULL
 #' outliers(ssex)
 #' 
 #' @export
-"outliers" <-
+`outliers` <-
   function(x, index=NULL) {
     if (is.data.frame(x)) {
       as.data.frame(sapply(x, outliers, index))
@@ -1224,7 +1225,7 @@ NULL
 #' @param x is optional. If x>0 a call is made to \code{\link{Sys.sleep}}. Else, execution pauses until a key is entered.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
-"pause" <-
+`pause` <-
   function (x=0) { 
     if(x > 0){
       Sys.sleep(x)
@@ -1244,7 +1245,7 @@ NULL
 #' @description This function checks whether a package is installed; if not, it installs it. It then loads the package.
 #' @param packageName the name of a package.
 #' @export
-"safeRequire" <- function(packageName) {
+`safeRequire` <- function(packageName) {
   if (!is.element(packageName, installed.packages()[,1])) {
     install.packages(packageName);
   }
@@ -1259,7 +1260,7 @@ NULL
 #' @param x the object whose values to format
 #' @param digits an integer for the number of decimal places.
 #' @export
-"formatR" <- function (x, digits=3) {
+`formatR` <- function (x, digits=3) {
   noZero <- function (x) {
     return(gsub("0\\.", ".", x));  
   }
@@ -1294,17 +1295,21 @@ NULL
 #' crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "c")
 #' 
 #' # Joint percentages (sums to 100 within final two table dimensions)
-#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = "SURVIVED", type = "c")
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = 
+#' "SURVIVED", type = "c")
 #'
 #' # Total percentages (sums to 100 across entire table)
-#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = "SURVIVED", type = "t")
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = 
+#' "SURVIVED", type = "t")
 #' # Style = 'long'
-#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = "SURVIVED", type = "t",style = "long", margins = FALSE)
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = 
+#' "SURVIVED", type = "t",style = "long", margins = FALSE)
 #' 
 #' # Style = 'wide' [default]
-#' crosstab(titanic, row.vars = "AGE", col.vars = "SURVIVED", type = "t", style = "long", margins = FALSE)
+#' crosstab(titanic, row.vars = "AGE", col.vars = 
+#' "SURVIVED", type = "t", style = "long", margins = FALSE)
 #' @export
-"crosstab" <- function (..., row.vars = NULL, 
+`crosstab` <- function (..., row.vars = NULL, 
                       col.vars = NULL,
                       type = NULL,
                       style = "wide",
@@ -1648,8 +1653,7 @@ NULL
 NULL
 
 
-
-"print.crosstab" <- function(x,decimals=x$decimals,subtotals=x$subtotals,...) {
+`print.crosstab` <- function(x,decimals=x$decimals,subtotals=x$subtotals,...) {
   
   row.vars <- x$row.vars
   col.vars <- x$col.vars

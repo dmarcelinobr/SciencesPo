@@ -13,10 +13,10 @@
 #' 
 #' @keywords Distribution
 #'  @examples
-#' invNormal(area=0.35,mu=0,sigma=1)
+#' invnormal(area=0.35,mu=0,sigma=1)
 #' 
 #' @export
-"invNormal" <-
+`invnormal` <-
   function(area,mu=0,sigma=1){
     qnorm(p=area,mean=mu,sd=sigma)
   }
@@ -37,14 +37,14 @@ NULL
 
 #' @keywords Distribution
 #' 
-#' @seealso \code{\link{normalcdf}}, \code{\link{invNormal}}.
+#' @seealso \code{\link{normalcdf}}, \code{\link{invnormal}}.
 #' #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
 #'   normalpdf(x=1.2,mu=0,sigma=1)
 #'
 #' @export
-"normalpdf" <-
+`normalpdf` <-
   function(x, mu=0,sigma=1){
     dnorm(x, mean=mu,sd=sigma)
   }
@@ -64,14 +64,14 @@ NULL
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
-#' @seealso \code{\link{normalpdf}}, \code{\link{invNormal}}.
+#' @seealso \code{\link{normalpdf}}, \code{\link{invnormal}}.
 #' 
 #' @keywords Distribution
 #' 
 #' @examples
 #' normalcdf(lower=-1.96,upper=1.96,mu=0,sigma=1)
 #' @export
-"normalcdf" <-
+`normalcdf` <-
   function(lower,upper,mu=0,sigma=1){
     abs(pnorm(upper,mean=mu,sd=sigma)-pnorm(lower,mean=mu,sd=sigma))
   }
@@ -94,17 +94,16 @@ NULL
 #' @keywords Distributions
 #' @examples
 #' # 1) General usage:
-#' rDirichlet(20, c(1,1,1) )
-#' rdirichlet(100, c(5, 5, 10))
-#' alphas <- cbind(1:10, 5, 10:1)
-#' alphas
-#' rdirichlet(10, alphas )
-#'  alpha.0 = sum( alphas )
-#' test = rdirichlet(10000, alphas )
-#' apply( test, 2, mean )
-#' alphas / alpha.0
-#' apply( test, 2, var )
-#' alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) )
+#' rdirichlet(20, c(1,1,1) );
+#' alphas <- cbind(1:10, 5, 10:1);
+#' alphas;
+#' rdirichlet(10, alphas );
+#' alpha.0 <- sum( alphas );
+#' test <- rdirichlet(10, alphas );
+#' apply( test, 2, mean );
+#' alphas / alpha.0;
+#' apply( test, 2, var );
+#' alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) );
 #'
 #' # 2) A pratical example of usage: 
 #' # A Brazilian face-to-face poll by Datafolha conducted on Oct 03-04
@@ -112,32 +111,32 @@ NULL
 #' # presidential candidates.  
 #' 
 #' ## First, draw a sample from the posterior
-#' set.seed(1234)
-#' n <- 18116
-#' poll <- c(40,24,22,5,5,4) / 100 * n # The data
-#' mcmc <- 100000
-#' sim <- rdirichlet(mcmc, alpha = poll + 1)
+#' set.seed(1234);
+#' n <- 18116;
+#' poll <- c(40,24,22,5,5,4) / 100 * n; # The data
+#' mcmc <- 100000;
+#' sim <- rdirichlet(mcmc, alpha = poll + 1);
 #'
 #' ## Second, look at the margins of Aecio over Marina in the very last minute of the campaign:
-#' margin <- sim[,2] - sim[,3]
-#' mn <- mean(margin) # Bayes estimate
+#' margin <- sim[,2] - sim[,3];
+#' mn <- mean(margin); # Bayes estimate
 #' mn;
-#' s <- sd(margin) # posterior standard deviation
+#' s <- sd(margin); # posterior standard deviation
 #'
-#' qnts <- quantile(margin, probs = c(0.025, 0.975)) # 90% credible interval
+#' qnts <- quantile(margin, probs = c(0.025, 0.975)); # 90% credible interval
 #' qnts;
-#' pr <- mean(margin > 0) # posterior probability of a positive margin
+#' pr <- mean(margin > 0); # posterior probability of a positive margin
 #' pr;
 #'
 #' ## Third, plot the posterior density
 #' hist(margin, prob = TRUE, # posterior distribution
 #'   breaks = "FD", xlab = expression(p[2] - p[3]),
-#'   main = expression(paste(bold("Posterior distribution of "), p[2] - p[3])))
-#' abline(v=mn, col='red', lwd=3, lty=3)
+#'   main = expression(paste(bold("Posterior distribution of "), p[2] - p[3])));
+#' abline(v=mn, col='red', lwd=3, lty=3);
 
 #' @useDynLib SciencesPo
 #' @export
-"rdirichlet" <- function(n,     
+`rdirichlet` <- function(n,     
                        alpha  
 ){
   if( ((n %% 1) != 0) | (n <= 0)) stop("n must be an integer > 0")
@@ -157,7 +156,7 @@ NULL
 NULL
 
 
-"rDirichlet" <- function( n, alpha ){
+`rDirichlet` <- function( n, alpha ){
     l = length( alpha )
     theta = matrix( 0, n, l )
     for ( j in 1:l ) {
@@ -187,7 +186,7 @@ NULL
 #' 
 #' @useDynLib SciencesPo
 #' @export
-"ddirichlet" <- function(x, alpha, log = FALSE, sum = FALSE){
+`ddirichlet` <- function(x, alpha, log = FALSE, sum = FALSE){
   
   if(is.null(dim(x))) stop("x must be a matrix")
   x_dims <- dim(x)
@@ -209,7 +208,7 @@ NULL
 NULL
 
 
-"dDirichlet" <- function(x, alpha, log = FALSE, sum = FALSE){               
+`dDirichlet` <- function(x, alpha, log = FALSE, sum = FALSE){               
   
   if(is.null(dim(x))) stop("x must be a matrix")
   if(is.vector(alpha)){
@@ -247,7 +246,7 @@ NULL
 #' success = 4
 #' binompdf(n = trials, p = prob, x = success)
 #' @export
-"binomcdf" <-
+`binomcdf` <-
   function(n,p,x){
     pbinom(x,size=n,prob=p)
   }
@@ -273,7 +272,7 @@ NULL
 #' binomcdf(n = trials, p = prob, x = success)
 #' 
 #' @export
-"binompdf" <-
+`binompdf` <-
   function(n,p,x){
     dbinom(x,size=n,prob=p)
   }
