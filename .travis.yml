@@ -19,7 +19,7 @@ before_install:
   - sudo apt-get update -q
 
 install:
-  - ./travis-tool.sh install_deps
+  - ./travis-tool.sh install_aptget install_deps r-cran-rcpp r-cran-rcpparmadillo
 
 script:
   - ./travis-tool.sh run_tests
