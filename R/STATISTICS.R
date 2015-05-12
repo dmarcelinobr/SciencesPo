@@ -67,6 +67,38 @@ NULL
 NULL
 
 
+
+#' @encoding UTF-8
+#' @title  Calculate the Mode
+#'
+#' @description Estimates the mode for a vector
+#'
+#' @param x A data vector
+#' @param na.rm A logical value, default is \code{FALSE}
+#' @note this function replaces the \code{base} function with the same name, but is does different thing. While \code{SciencesPo::mode} intuitively calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @examples
+#' myvar <-c(1,1,2,2,3,3,4,4,5, NA)
+#' mode(myvar)
+#'
+#' mode(myvar, FALSE)
+#'
+#' @export
+`mode` <- function(x, na.rm = FALSE) {
+  if(na.rm){
+    x = subset(x, !is.na(x))
+  }
+  y <- as.factor(x)
+  freq <- summary(y)
+  mode <- names(freq)[freq[names(freq)] == max(freq)]
+  return(as.numeric(mode) )
+}
+NULL
+
+
+
 #' @encoding UTF-8
 #' @title Variance Inflation Factor
 #' @description Extracts Variance Inflation Factor from a model of class \dQuote{lm}
@@ -431,107 +463,6 @@ NULL
   structure(list(table = x, chisq_tests = tab, phi = phi, contingency = cont,cramer = cramer))
 }
 NULL
-
-
-
-
-#' @encoding UTF-8
-#' @title  Calculate the Mode
-#'
-#' @description Estimates the mode for a vector
-#'
-#' @param x A data vector
-#' @param na.rm A logical value, default is \code{FALSE}
-#' @note this function replaces the \code{base} function with the same name, but is does different thing. While \code{SciencesPo::mode} intuitively calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#'
-#' @examples
-#' myvar <-c(1,1,2,2,3,3,4,4,5, NA)
-#' mode(myvar)
-#'
-#' mode(myvar, FALSE)
-#'
-#' @export
-`mode` <- function(x, na.rm = FALSE) {
-  if(na.rm){
-    x = subset(x, !is.na(x))
-  }
-  y <- as.factor(x)
-  freq <- summary(y)
-  mode <- names(freq)[freq[names(freq)] == max(freq)]
-  return(as.numeric(mode) )
-}
-NULL
-
-
-
-#' @encoding UTF-8
-#' @title Calculate the Median per Column
-#' @description Compute the sample medians of the columns (non-rows) of a data.frame or array.
-#' @param x a data.frame or array.
-#' @param na.rm a logical value indicating whether \code{NA} values should be
-#'  removed before the computation proceeds. The default is \code{FALSE}.
-#'
-#' @return A vector or array of the medians of each column with dimension \code{dim( x )[-1]}.
-#' @seealso \code{\link{rowMedians}},\code{\link{median}},\code{\link{colMeans}}.
-#'
-#' @examples
-#' data(ltaylor96)
-#' colMedians(ltaylor96)
-#' @export
-`colMedians` <- function( x, na.rm = FALSE ) {
-
-   if( is.data.frame( x ) ) {
-      x <- as.matrix( x )
-   }
-   if( !is.array( x ) ) {
-      stop( "argument 'x' must be a data.frame, matrix, or array" )
-   }
-   if( !is.numeric( x ) ) {
-      stop( "argument 'x' must be numeric" )
-   }
-
-   result <- array( NA, dim = dim( x )[-1] )
-   dimnames( result ) <- dimnames( x )[-1]
-
-   for( i in 1:dim( x )[ 2 ] ) {
-      if( length( dim( x ) ) == 2 ) {
-         result[ i ] <- median( x[ , i ], na.rm = na.rm )
-      } else {
-         result[ slice.index( result, 1 ) == i ] <-
-            colMedians( array( x[ slice.index( x, 2 ) == i ],
-               dim = dim( x )[ -2 ] ), na.rm = na.rm )
-      }
-   }
-
-   return( result )
-}
-NULL
-
-#' @encoding UTF-8
-#' @title Calculate the Median per Row
-#' @description Compute the sample medians of the rows of a data.frame or matrix.
-#' @param x a data.frame or matrix.
-#' @param na.rm a logical value indicating whether \code{NA} values should be
-#'  removed before the computation proceeds. The default is \code{FALSE}.
-#' @return A vector of the medians of each row of \code{x}
-#' @seealso \code{\link{colMedians}},\code{\link{median}},\code{\link{rowMeans}}.
-#'
-#' @examples
-#' data(ltaylor96)
-#' rowMedians( ltaylor96)
-#' m <- matrix( 1:12, nrow = 4 )
-#' rowMedians( m )
-#' @export
-`rowMedians` <- function( x, na.rm = FALSE ) {
-   if( is.null( dim( x ) ) || length( dim( x ) ) != 2 ) {
-      stop( "argument 'x' must be a matrix or a data.frame" )
-   }
-   return( colMedians( t( x ), na.rm = na.rm ) )
-}
-NULL
-
 
 
 
