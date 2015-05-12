@@ -379,7 +379,10 @@ NULL
 #'
 `peek` <- function(x=.data, n = 10) {
   if(is.matrix(x) | is.data.frame(x)) {
-    rows <- nrow(x)
+    rows <- nobs(x)
+	if (rows == 0)
+	    stop("Given vector must not be empty.")
+	  # handling vectors of length one differs from the behavior of base::sample
     print(x[sort(sample(rows, size = n)),])
   } else {
     cat("'peek' only anticipates matrices and data.frames.\n")
@@ -1750,3 +1753,39 @@ return(data)
 }
 NULL
 
+
+#' Check subset relation on two vectors.
+#'
+#' @param x [\code{vector}]\cr
+#'   Source vector.
+#' @param y [\code{vector}]\cr
+#'   Vector of the same mode as \code{x}.
+#' @param strict [\code{logical(1)}]\cr
+#'   Checks for strict/proper subset relation.
+#' @return [\code{logical(1)}]
+#'   \code{TRUE} if each element of \code{x} is also contained in \code{y}, i. e.,
+#'   if \code{x} is a subset of \code{y} and \code{FALSE} otherwise.
+#' @export
+is.subset = function(x, y, strict = FALSE) {
+  if (length(x) == 0)
+    return(TRUE)
+  res = all(x %in% y)
+  if (strict)
+    res = res & !is.subset(y, x)
+  return(res)
+}
+NULL
+
+#' Check if given object has certain attributes.
+#'
+#' @param obj [\code{mixed}]\cr
+#'   Arbitrary R object.
+#' @param attributeNames [\code{character}]\cr
+#'   Vector of strings, i.e., attribute names.
+#' @return [\code{logical(1)}]
+#'   \code{TRUE} if object \code{x} contains all attributes from \code{attributeNames}.
+#'   and otherwise \code{FALSE}.
+#' @export
+hasAttributes = function(obj, attributeNames) {
+  return(is.subset(attributeNames, getAttributeNames(obj)))
+}
