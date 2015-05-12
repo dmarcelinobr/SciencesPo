@@ -40,8 +40,8 @@ a <- c(1,0,0); b <- c(1,2,3); c <- c(4,5,6); x <- rnorm(3)
 mat(~a+b)
 mat(~a+b+1)
 
-data(tobaccovote)
-mat(~votedpro+party, data=tobaccovote)
-singVals(~votedpro*party*money*acres, data=tobaccovote)
+data(turnout)
+mat(~v7+v5, data=turnout)
+singVals(~v7*v5, data=turnout)
 }
 

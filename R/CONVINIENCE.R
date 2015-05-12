@@ -621,9 +621,9 @@ NULL
 #' mat(~a+b)
 #' mat(~a+b+1)
 #'
-#' data(tobaccovote)
-#' mat(~votedpro+party, data=tobaccovote)
-#' singVals(~votedpro*party*money*acres, data=tobaccovote)
+#' data(turnout)
+#' mat(~v7+v5, data=turnout)
+#' singVals(~v7*v5, data=turnout)
 #'
 #' @export
 `mat` <- function(formula, data=parent.frame()) {
@@ -1081,27 +1081,6 @@ NULL
 
 
 
-#' @encoding UTF-8
-#' @title Converts into percentiles
-#' @description Converts numeric vector into its percentile.
-#' @param x a numeric vector.
-#' @author Daniel Marcelino \email{dmarcelino@@live.com}
-#' @examples
-#' vec <- seq(1:5)
-#' percentile(vec)
-#' @export
-`percentile` <- function(x){
-  pt1 <- quantile(x, probs = seq(0, 1, by = 0.01), type = 7)
-  pt2 <- unique(as.data.frame(pt1), fromLast = TRUE)
-  pt3 <- rownames(pt2)
-  pt4 <- as.integer(strsplit(pt3, "%"))
-  ans <- pt4[as.integer(cut(x, c(0, pt2$pt1), labels = 1:length(pt3)))]
-  return(ans)
-}
-NULL
-
-
-
 
 #' @encoding UTF-8
 #' @title Finds ID combination
@@ -1270,6 +1249,50 @@ NULL
   return(noZero(round(x, digits)));
 }
 NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Format a numeric proportion
+#'
+#' @description Takes a number and formats it as a percentage.
+#' @param x a number or a vector whose numbers will be formated.
+#' @param digits the number of digits to be left.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @examples
+#' x <- c(.15, .00556, .55, 0.246)
+#' formatPercent(x, 0)
+#'
+#' @export
+formatPercent <- function(x, digits = 1){
+  ans <- paste(formatC(x * 100, digits, format = "f"), "%", sep = "")
+  return(print.noquote(ans))
+}
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Converts to percentiles
+#' @description Converts a numeric vector to percentiles.
+#' @param x a numeric vector.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @examples
+#' vec <- seq(1:5)
+#' percentify(vec)
+#' @export
+`percentify` <- function(x){
+  pt1 <- quantile(x, probs = seq(0, 1, by = 0.01), type = 7)
+  pt2 <- unique(as.data.frame(pt1), fromLast = TRUE)
+  pt3 <- rownames(pt2)
+  pt4 <- as.integer(strsplit(pt3, "%"))
+  ans <- pt4[as.integer(cut(x, c(0, pt2$pt1), labels = 1:length(pt3)))]
+  return(ans)
+}
+NULL
+
 
 
 

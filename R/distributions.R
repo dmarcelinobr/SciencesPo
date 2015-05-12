@@ -1,20 +1,20 @@
 #' @encoding UTF-8
-#' @title Inverse Cumulative Standard Normal Distribution 
-#' 
-#' @description Computes the inverse cumulative distribution of \code{x} associated with an \emph{area} under the normal distribution curve given by \eqn{\mu} and standard deviation  \eqn{\sigma}. 
-#' 
+#' @title Inverse Cumulative Standard Normal Distribution
+#'
+#' @description Computes the inverse cumulative distribution of \code{x} associated with an \emph{area} under the normal distribution curve given by \eqn{\mu} and standard deviation  \eqn{\sigma}.
+#'
 #' @param area the area or a vector of probabilities.
 #' @param mu the mean \eqn{\mu}.
 #' @param sigma the standard deviation of the distribution \eqn{\sigma}.
-#' 
+#'
 #' @seealso \code{\link{shadenorm}}, \code{\link{normalpdf}}, \code{\link{normalcdf}}
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @keywords Distribution
 #'  @examples
 #' invnormal(area=0.35,mu=0,sigma=1)
-#' 
+#'
 #' @export
 `invnormal` <-
   function(area,mu=0,sigma=1){
@@ -24,21 +24,21 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Normal probability density function 
-#' 
+#' @title Normal probability density function
+#'
 #' @description Computes the pdf at each of the values in \emph{x} using the normal distribution with mean \eqn{\mu = 0} and standard deviation \eqn{\sigma = 1}.
 #'
 #' @param x a vector of quantiles.
 #' @param mu is the mean \eqn{\mu}, its default value is \eqn{\mu = 0}
 #' @param sigma is the standard deviation \eqn{\sigma}, its default value is \eqn{\sigma = 1}
-#' 
-#' @note The pdf function is given by:  \deqn{f(x) = \frac{1}{\sqrt{2 \pi} \sigma} \exp\left(\frac{- (x - \mu)^2}{2 \sigma^2}\right)}{f(x) = 1/(sqrt(2 \pi) \sigma) e^-((x - \mu)^2/(2 \sigma^2))} 
+#'
+#' @note The pdf function is given by:  \deqn{f(x) = \frac{1}{\sqrt{2 \pi} \sigma} \exp\left(\frac{- (x - \mu)^2}{2 \sigma^2}\right)}{f(x) = 1/(sqrt(2 \pi) \sigma) e^-((x - \mu)^2/(2 \sigma^2))}
 #' for \eqn{\sigma > 0}
 
 #' @keywords Distribution
-#' 
+#'
 #' @seealso  \code{\link{shadenorm}}, \code{\link{normalcdf}}, \code{\link{invnormal}}.
-#' #' 
+#' #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
 #'   normalpdf(x=1.2,mu=0,sigma=1)
@@ -53,21 +53,21 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Normal Cumulative Distribution 
-#' 
+#' @title Normal Cumulative Distribution
+#'
 #' @description Calculates the normal distribution probability using \emph{lower bound} e \emph{upper bound} by the mean \eqn{\mu} and standard deviation.
 
-#' @param lower is the inferior extreme value. 
+#' @param lower is the inferior extreme value.
 #' @param upper is the superior extreme value.
 #' @param mu is the mean \eqn{\mu}, its default value is \eqn{\mu = 0}
 #' @param sigma is the standard deviation \eqn{\sigma}, its default value is \eqn{\sigma = 1}
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @seealso  \code{\link{shadenorm}}, \code{\link{normalpdf}}, \code{\link{invnormal}}.
-#' 
+#'
 #' @keywords Distribution
-#' 
+#'
 #' @examples
 #' normalcdf(lower=-1.96,upper=1.96,mu=0,sigma=1)
 #' @export
@@ -89,7 +89,7 @@ NULL
 #' \code{log} returns the logarithm of the densities (therefore the log-likelihood) and \code{sum.up} returns the product or sum and thereby the likelihood or log-likelihood.
 #'
 #' @return
-#' the \code{rdirichlet} returns a matrix with n rows, each containing a single random number according to the supplied alpha vector or matrix. 
+#' the \code{rdirichlet} returns a matrix with n rows, each containing a single random number according to the supplied alpha vector or matrix.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @keywords Distributions
 #' @examples
@@ -105,11 +105,11 @@ NULL
 #' apply( test, 2, var );
 #' alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) );
 #'
-#' # 2) A pratical example of usage: 
+#' # 2) A pratical example of usage:
 #' # A Brazilian face-to-face poll by Datafolha conducted on Oct 03-04
 #' # with 18,116 insterviews asking for their preferences for the
-#' # presidential candidates.  
-#' 
+#' # presidential candidates.
+#'
 #' ## First, draw a sample from the posterior
 #' set.seed(1234);
 #' n <- 18116;
@@ -136,8 +136,8 @@ NULL
 
 #' @useDynLib SciencesPo
 #' @export
-`rdirichlet` <- function(n,     
-                       alpha  
+`rdirichlet` <- function(n,
+                       alpha
 ){
   if( ((n %% 1) != 0) | (n <= 0)) stop("n must be an integer > 0")
   if( any(alpha <= 0) ) stop("all values in alpha must be > 0")
@@ -150,7 +150,7 @@ NULL
   } else {
     if(n != nrow(alpha)) stop("when alpha is a matrix, the number of its rows must be equal to n")
     X <- .Call("rdirichlet_matrix", n, alpha, dim(alpha))
-  } 
+  }
   return(X)
 }
 NULL
@@ -183,22 +183,22 @@ NULL
 #' mat;
 #' x <- rdirichlet(10, mat);
 #' ddirichlet(x, mat);
-#' 
+#'
 #' @useDynLib SciencesPo
 #' @export
 `ddirichlet` <- function(x, alpha, log = FALSE, sum = FALSE){
-  
+
   if(is.null(dim(x))) stop("x must be a matrix")
   x_dims <- dim(x)
   if( any(alpha <= 0) ) stop('all values in alpha must be > 0.')
-  
+
   res <- if(is.vector(alpha)){
     .Call("ddirichlet_log_vector", x, alpha, dim(x))
   } else {
     if(any(dim(alpha) != dim(x))) stop("check if x and alpha are correctly specified")
     .Call("ddirichlet_log_matrix", x, alpha, dim(x), dim(alpha))
   }
-  
+
   if(sum){
     if(log) return(sum(res)) else return(exp(sum(res)))
   } else {
@@ -208,8 +208,8 @@ NULL
 NULL
 
 
-`dDirichlet` <- function(x, alpha, log = FALSE, sum = FALSE){               
-  
+`dDirichlet` <- function(x, alpha, log = FALSE, sum = FALSE){
+
   if(is.null(dim(x))) stop("x must be a matrix")
   if(is.vector(alpha)){
     if(ncol(x) != length(alpha)) stop("alpha must be a vector/matrix fitting to the data in x")
@@ -217,9 +217,9 @@ NULL
   }
   if(any(dim(alpha) != dim(x))) stop("check if x and alpha are correctly specified")
   if( any(alpha <= 0) ) stop('all values in alpha must be > 0.')
-  
+
   res <- lgamma(rowSums(alpha)) - rowSums(lgamma(alpha)) + rowSums((alpha-1)*log(x))
-  
+
   if(sum){
     if(log) return(sum(res)) else return(exp(sum(res)))
   } else {
@@ -232,13 +232,13 @@ NULL
 
 #' @encoding UTF-8
 #' @title Binomial cumulative distribution function
-#' 
-#' @description Computes a binomial cdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}.  
-#' 
+#'
+#' @description Computes a binomial cdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}.
+#'
 #' @param n  the number of trials.
 #' @param p a vector of probabilities.
 #' @param x the number of success.
-#' 
+#'
 #' @keywords Distributions
 #' @examples
 #' trials = 10
@@ -257,23 +257,53 @@ NULL
 
 #' @encoding UTF-8
 #' @title Binomial probability density function
-#' 
-#' @description Computes the binomial pdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}. 
-#' 
+#'
+#' @description Computes the binomial pdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}.
+#'
 #' @param n  the number of trials.
 #' @param p a vector of probabilities.
 #' @param x the number of success.
-#' 
+#'
 #' @note The probability density function (pdf) is given by: \deqn{p(x) = {n \choose k} p^x (1 - p)^{n - x}}{p(x) = choose(n,x) p^x (1-p)^(n-x)} with \eqn{x = 0, 1, 2, \dots}
 #' @examples
 #' trials = 10
 #' prob = c(.2,.25,.3,.35)
 #' success = 4
 #' binomcdf(n = trials, p = prob, x = success)
-#' 
+#'
 #' @export
 `binompdf` <-
   function(n,p,x){
     dbinom(x,size=n,prob=p)
   }
 NULL
+
+
+#' @encoding UTF-8
+#' @title Calculate the Log Likelihood of a Normal Distribution
+#'
+#' @description
+#' Find the log likelihood of a normal distribution.
+#'
+#' @param x data.
+#' @param mu estimated mean.
+#' @param var estimated variance.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @return ll logliklihood of the distribution
+#'
+#' @examples
+#' x = rnorm(100, 3, 7)
+#' logikDistribution(x,3,7)
+#'
+#' @export
+`logikDistribution` <-function(x=data, mu, var)
+{
+  n=length(x)
+  ll = -n/2* log(2*pi*var) - .5/var*sum((mu-x)^2)
+
+  -ll
+}
+NULL
+
