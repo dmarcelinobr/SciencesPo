@@ -1,4 +1,73 @@
 #' @encoding UTF-8
+#' @title Pearson's Coefficient of Variation
+#'
+#' @description Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Karl Pearson, which is given by the division of standard deviation by the mean. The CV reflects a normalized measure of the dispersion of a given probability distribution. Conversely, distributions with \eqn{cv < 1} are considered \dQuote{low-variance}, while those with \eqn{cv > 1} \dQuote{high-variance}.
+#'
+#' @param x A numeric vector.
+#'
+#' @details \eqn{\frac{sd(x)}{mean(x)} = cv}, which is the inverse of signal-to-noise ratio.
+#'
+#' @return The coefficient of variation.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @keywords The Basics
+#' @keywords Descriptive Stats
+#'
+#' @examples
+#'
+#' myvar <- sample(100)
+#' cv(myvar)
+#' @rdname variation
+#' @export
+`cv` <-
+  function(x){
+    sd(x)/mean(x)
+  }
+NULL
+
+
+#' @encoding UTF-8
+#' @title Calculate the Sample Covariance
+#'
+#' @description Computes the sample covariance between two vectors. The Covariance provides a measure of the strength of the correlation between two or more sets of random variates. The covariance for two random variates \code{x} and \code{y}, each with sample size \code{n}, is defined by the expectation value variables \verb{cov(x, y) = (x - \mu_x)(y - \mu_y)}. For uncorrelated variables, \code{cov(x, y) = 0}.
+#'
+#' @param x One of two vectors whose sample covariance is to be calculated.
+#' @param y The other vector.
+#' @param verbose If \code{TRUE}, prints sample covariance; if not, not. Default is \code{verbose = TRUE}.
+#'
+#' @return The sample covariance between x and y.
+#'
+#' @details x and y must have the same length, greater than one  with no missing values.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @references Based on the Google's R Guide Style.
+#' @examples
+#' # Some random data:
+#' df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5),
+#'  y=rnorm(20, mean=5, sd=2) )
+#'   sampleCovariance(df$x, df$y)
+#'
+#' @export
+`sampleCovariance` <- function(x, y, verbose = TRUE) {
+  n <- length(x)
+  # Error handling
+  if (n <= 1 || n != length(y)) {
+    stop("Arguments x and y have different lengths: ",
+         length(x), " and ", length(y), ".")
+  }
+  if (TRUE %in% is.na(x) || TRUE %in% is.na(y)) {
+    stop(" Arguments x and y must not have missing values.")
+  }
+  covariance <- var(x, y)
+  if (verbose)
+    cat("Covariance = ", round(covariance, 4), ".\n", sep = "")
+  return(covariance)
+}
+NULL
+
+
+#' @encoding UTF-8
 #' @title Variance Inflation Factor
 #' @description Extracts Variance Inflation Factor from a model of class \dQuote{lm}
 #' @param model a model object
@@ -40,37 +109,6 @@
     else result[, 3] <- result[, 1]^(1/(2 * result[, 2]))
     result
   }
-NULL
-
-
-
-
-#' @encoding UTF-8
-#' @title Pearson's Coefficient of Variation
-#'
-#' @description Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Karl Pearson, which is given by the division of standard deviation by the mean. The CV reflects a normalized measure of the dispersion of a given probability distribution. Conversely, distributions with \eqn{cv < 1} are considered \dQuote{low-variance}, while those with \eqn{cv > 1} \dQuote{high-variance}.
-#'
-#' @param x A numeric vector.
-#'
-#' @details \eqn{\frac{sd(x)}{mean(x)} = cv}, which is the inverse of signal-to-noise ratio.
-#'
-#' @return The coefficient of variation.
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#'
-#' @keywords The Basics
-#' @keywords Descriptive Stats
-#'
-#' @examples
-#'
-#' myvar <- sample(100)
-#' variation(myvar)
-#'
-#' @export
-`variation` <-
-function(x){
-  sd(x)/mean(x)
-}
 NULL
 
 
@@ -390,8 +428,7 @@ NULL
   phi <- sqrt(tab[2, 1]/sum(x))
   cont <- sqrt(phi^2/(1 + phi^2))
   cramer <- sqrt(phi^2/min(dim(x) - 1))
-  structure(list(table = x, chisq_tests = tab, phi = phi, contingency = cont,
-                 cramer = cramer))
+  structure(list(table = x, chisq_tests = tab, phi = phi, contingency = cont,cramer = cramer))
 }
 NULL
 
@@ -496,44 +533,6 @@ NULL
 NULL
 
 
-#' @encoding UTF-8
-#' @title Calculate the Sample Covariance
-#'
-#' @description Computes the sample covariance between two vectors. The Covariance provides a measure of the strength of the correlation between two or more sets of random variates. The covariance for two random variates \code{x} and \code{y}, each with sample size \code{n}, is defined by the expectation value variables \verb{cov(x, y) = (x - \mu_x)(y - \mu_y)}. For uncorrelated variables, \code{cov(x, y) = 0}.
-#'
-#' @param x One of two vectors whose sample covariance is to be calculated.
-#' @param y The other vector.
-#' @param verbose If \code{TRUE}, prints sample covariance; if not, not. Default is \code{verbose = TRUE}.
-#'
-#' @return The sample covariance between x and y.
-#'
-#' @details x and y must have the same length, greater than one  with no missing values.
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @references Based on the Google's R Guide Style.
-#' @examples
-#' # Some random data:
-#' df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5),
-#'  y=rnorm(20, mean=5, sd=2) )
-#'   sampleCovariance(df$x, df$y)
-#'
-#' @export
-`sampleCovariance` <- function(x, y, verbose = TRUE) {
-  n <- length(x)
-  # Error handling
-  if (n <= 1 || n != length(y)) {
-    stop("Arguments x and y have different lengths: ",
-         length(x), " and ", length(y), ".")
-  }
-  if (TRUE %in% is.na(x) || TRUE %in% is.na(y)) {
-    stop(" Arguments x and y must not have missing values.")
-  }
-  covariance <- var(x, y)
-  if (verbose)
-    cat("Covariance = ", round(covariance, 4), ".\n", sep = "")
-  return(covariance)
-}
-NULL
 
 
 
@@ -798,6 +797,151 @@ NULL
 
 
 
+
+
+#' @title Likelihood Ratio Test (LRT)
+#'
+#' @description Computes the likelihood ratio test (LRT)--a goodness-of-fit--between two nested models. It checks the difference in the deviance (-2*logLikelihood) between the two candidate models against the change in degrees of freedom using a chi-squared test.
+#'
+#' @param model1 the first model object.
+#' @param model2 the second model object.
+#'
+#' @details \verb{LR = -2 ln(L(m1)/L(m2)) = 2(ll(m2)-ll(m1))}
+#'
+#' @examples
+#' data(titanic)
+#' mod0 <- glm( SURVIVED ~ CLASS, family=binomial, data=titanic)
+#' mod1 <- glm( SURVIVED ~ CLASS + SEX, family=binomial, data=titanic)
+#'
+#' lrtest(mod0, mod1)
+#'
+#' @export
+lrtest <- function (model1, model2)
+{
+  if (any(class(model1) != class(model2))) {
+    stop("Two models have different classes")
+  }
+  if (any(class(model1) == "coxph") & any(class(model2) ==
+                                          "coxph")) {
+    if (model1$n != model2$n) {
+      stop("Two models has different sample sizes")
+    }
+    cat("\n")
+    df1 <- length(model1$coefficients)
+    df2 <- length(model2$coefficients)
+    lrt <- 2 * (model2$logLik[2] - model1$logLik[2])
+    diff.df <- df2 - df1
+    if (lrt < 0) {
+      lrt <- -lrt
+      diff.df <- -diff.df
+    }
+    if (lrt * diff.df < 0) {
+      stop("Likelihood gets worse with more variables. Test not executed")
+    }
+  }
+  if (any(class(model1) == "multinom") & any(class(model2) ==
+                                             "multinom")) {
+    if (any(dim(model1$residuals) != dim(model2$residuals))) {
+      stop("Two models have different outcomes or different sample sizes")
+    }
+    cat("\n")
+    df1 <- model1$edf
+    df2 <- model2$edf
+    lrt <- model2$deviance - model1$deviance
+    diff.df <- df1 - df2
+    if (lrt < 0) {
+      lrt <- -lrt
+      diff.df <- -diff.df
+    }
+    if (lrt * diff.df < 0) {
+      stop("Likelihood gets worse with more variables. Test not executed")
+    }
+  }
+  if (any(class(model1) == "polr") & any(class(model2) == "polr")) {
+    if (model1$n != model2$n) {
+      stop("Two models have different outcomes or different sample sizes")
+    }
+    cat("\n")
+    df1 <- model1$edf
+    df2 <- model2$edf
+    lrt <- model2$deviance - model1$deviance
+    diff.df <- df1 - df2
+    if (lrt < 0) {
+      lrt <- -lrt
+      diff.df <- -diff.df
+    }
+    if (lrt * diff.df < 0) {
+      stop("Likelihood gets worse with more variables. Test not executed")
+    }
+  }
+  if (suppressWarnings((all(class(model1) == c("glm", "lm")) &
+                        all(class(model2) == c("glm", "lm"))) | (any(class(model1) ==
+                                                                     "negbin") & any(class(model2) == "negbin")))) {
+    if (sum(model1$df.null) != sum(model2$df.null))
+      stop("Number of observation not equal!!")
+    df1 <- attributes(logLik(model1))$df
+    df2 <- attributes(logLik(model2))$df
+    lrt <- 2 * (as.numeric(logLik(model2) - logLik(model1)))
+    diff.df <- df2 - df1
+    if (lrt < 0) {
+      lrt <- -lrt
+      diff.df <- -diff.df
+    }
+    if (lrt * diff.df < 0) {
+      stop("Likelihood gets worse with more variables. Test not executed")
+    }
+  }
+  output <- list(model1 = model1$call, model2 = model2$call, model.class =class(model1),
+                 Chisquared = lrt, df = diff.df, p.value = pchisq(lrt,
+                                                                  diff.df, lower.tail = FALSE))
+  class(output) <- "lrtest"
+  output
+}
+NULL
+
+
+
+
+#' @title Method for printing lrtest
+#'
+#' @param x a model class object.
+#' @param \dots typically unecessary parameters.
+#'
+#'
+#' @export
+print.lrtest <- function(x, ...) {
+  if(any(x$model.class == "coxph")){
+    cat("Likelihood ratio test for Cox regression & conditional logistic regression",
+        "\n")
+    cat("Chi-squared", x$df, "d.f. = ", x$Chisquared, ",",
+        "P value = ", x$p.value, "\n")
+    cat("\n")
+  }
+  if(any(x$model.class == "multinom")){
+    cat("Likelihood ratio test for multinomial logistic regression",
+        "\n")
+    cat("Chi-squared", x$df, "d.f. = ", x$Chisquared, ",",
+        "P value = ", x$p.value, "\n")
+    cat("\n")
+  }
+  if(any(x$model.class == "polr")){
+    cat("Likelihood ratio test for ordinal regression",
+        "\n")
+    cat("Chi-squared", x$df, "d.f. = ", x$Chisquared, ",",
+        "P value = ", x$p.value, "\n")
+    cat("\n")
+  }
+  if (suppressWarnings((all(x$model.class == c("glm", "lm"))) | (any(x$model.class ==
+                                                                     "negbin")))){
+
+    cat("Likelihood ratio test for MLE method", "\n")
+    cat("Chi-squared", x$df, "d.f. = ", x$Chisquared, ",",
+        "P value = ", x$p.value, "\n")
+    cat("\n")
+  }
+}
+
+
 #' @encoding UTF-8
 #'@title Calculates the true median
 #' @description Usually median for data with ties, the tied values are treated as exactly the same. For instance, taking a median of 3, 3, 4, 4, 4 will be 4. However, the values to be measured are usually rounded off, so that we can assume evenly distributed true values for tied values. For instance, the previous data can be treated as rounded values of 2.75, 3.25, 11/3, 4, 13/3. From this viewpoint, the true median of 3, 3, 4, 4, 4 could be 11/3 (=3.66...).
@@ -1002,6 +1146,7 @@ NULL
 #'
 #' # the piping way
 #' mtcars %>% (mpg) %>% ci()
+#' @rdname confidenceInterval
 #' @export
 `ci` <- function(x,conf.level=0.95,alpha=1-conf.level,...)
 UseMethod("ci")

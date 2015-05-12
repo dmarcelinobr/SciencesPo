@@ -4,12 +4,12 @@
 \alias{flag}
 \title{Flag duplicated observations}
 \usage{
-flag(data = NULL, check.by = NULL)
+flag(x = .data, check.by = NULL)
 }
 \arguments{
-\item{data}{the data object.}
-
 \item{check.by}{the formula for checking row-wise for duplicates.}
+
+\item{data}{the data object.}
 }
 \description{
 Marks how many times an observation appears in the dataset.
@@ -17,6 +17,6 @@ Marks how many times an observation appears in the dataset.
 \examples{
 df <- data.frame(matrix(c(51,42,43,1,22,51, 92,28,21,1,22,9),ncol=3,byrow=TRUE))
 colnames(df) <- c("A","B","C")
-flag(data = df, check.by = c("A", "B") )
+flag(x = df, check.by = c("A", "B") )
 }
 

@@ -1736,20 +1736,20 @@ NULL
 #' @examples
 #' df <- data.frame(matrix(c(51,42,43,1,22,51, 92,28,21,1,22,9),ncol=3,byrow=TRUE))
 #' colnames(df) <- c("A","B","C")
-#' flag(data = df, check.by = c("A", "B") )
+#' flag(x = df, check.by = c("A", "B") )
 #' @export
-`flag` <- function(data=NULL, check.by=NULL){
-          DUPS <- duplicated(data[, check.by])
+`flag` <- function(x=.data, check.by=NULL){
+          DUPS <- duplicated(x[, check.by])
 k<-1
-for ( i in 1:nrow(data)) {
+for ( i in 1:nrow(x)) {
   if(!DUPS[i]) {
-    data$flag[i]<-k
+    x$flag[i]<-k
   } else {
     k<-k+1
-    data$flag[i]<-k
+    x$flag[i]<-k
   }
   }
-return(data)
+return(x)
 }
 NULL
 
@@ -1786,6 +1786,6 @@ NULL
 #'   \code{TRUE} if object \code{x} contains all attributes from \code{attributeNames}.
 #'   and otherwise \code{FALSE}.
 #' @export
-hasAttributes = function(obj, attributeNames) {
+hasAttributes <- function(obj, attributeNames) {
   return(is.subset(attributeNames, getAttributeNames(obj)))
 }
