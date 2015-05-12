@@ -179,12 +179,10 @@ NULL
 #' # Pipe to . in an expression enclosed by parentheses representing the piped object
 #' rnorm(100) %>% (plot(.,col="red",main=length(.)))
 #'
-#' # Pipe to an expression enclosed by parentheses with
-#' lambda expression in the form of x ~ f(x).
+#' # Pipe to an expression enclosed by parentheses with lambda expression in the form of x ~ f(x).
 #' rnorm(100) %>% (x ~ plot(x,col="red",main=length(x)))
 #'
-#' # Pipe to an expression for side effect and return
-#' # the input value
+#' # Pipe to an expression for side effect and return the input value
 #' rnorm(100) %>%
 #'   (~ cat("Number of points:",length(.))) %>%
 #'   summary
