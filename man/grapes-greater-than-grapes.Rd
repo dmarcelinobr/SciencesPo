@@ -33,6 +33,9 @@ rnorm(100) \%>\%
 # Pipe for element extraction
 mtcars \%>\% (mpg)
 
+# Pipe for element evaluation
+ mtcars \%>\% (mpg) \%>\% ci()
+
 # Pipe for questioning and printing
 rnorm(100) \%>\%
   (? summary(.)) \%>\%
