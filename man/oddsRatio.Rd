@@ -5,25 +5,25 @@
 \alias{oddsRatio}
 \alias{orrr}
 \alias{print.oddsRatio}
-\alias{print.relrisk}
-\alias{relrisk}
+\alias{print.relRisk}
+\alias{relRisk}
 \alias{summary.oddsRatio}
-\alias{summary.relrisk}
+\alias{summary.relRisk}
 \title{Odds Ratio and Relative Risk for 2 x 2 Contingency Tables}
 \usage{
 orrr(x, conf.level = 0.95, verbose = TRUE, digits = 3, relrisk = FALSE)
 
 oddsRatio(x, conf.level = 0.95, verbose = TRUE, digits = 3)
 
-relrisk(x, conf.level = 0.95, verbose = TRUE, digits = 3)
+relRisk(x, conf.level = 0.95, verbose = TRUE, digits = 3)
 
 \method{print}{oddsRatio}(x, digits = 3, ...)
 
-\method{print}{relrisk}(x, digits = 3, ...)
+\method{print}{relRisk}(x, digits = 3, ...)
 
 \method{summary}{oddsRatio}(object, digits = 3, ...)
 
-\method{summary}{relrisk}(object, digits = 3, ...)
+\method{summary}{relRisk}(object, digits = 3, ...)
 }
 \arguments{
 \item{x}{a 2 X 2 matrix, data frame or table of counts}

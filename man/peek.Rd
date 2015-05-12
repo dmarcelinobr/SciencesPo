@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{peek}
 \alias{peek}
-\title{Show Observations Randomly Drawn from the Data}
+\title{Show Observations Randomly Drawn from Data Objects}
 \usage{
 peek(x = .data, n = 10)
 }

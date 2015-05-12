@@ -12,7 +12,7 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
 #' @export
-`addErrorBar` <- function(x, y, ebl, ebu = ebl, length = 0.08, ...){
+`errorBars` <- function(x, y, ebl, ebu = ebl, length = 0.08, ...){
   arrows(x, y + ebu, x, y - ebl, angle = 90, code = 3, length= length, ...)
 }
 NULL

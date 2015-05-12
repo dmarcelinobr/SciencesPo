@@ -8,8 +8,8 @@
 #' @details Indeed a very simple but somewhat limited approach is to impute missing values from observed ones chosen randomly with replacement (MCAR), assuming that \deqn{p(R|Z_{obs}, Z_{mis}) = p(R|\phi)}. Sampling with replacement is important since it continues to favor values with higher incidence (preserving the MCAR empirical distribution). It  may also be combined with apply for matrix imputation drills, but keep in mind that it is experimental (actually, I wrote this for teaching purposes).
 #' 
 #' @examples
-#'   X <- c(1,2,NA,4,5,NA)
-#' rand.imput(X)
+#' x <- c(1,2,NA,4,5,NA)
+#' rand.imput(x)
 #' @export
 rand.imput <- function(x)  {
       gone <- is.na(x)

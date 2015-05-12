@@ -5,7 +5,7 @@
 \title{Cross-tabulation}
 \usage{
 crosstab(..., row.vars = NULL, col.vars = NULL, type = NULL,
-  style = "wide", decimals = NULL, percent = TRUE, margins = TRUE,
+  style = "wide", decimals = 2, percent = TRUE, margins = TRUE,
   subtotals = TRUE)
 }
 \arguments{

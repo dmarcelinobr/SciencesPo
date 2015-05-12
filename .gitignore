@@ -1,4 +1,6 @@
 packrat/lib*/
+src/copies
+tests/old
 .Rproj.user
 .Rhistory
 .RData

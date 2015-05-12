@@ -3,34 +3,34 @@ utils::globalVariables(c('.data', 'Freq', 'candidate.position', 'var.order', 'va
 
 #' @encoding UTF-8
 #' @title Attach exclusively various file formats
-#' 
+#'
 #' @description This works rigorously as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear = FALSE} is specified.
-#' 
+#'
 #' @param file the name of the file which the data are to be read from.
 #' @param data the internal name after attaching the data file.
 #' @param clear if \code{clear = TRUE}, all attached data in the environment will be detached first.
 #' @param spss.missing whether SPSS missing values should be replaced with NA; default is \code{spss.missing = TRUE}.
 #' @param tolower  whether variable names should be forced to lower case; default is \code{tolower = TRUE}.
-#' 
-#' @details By using this \dQuote{attach} version, the data becomes available globally usually positioned in the second place, \code{search()}. 
-#' 
-#' @importFrom foreign read.dta 
+#'
+#' @details By using this \dQuote{attach} version, the data becomes available globally usually positioned in the second place, \code{search()}.
+#'
+#' @importFrom foreign read.dta
 #' @importFrom foreign read.spss
-#' 
+#'
 #' @examples
 #' data(ssex)
 #' use(ssex)
-#' 
+#'
 #' @export
 `use` <-
-  function (file,  data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE) 
-  { 
+  function (file,  data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE)
+  {
     if (clear) {
       detachAll()
     }
-    
+
     if (is.character(file)) {
-      ext <- tolower(substring(file, first = nchar(file) - 
+      ext <- tolower(substring(file, first = nchar(file) -
                                  3, last = nchar(file)))
       if (ext == ".dta") {
         dataset <- read.dta(file)
@@ -51,19 +51,19 @@ utils::globalVariables(c('.data', 'Freq', 'candidate.position', 'var.order', 'va
                 dataset[,i] <- ifelse((dataset[,i] %in% attributes(data0[[i]])$value.labels),NA,dataset[,i])
               }
             }
-            if (tolower) 
+            if (tolower)
               names(dataset) <- tolower(names(dataset))
           }
           else {
-            if (substring(file, first = nchar(file) - 
+            if (substring(file, first = nchar(file) -
                             3, last = nchar(file)) == ".tsv") {
-              dataset <- read.delim(file, header = TRUE, 
+              dataset <- read.delim(file, header = TRUE,
                                     sep = "\t", stringsAsFactors=FALSE)
             }
             else {
-              if (substring(file, first = nchar(file) - 
+              if (substring(file, first = nchar(file) -
                               3, last = nchar(file)) == ".csv") {
-                dataset <- read.csv(file, header = TRUE, 
+                dataset <- read.csv(file, header = TRUE,
                                     sep = ",", stringsAsFactors=FALSE )
               }
               else {
@@ -95,12 +95,12 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Get Information on Data Objects 
+#' @title Get Information on Data Objects
 #'
 #' @param data the data frame to be detailed.
 #' @param show the selection of columns from \code{data}, if not all.
 #' @param ignore columns from \code{data} to prevent of showing.
-#' 
+#'
 #' @examples
 #' data(titanic)
 #' ## Wildcard for variables
@@ -110,39 +110,39 @@ NULL
 #' info(titanic, show = 1:3)
 #' ## Exclusion using wildcard.
 #' info(titanic, ignore = "C*")
-#' 
+#'
 #' @export
-`info` <- function (data, show, ignore) 
+`info` <- function (data, show, ignore)
 {
   if (!missing(show) | !missing(ignore)) {
     nl <- as.list(1:ncol(data))
     names(nl) <- names(data)
-    if (!missing(show)) 
+    if (!missing(show))
       vars.shown <- eval(substitute(show), nl, parent.frame())
-    if (!missing(ignore)) 
+    if (!missing(ignore))
       vars.ignored <- eval(substitute(ignore), nl, parent.frame())
-    if ((length(grep(pattern = "[*]", as.character(substitute(show)))) == 
-           1) | (length(grep(pattern = "[?]", as.character(substitute(show)))) == 
+    if ((length(grep(pattern = "[*]", as.character(substitute(show)))) ==
+           1) | (length(grep(pattern = "[?]", as.character(substitute(show)))) ==
                    1)) {
-      vars.shown <- grep(pattern = glob2rx(as.character(substitute(show))), 
+      vars.shown <- grep(pattern = glob2rx(as.character(substitute(show))),
                          names(data))
       if (length(vars.shown) == 0) {
         stop(paste(show, "not matchable with any variable name."))
       }
     }
-    if ((length(grep(pattern = "[*]", as.character(substitute(ignore)))) == 
-           1) | (length(grep(pattern = "[?]", as.character(substitute(ignore)))) == 
+    if ((length(grep(pattern = "[*]", as.character(substitute(ignore)))) ==
+           1) | (length(grep(pattern = "[?]", as.character(substitute(ignore)))) ==
                    1)) {
-      vars.ignored <- grep(pattern = glob2rx(as.character(substitute(ignore))), 
+      vars.ignored <- grep(pattern = glob2rx(as.character(substitute(ignore))),
                            names(data))
       if (length(vars.ignored) == 0) {
         stop(paste(ignore, "not matchable with any variable name."))
       }
     }
     vars <- 1:ncol(data)
-    if (exists("vars.shown")) 
+    if (exists("vars.shown"))
       vars <- vars[vars.shown]
-    if (exists("vars.ignored")) 
+    if (exists("vars.ignored"))
       vars <- vars[-vars.ignored]
     dataset <- data[1,]
     class.a <- rep("", length(vars))
@@ -150,14 +150,14 @@ NULL
       class.a[i] <- class(dataset[,vars[i]])[1]
     }
     if (is.null(attr(data, "var.labels"))) {
-      a <- cbind(colnames(dataset)[vars], class.a, rep("", 
+      a <- cbind(colnames(dataset)[vars], class.a, rep("",
                                                        length(vars)))
     }
     else {
-      a <- cbind(colnames(dataset)[vars], class.a, attr(data, 
+      a <- cbind(colnames(dataset)[vars], class.a, attr(data,
                                                         "var.labels")[vars])
     }
-    colnames(a) <- c("Variable     ", "Class          ", 
+    colnames(a) <- c("Variable     ", "Class          ",
                      "Description")
     rownames(a) <- vars
     header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\n")
@@ -165,28 +165,28 @@ NULL
   }
   else {
     if (!is.data.frame(data)) {
-      if (is.character(data) & (length(grep(pattern = "[*]", 
-                                            data)) == 1) | (length(grep(pattern = "[?]", data) == 
+      if (is.character(data) & (length(grep(pattern = "[*]",
+                                            data)) == 1) | (length(grep(pattern = "[?]", data) ==
                                                                      1))) {
         vars <- grep(pattern = glob2rx(data), names(data))
         if (length(vars) == 0) {
           stop(paste(data, "not matchable with any variable name."))
         }
-        
+
         dataset <- data[1,]
         class.a <- rep("", length(vars))
         for (i in 1:length(vars)) {
           class.a[i] <- class(dataset[,vars[i]])[1]
         }
         if (is.null(attr(data, "var.labels"))) {
-          a <- cbind(colnames(dataset)[vars], class.a, 
+          a <- cbind(colnames(dataset)[vars], class.a,
                      rep("", length(vars)))
         }
         else {
-          a <- cbind(colnames(dataset)[vars], class.a, 
+          a <- cbind(colnames(dataset)[vars], class.a,
                      attr(data, "var.labels")[vars])
         }
-        colnames(a) <- c("Variable     ", "Class          ", 
+        colnames(a) <- c("Variable     ", "Class          ",
                          "Description")
         rownames(a) <- vars
         header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\n")
@@ -195,10 +195,10 @@ NULL
       else {
         for (search.position in 1:length(search())) {
           if (exists(as.character(substitute(data)), where = search.position)) {
-            if (any(names(get(search()[search.position])) == 
-                      as.character(substitute(data))) | any(ls(all.names = TRUE, 
-                                                               pos = 1) == as.character(substitute(data)))) 
-              candidate.position <- c(candidate.position, 
+            if (any(names(get(search()[search.position])) ==
+                      as.character(substitute(data))) | any(ls(all.names = TRUE,
+                                                               pos = 1) == as.character(substitute(data))))
+              candidate.position <- c(candidate.position,
                                       search.position)
           }
         }
@@ -207,14 +207,14 @@ NULL
             var.order <- c(var.order, "")
           }
           else {
-            var.order <- c(var.order, which(as.character(substitute(data)) == 
+            var.order <- c(var.order, which(as.character(substitute(data)) ==
                                               names(get(search()[i]))))
           }
           if (i == 1) {
             var.class <- c(var.class, class(data))
           }
           else {
-            var.class <- c(var.class, class(get(search()[i])[, 
+            var.class <- c(var.class, class(get(search()[i])[,
                                                              which(as.character(substitute(data)) == names(get(search()[i])))]))
           }
           if (i == 1) {
@@ -223,25 +223,25 @@ NULL
           else {
             var.size <- c(var.size, nrow(get(search()[i])))
           }
-          if (i == 1 | is.null(attr(get(search()[i]), 
-                                    "var.labels")[attr(get(search()[i]), "names") == 
+          if (i == 1 | is.null(attr(get(search()[i]),
+                                    "var.labels")[attr(get(search()[i]), "names") ==
                                                     substitute(data)])) {
             var.lab <- c(var.lab, " ")
           }
           else {
-            var.lab <- c(var.lab, attr(get(search()[i]), 
-                                       "var.labels")[attr(get(search()[i]), "names") == 
+            var.lab <- c(var.lab, attr(get(search()[i]),
+                                       "var.labels")[attr(get(search()[i]), "names") ==
                                                        substitute(data)])
           }
         }
-        a <- cbind(search()[candidate.position], var.order, 
+        a <- cbind(search()[candidate.position], var.order,
                    var.class, var.size, var.lab)
         dim(a)
-        colnames(a) <- c("Var. source ", "Var. order", 
+        colnames(a) <- c("Var. source ", "Var. order",
                          "Class  ", "# records", "Description")
         rownames(a) <- rep("", length(candidate.position))
         header <- paste("'", deparse(substitute(data)), "'",
-                        " is a variable found in the following source(s):", 
+                        " is a variable found in the following source(s):",
                         "\n", "\n", sep = "")
       }
     }
@@ -261,7 +261,7 @@ NULL
         class.a[i] <- class(dataset[, i])[1]
       }
       a <- cbind(colnames(dataset), class.a, b)
-      colnames(a) <- c("Variable     ", "Class          ", 
+      colnames(a) <- c("Variable     ", "Class          ",
                        "Description")
       rownames(a) <- 1:nrow(a)
       header <- paste(attr(data, "datalabel"), "\n",.No.of.observations,nrow(data), "\n")
@@ -287,24 +287,24 @@ NULL
 #' @title Labels variables
 #'
 #' @description Labels variables
-#' 
-#' @param variable the variable to be labeled 
-#' @param label the label, a short description text. 
+#'
+#' @param variable the variable to be labeled
+#' @param label the label, a short description text.
 #' @param data the \code{data.frame} where \code{var} is.
 #' @param replace is logical. If \code{TRUE}, replaces the original column with the new one with label.
 #'
 #' @examples
 #' data(titanic)
-#' 
+#'
 #' info(titanic)
-#' 
+#'
 #' labelvar(CLASS, "4 categories for CLASS", data = titanic)
-#' 
+#'
 #' info(titanic)
-#' 
+#'
 #' @export
 `labelvar` <-function(variable, label, data, replace=TRUE){
-  # Store list of variable labels, 
+  # Store list of variable labels,
   #if exist, in a temporary vector
   dataset <- data
   if(any(names(dataset)==as.character(substitute(variable)))){
@@ -327,7 +327,7 @@ NULL
   }
   if(exists(as.character(substitute(variable)))){
     if(!is.atomic(variable)){
-      stop(paste("A non-variable object", as.character(substitute( variable)),"exists in the environment and cannot be labelled.","\n", 
+      stop(paste("A non-variable object", as.character(substitute( variable)),"exists in the environment and cannot be labelled.","\n",
                  " If this variable in the data frame is to be labelled,","\n",
                  " either the non-variable object of this name must be removed before labelling","\n", "\n",
                  paste("   rm(",as.character(substitute( variable)),")",";             ",
@@ -360,23 +360,23 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Show Observations Randomly Drawn from the Data
-#' 
+#' @title Show Observations Randomly Drawn from Data Objects
+#'
 #' @description Provide a sly view of the data by randomly draw observations, instead of showing only the first \code{head()} or the last \code{tail()} rows of an object.
-#' 
+#'
 #' @param x A matrix or data.frame object
 #' @param n The number of rows to be shown
-#'  
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
-#' 
+#'
+#'
 #' @keywords Tables
 #' @examples
 #' use(titanic)
 #' peek(titanic)
-#' 
+#'
 #' @export
-#' 
+#'
 `peek` <- function(x=.data, n = 10) {
   if(is.matrix(x) | is.data.frame(x)) {
     rows <- nrow(x)
@@ -393,26 +393,26 @@ NULL
 
 #' @encoding UTF-8
 #' @title Parallel sum
-#' 
+#'
 #' @description Provides parallel sum like \code{pmin} and \code{pmax} from the base package. The function \code{sum} simply does not help when the objective is to obtain a vector with parallel sum rather than a scalar value.
-#' 
+#'
 #' @param \dots One or more unit objects
 #' @param na.rm A logical value \code{TRUE} or \code{FALSE}, the default
-#' 
+#'
 #' @return A vector containing the parallel sum.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @keywords Misc
-#' 
-#' @examples 
+#'
+#' @examples
 #' data(us2012)
 #' psum(us2012$Obama, us2012$Romney)
 #' swingy <-psum(us2012$Obama, us2012$Romney-100)
-#' 
+#'
 #' @export
 `psum` <-
-  function(..., na.rm=FALSE) { 
+  function(..., na.rm=FALSE) {
     x <- list(...)
     rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
   }
@@ -424,8 +424,8 @@ NULL
 #' @title Trim white spaces
 #' @description Simply trims spaces from the start, end, and within of a string
 #' @param x is a character vector.
-#' @param delim is the delimiter, default is white spaces \code{" "} 
-#' 
+#' @param delim is the delimiter, default is white spaces \code{" "}
+#'
 # trim(" Daniel   Marcelino   Silva ")
 `trim` <- function(x, delim = " ") {
   gsub("^\\s+|\\s+$", "",
@@ -445,25 +445,25 @@ NULL
 #' age based upon the \code{to} if given, otherwise the \code{age.var} will be used.
 #'
 #' @param x if a var containing the age already exists.
-#' @param from The date of origin, typically birthdate. 
+#' @param from The date of origin, typically birthdate.
 #' @param to The up to date to compute the age.
 #' @param breaks The numeric break guide for grouping age.
 #' @param labels The labels for the age groups, can also be set to \code{labels=NULL}.
-#' 
+#'
 #' @author Daniel Marcelino <dmarcelino@@live.com>
 #'
 #' @examples
 #' # The age groupings used by IBGE (grandes grupos).
 #' # simulate vector with 1000 age values
 #' age <- sample(0:100, 1000, replace = TRUE)
-#' mean(age); sd(age); 
+#' mean(age); sd(age);
 #' ageGroups(age, breaks = c(0, 14, 64, Inf), labels = NULL )
-#' ageGroups(age, breaks = c(0, 14, 64, Inf), 
+#' ageGroups(age, breaks = c(0, 14, 64, Inf),
 #' labels = c("<14", "15-64", "65+") )
-#' 
+#'
 #' ibge_brks = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, Inf)
 #' ibge_lbls = c("0-4", "5-9", "10-14", "15-19", "20-24",
-#'		"25-29", "30-34", "35-39", "40-44", "45-49", "50-54", 
+#'		"25-29", "30-34", "35-39", "40-44", "45-49", "50-54",
 #'  	"55-59", "60-64", "65-69", "70+")
 #' ageGroups(age, breaks = ibge_brks, labels = ibge_lbls )
 #'
@@ -479,7 +479,7 @@ NULL
     }
     ans <- cut(age, breaks = breaks, labels = labels)
     class(ans) <- c("SciencesPo", "factor")
-    return(ans) 
+    return(ans)
 }
 NULL
 
@@ -519,7 +519,7 @@ NULL
 #' id <- 1:10; var1 <- rnorm(10); var2 <- rgamma(10, 2, 1);
 #' df <- data.frame(cbind(id, var1, var2))
 #' df[c(5, 9), 3] <- NA
-#' eliminateNA(df) 
+#' eliminateNA(df)
 #'@export
 `eliminateNA` <- function(data){
   rows <- dim(data)[1]
@@ -547,7 +547,7 @@ NULL
 #' @keywords Descriptive Stats
 #' @examples
 #' elapsed(from="1988-12-19", to="2014-12-31", format="%Y-%m-%d")
-#' 
+#'
 #' elapsed("1jan1960", "2jan1990", "%d%b%Y")
 #' @export
 `elapsed` <- function (from, to, format) {
@@ -567,7 +567,7 @@ NULL
 #' rowSample(iris, 20)
 #' @export
 `rowSample` <- function(x=.data, n) {
-  x[sample(1:nrow(x), n, replace=FALSE), ] 
+  x[sample(1:nrow(x), n, replace=FALSE), ]
 }
 NULL
 
@@ -575,15 +575,15 @@ NULL
 
 #' @encoding UTF-8
 #' @title Places quotation marks
-#'@param vec the vector whose values will be surounded by quotes 
-#' @examples 
+#'@param vec the vector whose values will be surounded by quotes
+#' @examples
 #' x <- 1
 #' quotize(x)
 #' noquote(quotize(x))
 #' a <- ("Daniel")
 #' noquote(quotize(a))
-#' 
-#'@export 
+#'
+#'@export
 `quotize` <- function(vec){
   sapply(vec, function(x) paste("'",x,"'",sep=''))}
 NULL
@@ -610,14 +610,14 @@ NULL
 #' @param \dots additional arguments (currently ignored),
 #' \code{mat} returns a model matrix,
 #' To demonstrate singularity, use \code{singVals}.
-#' @return \code{mat} returns a matrix 
+#' @return \code{mat} returns a matrix
 #'
 #' @examples
 #' a <- c(1,0,0); b <- c(1,2,3); c <- c(4,5,6); x <- rnorm(3)
 #' # Formula interface
 #' mat(~a+b)
 #' mat(~a+b+1)
-#' 
+#'
 #' data(tobaccovote)
 #' mat(~votedpro+party, data=tobaccovote)
 #' singVals(~votedpro*party*money*acres, data=tobaccovote)
@@ -629,11 +629,11 @@ NULL
   if( is.null(data) )
     mat <- model.matrix( xformula)
   else
-    mat <- model.matrix(xformula, data=data ) 
-  
+    mat <- model.matrix(xformula, data=data )
+
   attr(mat, "assign") <- NULL
   rownames(mat) <- NULL
-  
+
   return(mat)
 }
 
@@ -663,8 +663,8 @@ NULL
 #' y <- c(1,2,1,1,3,1,3)
 #' cross(x, y)
 #' cross(x, y, drop.unused.levels=TRUE)
-#' 
-#' @keywords manipulate 
+#'
+#' @keywords manipulate
 #' @export
 `cross` <- function(..., sep=":", drop.unused.levels=FALSE) {
   factors <- list(...)
@@ -673,13 +673,13 @@ NULL
     stop('No factors specified.')
   }
   levelsList <- lapply(factors, levels)
-  
+
   result <- factors[[1]]
   levels <- levels(result)
   factors[[1]] <- NULL
   while( length(factors) > 0 ) {
-    levels <- as.vector( 
-      outer (levels(factors[[1]]), levels, function(x,y) { paste(y,x,sep=sep) } ) 
+    levels <- as.vector(
+      outer (levels(factors[[1]]), levels, function(x,y) { paste(y,x,sep=sep) } )
     )
     if (drop.unused.levels ) {
       result <- factor( paste( result, factors[[1]], sep=sep))
@@ -696,16 +696,16 @@ NULL
 
 #' @encoding UTF-8
 #' @title Conditionally convert vectors to factors
-#' 
+#'
 #' @description A generic function and several instances for creating factors from
 #' other sorts of data. The primary use case is for vectors that contain
 #' few unique values and might be better considered as factors. When
 #' applied to a data frame, this is applied to each column in the data.frame.
-#' 
+#'
 #' @param x an object.
 #' @param max.levels an integer that determines the number of unique values to be coverted. Default is \code{max.levels = 10}.
 #' @param ... additional arguments (currently ignored)
-#' 
+#'
 #' @examples
 #' #Some data
 #' ID = 1:10
@@ -729,14 +729,14 @@ NULL
 #' @rdname factorize
 #' @export
 `factorize.numeric` <- function(x, max.levels = 10L, ...){
-  if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )  
+  if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )
   x
 }
 
 #' @rdname factorize
 #' @export
 `factorize.character` <- function(x, max.levels = 10L, ...){
-  if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )  
+  if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )
   x
 }
 
@@ -782,9 +782,9 @@ NULL
         return(var)
       }
       x <- data.frame(sapply(seq_along(x), level.obs))
-      
+
       if(keep.names==TRUE){
-        names(x) <- truenames 
+        names(x) <- truenames
       }else{
         names(x) <- names(x)
       }
@@ -801,28 +801,28 @@ NULL
 
 #' @title Filling in missing values
 #' \code{fillin} replaces missing values with existing observations from other variable or data frame.
-#' 
+#'
 #' @param x the data frame with the variable you would like to fill in.
 #' @param y the data frame with the variable you would like to use to fill in \code{x}.
 #' @param x.var a character string of the name of the variable in \code{x} you want to fill in.
 #' @param y.var an optional character string of variable name in \code{y} that you would like to use to fill in.
 #' @param key a character vector of variable names that are shared by \code{x} and \code{y} that can be used to join the data frames.
-#' 
-#' @examples 
+#'
+#' @examples
 #' # Create data set with missing values
-#' data1 <- data.frame(a = sample(c(1,2), 100, rep=TRUE), 
-#'                     b = sample(c(3,4), 100, rep=TRUE), 
+#' data1 <- data.frame(a = sample(c(1,2), 100, rep=TRUE),
+#'                     b = sample(c(3,4), 100, rep=TRUE),
 #'                    fNA = sample(c(100, 200, 300, 400, NA), 100, rep=TRUE))
 #'
 #' # Created full data set
-#' data2 <- data.frame(a = c(1,2,1,2), 
+#' data2 <- data.frame(a = c(1,2,1,2),
 #'                      b = c(3,3,4,4),
 #'                      full = c(100, 200, 300, 400))
 #'
 #' # Fill in missings from data1 with values from data2
 #' Filled <- fillin(data1, data2, x.var = "fNA", y.var = "full", key = c("a", "b"))
 #' @importFrom data.table data.table
-#' @importFrom data.table  := 
+#' @importFrom data.table  :=
 #' @export
 `fillin` <- function(x, y, x.var, y.var = NULL, key){
   # Give Var2 the same name as var1 if Var2 is NULL
@@ -864,20 +864,20 @@ NULL
 
 
 #' @title fill NA by previous cell value (fill forward)
-#' @description fillForward will carry values forward from one observation to the next, filling in missing values with the previous value. 
+#' @description fillForward will carry values forward from one observation to the next, filling in missing values with the previous value.
 #' @param var the column that contains NAs
 #' @note This is not intended for imputing missing values; it is regarded as a bad choice for missing-value imputation. The intent is, rather, to fill in \dQuote{holes}, where a value should naturally prevail from one observation to the next.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
 #' use(ssex)
 #' peek(ssex)
-#' 
+#'
 #' fillForward(ssex$Favor)
-#' 
+#'
 #' @export
 `fillForward` <- function(var) {
   navals <- which(is.na(var))
-  filledvals <- which(! is.na(var))  
+  filledvals <- which(! is.na(var))
   # If there would be no NAs following each other, navals-1 would give the
   # entries we need. In our case, however, we have to find the last column filled for
   # each value of NA. We may do this using the following sapply trick:
@@ -893,12 +893,12 @@ NULL
 
 #' @encoding UTF-8
 #' @title Fills in missing values within clusters.
-#' @description \code{xfill} 'fills in' static variables, replacing missing values in a cluster with the unique non-missing value within that cluster. 
+#' @description \code{xfill} 'fills in' static variables, replacing missing values in a cluster with the unique non-missing value within that cluster.
 #' @param x the variable to be filled.
 #' @param by the cluster variable.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
-#' df = data.frame(year = c(2000, 2000, 2000, 2001, 2001, 2002, 
+#' df = data.frame(year = c(2000, 2000, 2000, 2001, 2001, 2002,
 #'	2002, 2003), value= c("yes", NA, NA, NA, "yes", "no", NA, NA) )
 #'
 #' #xfill(value, by=year)
@@ -924,7 +924,7 @@ NULL
         # if the current value is NA, and the last value is a value
         # (should given the nature of this loop), and
         # the next value, as calculated above, is the same as the last
-        # value, then give us that value. 
+        # value, then give us that value.
         if(is.na(x[i]) & !is.na(x[i-1]) & x[i-1] == x[nextval]){
           x[i] <- x[nextval]
         }else{
@@ -934,7 +934,7 @@ NULL
       }
     }
     # return the new vector
-    return(x) 
+    return(x)
   }
 }
 
@@ -942,33 +942,33 @@ NULL
 
 #' @encoding UTF-8
 #' @title Make a data.frame Rectangular by filling missing records
-#' 
+#'
 #' @description \code{rfill} produces a complete rectangularization table by adding observations with missing data so that all combinations (interactions) of the specified variables exist.
-#' 
+#'
 #' @param x a data frame.
 #' @param by a vector of at least 2 variables from the data frame. If missing all variables in the data frame will be used.
 #' @param fill the value used to fill in, default is \code{fill = 0}.
-#' 
+#'
 #' @return a data object of the same class as \code{x}.
-#'  
+#'
 #' @examples
-#' data <- data.frame(sex=c("female","male","male"), 
+#' data <- data.frame(sex=c("female","male","male"),
 #' race = c("black","black","white"), y = c(.5,.4,.1), x = c(32,40,53))
-#' 
+#'
 #' rfill(data, by=c(sex,race))
-#' 
+#'
 #' rfill(data, by=c(sex,race), fill=0)
-#' 
+#'
 #' @export
 `rfill` <- function(x, by, fill=NA)
 {
   if(missing(by)) by=1:ncol(x)
   nl <- as.list(1:ncol(x))
   names(nl) <- names(x)
-  vars <- eval(substitute(by), nl, parent.frame())            
+  vars <- eval(substitute(by), nl, parent.frame())
   xt <- data.frame(table(x[,vars]))
   x0 <- subset(xt, Freq==0)[,-length(xt)]
-  
+
   if(nrow(x0)==0){
     x
     warning("Nothing to fill")}
@@ -999,17 +999,17 @@ NULL
 #' x = rnorm(25, 5, 10)
 #' value = 9
 #' around(x, value)
-#' @export 
+#' @export
 `around` <-function(x, value){
   x<-sort(x)
   lo<-x[nearestLocation(x, value)]
   if(lo>=value)
     lo<-x[nearestLocation(x, value)-1]
-  
+
   hi<-x[nearestLocation(x, value)]
   if(hi<value)
     hi<-x[nearestLocation(x, value)+1]
-  
+
   c(lo, hi)
 }
 NULL
@@ -1037,7 +1037,7 @@ NULL
 #' @description Find the the nearest value to a number that you specify.
 #' @param x A vector.
 #' @param value The value that you want to find.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
 `nearest` <- function(x, value){
@@ -1060,7 +1060,7 @@ NULL
 #' @param row.names if \code{TRUE}, the row names will be write to file. Default is \code{ row.names=FALSE}.
 #' @param sep the field separator string.
 #' @param \dots other uncommon arguments to write.table (ex: fileEncoding)
-#' 
+#'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}.
 #'@examples
 #'df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), y=rnorm(20, mean=5, sd=2))
@@ -1102,25 +1102,25 @@ NULL
 
 #' @encoding UTF-8
 #' @title Finds ID combination
-#' 
+#'
 #' @description Finds unique id combination
-#' 
-#' @param columns columns to combine 
+#'
+#' @param columns columns to combine
 #' @param data the data object
 #' @param verbose if \code{TRUE} messages maybe be displayed.
-#' 
+#'
 #' @details The original code published at \url{https://stackoverflow.com/} was berely touched.
 #' @importFrom data.table data.table
 #' @importFrom data.table copy
-#' @importFrom data.table setkey 
-#' @importFrom data.table haskey 
+#' @importFrom data.table setkey
+#' @importFrom data.table haskey
 #' @importFrom data.table is.data.table
-#' 
+#'
 #' @export
 `isid` <- function(columns, data, verbose  = TRUE){
   if(!is.data.table(data)){
     copyd <- data.table(data)
-  } else{ 
+  } else{
     copyd <- copy(data)
   }
   if(haskey(copyd)){
@@ -1141,12 +1141,12 @@ NULL
       result <- nrow(subd) == nrow(unique(subd))
       list(cols = xn, valid = result)
     }, simplify = FALSE)
-    
+
     whichValid <- sapply(anyValid, `[[`, 'valid')
     validKey <- any(whichValid)
     ncol <- ncol + 1L
   }
-  
+
   if(!validKey){
     warning('No combinations are unique')
     return(NULL)} else {
@@ -1165,25 +1165,25 @@ NULL
 #' @encoding UTF-8
 #' @title Detect Outliers
 #' @description Perform an exploaratory test to detect \emph{outliers}. This function returns the minimum and maximum values, respectively preceded by their positions in the \code{vector}, \code{matrix} or \code{data.frame}. The quantity for \emph{min} reveals the minimum deviation from the mean, the integer in \emph{closest} highlights the position of the element. In the same vein, the quantity for \emph{max} is the maximum deviation from the mean, and the \code{farthest} integer is the position of such higher quantity.
-#' 
+#'
 #' @param x A numeric object
 #' @param index A numeric value to be considered in the computations
-#' 
+#'
 #' @return The returning object will depend on the inputing object, either a vector or a data frame.
-#' 
+#'
 #' @references Dixon, W.J. (1950) Analysis of extreme values. \emph{Ann. Math. Stat.} \bold{21(4),} 488--506.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @seealso \link{winsorize} for diminishing the impact of outliers.
-#' 
+#'
 #' @examples
 #' outliers(x <- rnorm(20))
-#' 
+#'
 #' #data frame:
 #' data(ssex)
 #' outliers(ssex)
-#' 
+#'
 #' @export
 `outliers` <-
   function(x, index=NULL) {
@@ -1200,7 +1200,7 @@ NULL
         }
         unsplit(outliers(split(x,index),index=NULL),index)
       } else {
-        
+
         mu <- mean(x)
         dev <- abs(x - mu)
         closest <- which.min(dev)
@@ -1226,7 +1226,7 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
 `pause` <-
-  function (x=0) { 
+  function (x=0) {
     if(x > 0){
       Sys.sleep(x)
     }else{
@@ -1262,26 +1262,26 @@ NULL
 #' @export
 `formatR` <- function (x, digits=3) {
   noZero <- function (x) {
-    return(gsub("0\\.", ".", x));  
+    return(gsub("0\\.", ".", x));
   }
   return(noZero(round(x, digits)));
 }
 NULL
-  
 
 
-#' @title Cross-tabulation 
-#' @description \code{crosstab} produces all possible two-way tabulations of the variables specified. 
+
+#' @title Cross-tabulation
+#' @description \code{crosstab} produces all possible two-way tabulations of the variables specified.
 #' @param \dots the data paremeters.
 #' @param row.vars the row variable(s).
 #' @param col.vars the row variable(s).
 #' @param type wether \emph{frequency count} \code{"f"}, \emph{row percentages} \code{"r"}, \emph{column percentages} \code{"c"}, or \emph{total percentages} \code{"t"}.
-#' @param style a style for table, either \code{"wide"} or \code{"long"}. 
+#' @param style a style for table, either \code{"wide"} or \code{"long"}.
 #' @param decimals an integer for decimal places.
 #' @param percent wether to show percentiles or not. Default is \code{TRUE}
 #' @param margins wether to add margins or not. Default is \code{TRUE}
 #' @param subtotals wether to show subtotals or not. Default is \code{TRUE}
-#' 
+#'
 #' @note Adapted from Dr Paul Williamson, Dept. of Geography and Planning, School of Environmental Sciences, University of Liverpool, UK, who adapted from \code{ctab()}.
 #' @examples
 #' data(titanic)
@@ -1290,31 +1290,31 @@ NULL
 #' crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "f")
 #' # Row percentages
 #' crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "r")
-#' 
+#'
 #' # Column percentages
 #' crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "c")
-#' 
+#'
 #' # Joint percentages (sums to 100 within final two table dimensions)
-#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = 
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
 #' "SURVIVED", type = "c")
 #'
 #' # Total percentages (sums to 100 across entire table)
-#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = 
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
 #' "SURVIVED", type = "t")
 #' # Style = 'long'
-#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars = 
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
 #' "SURVIVED", type = "t",style = "long", margins = FALSE)
-#' 
+#'
 #' # Style = 'wide' [default]
-#' crosstab(titanic, row.vars = "AGE", col.vars = 
+#' crosstab(titanic, row.vars = "AGE", col.vars =
 #' "SURVIVED", type = "t", style = "long", margins = FALSE)
 #' @export
-`crosstab` <- function (..., row.vars = NULL, 
+`crosstab` <- function (..., row.vars = NULL,
                       col.vars = NULL,
                       type = NULL,
                       style = "wide",
-                      decimals = NULL,
-                      percent = TRUE, 
+                      decimals = 2,
+                      percent = TRUE,
                       margins = TRUE,
                       subtotals=TRUE)
 
@@ -1323,7 +1323,7 @@ NULL
   mk.pcnt.tbl <- function(tbl, type) {
     a <- length(row.vars)
     b <- length(col.vars)
-    mrgn <- switch(type, column.pct = c(row.vars[-a], col.vars), 
+    mrgn <- switch(type, column.pct = c(row.vars[-a], col.vars),
                    row.pct = c(row.vars, col.vars[-b]),
                    joint.pct = c(row.vars[-a], col.vars[-b]),
                    total.pct = NULL)
@@ -1333,35 +1333,35 @@ NULL
     }
     tbl
   }
-  
+
   #Find no. of vars (all; row; col) for use in subsequent code
   n.row.vars <- length(row.vars)
   n.col.vars <- length(col.vars)
   n.vars <- n.row.vars + n.col.vars
-  
+
   #Check to make sure all user-supplied arguments have valid values
   stopifnot(as.integer(decimals) == decimals, decimals > -1)
   #type: see next section of code
-  stopifnot(is.character(style))    
+  stopifnot(is.character(style))
   stopifnot(is.logical(percent))
   stopifnot(is.logical(margins))
   stopifnot(is.logical(subtotals))
   stopifnot(n.vars>=1)
-  
+
   #Convert supplied table type(s) into full text string (e.g. "f" becomes "frequency")
   #If invalid type supplied, failed match gives user automatic error message
   types <- NULL
   choices <- c("frequency", "row.pct", "column.pct", "joint.pct", "total.pct")
   for (tp in type) types <- c(types, match.arg(tp, choices))
   type <- types
-  
+
   #If no type supplied, default to 'frequency + total' for univariate tables and to
   #'frequency' for multi-dimenstional tables
-  
+
   #For univariate table....
   if (n.vars == 1) {
     if (is.null(type)) {
-      # default = freq count + total.pct  
+      # default = freq count + total.pct
       type <- c("frequency", "total.pct")
       #row.vars <- 1
     } else {
@@ -1370,27 +1370,27 @@ NULL
     }
     #For multivariate tables...
   } else if (is.null(type)) {
-    # default = frequency count  
+    # default = frequency count
     type <- "frequency"
   }
-  
+
   #Check for integrity of requested analysis and adjust values of function arguments as required
-  
+
   if ((margins==FALSE) & (subtotals==FALSE)) {
     warning("WARNING: Request to suppress subtotals (subtotals=FALSE) ignored because no margins requested (margins=FALSE)")
     subtotals <- TRUE
   }
-  
+
   if ((n.vars>1) & (length(type)>1) & (margins==TRUE)) {
     warning("WARNING: Only row totals added when more than one table type requested")
     #Code lower down selecting type of margin implements this...
   }
-  
-  if ((length(type)>1) & (subtotals==FALSE)) { 
+
+  if ((length(type)>1) & (subtotals==FALSE)) {
     warning("WARNING: Can only request supply one table type if requesting suppression of subtotals; suppression of subtotals not executed")
     subtotals <- TRUE
   }
-  
+
   if ((length(type)==1) & (subtotals==FALSE)) {
     choices <- c("frequency", "row.pct", "column.pct", "joint.pct", "total.pct")
     tp <- match.arg(type, choices)
@@ -1399,11 +1399,11 @@ NULL
       subtotals<- TRUE
     }
   }
-  
-  if ((n.vars > 2) & (n.col.vars>1) & (subtotals==FALSE)) 
+
+  if ((n.vars > 2) & (n.col.vars>1) & (subtotals==FALSE))
     warning("WARNING: suppression of subtotals assumes only 1 col var; table flattened accordingly")
-  
-  
+
+
   if ( (subtotals==FALSE) & (n.vars>2) )  {
     #If subtotals not required AND total table vars > 2
     #Reassign all but last col.var as row vars
@@ -1416,7 +1416,7 @@ NULL
       n.col.vars <- 1
     }
   }
-  
+
   #If decimals not set by user, set to 2 unlesss only one table of type frequency requested,
   #in which case set to 0.  [Leaves user with possibility of having frequency tables with > 0 dp]
   if (is.null(decimals)) {
@@ -1426,14 +1426,14 @@ NULL
       decimals <-2
     }
   }
-  
+
   #Take the original input data, whatever form originally supplied in,
   #convert into table format using requested row and col vars, and save as 'tbl'
-  
-  args <- list(...)    
-  
+
+  args <- list(...)
+
   if (length(args) > 1) {
-    if (!all(sapply(args, is.factor))) 
+    if (!all(sapply(args, is.factor)))
       stop("If more than one argument is passed then all must be factors")
     tbl <- table(...)
   }
@@ -1471,9 +1471,9 @@ NULL
         row.vars <- tbl$row.vars
         col.vars <- tbl$col.vars
       }
-      for (opt in c("decimals", "type", "style", "percent", 
-                    "margins", "subtotals")) if (is.null(get(opt))) 
-                      assign(opt, eval(parse(text = paste("tbl$", opt, 
+      for (opt in c("decimals", "type", "style", "percent",
+                    "margins", "subtotals")) if (is.null(get(opt)))
+                      assign(opt, eval(parse(text = paste("tbl$", opt,
                                                           sep = ""))))
       tbl <- tbl$table
     }
@@ -1481,10 +1481,10 @@ NULL
       stop("first argument must be either factors or a table object")
     }
   }
-  
+
   #Convert supplied table style into full text string (e.g. "l" becomes "long")
   style <- match.arg(style, c("long", "wide"))
-  
+
   #Extract row and col names to be used in creating 'tbl' from supplied input data
   nms <- names(dimnames(tbl))
   z <- length(nms)
@@ -1504,16 +1504,16 @@ NULL
     col.vars <- z
     row.vars <- (1:z)[-col.vars]
   }
-  
+
   #Take the original input data, converted into table format using supplied row and col vars (tbl)
   #and create a second version (crosstab) which stores results as percent if a percentage table type is requested.
-  if (type[1] == "frequency") 
+  if (type[1] == "frequency")
     crosstab <- tbl
-  else 
+  else
     crosstab <- mk.pcnt.tbl(tbl, type[1])
-  
-  
-  #If multiple table types requested, create and add these to 
+
+
+  #If multiple table types requested, create and add these to
   if (length(type) > 1) {
     tbldat <- as.data.frame.table(crosstab)
     z <- length(names(tbldat)) + 1
@@ -1525,7 +1525,7 @@ NULL
     pcntlab[match("joint.pct", type)] <- "Joint %"
     pcntlab[match("total.pct", type)] <- "Total %"
     for (i in 2:length(type)) {
-      if (type[i] == "frequency") 
+      if (type[i] == "frequency")
         crosstab <- tbl
       else crosstab <- mk.pcnt.tbl(tbl, type[i])
       crosstab <- as.data.frame.table(crosstab)
@@ -1537,96 +1537,96 @@ NULL
     crosstab <- xtabs(Freq ~ ., data = tbldat)
     names(dimnames(crosstab))[z - 1] <- ""
   }
-  
-  
+
+
   #Add margins if required, adding only those margins appropriate to user request
   if (margins==TRUE) {
-    
+
     vars <- c(row.vars,col.vars)
-    
+
     if (length(type)==1) {
-      if (type=="row.pct") 
+      if (type=="row.pct")
       { crosstab <- addmargins(crosstab,margin=c(vars[n.vars]))
         tbl <- addmargins(tbl,margin=c(vars[n.vars]))
       }
-      else 
-      { if (type=="column.pct") 
+      else
+      { if (type=="column.pct")
       { crosstab <- addmargins(crosstab,margin=c(vars[n.row.vars]))
         tbl <- addmargins(tbl,margin=c(vars[n.row.vars]))
       }
-      else 
-      { if (type=="joint.pct") 
-      { crosstab <- addmargins(crosstab,margin=c(vars[(n.row.vars)],vars[n.vars])) 
-        tbl <- addmargins(tbl,margin=c(vars[(n.row.vars)],vars[n.vars])) 
+      else
+      { if (type=="joint.pct")
+      { crosstab <- addmargins(crosstab,margin=c(vars[(n.row.vars)],vars[n.vars]))
+        tbl <- addmargins(tbl,margin=c(vars[(n.row.vars)],vars[n.vars]))
       }
       else #must be total.pct OR frequency
       { crosstab <- addmargins(crosstab)
         tbl <- addmargins(tbl)
       }
       }
-      } 
+      }
     }
-    
+
     #If more than one table type requested, only adding row totals makes any sense...
     if (length(type)>1) {
       crosstab <- addmargins(crosstab,margin=c(vars[n.vars]))
       tbl <- addmargins(tbl,margin=c(vars[n.vars]))
     }
-    
-  }  
-  
-  
+
+  }
+
+
   #If subtotals not required, and total vars > 2, create dataframe version of table, with relevent
   #subtotal rows / cols dropped [Subtotals only present in tables with > 2 cross-classified vars]
   t1 <- NULL
   if ( (subtotals==FALSE) & (n.vars>2) )  {
-    
+
     #Create version of crosstab in ftable format
-    t1 <- crosstab 
+    t1 <- crosstab
     t1 <- ftable(t1,row.vars=row.vars,col.vars=col.vars)
-    
+
     #Convert to a dataframe
     t1 <- as.data.frame(format(t1),stringsAsFactors=FALSE)
-    
+
     #Remove backslashes from category names AND colnames
     t1 <- apply(t1[,],2, function(x) gsub("\"","",x))
     #Remove preceding and trailing spaces from category names to enable accurate capture of 'sum' rows/cols
     #[Use of grep might extrac category labels with 'sum' as part of a longer one or two word string...]
     t1 <- apply(t1,2,function(x) gsub("[[:space:]]*$","",gsub("^[[:space:]]*","",x)))
-    
+
     #Reshape dataframe to that variable and category labels display as required
     #(a) Move col category names down one row; and move col variable name one column to right
     t1[2,(n.row.vars+1):ncol(t1)] <- t1[1,(n.row.vars+1):ncol(t1)]
     t1[1,] <- ""
-    t1[1,(n.row.vars+2)] <- t1[2,(n.row.vars+1)]    
+    t1[1,(n.row.vars+2)] <- t1[2,(n.row.vars+1)]
     #(b) Drop the now redundant column separating the row.var labels from the table data + col.var labels
     t1 <- t1[,-(n.row.vars+1)]
-    
-    #In 'lab', assign category labels for each variable to all rows (to allow identification of sub-totals) 
+
+    #In 'lab', assign category labels for each variable to all rows (to allow identification of sub-totals)
     lab <- t1[,1:n.row.vars]
     for (c in 1:n.row.vars) {
       for (r in 2:nrow(lab)) {
-        if (lab[r,c]=="") lab[r,c] <- lab[r-1,c]  
+        if (lab[r,c]=="") lab[r,c] <- lab[r-1,c]
       }
     }
-    
+
     lab <- (apply(lab[,1:n.row.vars],2,function(x) x=="Sum"))
     lab <- apply(lab,1,sum)
     #Filter out rows of dataframe containing subtotals
-    
+
     t1 <- t1[((lab==0) | (lab==n.row.vars)),]
-    
+
     #Move the 'Sum' label associated with last row to the first column; in the process
     #setting the final row labels associated with other row variables to ""
     t1[nrow(t1),1] <- "Sum"
     t1[nrow(t1),(2:n.row.vars)] <- ""
-    
+
     #set row and column names to NULL
     rownames(t1) <- NULL
     colnames(t1) <- NULL
-    
+
   }
-  
+
   #Create output object 'result' [class: crosstab]
   result <- NULL
   #(a) record of argument values used to produce tabular output
@@ -1638,38 +1638,38 @@ NULL
   result$percent <- percent
   result$margins <- margins
   result$subtotals <- subtotals
-  
+
   #(b) tabular output [3 variants]
   result$table <- tbl  #Stores original cross-tab frequency counts without margins [class: table]
   result$crosstab <- crosstab #Stores cross-tab in table format using requested style(frequency/pct) and table margins (on/off)
-  #[class: table]  
-  result$crosstab.nosub <- t1  #crosstab with subtotals suppressed [class: dataframe; or NULL if no subtotals suppressed]  
-  class(result) <- "crosstab"    
-  
+  #[class: table]
+  result$crosstab.nosub <- t1  #crosstab with subtotals suppressed [class: dataframe; or NULL if no subtotals suppressed]
+  class(result) <- "crosstab"
+
   #Return 'result' as output of function
   result
-  
+
 }
 NULL
 
 
 `print.crosstab` <- function(x,decimals=x$decimals,subtotals=x$subtotals,...) {
-  
+
   row.vars <- x$row.vars
   col.vars <- x$col.vars
   n.row.vars <- length(row.vars)
   n.col.vars <- length(col.vars)
   n.vars <- n.row.vars + n.col.vars
-  
+
   if (length(x$type)>1) {
     z<-length(names(dimnames(x$crosstab)))
     if (x$style=="long") {
-      row.vars<-c(row.vars,z) 
+      row.vars<-c(row.vars,z)
     } else {
       col.vars<-c(z,col.vars)
     }
   }
-  
+
   if (n.vars==1) {
     if (length(x$type)==1) {
       tmp <- data.frame(round(x$crosstab,x$decimals))
@@ -1679,47 +1679,74 @@ NULL
       print(round(x$crosstab,x$decimals))
     }
   }
-  
-  
+
+
   #If table has only 2 dimensions, or subtotals required for >2 dimensional table,
   #print table using ftable() on x$crosstab
   if ((n.vars == 2) | ((subtotals==TRUE) & (n.vars>2))) {
-    
+
     tbl <- ftable(x$crosstab,row.vars=row.vars,col.vars=col.vars)
-    
+
     if (!all(as.integer(tbl)==as.numeric(tbl))) tbl <- round(tbl,decimals)
     print(tbl,...)
-    
+
   }
-  
+
   #If subtotals NOT required AND > 2 dimensions, print table using write.table() on x$crosstab.nosub
   if ((subtotals==FALSE) & (n.vars>2))  {
-    
+
     t1 <- x$crosstab.nosub
-    
+
     #Convert numbers to required decimal places, right aligned
     width <- max( nchar(t1[1,]), nchar(t1[2,]), 7 )
     decimals <- x$decimals
     number.format <- paste("%",width,".",decimals,"f",sep="")
     t1[3:nrow(t1),((n.row.vars+1):ncol(t1))] <- sprintf(number.format,as.numeric(t1[3:nrow(t1),((n.row.vars+1):ncol(t1))]))
-    
+
     #Adjust column variable label to same width as numbers, left aligned, padding with trailing spaces as required
     col.var.format <- paste("%-",width,"s",sep="")
     t1[1,(n.row.vars+1):ncol(t1)] <- sprintf(col.var.format,t1[1,(n.row.vars+1):ncol(t1)])
     #Adjust column category labels to same width as numbers, right aligned, padding with preceding spaces as required
     col.cat.format <- paste("%",width,"s",sep="")
     t1[2,(n.row.vars+1):ncol(t1)] <- sprintf(col.cat.format,t1[2,(n.row.vars+1):ncol(t1)])
-    
+
     #Adjust row labels so that each column is of fixed width, using trailing spaces as required
     for (i in 1:n.row.vars) {
       width <- max(nchar(t1[,i])) + 2
       row.lab.format <- paste("%-",width,"s",sep="")
       t1[,i] <- sprintf(row.lab.format,t1[,i])
     }
-    
+
     write.table(t1,quote=FALSE,col.names=FALSE,row.names=FALSE)
-    
+
   }
-  
+
 }
 NULL
+
+
+#' @title Flag duplicated observations
+#' @description Marks how many times an observation appears in the dataset.
+#' @param data the data object.
+#' @param check.by the formula for checking row-wise for duplicates.
+#'
+#' @examples
+#' df <- data.frame(matrix(c(51,42,43,1,22,51, 92,28,21,1,22,9),ncol=3,byrow=TRUE))
+#' colnames(df) <- c("A","B","C")
+#' flag(data = df, check.by = c("A", "B") )
+#' @export
+`flag` <- function(data=NULL, check.by=NULL){
+          DUPS <- duplicated(data[, check.by])
+k<-1
+for ( i in 1:nrow(data)) {
+  if(!DUPS[i]) {
+    data$flag[i]<-k
+  } else {
+    k<-k+1
+    data$flag[i]<-k
+  }
+  }
+return(data)
+}
+NULL
+

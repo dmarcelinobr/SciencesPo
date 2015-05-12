@@ -1,7 +1,7 @@
-#' @title Mark Followup Interviews by id and time
+#' @title Mark Followup Interviews by ID and Time
 #'
-#' @param id the identification of the subject.
-#' @param time the date followup contact. 
+#' @param id the subject's identification.
+#' @param time the followup contact date. 
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export

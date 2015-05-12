@@ -2,17 +2,17 @@
 % Please edit documentation in R/followup.R
 \name{followup}
 \alias{followup}
-\title{Mark Followup Interviews by id and time}
+\title{Mark Followup Interviews by ID and Time}
 \usage{
 followup(id, time)
 }
 \arguments{
-\item{id}{the identification of the subject.}
+\item{id}{the subject's identification.}
 
-\item{time}{the date followup contact.}
+\item{time}{the followup contact date.}
 }
 \description{
-Mark Followup Interviews by id and time
+Mark Followup Interviews by ID and Time
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

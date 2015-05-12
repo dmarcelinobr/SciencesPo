@@ -38,7 +38,7 @@
 #' perc.table(A,margins=FALSE)
 #'
 #'@export
-perc.table <- function(x,margin=NULL,digits=getOption("digits"),margins=TRUE) {
+perc.table <- function(x,margin=NULL,digits=2,margins=TRUE) {
   res <- round(100*prop.table(x,margin=margin),digits)
   if (margins) ifelse(is.null(margin),res <- margins(res),res <- margins(res,margin=margin))
   res

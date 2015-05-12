@@ -4,7 +4,7 @@
 \alias{perc.table}
 \title{Express table entries as percentage of marginal table.}
 \usage{
-perc.table(x, margin = NULL, digits = getOption("digits"), margins = TRUE)
+perc.table(x, margin = NULL, digits = 2, margins = TRUE)
 }
 \arguments{
 \item{x}{A frequency table likely constructed with table().}

@@ -5,7 +5,7 @@
 #' @param \dots further arguments passed to or used by other methods.
 #' @return A numeric value indicating the variance inflation in the model
 #' #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @keywords Models 
+#' @keywords Models
 #' @examples
 #' data(mtcars)
 #' m1 <- lm(mpg ~ qsec + hp, data=mtcars)
@@ -13,7 +13,7 @@
 #' @export
 `vif` <-
   function(model, ...) {
-    if (any(is.na(coef(model)))) 
+    if (any(is.na(coef(model))))
       stop ("there are aliased coefficients in the model")
     v <- vcov(model)
     assign <- attributes(model.matrix(model))$assign
@@ -46,10 +46,10 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Pearson's Coefficient of Variation 
+#' @title Pearson's Coefficient of Variation
 #'
 #' @description Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Karl Pearson, which is given by the division of standard deviation by the mean. The CV reflects a normalized measure of the dispersion of a given probability distribution. Conversely, distributions with \eqn{cv < 1} are considered \dQuote{low-variance}, while those with \eqn{cv > 1} \dQuote{high-variance}.
-#' 
+#'
 #' @param x A numeric vector.
 #'
 #' @details \eqn{\frac{sd(x)}{mean(x)} = cv}, which is the inverse of signal-to-noise ratio.
@@ -63,12 +63,12 @@ NULL
 #'
 #' @examples
 #'
-#' myvar <- sample(100) 
+#' myvar <- sample(100)
 #' variation(myvar)
 #'
 #' @export
-`variation` <-  
-function(x){ 
+`variation` <-
+function(x){
   sd(x)/mean(x)
 }
 NULL
@@ -78,51 +78,51 @@ NULL
 
 #' @encoding UTF-8
 #' @title Compute the Kurtosis
-#' 
+#'
 #' @description Return the kurtosis test for object x. For vectors, kurtosis(x) is the kurtosis of the elements in the vector x. For matrices kurtosis(x) returns the sample kurtosis for each column of x. For N-dimensional arrays, kurtosis operates along the first nonsingleton dimension of x.Returns the kurtosis test for object x. For vectors, kurtosis(x) is the kurtosis of the elements in the vector x. For matrices kurtosis(x) returns the sample kurtosis for each column of x. For N-dimensional arrays, kurtosis operates along the first nonsingleton dimension of x.
-#' 
+#'
 #' @param x a numeric vector
 #' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=FALSE}.
 #' @param type an integer between 1 and 3 selecting one of the algorithms for computing kurtosis detailed below
-#' 
+#'
 #' @details In a similar way of skewness, kurtosis measures the peakedness of a data distribution. A distribution with zero kurtosis has a shape as the normal curve. Such type of kurtosis is called mesokurtic, or mesokurtotic. A positive kurtosis has a curve more peaked about the mean and the its shape is narrower than the normal curve. Such type is called leptokurtic, or leptokurtotic. Finally, a distribution with negative kurtosis has a curve less peaked about the mean and the its shape is flatter than the normal curve. Such type is called platykurtic, or platykurtotic. To be consistent with classical use of kurtosis in political science analyses, the default \bold{type} is the same equation used in SPSS and SAS, which is the bias-corrected formula: \bold{Type 2:} G_2 = ((n + 1) g_2+6) * (n-1)/(n-2)(n-3). When you set type to 1, the following equation applies: \bold{Type 1:} g_2 = m_4/m_2^2-3. When you set type to 3, the following equation applies: \bold{Type 3:} b_2 = m_4/s^4-3 = (g_2+3)(1-1/n)^2-3. You must have at least 4 observations in your vector to apply this function.
-#' 
+#'
 #' @return An object of the same type as \code{x}.
-#' 
+#'
 #' @references Balanda, K. P. and H. L. MacGillivray. (1988) Kurtosis: A Critical Review. \emph{The American Statistician,} \bold{42(2), pp. 111--119.}
-#' 
-#' @note \bold{Skewness} and \bold{Kurtosis} are functions to measure the third and fourth \bold{central moment} of a data distribution. 
-#' 
+#'
+#' @note \bold{Skewness} and \bold{Kurtosis} are functions to measure the third and fourth \bold{central moment} of a data distribution.
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @examples
-#' 
+#'
 #' w<-sample(4,10, TRUE)
 #' x <- sample(10, 1000, replace=TRUE, prob=w)
 #'
 #' kurtosis(x, type=2)
 #'
 #' kurtosis(x, type=3)
-#' 
-#' 
+#'
+#'
 #' @export
 `kurtosis` <-
-  function (x, na.rm = FALSE, type = 2) 
+  function (x, na.rm = FALSE, type = 2)
   {
     if (any(i.na <- is.na(x))) {
-      if (na.rm) 
+      if (na.rm)
         x <- x[!i.na]
       else return(NA)
     }
-    if (!(type %in% (1:3))) 
+    if (!(type %in% (1:3)))
       stop("Your argument for 'type' is not valid.")
     n <- length(x)
     dev <- (x - mean(x))
     r <- (n * sum(dev^4)/(sum(dev^2)^2))
-    y <- if (type == 1) 
+    y <- if (type == 1)
       r - 3
     else if (type == 2) {
-      if (n < 4) 
+      if (n < 4)
         stop("You need at least 4 complete observations.")
       ((n + 1) * (r - 3) + 6) * (n - 1)/((n - 2) * (n - 3))
     }
@@ -135,38 +135,38 @@ NULL
 
 #' @encoding UTF-8
 #' @title Compute the Skewness
-#' 
+#'
 #' @description The function provides three features to perform a skewness test, see details below.
-#'  
+#'
 #'  @param x a numeric vector containing the values whose skewness is to be computed.
 #'  @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
 #'  @param type an integer between 1 and 3 for selecting the algorithms for computing the skewness, see details below.
-#'  
-#'  @details The skewness is a measure of symmetry distribution. Intuitively, negative skewness (g_1 < 0) indicates that the mean of the data distribution is less than the median, and the data distribution is left-skewed. Positive skewness (g_1 > 0) indicates that the mean of the data values is larger than the median, and the data distribution is right-skewed. Values of g_1 near zero indicate a symmetric distribution. The skewness function will ignore missing values in \sQuote{x} for its computation purpose. There are several methods to compute skewness, Joanes and Gill (1998) discuss three of the most traditional methods. According to them, \bold{type 3} performs better in non-normal population distribution, whereas in normal-like population distribution type 2 fits better the data. Such difference between the two formulae tend to disappear in large samples.
-#'  \bold{Type 1:} g_1 = m_3/m_2^(3/2). 
 #'
-#' \bold{Type 2:} G_1 = g_1*sqrt(n(n-1))/(n-2). 
+#'  @details The skewness is a measure of symmetry distribution. Intuitively, negative skewness (g_1 < 0) indicates that the mean of the data distribution is less than the median, and the data distribution is left-skewed. Positive skewness (g_1 > 0) indicates that the mean of the data values is larger than the median, and the data distribution is right-skewed. Values of g_1 near zero indicate a symmetric distribution. The skewness function will ignore missing values in \sQuote{x} for its computation purpose. There are several methods to compute skewness, Joanes and Gill (1998) discuss three of the most traditional methods. According to them, \bold{type 3} performs better in non-normal population distribution, whereas in normal-like population distribution type 2 fits better the data. Such difference between the two formulae tend to disappear in large samples.
+#'  \bold{Type 1:} g_1 = m_3/m_2^(3/2).
+#'
+#' \bold{Type 2:} G_1 = g_1*sqrt(n(n-1))/(n-2).
 #'
 #' \bold{Type 3:} b_1 = m_3/s^3 = g_1 ((n-1)/n)^(3/2).
-#'  
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @return An object of the same type as \code{x}
-#' 
+#'
 #' @references Joanes, D. N. and C. A. Gill. (1998) Comparing measures of sample skewness and kurtosis. \emph{The Statistician,} \bold{47,} 183--189.
-#' 
-#' 
+#'
+#'
 #' @examples
 #' w <-sample(4,10, TRUE)
 #' x <- sample(10, 1000, replace=TRUE, prob=w)
 #' skewness(x, type = 1)
 #' skewness(x)
 #' skewness(x, type = 3)
-#' 
+#'
 #' @export
-#' 
+#'
 `skewness` <-
-  function (x, na.rm = TRUE, type = 2) 
+  function (x, na.rm = TRUE, type = 2)
   {
     if (length(dim(x)) == 0) {
       if (na.rm) {
@@ -176,10 +176,10 @@ NULL
       mu <- mean(x)
       n <- length(x[!is.na(x)])
       switch(type, {
-        skewer <- sqrt(n) * (sum((x - mu)^3, na.rm = na.rm)/(sum((x - 
+        skewer <- sqrt(n) * (sum((x - mu)^3, na.rm = na.rm)/(sum((x -
                                                                     mu)^2, na.rm = na.rm)^(3/2)))
       }, {
-        skewer <- n * sqrt(n - 1) * (sum((x - mu)^3, na.rm = na.rm)/((n - 
+        skewer <- n * sqrt(n - 1) * (sum((x - mu)^3, na.rm = na.rm)/((n -
                                                                         2) * sum((x - mu)^2, na.rm = na.rm)^(3/2)))
       }, {
         skewer <- sum((x - mu)^3)/(n * sd(x)^3)
@@ -197,14 +197,14 @@ NULL
       for (i in 1:dim(x)[2]) {
         n <- length(x[!is.na(x[, i]), i])
         switch(type, {
-          skewer[i] <- sqrt(n) * (sum((x[, i] - mu[i])^3, 
+          skewer[i] <- sqrt(n) * (sum((x[, i] - mu[i])^3,
                                       na.rm = na.rm)/(sum((x[, i] - mu[i])^2, na.rm = na.rm)^(3/2)))
         }, {
-          skewer[i] <- n * sqrt(n - 1) * (sum((x[, i] - 
-                                                 mu[i])^3, na.rm = na.rm)/((n - 2) * sum((x[, 
+          skewer[i] <- n * sqrt(n - 1) * (sum((x[, i] -
+                                                 mu[i])^3, na.rm = na.rm)/((n - 2) * sum((x[,
                                                                                             i] - mu[i])^2, na.rm = na.rm)^(3/2)))
         }, {
-          skewer[i] <- sum((x[, i] - mu[i])^3, na.rm = na.rm)/(n * 
+          skewer[i] <- sum((x[, i] - mu[i])^3, na.rm = na.rm)/(n *
                                                                  stdev[i]^3)
         })
       }
@@ -220,40 +220,40 @@ NULL
 #'
 #'@description Weighted Variance Formula
 #'
-#'@param x the varaible 
+#'@param x the varaible
 #'@param w the variance
 #'
 `weighted.var` <- function(x, w){
   return(sum(w * (x - weighted.mean(x,w))^2)/((length(x)-1)*mean(w)))
-} 
+}
 NULL
 
 
 
 
 #' @encoding UTF-8
-#' @title Winsorized Mean 
-#' 
+#' @title Winsorized Mean
+#'
 #' @description Compute the winsorized mean, which consists of recoding the top k values in a vector.
-#' 
+#'
 #' @param x The vector to be winsorized
 #' @param k An integer for the quantity of outlier elements that to be replaced in the calculation process
 #' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
 #'
 #' @details Winsorizing a vector will produce different results than trimming it. While by trimming a vector causes extreme values to be discarded, by winsorizing it in the other hand, causes extreme values to be replaced by certain percentiles.
-#' 
+#'
 #' @return An object of the same type as \code{x}
 #'
 #' @references  Dixon, W. J., and Yuen, K. K. (1999) Trimming and winsorization: A review. \emph{The American Statistician,} \bold{53(3),} 267--269.
 #' @references  Dixon, W. J., and Yuen, K. K. (1960) Simplified Estimation from Censored Normal Samples, \emph{The Annals of Mathematical Statistics,} \bold{31,} 385--391.
 #'  @references  Wilcox, R. R. (2012) \emph{Introduction to robust estimation and hypothesis testing.} Academic Press, 30-32. Statistics Canada (2010) \emph{Survey Methods and Practices.}
-#'  
+#'
 #'  @note One may want to winsorize estimators, however, winsorization tends to be used for one-variable situations.
-#'  
+#'
 #'  @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#'  
-#'  
-#'  @examples  
+#'
+#'
+#'  @examples
 #' set.seed(51)  # for reproducibility
 #' x <- rnorm(50)
 #' ## introduce outliers
@@ -262,18 +262,18 @@ NULL
 #'  mean(x)
 #'  winsorize(x)
 #' @keywords Descriptive
-#' 
+#'
 #' @export
 #'
 `winsorize` <-
   function (x, k = 1, na.rm=TRUE) {
     if (any(is.na <- is.na(x))) {
-      if (na.rm) 
+      if (na.rm)
         x <- x[!is.na]
       else return(NA)
     }
     n <- length(x)
-    if (!(k %in% (0:n))) 
+    if (!(k %in% (0:n)))
       stop("'k' should be > 0 and less than half the number of non-missing observations.")
     else {
       x <- sort(x)
@@ -289,46 +289,51 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Calculate the Standard Error
+#' @title Calculates the Standard Error
 #'
 #' @description Compute the standard errors of a numeric vector
-#' 
+#'
 #' @aliases std.error
-#' @param x  A vector of class numeric or integer
+#' @param x  a vector of class numeric or integer
 #' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
-#' 
+#' @param \dots some extra parameters.
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
-#' 
+#'
 #' @references Kenney, J. F. and Keeping, E. S. (1951) Standard Error of the Mean. In \emph{Mathematics of Statistics,} Pt. 2, 2nd ed. Princeton, NJ: Van Nostrand, pp. 110 and 132--133.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @docType methods
+#' @rdname se-methods
 #'
 #' @examples
-#' x <- rnorm(100); 
+#' x <- rnorm(100);
 #' se(x)
-#'
-#' @export 
-`se` <-
-  function (x, na.rm = TRUE) 
-  {
-    valid <- function(x) return(sum(!is.na(x)))
-    dim <- dim(x)
-    if (is.null(dim)) {
-      sd <- sd(x, na.rm = na.rm)
-      n.valid <- valid(x)
+#' @export
+setGeneric("se", function(x, na.rm = TRUE){
+  standardGeneric("se")
+})
+
+#' @rdname se-methods
+#' @aliases se,ANY,logical,ANY-method
+setMethod(f="se", signature=c(x="ANY", na.rm="logical"), definition=function(x, na.rm = TRUE){
+  valid <- function(x) return(sum(!is.na(x)))
+  dim <- dim(x)
+  if (is.null(dim)) {
+    sd <- sd(x, na.rm = na.rm)
+    n.valid <- valid(x)
+  }
+  else {
+    if (is.data.frame(x)) {
+      n.valid <- unlist(sapply(x, valid))
+      sd <- unlist(sapply(x, sd, na.rm = na.rm))
     }
     else {
-      if (is.data.frame(x)) {
-        n.valid <- unlist(sapply(x, valid))
-        sd <- unlist(sapply(x, sd, na.rm = na.rm))
-      }
-      else {
-        n.valid <- unlist(apply(x, 2, valid))
-        sd <- unlist(apply(x, 2, sd, na.rm = na.rm))
-      }
+      n.valid <- unlist(apply(x, 2, valid))
+      sd <- unlist(apply(x, 2, sd, na.rm = na.rm))
     }
-    return(sd/sqrt(n.valid))
   }
+  return(sd/sqrt(n.valid))
+})
 NULL
 
 
@@ -336,28 +341,28 @@ NULL
 
 #' @encoding UTF-8
 #' @title Calculate the Log Likelihood of a Normal Distribution
-#' 
-#' @description 
+#'
+#' @description
 #' Find the log likelihood of a normal distribution.
-#' 
+#'
 #' @param x data.
 #' @param mu estimated mean.
 #' @param var estimated variance.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @return ll logliklihood of the distribution
-#' 
+#'
 #' @examples
 #' x = rnorm(100, 3, 7)
-#' loglik(x,3,7)
-#' 
-#' @export 
-`loglik` <-function(x=data, mu, var)
+#' logLik(x,3,7)
+#'
+#' @export
+`logLik` <-function(x=data, mu, var)
 {
   n=length(x)
   ll = -n/2* log(2*pi*var) - .5/var*sum((mu-x)^2)
-  
+
   -ll
 }
 NULL
@@ -367,25 +372,25 @@ NULL
 #' @encoding UTF-8
 #' @title Association tests for contingency tables
 #' @description Calculates the Likelihood Ratio chi-Squared test, the Pearson chi-Squared test, the phi coefficient, the contingency coefficient and Cramer's V. Cramer V / Phi test using two vectors with more than 2 levels.
-#'  
+#'
 #' @param x an \code{r x c} table.
 #' @return The association statistics tests for \code{r x c} table.
 #' @importFrom MASS loglm
-#' 
+#'
 #' @examples
-#'  x = sample(1:2, 30, TRUE); 
+#'  x = sample(1:2, 30, TRUE);
 #'  y = sample(1:3, 30, TRUE)
 #'  a.test(table(x, y))
 #'
 #' @export
 `a.test` <- function(x) {
-  if (!is.matrix(x)) 
+  if (!is.matrix(x))
     stop("Function only defined for 2-way tables.")
   tab <- summary(loglm(~1 + 2, x))$tests
   phi <- sqrt(tab[2, 1]/sum(x))
   cont <- sqrt(phi^2/(1 + phi^2))
   cramer <- sqrt(phi^2/min(dim(x) - 1))
-  structure(list(table = x, chisq_tests = tab, phi = phi, contingency = cont, 
+  structure(list(table = x, chisq_tests = tab, phi = phi, contingency = cont,
                  cramer = cramer))
 }
 NULL
@@ -395,21 +400,21 @@ NULL
 
 #' @encoding UTF-8
 #' @title  Calculate the Mode
-#' 
+#'
 #' @description Estimates the mode for a vector
-#' 
+#'
 #' @param x A data vector
 #' @param na.rm A logical value, default is \code{FALSE}
 #' @note this function replaces the \code{base} function with the same name, but is does different thing. While \code{SciencesPo::mode} intuitively calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
-#' @examples 
+#'
+#' @examples
 #' myvar <-c(1,1,2,2,3,3,4,4,5, NA)
 #' mode(myvar)
-#' 
+#'
 #' mode(myvar, FALSE)
-#' 
+#'
 #' @export
 `mode` <- function(x, na.rm = FALSE) {
   if(na.rm){
@@ -424,25 +429,91 @@ NULL
 
 
 
+#' @encoding UTF-8
+#' @title Calculate the Median per Column
+#' @description Compute the sample medians of the columns (non-rows) of a data.frame or array.
+#' @param x a data.frame or array.
+#' @param na.rm a logical value indicating whether \code{NA} values should be
+#'  removed before the computation proceeds. The default is \code{FALSE}.
+#'
+#' @return A vector or array of the medians of each column with dimension \code{dim( x )[-1]}.
+#' @seealso \code{\link{rowMedians}},\code{\link{median}},\code{\link{colMeans}}.
+#'
+#' @examples
+#' data(ltaylor96)
+#' colMedians(ltaylor96)
+#' @export
+`colMedians` <- function( x, na.rm = FALSE ) {
+
+   if( is.data.frame( x ) ) {
+      x <- as.matrix( x )
+   }
+   if( !is.array( x ) ) {
+      stop( "argument 'x' must be a data.frame, matrix, or array" )
+   }
+   if( !is.numeric( x ) ) {
+      stop( "argument 'x' must be numeric" )
+   }
+
+   result <- array( NA, dim = dim( x )[-1] )
+   dimnames( result ) <- dimnames( x )[-1]
+
+   for( i in 1:dim( x )[ 2 ] ) {
+      if( length( dim( x ) ) == 2 ) {
+         result[ i ] <- median( x[ , i ], na.rm = na.rm )
+      } else {
+         result[ slice.index( result, 1 ) == i ] <-
+            colMedians( array( x[ slice.index( x, 2 ) == i ],
+               dim = dim( x )[ -2 ] ), na.rm = na.rm )
+      }
+   }
+
+   return( result )
+}
+NULL
+
+#' @encoding UTF-8
+#' @title Calculate the Median per Row
+#' @description Compute the sample medians of the rows of a data.frame or matrix.
+#' @param x a data.frame or matrix.
+#' @param na.rm a logical value indicating whether \code{NA} values should be
+#'  removed before the computation proceeds. The default is \code{FALSE}.
+#' @return A vector of the medians of each row of \code{x}
+#' @seealso \code{\link{colMedians}},\code{\link{median}},\code{\link{rowMeans}}.
+#'
+#' @examples
+#' data(ltaylor96)
+#' rowMedians( ltaylor96)
+#' m <- matrix( 1:12, nrow = 4 )
+#' rowMedians( m )
+#' @export
+`rowMedians` <- function( x, na.rm = FALSE ) {
+   if( is.null( dim( x ) ) || length( dim( x ) ) != 2 ) {
+      stop( "argument 'x' must be a matrix or a data.frame" )
+   }
+   return( colMedians( t( x ), na.rm = na.rm ) )
+}
+NULL
+
 
 #' @encoding UTF-8
 #' @title Calculate the Sample Covariance
-#' 
-#' @description Computes the sample covariance between two vectors. The Covariance provides a measure of the strength of the correlation between two or more sets of random variates. The covariance for two random variates \code{x} and \code{y}, each with sample size \code{n}, is defined by the expectation value variables \verb{cov(x, y) = (x - \mu_x)(y - \mu_y)}. For uncorrelated variables, \code{cov(x, y) = 0}. 
-#' 
+#'
+#' @description Computes the sample covariance between two vectors. The Covariance provides a measure of the strength of the correlation between two or more sets of random variates. The covariance for two random variates \code{x} and \code{y}, each with sample size \code{n}, is defined by the expectation value variables \verb{cov(x, y) = (x - \mu_x)(y - \mu_y)}. For uncorrelated variables, \code{cov(x, y) = 0}.
+#'
 #' @param x One of two vectors whose sample covariance is to be calculated.
 #' @param y The other vector.
 #' @param verbose If \code{TRUE}, prints sample covariance; if not, not. Default is \code{verbose = TRUE}.
-#' 
+#'
 #' @return The sample covariance between x and y.
-#' 
+#'
 #' @details x and y must have the same length, greater than one  with no missing values.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @references Based on the Google's R Guide Style.
 #' @examples
 #' # Some random data:
-#' df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), 
+#' df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5),
 #'  y=rnorm(20, mean=5, sd=2) )
 #'   sampleCovariance(df$x, df$y)
 #'
@@ -470,17 +541,17 @@ NULL
 #' @title Stukel's test of the logistic link
 #' @description The Stukel's test is an alternative to the goodness-of-fit test for logistic regression.
 #'  It tests if significant change occurs in the model with the addition of new coefficients.
-#'  
+#'
 #' @param object an object of class \code{glm}.
 #' @param alternative add both \code{z1} and \code{z2} to model or just one of them.
-#' 
+#'
 #' @details Two new covariates, z1 and z2 are generated such that \deqn{z1 = 0.5 \* logit^{2} * I(pi >= 0.5)}, \deqn{z2 = - 0.5 \* logit^{2} \* I(pi <= 0.5)}, where \deqn{I(arg) = 1} if arg is \code{TRUE} and \deqn{I(arg) = 1} if \code{FALSE}.
-#' @note Adapted from program published by Brett Presnell's code available at the Florida University. 
-#'@references 
+#' @note Adapted from program published by Brett Presnell's code available at the Florida University.
+#'@references
 #' Stukel, T.A. (1988) Generalized logistic models. \emph{Journal of the American Statistical Association} 83: 426-431.
 #'@references
 #' Hosmer, David W., et al (1997) A comparison of goodness-of-fit tests for the logistic regression model. \emph{Statistics in medicine} 16.9, 965-980.
-#' @references 
+#' @references
 #'Allison, Paul (2014) \emph{Another Goodness-of-Fit Test for Logistic Regression}.
 #' @export
 `stukel` <- function(object, alternative = c("both", "alpha1", "alpha2")) {
@@ -514,7 +585,7 @@ NULL
   structure(list(statistic = STATISTIC,
                  parameter = PARAMETER,
                  p.value = PVAL,
-                 alternative = alternative, 
+                 alternative = alternative,
                  method = METHOD, data.name = DNAME,
                  allstat = allstat, allpar = allpar, allpval = allpval
   ),
@@ -528,12 +599,12 @@ NULL
 
 #' @encoding UTF-8
 #' @title Cumulative Logit
-#' 
+#'
 #' @param y the dependent variable
-#' @param adj adjustment constant 
+#' @param adj adjustment constant
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-`cumlogit` <- function(y, adj = 0.5) {
+`cumLogit` <- function(y, adj = 0.5) {
   ncol <- dim(y)[2]
   y <- t(apply(y, 1, cumsum))
   log((y[,-ncol] + adj)/(y[,ncol] - y[,-ncol] + adj))
@@ -544,12 +615,12 @@ NULL
 
 #' @encoding UTF-8
 #' @title Adjusted Residuals
-#' 
+#'
 #' @param object a model object of type \code{glm} or \code{lm}.
-#' @param \dots further arguments passed to or used by other methods. 
+#' @param \dots further arguments passed to or used by other methods.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-`adj.residuals` <- function(object, ...) {
+`adjResiduals` <- function(object, ...) {
   residuals(object, ...) / sqrt(1 - lm.influence(object)$hat)
 }
 NULL
@@ -560,14 +631,14 @@ NULL
 
 #' @encoding UTF-8
 #' @title Odds Ratio and Relative Risk for 2 x 2 Contingency Tables
-#' 
+#'
 #' @description Calculates odds ratios, relative risk, and confidence intervals on odds ratios.
 
 #' @details \code{x} should be a matrix, data frame or table. \dQuote{Successes}
 #' should be located in column 1 of \code{x}, and the treatment of interest
-#' should be located in row 2. The odds ratio is calculated as \deqn{(Odds row 2)/(Odds row 1)}. 
+#' should be located in row 2. The odds ratio is calculated as \deqn{(Odds row 2)/(Odds row 1)}.
 #' The confidence interval is calculated from the \code{log(OR)} and back transformed.
-#' 
+#'
 #' @rdname oddsRatio
 #' @param x a 2 X 2 matrix, data frame or table of counts
 #' @param object an R object to print or summarise.  Here an object of class
@@ -587,7 +658,7 @@ NULL
 #' mat <- matrix(c(100, 100, 100, 100), nrow = 2)
 #' mat
 #' oddsRatio(mat)
-#' 
+#'
 #' mat2 <- matrix(c(18515, 18496, 1427, 1438), nrow = 2)
 #' rownames(mat2) <- c("Placebo", "Aspirin")
 #' colnames(mat2) <- c("No", "Yes")
@@ -617,7 +688,7 @@ NULL
   RR <- p2 / p1
   OR <- o2 / o1
   crit <- qnorm((1 - conf.level)/2, lower.tail = FALSE)
-  
+
   names(RR) <- "RR"
   log.RR <- log(RR)
   SE.log.RR <- sqrt( sum( x[,2]/x[,1]/rowsums) )
@@ -625,7 +696,7 @@ NULL
   log.upper.RR <- log.RR + crit * SE.log.RR
   lower.RR <- exp(log.lower.RR)
   upper.RR <- exp(log.upper.RR)
-  
+
   names(OR) <- "OR"
   log.OR <- log(OR)
   SE.log.OR <- sqrt(sum(1/x))
@@ -633,33 +704,33 @@ NULL
   log.upper.OR <- log.OR + crit * SE.log.OR
   lower.OR <- exp(log.lower.OR)
   upper.OR <- exp(log.upper.OR)
-  
+
   res <- if (relrisk) {
     structure(RR,
-              p1 = p1, 
-              p2 = p2, 
-              o1 = o1, 
-              o2 = o2, 
-              OR = OR, 
-              lower.OR = lower.OR, 
-              upper.OR = upper.OR, 
+              p1 = p1,
+              p2 = p2,
+              o1 = o1,
+              o2 = o2,
+              OR = OR,
+              lower.OR = lower.OR,
+              upper.OR = upper.OR,
               RR = RR,
-              lower.RR = lower.RR, 
-              upper.RR = upper.RR, 
+              lower.RR = lower.RR,
+              upper.RR = upper.RR,
               conf.level = conf.level,
               class=c("relrisk", "numeric"))
-  } else {  
+  } else {
     structure(OR,
-              p1 = p1, 
-              p2 = p2, 
-              o1 = o1, 
-              o2 = o2, 
-              OR = OR, 
-              lower.OR = lower.OR, 
-              upper.OR = upper.OR, 
+              p1 = p1,
+              p2 = p2,
+              o1 = o1,
+              o2 = o2,
+              OR = OR,
+              lower.OR = lower.OR,
+              upper.OR = upper.OR,
               RR = RR,
-              lower.RR = lower.RR, 
-              upper.RR = upper.RR, 
+              lower.RR = lower.RR,
+              upper.RR = upper.RR,
               conf.level = conf.level,
               class=c("oddsRatio", "numeric"))
   }
@@ -675,7 +746,7 @@ NULL
 
 #' @rdname oddsRatio
 #' @export
-`relrisk` <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
+`relRisk` <- function(x, conf.level = 0.95, verbose=TRUE, digits=3) {
   orrr(x, conf.level=conf.level, verbose=verbose, digits=digits, relrisk=TRUE)
 }
 
@@ -687,7 +758,7 @@ NULL
 
 #' @rdname oddsRatio
 #' @export
-`print.relrisk` <- function(x, digits  = 3, ...) {
+`print.relRisk` <- function(x, digits  = 3, ...) {
   print(as.numeric(x))
 }
 
@@ -695,14 +766,14 @@ NULL
 #' @export
 `summary.oddsRatio` <-
   function(object, digits = 3, ...){
-    summary_relrisk_oddsratio(object, digits=digits, ...) 
+    summary_relrisk_oddsratio(object, digits=digits, ...)
   }
 
 #' @rdname oddsRatio
 #' @export
-`summary.relrisk` <- 
+`summary.relRisk` <-
   function(object, digits = 3, ...){
-    summary_relrisk_oddsratio(object, digits=digits, ...) 
+    summary_relrisk_oddsratio(object, digits=digits, ...)
   }
 
 `summary_relrisk_oddsratio` <- function(x, digits = 3, ...){
@@ -718,9 +789,9 @@ NULL
   cat("\t    Odds 2:\t", format(attr(x,"o2"), digits = digits), "\n")
   cat("\tOdds Ratio:\t", format(attr(x,"OR"), digits = digits), "\n\n")
   cat(format(100 * attr(x,"conf.level")), "percent confidence interval:\n")
-  cat("\t", format(attr(x,"lower.RR"), digits = digits), "< RR <", 
+  cat("\t", format(attr(x,"lower.RR"), digits = digits), "< RR <",
       format(attr(x,"upper.RR"), digits = digits), "\n")
-  cat("\t", format(attr(x,"lower.OR"), digits = digits), "< OR <", 
+  cat("\t", format(attr(x,"lower.OR"), digits = digits), "< OR <",
       format(attr(x,"upper.OR"), digits = digits), "\n")
 }
 NULL
@@ -741,7 +812,7 @@ NULL
 #' trueMedian(z)
 #' median(s)
 #' @export
-`trueMedian` <- function(x,h=1) { 
+`trueMedian` <- function(x,h=1) {
   YY <- rep(0,length(x))
   XX <- table(x)
   q <- length(XX)
@@ -762,7 +833,7 @@ NULL
 #' @title Geary's test for normality
 #' @description Geary's test for normality. Null hypothesis is that the data obeys to normal distribution.
 #' @param x the numeric vector.
-#' 
+#'
 #' @return statistic The Geary's test statistic G
 #' @return p.value The significant probability of the null-hypothesis testing.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
@@ -784,31 +855,31 @@ NULL
 
 
 #' @title Resamples Data Using the Jackknife Method
-#' 
-#' @description 
+#'
+#' @description
 #' This function is used for estimating standard errors when the distribution is not know.
-#'  
+#'
 #' @param x a vector
 #' @param p estimation of parameter
-#' 
+#'
 #' @return est orignial estimation of parameter
 #' @return jkest jackknife estimation of parameter
 #' @return jkvar jackknife estimation of variance
 #' @return jkbias jackknife estimate of biasness of parameter
 #' @return jkbiascorr bias corrected parameter estimate
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
-#' @examples 
+#'
+#' @examples
 #' x = runif(10, 0, 1)
 #' mean(x)
 #' jackknife(x,mean)
-#' 
+#'
 #' @export
 `jackknife` <-function (x,p)
 {
     n=length(x)
     jk=rep(NA,n)
-    
+
     for (i in 1:n)
     {
         jk[i]=p(x[-i])
@@ -825,7 +896,7 @@ NULL
 
 
 #'@title Calculates the effect size
-#'@description Computes the effect size 
+#'@description Computes the effect size
 #'@param n
 #'@param a
 #'@param b
@@ -856,15 +927,15 @@ NULL
 
 
 
-#' @title Computes the region significance 
+#' @title Computes the region significance
 #' @description Probing Regression Interactions
 #' @param y the dependent variable.
 #' @param x the independent variable.
 #' @param z the moderator variable.
 #' @param zval an specific value for the moderator (z).
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
-#'@export 
+#'
+#'@export
 `regionSignificance` = function(y, x, z , zval){
   mod = lm(y~x + z + predictor:z)
   gam1.v = vcov(mod)["x","x"]
@@ -873,7 +944,7 @@ NULL
   df = length(y)-length(coef(mod))
   se.w1 = sqrt(gam1.v + 2*zval*gam1gam3.cv + zval^2*gam3.v)
   w1.hat = coef(mod)["x"]+coef(mod)["x:z"]*zval
-  p.value = (1-pt(w1.hat/se.w1,df=df))*2 
+  p.value = (1-pt(w1.hat/se.w1,df=df))*2
   w1.tab = cbind(w1.hat,se.w1,zval,p.value)
   rownames(w1.tab) = "Moderator"
   colnames(w1.tab) = c("Est","SE","Z","p-value")
@@ -890,8 +961,9 @@ NULL
 #' @param x the independent variable.
 #' @param z the moderator variable.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
-#'@export 
+#'
+#'
+#'@export
 `johnson.neyman` = function(y,x,z){
   mod = lm(y~x + z + x:z)
   gam1.v = vcov(mod)["x","x"]
@@ -902,7 +974,7 @@ NULL
   zz = seq(min(z),max(z),by=.01)
   se.w1 = sqrt(gam1.v + 2*zz*gam1gam3.cv + zz^2*gam3.v)
   w1.hat = coef(mod)["x"]+coef(mod)["x:z"]*zz
-  z.tab = cbind(zz,t<abs(w1.hat/se.w1))  
+  z.tab = cbind(zz,t<abs(w1.hat/se.w1))
   ci.low = w1.hat - t*se.w1
   ci.upp = w1.hat + t*se.w1
   w1.tab = data.frame(w1.hat,z=z.tab[,1],z.tab[,2],ci.low,ci.upp)
@@ -912,4 +984,73 @@ NULL
 }
 NULL
 
+#' @title Confidence Interval
+#' @description Calculates the confidence interval of a vector of data.
+#' @keywords univariate
+#' @param x a vector of data.
+#' @param conf.level confidence level. Default is 0.95.
+#' @param alpha confidence level. Default is 1-conf.level.
+#' @param \dots Extra parameters.
+#' @return
+#' \item{CI lower}{Lower bound of interval.}
+#' \item{Est. Mean}{Mean of data.}
+#' \item{CI upper}{Upper bound of interval.}
+#' \item{Std. Error}{Standard Error of the mean.}
+#' @examples
+#' x = rnorm(1000)
+#' ci(x, conf.level=.95)
+#'
+#' # the piping way
+#' mtcars %>% (mpg) %>% ci()
+#' @export
+`ci` <- function(x,conf.level=0.95,alpha=1-conf.level,...)
+UseMethod("ci")
 
+#' @export
+`ci.default` <- function(x, conf.level=0.95,alpha=1-conf.level,na.rm=FALSE,...)
+{
+  est <- mean(x, na.rm=na.rm);
+  stderr <- sd(x, na.rm=na.rm)/sqrt(nobs(x));
+  ci.low <- est + qt(alpha/2, nobs(x)-1) * stderr;
+  ci.high <- est - qt(alpha/2, nobs(x)-1) * stderr;
+  retval <- c(
+    "CI lower"=ci.low,
+    "Est. Mean"=est,
+    "CI upper"=ci.high,
+    "Std. Error"=stderr
+  );
+  retval;
+}
+
+#' @export
+`ci.binom` <- function(x, conf.level=0.95,alpha=1-conf.level,...)
+{
+  if( !(all(x) %in% c(0,1)) ) stop("Binomial values must be either 0 or 1.")
+  est <- mean(x, na.rm=TRUE)
+  n <- nobs(x)
+  stderr <- sqrt(est*(1-est)/n);
+  ci.low <- qbinom(p=alpha/2, prob=est, size=n)/n;
+  ci.high <- qbinom(p=1-alpha/2, prob=est, size=n)/n;
+  retval <- cbind("CI lower"=ci.low,
+                  "Est. Mean"=est,
+                  "CI upper"=ci.high,
+                  "Std. Error"= stderr
+  );
+  retval;
+}
+
+#' @export
+`ci.lm` <- function(x,conf.level=0.95,alpha=1-conf.level,...)
+{
+  x <- summary(x)
+  est <- coef(x)[,1] ;
+  ci.low <- est + qt(alpha/2, x$df[2]) * coef(x)[,2] ;
+  ci.high <- est - qt(alpha/2, x$df[2]) * coef(x)[,2] ;
+  retval <- cbind("CI lower"=ci.low,
+                  "Est. Mean"=est,
+                  "CI upper"=ci.high,
+                  "Std. Error"= coef(x)[,2],
+                  "p-value" = coef(x)[,4]);
+  retval;
+}
+NULL

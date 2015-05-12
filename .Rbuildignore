@@ -1,3 +1,5 @@
+src/copies
+tests/old
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^packrat/
