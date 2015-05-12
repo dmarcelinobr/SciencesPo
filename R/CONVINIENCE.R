@@ -379,7 +379,7 @@ NULL
 #'
 `peek` <- function(x=.data, n = 10) {
   if(is.matrix(x) | is.data.frame(x)) {
-    rows <- nobs(x)
+    rows <- NROW(x)
 	if (rows == 0)
 	    stop("Given vector must not be empty.")
 	  # handling vectors of length one differs from the behavior of base::sample

@@ -123,7 +123,7 @@ NULL
 
 #' @title Gets Google Maps single address
 #'
-#' @importFrom  rjson fromJSON
+#' @importFrom rjson fromJSON
 getGoogleMapsSignleAddress <-
   function(apiHttp, positionOnly = TRUE) {
     level <- 0
