@@ -3,7 +3,7 @@
 \docType{methods}
 \name{build}
 \alias{build}
-\title{Method for build things}
+\title{Method for building things}
 \usage{
 build(...)
 }
@@ -11,6 +11,6 @@ build(...)
 \item{\dots}{some extra parameters.}
 }
 \description{
-Method for build things
+Method for building things
 }
 

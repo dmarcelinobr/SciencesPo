@@ -1,17 +1,65 @@
-tryCatch(utils::globalVariables(c('.SciencesPoEnv')),
-         error=function(e) message('Looks like you should update R.'))
+#' @title Prompt for User Action
+#'
+#' @description Prompt user to hit enter
+#' @param msg a character-string, specifying a message to be displayed
+#' @return This function is used for its side effects
+#' @export
+#' @note This function is primarily used by SciencesPo scripts
+user.prompt <- function (msg = NULL) {
+  if (is.null(msg))
+    msg <- "Press <return> to continue: "
 
-if((Rv <- getRversion()) < "3.1.0") {
-  anyNA <- function(x) any(is.na(x))
-  if(Rv < "3.0.0") {
-    rep_len <- function(x, length.out) rep(x, length.out=length.out)
-    if(Rv < "2.15"){
-      paste0 <- function(...) paste(..., sep = '')
-  }
+  msg <- paste("\n", msg, sep="")
+
+  invisible(readline(msg))
 }
-}; rm(Rv)
 
+#' # make sure people are using a current version of R
+r = R.Version()
+if (r$major < "3" ||
+    (r$major == "3" && r$minor < "2.0"))
+{
+  print(paste0(
+    "The current version of R is 3.2.0, but you are using version ",
+    r$major, ".", r$minor,
+    ". Please google 'download R' and download the current version of R."
+  ))
+}
 
+.initSciencesPo <- function() {
+  if (exists(".temp",envir=.GlobalEnv)){
+    assign(".temp",.temp,envir=.ScPoEnv)
+    rm(.temp,envir=.GlobalEnv) } # Can no longer modify user's global environment
+  if (!exists(".temp",envir=.ScPoEnv))
+    assign(".temp",list(),envir=.ScPoEnv) #.GlobalEnv) #.PBSmod <<- list()
+  tget(.temp)
+  if (is.null(.temp$.options))
+    #packList(".options",".temp",list()) #.temp$.options <<- list()
+    .temp$.options <- list()
+  if (is.null(.temp$.options$openfile))
+    #packList("openfile",".temp$.options",list()) #.temp$.options$openfile <<- list()
+    .temp$.options$openfile <- list()
+  tput(.temp)
+}
+
+tget = function (x, penv=NULL, tenv=.ScPoEnv) {
+  if (is.null(penv)) penv = parent.frame() # need to call this inside the function NOT as an argument
+  xnam = as.character(substitute(x))
+  if (exists(xnam,envir=tenv)) {
+    eval(parse(text=paste("tgot=get(\"",xnam,"\",envir=tenv)",sep="")))
+    eval(parse(text=paste("assign(\"",xnam,"\",tgot,envir=penv)",sep="")))
+    return(invisible(tgot)) # useful for calling remote functions
+  }
+  invisible()
+}
+
+tput = function (x, penv=NULL, tenv=.ScPoEnv) {
+  if (is.null(penv)) penv = parent.frame() # need to call this inside the function NOT as an argument
+  xnam = as.character(substitute(x))
+  if (exists(xnam,envir=penv))
+    eval(parse(text=paste("assign(\"",xnam,"\",get(\"",xnam,"\",envir=penv),envir=tenv)",sep="")))
+  invisible()
+}
 
 #' @title Detach All Data From the Memory
 #'
@@ -71,18 +119,17 @@ min2hour <- function(min) {
 }
 
 
-#' Column names as (always) a character vector
+#' @title Column names as (always) a character vector
 #'
-#' A convenience function using either character vectors or numeric vectors to specify a subset of a \code{data.frame}.
-#'
+#' @description A convenience function using either character vectors or numeric vectors to specify a subset of a \code{data.frame}.
 #'
 #' @param data the input \code{data.frame}.
 #' @param cols the \code{names} or numeric position you want.
 #' @return A character vector of the desired names.
 #' @examples
-#' \dontrun{colNames(iris, 1:3)}
+#' \dontrun{col.names(iris, 1:3)}
 #' @export
-colNames <- function(data, cols) {
+col.names <- function(data, cols) {
   if (!is.numeric(cols)) cols <- match(cols, names(data))
   names(data)[cols]
 }
@@ -98,72 +145,12 @@ NULL
 #'
 #'  @return A character vector of the remaining names.
 #'  @examples
-#' \dontrun{ bigdf <- data.frame(a = 1:2, b = 3:4, c = 5:6)
-#' otherNames(bigdf, "b")}
+#' \dontrun{ other.names(iris, "Species")}
 #' @export
-otherNames <- function(data, check) {
-  setdiff(names(data), colNames(data, check))
+other.names <- function(data, check) {
+  setdiff(names(data), col.names(data, check))
 }
 NULL
-
-
-#' @title Gets Google Maps address
-#'
-#'
-getGoogleMapsAddress <-  function(street = "Banacha 2", city = "Warszawa", country="Poland", positionOnly = TRUE, delay=1) {
-  apiHttps  <- paste0("http://maps.googleapis.com/maps/api/geocode/json?address=", street, ",+",city,",+",country,"&sensor=true")
-  res <- sapply(apiHttps, function(apiHttp) {
-    Sys.sleep(delay)
-    getGoogleMapsSignleAddress(apiHttp, positionOnly)
-  })
-  if (class(res) == "matrix") res <- t(res)
-  res
-}
-NULL
-
-#' @title Gets Google Maps single address
-#'
-#' @importFrom rjson fromJSON
-getGoogleMapsSignleAddress <-
-  function(apiHttp, positionOnly = TRUE) {
-    level <- 0
-    apiHttp <- gsub(apiHttp, pattern=" ", replacement="\\+")
-    jsnip <-fromJSON( file=apiHttp, method = "C" )
-
-    if (length(jsnip[[1]]) == 0) {
-      apiHttp <- gsub(apiHttp, pattern="[0-9]", replacement="")
-      jsnip <- fromJSON( file=apiHttp, method = "C" )
-      level <- 1
-      if (length(jsnip[[1]]) == 0) {
-        apiHttp <- gsub(apiHttp, pattern="address=[^,]*,", replacement="address=")
-        jsnip <- fromJSON( file=apiHttp, method = "C" )
-        level <- 2
-        if (length(jsnip[[1]]) == 0) {
-          apiHttp <- gsub(apiHttp, pattern="address=[^,]*,", replacement="address=")
-          jsnip <- fromJSON( file=apiHttp, method = "C" )
-          level <- 3
-        }
-      }
-    }
-    if (length(jsnip) == 2 & jsnip$status == "OVER_QUERY_LIMIT")
-      return("OVER_QUERY_LIMIT")
-    if (positionOnly)
-      return(c(unlist(jsnip[[1]][[1]]$geometry$location),level))
-    jsnip$level = level
-    jsnip
-  }
-NULL
-
-
-#' @title Convenience function to check color labels
-#' @param  col the color name.
-#'
-pal <- function(col, border = "light gray")
-{
-  n <- length(col)
-  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes=FALSE, xlab = "", ylab = "")
-  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
-}
 
 
 #' @title Converts calendar date string to POSIX
@@ -181,7 +168,7 @@ posixify <- function(x) {
 }
 
 
-#' @title Method for build things
+#' @title Method for building things
 #' @param \dots some extra parameters.
 #' @export
 #' @docType methods
@@ -292,6 +279,17 @@ is.side_effect <- function(expr) {
 #' @return [\code{character}]
 #'   Vector of attribute names for the source object.
 #' @export
-getAttributeNames = function(obj) {
+getAttrNames = function(obj) {
+  if (!exists(".temp",envir=.ScPoEnv)) .initSciencesPo()
   return(names(attributes(obj)))
 }
+
+
+### short name wrapper functions
+tab <- function(..., row.vars = NULL, col.vars = NULL, type = NULL,
+	  style = "wide", decimals = 2, percent = TRUE, margins = TRUE,
+	  subtotals = TRUE) {
+	crosstab(..., row.vars = NULL, col.vars = NULL, type = NULL,
+	  style = "wide", decimals = 2, percent = TRUE, margins = TRUE,
+	  subtotals = TRUE)
+  }
