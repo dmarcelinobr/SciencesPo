@@ -1,4 +1,3 @@
-#' #-----------------------------------------------
 #' @encoding UTF-8
 #' @title Identify columns with at least one NA value
 #'
@@ -10,7 +9,7 @@
 #'     data(ssex)
 #'     ssex_fixed <-fix.missing(ssex)
 #' @export
-fix.missing <- function(x)  {
+`fix.missing` <- function(x)  {
 for (i in 1:ncol(x))  {
 if (sum(is.na(x[,i])) > 0 ) {
 print(paste("column",i,"has missing data"))
@@ -39,7 +38,7 @@ NULL
 #' x <- c(1,2,NA,4,5,NA)
 #' rand.imput(x)
 #' @export
-rand.imput <- function(x)  {
+`rand.imput` <- function(x)  {
   gone <- is.na(x)
   there <- x[!gone]
   x[gone] <- sample(x=there,size=sum(gone),replace=TRUE)
@@ -95,7 +94,7 @@ NULL
 #' anova(fit.aov)
 #'
 #'@export
-rand.block = function(blocksize, n, seed=NULL){
+`rand.block` = function(blocksize, n, seed=NULL){
   if(!is.null(seed)){
     set.seed(seed)
   }
@@ -136,6 +135,144 @@ NULL
     }
   }
   return(obj)
+}
+NULL
+
+
+
+#' @title Filling in missing values
+#' \code{fillin} replaces missing values with existing observations from other variable or data frame.
+#'
+#' @param x the data frame with the variable you would like to fill in.
+#' @param y the data frame with the variable you would like to use to fill in \code{x}.
+#' @param x.var a character string of the name of the variable in \code{x} you want to fill in.
+#' @param y.var an optional character string of variable name in \code{y} that you would like to use to fill in.
+#' @param key a character vector of variable names that are shared by \code{x} and \code{y} that can be used to join the data frames.
+#'
+#' @examples
+#' # Create data set with missing values
+#' data1 <- data.frame(a = sample(c(1,2), 100, rep=TRUE),
+#'                     b = sample(c(3,4), 100, rep=TRUE),
+#'                    fNA = sample(c(100, 200, 300, 400, NA), 100, rep=TRUE))
+#'
+#' # Created full data set
+#' data2 <- data.frame(a = c(1,2,1,2),
+#'                      b = c(3,3,4,4),
+#'                      full = c(100, 200, 300, 400))
+#'
+#' # Fill in missings from data1 with values from data2
+#' Filled <- fillin(data1, data2, x.var = "fNA", y.var = "full", key = c("a", "b"))
+#' @importFrom data.table data.table
+#' @importFrom data.table  :=
+#' @export
+`fillin` <- function(x, y, x.var, y.var = NULL, key){
+  # Give Var2 the same name as var1 if Var2 is NULL
+  if (is.null(y.var)){
+    y.var <- x.var
+  } else {
+    y.var <- y.var
+  }
+  # Give var a generic name
+  names(x)[match(x.var, names(x))] <- "x_x"
+  names(y)[match(y.var, names(y))] <- "x_y"
+  # Convert data frames to data.table type objects
+  tempx <- data.table(x, key = key)
+  tempy <- data.table(y, key = key)
+  # Merge data.tables
+  outdata <- tempy[tempx]
+  # Tell the user how many values will be filled in
+  SubNA <- outdata[, list(x_x, x_y)]
+  SubNA <- subset(SubNA, is.na(x_x) & !is.na(x_y))
+  print(paste(nrow(SubNA), "NAs were replaced."))
+  # Fill in missing values from data1 with values from data2
+  outdata <- outdata[is.na(x_x), x_x := x_y]
+  # Convert back to data frame
+  ans <- data.frame(outdata)
+  # Tell the user what the correlation coefficient is between the variables
+  SubNoNA <- subset(ans, !is.na(x_x) & !is.na(x_y))
+  HowMany <- nrow(SubNoNA)
+  corr <- cor(SubNoNA$x_x, SubNoNA$x_y, use = "complete.obs")
+  print(paste("The correlation between", x.var, "and", y.var, "is", round(corr, digits = 3), "based on", HowMany, "shared observations." ))
+  # Remove uncombined variable and return main variable's name
+  names(ans)[match("x_x", names(ans))] <- x.var
+  toKeep <- setdiff(names(ans), "x_y")
+  ans <- ans[, toKeep]
+  ans
+}
+NULL
+
+
+
+
+#' @title fill NA by previous cell value (fill forward)
+#' @description fillForward will carry values forward from one observation to the next, filling in missing values with the previous value.
+#' @param var the column that contains NAs
+#' @note This is not intended for imputing missing values; it is regarded as a bad choice for missing-value imputation. The intent is, rather, to fill in \dQuote{holes}, where a value should naturally prevail from one observation to the next.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @examples
+#' view(ssex)
+#'
+#' fill.forward(ssex$Favor)
+#'
+#' @export
+`fill.forward` <- function(var) {
+  navals <- which(is.na(var))
+  filledvals <- which(! is.na(var))
+  # If there would be no NAs following each other, navals-1 would give the
+  # entries we need. In our case, however, we have to find the last column filled for
+  # each value of NA. We may do this using the following sapply trick:
+  fillup <- sapply(navals, function(x) max(filledvals[filledvals < x]))
+  # And finally replace the NAs with our data.
+  var[navals] <- var[fillup]
+  var
+}
+NULL
+
+
+
+
+
+
+
+#' @encoding UTF-8
+#' @title Make a data.frame Rectangular by fill in missing records
+#'
+#' @description \code{rfill} produces a complete rectangularization table by adding observations with missing data so that all combinations (interactions) of the specified variables exist.
+#'
+#' @param x a data frame.
+#' @param by a vector of at least 2 variables from the data frame. If missing all variables in the data frame will be used.
+#' @param fill the value used to fill in, default is \code{fill = 0}.
+#'
+#' @return a data object of the same class as \code{x}.
+#'
+#' @examples
+#' data <- data.frame(sex=c("female","male","male"),
+#' race = c("black","black","white"), y = c(.5,.4,.1), x = c(32,40,53))
+#'
+#' retangular.fill(data, by=c(sex,race))
+#'
+#' retangular.fill(data, by=c(sex,race), fill=0)
+#'
+#' @export
+`retangular.fill` <- function(x, by, fill=NA)
+{
+  if(missing(by)) by=1:ncol(x)
+  nl <- as.list(1:ncol(x))
+  names(nl) <- names(x)
+  vars <- eval(substitute(by), nl, parent.frame())
+  xt <- data.frame(table(x[,vars]))
+  x0 <- subset(xt, Freq==0)[,-length(xt)]
+
+  if(nrow(x0)==0){
+    x
+    warning("Nothing to fill")}
+  else{
+    z <- as.data.frame(x[1:nrow(x0), -vars, drop=FALSE])
+    if(dim(z)[2]==1)
+      names(z) <- names(x)[-vars]
+    z[,] <- fill
+    rbind(x, cbind(x0, z))
+  }
 }
 NULL
 
@@ -252,7 +389,7 @@ NULL
 #' view(titanic)
 #'
 #' @export
-view <- function (obj=.data, n=10, random=TRUE, tail=FALSE, print.console=TRUE, ...) {
+`view` <- function (obj=.data, n=10, random=TRUE, tail=FALSE, print.console=TRUE, ...) {
   getn=function(n,N,tail,random,...) {
     n=min(n,N)
     if (random) return(sample(1:N,n,...))
@@ -296,6 +433,51 @@ NULL
 
 
 
+
+
+
+
+#' @title Cross-tabulation
+#' @description \code{crosstab} produces all possible two-way tabulations of the variables specified.
+#' @param \dots the data paremeters.
+#' @param row.vars the row variable(s).
+#' @param col.vars the row variable(s).
+#' @param type wether \emph{frequency count} \code{"f"}, \emph{row percentages} \code{"r"}, \emph{column percentages} \code{"c"}, or \emph{total percentages} \code{"t"}.
+#' @param style a style for table, either \code{"wide"} or \code{"long"}.
+#' @param decimals an integer for decimal places.
+#' @param percent wether to show percentiles or not. Default is \code{TRUE}
+#' @param margins wether to add margins or not. Default is \code{TRUE}
+#' @param subtotals wether to show subtotals or not. Default is \code{TRUE}
+#'
+#' @note Adapted from Dr Paul Williamson, Dept. of Geography and Planning, School of Environmental Sciences, University of Liverpool, UK, who adapted from \code{ctab()}.
+#' @examples
+#' data(titanic)
+#'
+# Frequency count
+#' crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "f")
+#' # Row percentages
+#' crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "r")
+#'
+#' # Column percentages
+#' crosstab(titanic, row.vars = "AGE", col.vars = "SEX", type = "c")
+#'
+#' # Joint percentages (sums to 100 within final two table dimensions)
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
+#' "SURVIVED", type = "c")
+#'
+#' # Total percentages (sums to 100 across entire table)
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
+#' "SURVIVED", type = "t")
+#' # Style = 'long'
+#' crosstab(titanic, row.vars = c("AGE","SEX"), col.vars =
+#' "SURVIVED", type = "t",style = "long", margins = FALSE)
+#'
+#' # Style = 'wide' [default]
+#' crosstab(titanic, row.vars = "AGE", col.vars =
+#' "SURVIVED", type = "t", style = "long", margins = FALSE)
+#' @export
+#' @examples
+#' data(quga)
 `crosstab` <- function (..., row.vars = NULL,
                         col.vars = NULL,
                         type = NULL,
@@ -710,3 +892,108 @@ NULL
 
 }
 NULL
+
+
+
+#' @encoding UTF-8
+#' @title Parallel sum
+#'
+#' @description Provides parallel sum like \code{pmin} and \code{pmax} from the base package. The function \code{sum} simply does not help when the objective is to obtain a vector with parallel sum rather than a scalar value.
+#'
+#' @param \dots One or more unit objects
+#' @param na.rm A logical value \code{TRUE} or \code{FALSE}, the default
+#'
+#' @return A vector containing the parallel sum.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @keywords Misc
+#'
+#' @examples
+#' psum(us2012$Obama, us2012$Romney)
+#' swingy <-psum(us2012$Obama, us2012$Romney-100)
+#'
+#' @export
+`psum` <-
+  function(..., na.rm=FALSE) {
+    x <- list(...)
+    rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
+  }
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Trim white spaces
+#' @description Simply trims spaces from the start, end, and within of a string
+#' @param x is a character vector.
+#' @param delim is the delimiter, default is white spaces \code{" "}
+#'
+# trim(" Daniel   Marcelino   Silva ")
+`trim` <- function(x, delim = " ") {
+  gsub("^\\s+|\\s+$", "",
+       gsub(sprintf("\\s+[%s]\\s+|\\s+[%s]|[%s]\\s+",
+                    delim, delim, delim), delim, x))
+}
+NULL
+
+
+#' @encoding UTF-8
+#' @title Conditionally convert vectors to factors
+#'
+#' @description A generic function and several instances for creating factors from
+#' other sorts of data. The primary use case is for vectors that contain
+#' few unique values and might be better considered as factors. When
+#' applied to a data frame, this is applied to each column in the data.frame.
+#'
+#' @param x an object.
+#' @param max.levels an integer that determines the number of unique values to be coverted. Default is \code{max.levels = 10}.
+#' @param ... additional arguments (currently ignored)
+#'
+#' @examples
+#' #Some data
+#' ID = 1:10
+#' Age = round(rnorm(10,50,1))
+#' diag = c("Depression","Bipolar");
+#' Diagnosis = sample(diag, 10, replace=TRUE)
+#' data = data.frame(ID, Age, Diagnosis)
+#' factorize(data$Diagnosis)
+#' str(factorize(data))
+#' @export
+`factorize` <- function(x,  ...) {
+  UseMethod("factorize")
+}
+
+#' @rdname factorize
+#' @export
+`factorize.default` <- function(x, ...) {
+  x
+}
+
+#' @rdname factorize
+#' @export
+`factorize.numeric` <- function(x, max.levels = 10L, ...){
+  if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )
+  x
+}
+
+#' @rdname factorize
+#' @export
+`factorize.character` <- function(x, max.levels = 10L, ...){
+  if (length(unique(x)) <=  max.levels) return ( factor(x, levels=sort(unique(x))) )
+  x
+}
+
+#' @rdname factorize
+#' @export
+`factorize.data.frame` <- function(x, max.levels=10L, ...) {
+  as.data.frame( lapply(x, factorize, max.levels=max.levels) )
+}
+NULL
+
+
+
+
+
+
+

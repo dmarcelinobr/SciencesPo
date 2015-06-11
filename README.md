@@ -1,4 +1,3 @@
-# SciencesPo 
 <img src="SciencesPo_logo.png" alt="SciencesPo" />
 
 [![Project Status: Active - The project has reached a stable, usable

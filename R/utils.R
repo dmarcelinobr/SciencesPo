@@ -284,6 +284,73 @@ getAttrNames = function(obj) {
   return(names(attributes(obj)))
 }
 
+#' @encoding UTF-8
+#' @title Places quotation marks
+#'@param vec the vector whose values will be surounded by quotes
+#' @examples
+#' x <- 1
+#' quotize(x)
+#' noquote(quotize(x))
+#' a <- ("Daniel")
+#' noquote(quotize(a))
+#'
+#'@export
+`quotize` <- function(vec){
+  sapply(vec, function(x) paste("'",x,"'",sep=''))}
+NULL
+
+#' @encoding UTF-8
+#' @title Pause
+#' @description A replication of MatLab pause function.
+#' @param x is optional. If x>0 a call is made to \code{\link{Sys.sleep}}. Else, execution pauses until a key is entered.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @export
+`pause` <-
+  function (x=0) {
+    if(x > 0){
+      Sys.sleep(x)
+    }else{
+      cat("Hit <enter> to continue...")
+      readline()
+      invisible()
+    }
+  }
+NULL
+
+
+#' @encoding UTF-8
+#' @title Format numeric digits
+#' @param x the object whose values to format
+#' @param digits an integer for the number of decimal places.
+#' @export
+`formatR` <- function (x, digits=3) {
+  noZero <- function (x) {
+    return(gsub("0\\.", ".", x));
+  }
+  return(noZero(round(x, digits)));
+}
+NULL
+
+
+#' @encoding UTF-8
+#' @title Converts to percentiles
+#' @description Converts a numeric vector to percentiles.
+#' @param x a numeric vector.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @examples
+#' vec <- seq(1:5)
+#' percentify(vec)
+#' @export
+`percentify` <- function(x){
+  pt1 <- quantile(x, probs = seq(0, 1, by = 0.01), type = 7)
+  pt2 <- unique(as.data.frame(pt1), fromLast = TRUE)
+  pt3 <- rownames(pt2)
+  pt4 <- as.integer(strsplit(pt3, "%"))
+  ans <- pt4[as.integer(cut(x, c(0, pt2$pt1), labels = 1:length(pt3)))]
+  return(ans)
+}
+NULL
+
 
 ### short name wrapper functions
 tab <- function(..., row.vars = NULL, col.vars = NULL, type = NULL,

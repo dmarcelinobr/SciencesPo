@@ -14,7 +14,7 @@ fix.missing(x)
 A message indicating whether any column in \code{x} has missing data and filling missings with the mean of the valid cases.
 }
 \description{
-#-----------------------------------------------
+Identify columns with at least one NA value
 }
 \examples{
 data(ssex)
