@@ -21,12 +21,11 @@
 #' @rdname cv-methods
 #' @rdname variation
 #' @export
-cv <- setClass("cv", slots = c(x = "numeric",na.rm="logical"))
+cv <- setClass("cv", representation(x = "numeric",
+ na.rm="logical"))
 setGeneric("cv", def=function(x, na.rm = TRUE){
   standardGeneric("cv")
 })
-#' @rdname cv-methods
-#' @aliases cv,ANY,logical,ANY-method
 setMethod(f="cv", definition=function(x, na.rm = TRUE){
 	sd <- sd(x, na.rm = na.rm)
 	 mean <- mean(x, na.rm = na.rm)
@@ -337,12 +336,15 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @docType methods
 #' @examples
-#' x <- rnorm(100);
+#' x <- c(1,2.3,2,3,4,8,12,43,-1,-4)
+#' myse <- sd(x)/sqrt(length(x))
+#' myse
+#' # With 'se' function:
 #' se(x)
 #' @export
 #' @rdname se-methods
 #' @rdname error
-se <- setClass("se", slots = c(x = "numeric",na.rm="logical"))
+se <- setClass("se", representation(x = "numeric",na.rm="logical"))
 setGeneric("se", def=function(x, na.rm = TRUE){
   standardGeneric("se")
 })

@@ -20,7 +20,10 @@ Compute the standard errors of a numeric vector
 The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
 }
 \examples{
-x <- rnorm(100);
+x <- c(1,2.3,2,3,4,8,12,43,-1,-4)
+myse <- sd(x)/sqrt(length(x))
+myse
+# With 'se' function:
 se(x)
 }
 \author{
