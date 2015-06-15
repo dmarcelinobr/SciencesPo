@@ -21,18 +21,18 @@
 #' @rdname cv-methods
 #' @rdname variation
 #' @export
-setGeneric("cv", function(x, na.rm = TRUE){
+cv <- setClass("cv", slots = c(x = "numeric",na.rm="logical"))
+setGeneric("cv", def=function(x, na.rm = TRUE){
   standardGeneric("cv")
 })
 #' @rdname cv-methods
 #' @aliases cv,ANY,logical,ANY-method
-setMethod(f="cv", signature=c(x="ANY", na.rm="logical"), definition=function(x, na.rm = TRUE){
+setMethod(f="cv", definition=function(x, na.rm = TRUE){
 	sd <- sd(x, na.rm = na.rm)
 	 mean <- mean(x, na.rm = na.rm)
     return(sd/mean)
   })
 NULL
-
 
 
 #' @encoding UTF-8
@@ -330,49 +330,42 @@ NULL
 #'
 #' @description Compute the standard errors of a numeric vector
 #'
-#' @aliases std.error
-#' @param x  a vector of class numeric or integer
-#' @param na.rm a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
-#' @param \dots some extra parameters.
+#' @param x  A vector of class numeric or integer
+#' @param na.rm A logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
-#'
-#' @references Kenney, J. F. and Keeping, E. S. (1951) Standard Error of the Mean. In \emph{Mathematics of Statistics,} Pt. 2, 2nd ed. Princeton, NJ: Van Nostrand, pp. 110 and 132--133.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @docType methods
-#' @rdname se-methods
-#'
 #' @examples
 #' x <- rnorm(100);
 #' se(x)
 #' @export
-setGeneric("se", function(x, na.rm = TRUE){
+#' @rdname se-methods
+#' @rdname error
+se <- setClass("se", slots = c(x = "numeric",na.rm="logical"))
+setGeneric("se", def=function(x, na.rm = TRUE){
   standardGeneric("se")
 })
-
-#' @rdname se-methods
-#' @aliases se,ANY,logical,ANY-method
-setMethod(f="se", signature=c(x="ANY", na.rm="logical"), definition=function(x, na.rm = TRUE){
-  valid <- function(x) return(sum(!is.na(x)))
-  dim <- dim(x)
-  if (is.null(dim)) {
-    sd <- sd(x, na.rm = na.rm)
-    n.valid <- valid(x)
-  }
-  else {
-    if (is.data.frame(x)) {
-      n.valid <- unlist(sapply(x, valid))
-      sd <- unlist(sapply(x, sd, na.rm = na.rm))
+setMethod(f="se", definition=function(x, na.rm = TRUE){
+    valid <- function(x) return(sum(!is.na(x)))
+    dim <- dim(x)
+    if (is.null(dim)) {
+      sd <- sd(x, na.rm = na.rm)
+      n.valid <- valid(x)
     }
     else {
-      n.valid <- unlist(apply(x, 2, valid))
-      sd <- unlist(apply(x, 2, sd, na.rm = na.rm))
+      if (is.data.frame(x)) {
+        n.valid <- unlist(sapply(x, valid))
+        sd <- unlist(sapply(x, sd, na.rm = na.rm))
+      }
+      else {
+        n.valid <- unlist(apply(x, 2, valid))
+        sd <- unlist(apply(x, 2, sd, na.rm = na.rm))
+      }
     }
-  }
-  return(sd/sqrt(n.valid))
-})
+    return(sd/sqrt(n.valid))
+  })
 NULL
-
 
 
 #' @encoding UTF-8

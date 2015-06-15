@@ -5,12 +5,12 @@
 \name{cv}
 \alias{cv}
 \alias{cv,ANY,logical,ANY-method}
-\alias{cv,ANY,logical-method}
+\alias{cv,ANY-method}
 \title{Pearson's Coefficient of Variation}
 \usage{
 cv(x, na.rm = TRUE)
 
-\S4method{cv}{ANY,logical}(x, na.rm = TRUE)
+\S4method{cv}{ANY}(x, na.rm = TRUE)
 }
 \arguments{
 \item{x}{A numeric vector.}

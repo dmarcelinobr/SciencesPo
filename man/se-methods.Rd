@@ -4,21 +4,14 @@
 \encoding{UTF-8}
 \name{se}
 \alias{se}
-\alias{se,ANY,logical,ANY-method}
-\alias{se,ANY,logical-method}
-\alias{std.error}
 \title{Calculates the Standard Error}
 \usage{
 se(x, na.rm = TRUE)
-
-\S4method{se}{ANY,logical}(x, na.rm = TRUE)
 }
 \arguments{
-\item{x}{a vector of class numeric or integer}
+\item{x}{A vector of class numeric or integer}
 
-\item{na.rm}{a logical value for \code{na.rm}, default is \code{na.rm=TRUE}.}
-
-\item{\dots}{some extra parameters.}
+\item{na.rm}{A logical value for \code{na.rm}, default is \code{na.rm=TRUE}.}
 }
 \description{
 Compute the standard errors of a numeric vector
@@ -32,8 +25,5 @@ se(x)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
-}
-\references{
-Kenney, J. F. and Keeping, E. S. (1951) Standard Error of the Mean. In \emph{Mathematics of Statistics,} Pt. 2, 2nd ed. Princeton, NJ: Van Nostrand, pp. 110 and 132--133.
 }
 
