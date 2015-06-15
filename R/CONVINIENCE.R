@@ -992,9 +992,15 @@ NULL
 NULL
 
 
+#' @encoding UTF-8
+#' @title Sumarizes the residuals from a linear model
+#'
+#' @description Simply sumarizes the residuals from a linear model.
+#'#' @param x The fitted model object.
 #' @examples
 #' model<- glm(child~parent, data=galton)
 #' sumres(model)
+#' @export
 `sumres` <-
   function(x) {
     sr <- summary(residuals(x))
