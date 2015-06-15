@@ -27,9 +27,6 @@ Calculates the confidence interval of a vector of data.
 \examples{
 x = rnorm(1000)
 ci(x, conf.level=.95)
-
-# the piping way
-mtcars \%>\% (mpg) \%>\% ci()
 }
 \keyword{univariate}
 

@@ -481,12 +481,12 @@ NULL
 
 #' @encoding UTF-8
 #' @title Adjusted Residuals
-#'
+#' @description Calculates adjusted residuals from a linear fitted model.
 #' @param object a model object of type \code{glm} or \code{lm}.
 #' @param \dots further arguments passed to or used by other methods.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-`adjusted.residuals` <- function(object, ...) {
+`adj.residuals` <- function(object, ...) {
   residuals(object, ...) / sqrt(1 - lm.influence(object)$hat)
 }
 NULL
@@ -662,8 +662,6 @@ NULL
 #' x = rnorm(1000)
 #' ci(x, conf.level=.95)
 #'
-#' # the piping way
-#' mtcars %>% (mpg) %>% ci()
 #' @rdname confidenceInterval
 #' @export
 `ci` <- function(x,conf.level=0.95,alpha=1-conf.level,...)
