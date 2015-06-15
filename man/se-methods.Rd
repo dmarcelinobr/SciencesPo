@@ -4,9 +4,13 @@
 \encoding{UTF-8}
 \name{se}
 \alias{se}
+\alias{se,ANY-method}
+\alias{se,numeric,logical,ANY-method}
 \title{Calculates the Standard Error}
 \usage{
 se(x, na.rm = TRUE)
+
+\S4method{se}{ANY}(x, na.rm = TRUE)
 }
 \arguments{
 \item{x}{A vector of class numeric or integer}

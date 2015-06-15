@@ -11,21 +11,19 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' @keywords The Basics
-#' @keywords Descriptive Stats
-#'
+#' @keywords Descriptive
 #' @examples
-#'
-#' myvar <- sample(100)
-#' cv(myvar)
+#' x <- sample(100)
+#' cv(x)
+#' @export cv
+#' @docType methods
 #' @rdname cv-methods
-#' @rdname variation
-#' @export
-cv <- setClass("cv", representation(x = "numeric",
- na.rm="logical"))
+#' @aliases cv,numeric,logical,ANY-method
+cv<-setClass("cv", representation(x = "numeric", na.rm="logical"))
 setGeneric("cv", def=function(x, na.rm = TRUE){
   standardGeneric("cv")
 })
+#' @rdname cv-methods
 setMethod(f="cv", definition=function(x, na.rm = TRUE){
 	sd <- sd(x, na.rm = na.rm)
 	 mean <- mean(x, na.rm = na.rm)
@@ -334,20 +332,22 @@ NULL
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @docType methods
 #' @examples
 #' x <- c(1,2.3,2,3,4,8,12,43,-1,-4)
 #' myse <- sd(x)/sqrt(length(x))
 #' myse
 #' # With 'se' function:
 #' se(x)
-#' @export
+#' @export se
+#' @docType methods
 #' @rdname se-methods
-#' @rdname error
-se <- setClass("se", representation(x = "numeric",na.rm="logical"))
+#' @aliases se,numeric,logical,ANY-method
+se<- setClass("se", representation(x = "numeric",na.rm="logical"))
 setGeneric("se", def=function(x, na.rm = TRUE){
   standardGeneric("se")
 })
+
+#' @rdname se-methods
 setMethod(f="se", definition=function(x, na.rm = TRUE){
     valid <- function(x) return(sum(!is.na(x)))
     dim <- dim(x)
