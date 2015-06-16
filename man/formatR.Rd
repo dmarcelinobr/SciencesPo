@@ -5,7 +5,7 @@
 \alias{formatR}
 \title{Format numeric digits}
 \usage{
-formatR(x, digits = 3)
+formatR(x, digits = 2)
 }
 \arguments{
 \item{x}{the object whose values to format}

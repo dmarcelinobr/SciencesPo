@@ -19,6 +19,6 @@ Calculates the Likelihood Ratio chi-Squared test, the Pearson chi-Squared test, 
 \examples{
 x = sample(1:2, 30, TRUE);
  y = sample(1:3, 30, TRUE)
- a.test(table(x, y))
+ a.test(xtabs(~x + y))
 }
 

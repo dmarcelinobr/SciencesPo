@@ -242,8 +242,6 @@ setMethod("nobs", "data.frame", function(object, ...){
   NROW(object)
 })
 
-
-
 # compatibility for data.table functions
 .datatable.aware <- TRUE
 
@@ -252,10 +250,6 @@ setclass <- `class<-`
 
 dots <- function(...) {
   eval(substitute(alist(...)))
-}
-
-ndots <- function(dots) {
-  any(nzchar(dots))
 }
 
 is.formula <- function(expr) {
@@ -269,20 +263,6 @@ is.side_effect <- function(expr) {
        Recall(expr[[2L]]))
 }
 
-
-
-#' Helper function for determining the vector of attribute names
-#' of a given object.
-#'
-#' @param obj [\code{mixed}]\cr
-#'   Source object.
-#' @return [\code{character}]
-#'   Vector of attribute names for the source object.
-#' @export
-getAttrNames = function(obj) {
-  if (!exists(".temp",envir=.ScPoEnv)) .initSciencesPo()
-  return(names(attributes(obj)))
-}
 
 #' @encoding UTF-8
 #' @title Places quotation marks
@@ -323,7 +303,7 @@ NULL
 #' @param x the object whose values to format
 #' @param digits an integer for the number of decimal places.
 #' @export
-`formatR` <- function (x, digits=3) {
+`formatR` <- function (x, digits=2) {
   noZero <- function (x) {
     return(gsub("0\\.", ".", x));
   }
@@ -353,10 +333,6 @@ NULL
 
 
 ### short name wrapper functions
-tab <- function(..., row.vars = NULL, col.vars = NULL, type = NULL,
-	  style = "wide", decimals = 2, percent = TRUE, margins = TRUE,
-	  subtotals = TRUE) {
-	crosstab(..., row.vars = NULL, col.vars = NULL, type = NULL,
-	  style = "wide", decimals = 2, percent = TRUE, margins = TRUE,
-	  subtotals = TRUE)
+tab <- function(..., deparse.level = 2) {
+		  crosstable(..., deparse.level = 2)
   }
