@@ -23,6 +23,14 @@
   packageStartupMessage(msg)
 }
 
+# No Visible Bindings
+# ===================
+globalVariables(names=c(
+  ".data", ".temp", "tgot", "v.tab", "Freq",
+  "candidate.position", 'var.order', 'var.class',
+  'var.size','var.lab', 'x_x', 'x_y'),
+  package="SciencesPo")
+
 .onUnload <- function(libpath) {
   rm(.ScPoEnv)
 }
