@@ -5,19 +5,19 @@
 \alias{r}
 \title{# make sure people are using a current version of R}
 \format{\preformatted{List of 14
- $ platform      : chr "x86_64-apple-darwin10.8.0"
+ $ platform      : chr "x86_64-apple-darwin13.4.0"
  $ arch          : chr "x86_64"
- $ os            : chr "darwin10.8.0"
- $ system        : chr "x86_64, darwin10.8.0"
- $ status        : chr "Patched"
+ $ os            : chr "darwin13.4.0"
+ $ system        : chr "x86_64, darwin13.4.0"
+ $ status        : chr ""
  $ major         : chr "3"
  $ minor         : chr "2.0"
  $ year          : chr "2015"
  $ month         : chr "04"
- $ day           : chr "19"
- $ svn rev       : chr "68207"
+ $ day           : chr "16"
+ $ svn rev       : chr "68180"
  $ language      : chr "R"
- $ version.string: chr "R version 3.2.0 Patched (2015-04-19 r68207)"
+ $ version.string: chr "R version 3.2.0 (2015-04-16)"
  $ nickname      : chr "Full of Ingredients"
 }}
 \usage{

@@ -12,7 +12,7 @@
 
 #' @rdname rename
 #' @export
-`rename.default` <- function (old, new, data, ...) 
+`rename.default` <- function (old, new, data, ...)
 {
   dataset <- data
   if (any(names(dataset) == as.character(substitute(old)))) {
@@ -28,7 +28,7 @@
       rename.pattern(old, new, printNote = TRUE, data)
     }
     else {
-      stop(paste("\n", "\"", as.character(substitute(old)), 
+      stop(paste("\n", "\"", as.character(substitute(old)),
                  "\"", " is neither a var name nor an available pattern"))
     }
   }
@@ -37,17 +37,17 @@
 #' @examples
 #' data(ssex)
 #' rename("Oppose", "NO", data = ssex)
-#' 
+#'
 ## Rename a variable
 #' @rdname rename
 #' @export
-`rename.var` <- function (old, new, data, ...) 
+`rename.var` <- function (old, new, data, ...)
 {
   dataset <- data
   pos = 1 # does nothing just to trick the environment
   if (any(names(dataset) == as.character(substitute(old)))) {
     names(dataset)[names(dataset) == as.character(substitute(old))] <- as.character(substitute(new))
- 
+
     assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
     if(is.element(as.character(substitute(data)), search())){
       detach(pos=which(search() %in% as.character(substitute(data))))
@@ -64,8 +64,8 @@
       }
     }
     else {
-      stop(paste("\n", "\"", as.character(substitute(old)), 
-                 "\"", " does not exist in the data frame", 
+      stop(paste("\n", "\"", as.character(substitute(old)),
+                 "\"", " does not exist in the data frame",
                  sep = ""))
     }
   }
@@ -75,26 +75,26 @@
 #' @rdname rename
 #' @param verbose whether the old and new names of the variables(s) should be printed out.
 #' @export
-`rename.pattern` <- function (old, new, data, verbose = TRUE, ...) 
+`rename.pattern` <- function (old, new, data, verbose = TRUE, ...)
 {
   dataset <- data
   pos = 1 # does nothing just to trick the environment
-  if (length(grep(pattern = old, x = names(dataset))) == 0) 
-    stop(paste("Pattern ", "\"", as.character(substitute(old)), 
+  if (length(grep(pattern = old, x = names(dataset))) == 0)
+    stop(paste("Pattern ", "\"", as.character(substitute(old)),
                "\"", " does not exist", sep = ""))
-  table1 <- cbind(names(dataset)[grep(pattern = old, x = names(dataset))], 
-                  sub(pattern = old, replacement = new, x = names(dataset))[grep(pattern = old, 
+  table1 <- cbind(names(dataset)[grep(pattern = old, x = names(dataset))],
+                  sub(pattern = old, replacement = new, x = names(dataset))[grep(pattern = old,
                                                                                x = names(dataset))])
-  rownames(table1) <- rep("    ", length(names(dataset)[grep(pattern = old, 
+  rownames(table1) <- rep("    ", length(names(dataset)[grep(pattern = old,
                                                            x = names(dataset))]))
   colnames(table1) <- c("Old var names  ", "New var names")
   if (verbose) {
-    cat("Note the following change(s) in variable name(s):", 
+    cat("Note the following change(s) in variable name(s):",
         "\n")
     print(table1)
   }
   names(dataset) <- sub(pattern = old, replacement = new, x = names(dataset))
-  assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))  
+  assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
     #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
@@ -104,10 +104,10 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Subset data 
-#' 
+#' @title Subset data
+#'
 #' @description Subsets a \code{data.frame} based on variables or/and records. It is a version of \sQuote{subset.data.frame} which is a standard R function.
-#'  
+#'
 #'  @param data = .data
 #'  @param select the columns to select from \code{data}.
 #'  @param subset the elements or rows to keep from \code{data} (missing values are taken as false).
@@ -115,19 +115,18 @@ NULL
 #'  @param refactor whether the levels of variable(s) with zero count should be removed after subsetting. The default is \code{refactor="subset.vars"}, which means that the levels of the variables not being used will be recycled.
 #' @param sample an integer for the size of random sample to retain from the \code{data}.
 #' @param \dots typically unecessary parameters.
-#'  
+#'
 #' @examples
-#'  data(ssex)
-#' info(ssex)
+#' data(ssex)
 #' keep(ssex, select = c(Date, Oppose, Favor))
-#' 
+#'
 #' keep(ssex, subset=Oppose!="NA") # subset
 #' @export
 #'
-`keep` <- function (data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...) 
+`keep` <- function (data, select, subset, drop = FALSE, refactor = c("subset.vars", "all", "none"), sample = NULL, ...)
   {
     pos = 1 # does nothing just to trick the environment
-    
+
     data.name <- as.character(substitute(data))
     dataset <- data
     datalabel <- attr(dataset, "datalabel")
@@ -135,18 +134,18 @@ NULL
     var.labels <- attr(dataset, "var.labels")
     label.table <- attr(dataset, "label.table")
     if (!is.null(sample)) {
-      if (!is.numeric(sample) | sample <= 0 | length(sample) > 
+      if (!is.numeric(sample) | sample <= 0 | length(sample) >
             1 | (trunc(sample) != sample) & sample > 1) {
         stop("Size of sample must be a positive integer")
       }
       if (sample < 1) {
         sample0 <- sample
         sample <- trunc(sample * nrow(dataset))
-        cat("Keep only ", round(sample0 * 100, 2), "% or ", 
-            sample, " of the total ", nrow(dataset), " records", 
+        cat("Keep only ", round(sample0 * 100, 2), "% or ",
+            sample, " of the total ", nrow(dataset), " records",
             "\n", sep = "")
       }
-      data <- data[sample(nrow(data), sample), 
+      data <- data[sample(nrow(data), sample),
                              ]
       dataset <- data
       attr(dataset, "datalabel") <- paste(datalabel, "(subset)")
@@ -154,12 +153,12 @@ NULL
       attr(dataset, "var.labels") <- var.labels
       attr(dataset, "label.table") <- label.table
     }
-    if (missing(subset)) 
+    if (missing(subset))
       r <- TRUE
     else {
       e <- substitute(subset)
       r <- eval(e, data, parent.frame())
-      if (!is.logical(r)) 
+      if (!is.logical(r))
         stop("'subset' must evaluate to logical")
       r <- r & !is.na(r)
     }
@@ -169,10 +168,10 @@ NULL
     else {
       nl <- as.list(1:ncol(data))
       names(nl) <- names(data)
-      if ((length(grep(pattern = "[*]", as.character(substitute(select)))) == 
-             1) | (length(grep(pattern = "[?]", as.character(substitute(select)))) == 
+      if ((length(grep(pattern = "[*]", as.character(substitute(select)))) ==
+             1) | (length(grep(pattern = "[?]", as.character(substitute(select)))) ==
                      1)) {
-        vars <- grep(pattern = glob2rx(as.character(substitute(select))), 
+        vars <- grep(pattern = glob2rx(as.character(substitute(select))),
                      names(data))
         if (length(vars) == 0) {
           stop(paste(select, "not matchable with any variable name."))
@@ -186,7 +185,7 @@ NULL
     attr(dataset, "datalabel") <- paste(datalabel, "(subset)")
     attr(dataset, "val.labels") <- val.labels[vars]
     attr(dataset, "var.labels") <- var.labels[vars]
-    attr(dataset, "label.table") <- label.table[is.element(names(label.table), 
+    attr(dataset, "label.table") <- label.table[is.element(names(label.table),
                                                          val.labels[vars])]
     if(length(refactor)==3) refactor <- "subset.vars"
     if(!missing(subset) & refactor == "all") {
@@ -198,7 +197,7 @@ NULL
     }
     if(!missing(subset) & refactor == "subset.vars") {
       for(i in 1:ncol(dataset)) {
-        if(length(grep(names(dataset)[i], deparse(substitute(subset)))) >0 
+        if(length(grep(names(dataset)[i], deparse(substitute(subset)))) >0
            & class(dataset[,i]) == "factor") {
           dataset[,i] <- factor(dataset[,i])
         }
@@ -219,24 +218,24 @@ NULL
 
 #' @encoding UTF-8
 #' @title Recode variable
-#' 
+#'
 #' @description Change values of a variable in a \code{data.frame}.
 #' label.var
-#' @param vars varaible(s) to be recoded 
-#' @param old the old values or arithmetic conditions. 
+#' @param vars varaible(s) to be recoded
+#' @param old the old values or arithmetic conditions.
 #' @param new the new values for all variables listed.
 #' @param data a \code{data.frame} object.
-#' @param \dots typically not needed parameters. 
-#' 
+#' @param \dots typically not needed parameters.
+#'
 #' @examples
-#' df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5), 
+#' df = data.frame(id=1:20, x=rnorm(20, mean=2, sd=.5),
 #' z=sample(5, 20, rep=TRUE) )
 #' use(df)
 #' # recoding x  to missing value:
 #' recode(z, old = c(1,2,3,4,5), new = c(5,4,3,2,1), data=df)
 #' @export
 `recode` <-
-  function (vars, old, new, data = .data, ...) 
+  function (vars, old, new, data = .data, ...)
   {
     .data <- NULL
     dataset <- data
@@ -245,10 +244,10 @@ NULL
     names(nl) <- names(dataset)
     var.order <- eval(substitute(vars), nl, parent.frame())
     if(all(var.order < 0)) var.order <- (1:ncol(data))[var.order]
-    if (exists(names(dataset)[var.order], where = 1, inherits = FALSE)) 
+    if (exists(names(dataset)[var.order], where = 1, inherits = FALSE))
       warning("Name(s) of vars duplicates with an object outside the `data`.")
     tx <- cbind(old, new)
-    if (is.numeric(old) | is.integer(old) | any(class(dataset[, 
+    if (is.numeric(old) | is.integer(old) | any(class(dataset[,
                                                                         var.order]) == "POSIXt")) {
       if (length(old) == 1) {
         if(all(is.integer(dataset[, var.order]))){
@@ -256,19 +255,19 @@ NULL
         }else{
           dataset[, var.order][dataset[, var.order] == old] <- new
         }
-        
+
       }
       else {
-        if (length(old) != length(new) & length(new) != 
-              1) 
+        if (length(old) != length(new) & length(new) !=
+              1)
           stop("Lengths of `old` and `new` values are not equal")
         for (i in var.order) {
           if(is.integer(dataset[,i])){
-            dataset[, i] <- as.integer(lookup(dataset[, i, drop = TRUE], 
+            dataset[, i] <- as.integer(lookup(dataset[, i, drop = TRUE],
                                             tx))
-            
+
           }else{
-            dataset[, i] <- lookup(dataset[, i, drop = TRUE], 
+            dataset[, i] <- lookup(dataset[, i, drop = TRUE],
                                  tx)
           }
         }
@@ -276,16 +275,16 @@ NULL
     }
     else for (i in var.order) {
       if (is.factor(dataset[, i])) {
-        if (length(old) != length(new) & length(new) != 
-              1) 
+        if (length(old) != length(new) & length(new) !=
+              1)
           stop("Lengths of `old` and `to` are not equal")
         if (is.character(old)) {
-          if (any(!is.element(old, levels(dataset[, 
-                                                      i])))) 
-            warning(paste("The `old` is/are not element of levels of '", 
+          if (any(!is.element(old, levels(dataset[,
+                                                      i]))))
+            warning(paste("The `old` is/are not element of levels of '",
                           names(dataset)[i], "'", sep = ""))
           for (j in 1:nrow(tx)) {
-            levels(dataset[, i])[levels(dataset[, i]) == tx[j, 
+            levels(dataset[, i])[levels(dataset[, i]) == tx[j,
                                                         1]] <- tx[j, 2]
           }
         }
@@ -295,22 +294,22 @@ NULL
           dataset[, var.order][dataset[, var.order] == old] <- new
         }
         else {
-          if (length(old) != length(new) & 
-                length(new) != 1) 
+          if (length(old) != length(new) &
+                length(new) != 1)
             stop("Lengths of `old` and `new` values are not equal")
-          dataset[, i] <- lookup(dataset[, i, drop = TRUE], 
+          dataset[, i] <- lookup(dataset[, i, drop = TRUE],
                                tx)
         }
       }
     }
     if (length(old) == nrow(dataset)) {
       if (length(var.order) == 1) {
-        dataset[, var.order] <- replace(dataset[, var.order], 
+        dataset[, var.order] <- replace(dataset[, var.order],
                                         old, new)
       }
       else {
         for (i in 1:length(var.order)) {
-          dataset[, var.order[i]] <- replace(dataset[, var.order[i]], 
+          dataset[, var.order[i]] <- replace(dataset[, var.order[i]],
                                              old, new)
         }
       }
@@ -329,17 +328,17 @@ NULL
 
 #' @encoding UTF-8
 #' @title Convert Factors into Numeric Vectors
-#' 
+#'
 #' @description Convert Factors into Numeric Vectors
-#' 
+#'
 #' @param x a factor whose levels will be converted.
-#' 
+#'
 #' @examples
 #' mylevels <- c('Strongly Disagree', 'Disagree', 'Neither', 'Agree', 'Strongly Agree')
 #' myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
 #' unclass(myvar) # testing order
 #' destring(myvar)
-#' 
+#'
 #' @keywords Misc
 #'
 #' @export
@@ -361,27 +360,27 @@ NULL
 
 #' @encoding UTF-8
 #' @title Generate dummy variables
-#' 
+#'
 #' @description Provides an alternative to generate dummy variables
-#' 
+#'
 #' @param x a column position to generate dummies
 #' @param data the data object as a data.frame
 #' @param drop A logical value. If \code{TRUE}, unused levels will be omitted
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @details A matrix object
-#' 
+#'
 #' @keywords Models
-#' 
+#'
 #' @examples
 #' df <- data.frame(y = rnorm(25), x = runif(25,0,1), sex = sample(1:2, 25, rep=TRUE))
-#' 
+#'
 #' dummy(df$sex)
-#' 
+#'
 #' @export
 `dummy` <-
-  function (x, data = NULL, drop = TRUE) 
+  function (x, data = NULL, drop = TRUE)
   {
     if (is.null(data)) {
       varname <- as.character(sys.call(1))[2]
@@ -389,7 +388,7 @@ NULL
       varname <- sub("\\[.*\\]$", "", varname)
     }
     else {
-      if (length(x) > 1) 
+      if (length(x) > 1)
         stop("More than one variable to create dummies at same  time.")
       varname <- x
       x <- data[, varname]
@@ -402,16 +401,16 @@ NULL
     }
     if (length(levels(x)) < 2) {
       warning(varname, " has only 1 dimension. Generating dummy variable anyway.")
-      return(matrix(rep(1, length(x)), ncol = 1, dimnames = list(rownames(x), 
+      return(matrix(rep(1, length(x)), ncol = 1, dimnames = list(rownames(x),
                                                                  c(paste(varname, "_", x[[1]], sep = "")))))
     }
     mat <- model.matrix(~x - 1, model.frame(~x - 1), contrasts = FALSE)
     colnames.mm <- colnames(mat)
     cat(" ", varname, ":", ncol(mat), "dummy variables generated\n")
-    mat <- matrix(as.integer(mat), nrow = nrow(mat), ncol = ncol(mat), dimnames = list(NULL, 
+    mat <- matrix(as.integer(mat), nrow = nrow(mat), ncol = ncol(mat), dimnames = list(NULL,
                                                                                        colnames.mm))
     colnames(mat) <- sub("^x", paste(varname, "_", sep = ""), colnames(mat))
-    if (!is.null(row.names(data))) 
+    if (!is.null(row.names(data)))
       rownames(mat) <- rownames(data)
     return(mat)
   }
@@ -429,7 +428,7 @@ NULL
 #'
 #' @param x A data object
 #' @param position The position of the element to be replaced
-#' @param value The value to modify 
+#' @param value The value to modify
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
@@ -458,14 +457,14 @@ NULL
 
 #' @encoding UTF-8
 #' @title Join a list of data frames
-#' 
-#' @description Recursively join data frames 
-#' 
+#'
+#' @description Recursively join data frames
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @param x A list of data frames
 #' @param \dots Arguments passed onto merge
-#' 
+#'
 #' @examples
 #' mtcars$cars <- row.names(mtcars)
 #' df1 <- mtcars[, c(1:2, 12)]
@@ -491,14 +490,14 @@ NULL
 
 #' @encoding UTF-8
 #' @title Unnest a Nested List
-#' 
+#'
 #' @description  Unnest nested lists made easy.
-#' 
+#'
 #' @param x A nested list
-#' 
+#'
 #' @return A list, with no nesting, hopefully
 #'  @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#'  
+#'
 #' @examples
 #' # Unnest the list
 #' # a nested list
@@ -506,13 +505,13 @@ NULL
 #' for(i in 1:5) {
 #'   for(j in 1:5) {
 #'    mylist[[j]] <- i*j
-#'  } 
+#'  }
 #'  inerlist[[i]] <- mylist
 #' }
 #' unnest(inerlist)[[1]]
 #' unnest(inerlist)
-#' 
-#' @export 
+#'
+#' @export
 `unnest` <-
   function(x) {
     if(is.null(names(x))) {
@@ -531,20 +530,20 @@ NULL
 
 #' @encoding UTF-8
 #' @title Reverse the levels of a factor.
-#' 
+#'
 #' @param x a factor whose levels need to be reverse coded.
-#' 
+#'
 #' @examples
 #' mylevels <- c('Strongly Disagree', 'Disagree', 'Neither', 'Agree', 'Strongly Agree')
-#' 
+#'
 #' test <- factor(sample(mylevels[1:5], 10, replace=TRUE))
-#' 
+#'
 #' reverseLevels(test)
-#' 
+#'
 #' cbind(test, as.integer(test), as.integer(reverseLevels(test)))
-#' 
-#' 
-#' 
+#'
+#'
+#'
 #' @export
 `reverseLevels` <- function(x) {
   if(is.factor(x)) {
@@ -570,38 +569,38 @@ NULL
 
 #' @encoding UTF-8
 #' @title Lag or Lead Observations
-#' 
+#'
 #' @description Shift function allows one to either lag or lead a column variables in a data frame.
-#' 
+#'
 #' @param x the variable to be lagged or leaded
 #' @param id the subject or identification variable.
-#' @param time the time id variable. 
+#' @param time the time id variable.
 #' @param delta an integer value (positive or negative) for units to move either backward or forward.
-#' 
+#'
 #' @details The combination of \code{id} and \code{time} must yelds to a unique identification of the observations.
-#' 
+#'
 #' @return An object of the same type as \code{x}
-#' 
-#' @examples 
+#'
+#' @examples
 #' data(sheston91)
 #' # lag
-#' sheston91$L.pop <- with(sheston91, shift(x = pop, id = country, time = year, delta = 1) ) 
+#' sheston91$L.pop <- with(sheston91, shift(x = pop, id = country, time = year, delta = 1) )
 #' head(sheston91)
 #' # lead
 #'  sheston91$pop.L <- with(sheston91, shift(x = pop, id = country, time = year, delta =  -1) )
 #'  head(sheston91)
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @export
 #'
-`shift` <- function (x, id, time, delta = 1) 
+`shift` <- function (x, id, time, delta = 1)
 {
-  if (!is.integer(delta)) 
+  if (!is.integer(delta))
     delta <- as.integer(delta)
-  if (length(id) != length(time)) 
+  if (length(id) != length(time))
     stop("The length of these two variables must be equal")
-  if (any(duplicated(paste(id, time)))) 
+  if (any(duplicated(paste(id, time))))
     stop("The combination of id and time must be unique")
   if (any(data.frame(id, time) != data.frame(id[order(id,  time)], time[order(id, time)]))) {
     new.order <- order(id, time)
@@ -615,17 +614,17 @@ NULL
   if (delta >= 1) {
     x.shift[length(id):(delta + 1)] <- x[(length(id) - delta):1]
     x.shift[1:delta] <- NA
-    id.shift[length(id):(delta + 1)] <- id[(length(id) - 
+    id.shift[length(id):(delta + 1)] <- id[(length(id) -
                                               delta):1]
     time.shift[length(id):(delta + 1)] <- time[(length(id) -  delta):1]
   }
   else {
-    x.shift[1:(length(id) + delta)] <- x[(-delta + 
+    x.shift[1:(length(id) + delta)] <- x[(-delta +
                                             1):length(id)]
     x.shift[length(id):(length(id) + delta + 1)] <- NA
-    id.shift[1:(length(id) + delta)] <- id[(-delta + 
+    id.shift[1:(length(id) + delta)] <- id[(-delta +
                                               1):length(id)]
-    time.shift[1:(length(id) + delta)] <- time[(-delta + 
+    time.shift[1:(length(id) + delta)] <- time[(-delta +
                                                   1):length(id)]
   }
   x.shift[id != id.shift] <- NA
@@ -635,22 +634,22 @@ NULL
   return(x.shift)
 }
 NULL
-#' 
+#'
 # shift <-
 #function(x, delta=NA){
 #  stopifnot(is.numeric(delta))
 #  stopifnot(is.numeric(x))
-#  
+#
 #  if (length(delta)>1)
 #    return(sapply(delta,shift, x=x))
-#  
+#
 #  output<-NULL
 #  abs.delta=abs(delta)
 #  if (delta > 0 )
 #    output<-c(tail(x,-abs.delta),rep(NA,abs.delta))
 #  else if (delta < 0 )
 #    output<-c(rep(NA,abs.delta), head(x,-abs.delta))
-#  else 
+#  else
 #    output <- x
 #  return(output)
 #}
@@ -661,9 +660,9 @@ NULL
 
 #' @encoding UTF-8
 #' @title Slice a vector
-#' 
+#'
 #' @description Break up a vector by certain N sized chunks.
-#' 
+#'
 #' @param x A numeric vector
 #' @param by The number by which to split the vector
 #' @param pattern The number of blocks
@@ -673,13 +672,13 @@ NULL
 #' slice(x, by = 2)
 #' slice(x, pattern = 4)
 #' slice(sample(x), by= 2) # draw random pairs
-#'  
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @export
 `slice` <-
   function(x, by = 2, pattern  = NULL) {
-    if(is.null(pattern)){	
+    if(is.null(pattern)){
       starts <- seq(1, length(x), by)
       tt <- lapply(starts, function(y) x[y:(y + (by - 1))])
       lapply(tt, function(x) x[!is.na(x)])
@@ -698,7 +697,7 @@ NULL
 
 #' @encoding UTF-8
 #' @title Replace commas by dots
-#' 
+#'
 #' @description Replace commas by dots in that order.
 #'
 #' @param x A vector whose elements contain commas or commas and dots.
@@ -724,15 +723,15 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Rownames to column 
-#' 
-#' @description Moves rownames to column 
+#' @title Rownames to column
+#'
+#' @description Moves rownames to column
 #' @param data the data frame.
 #' @param rowname the column name.
-#' 
+#'
 #' @examples
 #' x <- data.frame(c = c(87,8,8,87,38,92))
-#' rownames(x) <- c("B", "H","I","J", "K","L") 
+#' rownames(x) <- c("B", "H","I","J", "K","L")
 #' rownames2col(x)
 #' @export
 `rownames2col` <-function(data,  rowname = "rowname") {
@@ -747,15 +746,15 @@ NULL
 
 #' @encoding UTF-8
 #' @title Lookup
-#' 
-#'  @description Recodes values of a vector from a lookup array. 
-#'  
+#'
+#'  @description Recodes values of a vector from a lookup array.
+#'
 #'  @param x the variable
 #'  @param  lookup.array a n-by-2 array used for looking up.
 #'
-#'  
+#'
 #' @export
-`lookup` <- function (x, lookup.array) 
+`lookup` <- function (x, lookup.array)
 {
   if (any(table(lookup.array[, 1]) > 1)) {
     stop("Index value in lookup array not unique!!")
@@ -782,35 +781,35 @@ NULL
 NULL
 
 
-
-
-
 #' @encoding UTF-8
-#' @title Wrap all related variables 
-#' 
-#' @description  Try to  wrap all related variables into the existing .data
-#' @param data is the .data object
+#' @title Pack all related variables into the existing .data.
+#' @description  Tries to  wrap up all related variables (variable with the same length) into the existing `.data` object.
+#' @param  data The data object.
 #'
+#' @examples
+#' df=data.frame(group=sample(letters,10, TRUE),y=sample(10) )
+#' use(df)
+#' y2 <- y^2
+#' pack(df)
+#' df;
 #' @export
-`wrap` <- function (data = .data) 
+`pack` <- function (data = .data)
 {
-  .data <- NULL
-  dataset <- data
-  pos =  1 # does nothing but trick the environment 
+  data1 <- data
   j <- NULL
-  k <- attr(dataset, "var.labels")
+  k <- attr(data1, "var.labels")
   candidate.objects <- setdiff(lsNoFunction(), as.character(ls.str(mode = "list")[]))
-  if (length(candidate.objects) == 0) 
+  if (length(candidate.objects) == 0)
     stop("No related vector outside the default data frame")
   for (i in 1:length(candidate.objects)) {
-    if (length(get(candidate.objects[i])) == nrow(dataset)) {
-      if (any(names(dataset) == candidate.objects[i])) {
-        dataset[, names(dataset) == candidate.objects[i]] <- get(candidate.objects[i])
+    if (length(get(candidate.objects[i])) == nrow(data1)) {
+      if (any(names(data1) == candidate.objects[i])) {
+        data1[, names(data1) == candidate.objects[i]] <- get(candidate.objects[i])
         j <- c(j, i)
       }
       else {
-        dataset <- data.frame(dataset, get(candidate.objects[i]))
-        names(dataset)[ncol(dataset)] <- candidate.objects[i]
+        data1 <- data.frame(data1, get(candidate.objects[i]))
+        names(data1)[ncol(data1)] <- candidate.objects[i]
         j <- c(j, i)
         if (!is.null(k)) {
           k <- c(k, "")
@@ -818,16 +817,15 @@ NULL
       }
     }
   }
-  attr(dataset, "var.labels") <- k
+  attr(data1, "var.labels") <- k
   rm(list = candidate.objects[j], pos = 1)
-  assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1) )
+  assign(as.character(substitute(data)), data1, pos=1)
   if(is.element(as.character(substitute(data)), search())){
     detach(pos=which(search() %in% as.character(substitute(data))))
-    #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
+    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
   }
 }
 NULL
-
 
 
 #' @title Converts rle object to data.frame
@@ -837,7 +835,7 @@ NULL
 #'
 #' just converts an rle object to a data.frame
 #   with columns: value, length, startIndex, endIndex
-#' @export 
+#' @export
 `rle2data.frame` = function(r) {
   y <- data.frame(cbind(r[[2]], as.integer(r[[1]])),
                   stringsAsFactors=FALSE)
@@ -856,7 +854,7 @@ NULL
 
 #' @encoding UTF-8
 #' @title Compute z-scores
-#' 
+#'
 #' @description Compute z-scores
 #' @param x a numeric vector
 #' @param na.rm a logical indicating whether missing values should be removed
@@ -873,45 +871,45 @@ NULL
 
 #' @encoding UTF-8
 #' @title Scalling Method
-#' 
+#'
 #' @param x a data vector or model object of class \code{"glm"} or \code{"lm"} to be standardized.
 #' @param \dots optional arguments that are passed to scale.
-#'  
+#'
 #' @export
-`scale` <- function(x, ...) 
+`scale` <- function(x, ...)
   UseMethod("scale")
 NULL
 
 
 #' @encoding UTF-8
-#' @title  Standardized Beta Coefficients 
-#' 
+#' @title  Standardized Beta Coefficients
+#'
 #' @description Calculates standardized beta coefficients from \code{lm} or \code{glm} class model objects. Standardized coefficients refer to how many standard deviations a dependent variable will change per standard deviation increase in the predictor variable. See details.
 #' @param std.dev an integer value for the standard deviation, default is \code{std.dev = 1}.
-#' 
+#'
 #' @return Standardized coefficients
-#' 
+#'
 #' @details Standardized beta coefficients are values estimated from unstandardized coefficients, which are only partially adjusted by the quotient of the standard deviation of the independent variable (IV), and the standard deviation of the dependent variable. Essentially, \bold{beta coefficients report the relative importance of each independent variables}. Therefore, standardized coefficients are important for multiple regression models, once they may aid on identifying critical IVs. Despite standardized coefficients improve transparency on the sizes of the effects, the example below points to a potential weakness of standardized regression coefficients. The homeless variable can take on values either 0 or 1, and a 1 standard deviation change of a binary variable is hard to interpret. Andrew Gelman makes a compelling argument for standardizing variables by 2 standard deviations instead, so the variance will be similar to a binary variable.
-#' 
+#'
 #' Baguley, T. (2009) Standardized or simple effect size: What should be reported?. \emph{British Journal of Psychology,} \bold{100(3),} 603-617.
 #' Gelman, A. (2008) Scaling regression inputs by dividing by two standard deviations. \emph{Statistics in Medicine}, \bold{27:} 2865-2873.
 #' Gelman, A., and Hill, J. (2006) \emph{Data analysis using regression and multilevel/hierarchical models.} Cambridge University Press.
 #' Kleinman, Ken and Horton, Nicholas (2014). \emph{SAS and R: Data Management, Statistical Analysis, and Graphics}.Chapman and Hall/CRC.
-#' 
-#' @keywords Data-Analysis 
+#'
+#' @keywords Data-Analysis
 #' @keywords Models
-#' @keywords Standardization 
+#' @keywords Standardization
 #'
 #' @examples
 #' data(turnout)
 #'
 #' # fit a linear regression (OLS) model.
 #' (model <- lm(v8 ~ v9 + v11 , data=turnout));
-#' 
+#'
 #' # finally, apply standardization to the coefficients.
 #' scale(model)
-#' 
-#' # Possible interpretation: a change in 1 standard deviation of v11 has  
+#'
+#' # Possible interpretation: a change in 1 standard deviation of v11 has
 #' # 1.7 times the impact on v8 than a 1 standard deviation change in the v9 variable.
 #'
 #' @rdname scale
@@ -919,7 +917,7 @@ NULL
 `scale.lm`  <- function(x, std.dev=1, ...)
 {
     if (!inherits(x, c("lm","glm") )) stop("object not of class \"lm\"")
-    
+
       coef <- summary(x)$coef[-1, 1]
       sd.x <- sapply(x$model[-1], sd)
       sd.y <- sapply(x$model[1], sd)
@@ -940,12 +938,12 @@ NULL
 
 #' @encoding UTF-8
 #' @title Unscale Data
-#' 
+#'
 #' @description Unscale objects by dropping \code{scaled:scale} and \code{scaled:center} attributes from parameters.
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @param x a scaled object 
-#' @return Unscaled parameters 
+#' @param x a scaled object
+#' @return Unscaled parameters
 #' @keywords Models
 #' @export
 `unscale` <- function(x)
@@ -962,9 +960,9 @@ NULL
 
 #' @encoding UTF-8
 #' @title Unity-based normalization
-#' 
+#'
 #' @description Normalizes as feature scaling, \code{min - max}, or unity-based normalization. Typically used to bring all values into the range [0,1]. However, this can be generalized to restrict the range of values in the dataset between any arbitrary points  \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})}}.
-#' 
+#'
 #' @param x is a vector to be normalized.
 #' @param range is a numeric vector of length 2 for min and max values, default is \code{c(0,1)}.
 #' @param domain a numeric vector of length 2.
@@ -978,11 +976,11 @@ NULL
 #' x <- sample(10)
 #' normalize(x, range=c(0,1))
 #' normalize(x)
-#' 
+#'
 #' @keywords Rescaling
 #' @keywords Normalization
 #' @seealso  \code{\link{scale}}, \code{\link{unscale}}
-#' 
+#'
 #' @export
 `normalize` <- function(x, range, domain, ...) {
   UseMethod("normalize")
@@ -1022,11 +1020,11 @@ NULL
 #' @encoding UTF-8
 #' @title Transform dependent variable
 #' @description Simple function to transform a dependent variable that in [0,1] rather than (0, 1) to beta regression. Suggested by Smithson & Verkuilen (2006).
-#' 
+#'
 #' @param y the dependent variable in [0, 1] interval.
-#' @references 
+#' @references
 #' Smithson M, Verkuilen J (2006) A Better Lemon Squeezer? Maximum-Likelihood Regres- sion with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54-71.
-#' 
+#'
 #' @seealso normalize
 #' @examples
 #'  x <- sample(10);
@@ -1046,32 +1044,21 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Splits name fields 
+#' @title Splits name fields
 #' @description Splits a name field variable allocating the first and last names into two new columns or a list.
-#' @param name the name field column. 
+#' @param name the name field column.
 #' @param data the data.frame name.
-#' 
+#'
 #' @return two columns or a list.
 #' @seealso \link{unnest}.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @details The way one may split names is region dependent, so this function may apply to very few contexts. See for instance \url{http://www.w3.org/International/questions/qa-personal-names} 
-#' 
+#' @details The way one may split names is region dependent, so this function may apply to very few contexts. See for instance \url{http://www.w3.org/International/questions/qa-personal-names}
+#'
 #' @examples
-#' 
-#' local(envir=.SciencesPoEnv,expr={
-#'   oldpar = par(no.readonly=TRUE)
-#'  df <- data.frame( name = c("Martin Luther King", 
+#'  df <- data.frame( name = c("Martin Luther King",
 #'  "Nelson Mandela", "Simon Bolivar") )
 #'  name.split(df$name)
 #'  df$n<- name.split(df$name)
-#'  par(oldpar)
-#' })
-
-#' 
-#' df <- data.frame( name = c("Martin Luther King", "Nelson Mandela", "Simon Bolivar") )
-#' name.split(df$name)
-#' df$n<- name.split(df$name)
-#'
 #' @export
 `name.split`<- function(name, data=.data){
   .data <- NULL
@@ -1084,7 +1071,7 @@ NULL
         as.character(
           name), split='\\s+'),
       head, n=1))
-  
+
   last = as.character(
     lapply(
       strsplit(
@@ -1104,7 +1091,7 @@ NULL
 
 #' @encoding UTF-8
 #' @title Extraction of Categorical Values as a Preprocessing Step for Making Dummy Variables
-#' 
+#'
 #' @description  \code{categories} stores all the categorical values that are present in the factors and character vectors of a data frame. Numeric and integer vectors are ignored. It is a preprocessing step for the \code{dummy} function. This function is appropriate for settings in which the user only wants to compute dummies for the categorical values that were present in another data set. This is especially useful in predictive modeling, when the new (test) data has more or other categories than the training data.
 #'
 #' @param x data frame containing factors or character vectors that need to be transformed to dummies. Numerics, dates and integers will be ignored.
@@ -1138,7 +1125,7 @@ NULL
       names(sort(cats,decreasing=TRUE)[1:if(length(cats) <= p[z]) length(cats) else p[z]])
     } else if (p=="all") {
       names(cats)
-    }  
+    }
   },simplify=FALSE)
   names(cats) <- names(x)
   cats
@@ -1150,31 +1137,31 @@ NULL
 
 #' @encoding UTF-8
 #' @title A data.frame with time series parameters
-#' 
+#'
 #' @description Return a \code{data.frame} with time parameters and time variable
-#' 
-#' @param timevar the time variable 
+#'
+#' @param timevar the time variable
 #' @param format the time format
 #' @param x the data variable to be converted to a time series
 #' @param tz Time zone code, default is \dQuote{GMT}
-#' 
+#'
 #' @details A data frame containing time variable parameters and measuring variable
-#' 
+#'
 #' @seealso \link{tsCollapse}
-#' 
+#'
 #' @keywords Data-Manipulation
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
-#' @examples  
+#'
+#' @examples
 #' data(ssex)
 #' myts <- as.timedf(timevar = ssex$Date, format = "%Y", x= ssex$Favor)
-#' peek(myts)
-#' 
+#' view(myts)
+#'
 #' data(us2012)
 #' Obama.ts <- as.timedf(us2012[,3], "%Y-%m-%d", us2012[,8])
-#' peek(Obama.ts)
-#' 
+#' view(Obama.ts)
+#'
 #' @importFrom lubridate ymd
 #' @importFrom lubridate dmy
 #' @importFrom lubridate second
@@ -1184,20 +1171,20 @@ NULL
 #' @importFrom lubridate week
 #' @importFrom lubridate month
 #' @importFrom lubridate year
-#' 
+#'
 #' @export
-#' 
-`as.timedf` <- function (timevar, format, x = NULL, tz = "GMT") 
+#'
+`as.timedf` <- function (timevar, format, x = NULL, tz = "GMT")
 {
   dimensions <- dim(x)
   clss <- lapply(x, class)
   if (!is.null(x)) {
     if (!is.null(dimensions[1])) {
-      if (length(timevar) != length(x[, 1])) 
+      if (length(timevar) != length(x[, 1]))
         stop("Different lengths in `x` and `time` variables")
     }
     else {
-      if (length(timevar) != length(x)) 
+      if (length(timevar) != length(x))
         stop("Different lengths in `x` and `time` variables")
     }
   }
@@ -1217,7 +1204,7 @@ NULL
   else {
     answer <- data.frame(date, years, months, weeks, days, hours, minutes, seconds, y)
   }
-  
+
   class(answer) <- c("SciencesPo", "timedf", "data.frame")
   return(answer)
 }
@@ -1227,9 +1214,9 @@ NULL
 
 #' @encoding UTF-8
 #'   @title Aggregated Data by Time Parameters
-#' 
+#'
 #' @description Return a \code{data.frame} with aggregated data by time parameters. In order to use this function, you have to have a \link{as.timedf} data.frame.
-#' 
+#'
 #' @param data a \bold{timedf} object
 #' @param by the method to break up the dependent variable; options: \code{"day"},\code{ "month"}, or \code{"year"}.
 #' @param FUN a function to aggregate data \code{sum, mean, min, max, etc}.
@@ -1237,50 +1224,50 @@ NULL
 #' @param na.rm A logical value for \code{na.rm}, default is \code{FALSE}
 #' @param civil Wether the years start from the civil date or from the first observation in data. The default is \code{civil = FALSE}.
 #' @param plot whether the data.frame to be plotted, default is \code{plot = TRUE}.
-#' 
-#' @details A data.frame of type long with summarized time series data (y) and time parameters formatted as POSIXct. 
+#'
+#' @details A data.frame of type long with summarized time series data (y) and time parameters formatted as POSIXct.
 #' @note To weekly aggregation, set \code{by = "day"} and \code{factor = 7}
-#' 
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' 
+#'
 #' @keywords Data-Manipulation
-#' 
-#' @examples  
+#'
+#' @examples
 #' data(us2012)
 #' Obama.ts <- as.timedf(us2012[,3], '%Y-%m-%d', us2012[,8])
 #'
 #' # Daily aggregated means for data:
 #' daily <- tsCollapse(Obama.ts, by = "day", mean)
-#' 
+#'
 #' # Weekly aggregated means for data:
 #' weekly <- tsCollapse(Obama.ts, by = "day", factor = 7, mean)
-#' 
+#'
 #' # monthly aggregated means for data:
 #' monthly <- tsCollapse(Obama.ts, by = "month", mean)
 #'
 #' # bimonthly or semimonthly aggregated means for data:
 #' bimonthly <- tsCollapse(Obama.ts,by = "month", mean, factor = 2)
-#' 
+#'
 #' @export
-#' 
-`tsCollapse` <- function (data,  by = c("day","month","year"), FUN, na.rm = FALSE, factor = NULL, civil = FALSE, plot = TRUE) 
+#'
+`tsCollapse` <- function (data,  by = c("day","month","year"), FUN, na.rm = FALSE, factor = NULL, civil = FALSE, plot = TRUE)
 {
   if (!inherits(data, c("timedf") )) stop("object not of class \"timedf\". Please, use as.timedf() before proceed.")
 	  #if (by != c("day","month","year")) stop("a method for `by` should be supplied.")
-		  
+
   ## by Day
   if (by =="day"){
   if (is.null(factor)) {
     factor = 1
   }
   ymd <- function(x) {
-      as.Date(x, "%Y %m %d")  
+      as.Date(x, "%Y %m %d")
   }
   dmy <- function(x) {
-      as.Date(x, "%d %m %Y")  
+      as.Date(x, "%d %m %Y")
   }
   if (factor == 1) {
-    day <- aggregate(data[, 8:length(data)], list(day = data$days, 
+    day <- aggregate(data[, 8:length(data)], list(day = data$days,
   month = data$months, year = data$years), FUN=FUN, na.rm = na.rm)
     days <- ymd(paste(day$year, day$month, day$day))
     answer <- data.frame(date = days, data = day[, 5:length(day)])
@@ -1288,38 +1275,38 @@ NULL
     return(answer)
   }
   temp <- data
-  day <- aggregate(list(data[, 8:length(data)], count = 1), 
-                   list(day = data$days, month = data$months, year = data$years), 
+  day <- aggregate(list(data[, 8:length(data)], count = 1),
+                   list(day = data$days, month = data$months, year = data$years),
                    FUN=FUN, na.rm = na.rm)
   days <- ymd(paste(day$year, day$month, day$day))
-  data <- data.frame(date = days, day[, 5:length(day) - 1], 
+  data <- data.frame(date = days, day[, 5:length(day) - 1],
                      count = day[length(day)])
   days = paste(factor, "days")
-  all.dates <- seq.Date(as.Date(data$date[1]), as.Date(data$date[length(data[, 
+  all.dates <- seq.Date(as.Date(data$date[1]), as.Date(data$date[length(data[,
    1])]), by = "days")
   dates <- data.frame(date = all.dates)
   aggreg <- merge(dates, data, by = "date", all.x = TRUE)
   aggreg$date <- rep(seq.Date(as.Date(data$date[1]), as.Date(data$date[length(data[, 1])]), by = days), each = factor, length = length(all.dates))
-  answer <- aggregate(list(aggreg[3:length(aggreg)]), 
+  answer <- aggregate(list(aggreg[3:length(aggreg)]),
                        list(date = aggreg$date), FUN = FUN, na.rm = TRUE)
   answer <- subset(answer, answer$count != 0)
   answer <- answer[, -length(answer)]
   names(answer) <- c("Date", names(temp[9:length(temp)]))
   class(answer) <- c("SciencesPo", "data.frame")
-  
+
 }
 ## by month
  if (by =="month"){
 	 if (is.null(factor)) {
 	     factor = 1
 	   }
-	   month <- aggregate(data[, 8:length(data)], list(month = data$months, 
+	   month <- aggregate(data[, 8:length(data)], list(month = data$months,
 	   year = data$years), FUN=FUN, na.rm = na.rm)
 	  # data.cols <- length(month)
 	   if (factor > 1) {
 	     month.gap <- month[, 1]
 	     for (i in 1:length(month[, 1])) {
-	       month.gap[i] = (month[i, 2]%%month[1, 2]) * 12 + 
+	       month.gap[i] = (month[i, 2]%%month[1, 2]) * 12 +
 	         month[i, 1]
 	     }
 	     month.gap <- month.gap - month.gap%%factor
@@ -1330,14 +1317,14 @@ NULL
 	     }
 	     else {
 	       for (i in 2:length(month.gap)) {
-	         if (month.gap[i] == month.gap[i - 1]) 
+	         if (month.gap[i] == month.gap[i - 1])
 	           year[i] = year[i - 1]
 	         else year[i] = month[i, 2]
 	       }
 	     }
 	     date = strptime(paste(1, month.gap, year), "%d %m %Y")
 	     answer0 <- data.frame(date, data = month[, 3:length(month)])
-	     answer <- aggregate(answer0[, 2:length(answer0)], list(date = answer0$date), 
+	     answer <- aggregate(answer0[, 2:length(answer0)], list(date = answer0$date),
 	                        FUN=FUN, na.rm = na.rm)
 	     names(answer) <- c("Date", names(data[9:length(data)]))
 	     return(answer)
@@ -1348,31 +1335,31 @@ NULL
 	     names(answer) <- c("Date", names(data[9:length(data)]))
 	     class(answer) <- c("SciencesPo", "data.frame")
 	     return(answer)
-	   }	 
+	   }
  }
- 
+
  # By year
- 
+
  if (by =="year"){
 	 if (is.null(factor)) {
 	        factor = 1
 	    }
 	    start <- min(data$year)
 	    end <- max(data$year)
-	    if ((end - start)%%factor != 0) 
-	        warning("Last gap does not contain ", years, " years. There is only ", 
-	            ((end - start)%%factor), " year(s) in this gap.", 
+	    if ((end - start)%%factor != 0)
+	        warning("Last gap does not contain ", years, " years. There is only ",
+	            ((end - start)%%factor), " year(s) in this gap.",
 	            call. = FALSE)
 	    if (civil == FALSE) {
-	        yrs <- (as.numeric(difftime(data$date, data$date[1], 
-	            units = c("hours"))) - as.numeric(difftime(data$date, 
+	        yrs <- (as.numeric(difftime(data$date, data$date[1],
+	            units = c("hours"))) - as.numeric(difftime(data$date,
 	            data$date[1], units = c("hours")))%%8765.81277)/8765.81277
 	        years.again <- yrs - yrs%%factor
 	        data$year <- data$year[1] + years.again
-	        date.1 <- as.Date(strptime(paste(data$day[1], data$month[1], 
+	        date.1 <- as.Date(strptime(paste(data$day[1], data$month[1],
 	            data$year), "%d %m %Y"))
 	        new.1 <- data.frame(date = date.1, data[, 8:length(data)])
-	        answer <- aggregate(new.1[, 2:length(new.1)], list(date = new.1$date), 
+	        answer <- aggregate(new.1[, 2:length(new.1)], list(date = new.1$date),
 	            FUN, na.rm = na.rm)
 	        names(answer) <- c("Date", names(data[8:length(data)]))
 	    }
@@ -1382,23 +1369,23 @@ NULL
 	        data$year <- data$year[1] + years.again
 	        date.1 <- as.Date(strptime(paste(1, 1, data$year), "%d %m %Y"))
 	        new.1 <- data.frame(date = date.1, data[, 8:length(data)])
-	        answer <- aggregate(new.1[, 2:length(new.1)], list(date = new.1$date), 
+	        answer <- aggregate(new.1[, 2:length(new.1)], list(date = new.1$date),
 	            FUN, na.rm = na.rm)
 	        names(answer) <- c("Date", names(data[8:length(data)]))
 	    }
 	    class(answer) <- c("SciencesPo", "data.frame")
-	    return(answer)	 
+	    return(answer)
  }
- 
+
 }
 NULL
 
 
 
 #' @title  Sort a data.frame
-#' 
+#'
 #' @description  Sorts a data frame by one or more variables
-#' 
+#'
 #'@param x data.frame to sort
 #'@param formula Formula by which to sort the data.frame (e.g. ~group1+group2
 #'sorts first by group1 then by group2)
@@ -1432,7 +1419,7 @@ sort.data.frame <- function(x, decreasing = NULL, formula, ...) {
   # Useage is either of the following:
   # sort.data.frame(~Block-Variety,Oats)
   # sort.data.frame(Oats,~-Variety+Block)
-  
+
   # If dat is the formula, then switch form and dat
   if(inherits(x,"formula")){
     f=x
@@ -1472,4 +1459,4 @@ sort.data.frame <- function(x, decreasing = NULL, formula, ...) {
     }
   }
   x[do.call("order",calllist),,...]
-} 
+}

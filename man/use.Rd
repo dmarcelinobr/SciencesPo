@@ -9,15 +9,15 @@ use(file, data = .data, clear = TRUE, spss.missing = TRUE,
   tolower = TRUE)
 }
 \arguments{
-\item{file}{the name of the file which the data are to be read from.}
+\item{file}{The name of the file which the data are to be read from.}
 
-\item{data}{the internal name after attaching the data file.}
+\item{data}{The internal name after attaching the data file.}
 
-\item{clear}{if \code{clear = TRUE}, all attached data in the environment will be detached first.}
+\item{clear}{If \code{clear = TRUE}, all attached data in the environment will be detached first.}
 
-\item{spss.missing}{whether SPSS missing values should be replaced with NA; default is \code{spss.missing = TRUE}.}
+\item{spss.missing}{Whether SPSS missing values should be replaced with NA; default is \code{spss.missing = TRUE}.}
 
-\item{tolower}{whether variable names should be forced to lower case; default is \code{tolower = TRUE}.}
+\item{tolower}{Whether variable names should be forced to lower case; default is \code{tolower = TRUE}.}
 }
 \description{
 This works rigorously as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear = FALSE} is specified.

@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{quotize}
 \alias{quotize}
-\title{Places quotation marks}
+\title{Add quotation marks}
 \usage{
 quotize(vec)
 }
@@ -11,7 +11,7 @@ quotize(vec)
 \item{vec}{the vector whose values will be surounded by quotes}
 }
 \description{
-Places quotation marks
+Add quotation marks
 }
 \examples{
 x <- 1

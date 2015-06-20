@@ -285,11 +285,11 @@ NULL
 #'
 #' @description This works rigorously as the \pkg{epicalc}'s \code{use} function, though limited for the file formats it can read. Fundamentally, it replaces the command attach of R and save an object with extension \code{.data}, which becomes the default dataset. All other \code{data.frames} will be detached, by the time of using the \code{use} function, unless the argument \code{clear = FALSE} is specified.
 #'
-#' @param file the name of the file which the data are to be read from.
-#' @param data the internal name after attaching the data file.
-#' @param clear if \code{clear = TRUE}, all attached data in the environment will be detached first.
-#' @param spss.missing whether SPSS missing values should be replaced with NA; default is \code{spss.missing = TRUE}.
-#' @param tolower  whether variable names should be forced to lower case; default is \code{tolower = TRUE}.
+#' @param file The name of the file which the data are to be read from.
+#' @param data The internal name after attaching the data file.
+#' @param clear If \code{clear = TRUE}, all attached data in the environment will be detached first.
+#' @param spss.missing Whether SPSS missing values should be replaced with NA; default is \code{spss.missing = TRUE}.
+#' @param tolower Whether variable names should be forced to lower case; default is \code{tolower = TRUE}.
 #'
 #' @details By using this \dQuote{attach} version, the data becomes available globally usually positioned in the second place, \code{search()}.
 #'
@@ -301,51 +301,57 @@ NULL
 #'
 #' @export
 `use` <-
-  function (file,  data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE)
+  function (file, data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE)
   {
     if (clear) {
-      detachAll()
+      detach.all()
     }
-
     if (is.character(file)) {
       ext <- tolower(substring(file, first = nchar(file) -
                                  3, last = nchar(file)))
       if (ext == ".dta") {
-        dataset <- read.dta(file)
+        data1 <- read.dta(file)
       }
       else {
-        if (ext == ".sav") {
-          data0 <- read.spss(file)
-          var.labels <- attr(data0, "variable.labels")
-          dataset <- read.spss(file, to.data.frame=TRUE, trim.factor.names=TRUE)
-          dataset <- dataset[1:nrow(dataset), 1:ncol(dataset)]
-          attr(dataset, "var.labels") <- var.labels
-          if(spss.missing){
-            for(i in 1:ncol(dataset)){
-              if(!is.null(attr(data0, "missing")[[i]]$value)){
-                dataset[,i] <- ifelse((dataset[,i] %in% attr(data0, "missing")[[i]]$value),NA,dataset[,i])
-              }
-              if(!is.null(attributes(data0[[i]])$value.labels)){
-                dataset[,i] <- ifelse((dataset[,i] %in% attributes(data0[[i]])$value.labels),NA,dataset[,i])
-              }
-            }
+        if (ext == ".dbf") {
+          data1 <- read.dbf(file)
+          if (tolower)
+            names(data1) <- tolower(names(data1))
+        }
+        else {
+          if (ext == ".rec") {
+            data1 <- read.epiinfo(file)
             if (tolower)
-              names(dataset) <- tolower(names(dataset))
+              names(data1) <- tolower(names(data1))
           }
           else {
-            if (substring(file, first = nchar(file) -
-                          3, last = nchar(file)) == ".tsv") {
-              dataset <- read.delim(file, header = TRUE,
-                                    sep = "\t", stringsAsFactors=FALSE)
+            if (ext == ".sav") {
+              data0 <- read.spss(file)
+              var.labels <- attr(data0, "variable.labels")
+              data1 <- read.spss(file, to.data.frame=TRUE, trim.factor.names=TRUE)
+              data1 <- data1[1:nrow(data1), 1:ncol(data1)]
+              attr(data1, "var.labels") <- var.labels
+              if(spss.missing){
+                for(i in 1:ncol(data1)){
+                  if(!is.null(attr(data0, "missing")[[i]]$value)){
+                    data1[,i] <- ifelse((data1[,i] %in% attr(data0, "missing")[[i]]$value),NA,data1[,i])
+                  }
+                  if(!is.null(attributes(data0[[i]])$value.labels)){
+                    data1[,i] <- ifelse((data1[,i] %in% attributes(data0[[i]])$value.labels),NA,data1[,i])
+                  }
+                }
+              }
+              if (tolower)
+                names(data1) <- tolower(names(data1))
             }
             else {
               if (substring(file, first = nchar(file) -
                             3, last = nchar(file)) == ".csv") {
-                dataset <- read.csv(file, header = TRUE,
-                                    sep = ",", stringsAsFactors=FALSE )
+                data1 <- read.csv(file, header = TRUE,
+                                  sep = ",")
               }
               else {
-                stop("This type of file cannot be 'used'.")
+                stop("This type of file cannot be 'use'd.")
               }
             }
           }
@@ -354,18 +360,19 @@ NULL
     }
     else {
       if (is.data.frame(file)) {
-        dataset <- file
+        data1 <- file
       }
       else {
         stop("The argument is not a data frame or no such file")
       }
     }
-    nrOfRows <- nrow(dataset);
-    nrOfCols <- ncol(dataset);
-    assign(as.character(substitute(data)), value=dataset, envir = sys.frame(-1))
-    message(paste0('[', nrOfRows, " x ", nrOfCols, ']', " assigned to `.data`", sep=""));
-    #attach(dataset, name=as.character(substitute(data)), warn.conflicts = FALSE)
-  }
+    nr <- nrow(data1);
+    nc <- ncol(data1);
+    assign(as.character(substitute(data)), data1, pos = 1)
+    attach(data1, name = as.character(substitute(data)),
+           warn.conflicts = FALSE)
+    message(paste0('[', nr, " x ", nc, ']', " assigned to `.data`", sep=""));
+    }
 NULL
 
 
@@ -427,16 +434,19 @@ NULL
   else viewed=showAll(obj)
   if (print.console) print(viewed)
   invisible(viewed)
+
+  nr <- nrow(obj);
+  nc <- ncol(obj);
+  message(paste0("A kind of ", '[', nr, " x ", nc, ']', " data object.", sep=""));
 }
 NULL
 
 
+#' @encoding UTF-8
 #' @title Cross-tabulation
 #' @description \code{crosstab} produces all possible two-way tabulations of the variables specified.
 #' @param \dots The data paremeters.
-#' @param digits An integer for decimal places.
-#' @param latex A logical for latex output.
-#' @param  If TRUE, association statistics is shown.
+#' @param deparse.level Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).
 #' @return Well-formatted cross tabulation. Also can genarate latex syntax of cross tabulation.
 #' @examples
 #' with(titanic, crosstable( SEX, AGE))
@@ -792,6 +802,82 @@ NULL
     }
     sr
   }
+NULL
+
+
+
+
+#' @encoding UTF-8
+#' @title Aggregate a numeric variable
+#'
+#' @param formula The variable versus factor(s) to be computed (y~factor+factor).
+#' @param data The data object.
+#' @param FUN The function statistic to be calculated.
+#' @examples
+#' # data:
+#' df=data.frame(group=sample(letters,100, TRUE),y=sample(100) )
+#'
+#' #functions:
+#' FUNS <- function(x) c(N=nobs(x), mean=round(mean(x),0),
+#' sd=round(sd(x), 0), min=round(min(x),0),
+#' max=round(max(x),0))
+#'
+#' # Do the computation
+#' compute(y~group, data=df, FUN=FUNS)
+#' @export
+compute <- function(formula, data=.data, FUN){
+  if(class(FUN)=="list"){
+    f <- function(x) sapply(FUN, function(fun) fun(x))
+  }else{f <- FUN}
+  temp <- aggregate(formula, data, f)
+  out <- data.frame(temp[,-ncol(temp)], temp[,ncol(temp)])
+  colnames(out)[1] <- colnames(temp)[1]
+  return(out)
+}
+NULL
+
+
+
+
+
+#' @encoding UTF-8
+#' @title Sort data set and related vector
+#'
+#' @param \dots Index variable(s) used for sorting.
+#' @param data The data frame where all variables of the same length are sorted.
+#' @param inclusive Whether vectors outside the default data frame should also be sorted.
+#'
+#' @examples
+#' df=data.frame(group=sample(letters,10, TRUE),y=sample(10) )
+#' use(df)
+#' y2 <- y^2
+#' bysort(y, inclusive = FALSE)
+#' y2 # unsorted
+#' bysort(y, inclusive = TRUE)
+#' y2 # sorted
+#' bysort(y, decreasing=TRUE)
+#' .data
+#' @export
+bysort <- function(..., data = .data, inclusive=TRUE) {
+  data1 <- data
+  data1 <- data1[order(...),]
+  if(inclusive){
+    y <- setdiff(lsNoFunction(), as.character(ls.str(mode="list")[]))
+    if (length(y)>0){
+      for(i in 1:length(y)){
+        if(length(get(y[i]))==nrow(data1)){
+          nam <- y[i]
+          assign (nam, (get(y[i]))[order(...)], envir = .GlobalEnv)
+        }
+      }
+    }
+  }
+  detach.all()
+  assign(as.character(substitute(data)), data1, pos=1)
+  attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+}
+NULL
+
 
 
 

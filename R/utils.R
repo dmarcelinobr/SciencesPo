@@ -1,3 +1,65 @@
+## The below .locale() is a local function
+.locale <- local({
+  val <- FALSE  # All automatic graphs will initially have English titles
+  function(new){
+    if(!missing(new))
+      val <<- new
+    else
+      val
+  }
+})
+
+
+#' @title Detach all data frame from the search path
+#'
+#' @description Detach all data frame from the search path, but keeping it on the memory.
+#'
+#' @examples
+#' detach.all()
+#'
+#' @export
+detach.all <- function ()
+  {
+    pos.to.detach <- (1:length(search()))[substring(search(),
+                                                    first = 1, last = 8) != "package:" & search() != ".GlobalEnv" &
+                                            search() != "Autoloads" & search() != "CheckExEnv" & search() != "tools:rstudio" & search() != "TempEnv"]
+    for (i in 1:length(pos.to.detach)) {
+      if (length(pos.to.detach) > 0) {
+        detach(pos = pos.to.detach[1])
+        pos.to.detach <- (1:length(search()))[substring(search(),
+                                                        first = 1, last = 8) != "package:" & search() !=
+                                                ".GlobalEnv" & search() != "Autoloads" & search() !=
+                                                "CheckExEnv" & search() != "tools:rstudio" &
+                                                search() != "TempEnv"]
+      }
+    }
+  }
+
+
+#' Unclass data frame
+#'
+#' @param vars The variable(s).
+#' @param data The data object.
+#'
+#' @export
+unclass.data.frame <- function(vars, data = .data){
+  data1 <- data
+  nl <- as.list(1:ncol(data1))
+  names(nl) <- names(data1)
+  selected <- eval(substitute(vars), nl, parent.frame())
+  for(i in selected){
+    data1[,i] <- unclass(data1[,i])
+    attributes(data1[, i]) <- NULL
+  }
+  assign(as.character(substitute(data)), data1, pos=1)
+  if(is.element(as.character(substitute(data)), search())){
+    detach(pos=which(search() %in% as.character(substitute(data))))
+    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
+  }
+}
+
+
+
 #' @title Prompt for User Action
 #'
 #' @description Prompt user to hit enter
@@ -52,6 +114,8 @@ tget = function (x, penv=NULL, tenv=.ScPoEnv) {
   }
   invisible()
 }
+NULL
+
 
 tput = function (x, penv=NULL, tenv=.ScPoEnv) {
   if (is.null(penv)) penv = parent.frame() # need to call this inside the function NOT as an argument
@@ -61,37 +125,14 @@ tput = function (x, penv=NULL, tenv=.ScPoEnv) {
   invisible()
 }
 
-#' @title Detach All Data From the Memory
-#'
-#' @description Detach all data from the memory.
-#'
-#' @examples
-#'detachAll()
-#'
-#' @export
-detachAll <-
-  function ()
-  {
-    pos.to.detach <- (1:length(search()))[substring(search(),
-                                                    first = 1, last = 8) != "package:" & search() != ".GlobalEnv" &
-                                            search() != "Autoloads" & search() != "CheckExEnv" & search() != "tools:rstudio" & search() != "TempEnv"]
-    for (i in 1:length(pos.to.detach)) {
-      if (length(pos.to.detach) > 0) {
-        detach(pos = pos.to.detach[1])
-        pos.to.detach <- (1:length(search()))[substring(search(),
-                                                        first = 1, last = 8) != "package:" & search() !=".GlobalEnv" & search() != "Autoloads" & search() != "CheckExEnv" & search() != "tools:rstudio" & search() != "TempEnv"]
-      }
-    }
-  }
 
-# Zap
+
 zap <-
   function ()
   {
-    detachAll()
+    detach.all()
     vector1 <- setdiff(ls(envir = .GlobalEnv), lsf.str(envir = .GlobalEnv)[])
-    rm(list = vector1, pos = 1)
-  }
+    rm(list = vector1, pos = 1)}
 
 ### List objects excluding function
 lsNoFunction <- function() {
@@ -265,7 +306,7 @@ is.side_effect <- function(expr) {
 
 
 #' @encoding UTF-8
-#' @title Places quotation marks
+#' @title Add quotation marks
 #'@param vec the vector whose values will be surounded by quotes
 #' @examples
 #' x <- 1
@@ -333,6 +374,6 @@ NULL
 
 
 ### short name wrapper functions
-tab <- function(..., deparse.level = 2) {
-		  crosstable(..., deparse.level = 2)
-  }
+#tab <- function(..., deparse.level = 2) {
+#		  crosstable(..., deparse.level = 2)
+# }
