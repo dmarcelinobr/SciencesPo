@@ -9,6 +9,8 @@ view(data = .data, n = 10, random = TRUE, tail = FALSE,
   print.console = TRUE, ...)
 }
 \arguments{
+\item{data}{A matrix or data.frame object}
+
 \item{n}{The number of rows to be shown}
 
 \item{random}{If TRUE, observartions are sampled.}
@@ -16,8 +18,6 @@ view(data = .data, n = 10, random = TRUE, tail = FALSE,
 \item{tail}{If TRUE, will show n lines from tail.}
 
 \item{print.console}{If TRUE, dada will be printed on console.}
-
-\item{obj}{A matrix or data.frame object}
 
 \item{\dots}{Some additional parameters.}
 }
