@@ -75,34 +75,8 @@ user.prompt <- function (msg = NULL) {
 
   invisible(readline(msg))
 }
+NULL
 
-#' # make sure people are using a current version of R
-r = R.Version()
-if (r$major < "3" ||
-    (r$major == "3" && r$minor < "2.0"))
-{
-  print(paste0(
-    "The current version of R is 3.2.0, but you are using version ",
-    r$major, ".", r$minor,
-    ". Please google 'download R' and download the current version of R."
-  ))
-}
-
-.initSciencesPo <- function() {
-  if (exists(".temp",envir=.GlobalEnv)){
-    assign(".temp",.temp,envir=.ScPoEnv)
-    rm(.temp,envir=.GlobalEnv) } # Can no longer modify user's global environment
-  if (!exists(".temp",envir=.ScPoEnv))
-    assign(".temp",list(),envir=.ScPoEnv) #.GlobalEnv) #.PBSmod <<- list()
-  tget(.temp)
-  if (is.null(.temp$.options))
-    #packList(".options",".temp",list()) #.temp$.options <<- list()
-    .temp$.options <- list()
-  if (is.null(.temp$.options$openfile))
-    #packList("openfile",".temp$.options",list()) #.temp$.options$openfile <<- list()
-    .temp$.options$openfile <- list()
-  tput(.temp)
-}
 
 tget = function (x, penv=NULL, tenv=.ScPoEnv) {
   if (is.null(penv)) penv = parent.frame() # need to call this inside the function NOT as an argument
@@ -124,7 +98,6 @@ tput = function (x, penv=NULL, tenv=.ScPoEnv) {
     eval(parse(text=paste("assign(\"",xnam,"\",get(\"",xnam,"\",envir=penv),envir=tenv)",sep="")))
   invisible()
 }
-
 
 
 zap <-
@@ -293,16 +266,6 @@ dots <- function(...) {
   eval(substitute(alist(...)))
 }
 
-is.formula <- function(expr) {
-  inherits(expr, "formula") || (is.call(expr) && expr[[1L]] == "~")
-}
-
-is.side_effect <- function(expr) {
-  is.formula(expr) &&
-    (length(expr) == 2L ||
-       length(expr) == 3L &&
-       Recall(expr[[2L]]))
-}
 
 
 #' @encoding UTF-8
@@ -373,7 +336,35 @@ NULL
 NULL
 
 
+replace.if = function(.data,...,.if=NULL) {
+  .if = substitute(.if)
+  if (!is.null(.if)) {
+    rows = eval(.if,.data)
+    d = .data[rows,]
+    d = mutate(d,...)
+    .data[rows,] = d
+  } else {
+    .data = mutate(.data,...)
+  }
+  .data
+}
+# Examples
+library(dplyr)
+dat = cars[1:10,]
+replace.if(dat, dist=dist*100, .if= speed==4)
+replace.if(dat, dist=dist*100)
+
+
 ### short name wrapper functions
 #tab <- function(..., deparse.level = 2) {
 #		  crosstable(..., deparse.level = 2)
 # }
+
+library(tools)
+
+rdfiles <- list.files("SciencesPo/man", pattern=".*\\.Rd$", full.names=TRUE)
+out <- file("igraph-Ex.R", open="w")
+cat("### Load the package\nlibrary(SciencesPo)\n\n", file=out)
+sapply(rdfiles, Rd2ex, out=out)
+close(out)
+

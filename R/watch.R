@@ -21,3 +21,21 @@ watch <- function(x) {
   invisible(addTaskCallback(changed))
 }
 
+
+
+
+#' @title Find and download data from SCB (Function is depricated)
+#'
+#' @description Function is depricated, please use \link{find_scb_data} instead.
+#'
+#' @param history keep the history when the function is running.
+#' @param ... further parameters. These are currently ignored.
+#'
+#' @export
+#'
+peek <- function(history = FALSE, ...){
+  warning("Function findData() is depricated. Use view() instead.", call. = FALSE)
+
+  view(history = history, ...)
+
+}
