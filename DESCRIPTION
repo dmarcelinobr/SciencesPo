@@ -4,7 +4,7 @@ Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
 Version: 1.06.25
 Date: 2015-06-25
-Authors@R: person("Daniel Marcelino", "Developer", role = c("aut", "cre"), email = "dmarcelino@live.com")
+Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: A data analysis tool for the political science crowd
     for ease analyzing random and nonrandom data.

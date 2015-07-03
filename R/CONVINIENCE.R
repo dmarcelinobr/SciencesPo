@@ -295,6 +295,7 @@ NULL
 #'
 #' @importFrom foreign read.dta
 #' @importFrom foreign read.spss
+#' @importFrom foreign read.dbf
 #'
 #' @examples
 #' use(ssex)
@@ -318,12 +319,6 @@ NULL
           if (tolower)
             names(data1) <- tolower(names(data1))
         }
-        else {
-          if (ext == ".rec") {
-            data1 <- read.epiinfo(file)
-            if (tolower)
-              names(data1) <- tolower(names(data1))
-          }
           else {
             if (ext == ".sav") {
               data0 <- read.spss(file)
@@ -352,7 +347,6 @@ NULL
               }
               else {
                 stop("This type of file cannot be 'use'd.")
-              }
             }
           }
         }

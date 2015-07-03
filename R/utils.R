@@ -1,3 +1,23 @@
+#.onAttach <- function(libname, pkgname) {
+#  .ScPoEnv <- new.env(FALSE, parent=globalenv() )#Taking cue from Roger Bivand's maptools
+#  assign("SciencesPo.options", list(), envir = .ScPoEnv)
+#  .ScPoEnv = pos.to.env(match('package:SciencesPo', search()))
+  ## Send message
+#  msg <- paste("\n\n")
+#  msg <- paste(msg,"                        000--------001\n")
+#  msg <- paste(msg,"                          |\\       |\\\n")
+#  msg <- paste(msg,"                          | \\      | \\\n")
+#  msg <- paste(msg,"                          |100--------101\n")
+#  msg <- paste(msg,"                        010--|- - -011|\n")
+#  msg <- paste(msg,"                           \\ |      \\ |\n")
+#  msg <- paste(msg,"                            \\|       \\|\n")
+#  msg <- paste(msg,"                           110--------111\n")
+#  packageStartupMessage(msg)
+  #}
+#.onUnload <- function(libpath) {
+#  rm(.ScPoEnv)
+# }
+
 ## The below .locale() is a local function
 .locale <- local({
   val <- FALSE  # All automatic graphs will initially have English titles
@@ -77,27 +97,6 @@ user.prompt <- function (msg = NULL) {
 }
 NULL
 
-
-tget = function (x, penv=NULL, tenv=.ScPoEnv) {
-  if (is.null(penv)) penv = parent.frame() # need to call this inside the function NOT as an argument
-  xnam = as.character(substitute(x))
-  if (exists(xnam,envir=tenv)) {
-    eval(parse(text=paste("tgot=get(\"",xnam,"\",envir=tenv)",sep="")))
-    eval(parse(text=paste("assign(\"",xnam,"\",tgot,envir=penv)",sep="")))
-    return(invisible(tgot)) # useful for calling remote functions
-  }
-  invisible()
-}
-NULL
-
-
-tput = function (x, penv=NULL, tenv=.ScPoEnv) {
-  if (is.null(penv)) penv = parent.frame() # need to call this inside the function NOT as an argument
-  xnam = as.character(substitute(x))
-  if (exists(xnam,envir=penv))
-    eval(parse(text=paste("assign(\"",xnam,"\",get(\"",xnam,"\",envir=penv),envir=tenv)",sep="")))
-  invisible()
-}
 
 
 zap <-
@@ -301,6 +300,18 @@ NULL
   }
 NULL
 
+#' Check for differences in data.frames
+#'
+#' @param A The original data object.
+#' @param B The other data.frame
+#' @export
+setdiff.data.frame = function(A, B){
+  g <-  function( y, B){
+    any( apply(B, 1, FUN = function(x)
+      identical(all.equal(x, y), TRUE) ) ) }
+  unique( A[ !apply(A, 1, FUN = function(t) g(t, B) ), ] )
+}
+
 
 #' @encoding UTF-8
 #' @title Format numeric digits
@@ -336,23 +347,27 @@ NULL
 NULL
 
 
-replace.if = function(.data,...,.if=NULL) {
-  .if = substitute(.if)
-  if (!is.null(.if)) {
-    rows = eval(.if,.data)
-    d = .data[rows,]
-    d = mutate(d,...)
-    .data[rows,] = d
-  } else {
-    .data = mutate(.data,...)
-  }
-  .data
-}
+#' @encoding UTF-8
+#' @title Conditional replacement
+#' @param .data The data object.
+#'
+# replaceIf = function(.data,...,.if=NULL) {
+#   .if = substitute(.if)
+#   if (!is.null(.if)) {
+#     rows = eval(.if,.data)
+#     d = .data[rows,]
+#     d = mutate(d,...)
+#     .data[rows,] = d
+#   } else {
+#     .data = mutate(.data,...)
+#   }
+#   .data
+# }
 # Examples
-library(dplyr)
-dat = cars[1:10,]
-replace.if(dat, dist=dist*100, .if= speed==4)
-replace.if(dat, dist=dist*100)
+# library(dplyr)
+# dat = cars[1:10,]
+# replace.if(dat, dist=dist*100, .if= speed==4)
+# replace.if(dat, dist=dist*100)
 
 
 ### short name wrapper functions
@@ -360,11 +375,53 @@ replace.if(dat, dist=dist*100)
 #		  crosstable(..., deparse.level = 2)
 # }
 
-library(tools)
+#' Compute n!
+#' @param x The number
+#' @export
+#'
+#' @example
+`factorial` <- function(n){
+  y <- 1
+  for(i in 1:n){
+    y <-y*((1:n)[i])
+  }
+  print(y)
+}
 
-rdfiles <- list.files("SciencesPo/man", pattern=".*\\.Rd$", full.names=TRUE)
-out <- file("igraph-Ex.R", open="w")
-cat("### Load the package\nlibrary(SciencesPo)\n\n", file=out)
-sapply(rdfiles, Rd2ex, out=out)
-close(out)
+
+
+#' Create k random permutations of a vector
+#' should be used only for length(input)! >> k
+#' @param input vector to be permutated
+#' @param k number of permutations
+#' #gen.samp(input=1:5, k=5)
+gen.samp <- function(input,k){
+  n <- length(input)
+  mat <- matrix(data=NA,nrow=k,ncol=n) # allocate memory
+  k <- min(k, nperm(input))
+  inserted <- 0
+  while(inserted < k){
+    p <- sample(input)
+    # check if the vector has already been inserted
+    if(sum(apply(mat,1,identical,p)) == 0){
+      mat[inserted+1,] <- p
+      inserted <- inserted+1
+    }
+  }
+  mat
+}
+
+#' Calculate number of permutations, taking repeated elements into consideration
+#' @param vec vector which number of permutations will be calculated
+nperm <- function(vec){
+  tab <- table(vec); # count occurences of each element
+  occurences <- tab[tab>1]; # get those greater than 1
+  numerator <- lfactorial(length(vec))
+  if(length(occurences ) > 0){
+    denominator <- sum(sapply(occurences , lfactorial))
+  } else {
+    denominator <- 0
+  }
+  exp(numerator-denominator)
+}
 

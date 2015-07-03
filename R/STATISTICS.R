@@ -377,7 +377,6 @@ NULL
 #' @param x an \code{r x c} table.
 #' @return The association statistics tests for \code{r x c} table.
 #' @importFrom MASS loglm
-#'
 #' @examples
 #'  x = sample(1:2, 30, TRUE);
 #'  y = sample(1:3, 30, TRUE)
