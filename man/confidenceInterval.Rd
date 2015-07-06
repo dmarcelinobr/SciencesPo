@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{ci}
 \alias{ci}
-\title{Confidence Interval}
+\title{Confidence Intervals}
 \usage{
 ci(x, conf.level = 0.95, alpha = 1 - conf.level, ...)
 }
@@ -23,7 +23,7 @@ ci(x, conf.level = 0.95, alpha = 1 - conf.level, ...)
 \item{Std. Error}{Standard Error of the mean.}
 }
 \description{
-Calculates the confidence interval of a vector of data.
+Calculates the confidence intervals of a vector.
 }
 \examples{
 x = rnorm(1000)

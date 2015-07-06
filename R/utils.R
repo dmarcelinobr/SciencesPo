@@ -378,8 +378,6 @@ NULL
 #' Compute n!
 #' @param x The number
 #' @export
-#'
-#' @example
 `factorial` <- function(n){
   y <- 1
   for(i in 1:n){
@@ -388,14 +386,14 @@ NULL
   print(y)
 }
 
-
-
-#' Create k random permutations of a vector
-#' should be used only for length(input)! >> k
-#' @param input vector to be permutated
-#' @param k number of permutations
-#' #gen.samp(input=1:5, k=5)
-gen.samp <- function(input,k){
+#' @title  Create k random permutations of a vector
+#' @details  should be used only for length(input)! >> k
+#' @param input vector to be permutated.
+#' @param k number of permutations.
+#' @keywords Sampling
+#' @examples permutateSample(input=1:5, k=5)
+#' @export
+permutateSample <- function(input,k){
   n <- length(input)
   mat <- matrix(data=NA,nrow=k,ncol=n) # allocate memory
   k <- min(k, nperm(input))
@@ -411,6 +409,7 @@ gen.samp <- function(input,k){
   mat
 }
 
+
 #' Calculate number of permutations, taking repeated elements into consideration
 #' @param vec vector which number of permutations will be calculated
 nperm <- function(vec){
@@ -425,3 +424,35 @@ nperm <- function(vec){
   exp(numerator-denominator)
 }
 
+
+packages<-function(x, repos="http://cran.r-project.org", ...){
+  x <- deparse(substitute(x))
+  if (!require(x,character.only=TRUE)){
+    install.packages(pkgs=x, repos=repos, ...)
+    require(x,character.only=TRUE)
+  }
+}
+
+rep.row<-function(x,n){
+  matrix(rep(x,each=n),nrow=n)
+}
+rep.col<-function(x,n){
+  matrix(rep(x,each=n), ncol=n, byrow=TRUE)
+}
+
+#' @title  Concatenation operator
+#'
+#' @description Intuitive and handy function to concatanete things.
+#'
+#' @param \dots Paramenters
+#'
+#' @examples
+#' "var" %+% 1:3
+#' strings <- c("abc")
+#' strings %+% "dfg"
+#' "Y~" %+% paste0("z",1:3, "*x",1:3,collapse="+")
+#'@export
+`%+%` <- function(...){
+  paste0(...,sep="")
+}
+NULL

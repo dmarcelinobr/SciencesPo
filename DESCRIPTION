@@ -24,7 +24,9 @@ Imports:
     grid,
     lubridate,
     xtable,
-    rjson
+    rjson,
+    magrittr,
+    plyr
 Suggests:
     Zelig,
     MCMCpack,

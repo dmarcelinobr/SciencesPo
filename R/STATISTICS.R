@@ -685,8 +685,8 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Confidence Interval
-#' @description Calculates the confidence interval of a vector of data.
+#' @title Confidence Intervals
+#' @description Calculates the confidence intervals of a vector.
 #' @keywords univariate
 #' @param x a vector of data.
 #' @param conf.level confidence level. Default is 0.95.

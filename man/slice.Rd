@@ -18,8 +18,6 @@ slice(x, by = 2, pattern = NULL)
 Break up a vector by certain N sized chunks.
 }
 \details{
-
-
 When using \code{pattern}, the formule used to break the vector is \code{length(x)/pattern)+1}.
 }
 \examples{

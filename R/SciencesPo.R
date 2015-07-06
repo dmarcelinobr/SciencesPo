@@ -1,12 +1,12 @@
 #' @encoding UTF-8
 #' @title A Tool Set For Analyzing Political Behavior Data
-#' @import parallel
 #' @references Marcelino, Daniel (2013). \emph{SciencesPo: A Tool Set for Analyzing Political Behaviour Data}. Available at SSRN: \url{http://dx.doi.org/10.2139/ssrn.2320547}
 #' @name SciencesPo
 #' @docType package
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' # Export all functions that do NOT begin with a dot (period)
-#' exportPattern("^[^\\.]")
+#' @import parallel
+#' @importFrom magrittr %>%
+#' @export %>%
 NULL
 
 
