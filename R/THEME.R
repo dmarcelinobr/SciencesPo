@@ -1,5 +1,3 @@
-# ggplot2 map themes by Osmo Saloma
-
 theme_map = function(base_size=9, base_family="")
 {
   require(grid)
