@@ -311,33 +311,7 @@ setdiff.data.frame = function(A, B){
       identical(all.equal(x, y), TRUE) ) ) }
   unique( A[ !apply(A, 1, FUN = function(t) g(t, B) ), ] )
 }
-
-
-
-
-
-#' @encoding UTF-8
-#' @title Conditional replacement
-#' @param .data The data object.
-#'
-#' # replaceIf = function(.data,...,.if=NULL) {
-#' #   .if = substitute(.if)
-#' #   if (!is.null(.if)) {
-#' #     rows = eval(.if,.data)
-#' #     d = .data[rows,]
-#' #     d = mutate(d,...)
-#' #     .data[rows,] = d
-#' #   } else {
-#' #     .data = mutate(.data,...)
-#' #   }
-#' #   .data
-#' # }
-#' # Examples
-#' # library(dplyr)
-#' # dat = cars[1:10,]
-#' # replace.if(dat, dist=dist*100, .if= speed==4)
-#' # replace.if(dat, dist=dist*100)
-
+NULL
 
 
 packages<-function(x, repos="http://cran.r-project.org", ...){
@@ -356,18 +330,3 @@ rep.col<-function(x,n){
 }
 NULL
 
-
-#' @encoding UTF-8
-#' @title  Concatenation operator
-#' @description Intuitive and handy function to concatanete things.
-#' @param \dots Paramenters
-#' @examples
-#' "var" %+% 1:3
-#' strings <- c("abc")
-#' strings %+% "dfg"
-#' "Y~" %+% paste0("z",1:3, "*x",1:3,collapse="+")
-#' @export
-`%+%` <- function(...){
-  paste0(...,sep="")
-}
-NULL

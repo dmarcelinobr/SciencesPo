@@ -2,16 +2,11 @@
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
 #'
-#' @importFrom ggplot2 element_rect
-#' @importFrom ggplot2 element_line
-#' @importFrom ggplot2 element_text
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 element_blank
-#' @importFrom ggplot2 theme_bw %+replace%
+#' @importFrom ggplot2 element_rect element_line element_text element_blank theme theme_bw %+replace%
+#' @importFrom grid unit
 #' @export
 theme_map = function(base_size=9, base_family="")
 {
-  require(grid)
   theme_osa(base_size=base_size, base_family=base_family) %+replace%
     theme(axis.line=element_blank(),
           axis.text.x=element_blank(),
@@ -30,9 +25,15 @@ theme_map = function(base_size=9, base_family="")
     )
 }
 
+#' Theme for mapping  with ggplot
+#' @param base_size Enables to set the font size of all text elements.
+#' @param base_family Enables to set the font family of all text elements.
+#'
+#' @importFrom ggplot2 element_rect element_line element_text element_blank theme theme_bw %+replace%
+#' @importFrom grid unit
+#' @export
 theme_osa = function(base_size=9, base_family="")
 {
-  require(grid)
   theme_bw(base_size=base_size, base_family=base_family) %+replace%
     theme(axis.title.x=element_text(vjust=0),
           axis.title.y=element_text(angle=90, vjust=0.3),
