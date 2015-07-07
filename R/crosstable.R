@@ -4,16 +4,32 @@
 #' @param \dots The data paremeters.
 #' @param deparse.level Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).
 #' @return Well-formatted cross tabulation. Also can genarate latex syntax of cross tabulation.
+#' @importFrom vcd assocstats
 #' @examples
 #' with(titanic, crosstable( SEX, AGE))
-#' with(titanic, crosstable( SEX, AGE, SURVIVED))
+#' with(titanic, crosstab( SEX, AGE, SURVIVED))
+#' with(titanic, tab( SEX, AGE, SURVIVED))
+#' # Agresti (2002), table 3.11, p. 106
+#' GSS <- data.frame(
+#'    expand.grid(sex=c("female", "male"),
+#'    party=c("dem", "indep", "rep")),
+#'    count=c(279,165,73,47,225,191))
+#'
+#'  gender = rep(c("female","male"),c(1835,2691))
+#' admitted = rep(c("yes","no","yes","no"),c(557,1278,1198,1493))
+#' dept = rep(c("A","B","C","D","E","F","A","B","C","D","E","F"),
+#'            c(89,17,202,131,94,24,19,8,391,244,299,317))
+#' dept2 = rep(c("A","B","C","D","E","F","A","B","C","D","E","F"),
+#'            c(512,353,120,138,53,22,313,207,205,279,138,351))
+#' department = c(dept,dept2)
+#' ucb = data.frame(gender,admitted,department)
+#' with(ucb, crosstable( admitted, gender))
 #' @export
-#' @rdname crosstab
 crosstable <- function(..., deparse.level = 2){
   table <- table(..., deparse.level = deparse.level)
   class(table) <- c("crosstable", "table")
 
-  summary.crosstable <- function(table, digits=2, latex=FALSE, assoc.tests=TRUE, ...){
+  summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
     x      <- table
     class(x) <- "table"
     sep    <- ifelse(latex, "&", " ")
@@ -125,8 +141,8 @@ crosstable <- function(..., deparse.level = 2){
       cat(output, fill=TRUE)
       cat("\n")
       cat("Chi-Square Test for Independence", fill=TRUE)
-      if(assoc.tests){
-        print(summary(a.test(x)))
+      if(tests){
+        print(summary(assocstats(x)))
       } else {
         cat("\n")
         print(summary.table(x))
@@ -217,8 +233,8 @@ crosstable <- function(..., deparse.level = 2){
         x.tmp <- as.table(x[i, , ])
         cat(sprintf("%s : %s", names(dimnames(x))[1], stratumcat[i]), fill=TRUE)
 
-        if(assoc.tests){
-          print(summary(a.test(x.tmp)))
+        if(tests){
+          print(summary(assocstats(x.tmp)))
         } else {
           cat("\n")
           print(summary.table(x.tmp))
@@ -227,8 +243,8 @@ crosstable <- function(..., deparse.level = 2){
       }
       cat("Total", fill=TRUE)
 
-      if(assoc.tests){
-        print(summary(a.test(margin.table(x, c(2, 3)))))
+      if(tests){
+        print(summary(assocstats(margin.table(x, c(2, 3)))))
       } else {
         cat("\n")
         print(summary.table(margin.table(x, c(2, 3))))
@@ -237,7 +253,22 @@ crosstable <- function(..., deparse.level = 2){
     }
   }
   return(summary.crosstable(table))
-    }
+}
+NULL
 
 NULL
+
+#' @title Cross-tabulation
+#' @export
+tab <- function(...){
+  crosstable(..., deparse.level = 2)
+}
+NULL
+
+#' @title Cross-tabulation
+#' @export
+crosstab <- function(...){
+  crosstable(..., deparse.level = 2)
+}
+
 

@@ -353,29 +353,6 @@ NULL
 #' # replace.if(dat, dist=dist*100)
 
 
-### short name wrapper functions
-tab <- function(..., deparse.level = 2){
-		  crosstable(..., deparse.level = 2)
-}
-
-
-
-#' @encoding UTF-8
-#' @title Calculate number of permutations taking repeated elements into consideration
-#'
-#' @param vec The vector which number of permutations will be calculated
-nperm <- function(vec){
-  tab <- table(vec); # count occurences of each element
-  occurences <- tab[tab>1]; # get those greater than 1
-  numerator <- lfactorial(length(vec))
-  if(length(occurences ) > 0){
-    denominator <- sum(sapply(occurences , lfactorial))
-  } else {
-    denominator <- 0
-  }
-  exp(numerator-denominator)
-}
-
 
 packages<-function(x, repos="http://cran.r-project.org", ...){
   x <- deparse(substitute(x))

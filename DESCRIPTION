@@ -26,7 +26,8 @@ Imports:
     xtable,
     rjson,
     magrittr,
-    plyr
+    plyr,
+    vcd
 Suggests:
     Zelig,
     MCMCpack,
