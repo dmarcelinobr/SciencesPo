@@ -305,11 +305,11 @@ NULL
 #' @examples
 #' par(mar = c(5, 4, 1.4, 0.2))
 #' plot(rnorm(50), rnorm(50), col=c("steelblue", "indianred"), pch=20)
-#' add.legend("topright", legend=c("Foo", "Bar"), pch=20,
+#' addLegend("topright", legend=c("Foo", "Bar"), pch=20,
 #' col=c("steelblue", "indianred"),
 #' horiz=TRUE, bty='n', cex=0.8)
 
-add.legend <- function(...) {
+addLegend <- function(...) {
   opar <- par(fig=c(0, 1, 0, 1), oma=c(0, 0, 0, 0),
               mar=c(0, 0, 0, 0), new=TRUE)
   on.exit(par(opar))
