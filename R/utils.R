@@ -327,24 +327,7 @@ setdiff.data.frame = function(A, B){
 NULL
 
 
-#' @encoding UTF-8
-#' @title Converts to percentiles
-#' @description Converts a numeric vector to percentiles.
-#' @param x a numeric vector.
-#' @author Daniel Marcelino \email{dmarcelino@@live.com}
-#' @examples
-#' vec <- seq(1:5)
-#' percentify(vec)
-#' @export
-`percentify` <- function(x){
-  pt1 <- quantile(x, probs = seq(0, 1, by = 0.01), type = 7)
-  pt2 <- unique(as.data.frame(pt1), fromLast = TRUE)
-  pt3 <- rownames(pt2)
-  pt4 <- as.integer(strsplit(pt3, "%"))
-  ans <- pt4[as.integer(cut(x, c(0, pt2$pt1), labels = 1:length(pt3)))]
-  return(ans)
-}
-NULL
+
 
 
 #' @encoding UTF-8
@@ -376,19 +359,7 @@ NULL
 # }
 
 
-#' @encoding UTF-8
-#' @title Compute n!
-#' @param n The number to be factored out.
-#' @examples factorial(5)
-#' @export
-`factorial` <- function(n){
-  y <- 1
-  for(i in 1:n){
-    y <-y*((1:n)[i])
-  }
-  print(y)
-}
-NULL
+
 
 
 #' @encoding UTF-8

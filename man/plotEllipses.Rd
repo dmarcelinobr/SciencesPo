@@ -4,7 +4,7 @@
 \alias{plotEllipses}
 \title{Plots ellipses}
 \usage{
-plotEllipses(x, y, r)
+plotEllipses(x, y, r, ...)
 }
 \arguments{
 \item{x}{The longitude coordinate.}
@@ -12,12 +12,14 @@ plotEllipses(x, y, r)
 \item{y}{The latitude coordinate.}
 
 \item{r}{The radio.}
+
+\item{\dots}{Extra parameters to plot, such as col, lty etc.}
 }
 \description{
 Plots ellipses given the coordinates and radio.
 }
 \examples{
 plot(-60:-30, -30:0)
-plotEllipses(-49.2874025,-25.4951519,50)
+plotEllipses(-49,-25,7)
 }
 

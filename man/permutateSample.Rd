@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{permutateSample}
 \alias{permutateSample}
-\title{Create k random permutations of a vector}
+\title{Conditional replacement}
 \usage{
 permutateSample(input, k)
 }
@@ -11,9 +11,11 @@ permutateSample(input, k)
 \item{input}{vector to be permutated.}
 
 \item{k}{number of permutations.}
+
+\item{.data}{The data object.}
 }
 \description{
-Create k random permutations of a vector
+Conditional replacement
 }
 \details{
 should be used only for length(input)! >> k

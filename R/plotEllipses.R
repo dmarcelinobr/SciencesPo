@@ -3,12 +3,13 @@
 #' @param x The longitude coordinate.
 #' @param y The latitude coordinate.
 #' @param r The radio.
+#' @param \dots Extra parameters to plot, such as col, lty etc.
 #' @export
 #' @examples
 #' plot(-60:-30, -30:0)
-#'plotEllipses(-49.2874025,-25.4951519,50)
-plotEllipses <- function(x, y, r) {
+#'plotEllipses(-49,-25,7)
+plotEllipses <- function(x, y, r, ...) {
   angles <- seq(0,2*pi,length.out=360)
-  lines(r*cos(angles)+x,r*sin(angles)+y)
+  lines(r*cos(angles)+x,r*sin(angles)+y, ...)
 }
 NULL
