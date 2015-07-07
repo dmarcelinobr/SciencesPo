@@ -5,7 +5,7 @@
 RStudioGD <- function()
 {
   .Call("rs_createGD")
-  graphics:::par(
+  graphics::par(
     bg = "black",
     col = "white",
     col.axis = "white",
