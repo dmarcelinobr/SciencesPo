@@ -1,13 +1,12 @@
 #' @encoding UTF-8
 #' @title Cross-tabulation
-#' @description \code{crosstab} produces all possible two-way tabulations of the variables specified.
+#' @description \code{crosstable} produces all possible two-way tabulations of the variables specified.
 #' @param \dots The data paremeters.
 #' @param deparse.level Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).
 #' @return Well-formatted cross tabulation. Also can genarate latex syntax of cross tabulation.
 #' @importFrom vcd assocstats
 #' @examples
 #' with(titanic, crosstable( SEX, AGE))
-#' with(titanic, crosstab( SEX, AGE, SURVIVED))
 #' with(titanic, tab( SEX, AGE, SURVIVED))
 #' # Agresti (2002), table 3.11, p. 106
 #' GSS <- data.frame(
@@ -23,8 +22,9 @@
 #'            c(512,353,120,138,53,22,313,207,205,279,138,351))
 #' department = c(dept,dept2)
 #' ucb = data.frame(gender,admitted,department)
-#' with(ucb, crosstable( admitted, gender))
+#' with(ucb, tab( admitted, gender))
 #' @export
+#' @rdname tab
 crosstable <- function(..., deparse.level = 2){
   table <- table(..., deparse.level = deparse.level)
   class(table) <- c("crosstable", "table")
@@ -260,15 +260,9 @@ NULL
 
 #' @title Cross-tabulation
 #' @export
-tab <- function(...){
+`tab` <- function(...){
   crosstable(..., deparse.level = 2)
 }
 NULL
-
-#' @title Cross-tabulation
-#' @export
-crosstab <- function(...){
-  crosstable(..., deparse.level = 2)
-}
 
 
