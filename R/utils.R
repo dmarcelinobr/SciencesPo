@@ -375,8 +375,11 @@ NULL
 #		  crosstable(..., deparse.level = 2)
 # }
 
-#' Compute n!
-#' @param x The number
+
+#' @encoding UTF-8
+#' @title Compute n!
+#' @param n The number to be factored out.
+#' @examples factorial(5)
 #' @export
 `factorial` <- function(n){
   y <- 1
@@ -385,7 +388,10 @@ NULL
   }
   print(y)
 }
+NULL
 
+
+#' @encoding UTF-8
 #' @title  Create k random permutations of a vector
 #' @details  should be used only for length(input)! >> k
 #' @param input vector to be permutated.
@@ -408,10 +414,13 @@ permutateSample <- function(input,k){
   }
   mat
 }
+NULL
 
 
-#' Calculate number of permutations, taking repeated elements into consideration
-#' @param vec vector which number of permutations will be calculated
+#' @encoding UTF-8
+#' @title Calculate number of permutations taking repeated elements into consideration
+#'
+#' @param vec The vector which number of permutations will be calculated
 nperm <- function(vec){
   tab <- table(vec); # count occurences of each element
   occurences <- tab[tab>1]; # get those greater than 1
@@ -439,7 +448,10 @@ rep.row<-function(x,n){
 rep.col<-function(x,n){
   matrix(rep(x,each=n), ncol=n, byrow=TRUE)
 }
+NULL
 
+
+#' @encoding UTF-8
 #' @title  Concatenation operator
 #'
 #' @description Intuitive and handy function to concatanete things.

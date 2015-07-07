@@ -8,13 +8,14 @@
 factorial(n)
 }
 \arguments{
-\item{.data}{The data object.
+\item{n}{The number to be factored out.}
 
-Compute n!}
-
-\item{x}{The number}
+\item{.data}{The data object.}
 }
 \description{
 Conditional replacement
+}
+\examples{
+factorial(5)
 }
 

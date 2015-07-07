@@ -9,7 +9,7 @@
 \usage{
 shift(x, ...)
 
-\method{shift}{default}(x, n = 1, wrap = TRUE, pad = FALSE, ...)
+\method{shift}{default}(x, n = 1, pad = TRUE, wrap = TRUE, ...)
 
 \method{shift}{data.frame}(x, ...)
 }
@@ -19,10 +19,10 @@ shift(x, ...)
 \item{n}{Number of rows to shift by (if negative, shift to right instead of
 left)}
 
-\item{wrap}{Whether to wrap elements or not (adds the entry at the beginning to the end)}
-
 \item{pad}{Whether to pad with NAs or not.  pad does nothing unless wrap is
 false, in which case it specifies whether to pad with NAs}
+
+\item{wrap}{Whether to wrap elements or not (adds the entry at the beginning to the end)}
 
 \item{\dots}{Other items to pass along}
 }
@@ -35,6 +35,6 @@ Shifts elements of a vector left or right by N positions (Lag or Lead).
 \examples{
 l <- list(a = sample(LETTERS,3), b = runif(5), c = runif(15));
 df <- as.data.frame(l);
-shift(df, 1)
+shift(df$c, 1)
 }
 

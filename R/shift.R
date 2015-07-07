@@ -13,7 +13,7 @@
 #'@examples
 #' l <- list(a = sample(LETTERS,3), b = runif(5), c = runif(15));
 #' df <- as.data.frame(l);
-#'shift(df, 1)
+#'shift(df$c, 1)
 #'
 #' @export shift
 #'@rdname shift
@@ -23,7 +23,7 @@
 #' @method shift default
 #' @export
 #' @rdname shift
-shift.default <- function(x,n=1,wrap=TRUE,pad=FALSE,...) {
+shift.default <- function(x,n=1,pad=TRUE, wrap=TRUE,...) {
   if(length(x)<abs(n)) {
     #stop("Length of vector must be greater than the magnitude of n \n")
   }
