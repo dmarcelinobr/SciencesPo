@@ -1,3 +1,14 @@
+#' Theme for mapping  with ggplot
+#' @param base_size Enables to set the font size of all text elements.
+#' @param base_family Enables to set the font family of all text elements.
+#'
+#' @importFrom ggplot2 element_rect
+#' @importFrom ggplot2 element_line
+#' @importFrom ggplot2 element_text
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 theme_bw %+replace%
+#' @export
 theme_map = function(base_size=9, base_family="")
 {
   require(grid)

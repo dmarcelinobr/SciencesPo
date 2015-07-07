@@ -28,7 +28,7 @@ normalpdf(x=1.2,mu=0,sigma=1)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{shadenorm}}, \code{\link{normalcdf}}, \code{\link{invnormal}}.
+\code{\link{plotNorm}}, \code{\link{normalcdf}}, \code{\link{invnormal}}.
 #'
 }
 \keyword{Distribution}

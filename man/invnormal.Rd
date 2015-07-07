@@ -24,7 +24,7 @@ invnormal(area=0.35,mu=0,sigma=1)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{shadenorm}}, \code{\link{normalpdf}}, \code{\link{normalcdf}}
+\code{\link{plotNorm}}, \code{\link{normalpdf}}, \code{\link{normalcdf}}
 }
 \keyword{Distribution}
 

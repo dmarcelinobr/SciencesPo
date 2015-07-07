@@ -334,58 +334,30 @@ NULL
 #' @title Conditional replacement
 #' @param .data The data object.
 #'
-# replaceIf = function(.data,...,.if=NULL) {
-#   .if = substitute(.if)
-#   if (!is.null(.if)) {
-#     rows = eval(.if,.data)
-#     d = .data[rows,]
-#     d = mutate(d,...)
-#     .data[rows,] = d
-#   } else {
-#     .data = mutate(.data,...)
-#   }
-#   .data
-# }
-# Examples
-# library(dplyr)
-# dat = cars[1:10,]
-# replace.if(dat, dist=dist*100, .if= speed==4)
-# replace.if(dat, dist=dist*100)
+#' # replaceIf = function(.data,...,.if=NULL) {
+#' #   .if = substitute(.if)
+#' #   if (!is.null(.if)) {
+#' #     rows = eval(.if,.data)
+#' #     d = .data[rows,]
+#' #     d = mutate(d,...)
+#' #     .data[rows,] = d
+#' #   } else {
+#' #     .data = mutate(.data,...)
+#' #   }
+#' #   .data
+#' # }
+#' # Examples
+#' # library(dplyr)
+#' # dat = cars[1:10,]
+#' # replace.if(dat, dist=dist*100, .if= speed==4)
+#' # replace.if(dat, dist=dist*100)
 
 
 ### short name wrapper functions
-#tab <- function(..., deparse.level = 2) {
-#		  crosstable(..., deparse.level = 2)
-# }
-
-
-
-
-
-#' @encoding UTF-8
-#' @title  Create k random permutations of a vector
-#' @details  should be used only for length(input)! >> k
-#' @param input vector to be permutated.
-#' @param k number of permutations.
-#' @keywords Sampling
-#' @examples permutateSample(input=1:5, k=5)
-#' @export
-permutateSample <- function(input,k){
-  n <- length(input)
-  mat <- matrix(data=NA,nrow=k,ncol=n) # allocate memory
-  k <- min(k, nperm(input))
-  inserted <- 0
-  while(inserted < k){
-    p <- sample(input)
-    # check if the vector has already been inserted
-    if(sum(apply(mat,1,identical,p)) == 0){
-      mat[inserted+1,] <- p
-      inserted <- inserted+1
-    }
-  }
-  mat
+tab <- function(..., deparse.level = 2){
+		  crosstable(..., deparse.level = 2)
 }
-NULL
+
 
 
 #' @encoding UTF-8
@@ -424,17 +396,14 @@ NULL
 
 #' @encoding UTF-8
 #' @title  Concatenation operator
-#'
 #' @description Intuitive and handy function to concatanete things.
-#'
 #' @param \dots Paramenters
-#'
 #' @examples
 #' "var" %+% 1:3
 #' strings <- c("abc")
 #' strings %+% "dfg"
 #' "Y~" %+% paste0("z",1:3, "*x",1:3,collapse="+")
-#'@export
+#' @export
 `%+%` <- function(...){
   paste0(...,sep="")
 }

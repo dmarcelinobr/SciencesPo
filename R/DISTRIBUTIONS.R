@@ -7,7 +7,7 @@
 #' @param mu the mean \eqn{\mu}.
 #' @param sigma the standard deviation of the distribution \eqn{\sigma}.
 #'
-#' @seealso \code{\link{shadenorm}}, \code{\link{normalpdf}}, \code{\link{normalcdf}}
+#' @seealso \code{\link{plotNorm}}, \code{\link{normalpdf}}, \code{\link{normalcdf}}
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
@@ -37,7 +37,7 @@ NULL
 
 #' @keywords Distribution
 #'
-#' @seealso  \code{\link{shadenorm}}, \code{\link{normalcdf}}, \code{\link{invnormal}}.
+#' @seealso  \code{\link{plotNorm}}, \code{\link{normalcdf}}, \code{\link{invnormal}}.
 #' #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
@@ -64,7 +64,7 @@ NULL
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{shadenorm}}, \code{\link{normalpdf}}, \code{\link{invnormal}}.
+#' @seealso  \code{\link{plotNorm}}, \code{\link{normalpdf}}, \code{\link{invnormal}}.
 #'
 #' @keywords Distribution
 #'
