@@ -6,6 +6,9 @@
 \alias{SciencesPo}
 \alias{SciencesPo-package}
 \title{A Tool Set For Analyzing Political Behavior Data}
+\usage{
+x %>% f(y) is translated into f(x, y).
+}
 \description{
 A Tool Set For Analyzing Political Behavior Data
 }

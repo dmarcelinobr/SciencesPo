@@ -6,7 +6,10 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @import parallel
 #' @importFrom magrittr %>%
+#' @name %>%
 #' @export %>%
+#' @rdname chain
+#' @usage x %>% f(y) is translated into f(x, y).
 NULL
 
 

@@ -51,18 +51,21 @@
 #' # or
 #' politicalDiversity(US1980, index= "simpson")
 #'
-#' party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian", "Constitution", "Green", "Others")
+#' party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian",
+#' "Constitution", "Green", "Others")
 #' US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
 #'
 #' politicalDiversity(US2004, index= "herfindahl")
 #' # The 1999 Finland election
-#' votes_1999 <- c(612963, 600592, 563835, 291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442, 10378, 10104, 5451, 5194, 4481, 3903, 3455, 21734)
+#'votes_1999 <- c(612963, 600592, 563835, 291675, #' 194846, 137330, 111835, 28084, 26440, 28549, 20442, 10378, 10104, 5451, 5194, 4481, 3903, 3455, 21734)
 #'
 #' seats_1999 <- c(51, 48, 46, 20, 11, 11, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 #'
 #'
 #' # Helsinki's 1999
-#' votes_1999 <- c(68885,18343, 86448, 21982, 51587, 27227, 8482, 7250, 365, 2734, 1925, 475, 1693, 693, 308, 980, 560, 590, 185)
+#' votes_1999 <- c(68885,18343, 86448, 21982, 51587,
+#' 27227, 8482, 7250, 365, 2734, 1925, 475,
+#' 1693, 693, 308, 980, 560, 590, 185)
 #'
 #' #Sainte-Lague allocation:
 #' seats_1999sl <- c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -121,6 +124,8 @@ function (x, index = "herfindahl", margin = 1, base = exp(1))
 NULL
 
 
+#' # hareQuota <- function(votes, seats, try.quota, droop.quota){}
+#'
 #'# electoralTool <- function(party,
 #'#  district, seats, polar, time, blocks,
 #'#   verbose=TRUE){
