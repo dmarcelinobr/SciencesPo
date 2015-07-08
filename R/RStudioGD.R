@@ -1,4 +1,5 @@
 #' Black backgrounds
+#'
 #' @examples
 #' options(device=RStudioGD)
 #' @export
