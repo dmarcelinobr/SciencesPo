@@ -24,9 +24,10 @@
 #'
 #' The same process can be used to compute the vote share for each party. This formula is the reciprocal of a well-known concentration index (\bold{the Herfindahl-Hirschman index}) used in economics to study the degree to which ownership of firms in an industry is concentrated. Laakso and Taagepera correctly saw that the effective number of parties is simply an instance of the inverse measurement problem to that one. This index makes rough but fairly reliable international comparisons of party systems possible.
 #'
-#' Another measure is the \bold{Least squares index (LSq)}, which typically measures the disproportionality produced by the election. Specifically, by the disparity between the distribution of votes and seats allocation.
+#' Another measure is the \bold{Least squares index (lsq)}, which measures the disproportionality produced by the election. Specifically, by the disparity between the distribution of votes and seats allocation.
 #'
 #' Recently, Grigorii Golosov proposed a new method for computing the effective number of parties  in which both larger and smaller parties are not attributed unrealistic scores as those resulted by using the Laakso/Taagepera index.I will call this as (\bold{Golosov}) and is given by the following formula: \deqn{N = \sum_{i=1}^{n}\frac{p_{i}}{p_{i}+p_{i}^{2}-p_{i}^{2}}}
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
 #'  @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
@@ -36,37 +37,59 @@
 #'  @references Taagepera, Rein and Matthew S. Shugart (1989) \emph{Seats and Votes: The Effects and Determinants of Electoral Systems.} New Haven: Yale University Press.
 #'
 #' @examples
-#' # Here are some examples help yourself:
+#' # Here are some examples, help yourself:
 #' A <- c(.75,.25)
 #' B <- c(.35,.35,.30)
 #' C <- c(.75,.10,rep(0.01,15))
 #'
 #' # Non-trivial example:
-#' # 2010 Election outcome
-#' party = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV",
+#' # The 1980 presidential election in the US (vote share):
+#' party_1980 <- c("Democratic", "Republican", "Independent", "Libertarian", "Citizens", "Others")
+#' US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
+#'
+#' politicalDiversity(US1980, index= "herfindahl")
+#' # or
+#' politicalDiversity(US1980, index= "simpson")
+#'
+#' party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian", "Constitution", "Green", "Others")
+#' US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
+#'
+#' politicalDiversity(US2004, index= "herfindahl")
+#'
+#' # Helsinki 1999
+#' votes_1999 <- c(68885,18343, 86448, 21982, 51587, 27227, 8482, 7250, 365, 2734, 1925, 475, 1693, 693, 308, 980, 560, 590, 185)
+#'
+#' seats_1999 <- c(20, 5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+#'
+#'
+#' # 2010 Brazilian legislative election
+#'
+#' party_2010 = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV",
 #' "PC do B","PPS","PRB", "PMN", "PT do B", "PSOL","PHS","PRTB","PRP","PSL","PTC")
-#' votes = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345,
+#' votes_2010 = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345,
 #' 4478736, 3808646, 2981714,2886633, 2545279, 2376475, 1659973, 1026220,
 #' 605768, 968475, 719611, 283047, 232530, 457490, 563145)
 #'
-#' # 2010 Election outcome passed as proportion of seats
+#' # 2010 Election outcome as proportion of seats
 #' seats_2010 = c(88, 79, 53, 43, 41, 41, 34, 28, 21,
-#' 17, 15, 15, 12, 8, 4, 3, 3, 2, 2, 2, 1, 1)
+#' 17, 15, 15, 12, 8, 4, 3, 3, 2, 2, 2, 1, 1)/513
 #'
-#' # 2014 Election outcome passed as proportion of seats
+#' # 2014 Election outcome as proportion of seats
 #' seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12,
 #' 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 #'
+#' politicalDiversity(seats_2014, index= "laakso/taagepera")
+#' # or:
 #' politicalDiversity(seats_2014, index= "invsimpson")
 #'
 #' @keywords Basics
 #' @keywords Electoral
 #' @export
 politicalDiversity <-
-function (x, index = "shannon", margin = 1, base = exp(1))
+function (x, index = "herfindahl", margin = 1, base = exp(1))
 {
   x <- drop(as.matrix(x))
-  methods <- c("shannon", "simpson", "invsimpson", "golosov", "laakso/taagepera","lsq")
+  methods <- c("shannon", "simpson", "invsimpson", "golosov", "laakso/taagepera", "herfindahl", "lsq", "ENC", "ENP")
   index <- match.arg(index, methods)
   if (length(dim(x)) > 1) {
     total <- apply(x, margin, sum)
@@ -81,9 +104,9 @@ function (x, index = "shannon", margin = 1, base = exp(1))
   if (length(dim(x)) > 1)
     H <- apply(x, margin, sum, na.rm = TRUE)
   else H <- sum(x, na.rm = TRUE)
-  if (index == "simpson")
+  if (index == "simpson"||index == "herfindahl" )
     H <- 1 - H
-  else if (index == "invsimpson")
+  else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "ENC" || index == "ENP")
     H <- 1/H
   return(round(H, 3))
 }

@@ -4,9 +4,9 @@
 #' @param var The variable to be moved.
 #' @param where The new location for the variable (var).
 #' @examples
-#' vorder(ssex, "DK", "Oppose")
+#' varOrder(ssex, "DK", "Oppose")
 #' @export
-vorder <- function(data,var,where) {
+varOrder <- function(data,var,where) {
   m <- data[var]
   r <- data[names(data)!=var]
   i <- match(where,names(data))

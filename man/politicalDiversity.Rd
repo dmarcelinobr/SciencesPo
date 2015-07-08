@@ -40,19 +40,30 @@ A widely accepted algorithm was proposed by M. Laakso and R. Taagepera: \deqn{N 
 
 The same process can be used to compute the vote share for each party. This formula is the reciprocal of a well-known concentration index (\bold{the Herfindahl-Hirschman index}) used in economics to study the degree to which ownership of firms in an industry is concentrated. Laakso and Taagepera correctly saw that the effective number of parties is simply an instance of the inverse measurement problem to that one. This index makes rough but fairly reliable international comparisons of party systems possible.
 
-Another measure is the \bold{Least squares index (LSq)}, which typically measures the disproportionality produced by the election. Specifically, by the disparity between the distribution of votes and seats allocation.
+Another measure is the \bold{Least squares index (lsq)}, which typically measures the disproportionality produced by the election. Specifically, by the disparity between the distribution of votes and seats allocation.
 
 Recently, Grigorii Golosov proposed a new method for computing the effective number of parties  in which both larger and smaller parties are not attributed unrealistic scores as those resulted by using the Laakso/Taagepera index.I will call this as (\bold{Golosov}) and is given by the following formula: \deqn{N = \sum_{i=1}^{n}\frac{p_{i}}{p_{i}+p_{i}^{2}-p_{i}^{2}}}
 }
 \examples{
-# Here are some examples help yourself:
+# Here are some examples, help yourself:
 A <- c(.75,.25)
 B <- c(.35,.35,.30)
 C <- c(.75,.10,rep(0.01,15))
 
 # Non-trivial example:
-# 2010 Election outcome
-party = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV",
+# The 1980 presidential election in the US (vote share):
+party_1980 <- c("Democratic", "Republican", "Independent", "Libertarian", "Citizens", "Others")
+US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
+
+politicalDiversity(US1980, index= "simpson")
+
+party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian", "Constitution", "Green", "Others")
+US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
+
+politicalDiversity(US2004, index= "simpson")
+
+# 2010 Brazilian legislative election
+party_2010 = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV",
 "PC do B","PPS","PRB", "PMN", "PT do B", "PSOL","PHS","PRTB","PRP","PSL","PTC")
 votes = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345,
 4478736, 3808646, 2981714,2886633, 2545279, 2376475, 1659973, 1026220,
@@ -64,7 +75,7 @@ seats_2010 = c(88, 79, 53, 43, 41, 41, 34, 28, 21,
 
 # 2014 Election outcome passed as proportion of seats
 seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12,
-11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
+11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)
 
 politicalDiversity(seats_2014, index= "invsimpson")
 }
