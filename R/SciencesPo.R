@@ -6,6 +6,7 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @import parallel
 #' @importFrom magrittr %>%
+#' @export %>%
 NULL
 
 

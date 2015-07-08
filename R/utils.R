@@ -30,6 +30,41 @@
 })
 
 
+`%c%` <-
+  function(x, y) paste(x, y, sep="")
+
+"%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
+
+`%nin%` <-
+  function(x, table) match(x, table, nomatch = 0) == 0
+
+`%overlaps%` <-
+  function(x, y) {
+    if(length(x) < 2) x <- rep(x, 2)
+    if(length(y) < 2) y <- rep(y, 2)
+    return(!(max(x) < min(y) | min(x) > max(y)) )
+  }
+
+`%like%` <-
+  function(x, pattern) {
+
+    if (!substr(pattern, 1, 1) == "%") {
+      pattern <- paste("^", pattern, sep="")
+    } else {
+      pattern <- substr(pattern, 2, nchar(pattern) )
+    }
+    if (!substr(pattern, nchar(pattern), nchar(pattern)) == "%") {
+      pattern <- paste(pattern, "$", sep="")
+    } else {
+      pattern <- substr(pattern, 1, nchar(pattern)-1 )
+    }
+
+    grepl(pattern = pattern, x = x)
+  }
+
+
+
+
 #' @title Detach all data frame from the search path
 #'
 #' @description Detach all data frame from the search path, but keeping it on the memory.
@@ -55,28 +90,6 @@ detach.all <- function ()
     }
   }
 
-
-#' Unclass data frame
-#'
-#' @param vars The variable(s).
-#' @param data The data object.
-#'
-#' @export
-unclass.data.frame <- function(vars, data = .data){
-  data1 <- data
-  nl <- as.list(1:ncol(data1))
-  names(nl) <- names(data1)
-  selected <- eval(substitute(vars), nl, parent.frame())
-  for(i in selected){
-    data1[,i] <- unclass(data1[,i])
-    attributes(data1[, i]) <- NULL
-  }
-  assign(as.character(substitute(data)), data1, pos=1)
-  if(is.element(as.character(substitute(data)), search())){
-    detach(pos=which(search() %in% as.character(substitute(data))))
-    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
-  }
-}
 
 
 
@@ -166,19 +179,6 @@ other.names <- function(data, check) {
 NULL
 
 
-#' @title Converts calendar date string to POSIX
-#'
-#' @param x character vector in one of two calendar date formats
-#' @return a POSIX date
-#' @export
-#' @author Daniel Marcelino \email{dmarcelino@@live.com}
-posixify <- function(x) {
-  x <- as.character(x)
-  if(any(regexpr("^[[:digit:]]{1,2}/[[:digit:]]{1,2}/[[:digit:]]{4}$", x[1])[1] == 1))
-    strptime(x, format="%m/%d/%Y") # short date format
-  else
-    strptime(x, format="%m/%d/%Y %I:%M:%S %p") # long date-time format
-}
 
 
 #' @title Method for building things
@@ -260,10 +260,6 @@ setMethod("nobs", "data.frame", function(object, ...){
 
 setnames <- `names<-`
 setclass <- `class<-`
-
-dots <- function(...) {
-  eval(substitute(alist(...)))
-}
 
 
 
