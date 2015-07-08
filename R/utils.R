@@ -30,14 +30,15 @@
 })
 
 
+`%c%` <- function(x, y) paste(x, y, sep="")
 
-`%c%` <-
-  function(x, y) paste(x, y, sep="")
 
 "%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
 
+
 `%nin%` <-
   function(x, table) match(x, table, nomatch = 0) == 0
+
 
 `%overlaps%` <-
   function(x, y) {
@@ -45,6 +46,7 @@
     if(length(y) < 2) y <- rep(y, 2)
     return(!(max(x) < min(y) | min(x) > max(y)) )
   }
+
 
 `%like%` <-
   function(x, pattern) {
