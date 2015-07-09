@@ -46,8 +46,8 @@ Recently, Grigorii Golosov proposed a new method for computing the effective num
 }
 \examples{
 # Here are some examples, help yourself:
-A <- c(.75,.25)
-B <- c(.35,.35,.30)
+A <- c(.75,.25);
+B <- c(.35,.35,.30);
 C <- c(.75,.10,rep(0.01,15))
 
 # Non-trivial example:

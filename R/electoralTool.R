@@ -38,8 +38,8 @@
 #'
 #' @examples
 #' # Here are some examples, help yourself:
-#' A <- c(.75,.25)
-#' B <- c(.35,.35,.30)
+#' A <- c(.75,.25);
+#' B <- c(.35,.35,.30);
 #' C <- c(.75,.10,rep(0.01,15))
 #'
 #' # Non-trivial example:
@@ -102,7 +102,7 @@ politicalDiversity <-
 function (x, index = "herfindahl", margin = 1, base = exp(1))
 {
   x <- drop(as.matrix(x))
-  methods <- c("shannon", "simpson", "invsimpson", "golosov", "laakso/taagepera", "herfindahl", "lsq", "ENC", "ENP")
+  methods <- c("gini", "shannon", "simpson", "invsimpson", "golosov", "laakso/taagepera", "herfindahl", "lsq", "ENC", "ENP")
   index <- match.arg(index, methods)
   if (length(dim(x)) > 1) {
     total <- apply(x, margin, sum)
@@ -117,7 +117,7 @@ function (x, index = "herfindahl", margin = 1, base = exp(1))
   if (length(dim(x)) > 1)
     H <- apply(x, margin, sum, na.rm = TRUE)
   else H <- sum(x, na.rm = TRUE)
-  if (index == "simpson"||index == "herfindahl" )
+  if (index == "simpson"||index == "herfindahl" || index ==  "gini" )
     H <- 1 - H
   else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "ENC" || index == "ENP")
     H <- 1/H
@@ -125,6 +125,26 @@ function (x, index = "herfindahl", margin = 1, base = exp(1))
 }
 NULL
 
+
+
+GiniSimpson <-
+  function(x, na.rm = FALSE) {
+
+
+    # reference:   Sachs, Angewandte Statistik, S. 57
+
+    # example:
+    # x <- as.table(c(69,17,7,62))
+    # rownames(x) <- c("A","B","AB","0")
+    # GiniSimpson(x)
+
+    if(na.rm) x <- na.omit(x)
+
+    x <- as.table(x)
+    ptab <- prop.table(x)
+    return(sum(ptab*(1-ptab)))
+  }
+NULL
 
 #' # hareQuota <- function(votes, seats, try.quota, droop.quota){}
 #'

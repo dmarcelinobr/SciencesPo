@@ -29,6 +29,22 @@
   }
 })
 
+#' Quote strings
+#' @param \dots Any number of names separated by commas.
+#' @export
+#' @keywords manipulation
+#' @examples
+#' ssex[, qm(Date, Favor, DK)]
+`qm` <- function(...)as.character(sys.call())[-1]
+
+#' @title Chain operator
+#' @name %>%
+#' @importFrom magrittr %>%
+#' @export %>%
+#' @keywords manipulation
+#' @rdname chain
+#' @usage x %>% f(y) is translated into f(x, y).
+NULL
 
 `%c%` <- function(x, y) paste(x, y, sep="")
 
@@ -36,8 +52,19 @@
 "%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
 
 
+#' @title Find Matching (or Non-Matching) Elements
+#' @description \code{\%nin\%} is a binary operator, which returns a logical vector indicating if there is a match or not for its left operand. A true vector element indicates no match in left operand, false indicates a match.
+#' @param  x A vector (numeric, character, factor).
+#' @param  y A vector (numeric, character, factor), matching the mode of \code{x}.
+#' \code{\link{match}}, \code{\link{\%in\%}}.
+#' @name %nin%
+#' @rdname nin
+#' @keywords Manipulation
+#' @examples
+#' c('a','b','c') %nin% c('a','b')
+#' @export
 `%nin%` <-
-  function(x, table) match(x, table, nomatch = 0) == 0
+  function(x, y) match(x, y, nomatch = 0) == 0
 
 
 `%overlaps%` <-

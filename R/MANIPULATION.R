@@ -583,52 +583,6 @@ NULL
 NULL
 
 
-#' @encoding UTF-8
-#' @title Pack all related variables into the existing .data.
-#' @description  Tries to  wrap up all related variables (variable with the same length) into the existing `.data` object.
-#' @param  data The data object.
-#'
-#' @examples
-#' df=data.frame(group=sample(letters,10, TRUE),y=sample(10) )
-#' use(df)
-#' y2 <- y^2
-#' pack(df)
-#' df;
-#' @export
-`pack` <- function (data = .data)
-{
-  data1 <- data
-  j <- NULL
-  k <- attr(data1, "var.labels")
-  candidate.objects <- setdiff(lsNoFunction(), as.character(ls.str(mode = "list")[]))
-  if (length(candidate.objects) == 0)
-    stop("No related vector outside the default data frame")
-  for (i in 1:length(candidate.objects)) {
-    if (length(get(candidate.objects[i])) == nrow(data1)) {
-      if (any(names(data1) == candidate.objects[i])) {
-        data1[, names(data1) == candidate.objects[i]] <- get(candidate.objects[i])
-        j <- c(j, i)
-      }
-      else {
-        data1 <- data.frame(data1, get(candidate.objects[i]))
-        names(data1)[ncol(data1)] <- candidate.objects[i]
-        j <- c(j, i)
-        if (!is.null(k)) {
-          k <- c(k, "")
-        }
-      }
-    }
-  }
-  attr(data1, "var.labels") <- k
-  rm(list = candidate.objects[j], pos = 1)
-  assign(as.character(substitute(data)), data1, pos=1)
-  if(is.element(as.character(substitute(data)), search())){
-    detach(pos=which(search() %in% as.character(substitute(data))))
-    attach(data1, name=as.character(substitute(data)), warn.conflicts = FALSE)
-  }
-}
-NULL
-
 
 #' @title Converts rle object to data.frame
 #'
@@ -957,11 +911,11 @@ NULL
 #'
 #' @examples
 #' data(ssex)
-#' myts <- as.timedf(timevar = ssex$Date, format = "%Y", x= ssex$Favor)
+#' myts <- time.data.frame(timevar = ssex$Date, format = "%Y", x= ssex$Favor)
 #' view(myts)
 #'
 #' data(us2012)
-#' Obama.ts <- as.timedf(us2012[,3], "%Y-%m-%d", us2012[,8])
+#' Obama.ts <- time.data.frame(us2012[,3], "%Y-%m-%d", us2012[,8])
 #' view(Obama.ts)
 #'
 #' @importFrom lubridate ymd
@@ -976,7 +930,7 @@ NULL
 #'
 #' @export
 #'
-`as.timedf` <- function (timevar, format, x = NULL, tz = "GMT")
+`time.data.frame` <- function (timevar, format, x = NULL, tz = "GMT")
 {
   dimensions <- dim(x)
   clss <- lapply(x, class)
@@ -1007,7 +961,7 @@ NULL
     answer <- data.frame(date, years, months, weeks, days, hours, minutes, seconds, y)
   }
 
-  class(answer) <- c("SciencesPo", "timedf", "data.frame")
+  class(answer) <- c("SciencesPo", "time.data.frame", "data.frame")
   return(answer)
 }
 NULL
@@ -1017,9 +971,9 @@ NULL
 #' @encoding UTF-8
 #'   @title Aggregated Data by Time Parameters
 #'
-#' @description Return a \code{data.frame} with aggregated data by time parameters. In order to use this function, you have to have a \link{as.timedf} data.frame.
+#' @description Return a \code{data.frame} with aggregated data by time parameters. In order to use this function, you have to have a \link{time.data.frame} data.frame.
 #'
-#' @param data a \bold{timedf} object
+#' @param data a \bold{time.data.frame} object
 #' @param by the method to break up the dependent variable; options: \code{"day"},\code{ "month"}, or \code{"year"}.
 #' @param FUN a function to aggregate data \code{sum, mean, min, max, etc}.
 #' @param factor is the aggregator factor; a numeric value representing days, months or years to perform aggregation by.
@@ -1036,7 +990,7 @@ NULL
 #'
 #' @examples
 #' data(us2012)
-#' Obama.ts <- as.timedf(us2012[,3], '%Y-%m-%d', us2012[,8])
+#' Obama.ts <- time.data.frame(us2012[,3], '%Y-%m-%d', us2012[,8])
 #'
 #' # Daily aggregated means for data:
 #' daily <- tsCollapse(Obama.ts, by = "day", mean)
@@ -1054,7 +1008,7 @@ NULL
 #'
 `tsCollapse` <- function (data,  by = c("day","month","year"), FUN, na.rm = FALSE, factor = NULL, civil = FALSE, plot = TRUE)
 {
-  if (!inherits(data, c("timedf") )) stop("object not of class \"timedf\". Please, use as.timedf() before proceed.")
+  if (!inherits(data, c("time.data.frame") )) stop("object not of class \"time.data.frame\". Please, use time.data.frame() before proceed.")
 	  #if (by != c("day","month","year")) stop("a method for `by` should be supplied.")
 
   ## by Day

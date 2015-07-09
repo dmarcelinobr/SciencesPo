@@ -9,7 +9,7 @@ tsCollapse(data, by = c("day", "month", "year"), FUN, na.rm = FALSE,
   factor = NULL, civil = FALSE, plot = TRUE)
 }
 \arguments{
-\item{data}{a \bold{timedf} object}
+\item{data}{a \bold{time.data.frame} object}
 
 \item{by}{the method to break up the dependent variable; options: \code{"day"},\code{ "month"}, or \code{"year"}.}
 
@@ -24,7 +24,7 @@ tsCollapse(data, by = c("day", "month", "year"), FUN, na.rm = FALSE,
 \item{plot}{whether the data.frame to be plotted, default is \code{plot = TRUE}.}
 }
 \description{
-Return a \code{data.frame} with aggregated data by time parameters. In order to use this function, you have to have a \link{as.timedf} data.frame.
+Return a \code{data.frame} with aggregated data by time parameters. In order to use this function, you have to have a \link{time.data.frame} data.frame.
 }
 \details{
 A data.frame of type long with summarized time series data (y) and time parameters formatted as POSIXct.
@@ -34,7 +34,7 @@ To weekly aggregation, set \code{by = "day"} and \code{factor = 7}
 }
 \examples{
 data(us2012)
-Obama.ts <- as.timedf(us2012[,3], '\%Y-\%m-\%d', us2012[,8])
+Obama.ts <- time.data.frame(us2012[,3], '\%Y-\%m-\%d', us2012[,8])
 
 # Daily aggregated means for data:
 daily <- tsCollapse(Obama.ts, by = "day", mean)
