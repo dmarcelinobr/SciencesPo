@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{categories}
 \alias{categories}
-\title{Extraction of Categorical Values as a Preprocessing Step for Making Dummy Variables}
+\title{Extraction of categorical values as a preprocessing step for making dummy variables}
 \usage{
 categories(x, p = "all")
 }
