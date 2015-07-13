@@ -26,10 +26,7 @@ Imports:
   grid,
   plyr,
   magrittr,
-  vcd,
-  R.cache,
-  httr,
-  digest
+  vcd
 Suggests:
     Zelig,
     MCMCpack,
