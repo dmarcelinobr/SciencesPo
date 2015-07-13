@@ -6,10 +6,10 @@
 #' @export
 #' @examples
 #' votes <- sample(1:10000, 5)
-#' dHondt(letters[1:5], votes, 10 )
+#' dHondt(letters[1:5], votes, 5 )
 #'
 #' votes <- c(42201,38635,247736,170627,48236,117151,61379,35889,92321)
-#' dHont(c("A","B","C","D","F","G","H","I","J"), votes, 26)
+#' dHondt(c("A","B","C","D","F","G","H","I","J"), votes, 26)
 #'
 dHondt <- function(parties, votes, seats){
   tmp <- data.frame(
