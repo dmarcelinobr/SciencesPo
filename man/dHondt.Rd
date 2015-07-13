@@ -18,9 +18,14 @@ The function calculate the seats in parliament given the total number of seats a
 }
 \examples{
 votes <- sample(1:10000, 5)
-dHondt(letters[1:5], votes, 10 )
+dHondt(letters[1:5], votes, 5 )
 
-votes <- c(42201,38635,247736,170627,48236,117151,61379,35889,92321)
-dHont(c("A","B","C","D","F","G","H","I","J"), votes, 26)
+#Example: 2014 Brazilian election for the lower house in the state of Ceara:
+votes <- c(490205, 1151547, 2449440, 48274, 54403, 173151)
+
+# Coalitions leading by the following parties:
+parties <- c("DEM","PMDB","PRB","PSB", "PSTU","PTC")
+
+dHondt(parties, votes, seats=19)
 }
 
