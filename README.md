@@ -1,5 +1,5 @@
 <img src="/inst/doc/SciencesPo_logo.png" alt="SciencesPo" />
-
+[![CRAN Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo)
 [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo)  [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 <a href="https://img.shields.io/badge/Version-1.03.05-orange.svg"><img src="https://img.shields.io/badge/Version-1.03.05-orange.svg" alt="Version"/></a>
  ![](http://cranlogs.r-pkg.org/badges/grand-total/SciencesPo) 

@@ -5,6 +5,7 @@
 #' @docType package
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @import parallel
+#' @import methods
 NULL
 
 

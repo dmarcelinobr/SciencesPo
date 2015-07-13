@@ -1,41 +1,12 @@
-#.onAttach <- function(libname, pkgname) {
-#  .ScPoEnv <- new.env(FALSE, parent=globalenv() )#Taking cue from Roger Bivand's maptools
-#  assign("SciencesPo.options", list(), envir = .ScPoEnv)
-#  .ScPoEnv = pos.to.env(match('package:SciencesPo', search()))
-  ## Send message
-#  msg <- paste("\n\n")
-#  msg <- paste(msg,"                        000--------001\n")
-#  msg <- paste(msg,"                          |\\       |\\\n")
-#  msg <- paste(msg,"                          | \\      | \\\n")
-#  msg <- paste(msg,"                          |100--------101\n")
-#  msg <- paste(msg,"                        010--|- - -011|\n")
-#  msg <- paste(msg,"                           \\ |      \\ |\n")
-#  msg <- paste(msg,"                            \\|       \\|\n")
-#  msg <- paste(msg,"                           110--------111\n")
-#  packageStartupMessage(msg)
-  #}
-#.onUnload <- function(libpath) {
-#  rm(.ScPoEnv)
-# }
+# compatibility for data.table functions
+## Look for existing generic functions also in imported namespaces.
+## This will affect whether setGenericS3() creates a generic function
+## or not.
+options("R.methodsS3:checkImports:setGenericS3"=TRUE)
 
-## The below .locale() is a local function
-.locale <- local({
-  val <- FALSE  # All automatic graphs will initially have English titles
-  function(new){
-    if(!missing(new))
-      val <<- new
-    else
-      val
-  }
-})
-
-#' Quote strings
-#' @param \dots Any number of names separated by commas.
-#' @export
-#' @keywords manipulation
-#' @examples
-#' ssex[, qm(Date, Favor, DK)]
-`qm` <- function(...)as.character(sys.call())[-1]
+.datatable.aware <- TRUE
+setnames <- `names<-`
+setclass <- `class<-`
 
 #' @title Chain operator
 #' @name %>%
@@ -46,25 +17,17 @@
 #' @usage x %>% f(y) is translated into f(x, y).
 NULL
 
-`%c%` <- function(x, y) paste(x, y, sep="")
-
+#' Quote strings
+#' @param \dots Any number of names separated by commas.
+#' @export
+#' @keywords manipulation
+#' @examples
+#' ssex[, qm(Date, Favor, DK)]
+`qm` <- function(...)as.character(sys.call())[-1]
+NULL
 
 "%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
 
-
-#' @title Find Matching (or Non-Matching) Elements
-#' @description \code{\%nin\%} is a binary operator, which returns a logical vector indicating if there is a match or not for its left operand. A true vector element indicates no match in left operand, false indicates a match.
-#' @param  x A vector (numeric, character, factor).
-#' @param  y A vector (numeric, character, factor), matching the mode of \code{x}.
-#' \code{\link{match}}, \code{\link{\%in\%}}.
-#' @name %nin%
-#' @rdname nin
-#' @keywords Manipulation
-#' @examples
-#' c('a','b','c') %nin% c('a','b')
-#' @export
-`%nin%` <-
-  function(x, y) match(x, y, nomatch = 0) == 0
 
 
 `%overlaps%` <-
@@ -94,202 +57,19 @@ NULL
 
 
 
-
-#' @title Detach all data frame from the search path
-#'
-#' @description Detach all data frame from the search path, but keeping it on the memory.
-#'
+#' @title Find Matching (or Non-Matching) Elements
+#' @description \code{\%nin\%} is a binary operator, which returns a logical vector indicating if there is a match or not for its left operand. A true vector element indicates no match in left operand, false indicates a match.
+#' @param  x A vector (numeric, character, factor).
+#' @param  y A vector (numeric, character, factor), matching the mode of \code{x}.
+#' \code{\link{match}}, \code{\link{\%in\%}}.
+#' @name %nin%
+#' @rdname nin
+#' @keywords Manipulation
 #' @examples
-#' detach.all()
-#'
+#' c('a','b','c') %nin% c('a','b')
 #' @export
-detach.all <- function ()
-  {
-    pos.to.detach <- (1:length(search()))[substring(search(),
-                                                    first = 1, last = 8) != "package:" & search() != ".GlobalEnv" &
-                                            search() != "Autoloads" & search() != "CheckExEnv" & search() != "tools:rstudio" & search() != "TempEnv"]
-    for (i in 1:length(pos.to.detach)) {
-      if (length(pos.to.detach) > 0) {
-        detach(pos = pos.to.detach[1])
-        pos.to.detach <- (1:length(search()))[substring(search(),
-                                                        first = 1, last = 8) != "package:" & search() !=
-                                                ".GlobalEnv" & search() != "Autoloads" & search() !=
-                                                "CheckExEnv" & search() != "tools:rstudio" &
-                                                search() != "TempEnv"]
-      }
-    }
-  }
-
-
-
-
-#' @title Prompt for User Action
-#'
-#' @description Prompt user to hit enter
-#' @param msg a character-string, specifying a message to be displayed
-#' @return This function is used for its side effects
-#' @export
-#' @note This function is primarily used by SciencesPo scripts
-user.prompt <- function (msg = NULL) {
-  if (is.null(msg))
-    msg <- "Press <return> to continue: "
-
-  msg <- paste("\n", msg, sep="")
-
-  invisible(readline(msg))
-}
-NULL
-
-
-
-zap <-
-  function ()
-  {
-    detach.all()
-    vector1 <- setdiff(ls(envir = .GlobalEnv), lsf.str(envir = .GlobalEnv)[])
-    rm(list = vector1, pos = 1)}
-
-### List objects excluding function
-lsNoFunction <- function() {
- setdiff(ls(envir= .GlobalEnv), as.character(lsf.str()[])
- )
-}
-
-### Limit maximum observations be print
-print.data.frame <- function(x, ...) {
-    oWidth <- getOption("width")
-    oMaxPrint <- getOption("max.print")
-    on.exit(options(width=oWidth, max.print=oMaxPrint))
-    options(width=10000, max.print=300)
-    base::print.data.frame(x, ...)
-}
-
-hour2min <- function(hhmm) {
-  hhmm <- as.numeric(hhmm)
-  trunc(hhmm/100)*60 + hhmm %% 100
-}
-
-min2hour <- function(min) {
-  min <- as.numeric(min)
-  trunc(min/60)*100 + min %% 60
-}
-
-
-#' @title Column names as (always) a character vector
-#'
-#' @description A convenience function using either character vectors or numeric vectors to specify a subset of a \code{data.frame}.
-#'
-#' @param data the input \code{data.frame}.
-#' @param cols the \code{names} or numeric position you want.
-#' @return A character vector of the desired names.
-#' @examples
-#' \dontrun{col.names(iris, 1:3)}
-#' @export
-col.names <- function(data, cols) {
-  if (!is.numeric(cols)) cols <- match(cols, names(data))
-  names(data)[cols]
-}
-NULL
-
-
-
-#' @encoding UTF-8
-#' @title Extracts names from a dataset other than the ones indicates
-#'
-#' @param data the input \code{data.frame}.
-#' @param check The \code{names} you want to check.
-#'
-#'  @return A character vector of the remaining names.
-#'  @examples
-#' \dontrun{ other.names(iris, "Species")}
-#' @export
-other.names <- function(data, check) {
-  setdiff(names(data), col.names(data, check))
-}
-NULL
-
-
-
-
-#' @title Method for building things
-#' @param \dots some extra parameters.
-#' @export
-#' @docType methods
-#' @rdname build-methods
-#'
-setGeneric("build", function(...){
-  standardGeneric("build")
-})
-
-#' @title Method for latex
-#' @param \dots some extra parameters.
-#' @export
-#' @docType methods
-#' @rdname latex-methods
-#'
-setGeneric("latex", function(...){
-  standardGeneric("latex")
-})
-
-#' @title Method for adding things.
-#' @param \dots some extra parameters.
-#' @export
-#' @docType methods
-#' @rdname add-methods
-#'
-setGeneric("add", function(...){
-  standardGeneric("add")
-})
-
-
-#' @title Method for the number of observations
-#'
-#' @param object the data object
-#' @param \dots some extra parameters.
-#' @return The number of observations.
-#'
-#' @export
-#' @docType methods
-#' @rdname nobs-methods
-#'
-#' @examples
-#' nobs(1:50)
-#' nobs(10)
-#'
-setGeneric("nobs", function(object, ...){
-  standardGeneric("nobs")
-})
-
-#' @rdname nobs-methods
-#' @aliases nobs,numeric,ANY-method
-setMethod("nobs", "numeric", function(object, ...){
-  length(object)
-})
-
-#' @rdname nobs-methods
-#' @aliases nobs,integer,ANY-method
-setMethod("nobs", "integer", function(object, ...){
-  length(object, ...)
-})
-
-
-#' @rdname nobs-methods
-#' @aliases nobs,matrix,ANY-method
-setMethod("nobs", "matrix", function(object, ...){
-  NROW(object, ...)
-})
-
-#' @rdname nobs-methods
-#' @aliases nobs,data.frame,ANY-method
-setMethod("nobs", "data.frame", function(object, ...){
-  NROW(object)
-})
-
-# compatibility for data.table functions
-.datatable.aware <- TRUE
-
-setnames <- `names<-`
-setclass <- `class<-`
+`%nin%` <-
+  function(x, y) match(x, y, nomatch = 0) == 0
 
 
 
@@ -326,33 +106,100 @@ NULL
   }
 NULL
 
-#' Check for differences in data.frames
+
+
+
+#' @title Column names as (always) a character vector
 #'
-#' @param A The original data object.
-#' @param B The other data.frame
+#' @description A convenience function using either character vectors or numeric vectors to specify a subset of a \code{data.frame}.
+#'
+#' @param data the input \code{data.frame}.
+#' @param cols the \code{names} or numeric position you want.
+#' @return A character vector of the desired names.
+#' @examples
+#' \dontrun{colNames(iris, 1:3)}
 #' @export
-setdiff.data.frame = function(A, B){
-  g <-  function( y, B){
-    any( apply(B, 1, FUN = function(x)
-      identical(all.equal(x, y), TRUE) ) ) }
-  unique( A[ !apply(A, 1, FUN = function(t) g(t, B) ), ] )
+colNames <- function(data, cols) {
+  if (!is.numeric(cols)) cols <- match(cols, names(data))
+  names(data)[cols]
+}
+NULL
+
+#' @encoding UTF-8
+#' @title Extracts names from a dataset other than the ones indicates
+#'
+#' @param data the input \code{data.frame}.
+#' @param check The \code{names} you want to check.
+#'
+#'  @return A character vector of the remaining names.
+#'  @examples
+#' \dontrun{ other.names(iris, "Species")}
+#' @export
+otherNames <- function(data, check) {
+  setdiff(names(data), colNames(data, check))
+}
+NULL
+
+#' @title Prompt for User Action
+#'
+#' @description Prompt user to hit enter
+#' @param msg a character-string, specifying a message to be displayed
+#' @return This function is used for its side effects
+#' @export
+#' @note This function is primarily used by SciencesPo scripts
+user.prompt <- function (msg = NULL) {
+  if (is.null(msg))
+    msg <- "Press <return> to continue: "
+
+  msg <- paste("\n", msg, sep="")
+
+  invisible(readline(msg))
 }
 NULL
 
 
-packages<-function(x, repos="http://cran.r-project.org", ...){
-  x <- deparse(substitute(x))
-  if (!require(x,character.only=TRUE)){
-    install.packages(pkgs=x, repos=repos, ...)
-    require(x,character.only=TRUE)
+
+hour2min <- function(hhmm) {
+  hhmm <- as.numeric(hhmm)
+  trunc(hhmm/100)*60 + hhmm %% 100
+}
+
+min2hour <- function(min) {
+  min <- as.numeric(min)
+  trunc(min/60)*100 + min %% 60
+}
+
+
+
+
+## derived from plyr::progress_text()
+.progress <- function(style = 3, active = TRUE, ...) {
+  ntasks <- 0
+  txt <- NULL
+  max <- 0
+
+  if (active) {
+    list(
+      init = function(x) {
+        txt <<- txtProgressBar(max = x, style = style, ...)
+        setTxtProgressBar(txt, 0)
+        max <<- x
+      },
+      step = function() {
+        ntasks <<- ntasks + 1
+        setTxtProgressBar(txt, ntasks)
+        if (ntasks == max) cat("\n")
+      },
+      term = function() close(txt)
+    )
+  } else {
+    list(
+      init = function(x) NULL,
+      step = function() NULL,
+      term = function() NULL
+    )
   }
 }
 
-rep.row<-function(x,n){
-  matrix(rep(x,each=n),nrow=n)
-}
-rep.col<-function(x,n){
-  matrix(rep(x,each=n), ncol=n, byrow=TRUE)
-}
-NULL
+
 

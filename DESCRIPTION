@@ -2,7 +2,7 @@ Package: SciencesPo
 Type: Package
 Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
-Version: 1.03.05
+Version: 1.3.5
 Date: 2015-07-10
 Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
@@ -17,15 +17,19 @@ Depends:
     graphics,
     grDevices,
     ggplot2,
-    foreign
+    methods
 Imports:
-    MASS,
-    data.table,
-    grid,
-    lubridate,
-    magrittr,
-    plyr,
-    vcd
+   RSQLite,
+   stringr,
+  foreign,
+  data.table,
+  grid,
+  plyr,
+  magrittr,
+  vcd,
+  R.cache,
+  httr,
+  digest
 Suggests:
     Zelig,
     MCMCpack,

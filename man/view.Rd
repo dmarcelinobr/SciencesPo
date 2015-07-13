@@ -25,7 +25,6 @@ view(data = .data, n = 10, random = TRUE, tail = FALSE,
 Provide a sly view of the data by randomly drawn observations, instead of showing only the first \code{head()} or the last \code{tail()} rows of an object, though it is also possible to constrain for the first/last elements.
 }
 \examples{
-use(titanic)
 view(titanic)
 }
 \author{

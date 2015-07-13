@@ -16,7 +16,7 @@ mode(x, na.rm = FALSE)
 Estimates the mode for a vector
 }
 \note{
-this function replaces the \code{base} function with the same name, but is does different thing. While \code{SciencesPo::mode} intuitively calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
+This function replaces the \code{base} function of the same name, while \code{SciencesPo::mode} calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
 }
 \examples{
 myvar <-c(1,1,2,2,3,3,4,4,5, NA)

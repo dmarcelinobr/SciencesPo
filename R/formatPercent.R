@@ -5,9 +5,9 @@
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
 #' vec <- seq(1:5)
-#' percentify(vec)
+#' formatPercent(vec)
 #' @export
-`percentify` <- function(x){
+`formatPercent` <- function(x){
   pt1 <- quantile(x, probs = seq(0, 1, by = 0.01), type = 7)
   pt2 <- unique(as.data.frame(pt1), fromLast = TRUE)
   pt3 <- rownames(pt2)

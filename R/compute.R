@@ -9,7 +9,7 @@
 #' df=data.frame(group=sample(letters,100, TRUE),y=sample(100) )
 #'
 #' #functions:
-#' FUNS <- function(x) c(N=nobs(x), mean=round(mean(x),0),
+#' FUNS <- function(x) c(N=nrow(x), mean=round(mean(x),0),
 #' sd=round(sd(x), 0), min=round(min(x),0),
 #' max=round(max(x),0))
 #'

@@ -295,10 +295,10 @@ NULL
 #'
 #' @examples
 #' x = rnorm(100, 3, 7)
-#' logikDistribution(x,3,7)
+#' logLikDistr(x,3,7)
 #'
 #' @export
-`logikDistribution` <-function(x=data, mu, var)
+`logLikDistr` <-function(x=data, mu, var)
 {
   n=length(x)
   ll = -n/2* log(2*pi*var) - .5/var*sum((mu-x)^2)

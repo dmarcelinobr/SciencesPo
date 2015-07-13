@@ -1,10 +1,14 @@
 ##################################################################
 ## This will be sent to the console when the package is loaded.
 ##################################################################
-.onLoad <- function(libname, pkgname)
-{
- # library.dynam("SciencesPo", pkgname, libname)
+.onLoad <- function(libname, pkgname) {
+.scpo <<- new.env()
 }
+
+.onUnload <- function(libpath) {
+  # Force finalize() on objects
+  gc();
+} # .onUnload()
 
 
  # No Visible Bindings

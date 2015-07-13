@@ -1,35 +1,4 @@
-#' @encoding UTF-8
-#' @title Pearson's Coefficient of Variation
-#'
-#' @description Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Karl Pearson, which is given by the division of standard deviation by the mean. The CV reflects a normalized measure of the dispersion of a given probability distribution. Conversely, distributions with \eqn{cv < 1} are considered \dQuote{low-variance}, while those with \eqn{cv > 1} \dQuote{high-variance}.
-#'
-#' @param x A numeric vector.
-#' @param na.rm A logical value, default is \code{FALSE}
-#' @details \eqn{\frac{sd(x)}{mean(x)} = cv}, which is the inverse of signal-to-noise ratio.
-#'
-#' @return The coefficient of variation.
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#'
-#' @keywords Descriptive
-#' @examples
-#' x <- sample(100)
-#' cv(x)
-#' @export cv
-#' @docType methods
-#' @rdname cv-methods
-#' @aliases cv,numeric,logical,ANY-method
-cv<-setClass("cv", representation(x = "numeric", na.rm="logical"))
-setGeneric("cv", def=function(x, na.rm = TRUE){
-  standardGeneric("cv")
-})
-#' @rdname cv-methods
-setMethod(f="cv", definition=function(x, na.rm = TRUE){
-	sd <- sd(x, na.rm = na.rm)
-	 mean <- mean(x, na.rm = na.rm)
-    return(sd/mean)
-  })
-NULL
+
 
 
 #' @encoding UTF-8
@@ -39,7 +8,7 @@ NULL
 #'
 #' @param x A data vector
 #' @param na.rm A logical value, default is \code{FALSE}
-#' @note this function replaces the \code{base} function with the same name, but is does different thing. While \code{SciencesPo::mode} intuitively calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
+#' @note This function replaces the \code{base} function of the same name, while \code{SciencesPo::mode} calculates the \dQuote{mode}, \code{base::mode} prints the \dQuote{class} of an object.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
@@ -55,8 +24,8 @@ NULL
     x = subset(x, !is.na(x))
   }
   y <- as.factor(x)
-  freq <- summary(y)
-  mode <- names(freq)[freq[names(freq)] == max(freq)]
+  freqs <- summary(y)
+  mode <- names(freqs)[freqs[names(freqs)] == max(freqs)]
   return(as.numeric(mode) )
 }
 NULL
@@ -257,7 +226,7 @@ NULL
 #'@param x the varaible
 #'@param w the variance
 #'
-`weighted.var` <- function(x, w){
+`weightedVariance` <- function(x, w){
   return(sum(w * (x - weighted.mean(x,w))^2)/((length(x)-1)*mean(w)))
 }
 NULL
@@ -322,52 +291,6 @@ NULL
 
 
 
-#' @encoding UTF-8
-#' @title Calculates the Standard Error
-#'
-#' @description Compute the standard errors of a numeric vector
-#'
-#' @param x  A vector of class numeric or integer
-#' @param na.rm A logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
-#' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @examples
-#' x <- c(1,2.3,2,3,4,8,12,43,-1,-4)
-#' myse <- sd(x)/sqrt(length(x))
-#' myse
-#' # With 'se' function:
-#' se(x)
-#' @export se
-#' @docType methods
-#' @rdname se-methods
-#' @aliases se,numeric,logical,ANY-method
-se<- setClass("se", representation(x = "numeric",na.rm="logical"))
-setGeneric("se", def=function(x, na.rm = TRUE){
-  standardGeneric("se")
-})
-
-#' @rdname se-methods
-setMethod(f="se", definition=function(x, na.rm = TRUE){
-    valid <- function(x) return(sum(!is.na(x)))
-    dim <- dim(x)
-    if (is.null(dim)) {
-      sd <- sd(x, na.rm = na.rm)
-      n.valid <- valid(x)
-    }
-    else {
-      if (is.data.frame(x)) {
-        n.valid <- unlist(sapply(x, valid))
-        sd <- unlist(sapply(x, sd, na.rm = na.rm))
-      }
-      else {
-        n.valid <- unlist(apply(x, 2, valid))
-        sd <- unlist(apply(x, 2, sd, na.rm = na.rm))
-      }
-    }
-    return(sd/sqrt(n.valid))
-  })
-NULL
 
 
 
@@ -438,7 +361,7 @@ NULL
 #' @param adj adjustment constant
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-`cumulative.logit` <- function(y, adj = 0.5) {
+`cumulLogit` <- function(y, adj = 0.5) {
   ncol <- dim(y)[2]
   y <- t(apply(y, 1, cumsum))
   log((y[,-ncol] + adj)/(y[,ncol] - y[,-ncol] + adj))
@@ -454,7 +377,7 @@ NULL
 #' @param \dots further arguments passed to or used by other methods.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@export
-`adj.residuals` <- function(object, ...) {
+`adjResiduals` <- function(object, ...) {
   residuals(object, ...) / sqrt(1 - lm.influence(object)$hat)
 }
 NULL
@@ -469,13 +392,13 @@ NULL
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'@examples
 #' s <-c(3, 3, 4, 4, 4)
-#' true.median(s)
+#' trueMedian(s)
 #' median(s)
 #' z <- c(2.75, 3.25, 11/3, 4, 13/3)
-#' true.median(z)
+#' trueMedian(z)
 #' median(z)
 #' @export
-`true.median` <- function(x,h=1) {
+`trueMedian` <- function(x,h=1) {
   YY <- rep(0,length(x))
   XX <- table(x)
   q <- length(XX)
@@ -567,7 +490,7 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
 #'@export
-`region.significance` = function(y, x, z , zval){
+`regionSignificance` = function(y, x, z , zval){
   mod = lm(y~x + z + predictor:z)
   gam1.v = vcov(mod)["x","x"]
   gam3.v = vcov(mod)["x:z","x:z"]
@@ -615,76 +538,9 @@ NULL
 NULL
 
 
-#' @encoding UTF-8
-#' @title Confidence Intervals
-#' @description Calculates the confidence intervals of a vector.
-#' @keywords univariate
-#' @param x a vector of data.
-#' @param conf.level confidence level. Default is 0.95.
-#' @param alpha confidence level. Default is 1-conf.level.
-#' @param \dots Extra parameters.
-#' @return
-#' \item{CI lower}{Lower bound of interval.}
-#' \item{Est. Mean}{Mean of data.}
-#' \item{CI upper}{Upper bound of interval.}
-#' \item{Std. Error}{Standard Error of the mean.}
-#' @examples
-#' x = rnorm(1000)
-#' ci(x, conf.level=.95)
-#'
-#' @rdname confidenceInterval
-#' @export
-`ci` <- function(x,conf.level=0.95,alpha=1-conf.level,...)
-UseMethod("ci")
 
-#' @export
-`ci.default` <- function(x, conf.level=0.95,alpha=1-conf.level,na.rm=FALSE,...)
-{
-  est <- mean(x, na.rm=na.rm);
-  stderr <- sd(x, na.rm=na.rm)/sqrt(nobs(x));
-  ci.low <- est + qt(alpha/2, nobs(x)-1) * stderr;
-  ci.high <- est - qt(alpha/2, nobs(x)-1) * stderr;
-  retval <- c(
-    "CI lower"=ci.low,
-    "Est. Mean"=est,
-    "CI upper"=ci.high,
-    "Std. Error"=stderr
-  );
-  retval;
-}
 
-#' @export
-`ci.binom` <- function(x, conf.level=0.95,alpha=1-conf.level,...)
-{
-  if( !(all(x) %in% c(0,1)) ) stop("Binomial values must be either 0 or 1.")
-  est <- mean(x, na.rm=TRUE)
-  n <- nobs(x)
-  stderr <- sqrt(est*(1-est)/n);
-  ci.low <- qbinom(p=alpha/2, prob=est, size=n)/n;
-  ci.high <- qbinom(p=1-alpha/2, prob=est, size=n)/n;
-  retval <- cbind("CI lower"=ci.low,
-                  "Est. Mean"=est,
-                  "CI upper"=ci.high,
-                  "Std. Error"= stderr
-  );
-  retval;
-}
 
-#' @export
-`ci.lm` <- function(x,conf.level=0.95,alpha=1-conf.level,...)
-{
-  x <- summary(x)
-  est <- coef(x)[,1] ;
-  ci.low <- est + qt(alpha/2, x$df[2]) * coef(x)[,2] ;
-  ci.high <- est - qt(alpha/2, x$df[2]) * coef(x)[,2] ;
-  retval <- cbind("CI lower"=ci.low,
-                  "Est. Mean"=est,
-                  "CI upper"=ci.high,
-                  "Std. Error"= coef(x)[,2],
-                  "p-value" = coef(x)[,4]);
-  retval;
-}
-NULL
 
 
 #' @encoding UTF-8
@@ -697,9 +553,9 @@ NULL
 #' n  = 10
 #' m = matrix(runif(n*10), ncol = 10)
 #' m = m/rowSums(m)
-#' jsdistance(m)
+#' jensen.shannon(m)
 #' @export
-jsdistance <- function(mat) {
+jensen.shannon <- function(mat) {
   kld = function(p,q) sum(ifelse(p == 0 | q == 0, 0, log(p/q)*p))
   res = matrix(0, nrow(mat), nrow(mat))
   for (i in 1:(nrow(mat) - 1)) {

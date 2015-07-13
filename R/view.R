@@ -14,7 +14,6 @@
 #'
 #' @keywords Tables
 #' @examples
-#' use(titanic)
 #' view(titanic)
 #'
 #' @export
