@@ -19,7 +19,6 @@ Depends:
     ggplot2,
     methods
 Imports:
-   stringr,
   foreign,
   data.table,
   grid,
