@@ -50,7 +50,7 @@
       size = .65
     }
     if(is.null(color)){
-      color = grey(.75)
+      color =grDevices::grey(.75)
     }
     pushViewport(viewport())
     grid.text(label = text ,

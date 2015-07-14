@@ -18,7 +18,7 @@
 #' @export
 `invnormal` <-
   function(area,mu=0,sigma=1){
-    qnorm(p=area,mean=mu,sd=sigma)
+    stats::qnorm(p=area,mean=mu,sd=sigma)
   }
 NULL
 
@@ -46,7 +46,7 @@ NULL
 #' @export
 `normalpdf` <-
   function(x, mu=0,sigma=1){
-    dnorm(x, mean=mu,sd=sigma)
+    stats::dnorm(x, mean=mu,sd=sigma)
   }
 NULL
 
@@ -73,7 +73,7 @@ NULL
 #' @export
 `normalcdf` <-
   function(lower,upper,mu=0,sigma=1){
-    abs(pnorm(upper,mean=mu,sd=sigma)-pnorm(lower,mean=mu,sd=sigma))
+    abs(stats::pnorm(upper,mean=mu,sd=sigma)-stats::pnorm(lower,mean=mu,sd=sigma))
   }
 NULL
 
@@ -156,11 +156,15 @@ NULL
 NULL
 
 
+
+
+
+
 `rDirichlet` <- function( n, alpha ){
     l = length( alpha )
     theta = matrix( 0, n, l )
     for ( j in 1:l ) {
-      theta[ , j ] = rgamma( n, alpha[ j ], 1 )
+      theta[ , j ] = stats::rgamma( n, alpha[ j ], 1 )
     }
     theta = theta / apply( theta, 1, sum )
     return( theta )
@@ -248,7 +252,7 @@ NULL
 #' @export
 `binomcdf` <-
   function(n,p,x){
-    pbinom(x,size=n,prob=p)
+    stats::pbinom(x,size=n,prob=p)
   }
 NULL
 
@@ -274,7 +278,7 @@ NULL
 #' @export
 `binompdf` <-
   function(n,p,x){
-    dbinom(x,size=n,prob=p)
+    stats::dbinom(x,size=n,prob=p)
   }
 NULL
 
@@ -295,10 +299,10 @@ NULL
 #'
 #' @examples
 #' x = rnorm(100, 3, 7)
-#' logLikDistr(x,3,7)
+#' logLik(x,3,7)
 #'
 #' @export
-`logLikDistr` <-function(x=data, mu, var)
+`logLik` <-function(x, mu, var)
 {
   n=length(x)
   ll = -n/2* log(2*pi*var) - .5/var*sum((mu-x)^2)

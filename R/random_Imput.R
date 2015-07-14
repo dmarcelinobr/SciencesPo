@@ -9,9 +9,9 @@
 #'
 #' @examples
 #' x <- c(1,2,NA,4,5,NA)
-#' randonImput(x)
+#' rand.imput(x)
 #' @export
-`randonImput` <- function(x)  {
+`rand.imput` <- function(x)  {
   gone <- is.na(x)
   there <- x[!gone]
   x[gone] <- sample(x=there,size=sum(gone),replace=TRUE)

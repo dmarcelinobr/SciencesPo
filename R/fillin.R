@@ -49,7 +49,7 @@
   # Tell the user what the correlation coefficient is between the variables
   SubNoNA <- subset(ans, !is.na(x_x) & !is.na(x_y))
   HowMany <- nrow(SubNoNA)
-  corr <- cor(SubNoNA$x_x, SubNoNA$x_y, use = "complete.obs")
+  corr <- stats::cor(SubNoNA$x_x, SubNoNA$x_y, use = "complete.obs")
   print(paste("The correlation between", x.var, "and", y.var, "is", round(corr, digits = 3), "based on", HowMany, "shared observations." ))
   # Remove uncombined variable and return main variable's name
   names(ans)[match("x_x", names(ans))] <- x.var

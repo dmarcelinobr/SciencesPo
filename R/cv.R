@@ -11,8 +11,9 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' @keywords Descriptive
+#' @keywords Univariate Descriptive Stats
 #' @examples
+#' set.seed(51)
 #' x <- sample(100)
 #' cv(x)
 #' @export cv

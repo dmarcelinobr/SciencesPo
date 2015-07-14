@@ -19,6 +19,9 @@
 #' use(ssex)
 #'
 #' @export
+#'
+#' @importFrom utils read.csv
+#'
 `use` <-
   function (file, data = .data, clear = TRUE, spss.missing = TRUE, tolower = TRUE)
   {

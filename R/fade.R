@@ -20,6 +20,8 @@
 #'
 #'@export
 #'
+#' @importFrom grDevices col2rgb rgb
+#'
 `fade`<- function (color, alpha = .5)
 {
   if(missing(color))

@@ -3,7 +3,7 @@
 #'
 #' \code{politicalDiversity} is used to analyze political diversity in a unity or across them. It provides methods to estimate the Effective Number of Parties as well as other diversity measures.
 #'
-#' @param x A data.frame, a mtrix-like, or a vector containing values for the number of votes or seats each party received.
+#' @param x A data.frame, a matrix-like, or a vector containing values for the number of votes or seats each party received.
 #' @param index The type of index desired, one of "shannon", "simpson", "invsimpson", "golosov".
 #' @param margin The margin for which the index is computed.
 #' @param base The logarithm base used in the "shanron" method.
@@ -121,30 +121,37 @@ function (x, index = "herfindahl", margin = 1, base = exp(1))
     H <- 1 - H
   else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "ENC" || index == "ENP")
     H <- 1/H
-  return(round(H, 3))
+  return(round(H, 4))
 }
 NULL
 
 
-
-GiniSimpson <-
+#' @title Gini Simpson Index
+#'
+#' @param x A data.frame, a matrix-like, or a vector.
+#' @param na.rm A logical value to deal with NAs.
+#'
+#' @export
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#'
+#' @importFrom stats na.omit
+#' @seealso \code{\link{politicalDiversity}}.
+#' @examples
+#' x <- as.table(c(69,17,7,62))
+#' rownames(x) <- c("AB","C","D","0")
+#' gini.simpson(x)
+#'
+gini.simpson <-
   function(x, na.rm = FALSE) {
-
-
     # reference:   Sachs, Angewandte Statistik, S. 57
-
-    # example:
-    # x <- as.table(c(69,17,7,62))
-    # rownames(x) <- c("A","B","AB","0")
-    # GiniSimpson(x)
-
     if(na.rm) x <- na.omit(x)
-
     x <- as.table(x)
     ptab <- prop.table(x)
     return(sum(ptab*(1-ptab)))
   }
 NULL
+
 
 #' # hareQuota <- function(votes, seats, try.quota, droop.quota){}
 #'

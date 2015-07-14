@@ -16,6 +16,9 @@
 #' # Do the computation
 #' compute(y~group, data=df, FUN=FUNS)
 #' @export
+#'
+#' @importFrom stats aggregate
+#'
 compute <- function(formula, data=.data, FUN){
   if(class(FUN)=="list"){
     f <- function(x) sapply(FUN, function(fun) fun(x))

@@ -15,7 +15,7 @@
 #' sd <- (0.2,0.3,0.2,0.0,0.4)
 #' @export
 `errorbars` <- function(x, y, ebl, ebu = ebl, length = 0.08, ...){
-  arrows(x, y + ebu, x, y - ebl, angle = 90, code = 3, length= length, ...)
+  graphics::arrows(x, y + ebu, x, y - ebl, angle = 90, code = 3, length= length, ...)
 }
 NULL
 

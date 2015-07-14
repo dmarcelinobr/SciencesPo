@@ -10,6 +10,6 @@
 #'plotEllipses(-49,-25,7)
 plotEllipses <- function(x, y, r, ...) {
   angles <- seq(0,2*pi,length.out=360)
-  lines(r*cos(angles)+x,r*sin(angles)+y, ...)
+  graphics::lines(r*cos(angles)+x,r*sin(angles)+y, ...)
 }
 NULL

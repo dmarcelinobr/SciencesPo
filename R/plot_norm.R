@@ -54,12 +54,11 @@
 #' plotNorm(between = crits, mu = mu.true, sigma = std.err, lines=TRUE, color="green",dens=15)
 #'
 #'@export
-`plotNorm` <- function(below=NULL, above=NULL, pcts = c(0.025,0.975), mu=0,
-                        sigma=1, numpts = 500, color = "gray", dens = 40, justabove= FALSE, justbelow = FALSE, lines=FALSE, between=NULL, outside=NULL) {
+`plotNorm` <- function(below=NULL, above=NULL, pcts = c(0.025,0.975), mu=0, sigma=1, numpts = 500, color = "gray", dens = 40, justabove= FALSE, justbelow = FALSE, lines=FALSE, between=NULL, outside=NULL) {
 
   if(is.null(between)){
-    below = ifelse(is.null(below), qnorm(pcts[1],mu,sigma), below)
-    above = ifelse(is.null(above), qnorm(pcts[2],mu,sigma), above)
+    below = ifelse(is.null(below), stats::qnorm(pcts[1],mu,sigma), below)
+    above = ifelse(is.null(above), stats::qnorm(pcts[2],mu,sigma), above)
   }
 
   if(is.null(outside)==FALSE){
@@ -70,23 +69,23 @@
   uplim  = mu + 4*sigma
 
   x.grid = seq(lowlim,uplim, length= numpts)
-  dens.all = dnorm(x.grid,mean=mu, sd = sigma)
+  dens.all = stats::dnorm(x.grid,mean=mu, sd = sigma)
   if(lines==FALSE){
-    plot(x.grid, dens.all, type="l", xlab="X", ylab="Density")
+    graphics::plot(x.grid, dens.all, type="l", xlab="X", ylab="Density")
   }
   if(lines==TRUE){
-    lines(x.grid,dens.all)
+    graphics::lines(x.grid,dens.all)
   }
 
   if(justabove==FALSE){
     x.below    = x.grid[x.grid<below]
     dens.below = dens.all[x.grid<below]
-    polygon(c(x.below,rev(x.below)),c(rep(0,length(x.below)),rev(dens.below)),col=color,density=dens)
+    graphics::polygon(c(x.below,rev(x.below)),c(rep(0,length(x.below)),rev(dens.below)),col=color,density=dens)
   }
   if(justbelow==FALSE){
     x.above    = x.grid[x.grid>above]
     dens.above = dens.all[x.grid>above]
-    polygon(c(x.above,rev(x.above)),c(rep(0,length(x.above)),rev(dens.above)),col=color,density=dens)
+    graphics::polygon(c(x.above,rev(x.above)),c(rep(0,length(x.above)),rev(dens.above)),col=color,density=dens)
   }
 
   if(is.null(between)==FALSE){
@@ -95,7 +94,7 @@
 
     x.between    = x.grid[x.grid>from&x.grid<to]
     dens.between = dens.all[x.grid>from&x.grid<to]
-    polygon(c(x.between,rev(x.between)),c(rep(0,length(x.between)),rev(dens.between)),col=color,density=dens)
+    graphics::polygon(c(x.between,rev(x.between)),c(rep(0,length(x.between)),rev(dens.between)),col=color,density=dens)
   }
 }
 NULL

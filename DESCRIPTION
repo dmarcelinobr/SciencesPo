@@ -19,17 +19,16 @@ Depends:
     ggplot2,
     methods
 Imports:
-   RSQLite,
    stringr,
   foreign,
   data.table,
   grid,
   plyr,
-  magrittr,
-  vcd
+  magrittr
 Suggests:
+    testthat,
     Zelig,
-    MCMCpack,
+    MCMCpack
 LazyData: yes
 Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo

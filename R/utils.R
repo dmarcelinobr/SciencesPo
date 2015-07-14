@@ -108,6 +108,12 @@ NULL
 
 
 
+#' @param x A numeric vector.
+#' @rdname .valid
+#' @export
+.valid<-function(x,na.rm=TRUE){
+  return(ifelse(na.rm,sum(!is.na(x)),length(x)))}
+
 
 #' @title Column names as (always) a character vector
 #'
@@ -170,9 +176,12 @@ min2hour <- function(min) {
 }
 
 
-
-
-## derived from plyr::progress_text()
+#' @title Progress Bar
+#' @param style An integer for style.
+#' @param active A logical value.
+#' @export
+#' @importFrom utils txtProgressBar setTxtProgressBar
+#'
 .progress <- function(style = 3, active = TRUE, ...) {
   ntasks <- 0
   txt <- NULL
@@ -200,6 +209,3 @@ min2hour <- function(min) {
     )
   }
 }
-
-
-

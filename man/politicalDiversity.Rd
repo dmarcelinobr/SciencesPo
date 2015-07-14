@@ -10,7 +10,7 @@
 politicalDiversity(x, index = "herfindahl", margin = 1, base = exp(1))
 }
 \arguments{
-\item{x}{A data.frame, a mtrix-like, or a vector containing values for the number of votes or seats each party received.}
+\item{x}{A data.frame, a matrix-like, or a vector containing values for the number of votes or seats each party received.}
 
 \item{index}{The type of index desired, one of "shannon", "simpson", "invsimpson", "golosov".}
 

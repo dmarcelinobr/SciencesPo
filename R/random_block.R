@@ -14,7 +14,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' blk <- randomBlock(blocksize = 20, n = 80, seed = 51)
+#' blk <- rand.block(blocksize = 20, n = 80, seed = 51)
 #' blk;
 #' table(blk$block, blk$condition)
 #' # let's do some imaginary analysis
@@ -46,7 +46,10 @@
 #' anova(fit.aov)
 #'
 #'@export
-`randomBlock` = function(blocksize, n, seed=NULL){
+#'
+#' @importFrom stats runif
+#'
+`rand.block` = function(blocksize, n, seed=NULL){
   if(!is.null(seed)){
     set.seed(seed)
   }
