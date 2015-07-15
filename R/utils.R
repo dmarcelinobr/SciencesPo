@@ -92,14 +92,13 @@ NULL
 #' @title Pause
 #' @description A replication of MatLab pause function.
 #' @param x is optional. If x>0 a call is made to \code{\link{Sys.sleep}}. Else, execution pauses until a key is entered.
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
 `pause` <-
   function (x=0) {
     if(x > 0){
       Sys.sleep(x)
     }else{
-      cat("Hit <enter> to continue...")
+      cat(testthat::colourise("Hit <enter> to continue..."),"green")
       readline()
       invisible()
     }
@@ -115,44 +114,18 @@ NULL
   return(ifelse(na.rm,sum(!is.na(x)),length(x)))}
 
 
-#' @title Column names as (always) a character vector
-#'
-#' @description A convenience function using either character vectors or numeric vectors to specify a subset of a \code{data.frame}.
-#'
-#' @param data the input \code{data.frame}.
-#' @param cols the \code{names} or numeric position you want.
-#' @return A character vector of the desired names.
-#' @examples
-#' \dontrun{colNames(iris, 1:3)}
-#' @export
 colNames <- function(data, cols) {
   if (!is.numeric(cols)) cols <- match(cols, names(data))
   names(data)[cols]
 }
 NULL
 
-#' @encoding UTF-8
-#' @title Extracts names from a dataset other than the ones indicates
-#'
-#' @param data the input \code{data.frame}.
-#' @param check The \code{names} you want to check.
-#'
-#'  @return A character vector of the remaining names.
-#'  @examples
-#' \dontrun{ other.names(iris, "Species")}
-#' @export
 otherNames <- function(data, check) {
   setdiff(names(data), colNames(data, check))
 }
 NULL
 
-#' @title Prompt for User Action
-#'
-#' @description Prompt user to hit enter
-#' @param msg a character-string, specifying a message to be displayed
-#' @return This function is used for its side effects
-#' @export
-#' @note This function is primarily used by SciencesPo scripts
+
 user.prompt <- function (msg = NULL) {
   if (is.null(msg))
     msg <- "Press <return> to continue: "

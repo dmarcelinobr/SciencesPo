@@ -13,7 +13,4 @@ pause(x = 0)
 \description{
 A replication of MatLab pause function.
 }
-\author{
-Daniel Marcelino, \email{dmarcelino@live.com}
-}
 
