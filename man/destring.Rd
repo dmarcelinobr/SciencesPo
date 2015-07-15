@@ -3,20 +3,23 @@
 \encoding{UTF-8}
 \name{destring}
 \alias{destring}
-\title{Convert Factors into Numeric Vectors}
+\title{Factors to numeric}
 \usage{
 destring(x)
 }
 \arguments{
-\item{x}{a factor whose levels will be converted.}
+\item{x}{A factor whose levels will be converted.}
 }
 \description{
-Convert Factors into Numeric Vectors
+Converts factors to numeric like in Stata.
 }
 \examples{
 mylevels <- c('Strongly Disagree', 'Disagree', 'Neither', 'Agree', 'Strongly Agree')
+
 myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
+
 unclass(myvar) # testing order
+
 destring(myvar)
 }
 \keyword{Misc}

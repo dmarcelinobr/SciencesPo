@@ -1,19 +1,20 @@
 \name{NEWS}
 \title{News from Package 'SciencesPo'}
-\section{Changes in SciencesPo version 1.0 (2015-02-12) }{
+\section{Changes in SciencesPo version 1.2.5 (2015-02-12) }{
   \subsection{Introduction}{
     \itemize{
-      \item Version 1.02.12 is the development release of the SciencesPo package. Often there are more details at the repository at \url{http://github.com/danielmarcelino/SciencesPo}. % The first digit informs the year after publication. The second digit reflects the month (i.e., 08 or August), the additional two digits the day of the released modifications: Version 23 was released in 23th August.
+      \item Version 1.3.5 is the development release of the SciencesPo package. The repository \url{http://github.com/danielmarcelino/SciencesPo} often has a more developed version.
     }
   }
   \subsection{News}{
    \itemize{
-   	  \item Modified \code{\link{effectiveNumber}} This function was renamed and divided into two functions: \pkg{\link{ENPs}} to compute the effective number of parties based on seats inputs, and \pkg{\link{ENPv}} to compute the effective number of parties based on votes instead.			
-    } 
-  }	
+   	  \item Modified \code{\link{politicalDiversity}}. This function was renamed and new methods for computing political diversity were introduced.
+   	  \item Introduced \code{\link{dHondt}}. This function computes seats allocation in a legislative house accordingly to the dHondt method.
+    }
+  }
   \subsection{To do}{
     \itemize{
-      \item Suggestions are welcome, but the current priority list includes: 
+      \item Suggestions are welcome, but the current priority list includes:
       }
   }
-} 
+}

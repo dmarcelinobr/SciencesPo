@@ -19,6 +19,7 @@ Depends:
     ggplot2,
     methods
 Imports:
+  vcd,
   foreign,
   data.table,
   grid,

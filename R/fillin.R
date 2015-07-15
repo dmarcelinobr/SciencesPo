@@ -6,7 +6,7 @@
 #' @param x.var a character string of the name of the variable in \code{x} you want to fill in.
 #' @param y.var an optional character string of variable name in \code{y} that you would like to use to fill in.
 #' @param key a character vector of variable names that are shared by \code{x} and \code{y} that can be used to join the data frames.
-#'
+#' @keywords Missings
 #' @examples
 #' # Create data set with missing values
 #' data1 <- data.frame(a = sample(c(1,2), 100, rep=TRUE),

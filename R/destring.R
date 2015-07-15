@@ -1,14 +1,17 @@
 #' @encoding UTF-8
-#' @title Convert Factors into Numeric Vectors
+#' @title Factors to numeric
 #'
-#' @description Convert Factors into Numeric Vectors
+#' @description Converts factors to numeric like in Stata.
 #'
-#' @param x a factor whose levels will be converted.
+#' @param x A factor whose levels will be converted.
 #'
 #' @examples
 #' mylevels <- c('Strongly Disagree', 'Disagree', 'Neither', 'Agree', 'Strongly Agree')
+#'
 #' myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
+#'
 #' unclass(myvar) # testing order
+#'
 #' destring(myvar)
 #'
 #' @keywords Misc

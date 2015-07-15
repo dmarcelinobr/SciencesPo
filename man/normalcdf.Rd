@@ -26,7 +26,7 @@ normalcdf(lower=-1.96,upper=1.96,mu=0,sigma=1)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{plotNorm}}, \code{\link{normalpdf}}, \code{\link{invnormal}}.
+\code{\link{draw.norm}}, \code{\link{normalpdf}}, \code{\link{invnormal}}.
 }
 \keyword{Distribution}
 

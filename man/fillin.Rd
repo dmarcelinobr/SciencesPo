@@ -36,4 +36,5 @@ data2 <- data.frame(a = c(1,2,1,2),
 # Fill in missings from data1 with values from data2
 Filled <- fillin(data1, data2, x.var = "fNA", y.var = "full", key = c("a", "b"))
 }
+\keyword{Missings}
 

@@ -20,6 +20,7 @@
 `shift` <- function(x,...) {
   UseMethod("shift",x)
 }
+NULL
 #' @method shift default
 #' @export
 #' @rdname shift
@@ -51,6 +52,9 @@ shift.default <- function(x,n=1,pad=TRUE, wrap=TRUE,...) {
   }
   return(returnvec)
 }
+NULL
+
+
 #' @method shift data.frame
 #' @export
 #' @rdname shift
