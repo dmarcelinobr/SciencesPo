@@ -98,7 +98,7 @@ NULL
     if(x > 0){
       Sys.sleep(x)
     }else{
-      cat(testthat::colourise("Hit <enter> to continue..."),"green")
+      cat("Hit <enter> to continue...","green")
       readline()
       invisible()
     }
@@ -113,6 +113,15 @@ NULL
 .valid<-function(x,na.rm=TRUE){
   return(ifelse(na.rm,sum(!is.na(x)),length(x)))}
 
+
+
+is.formula <- function(expr) {
+  inherits(expr, "formula") || (is.call(expr) && expr[[1L]] == "~")
+}
+
+dots <- function(...) {
+  eval(substitute(alist(...)))
+}
 
 colNames <- function(data, cols) {
   if (!is.numeric(cols)) cols <- match(cols, names(data))
