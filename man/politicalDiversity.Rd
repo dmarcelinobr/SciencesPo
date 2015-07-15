@@ -64,6 +64,10 @@ party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian",
 US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
 
 politicalDiversity(US2004, index= "herfindahl")
+
+# Using Grigorii Golosov approach:
+politicalDiversity(US2004, index= "golosov")
+
 # The 1999 Finland election
 votes_1999 <- c(612963, 600592, 563835,
 291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442, 10378,
@@ -102,6 +106,8 @@ seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12,
 politicalDiversity(seats_2014, index= "laakso/taagepera")
 # or:
 politicalDiversity(seats_2014, index= "invsimpson")
+
+politicalDiversity(seats_2014, index= "golosov")
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.

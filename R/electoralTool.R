@@ -56,6 +56,10 @@
 #' US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
 #'
 #' politicalDiversity(US2004, index= "herfindahl")
+#'
+#' # Using Grigorii Golosov approach:
+#' politicalDiversity(US2004, index= "golosov")
+#'
 #' # The 1999 Finland election
 #' votes_1999 <- c(612963, 600592, 563835,
 #' 291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442, 10378,
@@ -95,6 +99,8 @@
 #' # or:
 #' politicalDiversity(seats_2014, index= "invsimpson")
 #'
+#' politicalDiversity(seats_2014, index= "golosov")
+#'
 #' @keywords Basics
 #' @keywords Electoral
 #' @export
@@ -102,7 +108,7 @@ politicalDiversity <-
 function (x, index = "herfindahl", margin = 1, base = exp(1))
 {
   x <- drop(as.matrix(x))
-  methods <- c("gini", "shannon", "simpson", "invsimpson", "golosov", "laakso/taagepera", "herfindahl", "lsq", "ENC", "ENP")
+  methods <- c("enc", "enp", "herfindahl", "laakso/taagepera", "gini", "golosov", "shannon", "simpson", "invsimpson", "lsq")
   index <- match.arg(index, methods)
   if (length(dim(x)) > 1) {
     total <- apply(x, margin, sum)
@@ -113,15 +119,17 @@ function (x, index = "herfindahl", margin = 1, base = exp(1))
   }
   if (index == "shannon")
     x <- -x * log(x, base)
+  else if (index=="golosov")
+    x <- sum((x)/((x)+((x[1])^2)-((x)^2)))
   else x <- x * x
   if (length(dim(x)) > 1)
-    H <- apply(x, margin, sum, na.rm = TRUE)
-  else H <- sum(x, na.rm = TRUE)
+    idx <- apply(x, margin, sum, na.rm = TRUE)
+  else idx <- sum(x, na.rm = TRUE)
   if (index == "simpson"||index == "herfindahl" || index ==  "gini" )
-    H <- 1 - H
+    idx <- 1 - idx
   else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "ENC" || index == "ENP")
-    H <- 1/H
-  return(round(H, 4))
+    idx <- 1/idx
+  return(round(idx, 3))
 }
 NULL
 
