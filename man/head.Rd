@@ -5,7 +5,7 @@
 \alias{head.SQLiteConnection}
 \title{Return the First Part of an Object}
 \usage{
-\method{head}{}(x, ...)
+head(x, ...)
 
 \method{head}{SQLiteConnection}(x, table = NULL, n = 10L, temp = FALSE,
   ...)
@@ -20,10 +20,6 @@
 \item{n}{integer: Number of rows to output}
 
 \item{temp}{logical should the function list the temp tables}
-
-\item{x}{A \code{SQLiteConnection} object}
-
-\item{...}{Additional arguments}
 }
 \description{
 If just a database connection is selected, returns a dataframe of table names

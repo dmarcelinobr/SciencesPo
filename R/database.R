@@ -22,9 +22,8 @@ database <- function(dbname){
 NULL
 
 ##' @param x A \code{SQLiteConnection} object
-##' @param ... Additional arguments
+##' @param \dots Additional arguments
 ##' @export
-##' @method head
 `head` <- function(x,...){
   UseMethod("head")
 }
@@ -37,11 +36,9 @@ NULL
 ##'
 ##' @method head SQLiteConnection
 ##'
-##' @param x A \code{SQLiteConnection} object
 ##' @param table character specifying a table
 ##' @param n integer: Number of rows to output
 ##' @param temp logical should the function list the temp tables
-##' @param ... Additional arguments
 ##' @importFrom RSQLite dbGetQuery
 ##' @importFrom utils head
 ##' @rdname head
@@ -73,7 +70,7 @@ NULL
 #' db <- database("Eleicoes")
 #' dbTempTable(db, tab_name = "gerais_2006",
 #'            query = select_events(db, tab = "Candidatos",
-#'            columns = c("nome", "resultado", "party"),
+#'            columns = c("nome", "resultado", "partido"),
 #'            where = "data > '1997-01-01'",
 #'            sql_only = TRUE))
 #' }
