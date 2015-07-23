@@ -3,12 +3,25 @@
 \docType{data}
 \name{paired}
 \alias{paired}
-\title{Paired Data}
-\format{A data frame with 9 observations on the following 3 variables.}
+\title{US General Social Survey 1993}
+\format{A data frame containing 1500 observations on 96 variables.}
 \usage{
+data(gss93)
+
 data(paired)
 }
 \description{
+A data frame containing 1500 observations on 96 variables.
+
+\itemize{
+\item ID The respondentid.
+\item WRKSTAT Working status.
+ \item MARITAL Marital Status.
+ \item PARTYID Respondent's party id.
+ \item VOTE92 Whether the respondent have voted in the preceeding year.
+ \item SEX The sex of the respondent.
+ }
+
 Artificial experimental paired data
 
 \itemize{

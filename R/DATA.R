@@ -1,6 +1,6 @@
 
 #' @title Galton's Family Data on Human Stature.
-#' 
+#'
 #' @description It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas.
 #'
 #' \itemize{
@@ -10,7 +10,7 @@
 #'
 #' @details Regression analysis is the statistical method most often used in political science research. The reason is that most scholars are interested in identifying \dQuote{causal} effects from non-experimental data and that regression is the method for doing this. The term \dQuote{regresssion} (1889) was first crafted by Sir Francis Galton upon investigating the relationship between body size of fathers and sons. Thereby he \dQuote{invented} regression analysis by estimating: \eqn{S_s = 85.7 + 0.56S_F} meaning that the size of the son regresses towards the mean.
 #'
-#' @references  Francis Galton (1886) Regression Towards Mediocrity in Hereditary Stature. \emph{The Journal of the Anthropological Institute of Great Britain and Ireland,} Vol. \bold{15}, pp. 246--263. 
+#' @references  Francis Galton (1886) Regression Towards Mediocrity in Hereditary Stature. \emph{The Journal of the Anthropological Institute of Great Britain and Ireland,} Vol. \bold{15}, pp. 246--263.
 #'
 #' @docType data
 #' @keywords datasets
@@ -43,10 +43,10 @@ NULL
 
 #' @title The Penn World Table
 #'
-#' @description The Penn World Table used in Summers and Heston (1991). 
-#' 
+#' @description The Penn World Table used in Summers and Heston (1991).
+#'
 #' \itemize{
-#' \item year Year 
+#' \item year Year
 #' \item pop Population (thousands)
 #' \item rgdppc Real per capita GDP
 #' \item savrat a numeric vector
@@ -57,9 +57,9 @@ NULL
 #' }
 #'
 #' @references Summers, R. and Heston, A. (1991) The Penn World Table (Mark 5): an expanded set of international comparisons, 1950--1988. \emph{The Quarterly Journal of Economics,} \bold{106(2),} 327--368.
-#' 
+#'
 #' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
-#' 
+#'
 #'
 #' @docType data
 #' @keywords datasets
@@ -99,7 +99,7 @@ NULL
 #'
 #' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #'
-#' @references Griliches, Z. (1976) Wages of very young men. \emph{The Journal of Political Economy,} \bold{84(4),} 69--85. 
+#' @references Griliches, Z. (1976) Wages of very young men. \emph{The Journal of Political Economy,} \bold{84(4),} 69--85.
 #'
 #' @docType data
 #' @keywords datasets
@@ -111,7 +111,7 @@ NULL
 
 
 #' @title Marc Nerlove's (1963) data
-#' 
+#'
 #' @description Data used by Marc Nerlove (1963) on returns of electricity supply.
 #' \itemize{
 #' \item totcost costs in 1970, MM USD.
@@ -124,7 +124,7 @@ NULL
 #'
 #'#' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 #'
-#' @references Nerlove, M. (1963) Returns to Scale in Electricity Supply. In \emph{Measurement in Economics-Studies in Mathematical Economics and Econometrics in Memory of Yehuda Grunfeld,} edited by Carl F. Christ. Stanford: Stanford. 
+#' @references Nerlove, M. (1963) Returns to Scale in Electricity Supply. In \emph{Measurement in Economics-Studies in Mathematical Economics and Econometrics in Memory of Yehuda Grunfeld,} edited by Carl F. Christ. Stanford: Stanford.
 #'
 #' @docType data
 #' @keywords datasets
@@ -146,7 +146,7 @@ NULL
 #'  }
 #'
 #' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
-#' 
+#'
 #' @references Stock, J. H., and Watson, M. W. (1993) A simple estimator of cointegrating vectors in higher order integrated systems. \emph{Econometrica: Journal of the Econometric Society,} 783--820.
 #'
 #' @docType data
@@ -162,7 +162,7 @@ NULL
 #' @title Lothian's and Taylor's (1996) Data Set
 
 #' @description Data used by Lothian and Taylor (1996) on the real exchange rate behaviour.
-#' 
+#'
 #' \itemize{
 #' \item year Year
 #' \item spot dollar/sterling exchange rate.
@@ -171,8 +171,8 @@ NULL
 #' }
 #'
 #' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
-#' 
-#' 
+#'
+#'
 #' @references Lothian, J. R., and Taylor, M. P. (1996) Real exchange rate behavior: the recent float from the perspective of the past two centuries. \emph{Journal of Political Economy,} 488--509.
 #'
 #' @docType data
@@ -187,7 +187,7 @@ NULL
 #' @title Christensen's and Greene's (1976) Data
 
 #' @description Data set used by Christensen and Greene (1976) on economies of scale in US electric power generation.
-#' 
+#'
 #' \itemize{
 #' \item firmid Observation id.
 #' \item costs Costs in 1970, MM USD.
@@ -215,7 +215,7 @@ NULL
 #' @title Mishkin's (1992) Data
 #'
 #' @description Data from the Frederic S. Mishkin (1992) paper \dQuote{Is the Fisher Effect for real?}.
-#' 
+#'
 #' \itemize{
 #'  \item year Year
 #' \item mon a numeric vector
@@ -228,7 +228,7 @@ NULL
 #' }
 #'
 #' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
-#' 
+#'
 #' @references Mishkin, F. S. (1992) Is the Fisher effect for real?: A reexamination of the relationship between inflation and interest rates. \emph{Journal of Monetary Economics,} \bold{30(2),} 195--215.
 #'
 #' @docType data
@@ -242,11 +242,11 @@ NULL
 #' @title Bekaert's and Hodrick's (1993) Data
 
 #' @description Data set used by Bekaert and Hodrick (1993) on biases in the measurement of foreign exchange risk premiums.
-#' 
+#'
 #' \itemize{
 #'  \item date A character vector for date.
-#'  \item jyspot Price of USD in JY, spot. 
-#'  \item jyfwd Price of USD in JY, 30-day forward. 
+#'  \item jyspot Price of USD in JY, spot.
+#'  \item jyfwd Price of USD in JY, 30-day forward.
 #'  \item jys30 Price of USD in JY, spot market at 30-day forward deliver/date.
 #'  \item dmspot Price of USD in DM, spot.
 #'  \item dmfwd Price of USD in DM, 30-day forward
@@ -258,7 +258,7 @@ NULL
 #' }
 #'
 #' @source Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
-#' 
+#'
 #' @references Bekaert, G., and Hodrick, R. J. (1993) On biases in the measurement of foreign exchange risk premiums. \emph{Journal of International Money and Finance,} \bold{12(2),} 115-138.
 #'
 #' @docType data
@@ -272,8 +272,8 @@ NULL
 #' @title Titanic
 
 #' @description Population at Risk and Death Rates for an Unusual Episode. For each person on board the fatal maiden voyage of the ocean liner Titanic, this dataset records sex, age [adult/child], economic status [first/second/third class, or crew] and whether or not that person survived.
-#' 
-#' 
+#'
+#'
 #' \itemize{
 #' \item CLASS Class (0 = crew, 1 = first, 2 = second, 3 = third)
 #' \item AGE Age   (1 = adult, 0 = child)
@@ -282,9 +282,9 @@ NULL
 #'  }
 #'
 #' @note There is not complete agreement among primary sources as to the exact numbers on board, rescued, or lost. \bold{STORY BEHIND THE DATA:} The sinking of the Titanic is a famous event, and new books are still being published about it.  Many well-known facts--from the proportions of first-class passengers to the "women and children first" policy, and the fact that that policy was not entirely successful in saving the women and children in the third class--are reflected in the survival rates for various classes of passenger.  These data were originally collected by the British Board of Trade in their investigation of the sinking.
-#' 
+#'
 #' @source British Board of Trade Inquiry Report (1990). \emph{Report on the Loss of the `Titanic' (S.S.)"}, Gloucester, UK: Allan Sutton Publishing.
-#' 
+#'
 #' @references Dawson (1995). "The `Unusual Episode' Data Revisited" in the \emph{Journal of Statistics Education}.
 #'
 #' @docType data
@@ -300,7 +300,7 @@ NULL
 #' @title NY Weather 1995-2014
 
 #' @description Data represents average daily temperatures.
-#' 
+#'
 #' \itemize{
 #'  \item month the month recorded (starts on January, 1995)
 #'   character vector for date.
@@ -309,9 +309,9 @@ NULL
 #'  \item temp the average daily temperatures ( \dQuote{24 hour} and \eqn{(min + max)/2}).
 #'  }
 #' @note In the original files, missing data is recorded as \dQuote{-99}, so must be replaced.
-#' 
+#'
 #' @source  Archived by the National Climatic Data Center (NCDC) and downloaded at: \url{http://academic.udayton.edu/kissock/http/Weather/gsod95-current/NYNEWYOR.txt}
-#' 
+#'
 #' @references Edward Tufte \emph{New York Weather Chart}, January 4, 2004, p. A-15.
 #'
 #' @docType data
@@ -323,28 +323,28 @@ NULL
 
 #' @title Turnout Data
 #'
-#' @description Data on voter turnout in the 50 states and D.C. for the 1992 
-#' Presidential election and 1990 Congressional elections. Per capita income, 
+#' @description Data on voter turnout in the 50 states and D.C. for the 1992
+#' Presidential election and 1990 Congressional elections. Per capita income,
 #' populations in poverty and populations with no high school degree are also given.
-#' 
+#'
 #' \itemize{
 #' \item v1 state name (alphabetic, 20 characters)
-#' \item v2 region of country: 
-#' 1 Northeast 
-#' 2 Midwest 
-#' 3 South 
+#' \item v2 region of country:
+#' 1 Northeast
+#' 2 Midwest
+#' 3 South
 #' 4 West
-#' \item v3 division within region: 
-#' 1 Northeast-New England 
-#' 2 Northeast-Middle Atlantic 
-#' 3 Midwest-East North Central 
+#' \item v3 division within region:
+#' 1 Northeast-New England
+#' 2 Northeast-Middle Atlantic
+#' 3 Midwest-East North Central
 #' 4 Midwest-West North Central
 #' 5 South-South Atlantic
-#' 6 South-East South Central 
-#' 7 South-West South Central 
+#' 6 South-East South Central
+#' 7 South-West South Central
 #' 8 West-Mountain
 #' 9 West-Pacific.
-#' \item v4 "Elazar's state political culture assignments: 
+#' \item v4 "Elazar's state political culture assignments:
 #' 1 = moralistic
 #' 2 = individualistic
 #' 3 = traditionalistic
@@ -354,11 +354,11 @@ NULL
 #' \item v8 percent casting votes for U.S. Representatives, 1990.
 #' \item v9 population without a high school degree, of those 25 years or older, 1990.
 #' \item v10 population 25 years or older, 1990.
-#' \item v11 South =1; all others =0. 
+#' \item v11 South =1; all others =0.
 #'  }
-#' 
+#'
 #' @source U.S. Bureau of the Census, Statistical Abstract of the United States, 1994.
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name turnout
@@ -366,11 +366,32 @@ NULL
 #' @format A data frame with 51 observations and 11 variables.
 NULL
 
+#' @title US General Social Survey 1993
+#'
+#' @description A data frame containing 1500 observations on 96 variables.
+#'
+#' \itemize{
+#' \item ID The respondentid.
+#' \item WRKSTAT Working status.
+#'  \item MARITAL Marital Status.
+#'  \item PARTYID Respondent's party id.
+#'  \item VOTE92 Whether the respondent have voted in the preceeding year.
+#'  \item SEX The sex of the respondent.
+#'  }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name paired
+#' @usage data(gss93)
+#' @format A data frame containing 1500 observations on 96 variables.
+NULL
+
+
 
 #' @title Paired Data
 #'
 #' @description Artificial experimental paired data
-#' 
+#'
 #' \itemize{
 #' \item patient the patient id.
 #' \item before_X before treatment.

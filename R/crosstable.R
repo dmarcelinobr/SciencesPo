@@ -85,7 +85,7 @@ crosstable <- function(.data, ..., prop="row", deparse.level = 2){
         x <- cbind(x, Sum = base::rowSums(x))
         # place sum in the last row
         x <- rbind(x, Sum = base::colSums(x))
-        p <- sweep(x, 2, x["Sum",], "/") * 100
+        p <- base::sweep(x, 2, x["Sum",], "/") * 100
       }else {
         # place sum in the last row
         x <- rbind(x, Sum = base::colSums(x))

@@ -3,34 +3,40 @@
 #' @param parties A vector containig the identification of parties or candidates accordingly to the election outcome.
 #' @param votes A vector containing the total number of formal votes received by the parties/candidates.
 #' @param seats An integer for the number of seats to be filled (the district magnitude).
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#' @note Adapted from Carlos Bellosta's replies in the R-list.
 #' @export
 #' @examples
 #' votes <- sample(1:10000, 5)
 #' dHondt(letters[1:5], votes, 5 )
 #'
-#' #Example: 2014 Brazilian election for the lower house in the state of Ceara:
-#' votes <- c(490205, 1151547, 2449440, 48274, 54403, 173151)
-#'
+#' # Example: 2014 Brazilian election for the lower house in the state of Ceara.
 #' # Coalitions leading by the following parties:
-#' parties <- c("DEM","PMDB","PRB","PSB", "PSTU","PTC")
 #'
-#' dHondt(parties, votes, seats=19)
+#' results <- c(DEM=490205, PMDB=1151547, PRB=2449440,
+#' PSB=48274, PSTU=54403, PTC=173151)
+#'
+#' dHondt(parties=names(results), votes=results, seats=19)
 #'
 #' # The next example is for the state legislative house of Ceara:
 #'
-#' votes <- c(187906, 326841,132531, 981096, 2043217,15061,103679,109830, 213988, 67145, 278267)
+#' votes <- c(187906, 326841, 132531, 981096, 2043217,15061,103679,109830, 213988, 67145, 278267)
 #'
 #' parties <- c("PC do B", "PDT","PEN", "PMDB", "PRB","PSB","PSC", "PSTU", "PT do B", "PTC", "PTN")
 #'
 #' dHondt(parties, votes , 42)
 #'
-dHondt <- function(parties, votes, seats){
+`dHondt` <- function(parties, votes, seats){
+  # creates a party score object
   .temp <- data.frame(
-    parties = rep( parties, each = seats ),
+    parties = rep(parties, each = seats ),
     scores = as.vector(sapply( votes, function(x) x /
      1:seats ))
-  )
-  .dHondt <- .temp$parties[order(-.temp$scores)][1:seats]
-  table(.dHondt)
+  );
+  out <- with(.temp, (parties[order(-scores)][1:seats]))
+   out <- data.frame(freq(out)[,1:3]);
+   out  <- out %>% dplyr::arrange(dplyr::desc(freq));
+   names(out) <-c("Parties", "d'Hondt", "Perc");
+     return(out)
 }
-
+NULL
