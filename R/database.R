@@ -35,8 +35,8 @@ NULL
 ##' @param temp logical should the function list the temp tables
 ##' @param ... Additional arguments
 ##' @importFrom RSQLite dbGetQuery
-##' @importMethodsFrom utils head
-##'
+##' @importFrom utils head
+##' @rdname head
 head.SQLiteConnection <- function(x, table = NULL, n = 10L, temp = FALSE, ...){
   if(is.null(table)){
     if(temp){
