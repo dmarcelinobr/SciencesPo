@@ -21,7 +21,15 @@ database <- function(dbname){
 }
 NULL
 
-##' head for \code{SQLiteConnection} object
+##' @param x A \code{SQLiteConnection} object
+##' @param ... Additional arguments
+##' @export
+##' @method head
+`head` <- function(x,...){
+  UseMethod("head")
+}
+
+##' Return the First Part of an Object
 ##'
 ##' If just a database connection is selected, returns a dataframe of table names
 ##' If a table name is also supplied, the first n rows from this table are output
