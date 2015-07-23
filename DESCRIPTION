@@ -11,7 +11,7 @@ Description: A data analysis tool for the political science crowd
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: GPL (>= 2)
 Depends:
-    R (>= 3.0),
+    R (>= 3.2.0),
     stats,
     utils,
     graphics,
@@ -19,12 +19,14 @@ Depends:
     ggplot2,
     methods
 Imports:
+  RSQLite,
   vcd,
   foreign,
   data.table,
   grid,
   plyr,
-  magrittr
+  magrittr,
+  stringr
 Suggests:
     testthat,
     Zelig,

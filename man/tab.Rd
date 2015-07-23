@@ -6,17 +6,22 @@
 \alias{tab}
 \title{Cross-tabulation}
 \usage{
-crosstable(..., deparse.level = 2)
+crosstable(.data, ..., prop = "row", deparse.level = 2)
 
 tab(...)
 }
 \arguments{
+\item{.data}{The data.frame.}
+
+\item{prop}{\code{c('row', 'col')} if 'col' column proportions will be
+computed; the default is 'row' proportions.}
+
 \item{deparse.level}{Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).}
 
 \item{\dots}{The data paremeters.}
 }
 \value{
-Well-formatted cross tabulation. Also can genarate latex syntax of cross tabulation.
+A cross tabulated object. Also can genarate the as latex.
 }
 \description{
 \code{crosstable} produces all possible two-way tabulations of the variables specified.
@@ -24,8 +29,8 @@ Well-formatted cross tabulation. Also can genarate latex syntax of cross tabulat
 Cross-tabulation
 }
 \examples{
-with(titanic, crosstable( SEX, AGE))
-with(titanic, tab( SEX, AGE, SURVIVED))
+crosstable(titanic, SEX, AGE)
+ titanic \%>\% tab(SEX, AGE, SURVIVED)
 
 # Agresti (2002), table 3.11, p. 106
 GSS <- data.frame(
@@ -41,7 +46,12 @@ dept2 = rep(c("A","B","C","D","E","F","A","B","C","D","E","F"),
            c(512,353,120,138,53,22,313,207,205,279,138,351))
 department = c(dept,dept2)
 ucb = data.frame(gender,admitted,department)
-with(ucb, tab(admitted, gender))
+ucb \%>\% tab(admitted, gender)
+
+mytab <- tab(ucb, admitted, gender)
+
+# Output in latex:
+summary(mytab, latex = TRUE)
 }
 \keyword{Descriptive}
 \keyword{Tables}
