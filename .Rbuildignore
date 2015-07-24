@@ -2,6 +2,7 @@ src/copies
 tests/old
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.Rapp.history$
 ^packrat/
 ^\.Rprofile$
 ^\.png$

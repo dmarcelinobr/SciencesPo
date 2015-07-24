@@ -6,4 +6,5 @@ tests/old
 .RData
 .DS_Store
 .Rprofile
+.Rapp.history
 packrat/src/
