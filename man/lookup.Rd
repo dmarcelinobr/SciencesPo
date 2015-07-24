@@ -15,4 +15,7 @@ lookup(x, lookup.array)
 \description{
 Recodes values of a vector from a lookup array.
 }
+\examples{
+sample1 <- data.frame(A=1:10, B=letters[1:10]);
+}
 

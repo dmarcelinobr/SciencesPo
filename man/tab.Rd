@@ -54,5 +54,6 @@ mytab <- tab(ucb, admitted, gender)
 summary(mytab, latex = TRUE)
 }
 \keyword{Descriptive}
+\keyword{Stats}
 \keyword{Tables}
 

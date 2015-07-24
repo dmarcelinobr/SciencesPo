@@ -1,5 +1,5 @@
-#' @title Plots ellipses
-#' @description Plots ellipses given the coordinates and radio.
+#' @title Draw ellipses
+#' @description Draw ellipses given the coordinates and radio.
 #' @param x The longitude coordinate.
 #' @param y The latitude coordinate.
 #' @param r The radio.
@@ -7,8 +7,8 @@
 #' @export
 #' @examples
 #' plot(-60:-30, -30:0)
-#'add.ellipses(-49,-25,7)
-add.ellipses <- function(x, y, r, ...) {
+#' ellipses(-49,-25,7)
+ellipses <- function(x, y, r, ...) {
   angles <- seq(0,2*pi,length.out=360)
   graphics::lines(r*cos(angles)+x,r*sin(angles)+y, ...)
 }

@@ -25,7 +25,7 @@ The Select_query argument will take the output from a select_events(sql_only = T
 db <- database("Eleicoes")
 dbTempTable(db, tab_name = "gerais_2006",
            query = select_events(db, tab = "Candidatos",
-           columns = c("nome", "resultado", "party"),
+           columns = c("nome", "resultado", "partido"),
            where = "data > '1997-01-01'",
            sql_only = TRUE))
 }

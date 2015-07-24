@@ -5,7 +5,8 @@
 #'
 #'  @param x the variable
 #'  @param  lookup.array a n-by-2 array used for looking up.
-#'
+#' @examples
+#' sample1 <- data.frame(A=1:10, B=letters[1:10]);
 #'
 #' @export
 `lookup` <- function (x, lookup.array)

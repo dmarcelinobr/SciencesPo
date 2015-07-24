@@ -3,7 +3,7 @@
 \name{head}
 \alias{head}
 \alias{head.SQLiteConnection}
-\title{Return the First Part of an Object}
+\title{Return the first n elements of a SQLiteConnection object}
 \usage{
 head(x, ...)
 
@@ -11,18 +11,18 @@ head(x, ...)
   ...)
 }
 \arguments{
-\item{x}{A \code{SQLiteConnection} object}
-
-\item{...}{Additional arguments}
+\item{x}{A database connection object or a table name.}
 
 \item{table}{character specifying a table}
 
 \item{n}{integer: Number of rows to output}
 
 \item{temp}{logical should the function list the temp tables}
+
+\item{\dots}{Additional arguments}
 }
 \description{
-If just a database connection is selected, returns a dataframe of table names
-If a table name is also supplied, the first n rows from this table are output
+If a database connection is selected, returns a dataframe of table names.
+If a table name is also supplied, the first n rows from the table are returned.
 }
 

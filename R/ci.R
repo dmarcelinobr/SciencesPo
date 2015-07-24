@@ -46,3 +46,7 @@ setMethod(f="ci", definition=function(x, conf.level=0.95, alpha=1-conf.level,na.
 NULL
 
 
+
+
+
+

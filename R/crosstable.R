@@ -6,6 +6,7 @@
 #' @param prop \code{c('row', 'col')} if 'col' column proportions will be
 #' computed; the default is 'row' proportions.
 #' @param deparse.level Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).
+#' @keywords Tables Stats
 #'
 #' @return A cross tabulated object. Also can genarate the as latex.
 #' @examples
@@ -41,7 +42,7 @@ crosstable <- function(.data, ..., prop="row", deparse.level = 2){
   #                                                               #
   # Function created by Daniel Marcelino                          #
   # Dept. of Political Sciences, University of Montreal, Canada   #
-  # Adapted from the function crossTable() in the Rz packge.      #
+  # Adapted from the function crossTable()                        #
   #                                                               #
   # Version: 12th July 2012                                       #
   #                                                               #

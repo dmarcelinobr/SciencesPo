@@ -1,13 +1,13 @@
 #' Wrapper for dbConnect
 #'
-#' Connects to a SQLite database or creates one if it does not already exist
+#' Connects to a SQLite database or creates one if it does not already exist.
 #'
 #' If the '.sqlite' file extension is ommited from the dbname argument it is automatically added.
 #'
 #' @export
 #'
-#' @param dbname character name path to database file
-#' @return SQLiteConnection object
+#' @param dbname A character name or path to database file.
+#' @return SQLiteConnection object.
 #' @importFrom  stringr str_detect
 #' @importFrom RSQLite dbConnect
 #' @examples \dontrun{
@@ -21,27 +21,25 @@ database <- function(dbname){
 }
 NULL
 
-##' @param x A \code{SQLiteConnection} object
-##' @param \dots Additional arguments
-##' @export
+#' @param x A database connection object or a table name.
+#' @param \dots Additional arguments
+#' @export
 `head` <- function(x,...){
   UseMethod("head")
 }
 
-##' Return the First Part of an Object
-##'
-##' If just a database connection is selected, returns a dataframe of table names
-##' If a table name is also supplied, the first n rows from this table are output
-##' @export head.SQLiteConnection
-##'
-##' @method head SQLiteConnection
-##'
-##' @param table character specifying a table
-##' @param n integer: Number of rows to output
-##' @param temp logical should the function list the temp tables
-##' @importFrom RSQLite dbGetQuery
-##' @importFrom utils head
-##' @rdname head
+#' Return the first n elements of a SQLiteConnection object
+#'
+#' If a database connection is selected, returns a dataframe of table names.
+#' If a table name is also supplied, the first n rows from the table are returned.
+#' @export
+#' @method head SQLiteConnection
+#' @param table character specifying a table
+#' @param n integer: Number of rows to output
+#' @param temp logical should the function list the temp tables
+#' @importFrom RSQLite dbGetQuery
+#' @importFrom utils head
+#' @rdname head
 head.SQLiteConnection <- function(x, table = NULL, n = 10L, temp = FALSE, ...){
   if(is.null(table)){
     if(temp){

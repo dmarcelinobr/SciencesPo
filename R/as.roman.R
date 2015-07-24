@@ -1,9 +1,9 @@
 #' Converts integer into its Roman Numeral equivalent
 #' @param x The integer to be translated.
 #' @examples
-#' roman.numeral(1977)
+#' as.roman(1977)
 #' @export
-roman.numeral<-function(x) {
+as.roman<-function(x) {
   if(0 < x & x < 5000) {
     x<-as.integer(x)
     digits<-c(1000,900,500,400,100,90,50,40,10,9,5,4,1)

@@ -17,10 +17,10 @@
 #' @export
 `mode` <- function(x, na.rm = FALSE) {
   if(na.rm){
-    x = subset(x, !is.na(x))
+    x = base::subset(x, !is.na(x))
   }
   y <- as.factor(x)
-  freqs <- summary(y)
+  freqs <- base::summary(y)
   mode <- names(freqs)[freqs[names(freqs)] == max(freqs)]
   return(as.numeric(mode) )
 }

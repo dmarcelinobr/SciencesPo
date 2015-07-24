@@ -7,13 +7,13 @@
 database(dbname)
 }
 \arguments{
-\item{dbname}{character name path to database file}
+\item{dbname}{A character name or path to database file.}
 }
 \value{
-SQLiteConnection object
+SQLiteConnection object.
 }
 \description{
-Connects to a SQLite database or creates one if it does not already exist
+Connects to a SQLite database or creates one if it does not already exist.
 }
 \details{
 If the '.sqlite' file extension is ommited from the dbname argument it is automatically added.

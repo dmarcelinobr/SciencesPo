@@ -20,11 +20,10 @@ Depends:
 Imports:
   RSQLite,
   vcd,
-  foreign,
   data.table,
   grid,
-  dplyr,
   plyr,
+  dplyr,
   magrittr,
   stringr
 Suggests:
