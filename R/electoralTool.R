@@ -230,6 +230,9 @@ lijphart <- function(v,s) {
 }
 NULL
 
+
+
+
 #' @title Grofman index
 #'
 #' @description Calculates the Grofman index of proportionality based on a vector of votes and a vector for the electoral outcome.
@@ -289,10 +292,11 @@ NULL
 
 
 
-#'  @title Cox-Shugart measure of proportionality
+#' @title Cox-Shugart measure of proportionality
 #'
-#'  @description Calculate the Cox and Shugart measure of proportionalitybased on a vector of votes and a vector for the electoral outcome. This measure is also referred to as the regression index .
-#'
+#' @description Calculate the Cox and Shugart measure of
+#'  proportionalitybased on a vector of votes and a vector for
+#'  the electoral outcome. This measure is also referred to as the regression index.
 #' @param v A vector containing the votes for each political party.
 #' @param s A vector containing the election outcome as seats.
 #'
@@ -300,14 +304,14 @@ NULL
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
 #' @examples
-#' # 2012 Queensland state elecion
+#' # 2012 Queensland state elecion:
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
 #' cox.shugart(pvotes, pseats)
 #'
 #' # 2012 Quebec provincial election:
-#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
+#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' cox.shugart(pvotes, pseats)
@@ -319,6 +323,17 @@ cox.shugart <- function(v,s) {
   idx <- sum((s-S) * (v-V))/sum((v-V)^2)
   return(round(idx, 3))
 }
+NULL
+
+
+
+inv.cox.shugart <- function(v,s) {
+  V <- mean(v)
+  S <- mean(s)
+  idx <- sum((v-V) * (s-S))/sum((s-S)^2)
+    return(round(idx, 3))
+  }
+  NULL
 
 
 #' # hareQuota <- function(votes, seats, try.quota, droop.quota){}

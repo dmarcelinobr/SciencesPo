@@ -96,17 +96,17 @@ trend.change<-function (x, tau, alternative="two.sided")
   T1.star=(sqrt(n)*T1/sigma)
   #dimrl
   if(alternative=="dimrl"){
-    p=pnorm(T1.star)
+    p=stats::pnorm(T1.star)
   }
 
   #idmrl
   if(alternative=="idmrl"){
-    p=pnorm(T1.star, lower.tail=F)
+    p=stats::pnorm(T1.star, lower.tail=F)
   }
 
   #not equal
   if(alternative=="two.sided"){
-    p=2*pnorm(abs(T1.star), lower.tail=F)
+    p=2*stats::pnorm(abs(T1.star), lower.tail=F)
   }
 
   cat("T1=", T1, "\n", "p=", p,"\n" , "sigma hat=", sigma,"\n" , "T1*=",T1.star ,"\n")

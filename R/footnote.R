@@ -20,5 +20,5 @@ footnote<-function(study=NULL, adj=0, line=3, ...){
   if(us=="") us<-Sys.getenv("USER")
  if (is.null(study)==FALSE) tmp<-paste(study,"/",us,"/",substr(date(),9,10),substr(date(),5,7),substr(date(),20,24),"/R",R.Version()$major,".",R.Version()$minor,"/",Sys.info()[1],Sys.info()[2],sep="")
   else tmp<-paste(us,"/",substr(date(),9,10),substr(date(),5,7),substr(date(),20,24),"/R",R.Version()$major,".",R.Version()$minor,"/",Sys.info()[1],Sys.info()[2],sep="")
-  mtext(tmp, side=1, line=line, adj=adj, ...)
+  graphics::mtext(tmp, side=1, line=line, adj=adj, ...)
 }
