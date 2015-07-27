@@ -6,7 +6,7 @@ Version: 1.3.6
 Date: 2015-07-10
 Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
-Description: The package provides miscellaneous functions for carrying out exploratory data analysis in the field of political behaviour, including measures of political fragmentation, allocation of seats, and graphing results.
+Description: Provides miscellaneous functions for carrying out political behaviour analysis, including measures of political fragmentation, seats allocation, and graphical demonstrations.
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: GPL (>= 2)
 Depends:

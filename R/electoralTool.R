@@ -172,6 +172,154 @@ gini <-function (x, weights = rep(1, length = length(x)))
   nu <- nu/nu[n]
   sum(nu[-1] * p[-n]) - sum(nu[-n] * p[-1])
 }
+NULL
+
+#' @title Gallagher index
+#'
+#' @description Calculates the Gallagher index of LSq index.
+#'
+#' @param v A vector containing the votes for each political party.
+#' @param s A vector containing the election outcome as seats.
+#'
+#' @details The representation score is calculated as: sqrt(sum((Z-R)^2)/2).
+#' @return The Gallagher's Representation Score.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @references
+#'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
+#'  @examples
+#' # 2005 UK General Election
+#' pvotes = c(Lab=35.20, Cons=32.40, Lib=22, DUP=0.90,
+#' SNP=1.50, Sinn.Fein=0.60, Plaid=0.60, SDLP=0.50, UUP=0.50,
+#' Ind=0.50, Respect=0.30, Health=0.10, Speaker=0.10, Others=4.80)
+#' seats = c(385,198, 62, 9,6,5,3,3,1,1,1,1,1,0)/676
+#'
+#' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' gallagher(pvotes, pseats)
+#'
+#' @export
+gallagher <- function(v,s) {
+  idx=sqrt(sum((v-s)^2)/2)
+  return(round(idx, 3))
+}
+NULL
+
+
+#' @title Lijphart index of proportionality
+#'
+#' @description Calculates the Lijphart index of proportionality based on a vector of votes and a vector for the electoral outcome.
+#'
+#' @param v A vector containing the votes for each political party.
+#' @param s A vector containing the election outcome as seats.
+#' @return A single score given the vector of votes and the vector for seats.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' # 2012 Quebec provincial election:
+#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
+#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
+#'
+#' lijphart(pvotes, pseats)
+#'
+#' @export
+lijphart <- function(v,s) {
+  idx=max(s-v)
+  return(round(idx, 3))
+}
+NULL
+
+#' @title Grofman index
+#'
+#' @description Calculates the Grofman index of proportionality based on a vector of votes and a vector for the electoral outcome.
+#'
+#' @param v A vector containing the votes for each political party.
+#' @param s A vector containing the election outcome as seats.
+#'
+#' @return A single score given the vector of votes and the vector for seats.
+#'
+#'  @references
+#' Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @examples
+#' # 2012 Quebec provincial election:
+#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
+#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
+#'
+#' grofman(pvotes, pseats)
+#'
+#' @export
+grofman <- function(v,s) {
+  N <- politicalDiversity(s, index = "laakso/taagepera")
+  idx=(1/N) * sum(abs(v-s))/2
+  return(round(idx, 3))
+}
+NULL
+
+
+
+
+#' @title Farina index
+#'
+#' @description Calculates the Farina index also referred to as the cosine proportionality score based on a vector of votes and a vector for the electoral outcome.
+#' @param v A vector containing the votes for each political party.
+#' @param s A vector containing the election outcome as seats.
+#' @return A single score given the vector of votes and the vector for seats.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @references
+#' Koppel, M., and A. Diskin. (2009) Measuring disproportionality, volatility and malapportionment: axiomatization and solutions. Social Choice and Welfare 33, no. 2: 281-286.
+#'
+#' @examples
+#'
+#' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' farina(pvotes, pseats)
+#'
+#' @export
+farina <- function(v,s) {
+  idx= acos(sum(v*s)/(sum(v^2)*sum(s^2))^.5)
+  return(round(idx, 3))
+}
+NULL
+
+
+
+#'  @title Cox-Shugart measure of proportionality
+#'
+#'  @description Calculate the Cox and Shugart measure of proportionalitybased on a vector of votes and a vector for the electoral outcome. This measure is also referred to as the regression index .
+#'
+#' @param v A vector containing the votes for each political party.
+#' @param s A vector containing the election outcome as seats.
+#'
+#' @return A single score given the vector of votes and the vector for seats.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @examples
+#' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' cox.shugart(pvotes, pseats)
+#'
+#' # 2012 Quebec provincial election:
+#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
+#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
+#'
+#' cox.shugart(pvotes, pseats)
+#'
+#' @export
+cox.shugart <- function(v,s) {
+  S <- mean(s)
+  V <- mean(v)
+  idx <- sum((s-S) * (v-V))/sum((v-V)^2)
+  return(round(idx, 3))
+}
+
 
 #' # hareQuota <- function(votes, seats, try.quota, droop.quota){}
 #'
