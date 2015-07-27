@@ -366,26 +366,6 @@ NULL
 #' @format A data frame with 51 observations and 11 variables.
 NULL
 
-#' @title US General Social Survey 1993
-#'
-#' @description A data frame containing 1500 observations on 96 variables.
-#'
-#' \itemize{
-#' \item ID The respondentid.
-#' \item WRKSTAT Working status.
-#'  \item MARITAL Marital Status.
-#'  \item PARTYID Respondent's party id.
-#'  \item VOTE92 Whether the respondent have voted in the preceeding year.
-#'  \item SEX The sex of the respondent.
-#'  }
-#'
-#' @docType data
-#' @keywords datasets
-#' @name paired
-#' @usage data(gss93)
-#' @format A data frame containing 1500 observations on 96 variables.
-NULL
-
 
 
 #' @title Paired Data

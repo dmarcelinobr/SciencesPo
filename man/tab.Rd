@@ -33,10 +33,16 @@ crosstable(titanic, SEX, AGE)
  titanic \%>\% tab(SEX, AGE, SURVIVED)
 
 # Agresti (2002), table 3.11, p. 106
-GSS <- data.frame(
+# 1992 General Social Survey- Sex and Party affiliation
+gss <- data.frame(
    expand.grid(sex=c("female", "male"),
    party=c("dem", "indep", "rep")),
    count=c(279,165,73,47,225,191))
+
+ #Get it expanded
+df <- gss[rep(1:nrow(gss), gss[["count"]]), ]
+
+df \%>\% tab(sex, party)
 
 gender = rep(c("female","male"),c(1835,2691))
 admitted = rep(c("yes","no","yes","no"),c(557,1278,1198,1493))
