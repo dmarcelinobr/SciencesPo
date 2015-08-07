@@ -6,6 +6,7 @@
 #' @param adj adj=0 left align the footnote while adj=0.5 or 1 center or right align the text.
 #' @param line The line to plot footnote.
 #' @param \dots Additional parameters.
+#' @importFrom graphics mtext
 #' @examples
 #' plot(1:10,10:1)
 #' footnote()

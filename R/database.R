@@ -21,36 +21,6 @@ database <- function(dbname){
 }
 NULL
 
-#' @param x A database connection object or a table name.
-#' @param \dots Additional arguments
-#' @export
-`head` <- function(x,...){
-  UseMethod("head")
-}
-
-#' Return the first n elements of a SQLiteConnection object
-#'
-#' If a database connection is selected, returns a dataframe of table names.
-#' If a table name is also supplied, the first n rows from the table are returned.
-#' @export
-#' @method head SQLiteConnection
-#' @param table character specifying a table
-#' @param n integer: Number of rows to output
-#' @param temp logical should the function list the temp tables
-#' @importFrom RSQLite dbGetQuery
-#' @importFrom utils head
-#' @rdname head
-head.SQLiteConnection <- function(x, table = NULL, n = 10L, temp = FALSE, ...){
-  if(is.null(table)){
-    if(temp){
-      RSQLite::dbGetQuery(x, "SELECT type, name, tbl_name FROM sqlite_temp_master;", ...)
-    } else RSQLite::dbGetQuery(x, "SELECT type, name, tbl_name FROM sqlite_master;", ...)
-
-  } else {
-    RSQLite::dbGetQuery(x, sprintf("SELECT * FROM %s LIMIT %d;", table, n), ...)
-  }
-}
-NULL
 
 #' Creates a temporary table in the database
 #'
