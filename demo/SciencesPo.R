@@ -70,26 +70,24 @@ pause()
 set.seed(1234)
 x = rnorm(1000)
 kurtosis(x)
-skewness(x)
 anscombe.glynn(x)
 
+anscombe.glynn(200:500)
+
 # D'Agostino
-kurtosis(x)
-skewness(x)
+skewness(x, type = 2)
 agostino(x)
 
 # Bonett-Seier
-kurtosis(x)
-skewness(x)
 bonett.seier(x)
 
+
 # Geary
-kurtosis(x)
-skewness(x)
+kurtosis(x)+3 # The kurtosis functions omits the 3 as default.
 geary(x)
 
+
 # Jarque-Bera
-kurtosis(x)
-skewness(x)
 jarque.bera(x)
 
+jarque.bera(200:500)

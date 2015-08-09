@@ -5,24 +5,31 @@
 \alias{geary}
 \title{Geary's test for normality}
 \usage{
-geary(x)
+geary(x, na.rm = TRUE)
 }
 \arguments{
 \item{x}{the numeric vector.}
+
+\item{na.rm}{A logical for NA values.}
 }
 \value{
-statistic The Geary's test statistic G
+statistic The Geary's test statistic G.
 
 p.value The significant probability of the null-hypothesis testing.
 }
 \description{
-Geary's test for normality. Null hypothesis is that the data obeys to normal distribution.
+This function computes an estimator of Geary’s measure of kurtosis.
+}
+\details{
+Null hypothesis is that the data obeys to normal distribution and that data should have kurtosis equal to 3.
 }
 \examples{
 set.seed(1234)
 x = rnorm(1000)
-skewness(x)
 geary(x)
+
+y <- c(2,3,4,5,6,7)
+geary(20:50)
 }
 \author{
 Daniel Marcelino \email{dmarcelino@live.com}
