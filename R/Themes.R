@@ -35,26 +35,33 @@ size = rel(1.2), hjust = 0.5),
           strip.background=element_rect(colour="#f0f0f0",fill="#f0f0f0"),
           strip.text = element_text(face="bold")
   ))
-
 }
 NULL
+
+
+
+
 #' @title Scale colors for ggplot graphs
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_fill_pub
 scale_fill_pub <- function(...){
-  ggplot2::discrete_scale("fill","pub",scales::manual_pal(values = c("#386cb0","#fdb462","#7fc97f","#ef3b2c","#662506","#a6cee3","#fb9a99","#984ea3","#ffff33")), ...)
+  ggplot2::discrete_scale("fill","pub",scales::manual_pal(values = c("#386cb0","#fdb462","#7fc97f","#ef3b2c","#662506","#a6cee3","#fb9a99","#984ea3","#ffff33", "#FE7C96")), ...)
 }
 NULL
+
+
+
 
 #' @title Scale colors for ggplot graphs
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_colour_pub
 scale_colour_pub <- function(...){
-  ggplot2::discrete_scale("colour","pub",scales::manual_pal(values = c("#386cb0","#fdb462","#7fc97f","#ef3b2c","#662506","#a6cee3","#fb9a99","#984ea3","#ffff33")), ...)
+ggplot2::discrete_scale("colour","pub",scales::manual_pal(values = c("#386cb0","#FF9146","#7fc97f","#ef3b2c","#662506","#a6cee3","#fb9a99","#984ea3","#ffff33","#4574c9")), ...)
 }
 NULL
+
 
 
 

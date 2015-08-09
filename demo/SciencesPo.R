@@ -62,3 +62,34 @@ BR2014s = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12, 11, 10, 9, 8, 5,
 
 politicalDiversity(BR2010s, index= "laakso/taagepera")
 
+
+pause()
+# Tests of Normality
+
+# Anscombe-Glynn:
+set.seed(1234)
+x = rnorm(1000)
+kurtosis(x)
+skewness(x)
+anscombe.glynn(x)
+
+# D'Agostino
+kurtosis(x)
+skewness(x)
+agostino(x)
+
+# Bonett-Seier
+kurtosis(x)
+skewness(x)
+bonett.seier(x)
+
+# Geary
+kurtosis(x)
+skewness(x)
+geary(x)
+
+# Jarque-Bera
+kurtosis(x)
+skewness(x)
+jarque.bera(x)
+

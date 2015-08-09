@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 #' @encoding UTF-8
 #' @title Geary's test for normality
 #' @description Geary's test for normality. Null hypothesis is that the data obeys to normal distribution.
@@ -17,11 +7,12 @@
 #' @return p.value The significant probability of the null-hypothesis testing.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
-#' s <-sample(100, 20)
-#' geary.test(s)
-#' geary.test(rnorm(100))
+#' set.seed(1234)
+#' x = rnorm(1000)
+#' skewness(x)
+#' geary(x)
 #' @export
-`geary.test` <- function(x) {
+`geary` <- function(x) {
   mu <- mean(x)
   n <- length(x)
   G <- sum(abs(x-mu))/sqrt(n*sum((x-mu)^2))

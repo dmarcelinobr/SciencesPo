@@ -332,8 +332,8 @@ inv.cox.shugart <- function(v,s) {
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
     return(round(idx, 3))
-  }
-  NULL
+}
+NULL
 
 
 #' # hareQuota <- function(votes, seats, try.quota, droop.quota){}

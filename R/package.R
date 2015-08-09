@@ -1,14 +1,10 @@
-#'  @title Load packages
-#'
+#' @title Load packages
 #' @description Check if package exists and install it otherwise.
-#'
 #' @param x The package name, or a list of packages.
 #' @export
 #' @examples
-#' \dontrun{
-#' package(qvalue) # from bioconductor
-#' package(SoundexBR) # from CRAN
-#' }
+#' \dontrun{ package(qvalue) # from bioconductor
+#'  package(SoundexBR) # from CRAN }
 #'
 package <- function(x) {
   x <- as.character(substitute(x))

@@ -4,12 +4,14 @@
 \alias{freq}
 \title{Frequency table}
 \usage{
-freq(x, breaks = hist(x, plot = FALSE)$breaks, digits = 2,
+freq(x, weighs = NULL, breaks = hist(x, plot = FALSE)$breaks, digits = 2,
   include.lowest = TRUE, ord = c("level", "desc", "asc", "name"),
   useNA = c("no", "ifany", "always"), ...)
 }
 \arguments{
 \item{x}{The variable to be described.}
+
+\item{weighs}{a numeric vector of weights.}
 
 \item{breaks}{Either a numeric vector of two or more cut points or a integer (> 2) for the intervals. If not provided, the default is taken from \code{hist()}. This parameter is ignored if x is not of class numeric.}
 

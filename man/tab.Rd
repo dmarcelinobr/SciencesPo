@@ -6,7 +6,7 @@
 \alias{tab}
 \title{Cross-tabulation}
 \usage{
-crosstable(.data, ..., prop = "row", deparse.level = 2)
+crosstable(.data, ..., prop = "row", tests = FALSE, deparse.level = 2)
 
 tab(...)
 }
@@ -15,6 +15,8 @@ tab(...)
 
 \item{prop}{\code{c('row', 'col')} if 'col' column proportions will be
 computed; the default is 'row' proportions.}
+
+\item{tests}{A logical whether association tests should be shown below table; default is \code{FALSE}.}
 
 \item{deparse.level}{Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).}
 
@@ -30,6 +32,7 @@ Cross-tabulation
 }
 \examples{
 crosstable(titanic, SEX, AGE)
+
  titanic \%>\% tab(SEX, AGE, SURVIVED)
 
 # Agresti (2002), table 3.11, p. 106

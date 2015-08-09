@@ -8,7 +8,9 @@
 #' @export
 #' @examples
 #' votes <- sample(1:10000, 5)
-#' dHondt(letters[1:5], votes, 5 )
+#' parties <- sample(letters, 5)
+#' dHondt(parties, votes, 5 )
+#'
 #'
 #' # Example: 2014 Brazilian election for the lower house in the state of Ceara.
 #' # Coalitions leading by the following parties:
