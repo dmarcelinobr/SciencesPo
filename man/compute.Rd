@@ -5,12 +5,12 @@
 \alias{compute}
 \title{Aggregate a numeric variable}
 \usage{
-compute(formula, data = .data, FUN)
+compute(.data, formula, FUN)
 }
 \arguments{
-\item{formula}{The variable versus factor(s) to be computed (y~factor+factor).}
+\item{.data}{The data object.}
 
-\item{data}{The data object.}
+\item{formula}{The variable versus factor(s) to be computed (y~factor+factor).}
 
 \item{FUN}{The function statistic to be calculated.}
 }
@@ -27,6 +27,6 @@ sd=round(sd(x), 0), min=round(min(x),0),
 max=round(max(x),0))
 
 # Do the computation
-compute(y~group, data=df, FUN=FUNS)
+compute(df, y~group, FUN=FUNS)
 }
 

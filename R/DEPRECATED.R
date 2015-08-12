@@ -8,8 +8,11 @@
 #' @export
 #'
 peek <- function(.data = FALSE, ...){
-  warning("Function findData() is deprecated. Use view() instead.", call. = FALSE)
-
+  warning("Function peek() is deprecated. Use view() instead.", call. = FALSE)
   view(.data = .data, ...)
+}
 
+weighted.var <- function(x, w, na.rm = FALSE){
+    warning("Function weighted.var() is deprecated. Use wtd.var() instead.", call. = FALSE)
+    weighted.var(x=x, w=w, na.rm = na.rm)
 }

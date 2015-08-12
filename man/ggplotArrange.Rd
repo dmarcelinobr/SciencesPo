@@ -6,6 +6,9 @@
 \usage{
 ggplotArrange(...)
 }
+\arguments{
+\item{\dots}{a list of ggplot objects}
+}
 \description{
 Arrange multiple ggplot objects
 }

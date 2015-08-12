@@ -7,7 +7,7 @@
 dHondt(parties, votes, seats)
 }
 \arguments{
-\item{parties}{A vector containig the identification of parties or candidates accordingly to the election outcome.}
+\item{parties}{A vector containig parties labels or candidates accordingly to the \code{votes} vector order.}
 
 \item{votes}{A vector containing the total number of formal votes received by the parties/candidates.}
 

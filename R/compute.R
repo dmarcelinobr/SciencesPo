@@ -2,7 +2,7 @@
 #' @title Aggregate a numeric variable
 #'
 #' @param formula The variable versus factor(s) to be computed (y~factor+factor).
-#' @param data The data object.
+#' @param .data The data object.
 #' @param FUN The function statistic to be calculated.
 #' @examples
 #' # data:
@@ -14,16 +14,16 @@
 #' max=round(max(x),0))
 #'
 #' # Do the computation
-#' compute(y~group, data=df, FUN=FUNS)
+#' compute(df, y~group, FUN=FUNS)
 #' @export
 #'
 #' @importFrom stats aggregate
 #'
-`compute` <- function(formula, data=.data, FUN){
+`compute` <- function(.data, formula, FUN){
   if(class(FUN)=="list"){
     f <- function(x) sapply(FUN, function(fun) fun(x))
-  }else{f <- FUN}
-  temp <- aggregate(formula, data, f)
+  } else {f <- FUN}
+  temp <- aggregate(formula, .data, f)
   out <- data.frame(temp[,-ncol(temp)], temp[,ncol(temp)])
   colnames(out)[1] <- colnames(temp)[1]
   return(out)

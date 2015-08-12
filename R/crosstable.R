@@ -313,4 +313,3 @@ NULL
   crosstable(..., deparse.level = 2)
 }
 NULL
-

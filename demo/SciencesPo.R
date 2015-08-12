@@ -74,20 +74,44 @@ anscombe.glynn(x)
 
 anscombe.glynn(200:500)
 
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+anscombe.glynn(y)
+
+
 # D'Agostino
 skewness(x, type = 2)
 agostino(x)
 
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+agostino(y)
+
 # Bonett-Seier
 bonett.seier(x)
 
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+bonett.seier(y)
 
 # Geary
 kurtosis(x)+3 # The kurtosis functions omits the 3 as default.
 geary(x)
 
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+geary(y)
 
 # Jarque-Bera
 jarque.bera(x)
 
 jarque.bera(200:500)
+
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+jarque.bera(y)

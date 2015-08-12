@@ -13,12 +13,12 @@ geary(x, na.rm = TRUE)
 \item{na.rm}{A logical for NA values.}
 }
 \value{
-statistic The Geary's test statistic G.
+statistic The Geary's test of statistic G.
 
 p.value The significant probability of the null-hypothesis testing.
 }
 \description{
-This function computes an estimator of Geary’s measure of kurtosis.
+This function computes an estimator of Geary's measure of kurtosis.
 }
 \details{
 Null hypothesis is that the data obeys to normal distribution and that data should have kurtosis equal to 3.
@@ -28,8 +28,10 @@ set.seed(1234)
 x = rnorm(1000)
 geary(x)
 
-y <- c(2,3,4,5,6,7)
 geary(20:50)
+
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
 }
 \author{
 Daniel Marcelino \email{dmarcelino@live.com}
