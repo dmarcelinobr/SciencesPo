@@ -384,3 +384,88 @@ NULL
 #' @usage data(paired)
 #' @format A data frame with 9 observations on the following 3 variables.
 NULL
+
+
+
+
+#' @title Word frequencies from Mosteller and Wallace
+#'
+#' @description The data give the frequencies of words in works from four different sources: the political writings of eighteenth century American political figures Alexander Hamilton, James Madison, and John Jay, and the book Ulysses by twentieth century Irish writer James Joyce.
+#'
+#' \itemize{
+#' \item Hamilton Hamilton frequency.
+#' \item HamiltonRank Hamilton rank.
+#' \item Madison Madison frequency.
+#' \item MadisonRank Madison rank.
+#' \item Jay Jay frequency.
+#' \item JayRank Jay rank.
+#' \item Ulysses Word frequency in Ulysses.
+#' \item UlyssesRank Word rank in Ulysses.
+#'  }
+#'
+#'  @references Weisberg, S. (2014). Applied Linear Regression, 4th edition. Hoboken NJ: Wiley.
+
+#' @source Mosteller, F. and Wallace, D. (1964). Inference and Disputed Authorship: The Federalist. Reading, MA: Addison-Wesley.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name words
+#' @usage data(words)
+#' @format This data frame uses the word as row labels and contains the following columns
+NULL
+
+
+
+
+
+
+#' @title Cathedrals
+#'
+#' @description Heights and lengths of Gothic and Romanesque cathedrals.
+#'
+#' \itemize{
+#' \item Type Romanesque or Gothic.
+#' \item Height Total height, feet.
+#' \item Length Total length, feet.
+#'  }
+#'
+#'  @references
+#' Weisberg, S. (2014). Applied Linear Regression, 4th edition. Hoboken NJ: Wiley.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name cathedral
+#' @usage data(cathedral)
+#' @format This data frame uses  names as row label andcontains the following columns:
+NULL
+
+
+
+#' @title Burt's twin data
+#'
+#' @description The given data are IQ scores from identical twins; one raised in a foster home, and the other raised by birth parents.
+#'
+#' \itemize{
+#' \item C Social class, C1=high, C2=medium, C3=low, a factor.
+#' \item IQb biological.
+#' \item IQf foster.
+#'  }
+#'
+#'  @references
+#'  Weisberg, S. (2014). Applied Linear Regression, 4th edition. Hoboken NJ: Wiley.
+
+#' @source Burt, C. (1966). The genetic estimation of differences in intelligence:
+#'  A study of monozygotic twins reared together and apart. Br. J. Psych., 57, 147-153.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name twins
+#' @usage data(twins)
+#' @format This data frame contains the following columns:
+NULL
+
+
+#' # setwd("~/SciencesPo/data")
+#' # system("cp cathedral.txt cathedral-cp.txt")
+#' # system("rm cathedral-cp.txt.gz")
+#' # system("gzip cathedral.txt")

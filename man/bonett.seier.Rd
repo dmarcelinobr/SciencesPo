@@ -14,7 +14,7 @@ bonett.seier(x, alternative = c("two.sided", "less", "greater"))
   You can specify just the initial letter}
 }
 \description{
-This function performs Bonett-Seier test of Geary's measure of kurtosis for normally distributed data.
+Performs the Bonett-Seier test of Geary's measure of kurtosis for normally distributed data.
 }
 \details{
 Under the hypothesis of normality, data should have Geary's

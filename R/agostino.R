@@ -1,5 +1,5 @@
 #' @title D'Agostino test of skewness
-#' @description Performs D'Agostino test for skewness in normally distributed data.
+#' @description Performs the D'Agostino test for skewness in normally distributed data.
 #' @param x A numeric vector of data values.
 #' @param alternative A character string specifying the alternative hypothesis,
 #' must be one of '"two.sided"' (default), '"greater"' or '"less"'.
@@ -8,6 +8,7 @@
 #'  This test has such null hypothesis and is useful to detect a significant skewness in normally distributed data.
 #' @references
 #' D'Agostino, R.B. (1970). Transformation to Normality of the Null Distribution of G1. Biometrika, 57, 3, 679-681.
+#' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
 #' set.seed(1234)
@@ -19,7 +20,7 @@
 function (x, alternative=c("two.sided","less","greater"))
 {
      DNAME <- deparse(substitute(x))
-     x <- sort(x[complete.cases(x)])
+     x <- sort(x[stats::complete.cases(x)])
      n <- length(x)
 s <- match.arg(alternative)
 alter <- switch(s, two.sided=0, less=1, greater=2)
@@ -32,7 +33,7 @@ w <- sqrt(-1+sqrt(2*(b2-1)));
 d <- 1/sqrt(log(w));
 a <- sqrt(2/(w*w-1));
 z <- d*log(y/a+sqrt((y/a)^2+1));
-     pval <- pnorm(z, lower.tail = FALSE)
+     pval <- stats::pnorm(z, lower.tail = FALSE)
 if (alter == 0) {
 pval <- 2*pval
 if (pval > 1) pval<-2-pval

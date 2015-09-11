@@ -4,8 +4,8 @@
 #' @description
 #' This function is used for estimating standard errors when the distribution is not know.
 #'
-#' @param x a vector
-#' @param p estimation of parameter
+#' @param x A vector
+#' @param p An estimation of parameter
 #'
 #' @return est orignial estimation of parameter
 #' @return jkest jackknife estimation of parameter

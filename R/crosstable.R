@@ -1,6 +1,6 @@
 #' @encoding UTF-8
 #' @title Cross-tabulation
-#' @description \code{crosstable} produces all possible two-way tabulations of the variables specified.
+#' @description \code{crosstable} produces all possible two/three-way tabulations.
 #' @param .data The data.frame.
 #' @param \dots The data paremeters.
 #' @param prop \code{c('row', 'col')} if 'col' column proportions will be

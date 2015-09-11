@@ -55,9 +55,10 @@ C <- c(.75,.10,rep(0.01,15))
 party_1980 <- c("Democratic", "Republican", "Independent", "Libertarian", "Citizens", "Others")
 US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
 
+politicalDiversity(US1980, index= "laakso/taagepera")
+
 politicalDiversity(US1980, index= "herfindahl")
-# or
-politicalDiversity(US1980, index= "simpson")
+
 
 party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian",
 "Constitution", "Green", "Others")
@@ -104,7 +105,9 @@ seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12,
 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 
 politicalDiversity(seats_2014, index= "laakso/taagepera")
+
 # or:
+
 politicalDiversity(seats_2014, index= "invsimpson")
 
 politicalDiversity(seats_2014, index= "golosov")

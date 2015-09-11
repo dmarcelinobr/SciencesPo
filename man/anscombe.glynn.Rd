@@ -14,7 +14,7 @@ must be one of '"two.sided"' (default), '"greater"' or '"less"'. You can
  specify just the initial letter.}
 }
 \description{
-Performs Anscombe-Glynn test of kurtosis for normal samples.
+Performs the Anscombe-Glynn test of kurtosis for normal samples.
 }
 \details{
 Under the hypothesis of normality, data should have kurtosis equal

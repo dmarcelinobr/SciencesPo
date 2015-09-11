@@ -47,9 +47,10 @@
 #' party_1980 <- c("Democratic", "Republican", "Independent", "Libertarian", "Citizens", "Others")
 #' US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
 #'
+#' politicalDiversity(US1980, index= "laakso/taagepera")
+#'
 #' politicalDiversity(US1980, index= "herfindahl")
-#' # or
-#' politicalDiversity(US1980, index= "simpson")
+#'
 #'
 #' party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian",
 #' "Constitution", "Green", "Others")
@@ -96,7 +97,9 @@
 #' 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 #'
 #' politicalDiversity(seats_2014, index= "laakso/taagepera")
+#'
 #' # or:
+#'
 #' politicalDiversity(seats_2014, index= "invsimpson")
 #'
 #' politicalDiversity(seats_2014, index= "golosov")
@@ -342,3 +345,19 @@ NULL
 #'#  district, seats, polar, time, blocks,
 #'#   verbose=TRUE){
 #'#   if(verbose)}
+
+#'# votes86 = c(54109, 365376, 14325, 241402, 478405, 11788, 3055097, 2668055, 7973080, 50590, 13840, 1236493, 81424, 84156, 19520016, 41280, 6601, 28194, 27399, 35768, 1679, 27202, 50669, 387733, 166179, 2537691, 1722801 ,5844, 30907)
+
+
+#'# 2010: ALL
+#'# votes10=c(6932420,2580925, 22936, 1425, 4579006, 720154, 11867988, 1052218, 6862846, 2376475, 7097712, 1659973, 231282, 291341, 6582622, 2965055, 9500548, 177773, 464180, 969954, 54252, 14251798, 605768, 3912093, 565409, 155434, 2885915)
+
+#'# only Elected:
+#'# votes10=c(4550184,1823077,2596556, 96060, 8492579, 446162, 5197306, 1356469, 5889206, 871461, 47488, 50488, 4737508, 1859443, 6362262, 40093, 442756, 10472717, 178734, 2349527, 104015, 1005770)
+
+
+#'#ro <- c(50740, 80954)
+
+#'# results <- c(DEM=490205, PMDB=1151547, PRB=2449440, PSB=48274, PSTU=54403, PTC=173151)
+
+#'# votes14=c(DEM=3868200, PCdoB=1799619, PCB=37253, PCO=8267, PDT=3141818, PEN=634682, PHS=903968, PMDB=10053108, PMN=432807, PP=6158835, PPL=103606, PPS=1875826, PR=5448721, PRB=4297373, PROS=1879940, PRP=655107, PRTB=430995, PSB=5574401, PSC=2420581, PSD=5637961, PSDB=9145950, PSDC=491280, PSL=772628, PSOL=1486393, PSTU=151353, PT=11803985, PTdoB=807509, PTB=3703639, PTC=312548, PTN=682854, PV=1808991, SD=2621639)

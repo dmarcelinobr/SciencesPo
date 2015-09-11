@@ -155,6 +155,16 @@ min2hour <- function(min) {
   trunc(min/60)*100 + min %% 60
 }
 
+#' @title Camel Case Words
+#' @param s The string vector
+#' @param strict A logical value. If TRUE, the rule will be applied to every word.
+#' @export
+`.CamelCase` <- function(s, strict = FALSE){
+  .cap <- function(s) paste(toupper(substring(s, 1, 1)),
+                           {s <- substring(s, 2); if(strict) tolower(s) else s},
+                           sep = "", collapse = " " )
+  sapply(strsplit(s, split = " "), .cap, USE.NAMES = !is.null(names(s)))
+}
 
 #' @title Progress Bar
 #' @param style An integer for style.

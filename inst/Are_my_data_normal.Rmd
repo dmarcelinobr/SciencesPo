@@ -1,0 +1,84 @@
+---
+title: "Untitled"
+author: "Daniel Marcelino"
+date: "August 12, 2015"
+output: html_document
+---
+
+# What is normality?
+It's a kind of statistic distribution, used with continuous variables, that depend only on the mean (\mu) and standard deviation (\sigma).
+
+# Is the Normal very normal in Political Sciences?
+Lots of political variables are the result of the sum of several independents features. As it explains the Central Limit Theorem, sums of that large number of variables will be distributed following the Normal law. 
+
+# Why testing normality?
+The normality assumption is at the core of a majority of standard statistical procedures, and it is important to be able to test this assumption. In addition, demonstrating that a sample does not come from a normally distributed population is sometimes of importance per se. For instance, Geary (1947) shows that probabilities derived from the well-known analyses of variance and other "small sample" tests, which postulate universal normality, may differ seriously from the true probabilities when the universes are non-normal.
+
+In this short-notes, I want to show successive steps in the analysis of normality, exemplified with available data, studying the effect of testosterone on the length of
+the fingers. Finally, I'll use simulated data in order to study the effectiveness of some tests of normality.
+
+# Case study
+
+# Methods for studying normality:
+
+Look at the distribution! Does it appear bell shaped?
+
+```{r}
+
+```
+
+
+Compute descriptive summary measures—are mean, median, trimed mean similar? 
+Are skewness and kurtosis near zero?
+
+```{r}
+
+```
+
+
+Do 2/3 of observations lie within 1 std dev of the mean? Do 95% of observations lie within 2 std dev of the mean?
+```{r}
+
+```
+
+Look at a normal probability plot—is it approximately linear?
+
+
+
+# Conclusions
+In order to investigate the normality of some data, we recommend to use both the descriptive part and the tests.
+As Shapiro et al (1968) conclude, our simulations established that S-W is the most powerful test we have studied.
+
+Mean, median and trimed mean are similar in each group. Skewness and kurtosis are not significantly ( =0.05) different from zero.
+With S-W we found the expected behavior of the test based on sample size and the deviation from normal with the df of the 2.
+D’Agostino’s test (1970) presents difficulties in calculating the p-value.
+
+# References
+Thode Jr., H.C. ―Testing for Normality‖. New York: Marcel Dekker. 2002.
+
+
+
+
+Run tests of normality, but, be cautious, highly influenced by sample size!
+
+Thode (2002) presents more than 40 normality test. But our software available for tests were:
+
+- Lilliefors (Kolmogorov-Smirnov K-S) Correction of the famous K-S test that studies the maximal absolute difference between empirical and hypothetical cumulative distribution function.
+
+- Shapiro-Willk's (S-W): It compares the estimated variance using moments and the one obtained from the slope of the Q-Q plot.
+
+- Shapiro-Francia (S-F): Squared correlation between the ordered sample values and the (approximated) expected ordered quantiles from the standard normal.
+
+- D'Agostino (D'A) This test has the null hypothesis of skewness should be equal to zero.
+2
+- Cramer-von Mises (C-M): EDF goodness of fit: n (F (x) (x)) ( (x))d (x)
+with ( (x))=1.
+
+- Anderson-Darling (A-D): Like Cramer-von Mises with (p) (p(1 p))1
+
+- Jarque_Bera (J-B): the test is based on a join statistic using skewness and
+Comparison of efficacy of the normality test using normal data and non-
+kurtosis coefficients.
+
+- Pearson chi-square (P-Chi): Chi-square goodness of fit of counted and the
+expected observations in class *i*. The classes are build is such a way that they are equiprobable under the hypothesis of normality

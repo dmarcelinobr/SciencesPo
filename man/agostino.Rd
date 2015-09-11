@@ -14,7 +14,7 @@ must be one of '"two.sided"' (default), '"greater"' or '"less"'.
  You can specify just the initial letter.}
 }
 \description{
-Performs D'Agostino test for skewness in normally distributed data.
+Performs the D'Agostino test for skewness in normally distributed data.
 }
 \details{
 Under the hypothesis of normality, data should be symmetrical (i.e. skewness should be equal to zero).

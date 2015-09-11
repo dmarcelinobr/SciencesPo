@@ -4,38 +4,17 @@
 \alias{freq}
 \title{Frequency table}
 \usage{
-freq(x, weighs = NULL, breaks = hist(x, plot = FALSE)$breaks, digits = 2,
-  include.lowest = TRUE, ord = c("level", "desc", "asc", "name"),
-  useNA = c("no", "ifany", "always"), ...)
+freq(x, ...)
 }
 \arguments{
-\item{x}{The variable to be described.}
+\item{x}{The data.frame}
 
-\item{weighs}{a numeric vector of weights.}
-
-\item{breaks}{Either a numeric vector of two or more cut points or a integer (> 2) for the intervals. If not provided, the default is taken from \code{hist()}. This parameter is ignored if x is not of class numeric.}
-
-\item{digits}{An integer for the decimals.}
-
-\item{include.lowest}{A logical, indicating if an x[i] equal to the lowest (or highest, for \code{right = FALSE}) \code{"breaks"} value should be included. Ignored if x is not of numeric type.}
-
-\item{ord}{How should the result be ordered. Default is \code{"level"}, other choices are by frequency: (\code{"desc"} or \code{"asc"}) or 'by name of the levels' (\code{"name"}).}
-
-\item{useNA}{A character parameter to be passed to \code{table}.}
-
-\item{\dots}{Further arguments are: \code{\link{cut}()}, and \code{right} to define if the intervals should be closed on the right (and open on the left) or vice versa.}
+\item{\dots}{Further arguments.}
 }
 \description{
-Computes absolute and relative frequencies of a vector x. Continuous (numeric) variables are cut as the \code{\link{hist}} function, whereas categorical variables are aggregated by \code{\link{table}}.
+Simulating the FREQ procedure of SPSS.
 }
 \examples{
-data(ssex)
-with(ssex, freq(Favor))
-
-# sorted by frequency
-freq(ssex$Favor, ord="desc")
-
-# sorted by name, including NAs
-with(ssex, freq(Favor, ord="name", useNA="ifany"))
+freq2(titanic$CLASS)
 }
 

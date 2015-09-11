@@ -8,9 +8,9 @@
 jackknife(x, p)
 }
 \arguments{
-\item{x}{a vector}
+\item{x}{A vector}
 
-\item{p}{estimation of parameter}
+\item{p}{An estimation of parameter}
 }
 \value{
 est orignial estimation of parameter

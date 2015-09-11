@@ -36,7 +36,7 @@
      1:seats ))
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-   out <- data.frame(SciencesPo::freq(out)[,1:3]);
+   out <- data.frame(SciencesPo::freq2(out)[,1:3]);
    out  <- out %>% dplyr::arrange(dplyr::desc(freq));
    names(out) <-c("Parties", "d'Hondt", "Perc");
      return(out)

@@ -1,6 +1,6 @@
 #' @title Bonett-Seier test of Geary's kurtosis
 #'
-#' @description This function performs Bonett-Seier test of Geary's measure of kurtosis for normally distributed data.
+#' @description Performs the Bonett-Seier test of Geary's measure of kurtosis for normally distributed data.
 #' @param x A numeric vector of data values.
 #' @param alternative A character string specifying the alternative hypothesis,
 #'  must be one of '"two.sided"' (default), '"greater"' or '"less"'.
@@ -10,9 +10,9 @@
 #'    kurtosis equal to \code{sqrt(2/pi)} (0.7979). This test has such null
 #'     hypothesis and is useful to detect a significant difference of Geary's
 #'      kurtosis in normally distributed data.
-#'
 #'  @references
 #'  Bonett, D.G., Seier, E. (2002) A test of normality with high uniform power. Computational Statistics and Data Analysis, 40, 435-445.
+#' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
 #' set.seed(1234)
@@ -24,7 +24,7 @@
 function (x, alternative=c("two.sided","less","greater"))
 {
      DNAME <- deparse(substitute(x))
-     x <- sort(x[complete.cases(x)])
+     x <- sort(x[stats::complete.cases(x)])
      n <- length(x)
 s <- match.arg(alternative)
 alter <- switch(s, two.sided=0, less=1, greater=2)
@@ -32,7 +32,7 @@ rho <- sqrt(sum((x-mean(x))^2)/n);
 tau <- sum(abs(x-mean(x)))/n;
 omega <- 13.29*(log(rho)-log(tau));
 z <- sqrt(n+2)*(omega-3)/3.54;
-     pval <- pnorm(z, lower.tail = FALSE)
+     pval <- stats::pnorm(z, lower.tail = FALSE)
 if (alter == 0) {
 pval <- 2*pval
 if (pval > 1) pval<-2-pval

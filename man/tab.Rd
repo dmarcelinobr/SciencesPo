@@ -26,7 +26,7 @@ computed; the default is 'row' proportions.}
 A cross tabulated object. Also can genarate the as latex.
 }
 \description{
-\code{crosstable} produces all possible two-way tabulations of the variables specified.
+\code{crosstable} produces all possible two/three-way tabulations.
 
 Cross-tabulation
 }
