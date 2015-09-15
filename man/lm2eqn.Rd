@@ -21,13 +21,13 @@ Produces a text equation style to be added in plots.
 \examples{
 fit=lm(mpg~wt,data=mtcars)
 summary(fit)
-lm2equation("mtcars","wt","mpg")
+lm2eqn("mtcars","wt","mpg")
 require(ggplot2)
 
 mtcars$name=rownames(mtcars)
 mtcars$selected=ifelse(mtcars$name \%in\% c("Toyota Corolla","Merc 240D"),1,0)
 selected=mtcars[mtcars$selected==1,]
-mylabel=lm2equation("mtcars","wt","mpg")
+mylabel=lm2eqn("mtcars","wt","mpg")
 
 ggplot(mtcars,aes(x=wt,y=mpg,colour=selected))+
  geom_text(data=selected,aes(label=name),hjust=-0.1)+
