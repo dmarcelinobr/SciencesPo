@@ -1,6 +1,7 @@
 # The SciencesPo demo
 # Press <Enter> to advance through the demo,
 # Ctrl-C (Linux) or Esc (Windows and Mac) to exit
+
 par(ask=TRUE)
 x <- rnorm(100)
 y <- x + rnorm(100)
@@ -115,3 +116,21 @@ jarque.bera(200:500)
 y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
 qqnorm(y)
 jarque.bera(y)
+
+
+# Descriptive
+pause()
+## Simulating the FREQ procedure of SPSS.
+data(ssex)
+
+freq(ssex, Favor)
+
+pause()
+## Cross-Tabulation: two-way
+
+tab(titanic, SEX, AGE)
+
+pause()
+## Cross-Tabulation: three-way
+titanic %>% tab(SEX, AGE, SURVIVED)
+

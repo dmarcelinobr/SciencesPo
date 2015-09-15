@@ -27,11 +27,11 @@
 #' \code{power} the power (1-beta).
 #'
 #' @examples
-#' samplePower(mu0=68, mu1=69, sigma=3.1, n=100)
+#' sample.power(mu0=68, mu1=69, sigma=3.1, n=100)
 #' ## gives a power of .90
 #'
 #' @export
-`samplePower` <- function(mu0=0, mu1=0, sigma=1, n=100, alpha=.05) {
+`sample.power` <- function(mu0=0, mu1=0, sigma=1, n=100, alpha=.05) {
   gamma = (mu1-mu0)/sigma
   delta = gamma*sqrt(n)
   se.mean = sigma/sqrt(n)
@@ -48,10 +48,10 @@
   if (mu1 != mu0) {
     cat('\nOne-sample z-test power calculation\n\n')
     cat('          n =',n,'\n')
-    cat('      sigma =',round(sigma,3),'\n')
+    cat('          \u03C3 =',round(sigma,3),'\n')
     cat('   SE(mean) =',round(se.mean,3),'\n')
-    cat('         µ0 =',round(mu0,3),'\n')
-    cat('         µ1 =',round(mu1,3),'\n')
+    cat('         \u03BC0 =',round(mu0,3),'\n')
+    cat('         \u03BC1 =',round(mu1,3),'\n')
     cat('  mean.crit =',round(mean.crit,3),'\n\n')
     cat('effect size =',round(gamma,3),'\n')
     cat('      delta =',round(delta,3),'\n')
@@ -66,16 +66,15 @@
 
   curve(stats::dnorm(x,mean=mu0,sd=se.mean),from=z0min,to=z0max,
         xlim=range(z0min,z0max,z1min,z1max),ylab='density',col="blue",
-        xlab=paste('alpha = ',round(alpha,3),' (two-sided)',
-                   ', beta = ',round(stats::pnorm(stats::qnorm(1-alpha/2,mean=0,
+        xlab=paste('\u03B1 = ',round(alpha,3),' (two-sided)',
+                   ', \u03B2 = ',round(stats::pnorm(stats::qnorm(1-alpha/2,mean=0,
                                                  sd=se.mean),mean=abs(mu1-mu0),
                                            sd=se.mean),3),
                    ', power = ',round(1-stats::pnorm(stats::qnorm(1-alpha/2,mean=0,
                                                     sd=se.mean),mean=abs(mu1-mu0),
                                               sd=se.mean),3),sep=""),
         main=paste('Power of z-Test of the Mean of a Single Population\n',
-                   'n = ',n,', µ0 = ',mu0,', µ1 = ',mu1,', sigma = ',sigma,
-                   sep=""))
+                   'n = ',n,', \u03BC0 = ',mu0,', \u03BC1 = ',mu1,', \u03C3 = ',sigma, sep=""))
   # Acceptance region H0:
   x=seq(z0L,z0U,min(.001,1/n))
   graphics::polygon(c(z0L,x,z0U),c(0,stats::dnorm(x,mean=mu0,sd=se.mean),0),col="lightyellow")
@@ -83,8 +82,8 @@
   # Normal curve H1:
   graphics::curve(dnorm(x,mean=mu1,sd=se.mean),from=z1min,to=z1max,add=TRUE,col="red")
 
-  text(mu0,0,'µ0',pos=1,offset=.15,cex=.8)
-  text(mu1,0,'µ1',pos=1,offset=.15,cex=.8)
+  text(mu0,0, '\u03BC0',pos=1,offset=.15,cex=.8)
+  text(mu1,0, '\u03BC1',pos=1,offset=.15,cex=.8)
 
   if (mu1 > mu0){
     text(z0U,0,round(z0U,2),pos=1,offset=.15,cex=.8)
@@ -132,6 +131,6 @@
               angle=135,col="red")
     }
   }
-  else cat('Error: µ1 must differ from µ0!\n')
+  else cat('Error: \u03BC1 must differ from \u03BC0!\n')
 }
 NULL

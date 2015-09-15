@@ -4,10 +4,10 @@
 \alias{freq}
 \title{Frequency table}
 \usage{
-freq(x, ...)
+freq(.data, ...)
 }
 \arguments{
-\item{x}{The data.frame}
+\item{.data}{The data.frame}
 
 \item{\dots}{Further arguments.}
 }
@@ -15,6 +15,11 @@ freq(x, ...)
 Simulating the FREQ procedure of SPSS.
 }
 \examples{
-freq2(titanic$CLASS)
+data(women)
+with(women, freq(weight))
+
+freq(women, weight)
+
+women \%>\% freq(weight)
 }
 

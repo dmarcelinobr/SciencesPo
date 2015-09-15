@@ -2,16 +2,27 @@
 #'
 #' @description Simulating the FREQ procedure of SPSS.
 #'
-#'  @param x The data.frame
+#'  @param .data The data.frame
 #'  @param \dots Further arguments.
 #'
 #' @examples
+#' data(women)
+#' with(women, freq(weight))
 #'
-#' freq2(titanic$CLASS)
+#' freq(women, weight)
+#'
+#' women %>% freq(weight)
 #'
 #' @export
-`freq` <- function(x,...)
-{
+`freq` <- function(.data, ...) {
+  names <- as.character(substitute(list(...)))[-1]
+  list <- c(list, names)
+  keep.elements <- match(list, ls(1))
+
+  vars <- as.list(1:ncol(.data))
+  names(vars) <- names(.data)
+  x <-eval(substitute(...), vars, parent.frame())
+
   nmiss=sum(is.na(x))
   fsum=summary(factor(x))
   ftab=cbind(fsum,100*fsum/sum(fsum))
@@ -31,6 +42,7 @@
     ftab[,3] <- round(ftab[,3],2)
     ftab[,4] <- round(ftab[,4],2)
     cat("\n")
+    cat("-----------------------------------------------------\n")
     colnames(ftab)=c("Frequency","   Percent"," Valid Percent"," Cum Percent")
     if (dim(ftab)[1]==length(levels(x)))
     {
@@ -41,6 +53,7 @@
   cat("-----------------------------------------------------\n")
   cat("Total",rep(" ",8-trunc(log10(sum(fsum)))),sum(fsum),"\n",sep="")
   cat("\n")
+
   if (length(attributes(x)$class) != 0)
   {
     if ("factor" %in% attributes(x)$class)

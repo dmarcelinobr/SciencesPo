@@ -4,7 +4,7 @@
 \alias{env}
 \title{Display Information about All Loaded Environments}
 \usage{
-env(unit = c("KB", "MB", "bytes"), digits = 0)
+env(unit = c("MB", "KB", "bytes"), digits = 0)
 }
 \arguments{
 \item{unit}{Required unit for displaying environment size: "bytes", "KB", "MB", or first letter.}
