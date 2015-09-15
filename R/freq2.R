@@ -13,13 +13,13 @@
 #' @importFrom graphics hist
 #' @examples
 #' data(ssex)
-#' with(ssex, freq(Favor))
+#' with(ssex, freq2(Favor))
 #'
 #' # sorted by frequency
-#' freq(ssex$Favor, ord="desc")
+#' freq2(ssex$Favor, ord="desc")
 #'
 #' # sorted by name, including NAs
-#' with(ssex, freq(Favor, ord="name", useNA="ifany"))
+#' with(ssex, freq2(Favor, ord="name", useNA="ifany"))
 #'
 #' @export
 `freq2` <-
