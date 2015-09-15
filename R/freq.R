@@ -13,7 +13,7 @@
 #'
 #' women %>% freq(weight)
 #'
-#' @export
+#'
 `freq` <- function(.data, ...) {
   names <- as.character(substitute(list(...)))[-1]
   list <- c(list, names)
