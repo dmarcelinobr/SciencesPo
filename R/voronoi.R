@@ -26,7 +26,7 @@ voronoi <- function(p, n=100, dim=1000){
   tmp$distancia <- .distancia(tmp$x, tmp$y, tmp$x0, tmp$y0, p)
   tmp[, rank := rank(distancia, ties.method = "random"), by = c("x", "y")]
 
-  frame <- data.table::data.table(tmp[tmp$rank == 1,])
+  frame <- as.data.table::data.table(tmp[tmp$rank == 1,])
   frame$x0 <- frame$y0 <- frame$distancia <- frame$rank <- NULL
 
   frame$color <- colors[frame$id]
