@@ -4,8 +4,6 @@
 #'
 #' @param \dots The parameters.
 #'
-#' @param vars A list of variables separated by comma.
-#'
 #' @examples
 #' reliability(attitude)
 #' reliability(attitude[,-6])

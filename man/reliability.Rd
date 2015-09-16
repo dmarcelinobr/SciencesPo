@@ -8,8 +8,6 @@ reliability(...)
 }
 \arguments{
 \item{\dots}{The parameters.}
-
-\item{vars}{A list of variables separated by comma.}
 }
 \description{
 Simulates the SPSS procedure Reliability

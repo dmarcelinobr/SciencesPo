@@ -7,9 +7,9 @@
 #'
 #' @param x A numeric vector of data values. Non-finite (e.g. infinite or missing) values will be omitted.
 #' @param y A numeric vector of data values. Non-finite (e.g. infinite or missing) values will be omitted.
-#'  @param id.col
+#'  @param id.col If FALSE (default), then x and y are the data vectors (columns) for group 1 and 0, respectively. If TRUE, the y is the group indicator.
 #' @param adjust.median Should between-group differences in medians be leveled before performing the test? In certain cases, the Siegel-Tukey test is susceptible to median differences and may indicate significant differences in variability that, in reality, stem from differences in medians.
-#' @param rnd
+#' @param rnd A non-negative integer if the data should be rounded to a given decimal. The default uses the data as is.
 #' @param alternative A character string specifying the alternative hypothesis, must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.
 #' @param mu A number specifying an optional parameter used to form the null hypothesis.
 #' @param paired
@@ -22,13 +22,12 @@
 #' Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks procedure for relative spread in unpaired samples. Journal of the American Statistical Association.
 #'
 #' @examples
-#' sample1 <- c(20.30, 22.53, 25.70, 13.23, 29.67, 24.46, 26.07, 19.35, 17.813,
-#'             16.00, 15.30, 32.90)
-#' sample2 <- c(10.56, 28.13, 19.94, 11.03, 8.093, 12.95, 21.14, 32.50, 10.90)
-#' ks.test(sample1,sample2) # <-- Fail to reject H0 for alpha = .05
-#' ks.test(sample1,sample2,alternative = "greater")
-#' ks.test(sample1,sample2,alternative = "less")
-#' @examples
+#' x <- c(33, 62, 84, 85, 88, 93, 97, 4, 16, 48, 51, 66, 98)
+#' id <- c(0,0,0,0,0,0,0,1,1,1,1,1,1)
+#'
+#'  siegel.tukey(x,id,T)
+#'
+#' # Other:
 #' x=c(4,4,5,5,6,6); y=c(0,0,1,9,10,10);
 #'
 #' siegel.tukey(x,y)
@@ -89,3 +88,4 @@
   cat("Rank sum of group 1 =", sum(rk1),"    Rank sum of group 2 =",sum(rk2),"\n")
   print(wilcox.test(rk1,rk2,alternative=alternative,mu=mu,paired=paired,exact=exact,correct=correct,conf.int=conf.int,conf.level=conf.level))
 }
+NULL
