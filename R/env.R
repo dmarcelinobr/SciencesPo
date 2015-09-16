@@ -1,4 +1,5 @@
 #' @title Display Information about All Loaded Environments
+#'
 #' @description Display name, number of objects, and size of all loaded environments.
 #' @param unit Required unit for displaying environment size: "bytes", "KB", "MB", or first letter.
 #' @param digits Number of decimals to display when rounding environment size.

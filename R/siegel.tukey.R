@@ -25,12 +25,20 @@
 #' x <- c(33, 62, 84, 85, 88, 93, 97, 4, 16, 48, 51, 66, 98)
 #' id <- c(0,0,0,0,0,0,0,1,1,1,1,1,1)
 #'
-#'  siegel.tukey(x,id,T)
+#'  siegel.tukey(x,id, TRUE)
 #'
 #' # Other:
 #' x=c(4,4,5,5,6,6); y=c(0,0,1,9,10,10);
 #'
 #' siegel.tukey(x,y)
+#'
+#' # Yet another:
+#' x=c(4,4,5,5,6,6);
+#' y=c(0,0,1,9,10,10)
+#'
+#' siegel.tukey(x,y)
+#' # should be: 1, 4, 5, 8, 9, 12, 11, 10, 7, 6, 3, 2
+#' # adjusted ranks would be: 2.5, 2.5, 5, 8.5, 8.5, 11.5, 11.5, 8.5, 8.5, 6, 2.5, 2.5
 #'
 #' @export
 `siegel.tukey` <- function(x, y, id.col=FALSE, adjust.median=F,rnd=-1,alternative="two.sided",mu=0,paired=FALSE,exact=FALSE,correct=TRUE,conf.int=FALSE,conf.level=0.95)
