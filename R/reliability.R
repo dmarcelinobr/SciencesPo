@@ -2,7 +2,7 @@
 #'
 #' @description Simulates the SPSS procedure Reliability
 #'
-#' @param .data
+#' @param \dots The parameters.
 #'
 #' @param vars A list of variables separated by comma.
 #'
@@ -21,7 +21,7 @@ reliability = function(...)
   }
   else
   {
-    x = x[complete.cases(x),]
+    x = x[stats::complete.cases(x),]
     if ((ncol(x) > 1) & (nrow(x) > 2))
     {
       n = nrow(x)

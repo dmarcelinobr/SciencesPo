@@ -7,7 +7,7 @@
 reliability(...)
 }
 \arguments{
-\item{.data}{}
+\item{\dots}{The parameters.}
 
 \item{vars}{A list of variables separated by comma.}
 }

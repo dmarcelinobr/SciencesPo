@@ -11,9 +11,9 @@ lm2eqn(.data, x, y, spaced = TRUE)
 
 \item{x}{The independent variable(s).}
 
-\item{spaced}{A logical value indicating if spaces should be added; default is TRUE.}
+\item{y}{The dependent variable.}
 
-\item{x}{The dependent variable.}
+\item{spaced}{A logical value indicating if spaces should be added; default is TRUE.}
 }
 \description{
 Produces a text equation style to be added in plots.

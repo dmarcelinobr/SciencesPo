@@ -1,8 +1,10 @@
 #' @title Linear model to equation style
+#'
 #' @description Produces a text equation style to be added in plots.
+#'
 #' @param .data The data.frame object.
 #' @param x The independent variable(s).
-#' @param x The dependent variable.
+#' @param y The dependent variable.
 #' @param spaced A logical value indicating if spaces should be added; default is TRUE.
 #'
 #' @examples
@@ -25,7 +27,7 @@
 #'  theme_pub()
 #'
 #' @export
-`lm2eqn` <- function(.data,x,y,spaced=TRUE){
+`lm2eqn` <- function(.data, x , y, spaced=TRUE){
   fit=eval(parse(text=paste0("lm(",y,"~",x,",data=",.data,")")))
   intercept=round(stats::coef(fit)[1],1)
   slope=round(stats::coef(fit)[2],1)

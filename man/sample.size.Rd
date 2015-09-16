@@ -2,14 +2,26 @@
 % Please edit documentation in R/sample.size.R
 \name{sample.size}
 \alias{sample.size}
-\title{# Public opinion samples in Brazil:
-sample.size(p=.50, delta=.03)
-sample.size(p=.50, delta=.02)}
+\title{N for Survey}
 \usage{
 sample.size(p, delta = "auto", popsize = NULL, deff = 1, alpha = 0.05)
 }
+\arguments{
+\item{p}{The proportion.}
+
+\item{delta}{The error size.}
+
+\item{popsize}{An integer for the population size.}
+
+\item{deff}{An intger for the deff.}
+
+\item{alpha}{The level of alpha/significance.}
+}
 \description{
-# Public opinion samples in Brazil:
+N for Survey
+}
+\examples{
+# Comercial public opinion samples in Brazil:
 sample.size(p=.50, delta=.03)
 sample.size(p=.50, delta=.02)
 }

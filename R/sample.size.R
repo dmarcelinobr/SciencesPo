@@ -1,4 +1,14 @@
-#' # Public opinion samples in Brazil:
+#' @title N for Survey
+#'
+#' @param p The proportion.
+#' @param delta The error size.
+#' @param popsize An integer for the population size.
+#' @param deff An intger for the deff.
+#' @param alpha The level of alpha/significance.
+#'
+#' @export
+#' @examples
+#' # Comercial public opinion samples in Brazil:
 #' sample.size(p=.50, delta=.03)
 #' sample.size(p=.50, delta=.02)
 `sample.size` <- function(p, delta = "auto", popsize=NULL, deff=1, alpha = .05){

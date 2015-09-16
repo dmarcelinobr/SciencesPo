@@ -1,6 +1,27 @@
+#' @title Siegel-Tukey Test for equality in variability
 #'
+#' @description Non-parametric Siegel-Tukey test for equality in variability.
+#'  The null hypothesis is that the variability of x is equal between two groups.
+#'  Thus, a rejection of the null hypothesis indicates that variability differs between the two groups.
+#'  SiegelTukeyRank returns the ranks, calculated after Siegel Tukey logic.
 #'
+#' @param x A numeric vector of data values. Non-finite (e.g. infinite or missing) values will be omitted.
+#' @param y A numeric vector of data values. Non-finite (e.g. infinite or missing) values will be omitted.
+#'  @param id.col
+#' @param adjust.median Should between-group differences in medians be leveled before performing the test? In certain cases, the Siegel-Tukey test is susceptible to median differences and may indicate significant differences in variability that, in reality, stem from differences in medians.
+#' @param rnd
+#' @param alternative A character string specifying the alternative hypothesis, must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.
+#' @param mu A number specifying an optional parameter used to form the null hypothesis.
+#' @param paired
+#' @param exact A logical indicating whether an exact p-value should be computed. This is passed directly to wilcox.test.
+#' @param correct A logical indicating whether to apply continuity correction in the normal approximation for the p-value.
+#' @param conf.int A logical indicating whether a confidence interval should be computed.
+#' @param conf.level The confidence level of the interval.
 #'
+#' @references
+#' Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks procedure for relative spread in unpaired samples. Journal of the American Statistical Association.
+#'
+#' @examples
 #' sample1 <- c(20.30, 22.53, 25.70, 13.23, 29.67, 24.46, 26.07, 19.35, 17.813,
 #'             16.00, 15.30, 32.90)
 #' sample2 <- c(10.56, 28.13, 19.94, 11.03, 8.093, 12.95, 21.14, 32.50, 10.90)
@@ -9,6 +30,7 @@
 #' ks.test(sample1,sample2,alternative = "less")
 #' @examples
 #' x=c(4,4,5,5,6,6); y=c(0,0,1,9,10,10);
+#'
 #' siegel.tukey(x,y)
 #'
 #' @export
