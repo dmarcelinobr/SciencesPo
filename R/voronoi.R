@@ -7,7 +7,7 @@
 #' @param dim The dimension of the image.
 #' @details
 #' \url{https://en.wikipedia.org/wiki/Voronoi_diagram}
-#' @importFrom data.table := data.table dcast.data.table
+#' @importFrom data.table := setDT dcast.data.table
 #' @export
 #' @examples
 #' voronoi(p=2, n=20, dim=1000)
@@ -26,12 +26,12 @@ voronoi <- function(p, n=100, dim=1000){
   tmp$distancia <- .distancia(tmp$x, tmp$y, tmp$x0, tmp$y0, p)
   tmp[, rank := rank(distancia, ties.method = "random"), by = c("x", "y")]
 
-  frame <- as.data.table::data.table(tmp[tmp$rank == 1,])
+  frame <- tmp[tmp$rank == 1,]
   frame$x0 <- frame$y0 <- frame$distancia <- frame$rank <- NULL
 
   frame$color <- colors[frame$id]
 
-  imagen <- as.matrix(data.table::dcast.data.table(frame, x ~ y, value.var = "color")[,-1])
+  imagen <- as.matrix(data.table::dcast.data.table(data.table::setDT(frame), x ~ y, value.var = "color")[,-1,  with=FALSE])
 
   grid::grid.raster(imagen)
 }

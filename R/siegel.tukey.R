@@ -20,19 +20,21 @@
 #'
 #' @references
 #' Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks procedure for relative spread in unpaired samples. Journal of the American Statistical Association.
+#' Sheskin, D. J. (2004): Handbook of parametric and nonparametric statistical procedures 3rd edition. Chapman and Hall/CRC. Boca Raton, FL.
 #'
 #' @examples
 #' x <- c(33, 62, 84, 85, 88, 93, 97, 4, 16, 48, 51, 66, 98)
 #' id <- c(0,0,0,0,0,0,0,1,1,1,1,1,1)
 #'
-#'  siegel.tukey(x,id, TRUE)
+#'  siegel.tukey(x,id, id.col=TRUE)
 #'
 #' # Other:
-#' x=c(4,4,5,5,6,6); y=c(0,0,1,9,10,10);
+#' x=c(4,4,5,5,6,6);
+#' y=c(0,0,1,9,10,10);
 #'
 #' siegel.tukey(x,y)
 #'
-#' # Yet another:
+#' # Pg 468 Handbook of Parametric and Nonparametric Statistical Procedures:
 #' x=c(4,4,5,5,6,6);
 #' y=c(0,0,1,9,10,10)
 #'
@@ -59,7 +61,7 @@
   cat("Median of group 1 = ",median(data$x[data$y==1]),"\n")
   cat("Median of group 2 = ",median(data$x[data$y==2]),"\n","\n")
   cat("Test of median differences","\n")
-  print(wilcox.test(data$x[data$y==1],data$x[data$y==2]))
+  print(stats::wilcox.test(data$x[data$y==1],data$x[data$y==2]))
 
   a=rep(seq(ceiling(length(data$x)/4)),each=2)
   b=rep(c(0,1),ceiling(length(data$x)/4))
@@ -94,6 +96,6 @@
   cat("Siegel-Tukey rank transformation performed.","Tie adjusted ranks computed.","\n")
   if(adjust.median==T) {cat("Medians adjusted to equality.","\n")} else {cat("Medians not adjusted.","\n")}
   cat("Rank sum of group 1 =", sum(rk1),"    Rank sum of group 2 =",sum(rk2),"\n")
-  print(wilcox.test(rk1,rk2,alternative=alternative,mu=mu,paired=paired,exact=exact,correct=correct,conf.int=conf.int,conf.level=conf.level))
+  print(stats::wilcox.test(rk1,rk2,alternative=alternative,mu=mu,paired=paired,exact=exact,correct=correct,conf.int=conf.int,conf.level=conf.level))
 }
 NULL

@@ -43,14 +43,15 @@ Non-parametric Siegel-Tukey test for equality in variability.
 x <- c(33, 62, 84, 85, 88, 93, 97, 4, 16, 48, 51, 66, 98)
 id <- c(0,0,0,0,0,0,0,1,1,1,1,1,1)
 
- siegel.tukey(x,id, TRUE)
+ siegel.tukey(x,id, id.col=TRUE)
 
 # Other:
-x=c(4,4,5,5,6,6); y=c(0,0,1,9,10,10);
+x=c(4,4,5,5,6,6);
+y=c(0,0,1,9,10,10);
 
 siegel.tukey(x,y)
 
-# Yet another:
+# Pg 468 Handbook of Parametric and Nonparametric Statistical Procedures:
 x=c(4,4,5,5,6,6);
 y=c(0,0,1,9,10,10)
 
@@ -60,5 +61,6 @@ siegel.tukey(x,y)
 }
 \references{
 Siegel, S., Tukey, J. W. (1960): A nonparametric sum of ranks procedure for relative spread in unpaired samples. Journal of the American Statistical Association.
+Sheskin, D. J. (2004): Handbook of parametric and nonparametric statistical procedures 3rd edition. Chapman and Hall/CRC. Boca Raton, FL.
 }
 
