@@ -4,7 +4,7 @@
 \name{twins}
 \alias{twins}
 \title{Burt's twin data}
-\format{This data frame contains the following columns:}
+\format{This data.frame contains the following columns:}
 \source{
 Burt, C. (1966). The genetic estimation of differences in intelligence:
  A study of monozygotic twins reared together and apart. Br. J. Psych., 57, 147-153.

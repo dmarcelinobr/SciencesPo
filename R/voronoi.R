@@ -31,7 +31,9 @@ voronoi <- function(p, n=100, dim=1000){
 
   frame$color <- colors[frame$id]
 
-  imagen <- as.matrix(data.table::dcast.data.table(data.table::setDT(frame), x ~ y, value.var = "color")[,-1,  with=FALSE])
+  #imagen <- as.matrix(data.table::dcast.data.table(data.table::setDT(frame), x ~ y, value.var = "color")[,-1,  with=FALSE])
+
+  imagen <- data.table::setDT(frame)[, table(x ~ y)]
 
   grid::grid.raster(imagen)
 }

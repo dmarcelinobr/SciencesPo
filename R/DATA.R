@@ -417,8 +417,6 @@ NULL
 
 
 
-
-
 #' @title Cathedrals
 #'
 #' @description Heights and lengths of Gothic and Romanesque cathedrals.
@@ -436,7 +434,7 @@ NULL
 #' @keywords datasets
 #' @name cathedral
 #' @usage data(cathedral)
-#' @format This data frame uses  names as row label andcontains the following columns:
+#' @format This data.frame uses names as row label and contains the following columns:
 NULL
 
 
@@ -461,9 +459,38 @@ NULL
 #' @keywords datasets
 #' @name twins
 #' @usage data(twins)
-#' @format This data frame contains the following columns:
+#' @format This data.frame contains the following columns:
 NULL
 
+
+
+#' @title US Presidents' height
+#'
+#' @description Heights of the US presidents and their main opponents.
+#'
+#' \itemize{
+#' \item election The election year.
+#' \item winner The winner candidate.
+#' \item winner.height The winner candidate's height in centimeters (cm).
+#' \item winner.vote The popular vote support for the winner.
+#' \item winner.party The winner's party.
+#' \item opponent The main opponent candidate.
+#' \item opponent.height The opponent candidate's height in centimeters (cm).
+#' \item opponent.vote The popular vote support for the main opponent candidate.
+#' \item opponent.party The opponent's party.
+#' \item turnout The percentage of the electorate turnout.
+#'  }
+#'
+#'  @source
+#' Wikipedia: \url{https://en.wikipedia.org/wiki/United_States_presidential_election,_2012}
+#' Wikipedia:\url{https://en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name USPresidents
+#' @usage data(USPresidents)
+#' @format This data.frame contains the following columns:
+NULL
 
 #' # setwd("~/SciencesPo/data")
 #' # system("cp cathedral.txt cathedral-cp.txt")

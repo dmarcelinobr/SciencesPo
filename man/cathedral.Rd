@@ -4,7 +4,7 @@
 \name{cathedral}
 \alias{cathedral}
 \title{Cathedrals}
-\format{This data frame uses  names as row label andcontains the following columns:}
+\format{This data.frame uses names as row label and contains the following columns:}
 \usage{
 data(cathedral)
 }
