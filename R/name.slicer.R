@@ -5,7 +5,6 @@
 #' @param data the data.frame name.
 #'
 #' @return two columns or a list.
-#' @seealso \link{unnest}.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @details The way one may split names is region dependent, so this function may apply to very few contexts. See for instance \url{http://www.w3.org/International/questions/qa-personal-names}
 #'

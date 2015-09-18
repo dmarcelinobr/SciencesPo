@@ -30,7 +30,4 @@ df <- data.frame( name = c("Martin Luther King",
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
-\seealso{
-\link{unnest}.
-}
 
