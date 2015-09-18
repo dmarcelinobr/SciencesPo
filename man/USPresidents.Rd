@@ -23,7 +23,7 @@ Heights of the US presidents and their main opponents.
 \item winner.party The winner's party.
 \item opponent The main opponent candidate.
 \item opponent.height The opponent candidate's height in centimeters (cm).
-\item opponent.vote The popular vote support for the main opponent candidate.
+\item opponent.vote Popular vote support for the main opponent candidate.
 \item opponent.party The opponent's party.
 \item turnout The electorate turnout in percentages.
  }
