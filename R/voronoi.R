@@ -5,6 +5,7 @@
 #' @param p An integer for the size of the
 #' @param n An integer for the size of
 #' @param dim The dimension of the image.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @details
 #' \url{https://en.wikipedia.org/wiki/Voronoi_diagram}
 #' @importFrom data.table := setDT dcast.data.table
@@ -19,14 +20,18 @@ voronoi <- function(p, n=100, dim=1000){
   tmp <- data.table::data.table(expand.grid(x = 1:dim.image,
                                 y = 1:dim.image, id = 1:n), key = "id")
   tmp <- merge(tmp, points, by = "id")
+  tmp$distancia <- NULL
 
-  .distancia <- function(a, b, c, d, p)
+  `.distancia` <- function(a, b, c, d, p)
     (abs(a-c)^p + abs(b-d)^p)^(1/p)
 
+  tmp$distancia <- NULL
   tmp$distancia <- .distancia(tmp$x, tmp$y, tmp$x0, tmp$y0, p)
+
   tmp[, rank := rank(distancia, ties.method = "random"), by = c("x", "y")]
 
   frame <- tmp[tmp$rank == 1,]
+
   frame$x0 <- frame$y0 <- frame$distancia <- frame$rank <- NULL
 
   frame$color <- colors[frame$id]

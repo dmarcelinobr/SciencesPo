@@ -19,11 +19,9 @@ lm2eqn(.data, x, y, spaced = TRUE)
 Produces a text equation style to be added in plots.
 }
 \examples{
-fit=lm(mpg~wt,data=mtcars)
-summary(fit)
 lm2eqn("mtcars","wt","mpg")
-require(ggplot2)
 
+require(ggplot2)
 mtcars$name=rownames(mtcars)
 mtcars$selected=ifelse(mtcars$name \%in\% c("Toyota Corolla","Merc 240D"),1,0)
 selected=mtcars[mtcars$selected==1,]
@@ -36,5 +34,8 @@ ggplot(mtcars,aes(x=wt,y=mpg,colour=selected))+
  annotate(geom='text',x=4,y=30,size=7,label=mylabel,family='Times',fontface='italic')+
  scale_colour_gradientn(colours=c("black","red"))+
  theme_pub()
+}
+\author{
+Daniel Marcelino, \email{dmarcelino@live.com}
 }
 

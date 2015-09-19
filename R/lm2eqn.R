@@ -7,12 +7,11 @@
 #' @param y The dependent variable.
 #' @param spaced A logical value indicating if spaces should be added; default is TRUE.
 #'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @examples
-#' fit=lm(mpg~wt,data=mtcars)
-#' summary(fit)
 #' lm2eqn("mtcars","wt","mpg")
-#' require(ggplot2)
 #'
+#' require(ggplot2)
 #' mtcars$name=rownames(mtcars)
 #' mtcars$selected=ifelse(mtcars$name %in% c("Toyota Corolla","Merc 240D"),1,0)
 #' selected=mtcars[mtcars$selected==1,]
@@ -27,8 +26,8 @@
 #'  theme_pub()
 #'
 #' @export
-`lm2eqn` <- function(.data, x , y, spaced=TRUE){
-  fit=eval(parse(text=paste0("lm(",y,"~",x,",data=",.data,")")))
+`lm2eqn` <- function(.data, x, y, spaced=TRUE){
+  fit=eval(parse(text=paste0("glm(",y,"~",x,", na.action=na.exclude, data=",.data,")")))
   intercept=round(stats::coef(fit)[1],1)
   slope=round(stats::coef(fit)[2],1)
   if(spaced) equation=paste0("y = ",slope,"x",ifelse(intercept>=0,' + ',' - '),abs(intercept))

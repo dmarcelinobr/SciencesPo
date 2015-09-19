@@ -11,10 +11,10 @@
 #' @examples
 #'  df <- data.frame( name = c("Martin Luther King",
 #'  "Nelson Mandela", "Simon Bolivar") )
-#'  name.slicer(df$name)
-#'  df$n<- name.slicer(df$name)
+#'  split.names(df$name)
+#'  df$n<- split.names(df$name)
 #' @export
-`name.slicer`<- function(name, data=.data){
+`split.names`<- function(name, data=.data){
   .data <- NULL
   #nl <- as.list(1:ncol(data))
   # names(nl) <- names(data)

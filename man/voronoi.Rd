@@ -22,4 +22,7 @@ Computes the voronoi diagram.
 \examples{
 voronoi(p=2, n=20, dim=1000)
 }
+\author{
+Daniel Marcelino, \email{dmarcelino@live.com}
+}
 

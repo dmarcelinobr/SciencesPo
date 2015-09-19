@@ -1,4 +1,4 @@
-
+#' @encoding UTF-8
 #' @title Galton's Family Data on Human Stature.
 #'
 #' @description It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas.
@@ -20,6 +20,9 @@
 NULL
 
 
+
+
+#' @encoding UTF-8
 #' @title Same Sex Marriage Public Opinion Data
 #'
 #' @description Data set fielded by the PEW Research Center on same sex marriage support in US. It covers public opinion on the issue starting from 1996 up to date.
@@ -41,6 +44,8 @@ NULL
 NULL
 
 
+
+#' @encoding UTF-8
 #' @title The Penn World Table
 #'
 #' @description The Penn World Table used in Summers and Heston (1991).
@@ -70,6 +75,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Griliches's (1976) Data
 #'
 #' @description Data set used by Griliches (1976) on wages of very young men.
@@ -110,6 +117,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Marc Nerlove's (1963) data
 #'
 #' @description Data used by Marc Nerlove (1963) on returns of electricity supply.
@@ -134,6 +142,9 @@ NULL
 NULL
 
 
+
+
+#' @encoding UTF-8
 #' @title Stock's and Watson's (1993) Data.
 
 #' @description Data set used by Stock and Watson (1993) to estimate co-integration.
@@ -159,6 +170,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Lothian's and Taylor's (1996) Data Set
 
 #' @description Data used by Lothian and Taylor (1996) on the real exchange rate behaviour.
@@ -184,6 +196,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Christensen's and Greene's (1976) Data
 
 #' @description Data set used by Christensen and Greene (1976) on economies of scale in US electric power generation.
@@ -212,6 +226,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Mishkin's (1992) Data
 #'
 #' @description Data from the Frederic S. Mishkin (1992) paper \dQuote{Is the Fisher Effect for real?}.
@@ -239,6 +255,8 @@ NULL
 NULL
 
 
+
+#' @encoding UTF-8
 #' @title Bekaert's and Hodrick's (1993) Data
 
 #' @description Data set used by Bekaert and Hodrick (1993) on biases in the measurement of foreign exchange risk premiums.
@@ -269,6 +287,8 @@ NULL
 NULL
 
 
+
+#' @encoding UTF-8
 #' @title Titanic
 
 #' @description Population at Risk and Death Rates for an Unusual Episode. For each person on board the fatal maiden voyage of the ocean liner Titanic, this dataset records sex, age [adult/child], economic status [first/second/third class, or crew] and whether or not that person survived.
@@ -297,6 +317,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title NY Weather 1995-2014
 
 #' @description Data represents average daily temperatures.
@@ -321,6 +342,8 @@ NULL
 #' @format A data frame with 7290 observations on the following 4 variables.
 NULL
 
+
+#' @encoding UTF-8
 #' @title Turnout Data
 #'
 #' @description Data on voter turnout in the 50 states and D.C. for the 1992
@@ -368,6 +391,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Paired Data
 #'
 #' @description Artificial experimental paired data
@@ -387,7 +411,7 @@ NULL
 
 
 
-
+#' @encoding UTF-8
 #' @title Word frequencies from Mosteller and Wallace
 #'
 #' @description The data give the frequencies of words in works from four different sources: the political writings of eighteenth century American political figures Alexander Hamilton, James Madison, and John Jay, and the book Ulysses by twentieth century Irish writer James Joyce.
@@ -417,6 +441,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Cathedrals
 #'
 #' @description Heights and lengths of Gothic and Romanesque cathedrals.
@@ -439,6 +464,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Burt's twin data
 #'
 #' @description The given data are IQ scores from identical twins; one raised in a foster home, and the other raised by birth parents.
@@ -464,9 +490,10 @@ NULL
 
 
 
-#' @title US Presidents' height
+#' @encoding UTF-8
+#' @title The Measure of US Presidents
 #'
-#' @description Heights of the US presidents and their main opponents.
+#' @description The US presidents and their main opponents' heights (cm).
 #'
 #' \itemize{
 #' \item election The election year.
@@ -479,17 +506,19 @@ NULL
 #' \item opponent.vote Popular vote support for the main opponent candidate.
 #' \item opponent.party The opponent's party.
 #' \item turnout The electorate turnout in percentages.
+#' \item winner.bmi The winner Body Mass Index (BMI) estimate \code{(BMI = weight in kg/(height in meter)**2)}
 #'  }
 #'
-#'  @source
+#' @source
+#' Inside Gov. \url{http://us-presidents.insidegov.com}.
 #' Wikipedia: \url{https://en.wikipedia.org/wiki/United_States_presidential_election,_2012}
 #' Wikipedia:\url{https://en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
 #'
 #' @docType data
 #' @keywords datasets
-#' @name USPresidents
-#' @usage data(USPresidents)
-#' @format This data.frame contains the following columns:
+#' @name presidents
+#' @usage data(presidents)
+#' @format This data.frame contains 57 rows in the following 11 variables.
 NULL
 
 #' # setwd("~/SciencesPo/data")
