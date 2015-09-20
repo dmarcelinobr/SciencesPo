@@ -2,17 +2,18 @@
 % Please edit documentation in R/DATA.R
 \docType{data}
 \encoding{UTF-8}
-\name{presidents}
-\alias{presidents}
+\name{Presidents}
+\alias{Presidents}
 \title{The Measure of US Presidents}
 \format{This data.frame contains 57 rows in the following 11 variables.}
 \source{
+US Presidents: \url{http://www.jimwegryn.com/Names/Presidents.php}
 Inside Gov. \url{http://us-presidents.insidegov.com}.
 Wikipedia: \url{https://en.wikipedia.org/wiki/United_States_presidential_election,_2012}
 Wikipedia:\url{https://en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
 }
 \usage{
-data(presidents)
+data(Presidents)
 }
 \description{
 The US presidents and their main opponents' heights (cm).

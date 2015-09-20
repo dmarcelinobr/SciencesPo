@@ -22,17 +22,26 @@ Produces a text equation style to be added in plots.
 lm2eqn("mtcars","wt","mpg")
 
 require(ggplot2)
-mtcars$name=rownames(mtcars)
-mtcars$selected=ifelse(mtcars$name \%in\% c("Toyota Corolla","Merc 240D"),1,0)
-selected=mtcars[mtcars$selected==1,]
-mylabel=lm2eqn("mtcars","wt","mpg")
+data(Presidents)
 
-ggplot(mtcars,aes(x=wt,y=mpg,colour=selected))+
- geom_text(data=selected,aes(label=name),hjust=-0.1)+
- geom_smooth(method=lm)+
- geom_point()+
- annotate(geom='text',x=4,y=30,size=7,label=mylabel,family='Times',fontface='italic')+
- scale_colour_gradientn(colours=c("black","red"))+
+Presidents <- transform(Presidents, ratio = winner.height/opponent.height)
+Presidents <- transform(Presidents, selected = ifelse(winner \%in\% c("Barack Obama"),1,0))
+
+#' # subsetting election > 1824
+Presidents = subset(Presidents, election > 1824 & !is.na(ratio))
+
+selected=Presidents[Presidents$selected==1,]
+myeqn=lm2eqn("Presidents","ratio","winner.vote")
+
+ggplot(Presidents, aes(x=ratio,y=winner.vote,colour=selected))+
+ geom_text(data=selected,aes(label=winner),hjust=-0.1)+
+  geom_smooth(method=lm, colour="red", fill="gold")+
+ geom_point(size=5, alpha=.7) +
+  annotate(geom='text',x=1.1,y=64,size=7,label=myeqn,family='Times',fontface='italic')+
+  xlim(.9,1.2) + ylim(38, 65)+
+ scale_colour_gradientn(guide="none" , colours=c("black","red"))+
+  xlab("Presidential Height Ratio") +
+  ylab("Relative Support for President") +
  theme_pub()
 }
 \author{
