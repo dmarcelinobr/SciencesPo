@@ -130,6 +130,50 @@
   return(x)
 }
 
+
+
+
+.valueTagAttrs <- c(label="label", units="units", name="shortlabel")
+
+
+valueTags <- function(x)
+  attributes(x)[names(attributes(x)) %in% .valueTagAttrs]
+
+"valueTags<-" <- function(x, value) {
+  if(is.null(value) || length(value) == 0) {
+    attributes(x)[names(attributes(x)) %in% .valueTagAttrs] <- NULL
+    class(x) <- class(x)[class(x) != 'labelled']
+    return(x)
+  }
+
+  if(!is.list(value)) {
+    stop("list must be a named list of valueTags")
+  }
+
+  value[(!names(value) %in% .valueTagAttrs) |
+        unlist(lapply(value, is.null))] <- NULL
+
+  if(length(value) == 0) {
+    attributes(x)[names(attributes(x)) %in% .valueTagAttrs] <- NULL
+    class(x) <- class(x)[class(x) != 'labelled']
+    return(x)
+  }
+
+  attributes(x)[setdiff(names(attributes(x))[names(attributes(x)) %in%
+                                             .valueTagAttrs],
+                        names(value))] <- NULL
+
+  consolidate(attributes(x)) <- value
+
+  if(all(class(x) != 'labelled'))
+    class(x) <- c('labelled', class(x))
+
+  return(x)
+}
+
+
+
+
 "[.labelled"<- function(x, ...) {
   tags <- valueTags(x)
   x <- NextMethod("[")
@@ -247,11 +291,14 @@
 }
 
 
-#' Append attributes to label
+#' Append attribute to an object
+#'
+#' @description Sets or retrieves the \code{"units"} attribute of an object.
 #'
 #' @param x A character string.
 #' @param \dots Ignored for parameters.
-#'
+#' @param value the units of the object, or "".
+#' @param none value to which to set result if no appropriate attribute is found.
 #' @export
 `units` <- function(x, ...){
   UseMethod("units")}
@@ -277,3 +324,6 @@
 
   lab
 }
+
+
+

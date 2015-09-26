@@ -4,7 +4,7 @@
 \alias{units}
 \alias{units.default}
 \alias{units<-.default}
-\title{Append attributes to label}
+\title{Append attribute to an object}
 \usage{
 units(x, ...)
 
@@ -15,9 +15,13 @@ units(x, ...)
 \arguments{
 \item{x}{A character string.}
 
+\item{value}{the units of the object, or "".}
+
+\item{none}{value to which to set result if no appropriate attribute is found.}
+
 \item{\dots}{Ignored for parameters.}
 }
 \description{
-Append attributes to label
+Sets or retrieves the \code{"units"} attribute of an object.
 }
 

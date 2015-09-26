@@ -24,7 +24,8 @@ voronoi <- function(p, n=100, dim=1000, plot=TRUE){
 
   `.distance` <- function(a, b, c, d, p){
     (abs(a-c)^p + abs(b-d)^p)^(1/p)}
-
+ # R check barked on global variable on distance.
+distance <-NULL
   tmp$distance <- .distance(tmp$x, tmp$y, tmp$x0, tmp$y0, p)
 
   tmp[, rank := rank(distance, ties.method = "random"), by = c("x", "y")]
