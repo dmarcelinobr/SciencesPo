@@ -1,4 +1,4 @@
-#' @title Method for the number of observations
+#' @title Number of observations
 #'
 #' @param object the data object
 #' @param \dots some extra parameters.

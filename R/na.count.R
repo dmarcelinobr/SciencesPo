@@ -3,17 +3,19 @@
 #' @param .data The data.frame.
 #'
 #' @examples
-#'  countNAs(ssex)
+#'  na.count(ssex)
 #'
 #' @export
-countNAs <- function(.data) {
+na.count <- function(.data) {
   for (j in colnames(.data)) {
     NAcount <- 0
-    NAcount < as.numeric(sum(is.na(.data[,j])))
+    NAcount <- as.numeric(sum(is.na(.data[,j])))
     if(NAcount > 0) {
-      message(j, ":", NAcount, "missing values")
+      cat("\n")
+      cat(j, ":", NAcount, "missing values")
     } else {
-      message(j, ":", "No missing values")
+      cat("\n")
+      cat(j, ":", NAcount, "missing values")
     }
   }
 }

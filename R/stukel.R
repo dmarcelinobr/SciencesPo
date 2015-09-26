@@ -3,7 +3,8 @@
 #' @description The Stukel's test is an alternative to the goodness-of-fit test for logistic regression.
 #'  It tests if significant change occurs in the model with the addition of new coefficients.
 #'
-#' @param object an object of class \code{glm}.
+#' @param object An object of class \code{glm}.
+#'
 #' @param alternative add both \code{z1} and \code{z2} to model or just one of them.
 #'
 #' @details Two new covariates, z1 and z2 are generated such that \deqn{z1 = 0.5 \* logit^{2} * I(pi >= 0.5)}, \deqn{z2 = - 0.5 \* logit^{2} \* I(pi <= 0.5)}, where \deqn{I(arg) = 1} if arg is \code{TRUE} and \deqn{I(arg) = 1} if \code{FALSE}.

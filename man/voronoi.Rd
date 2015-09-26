@@ -4,7 +4,7 @@
 \alias{voronoi}
 \title{Voronoi diagram}
 \usage{
-voronoi(p, n = 100, dim = 1000)
+voronoi(p, n = 100, dim = 1000, plot = TRUE)
 }
 \arguments{
 \item{p}{An integer for the size of the}
@@ -12,6 +12,8 @@ voronoi(p, n = 100, dim = 1000)
 \item{n}{An integer for the size of}
 
 \item{dim}{The dimension of the image.}
+
+\item{plot}{Logical, if \code{TRUE}, the plot is returned, else, the \code{data.frame} is returned.}
 }
 \description{
 Computes the voronoi diagram.
@@ -20,7 +22,7 @@ Computes the voronoi diagram.
 \url{https://en.wikipedia.org/wiki/Voronoi_diagram}
 }
 \examples{
-voronoi(p=2, n=20, dim=1000)
+\dontrun{ voronoi(p=2, n=20, dim=1000) }
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

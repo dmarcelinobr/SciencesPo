@@ -11,7 +11,7 @@
 \alias{nobs,matrix-method}
 \alias{nobs,numeric,ANY-method}
 \alias{nobs,numeric-method}
-\title{Method for the number of observations}
+\title{Number of observations}
 \usage{
 nobs(object, ...)
 
@@ -32,7 +32,7 @@ nobs(object, ...)
 The number of observations.
 }
 \description{
-Method for the number of observations
+Number of observations
 }
 \examples{
 nobs(1:50)

@@ -9,7 +9,7 @@
 permutate <- function(input,k){
   n <- length(input)
   mat <- matrix(data=NA,nrow=k,ncol=n) # allocate memory
-  k <- min(k, nPermutate(input))
+  k <- min(k, .npermutate(input))
   inserted <- 0
   while(inserted < k){
     p <- sample(input)
@@ -23,17 +23,7 @@ permutate <- function(input,k){
 }
 NULL
 
-
-
-#' @encoding UTF-8
-#' @title Calculate number of permutations taking repeated elements into consideration
-#'
-#' @param vec The vector which number of permutations will be calculated
-#' @export
-#' @examples
-#' myvar <- 1:10
-#' nPermutate(myvar)
-nPermutate <- function(vec){
+.npermutate <- function(vec){
   tab <- table(vec); # count occurences of each element
   occurences <- tab[tab>1]; # get those greater than 1
   numerator <- lfactorial(length(vec))

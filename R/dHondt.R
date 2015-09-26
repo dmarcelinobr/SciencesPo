@@ -1,11 +1,19 @@
 #' @title Method D'Hondt
+#'
 #' @description The function calculate the seats allotment in legislative house, given the total number of seats and the votes for each party based on the Victor D'Hondt's method (1878), which is mathematically equivalent to the method proposed by Thomas Jefferson few years before (1792).
+#'
 #' @param parties A vector containig parties labels or candidates accordingly to the \code{votes} vector order.
 #' @param votes A vector containing the total number of formal votes received by the parties/candidates.
 #' @param seats An integer for the number of seats to be filled (the district magnitude).
+#'
+#' @keywords Electoral
+#'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#'
 #' @note Adapted from Carlos Bellosta's replies in the R-list.
+#'
 #' @export
+#'
 #' @examples
 #' votes <- sample(1:10000, 5)
 #' parties <- sample(letters, 5)

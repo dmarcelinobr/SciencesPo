@@ -5,39 +5,39 @@
 #' @param p An integer for the size of the
 #' @param n An integer for the size of
 #' @param dim The dimension of the image.
+#' @param plot Logical, if \code{TRUE}, the plot is returned, else, the \code{data.frame} is returned.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @details
 #' \url{https://en.wikipedia.org/wiki/Voronoi_diagram}
 #' @importFrom data.table := setDT dcast.data.table
 #' @export
 #' @examples
-#' voronoi(p=2, n=20, dim=1000)
+#' \dontrun{ voronoi(p=2, n=20, dim=1000) }
 #'
-voronoi <- function(p, n=100, dim=1000){
+voronoi <- function(p, n=100, dim=1000, plot=TRUE){
   dim.image <- dim
   colors <- grDevices::rainbow(n)
   points <- data.frame(id = 1:n, x0 = runif(n) * dim, y0 = runif(n) * dim)
   tmp <- data.table::data.table(expand.grid(x = 1:dim.image,
                                 y = 1:dim.image, id = 1:n), key = "id")
   tmp <- merge(tmp, points, by = "id")
-  tmp$distancia <- NULL
 
-  `.distancia` <- function(a, b, c, d, p)
-    (abs(a-c)^p + abs(b-d)^p)^(1/p)
+  `.distance` <- function(a, b, c, d, p){
+    (abs(a-c)^p + abs(b-d)^p)^(1/p)}
 
-  tmp$distancia <- NULL
-  tmp$distancia <- .distancia(tmp$x, tmp$y, tmp$x0, tmp$y0, p)
+  tmp$distance <- .distance(tmp$x, tmp$y, tmp$x0, tmp$y0, p)
 
-  tmp[, rank := rank(distancia, ties.method = "random"), by = c("x", "y")]
+  tmp[, rank := rank(distance, ties.method = "random"), by = c("x", "y")]
 
   frame <- tmp[tmp$rank == 1,]
 
-  frame$x0 <- frame$y0 <- frame$distancia <- frame$rank <- NULL
-
-  frame$color <- colors[frame$id]
-
-  imagen <- as.matrix(data.table::dcast.data.table(data.table::setDT(frame), x ~ y, value.var = "color")[,-1,  with=FALSE])
-
+if(plot==TRUE){
+   frame[,4:7] <-NULL
+     frame$color <- colors[frame$id]
+     imagen <- as.matrix(data.table::dcast.data.table(data.table::setDT(frame), x ~ y, value.var = "color")[,-1, with=FALSE])
   grid::grid.raster(imagen)
+  }else{
+return(frame)
+}
 }
 NULL

@@ -34,7 +34,7 @@ setMethod(f="hamilton", definition=function(parties, votes, seats){
   .temp <- data.frame(
     parties = parties,
     scores = votes / sum(votes) * seats,
-    perc = rounded(votes / sum(votes)) );
+    perc = round(votes / sum(votes),3));
   integer <- with(.temp, floor(scores));
   fraction <- with(.temp, scores - integer);
   remainder <- seats - sum(integer);

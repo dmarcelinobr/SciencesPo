@@ -8,7 +8,7 @@
 stukel(object, alternative = c("both", "alpha1", "alpha2"))
 }
 \arguments{
-\item{object}{an object of class \code{glm}.}
+\item{object}{An object of class \code{glm}.}
 
 \item{alternative}{add both \code{z1} and \code{z2} to model or just one of them.}
 }

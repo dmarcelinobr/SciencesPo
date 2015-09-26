@@ -124,10 +124,10 @@ NULL
 #' @examples
 #' x <- c('500,00', '0,001', '25.000', '10,100.10', 'him, you, and I.')
 #'
-#' commas2dots(x)
+#' dotfy(x)
 #'
 #' @export
-`commas2dots` <- function(x){
+`dotfy` <- function(x){
   round(as.numeric(gsub(",", ".", gsub("\\.", "", x))),2)
 }
 NULL

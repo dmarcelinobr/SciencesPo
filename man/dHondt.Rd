@@ -44,4 +44,5 @@ dHondt(parties, votes , 42)
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
+\keyword{Electoral}
 

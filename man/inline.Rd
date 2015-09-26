@@ -2,7 +2,7 @@
 % Please edit documentation in R/inline.R
 \name{inline}
 \alias{inline}
-\title{Inline data frame}
+\title{Inline data.frame}
 \usage{
 inline(str, header = TRUE, colClasses = NA, ...)
 }
@@ -16,6 +16,11 @@ inline(str, header = TRUE, colClasses = NA, ...)
 \item{\dots}{see \code{\link{read.table}}}
 }
 \description{
-Utility function to inline creation of a data frame
+Utility function to create of a \code{data.frame} inline.
+}
+\examples{
+mydf <- inline(str = 'A, B, C, D
+                      1, 2, 3, 4
+                     .5, .2, .4, .5', sep=",")
 }
 

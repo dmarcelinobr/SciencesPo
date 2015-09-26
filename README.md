@@ -45,5 +45,11 @@ For a brief introcution to _SciencesPo_ functionality, run:
 demo(SciencesPo)
 ```
 
+## Visualization Instances
 
 
+### Voronoi diagram
+
+```voronoi(p=2, n=20, dim=1000)```
+
+<img src="/inst/doc/voronoi.png" alt="Voronoi Diagram" />
