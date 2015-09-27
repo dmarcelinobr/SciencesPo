@@ -1,3 +1,22 @@
+# compatibility for data.table functions
+## Look for existing generic functions also in imported namespaces.
+## This will affect whether setGenericS3() creates a generic function
+## or not.
+options("R.methodsS3:checkImports:setGenericS3"=TRUE)
+
+.datatable.aware <- TRUE
+setnames <- `names<-`
+setclass <- `class<-`
+
+#' @title Chain operator
+#' @name %>%
+#' @importFrom magrittr %>%
+#' @export %>%
+#' @keywords manipulation
+#' @rdname chain
+#' @usage x %>% f(y) is translated into f(x, y).
+NULL
+
 if (getRversion() >= "2.15.1")
   globalVariables(c(".data", ".dp.main"))
 
@@ -41,6 +60,31 @@ if (getRversion() >= "2.15.1")
   options(scipen=30)
 }
 NULL
+
+"%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
+
+
+user.prompt <- function (msg = NULL) {
+  if (is.null(msg))
+    msg <- "Press <return> to continue: "
+
+  msg <- paste("\n", msg, sep="")
+
+  invisible(readline(msg))
+}
+NULL
+
+
+
+hour2min <- function(hhmm) {
+  hhmm <- as.numeric(hhmm)
+  trunc(hhmm/100)*60 + hhmm %% 100
+}
+
+min2hour <- function(min) {
+  min <- as.numeric(min)
+  trunc(min/60)*100 + min %% 60
+}
 
 
 .max.dd <- function(x) {
@@ -1724,3 +1768,38 @@ function(x, col.fill, col.stroke, col.bg, col.grid,
 
 } # end .bx.main
 
+
+
+
+#' @title Progress Bar
+#' @param style An integer for style.
+#' @param active A logical value.
+#' @export
+#'
+.progress <- function(style = 3, active = TRUE, ...) {
+  ntasks <- 0
+  txt <- NULL
+  max <- 0
+
+  if (active) {
+    list(
+      init = function(x) {
+        txt <<- utils::txtProgressBar(max = x, style = style, ...)
+        utils::setTxtProgressBar(txt, 0)
+        max <<- x
+      },
+      step = function() {
+        ntasks <<- ntasks + 1
+        utils::setTxtProgressBar(txt, ntasks)
+        if (ntasks == max) cat("\n")
+      },
+      term = function() close(txt)
+    )
+  } else {
+    list(
+      init = function(x) NULL,
+      step = function() NULL,
+      term = function() NULL
+    )
+  }
+} # end progress bar
