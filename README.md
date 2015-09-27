@@ -45,6 +45,13 @@ For a brief introcution to _SciencesPo_ functionality, run:
 demo(SciencesPo)
 ```
 
+
+To see what functions are implemented in _SciencesPo_, run:
+
+```
+help(package=SciencesPo)
+```
+
 ## Visualization Instances
 
 
@@ -53,3 +60,16 @@ demo(SciencesPo)
 ```voronoi(p=2, n=20, dim=1000)```
 
 <img src="/inst/doc/voronoi.png" alt="Voronoi Diagram" />
+
+
+### Sample Power 
+
+```sample.power(mu0=68, mu1=69, sigma=3.1, n=100)```
+
+<img src="/inst/doc/sample.power.png" alt="Sample Power Graph" />
+
+
+### Plots for count data
+
+
+

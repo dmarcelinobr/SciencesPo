@@ -26,6 +26,10 @@ Imports:
   plyr,
   dplyr,
   magrittr,
+  sm,
+  sas7bdat,
+  foreign,
+  readxl,
   stringr
 Suggests:
     testthat,

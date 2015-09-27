@@ -11,11 +11,11 @@
 #'
 #' @examples
 #' myvar <-c(1,1,2,2,3,3,4,4,5, NA)
-#' mode(myvar)
+#' Mode(myvar)
 #'
-#' mode(myvar, FALSE)
+#' Mode(myvar, FALSE)
 #' @export
-`mode` <- function(x, na.rm = FALSE) {
+`Mode` <- function(x, na.rm = FALSE) {
   if(na.rm){
     x = base::subset(x, !is.na(x))
   }
