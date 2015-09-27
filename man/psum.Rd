@@ -19,8 +19,10 @@ A vector containing the parallel sum.
 Provides parallel sum like \code{pmin} and \code{pmax} from the base package. The function \code{sum} simply does not help when the objective is to obtain a vector with parallel sum rather than a scalar value.
 }
 \examples{
-psum(us2012$Obama, us2012$Romney)
-swingy <-psum(us2012$Obama, us2012$Romney-100)
+n <- 20
+mydat <- data.frame(PT = rnorm(n, mean = .30),
+PSDB = rnorm(n, mean = .25), PSB = rnorm(n, mean = .15))
+transform(mydat, DK = psum(PT, PSDB, PSB - 1))
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

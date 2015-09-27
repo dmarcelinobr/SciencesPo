@@ -12,7 +12,7 @@
 #' x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
 #' myse <- sd(x)/sqrt(length(x))
 #' myse
-#' # With 'se' function:
+#' # With the 'se' function:
 #' se(x)
 #' @export se
 #' @docType methods
@@ -26,14 +26,15 @@ setGeneric("se", def=function(x, na.rm = TRUE){
 #' @rdname se-methods
 setMethod(f="se", definition=function(x, na.rm = TRUE){
   valid <- function(x) return(sum(!is.na(x)))
+  valid_ <-function(x) return(ifelse(na.rm,sum(!is.na(x)),length(x)))
   dim <- dim(x)
   if (is.null(dim)) {
     sd <- stats::sd(x, na.rm = na.rm)
-    n.valid <- .valid(x)
+    n.valid <- valid_(x)
   }
   else {
     if (is.data.frame(x)) {
-      n.valid <- unlist(sapply(x, .valid))
+      n.valid <- unlist(sapply(x, valid_))
       sd <- unlist(sapply(x, stats::sd, na.rm = na.rm))
     }
     else {

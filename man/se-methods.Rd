@@ -27,7 +27,7 @@ The standard error of the mean (SEM) (\emph{assuming statistical independence of
 x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
 myse <- sd(x)/sqrt(length(x))
 myse
-# With 'se' function:
+# With the 'se' function:
 se(x)
 }
 \author{
