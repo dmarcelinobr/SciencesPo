@@ -19,14 +19,10 @@ Depends:
     methods
 Imports:
   RSQLite,
-  vcd,
   data.table,
   grid,
   scales,
-  plyr,
-  dplyr,
   magrittr,
-  sm,
   sas7bdat,
   foreign,
   readxl,
