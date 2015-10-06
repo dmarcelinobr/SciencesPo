@@ -11,7 +11,7 @@ function(x, n.cat,
     nu <- length(unique(na.omit(x[,i])))
 
     if (!is.numeric(x[,i]) || nu <= n.cat) {
- 
+
       if (nlevels(factor(x[,i])) < length(x[,i])) {
 
         x.name <- names(x)[i]
@@ -32,7 +32,7 @@ function(x, n.cat,
             legend.title, legend.loc, legend.labels, legend.horiz, quiet,
             font.main=1, ...)
 
-          dev.off()
+          grDevices::dev.off()
           if (!quiet) .showfile(pdf.file, "bar chart")
 
         if (is.numeric(x[,i]) && nu <= n.cat)

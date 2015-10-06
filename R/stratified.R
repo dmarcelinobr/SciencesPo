@@ -59,7 +59,7 @@ stratified <- function(.data, group, size, select = NULL,
       stop("Number of groups is ", length(.data.split),
            " but number of sizes supplied is ", length(size))
     if (is.null(names(size))) {
-      n <- setNames(size, names(.data.split))
+      n <- stats::setNames(size, names(.data.split))
       message(sQuote("size"), " vector entered as:\n\nsize = structure(c(",
               paste(n, collapse = ", "), "),\n.Names = c(",
               paste(shQuote(names(n)), collapse = ", "), ")) \n\n")
@@ -75,7 +75,7 @@ stratified <- function(.data, group, size, select = NULL,
     n <- round(.data.table * size, digits = 0)
   } else if (size >= 1) {
     if (all(.data.table >= size) || isTRUE(replace)) {
-      n <- setNames(rep(size, length.out = length(.data.split)),
+      n <- stats::setNames(rep(size, length.out = length(.data.split)),
                     names(.data.split))
     } else {
       message(

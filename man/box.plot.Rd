@@ -2,7 +2,7 @@
 % Please edit documentation in R/box.plot.R
 \name{box.plot}
 \alias{box.plot}
-\title{Boxplot}
+\title{Make a boxplot}
 \usage{
 box.plot(x = NULL, data = .data, n.cat = getOption("n.cat"),
   col.fill = getOption("col.fill.bar"),

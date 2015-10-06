@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Round numbers with no leading zero
 #'
 #' @param x A numeric vector of values to be rounded.

@@ -15,4 +15,7 @@ trim(x, delim = " ")
 \description{
 Simply trims spaces from the start, end, and within of a string
 }
+\author{
+Daniel Marcelino, \email{dmarcelino@live.com}
+}
 

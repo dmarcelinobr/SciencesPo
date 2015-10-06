@@ -64,15 +64,11 @@
 
   # Normal curve H0:
 
-  curve(stats::dnorm(x,mean=mu0,sd=se.mean),from=z0min,to=z0max,
+  graphics::curve(stats::dnorm(x,mean=mu0,sd=se.mean),from=z0min,to=z0max,
         xlim=range(z0min,z0max,z1min,z1max),ylab='density',col="blue",
         xlab=paste('\u03B1 = ',round(alpha,3),' (two-sided)',
-                   ', \u03B2 = ',round(stats::pnorm(stats::qnorm(1-alpha/2,mean=0,
-                                                 sd=se.mean),mean=abs(mu1-mu0),
-                                           sd=se.mean),3),
-                   ', power = ',round(1-stats::pnorm(stats::qnorm(1-alpha/2,mean=0,
-                                                    sd=se.mean),mean=abs(mu1-mu0),
-                                              sd=se.mean),3),sep=""),
+                   ', \u03B2 = ',round(stats::pnorm(stats::qnorm(1-alpha/2,mean=0, sd=se.mean),mean=abs(mu1-mu0), sd=se.mean),3),
+                   ', power = ',round(1-stats::pnorm(stats::qnorm(1-alpha/2,mean=0, sd=se.mean),mean=abs(mu1-mu0), sd=se.mean),3),sep=""),
         main=paste('Power of z-Test of the Mean of a Single Population\n',
                    'n = ',n,', \u03BC0 = ',mu0,', \u03BC1 = ',mu1,', \u03C3 = ',sigma, sep=""))
   # Acceptance region H0:
@@ -80,13 +76,13 @@
   graphics::polygon(c(z0L,x,z0U),c(0,stats::dnorm(x,mean=mu0,sd=se.mean),0),col="lightyellow")
 
   # Normal curve H1:
-  graphics::curve(dnorm(x,mean=mu1,sd=se.mean),from=z1min,to=z1max,add=TRUE,col="red")
+  graphics::curve(stats::dnorm(x,mean=mu1,sd=se.mean),from=z1min,to=z1max,add=TRUE,col="red")
 
-  text(mu0,0, '\u03BC0',pos=1,offset=.15,cex=.8)
-  text(mu1,0, '\u03BC1',pos=1,offset=.15,cex=.8)
+  graphics::text(mu0,0, '\u03BC0',pos=1,offset=.15,cex=.8)
+  graphics::text(mu1,0, '\u03BC1',pos=1,offset=.15,cex=.8)
 
   if (mu1 > mu0){
-    text(z0U,0,round(z0U,2),pos=1,offset=.15,cex=.8)
+    graphics::text(z0U,0,round(z0U,2),pos=1,offset=.15,cex=.8)
 
     # Acceptance region H1:
     x=seq(z0U,z1max,min(.001,1/n))
@@ -109,7 +105,7 @@
     }
   }
   else if (mu1 < mu0) {
-    text(z0L,0,round(z0L,2),pos=1,offset=.15,cex=.8)
+    graphics::text(z0L,0,round(z0L,2),pos=1,offset=.15,cex=.8)
 
     # Acceptance region H1:
     x=seq(z1min,z0L,min(.001,1/n))

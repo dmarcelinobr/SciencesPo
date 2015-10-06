@@ -1,4 +1,4 @@
-#' Boxplot
+#' Make a boxplot
 #'
 #' Uses the standard R boxplot function, \code{\link{boxplot}} to display a boxplot in color. Also display the relevant statistics such as the hinges, median and IQR.
 #'
@@ -114,7 +114,7 @@ function(x=NULL, data=.data, n.cat=getOption("n.cat"),
     if (is.numeric(data[,i])) {
       if (nu > n.cat) {
 
-      pdf.fnm <- .pdfname("BoxPlot", x.name, go.pdf, pdf.nm, pdf.file)
+      pdf.fnm <- .pdfname("boxplot", x.name, go.pdf, pdf.nm, pdf.file)
      .opendev(pdf.fnm, pdf.width, pdf.height)
 
       stuff <- .bx.main(data[,i], col.fill, col.stroke, col.bg, col.grid,
@@ -138,7 +138,7 @@ function(x=NULL, data=.data, n.cat=getOption("n.cat"),
       }
 
       if (go.pdf) {
-        dev.off()
+        grDevices::dev.off()
         if (!quiet) .showfile(pdf.fnm, "Box Plot")
       }
 
@@ -150,7 +150,7 @@ function(x=NULL, data=.data, n.cat=getOption("n.cat"),
   }  # for
 
 
-  dev.set(which=2)  # reset graphics window for standard R functions
+  grDevices::dev.set(which=2)  # reset graphics window for standard R functions
 
   if (ncol(data)==1  &&  nu>n.cat) {
 

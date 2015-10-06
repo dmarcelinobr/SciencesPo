@@ -177,8 +177,8 @@ function(x=NULL, by=NULL, data=.data, n.cat=getOption("n.cat"),
 
     .opendev(pdf.file, pdf.width, pdf.height)
 
-    orig.params <- par(no.readonly=TRUE)
-    on.exit(par(orig.params))
+    orig.params <- graphics::par(no.readonly=TRUE)
+    on.exit(graphics::par(orig.params))
 
     bc <- .bc.main(x.call, y.call,
          col.fill, col.stroke, col.bg, col.grid, random.col, colors,
@@ -188,7 +188,7 @@ function(x=NULL, by=NULL, data=.data, n.cat=getOption("n.cat"),
          legend.title, legend.loc, legend.labels, legend.horiz, quiet, ...)
 
     if (!is.null(pdf.file)) {
-      dev.off()
+      grDevices::dev.off()
       if (!quiet) .showfile(pdf.file, "freq.plot")
     }
 
@@ -243,7 +243,7 @@ function(x, n.cat,
             legend.title, legend.loc, legend.labels, legend.horiz, quiet,
             font.main=1, ...)
 
-          dev.off()
+          grDevices::dev.off()
           if (!quiet) .showfile(pdf.file, "bar chart")
 
         if (is.numeric(x[,i]) && nu <= n.cat)

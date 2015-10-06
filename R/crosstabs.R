@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Cross-tabulation
 #'
 #' @description \code{crosstable} produces all possible two/three-way tabulations.
@@ -18,6 +19,15 @@
 #' @param missing.include If TRUE, then remove any unused factor levels.
 #'
 #' @author Adaptation of Gregory R. Warnes' CrossTable() function in the gregmisc package.
+#'
+#' @examples
+#' # Is the boy's delinquent status independent of his socioeconomic status?
+#' Table.1 = as.table(matrix(c(53,34,10,212,236,255),nrow=3,ncol=2,
+#'                      dimnames=list(Socioeconomic=c('Low','Medium', 'High'),
+#'                                    Delinquent=c('Yes',
+#'                                                  'No'))))
+#' crosstabs(Table.1,expected=TRUE,chisq=TRUE)
+#'
 #' @export
 crosstabs <- function (x, y, digits = 2,
                        max.width = 5,
@@ -100,11 +110,11 @@ crosstabs <- function (x, y, digits = 2,
     RowTotal <- formatC(RowTotal, width = CWidth, format = "s")
     if (chisq) {
         if (all(dim(t) == 2))
-            CSTc <- chisq.test(t, correct = TRUE)
-        CST <- chisq.test(t, correct = FALSE)
+            CSTc <- stats::chisq.test(t, correct = TRUE)
+        CST <- stats::chisq.test(t, correct = FALSE)
     }
     else
-        CST <- suppressWarnings(chisq.test(t, correct = FALSE))
+        CST <- suppressWarnings(stats::chisq.test(t, correct = FALSE))
     if (asresid & !vector.x)
         ASR <- (CST$observed-CST$expected)/sqrt(CST$expected*((1-RS/GT) %*% t(1-CS/GT)))
 
@@ -231,7 +241,7 @@ crosstabs <- function (x, y, digits = 2,
           cat("|     Adj Std Resid |\n")
     }
     else
-       cat("|      Row Proportion |\n")
+       cat("|    Row Proportion |\n")
     cat("|-------------------|\n")
     cat("\n")
     cat("Total Observations in Table: ", GT, "\n")
@@ -258,14 +268,14 @@ crosstabs <- function (x, y, digits = 2,
         }
     }
     if (mcnemar) {
-        McN <- mcnemar.test(t, correct = FALSE)
+        McN <- stats::mcnemar.test(t, correct = FALSE)
         cat("\n")
         cat(McN$method, "\n")
         cat("------------------------------------------------------------\n")
         cat("Chi^2 = ", McN$statistic, "    d.f. = ", McN$parameter,
             "    p = ", McN$p.value, "\n\n")
         if (all(dim(t) == 2)) {
-            McNc <- mcnemar.test(t, correct = TRUE)
+            McNc <- stats::mcnemar.test(t, correct = TRUE)
             cat(McNc$method, "\n")
             cat("------------------------------------------------------------\n")
             cat("Chi^2 = ", McNc$statistic, "    d.f. = ", McNc$parameter,
@@ -274,10 +284,10 @@ crosstabs <- function (x, y, digits = 2,
     }
     if (fisher) {
         cat("\n")
-        FTt <- fisher.test(t, alternative = "two.sided")
+        FTt <- stats::fisher.test(t, alternative = "two.sided")
         if (all(dim(t) == 2)) {
-            FTl <- fisher.test(t, alternative = "less")
-            FTg <- fisher.test(t, alternative = "greater")
+            FTl <- stats::fisher.test(t, alternative = "less")
+            FTg <- stats::fisher.test(t, alternative = "greater")
         }
         cat("Fisher's Exact Test for Count Data\n")
         cat("------------------------------------------------------------\n")
@@ -333,3 +343,12 @@ crosstabs <- function (x, y, digits = 2,
        cat("\n")
     }
 }
+
+
+#' @title Cross-tabulation
+#' @param \dots Parameters to be passed to crosstabs.
+#' @export
+`tab` <- function(...){
+  crosstabs(...)
+}
+NULL

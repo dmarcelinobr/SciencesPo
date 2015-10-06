@@ -518,7 +518,7 @@ min2hour <- function(min) {
 # manages the graphics system (not in RStudio or knitr)
 .graphwin <- function(wnew=1, d.w=NULL, d.h=NULL) {
 
-  dl <- dev.list()
+  dl <- grDevices::dev.list()
   dl2 <- dl[which(dl==2)]  # device #2
   dl.more <- dl[which(dl>2)]  # devices larger than #2
 
@@ -526,7 +526,7 @@ min2hour <- function(min) {
   if (length(dl.more) > 0) {
     min.dd <- dl.more[which(dl.more==min(dl.more))]
     max.dd <- dl.more[which(dl.more==max(dl.more))]
-    for (i in min.dd:max.dd) dev.off(which=i)
+    for (i in min.dd:max.dd) grDevices::dev.off(which=i)
   }
 
   off.two <- ifelse (length(dl2) == 0, TRUE, FALSE)
@@ -536,10 +536,10 @@ min2hour <- function(min) {
   if (off.two) wnew <- wnew + 1
   for (i in 1:wnew)
     if (is.null(d.w) && is.null(d.h))
-      dev.new()
+      grDevices::dev.new()
     else
-      dev.new(width=d.w, height=d.h)
-  if (off.two) dev.off(which=2)
+      grDevices::dev.new(width=d.w, height=d.h)
+  if (off.two) grDevices::dev.off(which=2)
 
 }
 
@@ -549,12 +549,12 @@ min2hour <- function(min) {
   if (is.null(pdf.fnm)) {
     if (options("device") != "RStudioGD"  &&  is.null(options()$knitr.in.progress)) {
       .graphwin(1)
-      orig.params <- par(no.readonly=TRUE)
-      on.exit(par(orig.params))
+      orig.params <- graphics::par(no.readonly=TRUE)
+      on.exit(graphics::par(orig.params))
     }
   }
   else
-    pdf(file=pdf.fnm, width=pdf.width, height=pdf.height)
+    grDevices::pdf(file=pdf.fnm, width=pdf.width, height=pdf.height)
 
 }
 
@@ -585,15 +585,15 @@ min2hour <- function(min) {
     }
 
     max.color <- getOption("col.heat")
-    hmcols <- colorRampPalette(c("white",max.color))(256)
+    hmcols <- grDevices::colorRampPalette(c("white",max.color))(256)
 
     .opendev(pdf.file, pdf.width, pdf.height)  # set up graphics
 
-    heatmap(R[1:NItems,1:NItems], Rowv=NA, Colv="Rowv", symm=TRUE,
+    stats::heatmap(R[1:NItems,1:NItems], Rowv=NA, Colv="Rowv", symm=TRUE,
       col=hmcols, margins=c(bm,rm), main=main)
 
     if (!is.null(pdf.file)) {  # terminate pdf graphics
-      dev.off()
+      grDevices::dev.off()
       .showfile(pdf.file, "plot")
     }
 }
@@ -724,11 +724,11 @@ min2hour <- function(min) {
 
 .outliers <- function(x) {
 
-  outliers <- boxplot.stats(x)$out
+  outliers <- grDevices::boxplot.stats(x)$out
   if (length(outliers>0) && unique(na.omit(x)>3)) {
     cat("\nNumber of outliers:", length(outliers), "\n")
 
-    lo.whisker <- boxplot.stats(x)$stats[1]
+    lo.whisker <- grDevices::boxplot.stats(x)$stats[1]
     lo.out <- outliers[outliers < lo.whisker]
     lo.out <- sort(lo.out, decreasing=FALSE)
     lo.len <- length(lo.out)
@@ -746,7 +746,7 @@ min2hour <- function(min) {
       cat("none")
     cat("\n")
 
-    hi.whisker <- boxplot.stats(x)$stats[5]
+    hi.whisker <- grDevices::boxplot.stats(x)$stats[5]
     hi.out <- outliers[outliers > hi.whisker]
     hi.out <- sort(hi.out, decreasing=FALSE)
     hi.len <- length(hi.out)
@@ -773,12 +773,12 @@ min2hour <- function(min) {
 
   tx <- character(length = 0)
 
-  outliers <- boxplot.stats(x)$out
+  outliers <- grDevices::boxplot.stats(x)$out
 
   if (length(outliers>0) && length(unique(na.omit(x)>3))) {
     tx[length(tx)+1] <- paste("Number of outliers:", length(outliers))
 
-    lo.whisker <- boxplot.stats(x)$stats[1]
+    lo.whisker <- grDevices::boxplot.stats(x)$stats[1]
     lo.out <- outliers[outliers < lo.whisker]
     lo.out <- sort(lo.out, decreasing=FALSE)
     lo.len <- length(lo.out)
@@ -799,7 +799,7 @@ min2hour <- function(min) {
     else
       tx[length(tx)] <- paste(tx[length(tx)], "none")
 
-    hi.whisker <- boxplot.stats(x)$stats[5]
+    hi.whisker <- grDevices::boxplot.stats(x)$stats[5]
     hi.out <- outliers[outliers > hi.whisker]
     hi.out <- sort(hi.out, decreasing=FALSE)
     hi.len <- length(hi.out)
@@ -1041,7 +1041,7 @@ function(x, by=NULL, brief=FALSE, digits.d=NULL, ...)  {
   if (!is.null(by) || is.matrix(x)) {
     n.dim <- 2
 
-    xx <- addmargins(x)
+    xx <- stats::addmargins(x)
 
     # width of column 1
     if (!is.null(y.name))
@@ -1080,7 +1080,7 @@ function(x, by=NULL, brief=FALSE, digits.d=NULL, ...)  {
     }
 
     # Cell Proportions and Marginals
-    xx <- round(addmargins(prop.table(x)),3)
+    xx <- round(stats::addmargins(prop.table(x)),3)
     txprp <- .prnfreq(xx, "r", max.ln, max.c1, n.dash=30,
                       ttl="Cell Proportions and Marginals")
 
@@ -1325,12 +1325,12 @@ function(x, by=NULL,
       if (is.null(col.low)) col.low <- "purple1"
       if (is.null(col.hi)) col.hi <- "purple4"
     }
-    color.palette <- colorRampPalette(c(col.low, col.hi))
+    color.palette <- grDevices::colorRampPalette(c(col.low, col.hi))
     clr <- color.palette(n.colors)
   }
 
   else if (colors == "gray") {
-    color.palette <- colorRampPalette(c("gray30","gray80"))
+    color.palette <- grDevices::colorRampPalette(c("gray30","gray80"))
     clr <- color.palette(nrow(x))
     if (col.grid == "gray86") col.grid <- getOption("col.grid")
     if (col.bg == "ghostwhite") col.bg <- getOption("col.bg")
@@ -1342,15 +1342,15 @@ function(x, by=NULL,
           || colors=="orange.black" || colors=="gray.black")
           && (is.null(by) && !is.matrix(x))) {
       if (n.colors > 1) {
-        color.palette <- colorRampPalette(getOption("col.fill.bar"))
+        color.palette <- grDevices::colorRampPalette(getOption("col.fill.bar"))
         clr <- color.palette(nrow(x))
       }
       col.grid <- getOption("col.grid")
       col.bg <- getOption("col.bg")
     }
-    else if (colors == "rainbow") clr <- rainbow(n.colors)
-    else if (colors == "terrain") clr <- terrain.colors(n.colors)
-    else if (colors == "heat") clr <- heat.colors(n.colors)
+    else if (colors == "rainbow") clr <- grDevices::rainbow(n.colors)
+    else if (colors == "terrain") clr <- grDevices::terrain.colors(n.colors)
+    else if (colors == "heat") clr <- grDevices::heat.colors(n.colors)
     else  {  # mono color range does not make sense here
       clr <- c("slategray", "peachpuff2", "darksalmon", "darkseagreen1",
               "lightgoldenrod3", "mistyrose", "azure3", "thistle4")
@@ -1374,7 +1374,7 @@ function(x, by=NULL,
   }
 
   if (n.colors > 1) {
-    palette(clr)
+   grDevices::palette(clr)
     col <- 1:n.colors
   }
   else {
@@ -1424,10 +1424,10 @@ function(x, by=NULL,
   # ----------------------------------------------------------------------------
   # set up plot area, color background, grid lines
 
-  if (extend) par(mar=c(5, add.left, 4, 2) + 0.1)
+  if (extend) graphics::par(mar=c(5, add.left, 4, 2) + 0.1)
 
   if (legend.loc == "right.margin"  &&  (!is.null(by) || is.matrix(x)))
-    par(oma=c(0,0,0,3))
+    graphics::par(oma=c(0,0,0,3))
 
   if(is.null(count.levels)) if (horiz) {
     temp <- x.lab; x.lab <- y.lab; y.lab <- temp
@@ -1442,10 +1442,10 @@ function(x, by=NULL,
   # set rescale to control bar width for small number of bars
   if (rescale == 0) {
     if (!horiz)
-      barplot(x, col="transparent", ylim=c(0,max.y), axisnames=FALSE,
+      graphics::barplot(x, col="transparent", ylim=c(0,max.y), axisnames=FALSE,
         beside=beside, space=gap, axes=FALSE, ...)
     else
-      barplot(x, col="transparent", horiz=TRUE, axisnames=FALSE,
+      graphics::barplot(x, col="transparent", horiz=TRUE, axisnames=FALSE,
         beside=beside, space=gap, axes=FALSE, ...)
   }
   else {
@@ -1454,10 +1454,10 @@ function(x, by=NULL,
     if (rescale == 2) width.bars <- .28
     gap <- 0.246 + 0.687*width.bars
     if (!horiz)
-      barplot(x, col="transparent", ylim=c(0,max.y), axisnames=FALSE,
+      graphics::barplot(x, col="transparent", ylim=c(0,max.y), axisnames=FALSE,
         beside=beside, space=gap, width=width.bars, xlim=c(0,1), axes=FALSE, ...)
     else
-      barplot(x, col="transparent", horiz=TRUE, axisnames=FALSE,
+      graphics::barplot(x, col="transparent", horiz=TRUE, axisnames=FALSE,
         beside=beside, space=gap, width=width.bars, ylim=c(0,1), axes=FALSE, ...)
   }
 
@@ -1472,34 +1472,34 @@ function(x, by=NULL,
   # ----------------------------------------------------------------------------
   # bar plot, grid lines
 
-  usr <- par("usr")
-  rect(usr[1], usr[3], usr[2], usr[4], col=col.bg, border="black")
+  usr <- graphics::par("usr")
+  graphics::rect(usr[1], usr[3], usr[2], usr[4], col=col.bg, border="black")
   if (max.y > 1) vy <- pretty(0:max.y) else vy <- pretty(1:100*max.y)/100
 
   if (!over.grid) {
     if (!horiz)
-      abline(h=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
+      graphics::abline(h=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
     else
-      abline(v=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
+      graphics::abline(v=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
   }
   if (rescale == 0) {
 #    width.bars <- .8   gap <- .6*width.bars
-    barplot(x, add=TRUE, col=col, beside=beside, horiz=horiz,
+    graphics::barplot(x, add=TRUE, col=col, beside=beside, horiz=horiz,
           xlab=x.lab, ylab=y.lab, main=main.lbl, border=col.stroke, las=las.value,
           space=gap, cex.axis=cex.axis, cex.names=cex.axis,
           col.axis=col.axis, ...)
   }
   else
-    barplot(x, add=TRUE, col=col, beside=beside, horiz=horiz,
+    graphics::barplot(x, add=TRUE, col=col, beside=beside, horiz=horiz,
           xlab=x.lab, ylab=y.lab, main=main.lbl, border=col.stroke, las=las.value,
           space=gap, width=width.bars, xlim=c(0,1),
           cex.axis=cex.axis, cex.names=cex.axis,
           col.axis=col.axis, ...)
   if (over.grid) {
     if (!horiz)
-      abline(h=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
+      graphics::abline(h=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
     else
-      abline(v=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
+     graphics::abline(v=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
   }
 
 
@@ -1515,7 +1515,7 @@ function(x, by=NULL,
     # default right.margin option
     if (legend.loc == "right.margin") {
 
-      par(xpd=NA)  # allow drawing outside of plot region
+      graphics::par(xpd=NA)  # allow drawing outside of plot region
 
       # split string into separate words
       wordlist <- as.vector(strsplit(l.lab, " "))
@@ -1550,7 +1550,7 @@ function(x, by=NULL,
       # get max word in terms of user coordinates
       max.wlen <- 0
       for (i in 1:n.lines) {
-        wl <- strwidth(lines[i])
+        wl <- graphics::strwidth(lines[i])
         if (wl > max.wlen) {
           max.wlen <- wl
           max.word <- lines[i]
@@ -1573,11 +1573,11 @@ function(x, by=NULL,
       # so pass largest word to get the proper width of the legend
       # also get height of legend with only one title line
       legend.labels <- abbreviate(legend.labels, 6)
-      ll <- legend(0,0, legend=legend.labels, title=max.word, cex=.7,
+      ll <- graphics::legend(0,0, legend=legend.labels, title=max.word, cex=.7,
                    fill=col, plot=FALSE)
 
       # horizontal placement
-      size <- (par("cxy")/par("cin"))  # 1 inch in user coordinates
+      size <- (graphics::par("cxy")/graphics::par("cin"))  # 1 inch in user coordinates
       epsilon <- (size[1] - ll$rect$w) / 2
 
       # legend box
@@ -1587,17 +1587,17 @@ function(x, by=NULL,
       axis.cntr <- axis.vert / 2  + usr[3]
       ytop <- axis.cntr + lgnd.vhalf
       ybottom <- axis.cntr - lgnd.vhalf
-      rect(xleft, ybottom, xright, ytop, lwd=.5, border="gray30", col=col.bg)
+      graphics::rect(xleft, ybottom, xright, ytop, lwd=.5, border="gray30", col=col.bg)
 
       # legend not multiple title lines aware, so start at last title line
-      legend(x=xleft, y=ytop-vbuffer, legend=legend.labels, title=l.lab2,
+      graphics::legend(x=xleft, y=ytop-vbuffer, legend=legend.labels, title=l.lab2,
              fill=col, horiz=FALSE, cex=.7, bty="n", box.lwd=.5,
              box.col="gray30", text.col=col.txt)
 
     }  # right margin
 
     else
-      legend(legend.loc, legend=legend.labels, title=l.lab, fill=col,
+      graphics::legend(legend.loc, legend=legend.labels, title=l.lab, fill=col,
              horiz=legend.horiz, cex=.7, bty="n", text.col=col.txt)
   }
 
@@ -1617,7 +1617,7 @@ function(x, by=NULL,
     print(output)
 
     if (!quiet) {
-      ch <- chisq.test(x)
+      ch <- stats::chisq.test(x)
       pvalue <- format(sprintf("%6.4f", ch$p.value), justify="right")
       cat("\nChi-squared test of null hypothesis of equal probabilities\n")
       cat("  Chisq = ", ch$statistic, ",  df = ", ch$parameter, ",  p-value = ",
@@ -1683,30 +1683,30 @@ function(x, col.fill, col.stroke, col.bg, col.grid,
   }
 
   # set up plot area
-  bv <- (boxplot(x, col="transparent", bg="transparent",
+  bv <- (graphics::boxplot(x, col="transparent", bg="transparent",
      horizontal=horiz, xlab=x.lab, ylab=y.lab, main=main.lab, axes=FALSE, ...))
   if (horiz)
-    axis(1, cex.axis=cex.axis, col.axis=col.axis, ...)
+    graphics::axis(1, cex.axis=cex.axis, col.axis=col.axis, ...)
   else
-    axis(2, cex.axis=cex.axis, col.axis=col.axis, ...)
+    graphics::axis(2, cex.axis=cex.axis, col.axis=col.axis, ...)
 
   # colored background for plotting area
-  usr <- par("usr")
-  rect(usr[1], usr[3], usr[2], usr[4], col=col.bg, border="black")
+  usr <- graphics::par("usr")
+  graphics::rect(usr[1], usr[3], usr[2], usr[4], col=col.bg, border="black")
 
   # grid lines computation and print
   if (horiz) {
     vx <- pretty(c(usr[1],usr[2]))
-    abline(v=seq(vx[1],vx[length(vx)],vx[2]-vx[1]), col=col.grid, lwd=.5)
+    graphics::abline(v=seq(vx[1],vx[length(vx)],vx[2]-vx[1]), col=col.grid, lwd=.5)
   }
   else {
     vy <- pretty(c(usr[3],usr[4]))
-    abline(h=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
+    graphics::abline(h=seq(vy[1],vy[length(vy)],vy[2]-vy[1]), col=col.grid, lwd=.5)
   }
   # box plot
-  boxplot(x, add=TRUE, col=col.fill, bg=col.stroke, pch=21,
+  graphics::boxplot(x, add=TRUE, col=col.fill, bg=col.stroke, pch=21,
           horizontal=horiz, axes=FALSE, border=col.stroke, ...)
-  #boxplot(x, add=TRUE, col=col.fill, bg=col.stroke, pch=21,
+  #graphics::boxplot(x, add=TRUE, col=col.fill, bg=col.stroke, pch=21,
           #horizontal=horiz, axes=FALSE, border=col.stroke,
           #whiskcol=getOption("col.fill.bar"), staplecol=getOption("col.fill.bar"),
           #medcol=getOption("col.stroke.bar"))
@@ -1757,8 +1757,8 @@ function(x, col.fill, col.stroke, col.bg, col.grid,
     tx[length(tx)+1] <- paste("Upper Whisker:", uw)
     tx[length(tx)+1] <- paste("Maximum      :", mx )
     tx[length(tx)+1] <- ""
-    tx[length(tx)+1] <- paste("1st Quartile :", .fmt(quantile(x, na.rm=TRUE)[2]))
-    tx[length(tx)+1] <- paste("3rd Quartile :", .fmt(quantile(x, na.rm=TRUE)[4]))
+    tx[length(tx)+1] <- paste("1st Quartile :", .fmt(stats::quantile(x, na.rm=TRUE)[2]))
+    tx[length(tx)+1] <- paste("3rd Quartile :", .fmt(stats::quantile(x, na.rm=TRUE)[4]))
     tx[length(tx)+1] <- paste("IQR          :", IQR)
 
   }  # end !quiet

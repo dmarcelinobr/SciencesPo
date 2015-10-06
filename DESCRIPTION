@@ -18,14 +18,13 @@ Depends:
     ggplot2,
     methods
 Imports:
+  coda,
   RSQLite,
   data.table,
   grid,
   scales,
   magrittr,
-  sas7bdat,
   foreign,
-  readxl,
   stringr
 Suggests:
     testthat,

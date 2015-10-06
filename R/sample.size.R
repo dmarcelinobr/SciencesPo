@@ -21,7 +21,7 @@
   if(any(p >= 1) | any(delta >= 1) | any(popsize < 2) )
     stop("Proportion and delta both must < 1. Popsize must be >=2")
   else {
-    n1 <- qnorm(1-alpha/2)^2*p*(1-p)/delta^2
+    n1 <- stats::qnorm(1-alpha/2)^2*p*(1-p)/delta^2
     if (!is.null(popsize)){
       n1 = n1/(1+n1/popsize)
     }
