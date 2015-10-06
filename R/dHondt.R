@@ -45,8 +45,8 @@
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
    out <- data.frame(.freq(out)[,1:3]);
-   out  <- out %>% dplyr::arrange(dplyr::desc(freq));
-   names(out) <-c("Parties", "d'Hondt", "Perc");
+      names(out) <-c("Parties", "Frequency", "Percent");
+   out <- out[ order(out[,2], decreasing = TRUE),]
      return(out)
 }
 NULL

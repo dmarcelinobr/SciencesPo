@@ -1837,7 +1837,7 @@ NULL
 
 
 `.freq` <-
-  function(x, weighs = NULL, breaks = hist(x, plot = FALSE)$breaks, digits=2, include.lowest = TRUE, ord = c("level", "desc", "asc", "name"),
+  function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=2, include.lowest = TRUE, ord = c("level", "desc", "asc", "name"),
            useNA = c("no", "ifany", "always"),...){
 
     # check if x is a vector (do not use is.vector())
