@@ -41,8 +41,4 @@ line.plot(data, xvar, yvar, group.var = NULL, add.point = FALSE,
 \description{
 Handy function for making a line plot with R package ggplot.
 }
-\examples{
-data(Presidents)
-line.plot(Presidents, election, winner.height)
-}
 

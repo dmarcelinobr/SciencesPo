@@ -15,9 +15,6 @@
 #' @param group.color Color of groups. \code{group.color} should have the same length as groups.
 #' @param palette this can be also used to indicate group colors. In this case the parameter group.color should be \code{NULL}.
 #' @param \dots Other parameters passed on to ggplot2.customize function.
-#' @examples
-#' data(Presidents)
-#' line.plot(Presidents, election, winner.height)
 #' @export
 #'
 line.plot<-function(data, xvar, yvar,  group.var=NULL, add.point=FALSE, point.size=1.5, point.shape=19, point.fill=NULL, point.color="black", arrow=NULL, x.type=c("categorical", "continuous"), group.color=NULL, palette=NULL,...)
