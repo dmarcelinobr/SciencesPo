@@ -35,6 +35,8 @@ means.plot(.data, xvar, yvar, group.var = NULL, plot.type = c("lineplot",
 \item{id}{The column containing the unique identification of the observations/subjects.Must be provided when \code{paired.sample=TRUE}.}
 
 \item{position}{To adjust the error bar position in the barplot.}
+
+\item{\dots}{additional parameteres.}
 }
 \description{
 Mean plot with ggplot2

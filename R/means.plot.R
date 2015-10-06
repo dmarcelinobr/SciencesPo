@@ -14,17 +14,18 @@
 #' @param paired.sample A logical in case the sample groups are paried, default is \code{FALSE}.
 #' @param id The column containing the unique identification of the observations/subjects.Must be provided when \code{paired.sample=TRUE}.
 #' @param position To adjust the error bar position in the barplot.
+#' @param \dots additional parameteres.
 #' @export
 means.plot<-function(.data, xvar,
                      yvar,
                      group.var=NULL,
                             plot.type=c('lineplot', 'barplot'),
-                            error.bars = c("se", "sd","conf.int", "none"), level = 0.95,
+                            error.bars = c("se", "sd","conf.int", "none"),
+                     level = 0.95,
                             bar.width=0.2, bar.color=NULL,
                             verbose=TRUE,
                             paired.sample=FALSE, id=NULL,
-                            position=position_dodge(0.9),
-                            ...){
+                            position=position_dodge(0.9),...){
   .data=.data.frame(.data)
   .data[,xvar]=factor(.data[,xvar])
 

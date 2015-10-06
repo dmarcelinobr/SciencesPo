@@ -4,12 +4,14 @@
 \alias{freq}
 \title{Frequency table}
 \usage{
-freq(.data, x)
+freq(.data, x, verbose = TRUE)
 }
 \arguments{
 \item{.data}{The data.frame}
 
 \item{x}{A column from which the frequency of values is desired.}
+
+\item{verbose}{A logical value, if \code{TRUE}, extra statistics are also provided.}
 }
 \description{
 Simulating the FREQ procedure of SPSS.

@@ -2,12 +2,15 @@
 % Please edit documentation in R/recode.R
 \name{recode}
 \alias{recode}
-\title{Recode a vector.}
+\alias{recode.default}
+\title{Method for recoding}
 \usage{
-recode(x, from, to, to.class = NULL)
+recode(x, ...)
+
+\method{recode}{default}(x, from, to, to.class = NULL)
 }
 \arguments{
-\item{x}{the vector whose values will be recoded.}
+\item{x}{The vector whose values will be recoded.}
 
 \item{from}{the old values in x to be recoded.}
 
@@ -15,6 +18,8 @@ recode(x, from, to, to.class = NULL)
 
 \item{to.class}{an 'as.' function representing the desired vector type (i.e.
 as.character, as.numeric, as.logical, as.numeric).}
+
+\item{\dots}{The parameters to be used in recode.}
 }
 \value{
 a vector with same length of x with recoded values.

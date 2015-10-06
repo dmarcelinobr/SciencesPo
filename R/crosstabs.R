@@ -1,6 +1,5 @@
 #' @encoding UTF-8
 #' @title Cross-tabulation
-#'
 #' @description \code{crosstable} produces all possible two/three-way tabulations.
 #' @param x The row parameter.
 #' @param y The column parameter.
@@ -342,13 +341,5 @@ crosstabs <- function (x, y, digits = 2,
         }
        cat("\n")
     }
-}
-
-
-#' @title Cross-tabulation
-#' @param \dots Parameters to be passed to crosstabs.
-#' @export
-`tab` <- function(...){
-  crosstabs(...)
 }
 NULL

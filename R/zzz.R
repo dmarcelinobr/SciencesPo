@@ -1803,3 +1803,75 @@ function(x, col.fill, col.stroke, col.bg, col.grid,
     )
   }
 } # end progress bar
+
+
+
+
+
+
+
+#' @encoding UTF-8
+#' @title Replace commas by dots
+#'
+#' @description Replace commas by dots in that order.
+#'
+#' @param x A vector whose elements contain commas or commas and dots.
+#'
+#' @details This function works for numeric vectors, typically currency variables stored in non-english format.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'
+#' @keywords Data Manipulation
+#'
+#' @examples
+#' x <- c('500,00', '0,001', '25.000', '10,100.10', 'him, you, and I.')
+#'
+#' dotfy(x)
+#'
+#' @export
+`dotfy` <- function(x){
+  round(as.numeric(gsub(",", ".", gsub("\\.", "", x))),2)
+}
+NULL
+
+
+
+`.freq` <-
+  function(x, weighs = NULL, breaks = hist(x, plot = FALSE)$breaks, digits=2, include.lowest = TRUE, ord = c("level", "desc", "asc", "name"),
+           useNA = c("no", "ifany", "always"),...){
+
+    # check if x is a vector (do not use is.vector())
+    if(!(is.atomic(x) || is.list(x))) stop("'x' must be a vector")
+
+    if(inherits(x, "table")){
+      tab <- x
+
+    } else {
+
+      if(is.numeric(x)){
+        x <- base::cut(x, breaks = breaks, include.lowest = include.lowest, ordered_result = TRUE,...)
+      }
+
+      tab <- base::table(x, useNA = useNA)
+    }
+
+    # how should the table be sorted, by name, level or frq? (NULL means "desc")
+    switch(match.arg(ord, c("level", "desc", "asc", "name")),
+           level  = {  }
+           , name   = { tab <- tab[rownames(tab)] }
+           , asc    = { tab <- sort(tab) }
+           , desc   = { tab <- -sort(-tab) }
+    )
+
+    ptab <- base::prop.table(tab)
+    names(tab)[is.na(names(tab))] <- "<NA>"
+
+    z <- data.frame(class = names(tab),
+                    freq = as.vector(tab[]), perc = round(as.vector(ptab[]),digits),
+                    cumfreq = cumsum(tab[]), cumperc = round(cumsum(ptab[]),digits))
+
+    rownames(z) <- NULL # enumerate from 1:nrow(z)
+    class(z) <- c("freq", "data.frame")
+    return(z)
+  }
+NULL

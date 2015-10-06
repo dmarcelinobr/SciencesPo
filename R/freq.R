@@ -4,7 +4,7 @@
 #'
 #'  @param .data The data.frame
 #'  @param x A column from which the frequency of values is desired.
-#'
+#' @param  verbose A logical value, if \code{TRUE}, extra statistics are also provided.
 #' @examples
 #'  data("cathedral")
 #'
@@ -13,17 +13,19 @@
 #' cathedral %>% freq(Height)
 #'
 #' @export
-`freq` <- function(.data, x) {
+`freq` <- function(.data, x, verbose=TRUE) {
 vec <-eval(substitute(x), .data, parent.frame())
   nmiss=sum(is.na(vec))
   fsum=summary(factor(vec))
   ftab=cbind(fsum,100*fsum/sum(fsum))
-  if (nmiss==0)
-  {
+  if (nmiss==0) {
     ftab=cbind(ftab,100*cumsum(fsum)/sum(fsum))
     colnames(ftab)=c("Frequency"," Valid Percent"," Cum Percent")
     ftab[,2] <- round(ftab[,2],2)
     ftab[,3] <- round(ftab[,3],2)
+    if(verbose==FALSE){
+      return(ftab)
+    }
     print(ftab)
   }
   else
@@ -39,6 +41,9 @@ vec <-eval(substitute(x), .data, parent.frame())
     if (dim(ftab)[1]==length(levels(vec)))
     {
       rownames(ftab)[1:length(levels(factor(vec)))]=levels(factor(vec))
+    }
+    if(verbose==FALSE){
+      return(ftab)
     }
     print(ftab)
   }
