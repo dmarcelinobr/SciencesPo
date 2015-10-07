@@ -54,27 +54,27 @@ bar.plot<-function(data, xvar=NULL, yvar=NULL,group.var=NULL,
   data=data.frame(data)
   data[,xvar]=factor(data[,xvar])
   if(is.null(group.var)){
-    if(!is.null(yvar)) p<-ggplot2::ggplot(data=data, ggplot2::aes_string(x=xvar, y=yvar))
-    else p<-ggplot2::ggplot(data=data, ggplot2::aes_string(x=xvar))#barplot of the count
+    if(!is.null(yvar)) gplot <-ggplot2::ggplot(data=data, ggplot2::aes_string(x=xvar, y=yvar))
+    else gplot<-ggplot2::ggplot(data=data, ggplot2::aes_string(x=xvar))#barplot of the count
   }
   else {
     data[,group.var]=factor(data[,group.var])#transform group.var to factor
-    p<-ggplot2::ggplot(data=data, ggplot2::aes_string(x=xvar, y=yvar, fill=group.var))
+    gplot<-ggplot2::ggplot(data=data, ggplot2::aes_string(x=xvar, y=yvar, fill=group.var))
   }
-  p<- p+ggplot2::geom_bar(stat=stat,...)
+  gplot<- gplot+ggplot2::geom_bar(stat=stat,...)
 
   #group colors
   if(!is.null(group.colors)){
-    p<-p+ggplot2::scale_fill_manual(values=group.colors)
-    p<-p+ggplot2::scale_colour_manual(values=group.colors)
+    gplot<-gplot+ggplot2::scale_fill_manual(values=group.colors)
+    gplot<-gplot+ggplot2::scale_colour_manual(values=group.colors)
   }
   else if(!is.null(palette)){
-    p<-p+ggplot2::scale_fill_brewer(palette=palette)
-    p<-p+ggplot2::scale_colour_brewer(palette=palette, guide="none")
+    gplot<-gplot+ggplot2::scale_fill_brewer(palette=palette)
+    gplot<-gplot+ggplot2::scale_colour_brewer(palette=palette, guide="none")
   }
 
-  p<-ggplot2.customize(p,...)
-  p
+  #gplot<-ggplot2.customize(p,...)
+  gplot
 }
 
 
@@ -248,7 +248,7 @@ ggplot2.customize<-function(plot,...)
   if(!is.null(args$axisLine)) axisLine<-args$axisLine else axisLine=c(0.5, "solid", "#E5E5E5")
 
 
-  plot<-ggplot2.setAxis(plot, xShowTitle=xShowTitle, yShowTitle=yShowTitle,
+plot<-ggplot2.setAxis(plot, xShowTitle=xShowTitle, yShowTitle=yShowTitle,
                         xtitle=xtitle, ytitle=ytitle,
                         xtitleFont=xtitleFont, ytitleFont=ytitleFont,
                         xlim=xlim, ylim=ylim,xScale=xScale, yScale=yScale,
@@ -395,4 +395,3 @@ ggplot2.setAxis<-function(plot,
 
   plot
 }
-

@@ -28,10 +28,11 @@ mcmc.table <- function(obj, ci = 0.95)
                                  Lower = as.numeric(round(stats::quantile(x, probs = c((1 - ci) / 2)), digits = 3)), # Lower CI of posterior
                                  Upper = as.numeric(round(stats::quantile(x, probs = c((1 + ci) / 2)), digits = 3)), # Upper CI of posterior
                                  Pr = round(ifelse(mean(x) > 0, length(x[x > 0]) / length(x), length(x[x < 0]) / length(x)), digits = 3) # Probability of posterior >/< 0
-                   ))
+))
   s2 <- Sys.time()
-  timediff <- c( s1 , s2 )
-  cat("Date of Analysis: ",Sys.Date(),"\n","Computation time: ",timediff,sep="")
-  cat("-------------------------------------------------------\n")
+  timediff <- c( s2 - s1 )
+  cat("\n")
+  cat("Date of Analysis: ",format(Sys.time(), "%a %b %d %Y"), "\n", "Computation time: ",timediff,sep="","\n")
+  cat("-----------------------------------\n")
   return(t(ans))
 }
