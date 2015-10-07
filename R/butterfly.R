@@ -16,7 +16,7 @@
 #'
 butterfly <- function(n=100, nb=500, title=element_blank())
 {
-  s1 <- Sys.time()
+s1 <- Sys.time()
 t <- seq(0,10*pi,length=nb)
 
 butterfly <- data.frame(x=sin(t)*(exp(1)^cos(t)-2*cos(4*t)-(sin(t/12))^5),
@@ -33,15 +33,15 @@ points <- data.frame(x=runif(n,-4,4),
 
 .data <- rbind(butterfly, points)
 
-gplot <- ggplot2::ggplot(.data, aes(x, y, colour=f))
+gplot <- ggplot2::ggplot(.data, ggplot2::aes(x, y, colour=f))
 gplot <- gplot + ggplot2::geom_point(alpha=.data$a,size=.data$s)
-gplot <- gplot + theme(legend.position="none",
+gplot <- gplot + ggplot2::theme(legend.position="none",
           panel.background = element_blank(),
           panel.grid = element_blank(),
           axis.ticks=element_blank(),
           axis.title=element_blank(),
           axis.text =element_blank())
-gplot <- gplot + ggtitle(title)
+gplot <- gplot + ggplot2::ggtitle(title)
 
 s2 <- Sys.time()
 timediff <- c( s2 - s1 )
