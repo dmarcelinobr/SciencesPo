@@ -48,6 +48,7 @@ NULL
 detail <-
   function(data, by = NULL, basic = TRUE, na.rm = TRUE, trim = 0.2, type = 2, k = 1)
   {
+	   s1 <- Sys.time()
     cl <- match.call()
     valid <- function(data) {
       sum(!is.na(data))
@@ -105,13 +106,12 @@ detail <-
       stats[, 10] <- sapply(data, FUN=min, na.rm = na.rm)
       stats[, 11] <- sapply(data, FUN=max, na.rm = na.rm)
     }
-    if (!basic) {
       if (!basic) {
         temp <- data.frame(obs = stats[, 1],
                            mean = stats[, 2],
-                           s.d. = stats[, 3],
-                           var. = stats[, 4],
-                           s.e. = stats[, 5],
+                           sd = stats[, 3],
+                           var = stats[, 4],
+                           se = stats[, 5],
                            median = stats[, 6],
                            mad. = stats[, 7],
                            trimmed = stats[, 8],
@@ -125,38 +125,20 @@ detail <-
       else {
         temp <- data.frame(obs = stats[, 1],
                            mean = stats[, 2],
-                           s.d. = stats[, 3],
-                           var. = stats[, 4],
-                           s.e. = stats[, 5],
-                           median = stats[, 6],
-                           mad. = stats[, 7],
-                           trimmed = stats[, 8],
-                           winsor. = stats[, 9],
-                           range = stats[, 11] - stats[, 10],
-                           min. = stats[, 10],
-                           max. = stats[, 11])
-      }
-    }
-    else {
-      if (!basic) {
-        temp <- data.frame(obs = stats[, 1],
-                           mean = stats[, 2],
-                           s.d. = stats[, 3],
-                           var. = stats[, 4],
-                           skew. = stats[, 12],
-                           kurt. = stats[, 13])
-      }
-      else {
-        temp <- data.frame(obs = stats[, 1],
-                           mean = stats[, 2],
-                           s.d. = stats[, 3],
-                           var. = stats[, 4],
+                           sd = stats[, 3],
                            min. = stats[, 10],
                            max. = stats[, 11] )
-      }
     }
     output <- format(round(data.frame(vars = vars, temp), 1), nsmall = 0)
-
     class(output) <- c("SciencesPo", "describe", "data.frame")
+    s2 <- Sys.time()
+    timediff <- c( s2 - s1 )
+    cat("\n")
+    cat("Date of Analysis: ", format(Sys.time(), "%a %b %d %Y"), "\n", "Computation time: ",timediff, sep="", "\n")
+    cat("\n")
+    # cat("Descriptive Statistics for ", length(vars), " variables", " from ", as.name(.data), sep = "","\n")
+	cat("--------------------------------------------------\n")
+	    cat("\n")
+		
     return(output)
   }
