@@ -6,7 +6,7 @@
 #' @param nb An integer for the butterfly's points.
 #' @param title A character vector for the plot title.
 #' @references
-#' Fay, Temple H. (May 1989). The Butterfly Curve. \emph{Amer. Math. Monthly} 96 (5): 442–443. doi:10.2307/2325155.
+#' Fay, Temple H. (May 1989). The Butterfly Curve. \emph{Amer. Math. Monthly} 96 (5): 442-443. doi:10.2307/2325155.
 #' @export
 #' @examples
 #' butterfly(10, 100, title="10 x 100")

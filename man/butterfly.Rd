@@ -23,6 +23,6 @@ butterfly(10, 500, title="100 x 500")
 butterfly(100, 1000, title="100 x 1000")
 }
 \references{
-Fay, Temple H. (May 1989). The Butterfly Curve. \emph{Amer. Math. Monthly} 96 (5): 442–443. doi:10.2307/2325155.
+Fay, Temple H. (May 1989). The Butterfly Curve. \emph{Amer. Math. Monthly} 96 (5): 442-443. doi:10.2307/2325155.
 }
 
