@@ -32,7 +32,7 @@ means.plot(.data, xvar, yvar, group.var = NULL, plot.type = c("lineplot",
 
 \item{paired.sample}{A logical in case the sample groups are paried, default is \code{FALSE}.}
 
-\item{id}{The column containing the unique identification of the observations/subjects.Must be provided when \code{paired.sample=TRUE}.}
+\item{id}{The column containing the unique identification of the observations/subjects. Must be provided when \code{paired.sample=TRUE}.}
 
 \item{position}{To adjust the error bar position in the barplot.}
 
