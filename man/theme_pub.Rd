@@ -14,4 +14,7 @@ theme_pub(base_size = 14, base_family = "helvetica")
 \description{
 Theme for plotting  with ggplot
 }
+\seealso{
+\code{\link[ggplot2]{theme}}, \code{\link{theme_black}}, \code{\link{theme_map}}.
+}
 

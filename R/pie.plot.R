@@ -1,4 +1,4 @@
-if(getRversion() >= "2.15.1") globalVariables(c(".data"))
+if(getRversion() >= "2.15.1") globalVariables(c(".data", "pie"))
 
 #' @title  Creates a pie chart using ggplot2.
 #'

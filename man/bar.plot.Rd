@@ -28,6 +28,7 @@ bar.plot(data, xvar = NULL, yvar = NULL, group.var = NULL,
 Plot a barplot with ggplot2
 }
 \examples{
+if (interactive()) {
 x = sample(10, 100, rep = TRUE)
 y = stats::rnorm(100)
 z = sample(letters[1:3],100, rep=TRUE)
@@ -35,5 +36,6 @@ dat = data.frame(x,y,z)
 
 bar.plot(dat, 'x', 'y')
 bar.plot(dat, 'x', 'y', group.var = 'z')
+}
 }
 

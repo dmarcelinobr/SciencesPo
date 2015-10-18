@@ -4,12 +4,12 @@
 \alias{james.stein}
 \title{James-Stein shrunken estimates}
 \usage{
-james.stein(y, group)
+james.stein(y, k)
 }
 \arguments{
 \item{y}{The response variable.}
 
-\item{group}{The grouping factor.}
+\item{k}{The grouping factor.}
 }
 \description{
 Computes James-Stein shrunken estimates of cell means given

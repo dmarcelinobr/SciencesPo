@@ -18,4 +18,7 @@ Theme for mapping
 
 Theme for plotting  with ggplot
 }
+\seealso{
+\code{\link[ggplot2]{theme}}, \code{\link{theme_black}}, \code{\link{theme_pub}}.
+}
 

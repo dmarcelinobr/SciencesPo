@@ -9,6 +9,7 @@
 #' @param stat The statistical transformation to use on the data for this layer; default value is \code{identity}. To get a bar graph of counts, don't map a variable to y, and use \code{stat="bin"}
 #' @param \dots Other parameters passed on to ggplot2.customize function.
 #' @examples
+#' if (interactive()) {
 #' x = sample(10, 100, rep = TRUE)
 #' y = stats::rnorm(100)
 #' z = sample(letters[1:3],100, rep=TRUE)
@@ -16,7 +17,7 @@
 #'
 #' bar.plot(dat, 'x', 'y')
 #' bar.plot(dat, 'x', 'y', group.var = 'z')
-#'
+#' }
 #' @export
 bar.plot<-function(data, xvar=NULL, yvar=NULL,group.var=NULL,
                           group.colors=NULL, palette=NULL, stat="identity",...)
@@ -72,9 +73,8 @@ bar.plot<-function(data, xvar=NULL, yvar=NULL,group.var=NULL,
     gplot<-gplot+ggplot2::scale_fill_brewer(palette=palette)
     gplot<-gplot+ggplot2::scale_colour_brewer(palette=palette, guide="none")
   }
-
   #gplot<-ggplot2.customize(p,...)
-  gplot
+  return(gplot)
 }
 
 

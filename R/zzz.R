@@ -1492,7 +1492,7 @@ function(x, by=NULL,
   }
 
   if (extend) {
-    mtext(y.lab, side=2, line=add.left-1)
+    graphics::mtext(y.lab, side=2, line=add.left-1)
     y.lab <- ""
     las.value <- 1
   }

@@ -156,21 +156,28 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title James-Stein shrunken estimates
 #'
 #' @description Computes James-Stein shrunken estimates of cell means given
 #' a response variable (which may be binary) and a grouping indicator.
+#' @references
+#' Efron, Bradley and Morris, Carl (1977) ``Stein's Paradox in Statistics.'' \emph{Scientific American} Vol. 236 (5): 119-127.
+#'
+#' James, Willard and Stein, Charles (1961) ``Estimation with
+#' Quadratic Loss.'' \emph{Proceedings of the Fourth Berkeley
+#' Symposium on Mathematical Statistics and Probability}, Vol. 1: 361-379.
 #'
 #' @param y The response variable.
-#' @param group The grouping factor.
+#' @param k The grouping factor.
 #' @export
-james.stein <- function(y, group)
+james.stein <- function(y, k)
 {
-  s <- !(is.na(y)|is.na(group))
+  s <- !(is.na(y)|is.na(k))
   y <- y[s];
-  group <- as.character(group[s])
+  k <- as.character(k[s])
   ## as.char -> unused levels OK
-  k <- length(unique(group))
+  k <- length(unique(k))
   if(k<3)
     stop("must have >=3 groups")
 
@@ -185,7 +192,7 @@ james.stein <- function(y, group)
   }
 
   Z <- .stats(y)
-  st <- tapply(y, group, FUN=.stats)
+  st <- tapply(y, k, FUN=.stats)
   nams <- names(st)
   z <- matrix(unlist(st),ncol=4,byrow=TRUE)
   ssb <- .stats(z[,2])["ss"]
@@ -201,6 +208,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Jarque-Bera test for normality
 #'
 #' @description This function performs the Jarque-Bera test on the given data sample to determine if the data are sample drawn from a normal population.
@@ -303,14 +311,17 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Lilliefors (Kolmogorov-Smirnov) test for normality
+#'
 #' @description Performs the Lilliefors (Kolmogorov-Smirnov) test for the composite hypothesis of normality. The Lilliefors (Kolomorov-Smirnov) test is the most famous EDF omnibus test for normality; compared to the Anderson-Darling test and the Cramer-von Mises test it is known to perform worse.
+#'
 #' @param x A numeric vector of data values, the number of observations must be greater than 4.
 #'  Missing values are allowed.
 #' @references
 #' Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 #'
-#' @importFrom stats complete.cases  pnorm
+#' @importFrom stats complete.cases pnorm
 #' @export
 #' @examples
 #' set.seed(1234)
@@ -369,6 +380,8 @@ NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Bonett-Seier test of Geary's kurtosis
 #'
 #' @description Performs the Bonett-Seier test of Geary's measure of kurtosis for normally distributed data.
@@ -429,8 +442,11 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Anscombe-Glynn test of kurtosis
+#'
 #' @description Performs the Anscombe-Glynn test of kurtosis for normal samples.
+#'
 #' @param x A numeric vector of data values.
 #' @param alternative A character string specifying the alternative hypothesis,
 #'  must be one of '"two.sided"' (default), '"greater"' or '"less"'. You can
@@ -488,6 +504,7 @@ NULL
 
 
 
+#' @encoding UTF-8
 #' @title Anderson-Darling test for normality
 #'
 #' @description Performs the Anderson-Darling test for the composite hypothesis of normality. It is the recommended EDF test by Stephens (1986) followed by the Cramer-von Mises test. Compared to the later, the Anderson-Darling gives more weight to the tails of the distribution.
@@ -532,15 +549,3 @@ anderson.darling <- function (x)
   return(RVAL)
 }
 NULL
-
-
-
-
-
-
-
-
-
-
-
-
