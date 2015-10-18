@@ -23,6 +23,6 @@ x <- sample(10);
 Smithson M, Verkuilen J (2006) A Better Lemon Squeezer? Maximum-Likelihood Regres- sion with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54-71.
 }
 \seealso{
-normalize
+\code{\link{normalize}},  \code{\link{new.range}}.
 }
 

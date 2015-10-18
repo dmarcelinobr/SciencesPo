@@ -39,8 +39,10 @@
   class(returns) <- c("sample.size", "list")
   returns
 }
+NULL
 
 ### print sample.size
+#' @export
 `print.sample.size` <- function(x, ...)
 {
   if(nrow(x$table) < 6){

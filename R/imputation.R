@@ -1,7 +1,7 @@
 #' @encoding UTF-8
-#' @title Random Imputation
+#' @title Simple Random Imputation
 #'
-#' @description Performs random imputation in a vector that contains missing values.
+#' @description Performs random imputation in a vector containing missing values.
 #'
 #' @param x a vector whose missing values (\code{NA}) is to be replaced.
 #'
@@ -9,12 +9,12 @@
 #'
 #' @examples
 #' x <- c(1,2,NA,4,5,NA)
-#' rand.imput(x)
+#' imputation(x)
 #' @export
-`rand.imput` <- function(x)  {
-  gone <- is.na(x)
-  there <- x[!gone]
-  x[gone] <- sample(x=there,size=sum(gone),replace=TRUE)
+`imputation` <- function(x){
+  y <- is.na(x)
+  xx <- x[!y]
+  x[y] <- sample(x=xx,size=sum(y),replace=TRUE)
   return(x)
 }
 NULL

@@ -53,6 +53,8 @@ help(package=SciencesPo)
 ```
 
 ## Visualization Instances
+To quickly get our feet wet with creating charming charts, we start with a minimal example.
+
 
 
 ### Voronoi diagram

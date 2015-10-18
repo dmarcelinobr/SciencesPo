@@ -2,34 +2,17 @@
 % Please edit documentation in R/recode.R
 \name{recode}
 \alias{recode}
-\alias{recode.default}
 \title{Method for recoding}
 \usage{
 recode(x, ...)
-
-\method{recode}{default}(x, from, to, to.class = NULL)
 }
 \arguments{
 \item{x}{The vector whose values will be recoded.}
 
-\item{from}{the old values in x to be recoded.}
-
-\item{to}{the new values.}
-
-\item{to.class}{an 'as.' function representing the desired vector type (i.e.
-as.character, as.numeric, as.logical, as.numeric).}
-
 \item{\dots}{The parameters to be used in recode.}
-}
-\value{
-a vector with same length of x with recoded values.
 }
 \description{
 This utility function will recode values from an original \code{\link{character}}
 or \code{\link{factor}} vector with new values.
-}
-\examples{
-test <- letters[sample(5, 10, replace=TRUE)]
-recode(test, from=letters[1:5], to=paste('Letter', letters[1:5]))
 }
 

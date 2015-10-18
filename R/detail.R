@@ -1,3 +1,5 @@
+if (getRversion() >= "2.15.1") globalVariables(c(".valid"))
+
 #' @encoding UTF-8
 #' @title Method to Produce Descriptive Statistics Summary
 #' @param ... Parameters which are typically ignored
@@ -140,6 +142,6 @@ detail <-
     cat("Descriptive Statistics for ", length(vars), " variables", " from ", data_name, sep = "","\n")
 	cat("-------------------------------------------------------------\n")
 	    cat("\n")
-		
+
     return(output)
   }

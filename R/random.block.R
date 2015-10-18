@@ -14,7 +14,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' blk <- rand.block(blocksize = 20, n = 80, seed = 51)
+#' blk <- randomized.block(blocksize = 20, n = 80, seed = 51)
 #' blk;
 #' table(blk$block, blk$condition)
 #' # let's do some imaginary analysis
@@ -49,7 +49,8 @@
 #'
 #' @importFrom stats runif
 #'
-`rand.block` = function(blocksize, n, seed=NULL){
+
+`randomized.block` = function(blocksize, n, seed=NULL){
   if(!is.null(seed)){
     set.seed(seed)
   }

@@ -6,7 +6,7 @@
 #' @references
 #' Smithson M, Verkuilen J (2006) A Better Lemon Squeezer? Maximum-Likelihood Regres- sion with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54-71.
 #'
-#' @seealso normalize
+#' @seealso  \code{\link{normalize}},  \code{\link{new.range}}.
 #' @examples
 #'  x <- sample(10);
 #'  y <- normalize(x, range=c(0,1));

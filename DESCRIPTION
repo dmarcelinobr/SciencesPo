@@ -22,9 +22,9 @@ Imports:
   RSQLite,
   data.table,
   grid,
+  gridExtra,
   scales,
   magrittr,
-  foreign,
   stringr
 Suggests:
     testthat,

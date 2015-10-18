@@ -5,6 +5,12 @@
 #' @param x The data vector.
 #' @param new.min An integer for the minimun value for the range.
 #' @param new.max An integer for the maximun value for the range.
+#'
+#' @seealso  \code{\link{svTransform}}, \code{\link{normalize}}
+#'
+#' @keywords Manipulation
+#'
+#' @examples
 #' x <- sample(10)
 #' new.range(x, 0, 1)
 #' @export

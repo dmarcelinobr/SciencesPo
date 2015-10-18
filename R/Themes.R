@@ -5,8 +5,6 @@
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
 #'
-#' @importFrom ggplot2 rel element_rect element_text element_blank theme %+replace%
-#' @importFrom grid unit
 #' @export
 `theme_map` <- function (base_size = 12, base_family = "") {
 .theme_dumb(base_size = base_size, base_family = base_family) %+replace%
@@ -16,7 +14,7 @@ axis.text.x=element_blank(),
 axis.text.y=element_blank(),
 axis.ticks=element_blank(),
 axis.ticks.length=unit(0.3, "lines"),
-axis.ticks.margin=unit(0.5, "lines"),
+#axis.ticks.margin=unit(0.5, "lines"),
 axis.title.x=element_blank(),
 axis.title.y=element_blank(),
 legend.background=element_rect(fill="white", colour=NA),
@@ -39,6 +37,7 @@ strip.text.y=element_text(size=rel(0.8), angle=-90)
 )
 }
 
+
 #' Themes for ggplot graphs
 #'
 #' Theme for plotting  with ggplot
@@ -46,8 +45,6 @@ strip.text.y=element_text(size=rel(0.8), angle=-90)
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
 #'
-#' @importFrom ggplot2 rel element_rect element_line element_text element_blank theme theme_bw %+replace%
-#' @importFrom grid unit
 #'
 #' @export
 theme_pub <- function(base_size=14, base_family="helvetica") {
@@ -56,25 +53,25 @@ theme_pub <- function(base_size=14, base_family="helvetica") {
   + theme(plot.title = element_text(face = "bold",
 size = rel(1.2), hjust = 0.5),
           text = element_text(),
-          panel.background = element_rect(colour = NA),
-          plot.background = element_rect(colour = NA),
-          panel.border = element_rect(colour = NA),
+          panel.background = element_rect(color = NA),
+          plot.background = element_rect(color = NA),
+          panel.border = element_rect(color = NA ),
           axis.title = element_text(face = "bold",size = rel(1)),
-          axis.title.y = element_text(angle=90,vjust =2),
-          axis.title.x = element_text(vjust = -0.2),
-          axis.text = element_text(),
-          axis.line = element_line(colour="black"),
+          axis.title.y = element_text(color="#525252", angle=90,vjust=2),
+          axis.title.x = element_text(color="#525252", vjust = -0.2),
+          axis.text = element_text(color="#525252",size = rel(1)),
+          axis.line = element_line(color="black"),
           axis.ticks = element_line(),
-          panel.grid.major = element_line(colour="#f0f0f0"),
+          panel.grid.major = element_line(color="#F0F0F0"),
           panel.grid.minor = element_blank(),
-          legend.key = element_rect(colour = NA),
+          legend.key = element_rect(color = NA),
           legend.position = "bottom",
           legend.direction = "horizontal",
           legend.key.size= unit(0.2, "cm"),
           legend.margin = unit(0, "cm"),
           legend.title = element_text(face="italic"),
-          plot.margin=unit(c(10,5,5,5),"mm"),
-          strip.background=element_rect(colour="#f0f0f0",fill="#f0f0f0"),
+          plot.margin = unit(c(0.35, 0.20, 0.30, 0.35),"cm"),
+          #strip.background=element_rect(color="#f0f0f0",fill="#f0f0f0"),
           strip.text = element_text(face="bold")
   ))
 }
@@ -113,9 +110,6 @@ NULL
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
 #'
-#' @importFrom ggplot2 element_rect element_line element_text element_blank theme theme_bw %+replace%
-#' @importFrom grid unit
-#'
 #' @export
 .theme_dumb_ <- function(base_size=12, base_family="") {
   theme(
@@ -139,7 +133,7 @@ NULL
     axis.ticks.x = element_line(),
     axis.ticks.y = element_line(),
     axis.ticks.length =  unit(0.15, "cm"),
-    axis.ticks.margin =  unit(0.1, "cm"),
+    #axis.ticks.margin =  unit(0.1, "cm"),
     axis.line = element_line(),
     axis.line.x = element_line(),
     axis.line.y = element_line(),
@@ -212,4 +206,4 @@ NULL
   }
   thm
 }
-
+NULL

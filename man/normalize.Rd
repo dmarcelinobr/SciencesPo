@@ -44,7 +44,7 @@ normalize(x)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
-svTransform
+\code{\link{svTransform}},  \code{\link{new.range}}.
 
 \code{\link{scale}}.
 }

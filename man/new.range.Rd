@@ -11,11 +11,17 @@ new.range(x, new.min = 0, new.max = 1)
 
 \item{new.min}{An integer for the minimun value for the range.}
 
-\item{new.max}{An integer for the maximun value for the range.
-x <- sample(10)
-new.range(x, 0, 1)}
+\item{new.max}{An integer for the maximun value for the range.}
 }
 \description{
 Scale data to a new range. Arguments include the data, the new minimum, and the new maximum values.
 }
+\examples{
+x <- sample(10)
+new.range(x, 0, 1)
+}
+\seealso{
+\code{\link{svTransform}}, \code{\link{normalize}}
+}
+\keyword{Manipulation}
 
