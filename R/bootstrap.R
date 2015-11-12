@@ -14,7 +14,7 @@ bootstrap <- function (x, ...)
 #' @description This function is used to estimating standard errors when the distribution is not know.
 #' 
 #' @param nboots The number of bootstraps.
-#' @param FUN the statistic to bootstrap, ie., mean, var, cov, etc.
+#' @param FUN the name of the statistic to bootstrap, ie., 'mean', 'var', 'cov', etc as a string.
 #' 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' 
@@ -26,7 +26,7 @@ bootstrap <- function (x, ...)
 #' @export
 bootstrap.default<-function(x, nboots=100, FUN,  ...){
 	n=length(x)
-	lings <-replicate(nboots, FUN(sample(x, n, replace=TRUE)))
+	lings <-replicate(nboots, match.fun(FUN)(sample(x, n, replace=TRUE)))
 	list(se = sd(lings), 
        lings = lings)
 }
