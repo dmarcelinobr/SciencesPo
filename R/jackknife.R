@@ -20,19 +20,20 @@
 #' jackknife(x,'mean')
 #'
 #' @export
-`jackknife` <-function (x,p)
+jackknife <-function (x,p)
 {
-  n=length(x)
-  jk=rep(NA,n)
-
+	n=length(x)
+	jk=rep(NA,n)
+	est = match.fun(p)(x)
+	
 	for (i in 1:n)
- 	{
+	{
 		jk[i]=match.fun(p)(x[-i])
 		jkest=mean(jk)
 		jkvar=(n-1)/n*sum((jk-jkest)^2)
-		jkbias=(n-1)*(jkest-match.fun(p)(x))
-		jkbiascorr=n*match.fun(p)(x)-(n-1)*jkest
+		jkbias=(n-1)*(jkest-est)
+		jkbiascorr=n*est-(n-1)*jkest
 	}
-	list(est=match.fun(p)(x), jkest=jkest, jkvar=jkvar, jkbias=jkbias, jkbiascorr=jkbiascorr)
+	list(est=est, jkest=jkest, jkvar=jkvar, jkbias=jkbias, jkbiascorr=jkbiascorr)
 }
 NULL
