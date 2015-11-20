@@ -1,3 +1,7 @@
+# bind global variables
+utils::globalVariables(c("p.level"))
+
+
 #' @encoding UTF-8
 #' @title Inverse Cumulative Standard Normal Distribution
 #'
@@ -281,4 +285,3 @@ NULL
     stats::dbinom(x,size=n,prob=p)
   }
 NULL
-

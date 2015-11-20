@@ -12,11 +12,11 @@ if (getRversion() >= "2.15.1") globalVariables(c("value", "z", "time", "type", "
 #'
 #' @examples
 #'  ts.sim <- stats::arima.sim(n = 100, list(ma=0.8), innov=rnorm(100))
-#'  timeplot(ts.sim)
+#'  timePlot(ts.sim)
 #' @export
 #'
 #' @import ggplot2
-`timeplot` <-function(ts, ylab = '', ylim=c(-1,1), ci=.95, ...){
+`timePlot` <-function(ts, ylab = '', ylim=c(-1,1), ci=.95, ...){
     ts.df <- data.frame(time=c(1:length(ts)),value=ts)
     timeSeriesPlot <- ggplot(ts.df,aes(x=time,y=value)) +
       geom_line()

@@ -508,7 +508,6 @@ NULL
 #' \item turnout The electorate turnout in percentages.
 #' \item winner.bmi The winner Body Mass Index (BMI) estimate \code{(BMI = weight in kg/(height in meter)**2)}
 #'  }
-#'
 #' @source
 #' US Presidents: \url{http://www.jimwegryn.com/Names/Presidents.php}
 #' Inside Gov. \url{http://us-presidents.insidegov.com}.
@@ -522,7 +521,27 @@ NULL
 #' @format This data.frame contains 57 rows in the following 11 variables.
 NULL
 
+
+#' Approval Ratings for President George W. Bush
+#'
+#' Approval ratings for George W. Bush.
+#'
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Bush)} variables and \Sexpr{nrow(SciencesPo::Bush)} observations.
+#' \itemize{
+#' \item start_date. Start date of the survey.
+#' \item end_date. End date of the survey.
+#' \item approve. Percent which approve of the president.
+#' \item disapprove. Percent which disapprove of the president.
+#' \item undecided. Percent undecided about the president.
+#' }
+#'
+
+
+
 #' # setwd("~/SciencesPo/data")
 #' # system("cp cathedral.txt cathedral-cp.txt")
 #' # system("rm cathedral-cp.txt.gz")
 #' # system("gzip cathedral.txt")
+
+
+

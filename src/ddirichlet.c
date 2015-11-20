@@ -2,7 +2,7 @@
  *
  * ddirichlet_log_vector ... computes the log-densities for a vector of alphas
  * ddirichlet_log_matrix ... computes the log-densities for a matrix of alphas
- * 
+ *
  * y ........ dirichlet-distributed matrix
  * alpha .... vector or matrix of alpha-values
  * rc ....... vector of number of rows and columns
@@ -33,16 +33,16 @@ SEXP ddirichlet_log_vector(SEXP y, SEXP alpha, SEXP rc){
 
   SEXP real_alpha = PROTECT(coerceVector(alpha, REALSXP));
   double *p_alpha = REAL(real_alpha);
-  
+
   // check input
   if(length(int_rc) != 2) error("wrong specification of rc");
   if(length(y) != v_r * v_c) error("y does not match r and c");
   if((length(y)/v_r) != length(alpha)) error("alpha does not match y");
-  
+
   // output vector and pointer
   SEXP result = PROTECT(allocVector(REALSXP, v_r));
   double *p_result = REAL(result);
-  
+
   // computing the norming constant
   for(int col = 0; col < v_c; ++col){
     R_CheckUserInterrupt();
@@ -60,13 +60,11 @@ SEXP ddirichlet_log_vector(SEXP y, SEXP alpha, SEXP rc){
     }
     p_result[row] += norm_const;
   }
-  
+
   // unprotect output vector and return
   UNPROTECT(4);
   return result;
 }
-
-
 
 
 
@@ -83,14 +81,14 @@ SEXP ddirichlet_log_matrix(SEXP y, SEXP alpha, SEXP rc, SEXP alpha_rc){
 
   SEXP real_alpha = PROTECT(coerceVector(alpha, REALSXP));
   double *p_alpha = REAL(real_alpha);
-  
+
   // check input
   if(length(rc) != 2) error("wrong specification of rc");
   if(length(alpha_rc) != 2) error("wrong specification of alpha_rc");
   if(length(y) != v_r * v_c) error("y does not match r and c");
   if(length(y) != length(alpha)) error("alpha does not match y");
   if((v_r != INTEGER(int_alpha_rc)[0]) || (v_c != INTEGER(int_alpha_rc)[1])) error("dimensions do not match");
-  
+
   // output vector and pointer
   SEXP result = PROTECT(allocVector(REALSXP, v_r));
   double *p_result = REAL(result);
@@ -109,8 +107,8 @@ SEXP ddirichlet_log_matrix(SEXP y, SEXP alpha, SEXP rc, SEXP alpha_rc){
     }
     p_result[row] += lgammafn(a_sum);
   }
-  
+
   UNPROTECT(5);
-  
+
   return result;
 }

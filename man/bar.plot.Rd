@@ -4,15 +4,15 @@
 \alias{bar.plot}
 \title{Plot a barplot with ggplot2}
 \usage{
-bar.plot(data, xvar = NULL, yvar = NULL, group.var = NULL,
+bar.plot(data, x.var = NULL, y.var = NULL, group.var = NULL,
   group.colors = NULL, palette = NULL, stat = "identity", ...)
 }
 \arguments{
 \item{data}{The data frame.}
 
-\item{xvar}{The name of column containing x variable. Default value is NULL.}
+\item{x.var}{The name of column containing x variable. Default value is NULL.}
 
-\item{yvar}{The name of column containing y variable.}
+\item{y.var}{The name of column containing y variable.}
 
 \item{group.var}{The name of column containing group variable. This variable is used to color plot according to the group.}
 

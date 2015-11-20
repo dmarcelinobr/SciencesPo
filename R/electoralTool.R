@@ -41,7 +41,9 @@
 #' A <- c(.75,.25);
 #' B <- c(.35,.35,.30);
 #' C <- c(.75,.10,rep(0.01,15))
-#'
+#' 
+#' politicalDiversity(A, index= "laakso/taagepera")
+#' 
 #' # Non-trivial example:
 #' # The 1980 presidential election in the US (vote share):
 #' party_1980 <- c("Democratic", "Republican", "Independent", "Libertarian", "Citizens", "Others")

@@ -2,8 +2,8 @@ Package: SciencesPo
 Type: Package
 Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
-Version: 1.3.8
-Date: 2015-10-20
+Version: 1.3.9
+Date: 2015-12-01
 Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: Provides miscellaneous functions for carrying out political behaviour analysis, including measures of political fragmentation, seats allocation, and graphical demonstrations.
@@ -26,6 +26,9 @@ Imports:
   gridExtra,
   scales,
   magrittr,
+  readxl,
+  foreign,
+  sas7bdat,
   stringr
 Suggests:
     testthat,

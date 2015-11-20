@@ -136,6 +136,8 @@ NULL
 }
 
 
+.specifyDecimals <- function(x, k) format(round(x, k), nsmall=k)
+
 .getdigits <- function(x, min.digits) {
   digits.d <- .max.dd(x) + 1
   if (digits.d < min.digits) digits.d <- min.digits

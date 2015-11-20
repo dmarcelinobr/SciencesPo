@@ -4,12 +4,20 @@
 \alias{theme_pub}
 \title{Themes for ggplot graphs}
 \usage{
-theme_pub(base_size = 14, base_family = "helvetica")
+theme_pub(base_size = 14, base_family = "helvetica",
+  legend.position = "bottom", axis.line.x = element_line(),
+  axis.line.y = element_line())
 }
 \arguments{
 \item{base_size}{Enables to set the font size of all text elements.}
 
 \item{base_family}{Enables to set the font family of all text elements.}
+
+\item{legend.position}{Enables to set legend position, default is "bottom".}
+
+\item{axis.line.x}{Enables to set x axis line.}
+
+\item{axis.line.y}{Enables to set y axis line.}
 }
 \description{
 Theme for plotting  with ggplot

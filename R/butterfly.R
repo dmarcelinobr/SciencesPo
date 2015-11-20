@@ -9,6 +9,7 @@ if (getRversion() >= "2.15.1") globalVariables(c("x", "y", "f"))
 #' @param title A character vector for the plot title.
 #' @references
 #' Fay, Temple H. (May 1989). The Butterfly Curve. \emph{Amer. Math. Monthly} 96 (5): 442-443. doi:10.2307/2325155.
+#' @import ggplot2
 #' @export
 #' @examples
 #' butterfly(10, 100, title="10 x 100")
@@ -35,15 +36,15 @@ points <- data.frame(x=runif(n,-4,4),
 
 .data <- rbind(butterfly, points)
 
-gplot <- ggplot2::ggplot(.data, ggplot2::aes(x, y, colour=f))
-gplot <- gplot + ggplot2::geom_point(alpha=.data$a,size=.data$s)
-gplot <- gplot + ggplot2::theme(legend.position="none",
+gplot <- ggplot(.data, aes(x, y, colour=f))
+gplot <- gplot + geom_point(alpha=.data$a,size=.data$s)
+gplot <- gplot + theme(legend.position="none",
           panel.background = element_blank(),
           panel.grid = element_blank(),
           axis.ticks=element_blank(),
           axis.title=element_blank(),
           axis.text =element_blank())
-gplot <- gplot + ggplot2::ggtitle(title)
+gplot <- gplot + ggtitle(title)
 
 s2 <- Sys.time()
 timediff <- c( s2 - s1 )
