@@ -2,15 +2,15 @@
 % Please edit documentation in R/DATA.R
 \docType{data}
 \encoding{UTF-8}
-\name{ssex}
-\alias{ssex}
+\name{marriage}
+\alias{marriage}
 \title{Same Sex Marriage Public Opinion Data}
-\format{A data frame with 18 observations on the following 4 variables.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::marriage)} variables and \Sexpr{nrow(SciencesPo::marriage)} observations.}
 \usage{
-data(ssex)
+data(marriage)
 }
 \description{
-Data set fielded by the PEW Research Center on same sex marriage support in US. It covers public opinion on the issue starting from 1996 up to date.
+Data set fielded by the PEW Research Center on same sex marriage support in US. It covers public opinion on the issue starting from 1996 up to date. This dataset contains the following columns:
 
 \itemize{
   \item Date The year of the measurement
