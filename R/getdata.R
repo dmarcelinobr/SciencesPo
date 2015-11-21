@@ -20,8 +20,16 @@
 #' @param fun.call Function call. Used with \code{knitr} to pass the function call when obtained from the abbreviated function call \code{rd}.
 #' @param \dots Other parameter values define with the R read functions, such as the \code{read.table} function for text files, with row.names and header such as \code{sep} and \code{dec}.
 #'
+#' @examples
+#' \dontrun{
+#'  getdata("~/daniel/MyData.xlsx", "Excel");
+#'  getdata("~/daniel/MyData.sav", "SPSS");
+#'  getdata("~/daniel/MyData.RData", "R");
+#'  getdata("~/daniel/MyData.sas7bdat", "SAS");
+#' }
+#'
 #' @export
-`use` <-
+`getdata` <-
 function(file=NULL, format=c("csv", "SPSS", "R", "Excel", "SAS"),
          labels=NULL, widths=NULL, missing="", n.mcut=1,
          miss.show=30, miss.zero=FALSE, miss.matrix=FALSE,
@@ -44,6 +52,7 @@ function(file=NULL, format=c("csv", "SPSS", "R", "Excel", "SAS"),
     if (grepl(".sav$", file)) format <- "SPSS"
     if (grepl(".sas7bdat$", file)) format <- "SAS"
     if (grepl(".rda$", file)) format <- "R"
+    if (grepl(".RData$", file)) format <- "R"
     if (grepl(".xls$", file) || grepl(".xlsx$", file)) format <- "Excel"
     if (!is.null(widths)) format <- "fwd"
   }

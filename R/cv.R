@@ -13,7 +13,7 @@
 #'
 #' @seealso \code{\link{se}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{outliers}}
 #'
-#' @keywords Univariate Descriptive Stats
+#' @keywords Descriptive Stats
 #' @examples
 #' if (interactive()) {
 #' set.seed(51);

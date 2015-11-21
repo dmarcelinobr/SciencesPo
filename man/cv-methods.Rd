@@ -41,5 +41,4 @@ Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \keyword{Descriptive}
 \keyword{Stats}
-\keyword{Univariate}
 
