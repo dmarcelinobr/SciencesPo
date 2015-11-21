@@ -12,11 +12,11 @@
 #' x2 <- "http://www.talkstats.com/"
 #' x3 <- "www.google.com"
 #'
-#' domain(x3)
+#' has.domain(x3)
 #'
 #' sapply(list(x1, x2, x3), domain)
 
-`domain` <- function(x){
+`has.domain` <- function(x){
   x<-tolower(x)
  out <- strsplit(gsub("http://|https://|www\\.", "", x), "/")[[c(1, 1)]]
 return(out)
