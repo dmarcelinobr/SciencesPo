@@ -7,3 +7,4 @@ tests/old
 ^\.Rprofile$
 ^\.png$
 ^\.travis\.yml$
+
