@@ -41,10 +41,10 @@ NULL
 #'
 #' @examples
 #' #load some data
-#' data(ssex)
+#' data(marriage)
 #'
 #' # To apply the function
-#' detail(ssex, trim = 0.5, k = 3)
+#' detail(marriage, trim = 0.5, k = 3)
 #'
 #' @export
 detail <-
