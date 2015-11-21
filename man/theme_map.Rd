@@ -2,9 +2,7 @@
 % Please edit documentation in R/Themes.R
 \name{theme_map}
 \alias{theme_map}
-\title{Theme for mapping
-
-Theme for plotting  with ggplot}
+\title{Theme for mapping}
 \usage{
 theme_map(base_size = 12, base_family = "")
 }
@@ -14,9 +12,7 @@ theme_map(base_size = 12, base_family = "")
 \item{base_family}{Enables to set the font family of all text elements.}
 }
 \description{
-Theme for mapping
-
-Theme for plotting  with ggplot
+Theme for plotting with ggplot.
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link{theme_black}}, \code{\link{theme_pub}}.

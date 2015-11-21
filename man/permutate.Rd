@@ -13,7 +13,7 @@ permutate(input, k)
 \item{k}{number of permutations.}
 }
 \description{
-Create k random permutations of a vector
+Creates a k random permutation of a vector.
 }
 \details{
 should be used only for length(input)! >> k

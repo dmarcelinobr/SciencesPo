@@ -20,7 +20,7 @@ theme_pub(base_size = 14, base_family = "helvetica",
 \item{axis.line.y}{Enables to set y axis line.}
 }
 \description{
-Theme for plotting  with ggplot
+Theme for plotting  with ggplot.
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link{theme_black}}, \code{\link{theme_map}}.

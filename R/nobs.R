@@ -1,5 +1,5 @@
 #' @title Number of observations
-#'
+#' @description Method for counting the number of observations.
 #' @param object the data object
 #' @param \dots some extra parameters.
 #' @return The number of observations.

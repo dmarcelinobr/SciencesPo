@@ -1,8 +1,8 @@
 #' @encoding UTF-8
-#' @title Round numbers with no leading zero
-#'
+#' @title Round Numbers with no Leading Zero
+#' @description Rounds numbers without leading zeros.
 #' @param x A numeric vector of values to be rounded.
-#' @param  digits An integer for the number of digits to round to.
+#' @param digits An integer for the number of digits to round to.
 #' @param add An optional dichotomous indicator for whether additional digits should be added if no numbers appear in pre-set digit level.
 #' @param max Maximum number of digits to be shown if \code{add=TRUE}.
 #' @export

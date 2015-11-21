@@ -1,9 +1,9 @@
 \name{NEWS}
 \title{News from Package 'SciencesPo'}
-\section{Changes in SciencesPo version 1.3.8 (2015-09-10) }{
+\section{Changes in SciencesPo version 1.3.9 (2015-12-01) }{
   \subsection{Introduction}{
     \itemize{
-      \item Version 1.3.8 is the development release of the SciencesPo package. The repository \url{http://github.com/danielmarcelino/SciencesPo} will often have a more advanced version.
+      \item Version 1.3.9 is the development release of the SciencesPo library. The repository \url{http://github.com/danielmarcelino/SciencesPo} will often host a more advanced version.
     }
   }
   \subsection{News}{
@@ -14,7 +14,7 @@
   }
   \subsection{To do}{
     \itemize{
-      \item Suggestions are welcome, but the current priority list includes: crosstable and mediation functions.
+      \item Suggestions are welcome, but the current priority list includes: Proportional Representation (PR) and mediation functions.
       }
   }
 }

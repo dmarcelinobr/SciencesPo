@@ -11,16 +11,20 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
+#' @seealso \code{\link{se}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{outliers}}
+#'
 #' @keywords Univariate Descriptive Stats
 #' @examples
-#' set.seed(51)
-#' x <- sample(100)
-#' cv(x)
+#' if (interactive()) {
+#' set.seed(51);
+#' x <- sample(100);
+#' cv(x);
+#' }
 #' @export cv
 #' @docType methods
 #' @rdname cv-methods
 #' @aliases cv,numeric,logical,ANY-method
-cv<-setClass("cv", representation(x = "numeric", na.rm="logical"))
+`cv`<-setClass("cv", representation(x = "numeric", na.rm="logical"))
 setGeneric("cv", def=function(x, na.rm = TRUE){
   standardGeneric("cv")
 })

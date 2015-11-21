@@ -1,6 +1,6 @@
 #' @title Theme for mapping
 #'
-#' Theme for plotting  with ggplot
+#' @description  Theme for plotting with ggplot.
 #'
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
@@ -39,9 +39,9 @@ strip.text.y=element_text(size=rel(0.8), angle=-90)
 }
 
 
-#' Themes for ggplot graphs
+#' @title Themes for ggplot graphs
 #'
-#' Theme for plotting  with ggplot
+#' @description  Theme for plotting  with ggplot.
 #'
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
@@ -93,9 +93,8 @@ NULL
 
 
 
-#' Themes for ggplot graphs
-#'
-#' Theme for ggplot graphs.
+#' @title Themes for ggplot graphs
+#' @description  Theme for plotting  with ggplot.
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
 #' @param legend.position Enables to set legend position, default is "none".
@@ -135,9 +134,9 @@ theme_538 <- function(base_size = 13, base_family = "", legend.position = 'none'
 NULL
 
 
-#' ggplot2 Theme with No Background or Gridlines.
+#' @title ggplot2 Theme with No Background or Gridlines.
 #'
-#' A ggplot2 theme with no background and no gridlines.
+#' @description A ggplot2 theme with no background and no gridlines.
 #'
 #' @param base_size The size to use for text.  Various textual components are
 #' scaled off of this value.
@@ -195,6 +194,7 @@ theme_black<-function(base_size=14, base_family ="helvetica") {
 
 
 #' @title Scale colors for ggplot graphs
+#' @description Discrete scale for the theme_pub().
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_fill_pub
@@ -222,6 +222,7 @@ NULL
 
 
 #' @title Scale colors for ggplot graphs
+#' @description Discrete scale colors for the theme_pub().
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_colour_pub
@@ -255,9 +256,9 @@ NULL
 
 
 
-#' Themes for ggplot graphs
+#' @title Themes for ggplot graphs
 #'
-#' Theme for mapping  with ggplot
+#' @description A dumb theme.
 #' @param base_size Enables to set the font size of all text elements.
 #' @param base_family Enables to set the font family of all text elements.
 #'
@@ -341,9 +342,9 @@ NULL
 }
 
 
-#' Dumb Theme
+#' @title Dumb Theme
 #'
-#' This theme is designed to be a dumb or foundation from which to build new
+#' @description This theme is designed to be a dumb or foundation from which to build new
 #' themes. It is a complete theme with only minimal number of elements defined.
 #'
 #' @inheritParams theme_grey

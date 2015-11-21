@@ -10,6 +10,6 @@ scale_fill_pub(...)
 \item{\dots}{parameters to be used.}
 }
 \description{
-Scale colors for ggplot graphs
+Discrete scale for the theme_pub().
 }
 

@@ -1,7 +1,7 @@
 #' @encoding UTF-8
 #' @title  Calculate breaks
 #'
-#' Calculate breaks according to the Herbert Sturges' (1926) formula
+#' @description Calculate breaks according to the Herbert Sturges' (1926) formula
 #'
 #' @param x A vector of count values.
 #'

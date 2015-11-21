@@ -10,7 +10,7 @@ jackknife(x, p)
 \arguments{
 \item{x}{A vector}
 
-\item{p}{An estimation of parameter}
+\item{p}{An function name for estimation of parameter as a string}
 }
 \value{
 est orignial estimation of parameter
@@ -29,7 +29,7 @@ This function is used for estimating standard errors when the distribution is no
 \examples{
 x = runif(10, 0, 1)
 mean(x)
-jackknife(x,mean)
+jackknife(x,'mean')
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

@@ -20,6 +20,7 @@
 #' @return A plot with a normal distribution density with shaded areas
 #'
 #'@examples
+#'
 #' draw.norm()
 #' draw.norm(below=-1.5)
 #' draw.norm(below=-1.5,justbelow=TRUE)
@@ -52,6 +53,7 @@
 #' crits = qnorm(c(0.025,0.975),mean=mu.ho, sd = std.err)
 #' draw.norm(outside = crits, mu = mu.ho, sigma = std.err,dens=15)
 #' draw.norm(between = crits, mu = mu.true, sigma = std.err, lines=TRUE, color="green",dens=15)
+#'
 #'
 #'@export
 `draw.norm` <- function(below=NULL, above=NULL, pcts = c(0.025,0.975), mu=0, sigma=1, numpts = 500, color = "gray", dens = 40, justabove= FALSE, justbelow = FALSE, lines=FALSE, between=NULL, outside=NULL) {

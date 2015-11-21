@@ -22,7 +22,7 @@
 #' @examples
 #' # Is the boy's delinquent status independent of his socioeconomic status?
 #' Table.1 = as.table(matrix(c(53,34,10,212,236,255),nrow=3,ncol=2,
-#'                      dimnames=list(Socioeconomic=c('Low','Medium', 'High'),
+#' dimnames=list(Socioeconomic=c('Low','Medium', 'High'),
 #'                                    Delinquent=c('Yes',
 #'                                                  'No'))))
 #' crosstabs(Table.1,expected=TRUE,chisq=TRUE)

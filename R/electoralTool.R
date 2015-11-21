@@ -1,52 +1,53 @@
 #' @encoding UTF-8
 #' @title Political Diversity Indices
 #'
-#' \code{politicalDiversity} is used to analyze political diversity in a unity or across them. It provides methods to estimate the Effective Number of Parties as well as other diversity measures.
+#' @description Analyzes political diversity in an electoral unity or across unities. It provides methods for estimating the effective number of parties and other fragmentation/concetration measures. The intuition of these coefficients is to counting parties while weighting them by their relative political--or electoral strength.
 #'
 #' @param x A data.frame, a matrix-like, or a vector containing values for the number of votes or seats each party received.
-#' @param index The type of index desired, one of "shannon", "simpson", "invsimpson", "golosov".
+#' @param index The type of index desired, one of "laakso/taagepera",  "golosov", "herfindahl", "gini", "shannon", "simpson", "invsimpson".
 #' @param margin The margin for which the index is computed.
-#' @param base The logarithm base used in the "shanron" method.
+#' @param base The logarithm base used in some indices, such as the "shannon" index.
 #'
-#' identifies the variable containing party labels. It should be used only when response variable is a frequency variable containing number of votes at the aggregate level.
-#' district identifies districts. It is required when there are more than one district.
-#' seats  this option can be used to tell the program the number of seats by party. If used, the program will compute proportionality and parliamentary fragmentation.
-#'polar identifies variables to compute polarization among groups, such as polarization by ideology. Up to five variables are allowed. If you use more than one variable, polarization will be computed using averaged polarization over the whole set of variables. Absolute and Euclidean measures of polarization are reported.
-#' time tells the program that the data contains more than one election. This option identifies the date of the election or the order in which elections take place. Using this option means that the program will compute electoral and parliamentary volatitlity between elections.
-#' blocks tells the program that parties are grouped into blocks to compute inter and intra blocks volatility. You can only use it if you set time(varname) previously. If you are using time(varname), but do not set blocks(varname), all the parties are suppossed to belong to the same block. Then, inter-blocks volatility will be equal to 0, and intra-blocks volatility will be equal to total volatility.
-#' verbose if \code{verbose=TRUE}, tells the program to print the output.
-#'
-#'The Effective Number of Parties \bold{ENP} is a measure of fragmentation. The intutiton is to count parties while weighting them by their relative strength in the legislature.
-
-#' @details Very often, political analysts say things like \sQuote{two-party system} and \sQuote{multi-party system} to refer to a particular kind of political party systems. However, these terms alone does not tell exactly how fragmented--or concentrated a party system actually is. For instance, after the 2010 general election in Brazil, 22 parties obtained representation in the country's Lower Chamber. Nonetheless, nine parties returned only 28 MPs together. Thus, an algorithm to (weigh) or to calculate the \bold{Effective Number of Parties} in such circumstances helps to go beyond the simple number of parties in a legislative branch.
+#' @details Very often, political analysts say things like \sQuote{two-party system} and \sQuote{multi-party system} to refer to a particular kind of political party system. However, these terms alone does not tell exactly how fragmented--or concentrated a party system actually is. For instance, after the 2010 general election, 22 parties obtained representation in the Lower Chamber in Brazil. Nonetheless, among these 22 parties, nine parties together returned only 28 MPs. Thus, an index to assess the weigh or the \bold{Effective Number of Parties} is important and helps to go beyond the simple count of parties in a legislative branch.
 #'
 #' A widely accepted algorithm was proposed by M. Laakso and R. Taagepera: \deqn{N = \frac{1}{\sum p_i^2}}{N = 1/ \sum p_i^2}, where \bold{N} denotes the effective number of parties and \bold{p_i} denotes the \eqn{it^h} party's fraction of the seats.
 #'
-#' The same process can be used to compute the vote share for each party. This formula is the reciprocal of a well-known concentration index (\bold{the Herfindahl-Hirschman index}) used in economics to study the degree to which ownership of firms in an industry is concentrated. Laakso and Taagepera correctly saw that the effective number of parties is simply an instance of the inverse measurement problem to that one. This index makes rough but fairly reliable international comparisons of party systems possible.
+#' In fact, this formula may be used to compute the vote share for each party. This formula is the reciprocal of a well-known concentration index (\bold{the Herfindahl-Hirschman index}) used in economics to study the degree to which ownership of firms in an industry is concentrated. Laakso and Taagepera correctly saw that the effective number of parties is simply an instance of the inverse measurement problem to that one. This index makes rough but fairly reliable international comparisons of party systems possible.
+#' \bold{The Inverse Simpson index},
+#' \deqn{ 1/ \lambda = {1 \over\sum_{i=1}^R p_i^2} = {}^2D}
+#' Where \eqn{\lambda} equals the probability that two types taken at random from the dataset (with replacement) represent the same type. This simply equals true fragmentation of order 2, i.e. the effective number of parties that is obtained when the weighted arithmetic mean is used to quantify average proportional diversity of political parties in the election of interest.
 #'
 #' Another measure is the \bold{Least squares index (lsq)}, which measures the disproportionality produced by the election. Specifically, by the disparity between the distribution of votes and seats allocation.
 #'
 #' Recently, Grigorii Golosov proposed a new method for computing the effective number of parties  in which both larger and smaller parties are not attributed unrealistic scores as those resulted by using the Laakso/Taagepera index.I will call this as (\bold{Golosov}) and is given by the following formula: \deqn{N = \sum_{i=1}^{n}\frac{p_{i}}{p_{i}+p_{i}^{2}-p_{i}^{2}}}
 #'
+
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#'  @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
-#'  @references Golosov, Grigorii (2010) The Effective Number of Parties: A New Approach, \emph{Party Politics,} \bold{16:} 171-192.
-#'  @references Laakso, Markku and Rein Taagepera (1979) Effective Number of Parties: A Measure with Application to West Europe, \emph{Comparative Political Studies,} \bold{12:} 3-27.
-#'  @references Nicolau, Jairo (2008) \emph{Sistemas Eleitorais.} Rio de Janeiro, FGV.
-#'  @references Taagepera, Rein and Matthew S. Shugart (1989) \emph{Seats and Votes: The Effects and Determinants of Electoral Systems.} New Haven: Yale University Press.
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{grofman}}, \code{\link{gallagher}}, \code{\link{lijphart}}
 #'
+#' @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
+#'
+#' Golosov, Grigorii (2010) The Effective Number of Parties: A New Approach, \emph{Party Politics,} \bold{16:} 171-192.
+#'
+#' Laakso, Markku and Rein Taagepera (1979) Effective Number of Parties: A Measure with Application to West Europe, \emph{Comparative Political Studies,} \bold{12:} 3-27.
+#'
+#' Nicolau, Jairo (2008) \emph{Sistemas Eleitorais.} Rio de Janeiro, FGV.
+#'
+#' Taagepera, Rein and Matthew S. Shugart (1989) \emph{Seats and Votes: The Effects and Determinants of Electoral Systems.} New Haven: Yale University Press.
+#'
+#' @keywords Diversity, Basics, Elections
 #' @examples
 #' # Here are some examples, help yourself:
 #' A <- c(.75,.25);
 #' B <- c(.35,.35,.30);
 #' C <- c(.75,.10,rep(0.01,15))
-#' 
+#'
 #' politicalDiversity(A, index= "laakso/taagepera")
-#' 
-#' # Non-trivial example:
+#'
 #' # The 1980 presidential election in the US (vote share):
-#' party_1980 <- c("Democratic", "Republican", "Independent", "Libertarian", "Citizens", "Others")
+#' party_1980 <- c("Democratic", "Republican", "Independent",
+#'  "Libertarian", "Citizens", "Others")
 #' US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
 #'
 #' politicalDiversity(US1980, index= "laakso/taagepera")
@@ -106,8 +107,6 @@
 #'
 #' politicalDiversity(seats_2014, index= "golosov")
 #'
-#' @keywords Basics
-#' @keywords Electoral
 #' @export
 politicalDiversity <-
 function (x, index = "herfindahl", margin = 1, base = exp(1))
@@ -132,67 +131,34 @@ function (x, index = "herfindahl", margin = 1, base = exp(1))
   else idx <- sum(x, na.rm = TRUE)
   if (index == "simpson"||index == "herfindahl" || index ==  "gini" )
     idx <- 1 - idx
-  else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "ENC" || index == "ENP")
+  else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "enc" || index == "enp")
     idx <- 1/idx
-  return(round(idx, 3))
+  return(rounded(idx, 3))
 }
 NULL
 
 
-#' @title Gini Simpson Index
-#'
-#' @param x A data.frame, a matrix-like, or a vector.
-#' @param na.rm A logical value to deal with NAs.
-#'
-#' @export
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#'
-#' @importFrom stats na.omit
-#' @seealso \code{\link{politicalDiversity}}.
-#' @examples
-#' x <- as.table(c(69,17,7,62))
-#' rownames(x) <- c("AB","C","D","0")
-#' gini.simpson(x)
-#'
-gini.simpson <-
-  function(x, na.rm = FALSE) {
-    # reference:   Sachs, Angewandte Statistik, S. 57
-    if(na.rm) x <- na.omit(x)
-    x <- as.table(x)
-    ptab <- prop.table(x)
-    return(sum(ptab*(1-ptab)))
-  }
-NULL
 
-# weighted gini
-gini <-function (x, weights = rep(1, length = length(x)))
-{
-  ox <- order(x)
-  x <- x[ox]
-  weights <- weights[ox]/sum(weights)
-  p <- cumsum(weights)
-  nu <- cumsum(weights * x)
-  n <- length(nu)
-  nu <- nu/nu[n]
-  sum(nu[-1] * p[-n]) - sum(nu[-n] * p[-1])
-}
-NULL
 
-#' @title Gallagher index
+
+#' @title Gallagher Index
 #'
 #' @description Calculates the Gallagher index of LSq index.
 #'
-#' @param v A vector containing the votes for each political party.
-#' @param s A vector containing the election outcome as seats.
+#' @param v A numeric vector of data values for votes each political party obtained.
+#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
 #'
 #' @details The representation score is calculated as: sqrt(sum((Z-R)^2)/2).
-#' @return The Gallagher's Representation Score.
+#' @return A single score (The Gallagher's Representation Score.) given the votes each party received and seats obtained.
+#'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}
 #'
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
 #'  @examples
+#'  if (interactive()) {
 #' # 2005 UK General Election
 #' pvotes = c(Lab=35.20, Cons=32.40, Lib=22, DUP=0.90,
 #' SNP=1.50, Sinn.Fein=0.60, Plaid=0.60, SDLP=0.50, UUP=0.50,
@@ -204,111 +170,163 @@ NULL
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
 #' gallagher(pvotes, pseats)
-#'
-#' @export
-gallagher <- function(v,s) {
+#' }
+#' @export gallagher
+#' @docType methods
+#' @rdname gallagher-methods
+#' @aliases gallagher,numeric,numeric,ANY-method
+`gallagher`<-setClass("gallagher", representation(v = "numeric", s = "numeric"))
+setGeneric("gallagher", def=function(v, s){
+  standardGeneric("gallagher")
+})
+#' @rdname gallagher-methods
+setMethod(f="gallagher", definition=function(v, s){
   idx=sqrt(sum((v-s)^2)/2)
-  return(round(idx, 3))
-}
+  return(rounded(idx, 2))
+})
 NULL
 
 
-#' @title Lijphart index of proportionality
+
+#' @title Lijphart Index of Proportionality
 #'
 #' @description Calculates the Lijphart index of proportionality based on a vector of votes and a vector for the electoral outcome.
 #'
-#' @param v A vector containing the votes for each political party.
-#' @param s A vector containing the election outcome as seats.
-#' @return A single score given the vector of votes and the vector for seats.
-#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @param v A numeric vector of data values for votes each political party obtained.
+#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
 #'
+#' @return A single score given the votes each party received and seats obtained.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}
+#'
+#' @examples
+#' if (interactive()) {
 #' # 2012 Quebec provincial election:
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' lijphart(pvotes, pseats)
+#' }
 #'
-#' @export
-lijphart <- function(v,s) {
+#' @export lijphart
+#' @docType methods
+#' @rdname lijphart-methods
+#' @aliases lijphart,numeric,numeric,ANY-method
+`lijphart`<-setClass("lijphart", representation(v = "numeric", s = "numeric"))
+setGeneric("lijphart", def=function(v, s){
+  standardGeneric("lijphart")
+})
+#' @rdname lijphart-methods
+setMethod(f="lijphart", definition=function(v, s){
   idx=max(s-v)
-  return(round(idx, 3))
-}
+  return(rounded(idx, 2))
+})
 NULL
 
 
 
 
-#' @title Grofman index
+#' @title Grofman Index
 #'
 #' @description Calculates the Grofman index of proportionality based on a vector of votes and a vector for the electoral outcome.
 #'
-#' @param v A vector containing the votes for each political party.
-#' @param s A vector containing the election outcome as seats.
+#' @param v A numeric vector of data values for votes each political party obtained.
+#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
 #'
-#' @return A single score given the vector of votes and the vector for seats.
+#' @return A single score given the votes each party received and seats obtained.
 #'
 #'  @references
 #' Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
 #'
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+#'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
+#' if (interactive()) {
 #' # 2012 Quebec provincial election:
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' grofman(pvotes, pseats)
+#' }
 #'
-#' @export
-grofman <- function(v,s) {
+#' @export grofman
+#' @docType methods
+#' @rdname grofman-methods
+#' @aliases grofman,numeric,numeric,ANY-method
+`grofman`<-setClass("grofman", representation(v = "numeric", s = "numeric"))
+setGeneric("grofman", def=function(v, s){
+  standardGeneric("grofman")
+})
+#' @rdname grofman-methods
+setMethod(f="grofman", definition=function(v, s){
   N <- politicalDiversity(s, index = "laakso/taagepera")
   idx=(1/N) * sum(abs(v-s))/2
-  return(round(idx, 3))
-}
+  return(rounded(idx, 2))
+})
 NULL
 
 
 
-
-#' @title Farina index
+#' @title Farina Index
 #'
 #' @description Calculates the Farina index also referred to as the cosine proportionality score based on a vector of votes and a vector for the electoral outcome.
-#' @param v A vector containing the votes for each political party.
-#' @param s A vector containing the election outcome as seats.
-#' @return A single score given the vector of votes and the vector for seats.
+#' @param v A numeric vector of data values for votes each political party obtained.
+#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#'
+#' @return A single score given the votes each party received and seats obtained.
+#'
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @references
 #' Koppel, M., and A. Diskin. (2009) Measuring disproportionality, volatility and malapportionment: axiomatization and solutions. Social Choice and Welfare 33, no. 2: 281-286.
 #'
 #' @examples
-#'
+#' if (interactive()) {
 #' # 2012 Queensland state elecion
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
 #' farina(pvotes, pseats)
-#'
-#' @export
-farina <- function(v,s) {
+#' }
+#' @export farina
+#' @docType methods
+#' @rdname farina-methods
+#' @aliases farina,numeric,numeric,ANY-method
+`farina`<-setClass("farina", representation(v = "numeric", s = "numeric"))
+setGeneric("farina", def=function(v, s){
+  standardGeneric("farina")
+})
+#' @rdname farina-methods
+setMethod(f="farina", definition=function(v, s){
   idx= acos(sum(v*s)/(sum(v^2)*sum(s^2))^.5)
-  return(round(idx, 3))
-}
+  return(rounded(idx, 3))
+})
 NULL
 
 
 
-#' @title Cox-Shugart measure of proportionality
+
+
+#' @title Cox-Shugart Measure of Proportionality
 #'
 #' @description Calculate the Cox and Shugart measure of
 #'  proportionalitybased on a vector of votes and a vector for
 #'  the electoral outcome. This measure is also referred to as the regression index.
-#' @param v A vector containing the votes for each political party.
-#' @param s A vector containing the election outcome as seats.
 #'
-#' @return A single score given the vector of votes and the vector for seats.
+#' @param v A numeric vector of data values for votes each political party obtained.
+#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#'
+#' @return A single score given the votes each party received and seats obtained.
+#'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
+#' @seealso \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+#'
 #' @examples
+#' if (interactive()) {
 #' # 2012 Queensland state elecion:
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
@@ -320,24 +338,71 @@ NULL
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' cox.shugart(pvotes, pseats)
+#' }
 #'
-#' @export
-cox.shugart <- function(v,s) {
+#' @export cox.shugart
+#' @docType methods
+#' @rdname cox.shugart-methods
+#' @aliases cox.shugart,numeric,numeric,ANY-method
+`cox.shugart`<-setClass("cox.shugart", representation(v = "numeric", s = "numeric"))
+setGeneric("cox.shugart", def=function(v, s){
+  standardGeneric("cox.shugart")
+})
+#' @rdname cox.shugart-methods
+setMethod(f="cox.shugart", definition=function(v, s){
   S <- mean(s)
   V <- mean(v)
   idx <- sum((s-S) * (v-V))/sum((v-V)^2)
-  return(round(idx, 3))
-}
+  return(rounded(idx, 3))
+})
 NULL
 
 
 
-inv.cox.shugart <- function(v,s) {
+#' @title Inverse Cox-Shugart Measure of Proportionality
+#'
+#' @description Calculate the inverse Cox and Shugart measure of
+#'  proportionality based on votes and seats,
+#'  the electoral outcome.
+#'
+#' @param v A numeric vector of data values for votes each political party obtained.
+#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#'
+#' @return A single score given the votes each party received and seats obtained.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @examples
+#' if (interactive()) {
+#' # 2012 Queensland state elecion:
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' inv.cox.shugart(pvotes, pseats)
+#'
+#' # 2012 Quebec provincial election:
+#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
+#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
+#'
+#' inv.cox.shugart(pvotes, pseats)
+#' }
+#' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+#'
+#' @export inv.cox.shugart
+#' @docType methods
+#' @rdname inv.cox.shugart-methods
+#' @aliases inv.cox.shugart,numeric,numeric,ANY-method
+`inv.cox.shugart`<-setClass("inv.cox.shugart", representation(v = "numeric", s = "numeric"))
+setGeneric("inv.cox.shugart", def=function(v, s){
+  standardGeneric("inv.cox.shugart")
+})
+#' @rdname inv.cox.shugart-methods
+setMethod(f="inv.cox.shugart", definition=function(v, s){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
-    return(round(idx, 3))
-}
+  return(rounded(idx, 3))
+})
 NULL
 
 

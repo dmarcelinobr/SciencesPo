@@ -1,23 +1,26 @@
 if (getRversion() >= "2.15.1") globalVariables(c("x", "y", "f"))
-
+#' @encoding UTF-8
 #' @title The Butterfly Curve
 #'
 #' @description The butterfly curve is a parametric equation discovered by Temple Fay where two functions in a plane produces a butterfly-like curves.
 
-#' @param n An integer for the background points.
+#' @param n An integer for background points.
 #' @param nb An integer for the butterfly's points.
-#' @param title A character vector for the plot title.
+#' @param title A character vector for plot title.
 #' @references
 #' Fay, Temple H. (May 1989). The Butterfly Curve. \emph{Amer. Math. Monthly} 96 (5): 442-443. doi:10.2307/2325155.
 #' @import ggplot2
 #' @export
-#' @examples
-#' butterfly(10, 100, title="10 x 100")
-#' butterfly(10, 200, title="10 x 200")
-#' butterfly(10, 500, title="100 x 500")
-#' butterfly(100, 1000, title="100 x 1000")
 #'
-butterfly <- function(n=100, nb=500, title=element_blank())
+#' @examples
+#' if (interactive()) {
+#' butterfly(10, 100, title="10 x 100");
+#' butterfly(10, 200, title="10 x 200");
+#' butterfly(10, 500, title="100 x 500");
+#' butterfly(100, 1000, title="100 x 1000");
+#' }
+#'
+`butterfly` <- function(n=100, nb=500, title=element_blank())
 {
 s1 <- Sys.time()
 t <- seq(0,10*pi,length=nb)

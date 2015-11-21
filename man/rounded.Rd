@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{rounded}
 \alias{rounded}
-\title{Round numbers with no leading zero}
+\title{Round Numbers with no Leading Zero}
 \usage{
 rounded(x, digits = 2, add = TRUE, max = (digits + 3))
 }
@@ -17,7 +17,7 @@ rounded(x, digits = 2, add = TRUE, max = (digits + 3))
 \item{max}{Maximum number of digits to be shown if \code{add=TRUE}.}
 }
 \description{
-Round numbers with no leading zero
+Rounds numbers without leading zeros.
 }
 \examples{
 rounded(seq(0, 1, by=.1))

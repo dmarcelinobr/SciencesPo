@@ -21,7 +21,7 @@
 #' normalize(char, range=(0:1), domain=range(w, na.rm=TRUE))
 #'
 #' @keywords Rescaling
-#' @keywords Normalization
+#' @keywords Transformation
 #' @seealso  \code{\link{scale}}.
 #'
 #' @export

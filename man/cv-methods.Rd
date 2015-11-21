@@ -27,12 +27,17 @@ Compute the absolute \bold{coefficient of variation} \bold{cv} as proposed by Ka
 \eqn{\frac{sd(x)}{mean(x)} = cv}, which is the inverse of signal-to-noise ratio.
 }
 \examples{
-set.seed(51)
-x <- sample(100)
-cv(x)
+if (interactive()) {
+set.seed(51);
+x <- sample(100);
+cv(x);
+}
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
+}
+\seealso{
+\code{\link{se}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{outliers}}
 }
 \keyword{Descriptive}
 \keyword{Stats}

@@ -7,7 +7,7 @@
 \alias{SciencesPo-package}
 \title{A Tool Set For Analyzing Political Behavior Data}
 \description{
-A Tool Set For Analyzing Political Behavior Data
+Provides functions for analyzing political behavior data, including measures of political fragmentation, seats allocation, and graphical demonstrations.
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

@@ -1,6 +1,7 @@
 #' @encoding UTF-8
 #' @title  Create k random permutations of a vector
-#' @details  should be used only for length(input)! >> k
+#' @description Creates a k random permutation of a vector.
+#' @details should be used only for length(input)! >> k
 #' @param input vector to be permutated.
 #' @param k number of permutations.
 #' @keywords Sampling

@@ -2,12 +2,12 @@
 % Please edit documentation in R/freq.R
 \name{freq}
 \alias{freq}
-\title{Frequency table}
+\title{Frequency Table}
 \usage{
 freq(.data, x, verbose = TRUE)
 }
 \arguments{
-\item{.data}{The data.frame}
+\item{.data}{The data.frame.}
 
 \item{x}{A column from which the frequency of values is desired.}
 

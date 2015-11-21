@@ -1,17 +1,18 @@
-#' @title Frequency table
+#' @title Frequency Table
 #'
 #' @description Simulating the FREQ procedure of SPSS.
 #'
-#'  @param .data The data.frame
-#'  @param x A column from which the frequency of values is desired.
-#' @param  verbose A logical value, if \code{TRUE}, extra statistics are also provided.
+#' @param .data The data.frame.
+#' @param x A column from which the frequency of values is desired.
+#' @param verbose A logical value, if \code{TRUE}, extra statistics are also provided.
 #' @examples
-#'  data("cathedral")
+#' data("cathedral")
 #'
 #' freq(cathedral, Type)
 #'
 #' cathedral %>% freq(Height)
 #'
+#' @importFrom stats sd
 #' @export
 `freq` <- function(.data, x, verbose=TRUE) {
 vec <-eval(substitute(x), .data, parent.frame())

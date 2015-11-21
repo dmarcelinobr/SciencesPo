@@ -58,6 +58,6 @@ Daniel Marcelino, \email{dmarcelino@live.com}
 
 \code{\link{scale}}.
 }
-\keyword{Normalization}
 \keyword{Rescaling}
+\keyword{Transformation}
 

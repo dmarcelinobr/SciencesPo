@@ -3,42 +3,31 @@
 \encoding{UTF-8}
 \name{politicalDiversity}
 \alias{politicalDiversity}
-\title{Political Diversity Indices
-
-\code{politicalDiversity} is used to analyze political diversity in a unity or across them. It provides methods to estimate the Effective Number of Parties as well as other diversity measures.}
+\title{Political Diversity Indices}
 \usage{
 politicalDiversity(x, index = "herfindahl", margin = 1, base = exp(1))
 }
 \arguments{
 \item{x}{A data.frame, a matrix-like, or a vector containing values for the number of votes or seats each party received.}
 
-\item{index}{The type of index desired, one of "shannon", "simpson", "invsimpson", "golosov".}
+\item{index}{The type of index desired, one of "laakso/taagepera",  "golosov", "herfindahl", "gini", "shannon", "simpson", "invsimpson".}
 
 \item{margin}{The margin for which the index is computed.}
 
-\item{base}{The logarithm base used in the "shanron" method.
-
-identifies the variable containing party labels. It should be used only when response variable is a frequency variable containing number of votes at the aggregate level.
-district identifies districts. It is required when there are more than one district.
-seats  this option can be used to tell the program the number of seats by party. If used, the program will compute proportionality and parliamentary fragmentation.
-polar identifies variables to compute polarization among groups, such as polarization by ideology. Up to five variables are allowed. If you use more than one variable, polarization will be computed using averaged polarization over the whole set of variables. Absolute and Euclidean measures of polarization are reported.
-time tells the program that the data contains more than one election. This option identifies the date of the election or the order in which elections take place. Using this option means that the program will compute electoral and parliamentary volatitlity between elections.
-blocks tells the program that parties are grouped into blocks to compute inter and intra blocks volatility. You can only use it if you set time(varname) previously. If you are using time(varname), but do not set blocks(varname), all the parties are suppossed to belong to the same block. Then, inter-blocks volatility will be equal to 0, and intra-blocks volatility will be equal to total volatility.
-verbose if \code{verbose=TRUE}, tells the program to print the output.
-
-The Effective Number of Parties \bold{ENP} is a measure of fragmentation. The intutiton is to count parties while weighting them by their relative strength in the legislature.}
+\item{base}{The logarithm base used in some indices, such as the "shannon" index.}
 }
 \description{
-Political Diversity Indices
-
-\code{politicalDiversity} is used to analyze political diversity in a unity or across them. It provides methods to estimate the Effective Number of Parties as well as other diversity measures.
+Analyzes political diversity in an electoral unity or across unities. It provides methods for estimating the effective number of parties and other fragmentation/concetration measures. The intuition of these coefficients is to counting parties while weighting them by their relative political--or electoral strength.
 }
 \details{
-Very often, political analysts say things like \sQuote{two-party system} and \sQuote{multi-party system} to refer to a particular kind of political party systems. However, these terms alone does not tell exactly how fragmented--or concentrated a party system actually is. For instance, after the 2010 general election in Brazil, 22 parties obtained representation in the country's Lower Chamber. Nonetheless, nine parties returned only 28 MPs together. Thus, an algorithm to (weigh) or to calculate the \bold{Effective Number of Parties} in such circumstances helps to go beyond the simple number of parties in a legislative branch.
+Very often, political analysts say things like \sQuote{two-party system} and \sQuote{multi-party system} to refer to a particular kind of political party system. However, these terms alone does not tell exactly how fragmented--or concentrated a party system actually is. For instance, after the 2010 general election, 22 parties obtained representation in the Lower Chamber in Brazil. Nonetheless, among these 22 parties, nine parties together returned only 28 MPs. Thus, an index to assess the weigh or the \bold{Effective Number of Parties} is important and helps to go beyond the simple count of parties in a legislative branch.
 
 A widely accepted algorithm was proposed by M. Laakso and R. Taagepera: \deqn{N = \frac{1}{\sum p_i^2}}{N = 1/ \sum p_i^2}, where \bold{N} denotes the effective number of parties and \bold{p_i} denotes the \eqn{it^h} party's fraction of the seats.
 
-The same process can be used to compute the vote share for each party. This formula is the reciprocal of a well-known concentration index (\bold{the Herfindahl-Hirschman index}) used in economics to study the degree to which ownership of firms in an industry is concentrated. Laakso and Taagepera correctly saw that the effective number of parties is simply an instance of the inverse measurement problem to that one. This index makes rough but fairly reliable international comparisons of party systems possible.
+In fact, this formula may be used to compute the vote share for each party. This formula is the reciprocal of a well-known concentration index (\bold{the Herfindahl-Hirschman index}) used in economics to study the degree to which ownership of firms in an industry is concentrated. Laakso and Taagepera correctly saw that the effective number of parties is simply an instance of the inverse measurement problem to that one. This index makes rough but fairly reliable international comparisons of party systems possible.
+\bold{The Inverse Simpson index},
+\deqn{ 1/ \lambda = {1 \over\sum_{i=1}^R p_i^2} = {}^2D}
+Where \eqn{\lambda} equals the probability that two types taken at random from the dataset (with replacement) represent the same type. This simply equals true fragmentation of order 2, i.e. the effective number of parties that is obtained when the weighted arithmetic mean is used to quantify average proportional diversity of political parties in the election of interest.
 
 Another measure is the \bold{Least squares index (lsq)}, which measures the disproportionality produced by the election. Specifically, by the disparity between the distribution of votes and seats allocation.
 
@@ -52,9 +41,9 @@ C <- c(.75,.10,rep(0.01,15))
 
 politicalDiversity(A, index= "laakso/taagepera")
 
-# Non-trivial example:
 # The 1980 presidential election in the US (vote share):
-party_1980 <- c("Democratic", "Republican", "Independent", "Libertarian", "Citizens", "Others")
+party_1980 <- c("Democratic", "Republican", "Independent",
+ "Libertarian", "Citizens", "Others")
 US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
 
 politicalDiversity(US1980, index= "laakso/taagepera")
@@ -128,6 +117,10 @@ Nicolau, Jairo (2008) \emph{Sistemas Eleitorais.} Rio de Janeiro, FGV.
 
 Taagepera, Rein and Matthew S. Shugart (1989) \emph{Seats and Votes: The Effects and Determinants of Electoral Systems.} New Haven: Yale University Press.
 }
-\keyword{Basics}
-\keyword{Electoral}
+\seealso{
+\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{grofman}}, \code{\link{gallagher}}, \code{\link{lijphart}}
+}
+\keyword{Basics,}
+\keyword{Diversity,}
+\keyword{Elections}
 

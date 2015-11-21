@@ -32,7 +32,7 @@ nobs(object, ...)
 The number of observations.
 }
 \description{
-Number of observations
+Method for counting the number of observations.
 }
 \examples{
 nobs(1:50)

@@ -8,11 +8,13 @@
 anderson.darling(x)
 }
 \arguments{
-\item{x}{A numeric vector of data values, the number of observations must be greater than 7.
-Missing values are allowed.}
+\item{x}{A numeric vector of data values, the number of observations must be greater than 7. Missing values are allowed.}
 }
 \description{
-Performs the Anderson-Darling test for the composite hypothesis of normality. It is the recommended EDF test by Stephens (1986) followed by the Cramer-von Mises test. Compared to the later, the Anderson-Darling gives more weight to the tails of the distribution.
+Performs the Anderson-Darling test for the composite hypothesis of normality. See details.
+}
+\details{
+The Anderson-Darling test is the recommended EDF test by Stephens (1986) followed by the Cramer-von Mises test. Compared to the later, the Anderson-Darling gives more weight to the tails of the distribution.
 }
 \examples{
 set.seed(1234)

@@ -3,9 +3,7 @@
 \encoding{UTF-8}
 \name{sturges}
 \alias{sturges}
-\title{Calculate breaks
-
-Calculate breaks according to the Herbert Sturges' (1926) formula}
+\title{Calculate breaks}
 \usage{
 sturges(x)
 }
@@ -13,8 +11,6 @@ sturges(x)
 \item{x}{A vector of count values.}
 }
 \description{
-Calculate breaks
-
 Calculate breaks according to the Herbert Sturges' (1926) formula
 }
 \examples{
