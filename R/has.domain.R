@@ -14,7 +14,7 @@
 #'
 #' has.domain(x3)
 #'
-#' sapply(list(x1, x2, x3), domain)
+#' sapply(list(x1, x2, x3), has.domain)
 
 `has.domain` <- function(x){
   x<-tolower(x)
