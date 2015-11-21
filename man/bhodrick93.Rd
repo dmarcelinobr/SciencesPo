@@ -5,7 +5,7 @@
 \name{bhodrick93}
 \alias{bhodrick93}
 \title{Bekaert's and Hodrick's (1993) Data}
-\format{A data frame with 778 observations on the following 11 variables. See Hayashi (2000) for details.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::bhodrick93)} variables and \Sexpr{nrow(SciencesPo::bhodrick93)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
@@ -13,7 +13,7 @@ Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton U
 data(bhodrick93)
 }
 \description{
-Data set used by Bekaert and Hodrick (1993) on biases in the measurement of foreign exchange risk premiums.
+Data set used by Bekaert and Hodrick (1993) on biases in the measurement of foreign exchange risk premiums. This dataset contains the following columns:
 
 \itemize{
  \item date A character vector for date.

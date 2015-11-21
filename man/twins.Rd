@@ -5,7 +5,7 @@
 \name{twins}
 \alias{twins}
 \title{Burt's twin data}
-\format{This data.frame contains the following columns:}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::twins)} variables and \Sexpr{nrow(SciencesPo::twins)} observations.}
 \source{
 Burt, C. (1966). The genetic estimation of differences in intelligence:
  A study of monozygotic twins reared together and apart. Br. J. Psych., 57, 147-153.
@@ -15,6 +15,7 @@ data(twins)
 }
 \description{
 The given data are IQ scores from identical twins; one raised in a foster home, and the other raised by birth parents.
+This dataset contains the following columns:
 
 \itemize{
 \item C Social class, C1=high, C2=medium, C3=low, a factor.

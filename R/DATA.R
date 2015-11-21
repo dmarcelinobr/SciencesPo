@@ -1,7 +1,7 @@
 #' @encoding UTF-8
 #' @title Galton's Family Data on Human Stature.
 #'
-#' @description It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas.
+#' @description It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas. This dataset contains the following columns:
 #'
 #' \itemize{
 #'   \item parent the parents' average height
@@ -16,7 +16,7 @@
 #' @keywords datasets
 #' @name galton
 #' @usage data(galton)
-#' @format A data frame with 928 observations on the following 2 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::galton)} variables and \Sexpr{nrow(SciencesPo::galton)} observations.
 NULL
 
 
@@ -25,7 +25,7 @@ NULL
 #' @encoding UTF-8
 #' @title Same Sex Marriage Public Opinion Data
 #'
-#' @description Data set fielded by the PEW Research Center on same sex marriage support in US. It covers public opinion on the issue starting from 1996 up to date.
+#' @description Data set fielded by the PEW Research Center on same sex marriage support in US. It covers public opinion on the issue starting from 1996 up to date. This dataset contains the following columns:
 #'
 #' \itemize{
 #'   \item Date The year of the measurement
@@ -38,9 +38,9 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name ssex
-#' @usage data(ssex)
-#' @format A data frame with 18 observations on the following 4 variables.
+#' @name marriage
+#' @usage data(marriage)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::marriage)} variables and \Sexpr{nrow(SciencesPo::marriage)} observations.
 NULL
 
 
@@ -48,7 +48,7 @@ NULL
 #' @encoding UTF-8
 #' @title The Penn World Table
 #'
-#' @description The Penn World Table used in Summers and Heston (1991).
+#' @description The Penn World Table used in Summers and Heston (1991). This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item year Year
@@ -70,7 +70,7 @@ NULL
 #' @keywords datasets
 #' @name sheston91
 #' @usage data(sheston91)
-#' @format A data frame with 3250 observations on the following 8 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::sheston91)} variables and \Sexpr{nrow(SciencesPo::sheston91)} observations.
 NULL
 
 
@@ -79,7 +79,7 @@ NULL
 #' @encoding UTF-8
 #' @title Griliches's (1976) Data
 #'
-#' @description Data set used by Griliches (1976) on wages of very young men.
+#' @description Data set used by Griliches (1976) on wages of very young men. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item rns residency in South.
@@ -112,7 +112,7 @@ NULL
 #' @keywords datasets
 #' @name griliches76
 #' @usage data(griliches76)
-#' @format A data frame with 758 observations on the following 20 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::griliches76)} variables and \Sexpr{nrow(SciencesPo::griliches76)} observations.
 NULL
 
 
@@ -120,7 +120,8 @@ NULL
 #' @encoding UTF-8
 #' @title Marc Nerlove's (1963) data
 #'
-#' @description Data used by Marc Nerlove (1963) on returns of electricity supply.
+#' @description Data used by Marc Nerlove (1963) on returns of electricity supply. This dataset contains the following columns:
+#'
 #' \itemize{
 #' \item totcost costs in 1970, MM USD.
 #'  \item output output, billion KwH.
@@ -138,7 +139,7 @@ NULL
 #' @keywords datasets
 #' @name nerlove63
 #' @usage data(nerlove63)
-#' @format A data frame with 145 observations on the following 5 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::nerlove63)} variables and \Sexpr{nrow(SciencesPo::nerlove63)} observations.
 NULL
 
 
@@ -147,7 +148,7 @@ NULL
 #' @encoding UTF-8
 #' @title Stock's and Watson's (1993) Data.
 
-#' @description Data set used by Stock and Watson (1993) to estimate co-integration.
+#' @description Data set used by Stock and Watson (1993) to estimate co-integration. This dataset contains the following columns:
 #' \itemize{
 #' \item lnm1 Log M1.
 #' \item lnp Log NNP price deflator.
@@ -164,7 +165,7 @@ NULL
 #' @keywords datasets
 #' @name swatson93
 #' @usage data(swatson93)
-#' @format A data frame with 90 observations on the following 5 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::swatson93)} variables and \Sexpr{nrow(SciencesPo::swatson93)} observations.
 NULL
 
 
@@ -173,7 +174,7 @@ NULL
 #' @encoding UTF-8
 #' @title Lothian's and Taylor's (1996) Data Set
 
-#' @description Data used by Lothian and Taylor (1996) on the real exchange rate behaviour.
+#' @description Data used by Lothian and Taylor (1996) on the real exchange rate behaviour. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item year Year
@@ -191,7 +192,7 @@ NULL
 #' @keywords datasets
 #' @name ltaylor96
 #' @usage data(ltaylor96)
-#' @format A data frame with 200 observations on the following 4 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::ltaylor96)} variables and \Sexpr{nrow(SciencesPo::ltaylor96)} observations.
 NULL
 
 
@@ -200,7 +201,7 @@ NULL
 #' @encoding UTF-8
 #' @title Christensen's and Greene's (1976) Data
 
-#' @description Data set used by Christensen and Greene (1976) on economies of scale in US electric power generation.
+#' @description Data set used by Christensen and Greene (1976) on economies of scale in US electric power generation. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item firmid Observation id.
@@ -221,7 +222,7 @@ NULL
 #' @keywords datasets
 #' @name cgreene76
 #' @usage data(cgreene76)
-#' @format A data frame with 99 observations on the following 8 variables. See Hayashi (2000) for more details.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::cgreene76)} variables and \Sexpr{nrow(SciencesPo::cgreene76)} observations.
 NULL
 
 
@@ -230,7 +231,7 @@ NULL
 #' @encoding UTF-8
 #' @title Mishkin's (1992) Data
 #'
-#' @description Data from the Frederic S. Mishkin (1992) paper \dQuote{Is the Fisher Effect for real?}.
+#' @description Data from the Frederic S. Mishkin (1992) paper \dQuote{Is the Fisher Effect for real?}. This dataset contains the following columns:
 #'
 #' \itemize{
 #'  \item year Year
@@ -251,7 +252,7 @@ NULL
 #' @keywords datasets
 #' @name mishkin92
 #' @usage data(mishkin92)
-#' @format A data frame with 491 observations on the following 8 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::mishkin92)} variables and \Sexpr{nrow(SciencesPo::mishkin92)} observations.
 NULL
 
 
@@ -259,7 +260,7 @@ NULL
 #' @encoding UTF-8
 #' @title Bekaert's and Hodrick's (1993) Data
 
-#' @description Data set used by Bekaert and Hodrick (1993) on biases in the measurement of foreign exchange risk premiums.
+#' @description Data set used by Bekaert and Hodrick (1993) on biases in the measurement of foreign exchange risk premiums. This dataset contains the following columns:
 #'
 #' \itemize{
 #'  \item date A character vector for date.
@@ -283,7 +284,7 @@ NULL
 #' @keywords datasets
 #' @name bhodrick93
 #' @usage data(bhodrick93)
-#' @format A data frame with 778 observations on the following 11 variables. See Hayashi (2000) for details.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::bhodrick93)} variables and \Sexpr{nrow(SciencesPo::bhodrick93)} observations.
 NULL
 
 
@@ -291,15 +292,14 @@ NULL
 #' @encoding UTF-8
 #' @title Titanic
 
-#' @description Population at Risk and Death Rates for an Unusual Episode. For each person on board the fatal maiden voyage of the ocean liner Titanic, this dataset records sex, age [adult/child], economic status [first/second/third class, or crew] and whether or not that person survived.
-#'
+#' @description Population at Risk and Death Rates for an Unusual Episode. For each person on board the fatal maiden voyage of the ocean liner Titanic, this dataset records sex, age [adult/child], economic status [first/second/third class, or crew] and whether or not that person survived. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item CLASS Class (0 = crew, 1 = first, 2 = second, 3 = third)
 #' \item AGE Age   (1 = adult, 0 = child)
 #' \item SEX Sex   (1 = male, 0 = female)
 #' \item SURVIVED Survived (1 = yes, 0 = no)
-#'  }
+#' }
 #'
 #' @note There is not complete agreement among primary sources as to the exact numbers on board, rescued, or lost. \bold{STORY BEHIND THE DATA:} The sinking of the Titanic is a famous event, and new books are still being published about it.  Many well-known facts--from the proportions of first-class passengers to the "women and children first" policy, and the fact that that policy was not entirely successful in saving the women and children in the third class--are reflected in the survival rates for various classes of passenger.  These data were originally collected by the British Board of Trade in their investigation of the sinking.
 #'
@@ -311,7 +311,7 @@ NULL
 #' @keywords datasets
 #' @name titanic
 #' @usage data(titanic)
-#' @format  2201 observations, 4 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::titanic)} variables and \Sexpr{nrow(SciencesPo::titanic)} observations.
 NULL
 
 
@@ -322,7 +322,7 @@ NULL
 #'
 #' @description Data on voter turnout in the 50 states and D.C. for the 1992
 #' Presidential election and 1990 Congressional elections. Per capita income,
-#' populations in poverty and populations with no high school degree are also given.
+#' populations in poverty and populations with no high school degree are also given. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item v1 state name (alphabetic, 20 characters)
@@ -360,7 +360,7 @@ NULL
 #' @keywords datasets
 #' @name turnout
 #' @usage data(turnout)
-#' @format A data frame with 51 observations and 11 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::turnout)} variables and \Sexpr{nrow(SciencesPo::turnout)} observations.
 NULL
 
 
@@ -368,7 +368,7 @@ NULL
 #' @encoding UTF-8
 #' @title Paired Data
 #'
-#' @description Artificial experimental paired data
+#' @description Artificial data for a paired experiment. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item patient the patient id.
@@ -380,7 +380,7 @@ NULL
 #' @keywords datasets
 #' @name paired
 #' @usage data(paired)
-#' @format A data frame with 9 observations on the following 3 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::paired)} variables and \Sexpr{nrow(SciencesPo::paired)} observations.
 NULL
 
 
@@ -388,7 +388,7 @@ NULL
 #' @encoding UTF-8
 #' @title Word frequencies from Mosteller and Wallace
 #'
-#' @description The data give the frequencies of words in works from four different sources: the political writings of eighteenth century American political figures Alexander Hamilton, James Madison, and John Jay, and the book Ulysses by twentieth century Irish writer James Joyce.
+#' @description The data give the frequencies of words in works from four different sources: the political writings of eighteenth century American political figures Alexander Hamilton, James Madison, and John Jay, and the book Ulysses by twentieth century Irish writer James Joyce. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item Hamilton Hamilton frequency.
@@ -409,7 +409,7 @@ NULL
 #' @keywords datasets
 #' @name words
 #' @usage data(words)
-#' @format This data frame uses the word as row labels and contains the following columns
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::words)} variables and \Sexpr{nrow(SciencesPo::words)} observations.
 NULL
 
 
@@ -418,7 +418,7 @@ NULL
 #' @encoding UTF-8
 #' @title Cathedrals
 #'
-#' @description Heights and lengths of Gothic and Romanesque cathedrals.
+#' @description Heights and lengths of Gothic and Romanesque cathedrals. This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item Type Romanesque or Gothic.
@@ -431,9 +431,9 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name cathedral
-#' @usage data(cathedral)
-#' @format This data.frame uses names as row label and contains the following columns:
+#' @name cathedrals
+#' @usage data(cathedrals)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::cathedrals)} variables and \Sexpr{nrow(SciencesPo::cathedrals)} observations.
 NULL
 
 
@@ -442,6 +442,7 @@ NULL
 #' @title Burt's twin data
 #'
 #' @description The given data are IQ scores from identical twins; one raised in a foster home, and the other raised by birth parents.
+#' This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item C Social class, C1=high, C2=medium, C3=low, a factor.
@@ -459,15 +460,16 @@ NULL
 #' @keywords datasets
 #' @name twins
 #' @usage data(twins)
-#' @format This data.frame contains the following columns:
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::twins)} variables and \Sexpr{nrow(SciencesPo::twins)} observations.
 NULL
+
 
 
 
 #' @encoding UTF-8
 #' @title The Measure of US Presidents
 #'
-#' @description The US presidents and their main opponents' heights (cm).
+#' @description The US presidents and their main opponents' heights (cm). This dataset contains the following columns:
 #'
 #' \itemize{
 #' \item election The election year.
@@ -492,30 +494,36 @@ NULL
 #' @keywords datasets
 #' @name Presidents
 #' @usage data(Presidents)
-#' @format This data.frame contains 57 rows in the following 11 variables.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Presidents)} variables and \Sexpr{nrow(SciencesPo::Presidents)} observations.
 NULL
 
 
-#' Approval Ratings for President George W. Bush
+#' @title Approval Ratings for President George W. Bush
 #'
-#' Approval ratings for George W. Bush.
+#' @description Approval ratings for George W. Bush.
 #'
 #' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Bush)} variables and \Sexpr{nrow(SciencesPo::Bush)} observations.
 #' \itemize{
-#' \item start_date. Start date of the survey.
-#' \item end_date. End date of the survey.
+#' \item start.date. Start date of the survey.
+#' \item end.date. End date of the survey.
 #' \item approve. Percent which approve of the president.
 #' \item disapprove. Percent which disapprove of the president.
 #' \item undecided. Percent undecided about the president.
 #' }
+#' @docType data
+#' @keywords datasets
+#' @name Bush
+#' @usage data(Bush)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Bush)} variables and \Sexpr{nrow(SciencesPo::Bush)} observations.
 #'
-
+NULL
 
 
 #' # setwd("~/SciencesPo/data")
-#' # system("cp cathedral.txt cathedral-cp.txt")
-#' # system("rm cathedral-cp.txt.gz")
-#' # system("gzip cathedral.txt")
+#' # system("cp Bush.txt Bush-cp.txt")
+#' # system("rm Bush-cp.txt.gz")
+#' # system("gzip Bush.txt")
+#' # system("rm Bush-cp.txt")
 
 
 

@@ -5,7 +5,7 @@
 \name{words}
 \alias{words}
 \title{Word frequencies from Mosteller and Wallace}
-\format{This data frame uses the word as row labels and contains the following columns}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::words)} variables and \Sexpr{nrow(SciencesPo::words)} observations.}
 \source{
 Mosteller, F. and Wallace, D. (1964). Inference and Disputed Authorship: The Federalist. Reading, MA: Addison-Wesley.
 }
@@ -13,7 +13,7 @@ Mosteller, F. and Wallace, D. (1964). Inference and Disputed Authorship: The Fed
 data(words)
 }
 \description{
-The data give the frequencies of words in works from four different sources: the political writings of eighteenth century American political figures Alexander Hamilton, James Madison, and John Jay, and the book Ulysses by twentieth century Irish writer James Joyce.
+The data give the frequencies of words in works from four different sources: the political writings of eighteenth century American political figures Alexander Hamilton, James Madison, and John Jay, and the book Ulysses by twentieth century Irish writer James Joyce. This dataset contains the following columns:
 
 \itemize{
 \item Hamilton Hamilton frequency.

@@ -5,7 +5,7 @@
 \name{turnout}
 \alias{turnout}
 \title{Turnout Data}
-\format{A data frame with 51 observations and 11 variables.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::turnout)} variables and \Sexpr{nrow(SciencesPo::turnout)} observations.}
 \source{
 U.S. Bureau of the Census, Statistical Abstract of the United States, 1994.
 }
@@ -15,7 +15,7 @@ data(turnout)
 \description{
 Data on voter turnout in the 50 states and D.C. for the 1992
 Presidential election and 1990 Congressional elections. Per capita income,
-populations in poverty and populations with no high school degree are also given.
+populations in poverty and populations with no high school degree are also given. This dataset contains the following columns:
 
 \itemize{
 \item v1 state name (alphabetic, 20 characters)

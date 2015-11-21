@@ -5,7 +5,7 @@
 \name{cgreene76}
 \alias{cgreene76}
 \title{Christensen's and Greene's (1976) Data}
-\format{A data frame with 99 observations on the following 8 variables. See Hayashi (2000) for more details.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::cgreene76)} variables and \Sexpr{nrow(SciencesPo::cgreene76)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
@@ -13,7 +13,7 @@ Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton U
 data(cgreene76)
 }
 \description{
-Data set used by Christensen and Greene (1976) on economies of scale in US electric power generation.
+Data set used by Christensen and Greene (1976) on economies of scale in US electric power generation. This dataset contains the following columns:
 
 \itemize{
 \item firmid Observation id.

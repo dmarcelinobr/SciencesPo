@@ -5,7 +5,7 @@
 \name{griliches76}
 \alias{griliches76}
 \title{Griliches's (1976) Data}
-\format{A data frame with 758 observations on the following 20 variables.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::griliches76)} variables and \Sexpr{nrow(SciencesPo::griliches76)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
@@ -13,7 +13,7 @@ Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton U
 data(griliches76)
 }
 \description{
-Data set used by Griliches (1976) on wages of very young men.
+Data set used by Griliches (1976) on wages of very young men. This dataset contains the following columns:
 
 \itemize{
 \item rns residency in South.

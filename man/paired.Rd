@@ -5,12 +5,12 @@
 \name{paired}
 \alias{paired}
 \title{Paired Data}
-\format{A data frame with 9 observations on the following 3 variables.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::paired)} variables and \Sexpr{nrow(SciencesPo::paired)} observations.}
 \usage{
 data(paired)
 }
 \description{
-Artificial experimental paired data
+Artificial data for a paired experiment. This dataset contains the following columns:
 
 \itemize{
 \item patient the patient id.

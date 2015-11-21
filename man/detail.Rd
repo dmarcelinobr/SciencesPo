@@ -43,10 +43,10 @@ Trimming is not winsorizing. The winsorization process is more complex than simp
 }
 \examples{
 #load some data
-data(ssex)
+data(marriage)
 
 # To apply the function
-detail(ssex, trim = 0.5, k = 3)
+detail(marriage, trim = 0.5, k = 3)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}

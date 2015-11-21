@@ -5,12 +5,12 @@
 \name{galton}
 \alias{galton}
 \title{Galton's Family Data on Human Stature.}
-\format{A data frame with 928 observations on the following 2 variables.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::galton)} variables and \Sexpr{nrow(SciencesPo::galton)} observations.}
 \usage{
 data(galton)
 }
 \description{
-It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas.
+It is a reproduction of the data set used by Galton in his 1885's paper on correlation between parent's height and their children. However, Galton would only introduce the concept of correlation few years later, in 1888. Galton suggested the use of the regression line and was the first to describe the so-called common phenomenon of regression toward the mean by comparing his experiments on the size of the seeds of successive generations of peas. This dataset contains the following columns:
 
 \itemize{
   \item parent the parents' average height

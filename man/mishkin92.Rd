@@ -5,7 +5,7 @@
 \name{mishkin92}
 \alias{mishkin92}
 \title{Mishkin's (1992) Data}
-\format{A data frame with 491 observations on the following 8 variables.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::mishkin92)} variables and \Sexpr{nrow(SciencesPo::mishkin92)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
@@ -13,7 +13,7 @@ Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton U
 data(mishkin92)
 }
 \description{
-Data from the Frederic S. Mishkin (1992) paper \dQuote{Is the Fisher Effect for real?}.
+Data from the Frederic S. Mishkin (1992) paper \dQuote{Is the Fisher Effect for real?}. This dataset contains the following columns:
 
 \itemize{
  \item year Year

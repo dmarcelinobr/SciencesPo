@@ -5,7 +5,7 @@
 \name{swatson93}
 \alias{swatson93}
 \title{Stock's and Watson's (1993) Data.}
-\format{A data frame with 90 observations on the following 5 variables.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::swatson93)} variables and \Sexpr{nrow(SciencesPo::swatson93)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }
@@ -13,7 +13,7 @@ Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton U
 data(swatson93)
 }
 \description{
-Data set used by Stock and Watson (1993) to estimate co-integration.
+Data set used by Stock and Watson (1993) to estimate co-integration. This dataset contains the following columns:
 \itemize{
 \item lnm1 Log M1.
 \item lnp Log NNP price deflator.

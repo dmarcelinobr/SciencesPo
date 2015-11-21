@@ -17,10 +17,10 @@ freq(.data, x, verbose = TRUE)
 Simulating the FREQ procedure of SPSS.
 }
 \examples{
-data("cathedral")
+data(cathedrals)
 
-freq(cathedral, Type)
+freq(cathedrals, Type)
 
-cathedral \%>\% freq(Height)
+cathedrals \%>\% freq(Height)
 }
 
