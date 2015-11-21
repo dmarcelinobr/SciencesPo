@@ -6,11 +6,11 @@
 #' @param x A column from which the frequency of values is desired.
 #' @param verbose A logical value, if \code{TRUE}, extra statistics are also provided.
 #' @examples
-#' data("cathedral")
+#' data(cathedrals)
 #'
-#' freq(cathedral, Type)
+#' freq(cathedrals, Type)
 #'
-#' cathedral %>% freq(Height)
+#' cathedrals %>% freq(Height)
 #'
 #' @importFrom stats sd
 #' @export
