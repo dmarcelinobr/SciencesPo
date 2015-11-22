@@ -14,7 +14,7 @@
 #'
 #' print(gss)
 #'
-#' # Thwn expand it:
+#' # Then expand it:
 #' GSS <- untable(gss, freq="count")
 #' head(GSS)
 #' }
