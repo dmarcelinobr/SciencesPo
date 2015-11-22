@@ -24,7 +24,7 @@ count=c(279,165,73,47,225,191))
 
 print(gss)
 
-# Thwn expand it:
+# Then expand it:
 GSS <- untable(gss, freq="count")
 head(GSS)
 }

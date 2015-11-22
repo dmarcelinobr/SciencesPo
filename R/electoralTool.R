@@ -406,6 +406,61 @@ setMethod(f="inv.cox.shugart", definition=function(v, s){
 NULL
 
 
+
+
+#' @title Atkinson Index of Inequality
+#'
+#' @description Calculates the Atkinson Index. This inequality measure is espcially good at determining which end of the distribution is contributing most to the observed inequality.
+#'
+#' @param x A vector of data values of non-negative elements.
+#' @param n A vector of frequencies of the same length as \code{x}.
+#' @param parameter A parameter of the inequality measure (if set to \code{NULL} the default parameter of the respective measure is used).
+#' @param na.rm A logical. Should missing values be removed? The Default is set to \code{na.rm=FALSE}.
+#' @references
+#' Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
+#'
+#' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
+#'
+#' @seealso \code{\link{herfindahl}}, \code{\link{rosenbluth}}.
+#' @examples
+#' # generate a vector (of incomes)
+#' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
+#'
+#' # compute Atkinson coefficient with parameter=0.5
+#' atkinson(x, parameter=0.5)
+#'
+#' @export atkinson
+#' @docType methods
+#' @rdname atkinson-methods
+#' @aliases atkinson,numeric,numeric,numeric,logical,ANY-method
+`atkinson`<-setClass("atkinson", representation(x = "numeric", n = "numeric", parameter = "numeric", na.rm = "logical"))
+NULL
+
+setGeneric("atkinson", def=function(x, n = rep(1, length(x)), parameter=0.5, na.rm=FALSE){
+  standardGeneric("atkinson")
+})
+NULL
+
+#' @rdname atkinson-methods
+setMethod(f="atkinson", definition=function(x, n = rep(1, length(x)), parameter = 0.5, na.rm = FALSE){
+  x <- rep(x, n)    # same handling as Lc and Gini
+  if(na.rm) x <- na.omit(x)
+  if (any(is.na(x)) || any(x < 0)) return(NA_real_)
+
+  if(is.null(parameter)) parameter <- 0.5
+  if(parameter==1)
+    idx <- 1 - (exp(mean(log(x)))/mean(x))
+  else
+  {
+    x <- (x/mean(x))^(1-parameter)
+    idx <- 1 - mean(x)^(1/(1-parameter))
+  }
+  return(rounded(idx, 3))
+})
+NULL
+
+
+
 #' # hareQuota <- function(votes, seats, try.quota, droop.quota){}
 #'
 #'# electoralTool <- function(party,
