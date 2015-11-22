@@ -1,3 +1,5 @@
+if (getRversion() >= "2.15.1") globalVariables(c("Units"))
+#' @encoding UTF-8
 #' @title Unit Conversion
 #'
 #' @description Convert a numeric value from one measurement system to another. For instance, distances in miles to kilometers.

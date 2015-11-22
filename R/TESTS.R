@@ -935,12 +935,12 @@ NULL
 #'  plot(years, tourists, pch=20)
 #'
 #' # Test the null against a trend
-#'  bartels.rank(tourists, alternative="left.sided", pvalue="beta")
+#'  bartels(tourists, alternative="left.sided", pvalue="beta")
 #' }
 #' @export
-`bartels.rank` <- function(x, alternative="two.sided", pvalue="normal") UseMethod("bartels.rank")
+`bartels` <- function(x, alternative="two.sided", pvalue="normal") UseMethod("bartels")
 
-`bartels.rank.default` <- function(x, alternative="two.sided", pvalue="normal"){
+`bartels.default` <- function(x, alternative="two.sided", pvalue="normal"){
   dname <- deparse(substitute(x))
   # Remove NAs
   x <- na.omit(x)
@@ -964,10 +964,10 @@ NULL
   if (pvalue == "auto"){pvalue<-ifelse(n<=100,"beta","normal")}
   if (pvalue == "beta"){
     btp <- (5*n*(n+1)*(n-1)^2)/(2*(n-2)*(5*n^2-2*n-9))-1/2
-    pv0 <- pbeta(RVN/4,shape1=btp,shape2=btp)
+    pv0 <- stats::pbeta(RVN/4,shape1=btp,shape2=btp)
   }
   if (pvalue=="normal"){
-    pv0 <- pnorm((RVN - mu) / sqrt(vr))
+    pv0 <- stats::pnorm((RVN - mu) / sqrt(vr))
   }
   if (alternative=="two.sided"){
     pv <- 2*min(pv0,1-pv0)
