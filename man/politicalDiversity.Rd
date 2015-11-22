@@ -5,7 +5,8 @@
 \alias{politicalDiversity}
 \title{Political Diversity Indices}
 \usage{
-politicalDiversity(x, index = "herfindahl", margin = 1, base = exp(1))
+politicalDiversity(x, index = "laakso/taagepera", margin = 1,
+  base = exp(1))
 }
 \arguments{
 \item{x}{A data.frame, a matrix-like, or a vector containing values for the number of votes or seats each party received.}
@@ -62,8 +63,8 @@ politicalDiversity(US2004, index= "golosov")
 
 # The 1999 Finland election
 votes_1999 <- c(612963, 600592, 563835,
-291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442, 10378,
-10104, 5451, 5194, 4481, 3903, 3455, 21734)
+291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442,
+10378, 10104, 5451, 5194, 4481, 3903, 3455, 21734)
 
 seats_1999 <- c(51, 48, 46, 20, 11, 11, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
@@ -92,8 +93,8 @@ seats_2010 = c(88, 79, 53, 43, 41, 41, 34, 28, 21,
 17, 15, 15, 12, 8, 4, 3, 3, 2, 2, 2, 1, 1)/513
 
 # 2014 Election outcome as proportion of seats
-seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12,
-11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
+seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15,
+12, 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 
 politicalDiversity(seats_2014, index= "laakso/taagepera")
 

@@ -66,8 +66,8 @@
 #'
 #' # The 1999 Finland election
 #' votes_1999 <- c(612963, 600592, 563835,
-#' 291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442, 10378,
-#' 10104, 5451, 5194, 4481, 3903, 3455, 21734)
+#' 291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442,
+#' 10378, 10104, 5451, 5194, 4481, 3903, 3455, 21734)
 #'
 #' seats_1999 <- c(51, 48, 46, 20, 11, 11, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 #'
@@ -96,8 +96,8 @@
 #' 17, 15, 15, 12, 8, 4, 3, 3, 2, 2, 2, 1, 1)/513
 #'
 #' # 2014 Election outcome as proportion of seats
-#' seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12,
-#' 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
+#' seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15,
+#' 12, 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 #'
 #' politicalDiversity(seats_2014, index= "laakso/taagepera")
 #'
@@ -109,10 +109,10 @@
 #'
 #' @export
 politicalDiversity <-
-function (x, index = "herfindahl", margin = 1, base = exp(1))
+function (x, index = "laakso/taagepera", margin = 1, base = exp(1))
 {
   x <- drop(as.matrix(x))
-  methods <- c("enc", "enp", "herfindahl", "laakso/taagepera", "gini", "golosov", "shannon", "simpson", "invsimpson", "lsq")
+  methods <- c("enc",  "enp", "ENC",  "ENP", "Herfindahl", "herfindahl", "laakso/taagepera", "Laakso/Taagepera", "gini", "golosov", "Gini", "Golosov", "shannon", "simpson",  "Shannon", "Simpson", "invsimpson", "lsq", "Lsq")
   index <- match.arg(index, methods)
   if (length(dim(x)) > 1) {
     total <- apply(x, margin, sum)
@@ -121,20 +121,20 @@ function (x, index = "herfindahl", margin = 1, base = exp(1))
   else {
     x <- x/sum(x)
   }
-  if (index == "shannon")
+  if (index == "shannon"||index == "Shannon")
     x <- -x * log(x, base)
-  else if (index=="golosov")
+  else if (index=="golosov"||index == "Golosov")
     x <- sum((x)/((x)+((x[1])^2)-((x)^2)))
   else x <- x * x
   if (length(dim(x)) > 1)
     idx <- apply(x, margin, sum, na.rm = TRUE)
   else idx <- sum(x, na.rm = TRUE)
-  if (index == "simpson"||index == "herfindahl" || index ==  "gini" )
+  if (index == "simpson"||index == "Simpson"||index == "herfindahl"||index == "Herfindahl")
     idx <- 1 - idx
-  else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "enc" || index == "enp")
+  else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "Laakso/Taagepera" || index == "enc" || index == "enp"|| index == "ENC" || index == "ENP")
     idx <- 1/idx
   return(rounded(idx, 3))
-}
+}### end -- politicalDiversity function
 NULL
 
 
@@ -183,7 +183,7 @@ setGeneric("gallagher", def=function(v, s){
 setMethod(f="gallagher", definition=function(v, s){
   idx=sqrt(sum((v-s)^2)/2)
   return(rounded(idx, 2))
-})
+})### end -- gallagher function
 NULL
 
 
@@ -221,7 +221,7 @@ setGeneric("lijphart", def=function(v, s){
 setMethod(f="lijphart", definition=function(v, s){
   idx=max(s-v)
   return(rounded(idx, 2))
-})
+})### end -- lijphart function
 NULL
 
 
@@ -264,7 +264,7 @@ setMethod(f="grofman", definition=function(v, s){
   N <- politicalDiversity(s, index = "laakso/taagepera")
   idx=(1/N) * sum(abs(v-s))/2
   return(rounded(idx, 2))
-})
+})### end -- grofman function
 NULL
 
 
@@ -303,7 +303,7 @@ setGeneric("farina", def=function(v, s){
 setMethod(f="farina", definition=function(v, s){
   idx= acos(sum(v*s)/(sum(v^2)*sum(s^2))^.5)
   return(rounded(idx, 3))
-})
+})### end -- farina function
 NULL
 
 
@@ -354,7 +354,7 @@ setMethod(f="cox.shugart", definition=function(v, s){
   V <- mean(v)
   idx <- sum((s-S) * (v-V))/sum((v-V)^2)
   return(rounded(idx, 3))
-})
+})### end -- cox.shugart function
 NULL
 
 
@@ -402,7 +402,7 @@ setMethod(f="inv.cox.shugart", definition=function(v, s){
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
   return(rounded(idx, 3))
-})
+})### end -- inv.cox.shugart function
 NULL
 
 
@@ -421,14 +421,15 @@ NULL
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
-#' @seealso \code{\link{herfindahl}}, \code{\link{rosenbluth}}.
+#' @seealso \code{\link{herfindahl}}, \code{\link{rosenbluth}},  \code{\link{gini}}.
 #' @examples
+#' if (interactive()) {
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #'
 #' # compute Atkinson coefficient with parameter=0.5
 #' atkinson(x, parameter=0.5)
-#'
+#'}
 #' @export atkinson
 #' @docType methods
 #' @rdname atkinson-methods
@@ -456,7 +457,119 @@ setMethod(f="atkinson", definition=function(x, n = rep(1, length(x)), parameter 
     idx <- 1 - mean(x)^(1/(1-parameter))
   }
   return(rounded(idx, 3))
+})### end -- atkinson function
+NULL
+
+
+
+
+
+
+#' @title Rosenbluth Index of Concentration
+#'
+#' @description Calculates the Rosenbluth Index of concentration. This index is also known as Hall or Tiedemann Indices.
+#'
+#' @param x A vector of data values of non-negative elements.
+#' @param n A vector of frequencies of the same length as \code{x}.
+#' @param na.rm A logical. Should missing values be removed? The Default is set to \code{na.rm=FALSE}.
+#' @references
+#' Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
+#'
+#' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
+#'
+#' @seealso \code{\link{atkinson}}, \code{\link{herfindahl}},  \code{\link{gini}}.
+#' @examples
+#' if (interactive()){
+#' # generate a vector (of incomes)
+#' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
+#'
+#' # compute Rosenbluth coefficient
+#' rosenbluth(x)
+#'}
+#' @export rosenbluth
+#' @docType methods
+#' @rdname rosenbluth-methods
+#' @aliases rosenbluth,numeric,numeric,logical,ANY-method
+`rosenbluth`<-setClass("rosenbluth", representation(x = "numeric", n = "numeric", na.rm = "logical"))
+NULL
+
+setGeneric("rosenbluth", def=function(x, n = rep(1, length(x)), na.rm=FALSE){
+  standardGeneric("rosenbluth")
 })
+NULL
+
+#' @rdname rosenbluth-methods
+setMethod(f="rosenbluth", definition=function(x, n = rep(1, length(x)), na.rm = FALSE){
+  x <- rep(x, n)
+  if(na.rm) x <- na.omit(x)
+  if (any(is.na(x)) || any(x < 0)) return(NA_real_)
+  n <- length(x)
+  x <- sort(x)
+  idx <- (n:1)*x
+  idx <- 2*sum(idx/sum(x))
+  idx <- 1/(idx-1)
+  return(rounded(idx, 3))
+})### end -- rosenbluth function
+NULL
+
+
+
+
+
+
+
+#' @title Herfindahl Index of Concentration
+#'
+#' @description Calculates the Herfindahl Index of concentration.
+#'
+#' @param x A vector of data values of non-negative elements.
+#' @param n A vector of frequencies of the same length as \code{x}.
+#' @param parameter A parameter of the concentration measure (if set to \code{NULL} the default parameter of the respective measure is used).
+#' @param na.rm A logical. Should missing values be removed? The Default is set to \code{na.rm=FALSE}.
+#'
+#' @details The same measure is also known as the Simpson index in ecology, as the Herfindahl index or the Herfindahl-Hirschman index (HHI) in economics, and as the Effective Number of Parties in political science.
+#'
+#' @references
+#' Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
+#'
+#' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
+#'
+#' @seealso \code{\link{atkinson}}, \code{\link{rosenbluth}}, \code{\link{politicalDiversity}}, \code{\link{gini}}.
+#' @examples
+#' if (interactive()) {
+#' # generate a vector (of incomes)
+#' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
+#'
+#' # compute Herfindahl coefficient with parameter=1
+#' herfindahl(x, parameter=1)
+#' }
+#' @export herfindahl
+#' @docType methods
+#' @rdname herfindahl-methods
+#' @aliases herfindahl,numeric,numeric,numeric,logical,ANY-method
+`herfindahl`<-setClass("herfindahl", representation(x = "numeric", n = "numeric", parameter = "numeric", na.rm = "logical"))
+NULL
+
+setGeneric("herfindahl", def=function(x, n = rep(1, length(x)), parameter=1, na.rm=FALSE){
+  standardGeneric("herfindahl")
+})
+NULL
+
+#' @rdname herfindahl-methods
+setMethod(f="herfindahl", definition=function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE){
+  x <- rep(x, n)
+  if(na.rm) x <- na.omit(x)
+  if (any(is.na(x)) || any(x < 0)) return(NA_real_)
+
+  if(is.null(parameter))
+    m <- 1
+  else
+    m <- parameter
+  idx <- x/sum(x)
+  idx <- idx^(m+1)
+  idx <- sum(idx)^(1/m)
+  return(rounded(idx, 3))
+})### end -- herfindahl function
 NULL
 
 
