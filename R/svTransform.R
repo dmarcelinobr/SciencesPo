@@ -18,5 +18,5 @@
   n <- length(y)
   trans <- (y * (n-1) + 0.5)/n
   return(trans)
-}
+}### end -- svTransform function
 NULL

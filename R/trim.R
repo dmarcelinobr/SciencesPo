@@ -10,5 +10,5 @@
   gsub("^\\s+|\\s+$", "",
        gsub(sprintf("\\s+[%s]\\s+|\\s+[%s]|[%s]\\s+",
                     delim, delim, delim), delim, x))
-}
+}### end -- trim function
 NULL

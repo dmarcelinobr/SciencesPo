@@ -55,7 +55,7 @@
                  allstat = allstat, allpar = allpar, allpval = allpval
   ),
   class = "htest")
-}
+}### end -- stukel function
 NULL
 
 
@@ -107,7 +107,7 @@ NULL
     if (all(result[, 2] == 1)) result <- result[, 1]
     else result[, 3] <- result[, 1]^(1/(2 * result[, 2]))
     result
-  }
+  }### end -- vif function
 NULL
 
 
@@ -150,7 +150,7 @@ NULL
                data.name = DNAME)
   class(RVAL) <- "htest"
   return(RVAL)
-}
+} ### end -- geary function
 NULL
 
 
@@ -202,7 +202,7 @@ james.stein <- function(y, k)
   list(n=z[,1], mean=z[,2],
        shrunk.mean=structure(Z["mean"]*(1-shrink)+shrink*z[,2], names=nams),
        shrink=shrink)
-}
+}### end -- james.stein function
 NULL
 
 
@@ -242,7 +242,7 @@ jarque.bera <- function(x)
                  data.name=DNAME )
   class( JBVAL ) <- "htest"
   return( JBVAL )
-}
+} ### end -- jarque.bera function
 NULL
 
 
@@ -272,7 +272,7 @@ jensen.shannon <- function(mat) {
     }
   }
   res
-}
+}### end -- jensen.shannon function
 NULL
 
 
@@ -304,7 +304,7 @@ NULL
   colnames(w1.tab) = c("Est","Z","Significant","LB95", "UB95")
   w1.tab[,3] = ifelse(w1.tab[,3]=="1","Yes","No")
   w1.tab
-}
+}### end -- johnson.neyman function
 NULL
 
 
@@ -374,7 +374,7 @@ lilliefors <- function(x){
                data.name = DNAME)
   class(RVAL) <- "htest"
   return(RVAL)
-}
+} ### end -- lilliefors function
 NULL
 
 
@@ -436,7 +436,7 @@ NULL
                  data.name = DNAME)
     class(RVAL) <- "htest"
     return(RVAL)
-  }
+  } ### end -- bonett.seier function
 NULL
 
 
@@ -498,7 +498,7 @@ NULL
                  data.name = DNAME)
     class(RVAL) <- "htest"
     return(RVAL)
-  }
+  }### end -- anscombe.glynn function
 NULL
 
 
@@ -548,7 +548,7 @@ anderson.darling <- function (x)
                data.name = DNAME)
   class(RVAL) <- "htest"
   return(RVAL)
-}
+} ### end -- anderson.darling function
 NULL
 
 
@@ -611,5 +611,288 @@ NULL
                  data.name = DNAME)
     class(RVAL) <- "htest"
     return(RVAL)
-  }
+  } ### end -- agostino function
 NULL
+
+
+
+
+
+#' @title Likelihood Ratio Test (G test) for Tables
+#'
+#' @description Computes the likelihood ratio test (G test) for contingency tables. Currently does not do Williams' and Yates' correction.
+#'
+#' @param x A vector or a matrix.
+#' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#'
+#' @references
+#' Agresti, Alan (1996) \emph{Introduction to categorical data
+#'  analysis}. NY: John Wiley and Sons
+#'
+#' Smithson, M.J. (2003) \emph{Confidence Intervals, Quantitative
+#'  Applications in the Social Sciences Series, No. 140}.
+#'  Thousand Oaks, CA: Sage. pp. 39-41.
+#'
+#' @examples
+#' if (interactive()) {
+#' # 1992 General Social Survey- Sex and Party affiliation
+#' gss <- data.frame(
+#'    expand.grid(sex=c("female", "male"),
+#'    party=c("dem", "indep", "rep")),
+#'    count=c(279,165,73,47,225,191))
+#' # expand it:
+#'  GSS <- gss[rep(1:nrow(gss), gss[["count"]]), ]
+#'
+#' likelihood.ratio(GSS$party, GSS$sex)
+#' }
+#' @export
+`likelihood.ratio` <- function(x, y = NULL) UseMethod("likelihood.ratio")
+
+likelihood.ratio.default <- function(x, y = NULL) {
+  DNAME <- deparse(substitute(x))
+  if (is.data.frame(x)) x <- as.matrix(x)
+  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (!is.matrix(x)) {
+    if (is.null(y)) { stop("y must be a non-null vector") } else {
+      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    }
+    YDNAME <- deparse(substitute(y))
+    ok <- complete.cases(x,y)
+    x <- factor(x[ok])
+    y <- factor(y[ok])
+    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
+    x <- table(x,y)
+    names(dimnames(x)) <- c(DNAME, YDNAME)
+  }
+  if (all(dim(x) == 2)) { result <- chisq.test(x, correct = TRUE) } else { result <- suppressWarnings(chisq.test(x, correct = FALSE)) }
+
+  G <- 2 * sum(result$obs * log(result$obs/result$exp), na.rm = TRUE)
+  pvalue <- 1 - pchisq(G, result[[2]][[1]])
+  return(list(statistics = G, df = result[[2]][[1]], p.value = pvalue))
+} ### end -- likelihood.ratio function
+NULL
+
+
+
+
+
+#' @title Cramer's V Coefficient for Tables
+#'
+#' @description Computes the Cramer's V coefficient of association
+#'  for tables. The Cramer's V is a measure of effect size for a chi-square goodness of fit test.
+#'
+#' @param x A vector or a matrix.
+#' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#'
+#' @note
+#' # Bootstrap confidence intervals for Cramer's V
+#' \url{http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf}, p. 1821
+#'
+#' @references
+#' Agresti, Alan (1996) \emph{Introduction to categorical data
+#'  analysis}. NY: John Wiley and Sons.
+#'
+#' @examples
+#' if (interactive()) {
+#' # Consider an experiment with two conditions, each with 100
+#' participants.
+#' # Each participant chooses between one of three parties.
+#'
+#' cond1 <- c(40, 25, 35)
+#' cond2 <- c(25, 35, 45)
+#' mat <- cbind( cond1, cond2 )
+#' rownames(mat) <- c( 'party1', 'party2', 'party3')
+#'
+#'# To test the null hypothesis that the distribution of preferences
+#'# is identical in the two conditions, we run a chi-square test:
+#'
+#' chisq.test(mat)
+#'
+#' # But, if we want to estimate the effect size, we then use Cramer's V:
+#'
+#' cramer(mat)
+#' }
+#' @export
+`cramer` <- function(x, y = NULL) UseMethod("cramer")
+
+`cramer.default` <- function(x, y = NULL) {
+  DNAME <- deparse(substitute(x))
+  if (is.data.frame(x)) x <- as.matrix(x)
+  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (!is.matrix(x)) {
+    if (is.null(y)) { stop("y must be a non-null vector") } else {
+      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    }
+    YDNAME <- deparse(substitute(y))
+    ok <- complete.cases(x,y)
+    x <- factor(x[ok])
+    y <- factor(y[ok])
+    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
+    x <- table(x,y)
+    names(dimnames(x)) <- c(DNAME, YDNAME)
+  }
+  if (all(dim(x) == 2)) {
+    result <- chisq.test(x, correct = TRUE)
+    cramersV <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
+  } else {
+    result <- suppressWarnings(chisq.test(x, correct = FALSE))
+    cramersV <- sqrt(result[[1]][[1]]/(sum(x)*(min(dim(x))-1)))
+  }
+  return(cramersV)
+} ### end -- cramers'v function
+NULL
+
+
+
+
+
+#' @title Cramer's Phi Coefficient for Tables
+#'
+#' @description Computes the Cramer's Phi coefficient for tables.
+#'
+#' @param x A vector or a matrix.
+#' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#'
+#' @details
+#' Phi is seldom applied for indexing a \code{2 x 2} table, because the
+#' researcher will typically want to contrast the two proportions as
+#' an increment or ratio, not with a correlation coefficient.
+#' Alternatives to Phi are the Pearson's C; Tschuprow's T, and Cramer's V.
+#'
+#' @references
+#' Agresti, Alan (1996) \emph{Introduction to categorical data
+#'  analysis}. NY: John Wiley and Sons
+#'
+#'
+#' @examples
+#' if (interactive()) {
+#' }
+#' @export
+`phi` <- function(x, y = NULL) UseMethod("phi")
+
+`phi.default` <- function(x, y = NULL) {
+  DNAME <- deparse(substitute(x))
+  if (is.data.frame(x)) x <- as.matrix(x)
+  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (!is.matrix(x)) {
+    if (is.null(y)) { stop("y must be a non-null vector") } else {
+      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    }
+    YDNAME <- deparse(substitute(y))
+    ok <- complete.cases(x,y)
+    x <- factor(x[ok])
+    y <- factor(y[ok])
+    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
+    x <- table(x,y)
+    names(dimnames(x)) <- c(DNAME, YDNAME)
+  }
+  if (all(dim(x) == 2)) {
+    result <- chisq.test(x, correct = TRUE)
+    phicoef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
+  } else {
+    result <- suppressWarnings(chisq.test(x, correct = FALSE))
+    phicoef <- sqrt(result[[1]][[1]]/sum(x))
+  }
+  return(phicoef)
+} ### end -- phi function
+NULL
+
+
+
+
+#' @title Pearson's Contingency Coefficient for Tables
+#'
+#' @description Computes the Pearson's C coefficient of contingency for tables.
+#' @param x A vector or a matrix.
+#' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#'
+#' @references
+#' Agresti, Alan (1996) \emph{Introduction to categorical data
+#'  analysis}. NY: John Wiley and Sons
+#'
+#' Blaikie, N. 2003. \emph{Analyzing Quantative Data}. London: SAGE.
+#'
+#' @examples
+#' if (interactive()) {
+#' # some data:
+#' male <- c(33, 76, 6)
+#' female <- c(47, 153, 25)
+#' mat <- cbind( male, female )
+#' colnames(mat) <- c( 'good', 'satisfactory', 'bad')
+#'
+#' contingency(mat)
+#' }
+#' @export
+`contingency` <- function(x, y = NULL) UseMethod("contingency")
+
+`contingency.default` <- function(x, y = NULL) {
+  DNAME <- deparse(substitute(x))
+  if (is.data.frame(x)) x <- as.matrix(x)
+  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (!is.matrix(x)) {
+    if (is.null(y)) { stop("y must be a non-null vector") } else {
+      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    }
+    YDNAME <- deparse(substitute(y))
+    ok <- complete.cases(x,y)
+    x <- factor(x[ok])
+    y <- factor(y[ok])
+    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
+    x <- table(x,y)
+    names(dimnames(x)) <- c(DNAME, YDNAME)
+  }
+  if (all(dim(x) == 2)) {
+    result <- chisq.test(x, correct = TRUE)
+    cont.coef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
+  } else {
+    result <- suppressWarnings(chisq.test(x, correct = FALSE))
+    cont.coef <- sqrt(result[[1]][[1]]/(sum(x) + result[[1]][[1]]))
+  }
+  return(cont.coef)
+} ### end -- contingency function
+NULL
+
+
+
+
+#' @title Tschuprow's T for Tables
+#'
+#' @description Computes the Tschuprow's T coefficient of association for tables.
+#'
+#' @param x A vector or a matrix.
+#' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#' @param \dots Extra parameters pass to the \code{\link{table}} function.
+#'
+#' @details Tschuprow's T has the disadvantage of producing an overcorrection. Although kept from being > 1, the correlation coefficient often cannot reach the permissible maximum value of 1. This problem is likely to occur if \code{R} is much greater than \code{C} (or the other way around) in a large \code{R x C} table.
+#'
+#' @references
+#' Tschuprow, A. A. (1939) \emph{Principles of the Mathematical Theory of Correlation}. Translated by M. Kantorowitsch. W. Hodge & Co.
+#'
+#' @examples
+#' if (interactive()) {
+#' # some data:
+#' male <- c(33, 76, 6);
+#' female <- c(47, 153, 25);
+#' mat <- cbind( male, female );
+#' colnames(mat) <- c( 'good', 'satisfactory', 'bad');
+#'
+#' tschuprow(mat);
+#'
+#' long = untable(mat);
+#'
+#' tschuprow(long$Var1, long$Var2)
+#' }
+#' @export
+#'
+`tschuprow` <- function(x, y = NULL) UseMethod("tschuprow")
+
+`tschuprow.default` <- function(x, y = NULL, ...){
+
+  if(!is.null(y)) x <- table(x, y, ...)
+  # http://en.wikipedia.org/wiki/Tschuprow's_T
+  # Hartung S. 451
+  as.numeric( sqrt(suppressWarnings(chisq.test(x, correct = FALSE)$statistic)/ (sum(x) * sqrt(prod(dim(x)-1)))))
+
+}### end -- tschuprowT function
+NULL
+

@@ -39,7 +39,7 @@
 #' stratified(dat1, c("E", "D"), 0.15, select = list(E = "M"))
 #'
 #' @export
-stratified <- function(.data, group, size, select = NULL,
+`stratified` <- function(.data, group, size, select = NULL,
                        replace = FALSE, both.sets = FALSE) {
   if (is.null(select)) {
     .data <- .data
@@ -100,5 +100,5 @@ stratified <- function(.data, group, size, select = NULL,
   } else {
     set1
   }
-}
+}### end -- stratified function
 NULL

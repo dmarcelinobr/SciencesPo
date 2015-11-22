@@ -48,5 +48,5 @@
       x[(n-k+1):n] <- x[n-k] #Then I go over the higher ones
       return(mean(x))
     }
-  }
+  }### end -- winsorize function
 NULL

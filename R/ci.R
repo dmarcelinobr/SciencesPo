@@ -1,4 +1,3 @@
-
 #' @encoding UTF-8
 #' @title Confidence Intervals
 #' @description Calculates the confidence intervals of a vector.
@@ -22,7 +21,7 @@
 #' ci(x, conf.level=.95)
 #' @export
 #' @aliases ci,numeric,numeric,numeric,logical,ANY-method
-ci<-setClass("ci", representation(x = "numeric", conf.level = "numeric",alpha = "numeric",na.rm="logical"))
+`ci`<-setClass("ci", representation(x = "numeric", conf.level = "numeric",alpha = "numeric",na.rm="logical"))
 
 setGeneric("ci", def=function(x, conf.level=0.95, alpha=1-conf.level,...){
   standardGeneric("ci")

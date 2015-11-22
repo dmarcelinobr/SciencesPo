@@ -14,7 +14,7 @@
 #' sturges(y)
 #'
 #' @export
-sturges=function(x)
+sturges <- function(x)
 {
   N    = length(x)
   K    = 1+log2(N)
@@ -26,4 +26,5 @@ sturges=function(x)
   if (max(classes ) < max(x)) { classes [length(classes )+1]=max(classes )+range }
   if (length(which(classes  >= max(x))) > 1) { classes  = classes [-length(classes )] }
   classes
-}
+}### end -- sturges function
+NULL

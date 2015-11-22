@@ -14,7 +14,7 @@
 #' @examples
 #' \dontrun{ voronoi(p=2, n=20, dim=1000) }
 #'
-voronoi <- function(p, n=100, dim=1000, plot=TRUE){
+`voronoi` <- function(p, n=100, dim=1000, plot=TRUE){
   s1 <- Sys.time()
   dim.image <- dim
   colors <- grDevices::rainbow(n)
@@ -53,5 +53,5 @@ if(plot==TRUE){
     cat("-----------------------------------\n")
 return(frame)
 }
-}
+}### end -- voronoi function
 NULL
