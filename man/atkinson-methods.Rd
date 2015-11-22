@@ -25,11 +25,13 @@ atkinson(x, n = rep(1, length(x)), parameter = 0.5, na.rm = FALSE)
 Calculates the Atkinson Index. This inequality measure is espcially good at determining which end of the distribution is contributing most to the observed inequality.
 }
 \examples{
+if (interactive()) {
 # generate a vector (of incomes)
 x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 
 # compute Atkinson coefficient with parameter=0.5
 atkinson(x, parameter=0.5)
+}
 }
 \references{
 Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.

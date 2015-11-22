@@ -2,7 +2,7 @@
 #'
 #' @description Convert a numeric value from one measurement system to another. For instance, distances in miles to kilometers.
 #'
-#' @param \item{x A numeric value or vector of data values to be converted.
+#' @param x A numeric value or vector of data values to be converted.
 #' @param from A character defining the original unit.
 #' @param to A character defining the target unit.
 #'

@@ -514,10 +514,28 @@ NULL
 #' @keywords datasets
 #' @name Bush
 #' @usage data(Bush)
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Bush)} variables and \Sexpr{nrow(SciencesPo::Bush)} observations.
 #'
 NULL
 
+
+
+#' @title Measurement System Units
+#'
+#' @description A dataset with measurement system units.
+#'
+#' \itemize{
+#' \item from A character defining the original unit.
+#' \item to A character defining the target unit.
+#' \item factor The factor to be applied in conversion.
+#' \item description Some details about the measure.
+#' }
+#' @docType data
+#' @keywords datasets
+#' @name Units
+#' @usage data(Units)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Units)} variables and \Sexpr{nrow(SciencesPo::Units)} observations.
+#'
+NULL
 
 #' # setwd("~/SciencesPo/data")
 #' # system("cp Bush.txt Bush-cp.txt")

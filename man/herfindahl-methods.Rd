@@ -28,11 +28,13 @@ Calculates the Herfindahl Index of concentration.
 The same measure is also known as the Simpson index in ecology, as the Herfindahl index or the Herfindahl-Hirschman index (HHI) in economics, and as the Effective Number of Parties in political science.
 }
 \examples{
+if (interactive()) {
 # generate a vector (of incomes)
 x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 
 # compute Herfindahl coefficient with parameter=1
 herfindahl(x, parameter=1)
+}
 }
 \references{
 Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.

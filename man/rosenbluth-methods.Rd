@@ -22,11 +22,13 @@ rosenbluth(x, n = rep(1, length(x)), na.rm = FALSE)
 Calculates the Rosenbluth Index of concentration. This index is also known as Hall or Tiedemann Indices.
 }
 \examples{
+if (interactive()){
 # generate a vector (of incomes)
 x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 
 # compute Rosenbluth coefficient
 rosenbluth(x)
+}
 }
 \references{
 Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
