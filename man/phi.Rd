@@ -22,6 +22,13 @@ Alternatives to Phi are the Pearson's C; Tschuprow's T, and Cramer's V.
 }
 \examples{
 if (interactive()) {
+ # some data:
+male <- c(33, 76, 6)
+female <- c(47, 153, 25)
+mat <- cbind( male, female )
+colnames(mat) <- c( 'good', 'satisfactory', 'bad')
+
+phi(mat)
 }
 }
 \references{

@@ -7,7 +7,7 @@
 x %>% f(y) is translated into f(x, y).
 }
 \description{
-Chain operator
+Chain operator.
 }
 \keyword{manipulation}
 

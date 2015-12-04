@@ -75,9 +75,13 @@ NULL
 #'
 #' @keywords Models
 #' @examples
+#' if (interactive()) {
 #' data(mtcars)
+#'
 #' m1 <- lm(mpg ~ qsec + hp, data=mtcars)
+#'
 #' vif(m1)
+#' }
 #' @export
 `vif` <-
   function(model, ...) {
@@ -124,6 +128,7 @@ NULL
 #' @return p.value The significant probability of the null-hypothesis testing.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
+#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' geary(x)
@@ -131,7 +136,9 @@ NULL
 #' geary(20:50)
 #'
 #' y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
-#' qqnorm(y)
+#'
+#' stats::qqnorm(y)
+#'}
 #' @export
 `geary` <- function(x, na.rm=TRUE) {
   if (any(i.na <- is.na(x))) {
@@ -220,9 +227,13 @@ NULL
 #' Economic Letters, Vol. 6 Issue 3, 255-259.
 #'
 #' @examples
+#' if (interactive()) {
 #' set.seed(1234)
+#'
 #' x <- rnorm(1000)
+#'
 #' jarque.bera(x)
+#' }
 #' @export
 jarque.bera <- function(x)
 {
@@ -254,11 +265,14 @@ NULL
 #' @description The Jensen-Shannon divergence or distance matrix stores the \eqn{n*(n-1)/2} pairwise distances/similarities between observations in an \eqn{n x p} matrix where n correspond to the independent observational units and p represent the covariates measured on each individual.
 #' @param mat An n x p matrix.
 #' @examples
-#'# create a matrix
+#' if (interactive()) {
+#' # create a matrix
 #' n  = 10
 #' m = matrix(runif(n*10), ncol = 10)
 #' m = m/rowSums(m)
+#'
 #' jensen.shannon(m)
+#' }
 #' @export
 jensen.shannon <- function(mat) {
   kld = function(p,q) sum(ifelse(p == 0 | q == 0, 0, log(p/q)*p))
@@ -285,18 +299,17 @@ NULL
 #' @param x the independent variable.
 #' @param z the moderator variable.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @importFrom stats lm vcov coef qt
 #'@export
 `johnson.neyman` = function(y,x,z){
-  mod = lm(y~x + z + x:z)
-  gam1.v = vcov(mod)["x","x"]
-  gam3.v = vcov(mod)["x:z","x:z"]
-  gam1gam3.cv = vcov(mod)["x","z"]
-  df = length(y)-length(coef(mod))
-  t = qt(.975,df)
+  mod = stats::lm(y~x + z + x:z)
+  gam1.v = stats::vcov(mod)["x","x"]
+  gam3.v = stats::vcov(mod)["x:z","x:z"]
+  gam1gam3.cv = stats::vcov(mod)["x","z"]
+  df = length(y)-length(stats::coef(mod))
+  t = stats::qt(.975,df)
   zz = seq(min(z),max(z),by=.01)
   se.w1 = sqrt(gam1.v + 2*zz*gam1gam3.cv + zz^2*gam3.v)
-  w1.hat = coef(mod)["x"]+coef(mod)["x:z"]*zz
+  w1.hat = stats::coef(mod)["x"]+stats::coef(mod)["x:z"]*zz
   z.tab = cbind(zz,t<abs(w1.hat/se.w1))
   ci.low = w1.hat - t*se.w1
   ci.upp = w1.hat + t*se.w1
@@ -324,10 +337,11 @@ NULL
 #' @importFrom stats complete.cases pnorm
 #' @export
 #' @examples
+#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' lilliefors(x)
-#'
+#'}
 lilliefors <- function(x){
   DNAME <- deparse(substitute(x))
   x <- sort(x[stats::complete.cases(x)])
@@ -399,11 +413,12 @@ NULL
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
+#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' geary(x)
 #' bonett.seier(x)
-
+#' }
 `bonett.seier` <-
   function (x, alternative=c("two.sided","less","greater"))
   {
@@ -459,10 +474,12 @@ NULL
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
+#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' kurtosis(x)
 #' anscombe.glynn(x)
+#' }
 `anscombe.glynn` <-
   function (x, alternative=c("two.sided","less","greater"))
   {
@@ -515,10 +532,11 @@ NULL
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
+#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' anderson.darling(x)
-#'
+#'}
 anderson.darling <- function (x)
 {
   DNAME <- deparse(substitute(x))
@@ -569,11 +587,12 @@ NULL
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
+#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' skewness(x)
 #' agostino(x)
-#'
+#'}
 `agostino` <-
   function (x, alternative=c("two.sided","less","greater"))
   {
@@ -664,7 +683,7 @@ likelihood.ratio.default <- function(x, y = NULL) {
     x <- table(x,y)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
-  if (all(dim(x) == 2)) { result <- chisq.test(x, correct = TRUE) } else { result <- suppressWarnings(chisq.test(x, correct = FALSE)) }
+  if (all(dim(x) == 2)) { result <- stats::chisq.test(x, correct = TRUE) } else { result <- suppressWarnings(stats::chisq.test(x, correct = FALSE)) }
 
   G <- 2 * sum(result$obs * log(result$obs/result$exp), na.rm = TRUE)
   pvalue <- 1 - pchisq(G, result[[2]][[1]])
@@ -697,7 +716,6 @@ NULL
 #' # Consider an experiment with two conditions, each with 100
 #' participants.
 #' # Each participant chooses between one of three parties.
-#'
 #' cond1 <- c(40, 25, 35)
 #' cond2 <- c(25, 35, 45)
 #' mat <- cbind( cond1, cond2 )
@@ -706,7 +724,7 @@ NULL
 #'# To test the null hypothesis that the distribution of preferences
 #'# is identical in the two conditions, we run a chi-square test:
 #'
-#' chisq.test(mat)
+#' stats::chisq.test(mat)
 #'
 #' # But, if we want to estimate the effect size, we then use Cramer's V:
 #'
@@ -732,10 +750,10 @@ NULL
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- chisq.test(x, correct = TRUE)
+    result <- stats::chisq.test(x, correct = TRUE)
     cramersV <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
-    result <- suppressWarnings(chisq.test(x, correct = FALSE))
+    result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
     cramersV <- sqrt(result[[1]][[1]]/(sum(x)*(min(dim(x))-1)))
   }
   return(cramersV)
@@ -766,6 +784,13 @@ NULL
 #'
 #' @examples
 #' if (interactive()) {
+#'  # some data:
+#' male <- c(33, 76, 6)
+#' female <- c(47, 153, 25)
+#' mat <- cbind( male, female )
+#' colnames(mat) <- c( 'good', 'satisfactory', 'bad')
+#'
+#' phi(mat)
 #' }
 #' @export
 `phi` <- function(x, y = NULL) UseMethod("phi")
@@ -787,10 +812,10 @@ NULL
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- chisq.test(x, correct = TRUE)
+    result <- stats::chisq.test(x, correct = TRUE)
     phicoef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
-    result <- suppressWarnings(chisq.test(x, correct = FALSE))
+    result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
     phicoef <- sqrt(result[[1]][[1]]/sum(x))
   }
   return(phicoef)
@@ -842,10 +867,10 @@ NULL
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- chisq.test(x, correct = TRUE)
+    result <- stats::chisq.test(x, correct = TRUE)
     cont.coef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
-    result <- suppressWarnings(chisq.test(x, correct = FALSE))
+    result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
     cont.coef <- sqrt(result[[1]][[1]]/(sum(x) + result[[1]][[1]]))
   }
   return(cont.coef)
@@ -891,7 +916,7 @@ NULL
   if(!is.null(y)) x <- table(x, y, ...)
   # http://en.wikipedia.org/wiki/Tschuprow's_T
   # Hartung S. 451
-  as.numeric( sqrt(suppressWarnings(chisq.test(x, correct = FALSE)$statistic)/ (sum(x) * sqrt(prod(dim(x)-1)))))
+  as.numeric( sqrt(suppressWarnings(stats::chisq.test(x, correct = FALSE)$statistic)/ (sum(x) * sqrt(prod(dim(x)-1)))))
 
 }### end -- tschuprowT function
 NULL
@@ -927,7 +952,7 @@ NULL
 #' if (interactive()) {
 #' # Example 5.1 in Gibbons and Chakraborti (2003), p.98.
 #' # Annual data on total number of tourists to the United States for 1970-1982.
-#' years <- 1970:1982
+#'  years <- 1970:1982
 #' tourists <- c(12362, 12739, 13057, 13955, 14123,  15698, 17523,
 #'  18610, 19842, 20310, 22500, 23080, 21916)
 #'
@@ -935,12 +960,12 @@ NULL
 #'  plot(years, tourists, pch=20)
 #'
 #' # Test the null against a trend
-#'  bartels(tourists, alternative="left.sided", pvalue="beta")
+#'  bartels.rank(tourists, alternative="left.sided", pvalue="beta")
 #' }
 #' @export
-`bartels` <- function(x, alternative="two.sided", pvalue="normal") UseMethod("bartels")
+`bartels.rank` <- function(x, alternative="two.sided", pvalue="normal") UseMethod("bartels.rank")
 
-`bartels.default` <- function(x, alternative="two.sided", pvalue="normal"){
+`bartels.rank.default` <- function(x, alternative="two.sided", pvalue="normal"){
   dname <- deparse(substitute(x))
   # Remove NAs
   x <- na.omit(x)

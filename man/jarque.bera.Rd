@@ -17,9 +17,13 @@ This function performs the Jarque-Bera test on the given data sample to determin
 The Jarque-Bera statistic is chi-square distributed with two degrees of freedom. Under the hypothesis of normality, data should be symmetrical (i.e. skewness should be equal to zero) and have skewness chose to three.
 }
 \examples{
+if (interactive()) {
 set.seed(1234)
+
 x <- rnorm(1000)
+
 jarque.bera(x)
+}
 }
 \references{
 Jarque, C. M., Bera, A. K. (1980) Efficient test for normality, homoscedasticity and serial independence of residuals,

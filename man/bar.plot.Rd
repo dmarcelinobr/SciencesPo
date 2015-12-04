@@ -26,7 +26,7 @@ bar.plot(data, x.var = NULL, y.var = NULL, group.var = NULL,
 \item{\dots}{Other parameters passed on to ggplot2.customize function.}
 }
 \description{
-Plot a barplot with ggplot2
+Plot a barplot with ggplot2.
 }
 \examples{
 if (interactive()) {

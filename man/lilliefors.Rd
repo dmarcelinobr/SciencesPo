@@ -15,9 +15,11 @@ Missing values are allowed.}
 Performs the Lilliefors (Kolmogorov-Smirnov) test for the composite hypothesis of normality. The Lilliefors (Kolomorov-Smirnov) test is the most famous EDF omnibus test for normality; compared to the Anderson-Darling test and the Cramer-von Mises test it is known to perform worse.
 }
 \examples{
+if (interactive()) {
 set.seed(1234)
 x = rnorm(1000)
 lilliefors(x)
+}
 }
 \references{
 Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.

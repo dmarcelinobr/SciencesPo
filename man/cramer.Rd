@@ -24,7 +24,6 @@ if (interactive()) {
 # Consider an experiment with two conditions, each with 100
 participants.
 # Each participant chooses between one of three parties.
-
 cond1 <- c(40, 25, 35)
 cond2 <- c(25, 35, 45)
 mat <- cbind( cond1, cond2 )
@@ -33,7 +32,7 @@ rownames(mat) <- c( 'party1', 'party2', 'party3')
 # To test the null hypothesis that the distribution of preferences
 # is identical in the two conditions, we run a chi-square test:
 
-chisq.test(mat)
+stats::chisq.test(mat)
 
 # But, if we want to estimate the effect size, we then use Cramer's V:
 

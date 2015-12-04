@@ -1,6 +1,8 @@
 #' @encoding UTF-8
 #' @title Plot a barplot with ggplot2
 #'
+#' @description Plot a barplot with ggplot2.
+#'
 #' @param data The data frame.
 #' @param x.var The name of column containing x variable. Default value is NULL.
 #' @param y.var The name of column containing y variable.

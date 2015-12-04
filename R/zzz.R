@@ -9,6 +9,7 @@ setnames <- `names<-`
 setclass <- `class<-`
 
 #' @title Chain operator
+#' @description Chain operator.
 #' @name %>%
 #' @importFrom magrittr %>%
 #' @export %>%

@@ -645,7 +645,7 @@ NULL
             , "column" = { sigma2 <- var.uc.CR }
     )
     pr2 <- 1 - (1 - conf.level)/2
-    ci <- qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + res
+    ci <- stats::qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + res
     retval <- c(
       "Est. Mean" = res,
       "CI lower"=max(ci[1], -1),

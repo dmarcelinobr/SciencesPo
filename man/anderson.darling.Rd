@@ -17,8 +17,10 @@ Performs the Anderson-Darling test for the composite hypothesis of normality. Se
 The Anderson-Darling test is the recommended EDF test by Stephens (1986) followed by the Cramer-von Mises test. Compared to the later, the Anderson-Darling gives more weight to the tails of the distribution.
 }
 \examples{
+if (interactive()) {
 set.seed(1234)
 x = rnorm(1000)
 anderson.darling(x)
+}
 }
 

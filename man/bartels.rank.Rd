@@ -34,7 +34,7 @@ where \eqn{R_i=rank(X_i), i=1,\dots, n}{R_i=rank(X_i), i=1,...,n}. It is known t
 if (interactive()) {
 # Example 5.1 in Gibbons and Chakraborti (2003), p.98.
 # Annual data on total number of tourists to the United States for 1970-1982.
-years <- 1970:1982
+ years <- 1970:1982
 tourists <- c(12362, 12739, 13057, 13955, 14123,  15698, 17523,
  18610, 19842, 20310, 22500, 23080, 21916)
 
