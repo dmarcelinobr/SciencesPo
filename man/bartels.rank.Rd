@@ -2,9 +2,13 @@
 % Please edit documentation in R/TESTS.R
 \name{bartels.rank}
 \alias{bartels.rank}
+\alias{bartels.rank.default}
 \title{Bartels Rank Test of Randomness}
 \usage{
 bartels.rank(x, alternative = "two.sided", pvalue = "normal")
+
+\method{bartels.rank}{default}(x, alternative = "two.sided",
+  pvalue = "normal")
 }
 \arguments{
 \item{x}{A numeric vector of data values.}

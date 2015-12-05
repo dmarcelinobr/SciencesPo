@@ -2,9 +2,12 @@
 % Please edit documentation in R/TESTS.R
 \name{cramer}
 \alias{cramer}
+\alias{cramer.default}
 \title{Cramer's V Coefficient for Tables}
 \usage{
 cramer(x, y = NULL)
+
+\method{cramer}{default}(x, y = NULL)
 }
 \arguments{
 \item{x}{A vector or a matrix.}

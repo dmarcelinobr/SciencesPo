@@ -3,9 +3,16 @@
 \encoding{UTF-8}
 \name{untable}
 \alias{untable}
+\alias{untable.data.frame}
+\alias{untable.default}
 \title{Untable}
 \usage{
 untable(x, ...)
+
+\method{untable}{data.frame}(x, freq = "Freq", rownames = NULL, ...)
+
+\method{untable}{default}(x, dimnames = NULL, type = NULL,
+  rownames = NULL, colnames = NULL, ...)
 }
 \arguments{
 \item{x}{The table object as a data.frame, table, or, matrix.}

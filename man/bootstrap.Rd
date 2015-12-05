@@ -5,7 +5,7 @@
 \alias{bootstrap}
 \alias{bootstrap.default}
 \alias{bootstrap.model}
-\title{Method for Bootstrap}
+\title{Method for Bootstrapping}
 \usage{
 bootstrap(x, ...)
 

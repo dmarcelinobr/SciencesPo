@@ -2,9 +2,12 @@
 % Please edit documentation in R/TESTS.R
 \name{likelihood.ratio}
 \alias{likelihood.ratio}
+\alias{likelihood.ratio.default}
 \title{Likelihood Ratio Test (G test) for Tables}
 \usage{
 likelihood.ratio(x, y = NULL)
+
+\method{likelihood.ratio}{default}(x, y = NULL)
 }
 \arguments{
 \item{x}{A vector or a matrix.}

@@ -21,17 +21,17 @@ variable that when used in conjunction with the existing ID variables,
 should be unique.
 }
 \examples{
-mydf <- data.frame(IDA = c("a", "a", "a", "b", "b"),
-                   IDB = c(1, 1, 1, 1, 1), values = 1:5)
-mydf
-flag(mydf, c("IDA", "IDB"))
+if (interactive()) {
+df <- data.frame(A = c("a", "a", "a", "b", "b"),
+                   B = c(1, 1, 1, 1, 1), values = 1:5)
+df
+flag(df, c("A", "B"))
 
-mydf <- data.frame(IDA = c("a", "a", "a", "b", "b"),
-                   IDB = c(1, 2, 1, 1, 2), values = 1:5)
-mydf
-flag(mydf, 1:2)
-
-\dontshow{rm(mydf)}
+df <- data.frame(A = c("a", "a", "a", "b", "b"),
+                   B = c(1, 2, 1, 1, 2), values = 1:5)
+df
+flag(df, 1:2)
+}
 }
 \author{
 Ananda Mahto

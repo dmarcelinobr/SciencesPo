@@ -103,12 +103,13 @@ theme_538 <- function(base_size = 13, base_family = "", legend.position = 'none'
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
       # Base elements which are not used directly but inherited by others
+
       line = element_line(colour = '#D0D0D0', size = 0.75,
                           linetype = 1, lineend = "butt"),
       rect = element_rect(fill = "#F0F0F0", colour = "#F0F0F0",
                           size = 0.5, linetype = 1),
-      text = element_text(family = base_family, face = "bold",
-                          colour = "#535353", size = rel(.9),
+      text = element_text(family = base_family, face = 'bold',
+                          colour = "#535353", size = base_size,
                           hjust = 0.5, vjust = 0.5, angle = 0,
                           lineheight = 0.9),
       # Modified inheritance structure of text element

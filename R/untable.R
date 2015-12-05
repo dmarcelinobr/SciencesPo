@@ -23,6 +23,8 @@ untable <- function(x, ...){
   UseMethod("untable")
 }
 
+#' @rdname untable
+#' @export
 untable.data.frame <- function(x, freq = "Freq", rownames = NULL, ...){
 
   if(all(is.na(match(freq, names(x)))))
@@ -35,7 +37,8 @@ untable.data.frame <- function(x, freq = "Freq", rownames = NULL, ...){
 }
 
 
-
+#' @rdname untable
+#' @export
 untable.default <- function(x, dimnames=NULL, type = NULL, rownames = NULL, colnames = NULL, ...) {
 
   # recreates the data.frame out of a contingency table

@@ -2,9 +2,12 @@
 % Please edit documentation in R/TESTS.R
 \name{tschuprow}
 \alias{tschuprow}
+\alias{tschuprow.default}
 \title{Tschuprow's T for Tables}
 \usage{
 tschuprow(x, y = NULL)
+
+\method{tschuprow}{default}(x, y = NULL, ...)
 }
 \arguments{
 \item{x}{A vector or a matrix.}

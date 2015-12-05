@@ -2,9 +2,12 @@
 % Please edit documentation in R/TESTS.R
 \name{phi}
 \alias{phi}
+\alias{phi.default}
 \title{Cramer's Phi Coefficient for Tables}
 \usage{
 phi(x, y = NULL)
+
+\method{phi}{default}(x, y = NULL)
 }
 \arguments{
 \item{x}{A vector or a matrix.}

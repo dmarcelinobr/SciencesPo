@@ -2,9 +2,12 @@
 % Please edit documentation in R/TESTS.R
 \name{contingency}
 \alias{contingency}
+\alias{contingency.default}
 \title{Pearson's Contingency Coefficient for Tables}
 \usage{
 contingency(x, y = NULL)
+
+\method{contingency}{default}(x, y = NULL)
 }
 \arguments{
 \item{x}{A vector or a matrix.}

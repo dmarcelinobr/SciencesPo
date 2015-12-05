@@ -667,6 +667,8 @@ NULL
 #' @export
 `likelihood.ratio` <- function(x, y = NULL) UseMethod("likelihood.ratio")
 
+#' @rdname likelihood.ratio
+#' @export
 likelihood.ratio.default <- function(x, y = NULL) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
@@ -733,6 +735,8 @@ NULL
 #' @export
 `cramer` <- function(x, y = NULL) UseMethod("cramer")
 
+#' @rdname cramer
+#' @export
 `cramer.default` <- function(x, y = NULL) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
@@ -795,6 +799,9 @@ NULL
 #' @export
 `phi` <- function(x, y = NULL) UseMethod("phi")
 
+
+#' @rdname phi
+#' @export
 `phi.default` <- function(x, y = NULL) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
@@ -850,6 +857,8 @@ NULL
 #' @export
 `contingency` <- function(x, y = NULL) UseMethod("contingency")
 
+#' @rdname contingency
+#' @export
 `contingency.default` <- function(x, y = NULL) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
@@ -911,6 +920,9 @@ NULL
 #'
 `tschuprow` <- function(x, y = NULL) UseMethod("tschuprow")
 
+
+#' @rdname tschuprow
+#' @export
 `tschuprow.default` <- function(x, y = NULL, ...){
 
   if(!is.null(y)) x <- table(x, y, ...)
@@ -965,6 +977,9 @@ NULL
 #' @export
 `bartels.rank` <- function(x, alternative="two.sided", pvalue="normal") UseMethod("bartels.rank")
 
+
+#' @rdname bartels.rank
+#' @export
 `bartels.rank.default` <- function(x, alternative="two.sided", pvalue="normal"){
   dname <- deparse(substitute(x))
   # Remove NAs
@@ -1006,9 +1021,9 @@ NULL
     pv <- 1-pv0
     alternative<-"systematic oscillation"
   }
-  test <- (RVN - mu) / sqrt(vr)
-  rval <- list(statistic = c(statistic=test), nm=sum(d^2), rvn=RVN, mu=mu, var=vr, p.value = pv,
-               method = "Bartels Ratio Test", data.name = dname, parameter=c(n=n), n=n, alternative=alternative)
+test <- (RVN - mu) / sqrt(vr)
+rval <- list(statistic = c(statistic=test), nm=sum(d^2), rvn=RVN, mu=mu, var=vr, p.value = pv,
+method = "Bartels Ratio Test", data.name = dname, parameter=c(n=n), n=n, alternative=alternative)
   class(rval) <- "htest"
   return(rval)
 } ### end -- bartels.rank function
