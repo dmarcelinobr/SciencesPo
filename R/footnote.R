@@ -55,7 +55,7 @@
     #grid::pushViewport(grid::viewport())
     grid::grid.text(label = text ,
               x = 0.99,
-              y = 0.02,
+              y = 0.01,
               just = just,
               rot = rotn,
               gp = grid::gpar(fontsize = fontsize, col = color))
