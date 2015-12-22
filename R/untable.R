@@ -19,13 +19,13 @@
 #' head(GSS)
 #' }
 #' @export
-untable <- function(x, ...){
+`untable` <- function(x, ...){
   UseMethod("untable")
 }
 
 #' @rdname untable
 #' @export
-untable.data.frame <- function(x, freq = "Freq", rownames = NULL, ...){
+`untable.data.frame` <- function(x, freq = "Freq", rownames = NULL, ...){
 
   if(all(is.na(match(freq, names(x)))))
     stop(gettextf("Frequency column %s does not exist!", freq))
@@ -39,7 +39,7 @@ untable.data.frame <- function(x, freq = "Freq", rownames = NULL, ...){
 
 #' @rdname untable
 #' @export
-untable.default <- function(x, dimnames=NULL, type = NULL, rownames = NULL, colnames = NULL, ...) {
+`untable.default` <- function(x, dimnames=NULL, type = NULL, rownames = NULL, colnames = NULL, ...) {
 
   # recreates the data.frame out of a contingency table
 

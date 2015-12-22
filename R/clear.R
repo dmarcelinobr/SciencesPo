@@ -11,12 +11,12 @@
 #' # create objects
 #' a=1; b=2; c=3; d=4; e=5
 #' # remove d
-#' clear("d", keep=F)
+#' clear("d", keep=FALSE)
 #' ls()
 #' # remove all but a and b
-#' clear(c("a", "b"), keep=T)
+#' clear(c("a", "b"), keep=TRUE)
 #' ls()
-`clear` = function(obj=NULL, keep=T){
+`clear` = function(obj=NULL, keep=TRUE){
 	if (!is.null(obj)){
 		if (keep){
 			dropme = ls(envir=globalenv())[which(!(ls(envir=globalenv())%in%obj))]

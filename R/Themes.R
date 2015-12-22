@@ -6,31 +6,31 @@
 #' @param base_family Enables to set the font family of all text elements.
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_black}}, \code{\link{theme_pub}}.
 #' @export
-`theme_map` <- function (base_size = 12, base_family = "") {
+`theme_map` <- function (base_size = 12, base_family = "", legend.position = 'bottom') {
 .theme_dumb(base_size = base_size, base_family = base_family) %+replace%
 theme(
 axis.line=element_blank(),
 axis.text.x=element_blank(),
 axis.text.y=element_blank(),
 axis.ticks=element_blank(),
-axis.ticks.length= unit(0.3, "lines"),
-#axis.ticks.margin= unit(0.5, "lines"),
+axis.ticks.length= grid::unit(0.3, "lines"),
+#axis.ticks.margin= grid::unit(0.5, "lines"),
 axis.title.x=element_blank(),
 axis.title.y=element_blank(),
-legend.background=element_rect(fill="white", colour=NA),
-legend.key=element_rect(colour="white"),
-legend.key.size= unit(1.5, "lines"),
-legend.position="right",
-legend.text=element_text(size=rel(1.2)),
-legend.title=element_text(size=rel(1.4), face="bold", hjust=0),
+legend.key = element_rect(color = NA),
+legend.position = legend.position,
+legend.direction = "horizontal",
+legend.key.size = grid::unit(0.2, "cm"),
+legend.margin = grid::unit(0, "cm"),
+legend.title=element_text(size=rel(1.1), face="bold", hjust=0),
 panel.background=element_blank(),
 panel.border=element_blank(),
 panel.grid.major=element_blank(),
 panel.grid.minor=element_blank(),
-panel.margin= unit(0, "cm"),
+panel.margin= grid::unit(0, "cm"),
 plot.background=element_blank(),
 # margins starting with top, right, bottom and left
-plot.margin= unit(c(.3, .2, 0.3, 0.4), "cm"),
+plot.margin= grid::unit(c(.3, .2, 0.3, 0.4), "cm"),
 plot.title=element_text(size=rel(1.8), face="bold", hjust=0.5),
 strip.background=element_rect(fill="grey90", colour="grey50"),
 strip.text.x=element_text(size=rel(0.8)),
@@ -71,20 +71,20 @@ size = rel(1.2), hjust = 0.5),
           axis.line.x = element_line(),
           axis.line.y = element_line(),
           axis.ticks = element_line(),
-axis.ticks.length = unit(0.15, "cm"),
-axis.ticks.margin = unit(0, "cm"),
+axis.ticks.length = grid::unit(0.15, "cm"),
+axis.ticks.margin = grid::unit(0, "cm"),
           panel.grid.major = element_line(color="#F0F0F0"),
           panel.grid.minor = element_blank(),
-          panel.margin.x = unit(0, "cm"),
-          panel.margin.y = unit(0, "cm"),
+          panel.margin.x = grid::unit(0, "cm"),
+          panel.margin.y = grid::unit(0, "cm"),
           legend.key = element_rect(color = NA),
           legend.position = legend.position,
           legend.direction = "horizontal",
-          legend.key.size = unit(0.2, "cm"),
-          legend.margin = unit(0, "cm"),
+          legend.key.size = grid::unit(0.2, "cm"),
+          legend.margin = grid::unit(0, "cm"),
           legend.title = element_text(face="italic"),
 # margins starting with top, right, bottom and left
-          plot.margin = unit(c(0.4, 0.2, 0.1, 0.1),"cm"),
+          plot.margin = grid::unit(c(0.4, 0.2, 0.1, 0.1),"cm"),
           # strip.background=element_rect(color="#f0f0f0",fill="#f0f0f0"),
           strip.text = element_text(face="bold")
   ))
@@ -126,14 +126,70 @@ theme_538 <- function(base_size = 13, base_family = "", legend.position = 'none'
       # Modified inheritance structure of rect element
       plot.background =  element_rect(),
       panel.background =  element_rect(),
-      legend.key =  element_rect(colour = '#D0D0D0'),
-      # Modifiying legend.position
+      legend.background = element_rect(linetype = 0),
+      legend.margin = grid::unit(base_size * 1.1, "points"),
+      legend.key = element_rect(linetype = 0),
+      legend.key.size = grid::unit(1.1, "lines"), legend.key.height = NULL,
+      legend.key.width = NULL, legend.text = element_text(size = rel(1.2)),
+      legend.text.align = NULL, legend.title = element_text(size = rel(1),
+                                                            hjust = 0),
+      legend.title.align = NULL,
       legend.position = legend.position,
+      legend.direction = NULL, legend.justification = "center",
+      #legend.key =  element_rect(colour = '#D0D0D0'),
+      # Modifiying legend.position
       complete = TRUE
     )
 }
 NULL
 
+
+
+
+
+
+#' @title Themes for ggplot graphs
+#' @description  Theme for plotting  with ggplot.
+#'
+`theme_fte` <- function (base_size = 13, base_family = "sans", horizontal = TRUE, dkpanel = FALSE){
+  ret <- theme(line = element_line(colour = "black", size = 0.5, linetype = 1, lineend = "butt"),
+               rect = element_rect(fill = "#D5E4EB", colour = NA, size = 0.5, linetype = 1),
+               text = element_text(family = base_family, face = "plain", colour = "black", size = base_size, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1), axis.text = element_text(size = rel(1)),
+               axis.line = element_line(size = rel(0.8)), axis.line.y = element_blank(),
+               axis.text.x = element_text(vjust = 1), axis.text.y = element_text(hjust = 0),
+               axis.ticks = element_line(), axis.ticks.y = element_blank(),
+               axis.title = element_text(size = rel(1)), axis.title.x = element_text(),
+               axis.title.y = element_text(angle = 90), axis.ticks.length = grid::unit(-base_size *
+                                                                                   0.5, "points"), axis.ticks.margin = grid::unit(base_size *
+                                                                                                                              1.25, "points"),
+               legend.background = element_rect(linetype = 0),
+               legend.margin = grid::unit(base_size * 1.5, "points"), legend.key = element_rect(linetype = 0),
+               legend.key.size = grid::unit(1.2, "lines"), legend.key.height = NULL,
+               legend.key.width = NULL, legend.text = element_text(size = rel(1.25)),
+               legend.text.align = NULL, legend.title = element_text(size = rel(1),
+                                                                     hjust = 0), legend.title.align = NULL, legend.position = "top",
+               legend.direction = NULL, legend.justification = "center",
+               panel.background = element_rect(linetype = 0), panel.border = element_blank(),
+               panel.grid.major = element_line(colour = "#c9c9c9", size = rel(1.5)),
+               panel.grid.minor = element_blank(), panel.margin = grid::unit(0.25,
+                                                                       "lines"), strip.background = element_rect(fill ="#D5E4EB",
+                                                                                                                 colour = NA, linetype = 0), strip.text = element_text(size = rel(1.25)),
+               strip.text.x = element_text(), strip.text.y = element_text(angle = -90),
+               plot.background = element_rect(fill = "#D5E4EB",
+                                              colour = NA), plot.title = element_text(size = rel(1.5), hjust = 0, face = "bold"), plot.margin = grid::unit(c(6, 5, 6, 5) * 2, "points"), complete = TRUE)
+  if (horizontal) {
+    ret <- ret + theme(panel.grid.major.x = element_blank())
+  }
+  else {
+    ret <- ret + theme(panel.grid.major.y = element_blank())
+  }
+  if (dkpanel == TRUE) {
+    ret <- ret + theme(panel.background = element_rect(fill = "#c3d6df"),
+                       strip.background = element_rect(fill = "#c3d6df"))
+  }
+  ret
+}
+NULL
 
 #' @title ggplot2 Theme with No Background or Gridlines.
 #'
@@ -159,12 +215,12 @@ theme_black<-function(base_size=14, base_family ="helvetica") {
       axis.title.x=element_text(size=base_size,color="white",vjust=1),
       axis.title.y=element_text(size=base_size,color="white",angle=90,
                                 vjust=0.5),
-      axis.ticks.length=unit(0.3,"lines"),
-      axis.ticks.margin=unit(0.5,"lines"),
+      axis.ticks.length=grid::unit(0.3,"lines"),
+      axis.ticks.margin=grid::unit(0.5,"lines"),
       # Specify legend options
       legend.background=element_rect(color=NA,fill="black"),
       legend.key=element_rect(color="white", fill="black"),
-      legend.key.size=unit(1.2,"lines"),
+      legend.key.size=grid::unit(1.2,"lines"),
       legend.key.height=NULL,
       legend.key.width=NULL,
       legend.text=element_text(size=base_size*0.8,color="white"),
@@ -180,7 +236,7 @@ theme_black<-function(base_size=14, base_family ="helvetica") {
       panel.border=element_rect(fill=NA,color="white"),
       panel.grid.major=element_blank(),
       panel.grid.minor=element_blank(),
-      panel.margin=unit(0.25,"lines"),
+      panel.margin=grid::unit(0.25,"lines"),
       # Specify facetting options
       strip.background=element_rect(fill="grey30",color="grey10"),
       strip.text.x=element_text(size=base_size*0.8,color="white"),
@@ -188,7 +244,7 @@ theme_black<-function(base_size=14, base_family ="helvetica") {
       # Specify plot options
       plot.background=element_rect(color="black",fill="black"),
       plot.title=element_text(size=base_size*1.2,color="white"),
-      plot.margin = unit(c(0.4, 0.2, 0.1, 0.1),"cm")
+      plot.margin = grid::unit(c(0.4, 0.2, 0.1, 0.1),"cm")
     )
 }
 
@@ -203,10 +259,13 @@ scale_fill_pub <- function(...){
   discrete_scale("fill",
                           "pub",
                           scales::manual_pal(values =
-                                               c("#386cb0",
+                                               c("#386CB0",
+                                                 "#FF6347",
+                                                 "#2ECC71",
                                                  "#FDB462",
+                                                 "#9B59B6",
+                                                 "#899DA4",
                                                  "#7FC97F",
-                                                 "#EF3B2C",
                                                  "#662506",
                                                  "#3C2520",
                                                  "#A6CEE3",
@@ -232,16 +291,19 @@ discrete_scale("colour",
                         "pub",
                         scales::manual_pal(values =
                                              c("#386CB0",
-                                               "#FF9146",
+                                               "#FF6347",
+                                               "#2ECC71",
+                                               "#FDB462",
+                                               "#9B59B6",
+                                               "#899DA4",
                                                "#7FC97F",
-                                               "#EF3B2C",
                                                "#662506",
                                                "#3C2520",
                                                "#A6CEE3",
                                                "#FB9A99",
                                                "#984EA3",
                                                "#FFFF33",
-                                               "#4574C9",
+                                               "#FE7C96",
                                                "#CA9743")
                                            ), ...)
 }
@@ -286,15 +348,15 @@ NULL
     axis.ticks = element_line(),
     axis.ticks.x = element_line(),
     axis.ticks.y = element_line(),
-    axis.ticks.length = unit(0.15, "cm"),
-    #axis.ticks.margin =unit(0.1, "cm"),
+    axis.ticks.length = grid::unit(0.15, "cm"),
+    #axis.ticks.margin =grid::unit(0.1, "cm"),
     axis.line = element_line(),
     axis.line.x = element_line(),
     axis.line.y = element_line(),
     legend.background = element_rect(colour = NA),
-    legend.margin = unit(0.2, "cm"),
+    legend.margin = grid::unit(0.2, "cm"),
     legend.key = element_rect(),
-    legend.key.size = unit(1.2, "lines"),
+    legend.key.size = grid::unit(1.2, "lines"),
     legend.key.height = NULL,
     legend.key.width = NULL,
     legend.text = element_text(),
@@ -308,7 +370,7 @@ NULL
     ## Must have colour=NA or covers the plot
     panel.background = element_rect(),
     panel.border = element_rect(fill=NA),
-    panel.margin = unit(0, "cm"),
+    panel.margin = grid::unit(0, "cm"),
     panel.grid = element_line(),
     panel.grid.major = element_line(),
     panel.grid.major.x = element_line(),
@@ -318,7 +380,7 @@ NULL
     panel.grid.minor.y = element_line(),
     plot.background = element_rect(),
     plot.title = element_text(),
-    plot.margin = unit(c(0.3, 0.2, 0.3, 0.4), "cm"),
+    plot.margin = grid::unit(c(0.3, 0.2, 0.3, 0.4), "cm"),
     strip.background = element_rect(),
     strip.text = element_text(),
     strip.text.x = element_text(),

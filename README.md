@@ -37,6 +37,9 @@ R CMD build --binary <path to .tar.gz file>
 R CMD INSTALL <path to .zip file>
 ```
 
+## Helping Out
+*SciencesPo* is intended to be a useful project for the social and political scientists community. Contributions are welcomed.
+
 ## Usage
 
 For a brief introcution to _SciencesPo_ functionality, run:
@@ -51,10 +54,12 @@ To see what functions are implemented in _SciencesPo_, run:
 ```
 help(package=SciencesPo)
 ```
+## The Indices 
 
-## Visualization Instances
+## Descriptive Stats
+
+## The Viz
 To quickly get our feet wet with creating charming charts, we start with a minimal example.
-
 
 
 ### Voronoi diagram

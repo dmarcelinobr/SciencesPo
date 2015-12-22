@@ -24,7 +24,7 @@
 #'
 #' @importFrom data.table := is.data.table as.data.table
 #' @export
-flag <- function(data, id.vars = NULL) {
+`flag` <- function(data, id.vars = NULL) {
   if (!is.data.table(data)) data <- as.data.table(data)
   else data <- copy(data)
 
