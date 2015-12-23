@@ -35,6 +35,8 @@ if (getRversion() >= "2.15.1")
   msg <- paste(msg,"                           110--------111\n")
   suppressMessages(packageStartupMessage(msg))
 
+  ggplot2::theme_set(theme_pub())
+
   options(colors="dodgerblue")
   options(trans.fill.bar=0.25)
   options(trans.fill.pt=0.66)

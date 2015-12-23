@@ -76,10 +76,10 @@ if (getRversion() >= "2.15.1") globalVariables(c("Units"))
 #'  Liter  \tab l (or lt) \tab metric \cr
 #'}
 #' @examples
-#' unitsConversion(c(5.6, 6.7), "in", "m")
+#' unitsConverter(c(5.6, 6.7), "in", "m")
 #'
 #' @export
-unitsConversion <- function(x, from, to){
+`unitsConverter` <- function(x, from, to){
   if(from == "C") {
     if(to=="F") return(x *1.8+32)
   }
@@ -93,3 +93,4 @@ unitsConversion <- function(x, from, to){
   return(x * factor)
 
 }
+NULL
