@@ -41,7 +41,7 @@
 
 #' @rdname untable
 #' @param dimnames Set dimnames of an object if require.
-#' @param type
+#' @param type The type of variable. If NULL, ordered factor is returned.
 #' @export
 `untable.default` <- function(x, dimnames=NULL, type = NULL, rownames = NULL, colnames = NULL, ...) {
   # coerce to table, such as also be able to handle vectors

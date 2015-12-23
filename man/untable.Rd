@@ -23,7 +23,7 @@ untable(x, ...)
 
 \item{dimnames}{Set dimnames of an object if require.}
 
-\item{type}{}
+\item{type}{The type of variable. If NULL, ordered factor is returned.}
 
 \item{\dots}{Extra parameters.}
 }
