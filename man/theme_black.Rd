@@ -2,20 +2,19 @@
 % Please edit documentation in R/Themes.R
 \name{theme_black}
 \alias{theme_black}
-\title{ggplot2 Theme with No Background or Gridlines.}
+\title{Theme with no Black Background}
 \usage{
 theme_black(base_size = 14, base_family = "helvetica")
 }
 \arguments{
-\item{base_size}{The size to use for text.  Various textual components are
-scaled off of this value.}
+\item{base_size}{The size to use for text.  Various textual components are scaled off of this value.}
 
 \item{base_family}{The base font family.}
 }
 \description{
-A ggplot2 theme with no background and no gridlines.
+A ggplot2 theme with black background.
 }
 \seealso{
-\code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_map}}.
+\code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_blank}}.
 }
 

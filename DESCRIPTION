@@ -3,7 +3,7 @@ Type: Package
 Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
 Version: 1.3.9
-Date: 2015-12-01
+Date: 2015-01-01
 Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: Provides functions for analyzing political behavior data, including measures of political fragmentation, seats allocation, and graphical demonstrations.
@@ -11,18 +11,18 @@ URL: http://CRAN.R-project.org/package=SciencesPo
 License: GPL (>= 2)
 Depends:
     R (>= 3.0.0),
+    ggplot2 (>= 2.0.0),
     stats,
     utils,
     graphics,
     grDevices,
-    ggplot2,
     methods
 Imports:
     coda,
     RSQLite,
     data.table,
     zoo,
-    grid,
+    grid (>= 3.0.0),
     gridExtra,
     scales,
     magrittr,
@@ -32,10 +32,10 @@ Imports:
     stringr
 Suggests:
     testthat,
-    Zelig,
-    MCMCpack
+    knitr
+VignetteBuilder: knitr
 LazyData: yes
 Repository: CRAN
-BugReports: http://github.com/danielmarcelino/SciencesPo
+BugReports: http://github.com/danielmarcelino/SciencesPo/issues
 ByteCompile: TRUE
 RoxygenNote: 5.0.1

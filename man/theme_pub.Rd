@@ -32,4 +32,7 @@ set to default for all graphs made with ggplot2.
 ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
 geom_freqpoly(stat="count",size=2) + theme_pub(font_size = 16, line_size=1)
 }
+\seealso{
+\code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}, \code{\link{theme_black}}.
+}
 

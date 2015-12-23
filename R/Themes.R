@@ -10,6 +10,7 @@
 #' @param axis.line.x Enables to set x axis line.
 #' @param axis.line.y Enables to set y axis line.
 #' @return The theme.
+#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}, \code{\link{theme_black}}.
 #' @examples
 #' ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
 #' geom_freqpoly(stat="count",size=2) + theme_pub(font_size = 16, line_size=1)
@@ -138,21 +139,19 @@ NULL
 
 
 
-#' Create a completely empty theme
+#' Create a Completely Empty Theme
 #'
-#' The theme created by this function shows nothing but the plot panel. Unfortunately,
-#' due to ggplot2 peculiarities, a little bit of padding remains to the left and bottom of
-#' the panel. This can be removed by adding \code{labs(x = NULL, y = NULL)} to the plot, see examples.
+#' The theme created by this function shows nothing but the plot panel.
 #' @param base_size Overall font size. Default is 14.
 #' @param base_family Base font family.
 #' @return The theme.
 #' @examples
 #' # plot with small amount of remaining padding
-#' qplot(1:10, (1:10)^2) + theme_nothing()
+#' qplot(1:10, (1:10)^2) + theme_blank()
 #' # remaining padding removed
-#' qplot(1:10, (1:10)^2) + theme_nothing() + labs(x = NULL, y = NULL)
+#' qplot(1:10, (1:10)^2) + theme_blank() + labs(x = NULL, y = NULL)
 #' @export
-theme_nothing <- function(base_size = 12, base_family = ""){
+`theme_blank` <- function(base_size = 12, base_family = ""){
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
       rect              = element_rect(fill = "transparent", colour = NA, color = NA, size = 0, linetype = 0),
@@ -162,10 +161,10 @@ theme_nothing <- function(base_size = 12, base_family = ""){
       # to debug, uncomment next line
       #plot.background   = element_rect(colour = "blue", fill = "cyan"),
       panel.background  = element_blank(),
-      axis.ticks.length = grid::unit(0, "lines"),
+      axis.ticks.length = grid::unit(0, "cm"),
       legend.position   = "none",
-      panel.margin      = grid::unit(c(0, 0, 0, 0), "lines"),
-      plot.margin       = grid::unit(c(0, 0, 0, 0), "lines")
+      panel.margin      = grid::unit(c(0, 0, 0, 0), "cm"),
+      plot.margin       = grid::unit(c(0, 0, 0, 0), "cm")
     )
 }
 NULL
@@ -174,7 +173,7 @@ NULL
 
 
 
-#' Add/modify/remove the background grid in a ggplot2 plot
+#' @title Add/Modify/Remove the background grid in a ggplot2 plot
 #'
 #' This function provides a simple way to modify the background grid in ggplot2. It
 #' doesn't do anything that can't be done just the same with \code{theme()}. However, it simplifies
@@ -188,7 +187,7 @@ NULL
 #' @param colour.major Color of the major grid lines.
 #' @param colour.minor Color of the minor grid lines.
 #' @export
-background_grid <- function(major = c("xy", "x", "y", "only_minor", "none"),
+`background_grid` <- function(major = c("xy", "x", "y", "only_minor", "none"),
                             minor = c("xy", "x", "y", "none"),
                             size.major = 0.2, size.minor = 0.5,
                             colour.major = "grey90", colour.minor = "grey98"){
@@ -200,26 +199,22 @@ background_grid <- function(major = c("xy", "x", "y", "only_minor", "none"),
                                                            size = size.major),
                          panel.grid.major.y = element_blank()),
                y = theme(panel.grid.major   = element_line(colour = colour.major,
-                                                           size = size.major),
-                         panel.grid.major.x = element_blank()),
-               xy = theme(panel.grid.major = element_line(colour = colour.major,
-                                                          size = size.major)),
-               yx = theme(panel.grid.major = element_line(colour = colour.major,
-                                                          size = size.major)),
-               theme(panel.grid.major = element_blank()))
-
+                                                           size = size.major),panel.grid.major.x = element_blank()), xy = theme(panel.grid.major = element_line(colour = colour.major, size = size.major)),
+yx = theme(panel.grid.major = element_line(colour = colour.major,
+size = size.major)),
+theme(panel.grid.major = element_blank()))
   t + switch( minor[1],
-              x = theme(panel.grid.minor   = element_line(colour = colour.minor,
-                                                          size = size.minor),
-                        panel.grid.minor.y = element_blank()),
-              y = theme(panel.grid.minor   = element_line(colour = colour.minor,
-                                                          size = size.minor),
-                        panel.grid.minor.x = element_blank()),
-              xy = theme(panel.grid.minor = element_line(colour = colour.minor,
-                                                         size = size.minor)),
-              yx = theme(panel.grid.minor = element_line(colour = colour.minor,
-                                                         size = size.minor)),
-              theme(panel.grid.minor = element_blank()))
+x = theme(panel.grid.minor   = element_line(colour = colour.minor,
+size = size.minor),
+panel.grid.minor.y = element_blank()),
+y = theme(panel.grid.minor   = element_line(colour = colour.minor,
+size = size.minor),
+panel.grid.minor.x = element_blank()),
+xy = theme(panel.grid.minor = element_line(colour = colour.minor,
+size = size.minor)),
+yx = theme(panel.grid.minor = element_line(colour = colour.minor,
+size = size.minor)),
+theme(panel.grid.minor = element_blank()))
 }
 NULL
 
@@ -227,6 +222,7 @@ NULL
 
 
 #' @title Themes for ggplot graphs
+#'
 #' @description  Theme for plotting  with ggplot.
 #'
 `theme_fte` <- function (base_size = 13, base_family = "sans", horizontal = TRUE, dkpanel = FALSE){
@@ -269,17 +265,22 @@ NULL
 }
 NULL
 
-#' @title ggplot2 Theme with No Background or Gridlines.
+
+
+
+
+#' @title Theme with no Black Background
 #'
-#' @description A ggplot2 theme with no background and no gridlines.
+#' @description A ggplot2 theme with black background.
 #'
-#' @param base_size The size to use for text.  Various textual components are
-#' scaled off of this value.
+#' @param base_size The size to use for text.  Various textual components are scaled off of this value.
 #' @param base_family The base font family.
 #'
-#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_map}}.
-
-theme_black<-function(base_size=14, base_family ="helvetica") {
+#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_blank}}.
+#' @export
+#'
+#'
+`theme_black`<-function(base_size=14, base_family ="helvetica") {
   .theme_dumb(base_size=base_size) +
     + theme(plot.title = element_text(face = "bold",
                                       size = rel(1.2), hjust = 0.5),
