@@ -2,27 +2,25 @@
 % Please edit documentation in R/Themes.R
 \name{theme_pub}
 \alias{theme_pub}
-\title{Themes for ggplot graphs}
+\title{Create the default pub theme}
 \usage{
-theme_pub(base_size = 14, base_family = "helvetica",
-  legend.position = "bottom", axis.line.x = element_line(),
-  axis.line.y = element_line())
+theme_pub(font_size = 14, font_family = "", line_size = 0.5)
 }
 \arguments{
-\item{base_size}{Enables to set the font size of all text elements.}
+\item{font_size}{Overall font size. Default is 14.}
 
-\item{base_family}{Enables to set the font family of all text elements.}
+\item{font_family}{Default font family.}
 
-\item{legend.position}{Enables to set legend position, default is "bottom".}
-
-\item{axis.line.x}{Enables to set x axis line.}
-
-\item{axis.line.y}{Enables to set y axis line.}
+\item{line_size}{Default line size.}
+}
+\value{
+The theme.
 }
 \description{
-Theme for plotting  with ggplot.
+After loading the SciencesPo package, this theme will be
+set to default for all graphs made with ggplot2.
 }
-\seealso{
-\code{\link[ggplot2]{theme}}, \code{\link{theme_black}}, \code{\link{theme_map}}.
+\examples{
+qplot(1:10, (1:10)^2) + theme_pub(font_size = 15)
 }
 

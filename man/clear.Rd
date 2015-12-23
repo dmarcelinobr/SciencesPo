@@ -2,11 +2,31 @@
 % Please edit documentation in R/clear.R
 \name{clear}
 \alias{clear}
-\title{Clears objects and environments}
+\title{Clear Memory of All Objects}
 \usage{
-clear()
+clear(obj = NULL, keep = TRUE)
+}
+\arguments{
+\item{obj}{The object (as a string) that needs to be removed (or kept)}
+
+\item{keep}{Should \code{obj} be kept (i.e., everything but \code{obj} removed)? Or dropped?}
+
+\item{env}{The environment. Defaults to global environment}
 }
 \description{
-Clears all objects including visible and hidden environments.
+This function is a wrapper for the command \code{rm(list=ls())}.
+}
+\examples{
+# create objects
+a=1; b=2; c=3; d=4; e=5
+# remove d
+clear("d", keep=FALSE)
+ls()
+# remove all but a and b
+clear(c("a", "b"), keep=TRUE)
+ls()
+}
+\author{
+Daniel Marcelino
 }
 

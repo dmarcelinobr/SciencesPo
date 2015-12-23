@@ -7,14 +7,14 @@
 \title{Cross-tabulation}
 \usage{
 crossTable(.data, rowVar, colVar, freqVar = NULL, observed = TRUE,
-  expected = FALSE, stdresid = FALSE, totPercent = FALSE,
-  rowPercent = FALSE, colPercent = FALSE, chisq = FALSE, phi = FALSE,
-  cramersv = FALSE, contingency = FALSE)
+  expected = FALSE, sresid = FALSE, total.pct = FALSE, row.pct = FALSE,
+  col.pct = FALSE, chisq = FALSE, phi = FALSE, cramersv = FALSE,
+  contingency = FALSE)
 
 \method{crossTable}{default}(.data, rowVar, colVar, freqVar = NULL,
-  observed = TRUE, expected = FALSE, stdresid = FALSE,
-  totPercent = FALSE, rowPercent = FALSE, colPercent = FALSE,
-  chisq = FALSE, phi = FALSE, cramersv = FALSE, contingency = FALSE)
+  observed = TRUE, expected = FALSE, sresid = FALSE, total.pct = FALSE,
+  row.pct = FALSE, col.pct = FALSE, chisq = FALSE, phi = FALSE,
+  cramersv = FALSE, contingency = FALSE)
 }
 \arguments{
 \item{.data}{The data.frame.}
@@ -25,36 +25,36 @@ crossTable(.data, rowVar, colVar, freqVar = NULL, observed = TRUE,
 
 \item{freqVar}{The frequency variable.}
 
-\item{observed}{If TRUE, observed values will be included.}
+\item{observed}{If FALSE, observed values are excluded from the table.}
 
-\item{expected}{If TRUE, expected values will be included.}
+\item{expected}{If TRUE, expected values are included.}
 
-\item{stdresid}{If TRUE, standardized residual will be included.}
+\item{sresid}{If TRUE, standardized residuals are included.}
 
-\item{totPercent}{If TRUE, total proportions will be included.}
+\item{total.pct}{If TRUE, total proportions are included.}
 
-\item{rowPercent}{If TRUE, row proportions will be included.}
+\item{row.pct}{If TRUE, row proportions are included.}
 
-\item{colPercent}{If TRUE, column proportions will be included.}
+\item{col.pct}{If TRUE, column proportions are included.}
 
-\item{chisq}{If TRUE, the results of chi-square test will be included.}
+\item{chisq}{If TRUE, the result of chi-square test of independence is included.}
 
-\item{phi}{}
+\item{phi}{If TRUE, the Phi coefficient is included.}
 
-\item{cramersv}{}
+\item{cramersv}{If TRUE, Cramer's V coefficient is included.}
 
-\item{contingency}{}
+\item{contingency}{If TRUE, the Contingency coefficient (C) is included.}
 }
 \description{
-Makes a contingency table and computes chi-square test of independence, phi coefficient, cramers v and contingency coefficient.
+Makes a contingency table and computes chi-square test of independence, phi coefficient, Cramer's V and Contingency coefficient.
 }
 \examples{
 titanic \%>\% crossTable("SEX", "AGE")
 
 crossTable(titanic, "SEX", "AGE",
-rowPercent=TRUE,
+row.pct=TRUE,
  expected=TRUE,
- stdresid=TRUE)
+ sresid=TRUE)
 
 # Two variables
 titanic \%>\%

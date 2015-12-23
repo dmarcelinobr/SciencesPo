@@ -4,12 +4,12 @@
 \alias{theme_538}
 \title{Themes for ggplot graphs}
 \usage{
-theme_538(base_size = 13, base_family = "", legend.position = "none")
+theme_538(base_size = 13, font_family = "", legend.position = "none")
 }
 \arguments{
 \item{base_size}{Enables to set the font size of all text elements.}
 
-\item{base_family}{Enables to set the font family of all text elements.}
+\item{font_family}{Default font family of all text elements.}
 
 \item{legend.position}{Enables to set legend position, default is "none".}
 }
