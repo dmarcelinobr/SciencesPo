@@ -25,6 +25,8 @@ untable(x, ...)
 
 \item{type}{The type of variable. If NULL, ordered factor is returned.}
 
+\item{colnames}{Column names to add to the data.frame.}
+
 \item{\dots}{Extra parameters.}
 }
 \description{

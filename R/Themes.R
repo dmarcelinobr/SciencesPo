@@ -1,6 +1,7 @@
-#' Create the default pub theme
+#' @encoding UTF-8
+#' @title Create the default pub theme
 #'
-#' After loading the SciencesPo package, this theme will be
+#' @description After loading the SciencesPo package, this theme will be
 #' set to default for all graphs made with ggplot2.
 #'
 #' @param font_family Default font family.
