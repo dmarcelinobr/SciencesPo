@@ -1,4 +1,4 @@
-if(getRversion() >= "2.15.1") globalVariables(c(".data", "copy"))
+if(getRversion() >= "2.15.1") globalVariables(c(".data", "copy", ".N"))
 #' @encoding UTF-8
 #' @title Add an "id" Variable to a Dataset
 #'
@@ -26,18 +26,22 @@ if(getRversion() >= "2.15.1") globalVariables(c(".data", "copy"))
 #' @importFrom data.table := is.data.table as.data.table
 #' @export
 `flag` <- function(.data, id.vars = NULL) {
-  if (!is.data.table(data)) .data <- as.data.table(.data)
+  if (!is.data.table(.data)) .data <- as.data.table(.data)
   else .data <- copy(.data)
 
   if (is.numeric(id.vars)) id.vars <- names(.data)[id.vars]
   if (is.null(id.vars)) id.vars <- names(.data)
 
-  .id <- .N <- NULL
+  `.id` <- .N  <- NULL
 
   if (any(duplicated(.data, by = id.vars))) {
-    .data[, .id := sequence(.N), by = id.vars]
+    .data[, `.id` := sequence(.N), by = id.vars]
   } else {
     .data
   }
 }
 NULL
+
+
+
+# _N contains the total number of observations in the dataset.

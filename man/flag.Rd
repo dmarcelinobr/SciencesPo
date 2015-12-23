@@ -23,8 +23,9 @@ should be unique.
 }
 \examples{
 df <- data.frame(A = c("a", "a", "a", "b", "b"),
-                   B = c(1, 1, 1, 1, 1), values = 1:5)
+                 B = c(1, 1, 1, 1, 1), values = 1:5);
 df
+
 flag(df, c("A", "B"))
 
 df <- data.frame(A = c("a", "a", "a", "b", "b"),
