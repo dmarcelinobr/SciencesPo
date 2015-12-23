@@ -29,8 +29,8 @@
 #' theme_538() +
 #' annotate("text",x=90,y=12,label="Demand",colour="red") +
 #' annotate("text",x=80,y=23,label="Supply",colour="blue")
-#' plotFootnote(fontsize = 12)
-#' plotFootnote("danielmarcelino.github.io", color = "orange", rotn = -90, just ="right" )
+#' geom_foot(fontsize = 12)
+#' geom_foot("danielmarcelino.github.io", color = "orange", rotn = -90, just ="right" )
 #'
 #' @keywords Graphs
 #'
@@ -38,7 +38,7 @@
 #'
 #' @export
 #'
-`plotFootnote` <-
+`geom_foot` <-
   function(text=NULL, fontsize=10, color=NULL, rotn = 0, just = c("right", "bottom")) {
     if(!is.null(text)){
       text = paste(text)

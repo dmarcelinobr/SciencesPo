@@ -14,13 +14,12 @@ svTransform(y)
 Simple function to transform a dependent variable that in [0,1] rather than (0, 1) to beta regression. Suggested by Smithson & Verkuilen (2006).
 }
 \examples{
-x <- sample(10);
- y <- normalize(x, range=c(0,1));
- y;
+x <- sample(10); x;
+ y <- normalize(x, range=c(0,1)); y;
  svTransform(y)
 }
 \references{
-Smithson M, Verkuilen J (2006) A Better Lemon Squeezer? Maximum-Likelihood Regres- sion with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54-71.
+Smithson M, Verkuilen J (2006) A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54-71.
 }
 \seealso{
 \code{\link{normalize}}.
