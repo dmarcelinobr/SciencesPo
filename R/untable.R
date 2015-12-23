@@ -24,6 +24,8 @@
 `untable` <- function(x, ...){
   UseMethod("untable")
 }
+NULL
+
 
 #' @rdname untable
 #' @export
@@ -37,6 +39,8 @@
 
   return(res)
 }
+NULL
+
 
 
 #' @rdname untable
@@ -81,5 +85,5 @@
 
       return(res)
 }
-
+NULL
 
