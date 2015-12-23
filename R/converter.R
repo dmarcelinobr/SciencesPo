@@ -1,8 +1,8 @@
 if (getRversion() >= "2.15.1") globalVariables(c("Units"))
 #' @encoding UTF-8
-#' @title Unit Conversion
+#' @title Unit Converter
 #'
-#' @description Convert a numeric value from one measurement system to another. For instance, distances in miles to kilometers.
+#' @description Converts data from a numeric value from one measurement system to another. For instance, distances in miles to kilometers.
 #'
 #' @param x A numeric value or vector of data values to be converted.
 #' @param from A character defining the original unit.
@@ -76,10 +76,10 @@ if (getRversion() >= "2.15.1") globalVariables(c("Units"))
 #'  Liter  \tab l (or lt) \tab metric \cr
 #'}
 #' @examples
-#' unitsConverter(c(5.6, 6.7), "in", "m")
+#' converter(c(5.6, 6.7), "in", "m")
 #'
 #' @export
-`unitsConverter` <- function(x, from, to){
+`converter` <- function(x, from, to){
   if(from == "C") {
     if(to=="F") return(x *1.8+32)
   }

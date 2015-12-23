@@ -13,12 +13,11 @@
 #' @importFrom stats na.omit
 #' @seealso \code{\link{politicalDiversity}}.
 #' @examples
-#' if (interactive()) {
 #' # generate a vector (of incomes)
 #' x <- as.table(c(69,50,40,22))
 #' rownames(x) <- c("AB","C","D","E")
 #' gini.simpson(x)
-#' }
+#'
 #' @export gini.simpson
 #' @docType methods
 #' @rdname gini.simpson-methods
@@ -53,7 +52,6 @@ NULL
 #' @keywords Diversity, Concentration
 #' @seealso \code{\link{gini.simpson}}.
 #' @examples
-#' if (interactive()) {
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #' # compute Gini index
@@ -62,7 +60,6 @@ NULL
 #' wgt <- runif(n=length(x))
 #' # compute the weighted Gini index
 #' gini(x, wgt)
-#' }
 #'
 #' @export gini
 #' @docType methods

@@ -1,8 +1,10 @@
 #' @encoding UTF-8
 #' @title Untable
 #'
-#' @description Method for untable, convert from summarized data to long.
+#' @description Method for recreate the data.frame out of a contingency table, i.e., converts from summarized data to long.
 #' @param x The table object as a data.frame, table, or, matrix.
+#' @param freq The column with count values.
+#' @param rownames
 #' @param \dots Extra parameters.
 #'
 #' @examples
@@ -38,17 +40,15 @@
 
 
 #' @rdname untable
+#' @param dimnames
+#' @param type
 #' @export
 `untable.default` <- function(x, dimnames=NULL, type = NULL, rownames = NULL, colnames = NULL, ...) {
-
-  # recreates the data.frame out of a contingency table
-
   # coerce to table, such as also be able to handle vectors
   x <- as.table(x)
   if(!is.null(dimnames)) dimnames(x) <- dimnames
   if(is.null(dimnames) && identical(type, "as.numeric")) dimnames(x) <- list(seq_along(x))
   # set a title for the table if it does not have one
-
   # if(is.null(names(dimnames(x)))) names(dimnames(x)) <- ""
   # if(length(dim(x))==1 && names(dimnames(x))=="") names(dimnames(x)) <- "Var1"
   # replaced 26.3.2013

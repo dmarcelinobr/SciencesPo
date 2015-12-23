@@ -37,6 +37,7 @@ if(plot==TRUE){
    frame[,4:7] <-NULL
      frame$color <- colors[frame$id]
      imagen <- as.matrix(data.table::dcast.data.table(data.table::setDT(frame), x ~ y, value.var = "color")[,-1, with=FALSE])
+     graphics::frame()
  grid::grid.raster(imagen)
 
   s2 <- Sys.time()

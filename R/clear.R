@@ -4,7 +4,6 @@
 #'
 #' @param obj The object (as a string) that needs to be removed (or kept)
 #' @param keep Should \code{obj} be kept (i.e., everything but \code{obj} removed)? Or dropped?
-#' @param env The environment. Defaults to global environment
 #' @author Daniel Marcelino
 #' @export
 #' @examples
