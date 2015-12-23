@@ -16,4 +16,7 @@ theme_538(base_size = 13, font_family = "", legend.position = "none")
 \description{
 Theme for plotting  with ggplot.
 }
+\examples{
+qplot(1:10, (1:10)^2) + theme_538()
+}
 

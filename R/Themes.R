@@ -3,52 +3,76 @@
 #' After loading the SciencesPo package, this theme will be
 #' set to default for all graphs made with ggplot2.
 #'
-#' @param font_size Overall font size. Default is 14.
 #' @param font_family Default font family.
+#' @param font_size Overall font size. Default is 14.
 #' @param line_size Default line size.
+#' @param legend.position Enables to set legend position, default is "bottom".
+#' @param axis.line.x Enables to set x axis line.
+#' @param axis.line.y Enables to set y axis line.
 #' @return The theme.
 #' @examples
-#' qplot(1:10, (1:10)^2) + theme_pub(font_size = 15)
+#' ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
+#' geom_freqpoly(stat="count",size=2) + theme_pub(font_size = 16, line_size=1)
 #' @export
-`theme_pub` <- function(font_size = 14, font_family = "", line_size = .5) {
+`theme_pub` <- function(font_family = '',
+                        font_size = 14,
+                        line_size = .5,
+                        legend.position = 'bottom',
+                        axis.line.x = element_line(),
+                        axis.line.y = element_line()){
   half_line <- font_size / 2
   small_rel <- 0.857
   small_size <- small_rel * font_size
-
-  theme_grey(base_size = font_size, base_family = font_family) %+replace%
-    theme(
-rect = element_rect(fill = "transparent", colour = NA, color = NA, size = 0, linetype = 0),
-text = element_text(family = font_family, face = "plain", color = "black",size = font_size, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = .9,
-margin = ggplot2::margin(), debug = FALSE),
-      axis.text = element_text(color = "black", size = small_size),
-      #axis.title = element_text(face = "bold"),
-      axis.text.x = element_text(margin = ggplot2::margin(t = small_size / 4), vjust = 1),
-      axis.text.y = element_text(margin = ggplot2::margin(r = small_size / 4), hjust = 1),
-      axis.title.x = element_text(
-margin = ggplot2::margin(t = small_size / 2, b = small_size / 4)
-      ),
-axis.title.y = element_text(
-        angle = 90,
-margin = ggplot2::margin(r = small_size / 2, l = small_size / 4),
-      ),
-axis.ticks = element_line(color = "black", size = line_size),
-axis.line = element_line(color = "black", size = line_size),
-      legend.key = element_blank(),
-      legend.margin = grid::unit(0.1, "cm"),
-      legend.key.size = grid::unit(1, "lines"),
-      legend.text  = element_text(size = rel(small_rel)),
-      # legend.position = c(-0.03, 1.05),
-      # legend.justification = c("left", "top"),
-      panel.background = element_blank(),
-      panel.border = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      strip.text = element_text(size = rel(small_rel)),
-      strip.background = element_rect(fill = "grey80", color = "grey50", size = 0),
-      plot.background = element_blank(),
-      plot.title = element_text(face = "bold",
-                                       size = font_size,
-                                       margin = ggplot2::margin(b = half_line))
+theme_grey(base_size = font_size, base_family = font_family) %+replace%
+  theme(rect = element_rect(fill = "transparent",
+                              colour = NA,
+                              color = NA,
+                              size = 0,
+                              linetype = 0),
+          text = element_text(family = font_family,
+                              face = "plain",
+                              colour = "black",
+                              size = font_size,
+                              hjust = 0.5,
+                              vjust = 0.5,
+                              angle = 0,
+                              lineheight = .9,
+                              margin = ggplot2::margin(),
+                              debug = FALSE),
+          axis.text = element_text(color="#525252", size = small_size),
+          #axis.title = element_text(face = "bold"),
+          axis.text.x = element_text(margin = ggplot2::margin(t = small_size / 4), vjust = 1),
+          axis.text.y = element_text(margin = ggplot2::margin(r = small_size / 4), hjust = 1),
+          axis.title.x = element_text(
+            margin = ggplot2::margin(t = small_size / 2, b = small_size / 4)
+          ),
+          axis.title.y = element_text(
+            angle = 90,
+            margin = ggplot2::margin(r = small_size / 2, l = small_size / 4),
+          ),
+          axis.ticks = element_line(color = "black", size = line_size),
+          axis.line = element_line(color = "black", size = line_size),
+          #legend.position = legend.position,
+          #legend.direction = "horizontal",
+          legend.key = element_rect(color = NA),
+          legend.margin = grid::unit(0, "cm"),
+          legend.key.size = grid::unit(0.2, "cm"),
+          legend.title = element_text(face="italic"),
+          legend.text  = element_text(size = rel(small_rel)),
+          # legend.position = c(-0.03, 1.05),
+          # legend.justification = c("left", "top"),
+          panel.background = element_blank(),
+          panel.border = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          strip.text = element_text(face="bold", size = rel(small_rel)),
+          strip.background = element_rect(fill = "grey80", color = "grey50", size = 0),
+# margins starting with top, right, bottom and left
+      plot.margin = grid::unit(c(0.4, 0.2, 0.1, 0.1),"cm"),
+          plot.background = element_blank(),
+          plot.title = element_text(face = "bold",
+                                    size = font_size,
+                                    margin = ggplot2::margin(b = half_line))
     )
 }
 NULL
@@ -62,8 +86,10 @@ NULL
 #' @param base_size Enables to set the font size of all text elements.
 #' @param font_family Default font family of all text elements.
 #' @param legend.position Enables to set legend position, default is "none".
+#' @examples
+#' qplot(1:10, (1:10)^2) + theme_538()
 #' @export
-theme_538 <- function(base_size = 13, font_family = "", legend.position = 'none'){
+theme_538 <- function(base_size = 13, font_family = '', legend.position = 'none'){
 theme_grey(base_size = base_size, base_family = font_family) %+replace%
     theme(
       # Base elements which are not used directly but inherited by others
