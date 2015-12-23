@@ -10,8 +10,6 @@ clear(obj = NULL, keep = TRUE)
 \item{obj}{The object (as a string) that needs to be removed (or kept)}
 
 \item{keep}{Should \code{obj} be kept (i.e., everything but \code{obj} removed)? Or dropped?}
-
-\item{env}{The environment. Defaults to global environment}
 }
 \description{
 This function is a wrapper for the command \code{rm(list=ls())}.

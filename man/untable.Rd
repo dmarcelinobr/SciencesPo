@@ -17,10 +17,18 @@ untable(x, ...)
 \arguments{
 \item{x}{The table object as a data.frame, table, or, matrix.}
 
+\item{freq}{The column with count values.}
+
+\item{rownames}{Row names to add to the data.frame.}
+
+\item{dimnames}{Set dimnames of an object if require.}
+
+\item{type}{}
+
 \item{\dots}{Extra parameters.}
 }
 \description{
-Method for untable, convert from summarized data to long.
+Method for recreate the data.frame out of a contingency table, i.e., converts from summarized data to long.
 }
 \examples{
 if (interactive()) {

@@ -21,7 +21,6 @@ gini(x, weights = rep(1, length = length(x)))
 Computes the unweighted and weighted Gini coefficient.
 }
 \examples{
-if (interactive()) {
 # generate a vector (of incomes)
 x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 # compute Gini index
@@ -30,7 +29,6 @@ gini(x)
 wgt <- runif(n=length(x))
 # compute the weighted Gini index
 gini(x, wgt)
-}
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.

@@ -24,12 +24,10 @@ Computes the Gini/Simpson coefficient.
 The Gini-Simpson quadratic index is a classic measure of diversity, widely used by social scientists and ecologists. The Gini-Simpson is also known as Gibbs-Martin index in sociology, psychology and management studies, which in turn is also known as the Blau index. The Gini-Simpson index is computed as \eqn{1 - \lambda = 1 - \sum_{i=1}^R p_i^2 = 1 - 1/{}^2D}.
 }
 \examples{
-if (interactive()) {
 # generate a vector (of incomes)
 x <- as.table(c(69,50,40,22))
 rownames(x) <- c("AB","C","D","E")
 gini.simpson(x)
-}
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.

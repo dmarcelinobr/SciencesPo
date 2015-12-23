@@ -4,7 +4,7 @@
 #' @description Method for recreate the data.frame out of a contingency table, i.e., converts from summarized data to long.
 #' @param x The table object as a data.frame, table, or, matrix.
 #' @param freq The column with count values.
-#' @param rownames
+#' @param rownames Row names to add to the data.frame.
 #' @param \dots Extra parameters.
 #'
 #' @examples
@@ -40,7 +40,7 @@
 
 
 #' @rdname untable
-#' @param dimnames
+#' @param dimnames Set dimnames of an object if require.
 #' @param type
 #' @export
 `untable.default` <- function(x, dimnames=NULL, type = NULL, rownames = NULL, colnames = NULL, ...) {
