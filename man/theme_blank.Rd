@@ -4,12 +4,12 @@
 \alias{theme_blank}
 \title{Create a Completely Empty Theme}
 \usage{
-theme_blank(base_size = 12, base_family = "")
+theme_blank(font_size = 12, font_family = "")
 }
 \arguments{
-\item{base_size}{Overall font size. Default is 14.}
+\item{font_size}{Overall font size. Default is 12.}
 
-\item{base_family}{Base font family.}
+\item{font_family}{Default font family.}
 }
 \value{
 The theme.

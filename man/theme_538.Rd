@@ -4,19 +4,22 @@
 \alias{theme_538}
 \title{Themes for ggplot graphs}
 \usage{
-theme_538(base_size = 13, font_family = "", legend.position = "none")
+theme_538(font_size = 13, font_family = "", legend = "none")
 }
 \arguments{
-\item{base_size}{Enables to set the font size of all text elements.}
+\item{font_size}{Overall font size. Default is 13.}
 
-\item{font_family}{Default font family of all text elements.}
+\item{font_family}{Default font family.}
 
-\item{legend.position}{Enables to set legend position, default is "none".}
+\item{legend}{Enables to set legend position, default is "none".}
+}
+\value{
+The theme.
 }
 \description{
 Theme for plotting  with ggplot.
 }
 \examples{
-qplot(1:10, (1:10)^2) + theme_538()
+qplot(1:10, (1:10)^3) + theme_538()
 }
 

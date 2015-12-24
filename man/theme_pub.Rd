@@ -6,7 +6,7 @@
 \title{Create the default pub theme}
 \usage{
 theme_pub(font_family = "", font_size = 14, line_size = 0.5,
-  legend.position = "bottom", axis.line.x = element_line(),
+  legend = "bottom", axis.line.x = element_line(),
   axis.line.y = element_line())
 }
 \arguments{
@@ -16,7 +16,7 @@ theme_pub(font_family = "", font_size = 14, line_size = 0.5,
 
 \item{line_size}{Default line size.}
 
-\item{legend.position}{Enables to set legend position, default is "bottom".}
+\item{legend}{Enables to set legend position, default is "bottom".}
 
 \item{axis.line.x}{Enables to set x axis line.}
 
@@ -30,8 +30,8 @@ After loading the SciencesPo package, this theme will be
 set to default for all graphs made with ggplot2.
 }
 \examples{
-ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
-geom_freqpoly(stat="count",size=2) + theme_pub(font_size = 16, line_size=1)
+ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
+geom_freqpoly(stat="count",size=2) + theme_pub(line_size=1)
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}, \code{\link{theme_black}}.

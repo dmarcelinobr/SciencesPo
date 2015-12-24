@@ -44,4 +44,3 @@ NULL
 
 
 
-# _N contains the total number of observations in the dataset.

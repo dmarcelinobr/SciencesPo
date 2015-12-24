@@ -7,19 +7,20 @@
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 14.
 #' @param line_size Default line size.
-#' @param legend.position Enables to set legend position, default is "bottom".
+#' @param legend Enables to set legend position, default is "bottom".
 #' @param axis.line.x Enables to set x axis line.
 #' @param axis.line.y Enables to set y axis line.
 #' @return The theme.
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}, \code{\link{theme_black}}.
 #' @examples
-#' ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
-#' geom_freqpoly(stat="count",size=2) + theme_pub(font_size = 16, line_size=1)
+#' ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
+#' geom_freqpoly(stat="count",size=2) + theme_pub(line_size=1)
+#'
 #' @export
 `theme_pub` <- function(font_family = '',
                         font_size = 14,
                         line_size = .5,
-                        legend.position = 'bottom',
+                        legend = 'bottom',
                         axis.line.x = element_line(),
                         axis.line.y = element_line()){
   half_line <- font_size / 2
@@ -41,8 +42,8 @@ theme_grey(base_size = font_size, base_family = font_family) %+replace%
                               lineheight = .9,
                               margin = ggplot2::margin(),
                               debug = FALSE),
-          axis.text = element_text(color="#525252", size = small_size),
-          #axis.title = element_text(face = "bold"),
+axis.text = element_text(color="black", size = small_size),
+          axis.title = element_text(face = "bold"),
           axis.text.x = element_text(margin = ggplot2::margin(t = small_size / 4), vjust = 1),
           axis.text.y = element_text(margin = ggplot2::margin(r = small_size / 4), hjust = 1),
           axis.title.x = element_text(
@@ -52,23 +53,23 @@ theme_grey(base_size = font_size, base_family = font_family) %+replace%
             angle = 90,
             margin = ggplot2::margin(r = small_size / 2, l = small_size / 4),
           ),
-          axis.ticks = element_line(color = "black", size = line_size),
-          axis.line = element_line(color = "black", size = line_size),
-          #legend.position = legend.position,
-          #legend.direction = "horizontal",
+axis.ticks = element_line(color = "#525252", size = line_size),
+axis.line = element_line(color = "#525252", size = line_size),
+          legend.position = legend,
+          # legend.position = c(-0.03, 1.05),
+          # legend.justification = c("left", "top"),
+          legend.direction = "horizontal",
           legend.key = element_rect(color = NA),
           legend.margin = grid::unit(0, "cm"),
           legend.key.size = grid::unit(0.2, "cm"),
           legend.title = element_text(face="italic"),
           legend.text  = element_text(size = rel(small_rel)),
-          # legend.position = c(-0.03, 1.05),
-          # legend.justification = c("left", "top"),
           panel.background = element_blank(),
           panel.border = element_blank(),
-          panel.grid.major = element_blank(),
+          panel.grid.major = element_line(color="#F0F0F0"),
           panel.grid.minor = element_blank(),
           strip.text = element_text(face="bold", size = rel(small_rel)),
-          strip.background = element_rect(fill = "grey80", color = "grey50", size = 0),
+strip.background = element_rect(fill = "grey80", color = "grey50", size = 0),
 # margins starting with top, right, bottom and left
       plot.margin = grid::unit(c(0.4, 0.2, 0.1, 0.1),"cm"),
           plot.background = element_blank(),
@@ -84,15 +85,19 @@ NULL
 
 
 #' @title Themes for ggplot graphs
+#'
 #' @description  Theme for plotting  with ggplot.
-#' @param base_size Enables to set the font size of all text elements.
-#' @param font_family Default font family of all text elements.
-#' @param legend.position Enables to set legend position, default is "none".
+#'
+#' @param font_family Default font family.
+#' @param font_size Overall font size. Default is 13.
+#' @param legend Enables to set legend position, default is "none".
+#' @return The theme.
+#'
 #' @examples
-#' qplot(1:10, (1:10)^2) + theme_538()
+#' qplot(1:10, (1:10)^3) + theme_538()
 #' @export
-theme_538 <- function(base_size = 13, font_family = '', legend.position = 'none'){
-theme_grey(base_size = base_size, base_family = font_family) %+replace%
+theme_538 <- function(font_size = 13, font_family = '', legend = 'none'){
+theme_grey(base_size = font_size, base_family = font_family) %+replace%
     theme(
       # Base elements which are not used directly but inherited by others
 
@@ -101,7 +106,7 @@ theme_grey(base_size = base_size, base_family = font_family) %+replace%
       rect = element_rect(fill = "#F0F0F0", color = "#F0F0F0",
                           size = 0.5, linetype = 1),
       text = element_text(family = font_family, face = 'bold',
-                          color = "#535353", size = base_size,
+                          color = "#535353", size = font_size,
                           hjust = 0.5, vjust = 0.5, angle = 0,
                           lineheight = 0.9, margin = ggplot2::margin(), debug = FALSE),
       # Modified inheritance structure of text element
@@ -119,15 +124,16 @@ plot.title = element_text(size = rel(1.5), family = '' ,
       plot.background =  element_rect(),
       panel.background =  element_rect(),
       legend.background = element_rect(linetype = 0),
-      legend.margin = grid::unit(base_size * 1.1, "points"),
+      legend.margin = grid::unit(font_size * 1.1, "points"),
       legend.key = element_rect(linetype = 0),
       legend.key.size = grid::unit(1.1, "lines"), legend.key.height = NULL,
       legend.key.width = NULL, legend.text = element_text(size = rel(1.2)),
       legend.text.align = NULL, legend.title = element_text(size = rel(1),
                                                             hjust = 0),
       legend.title.align = NULL,
-      legend.position = legend.position,
-      legend.direction = NULL, legend.justification = "center",
+      legend.position = legend,
+      legend.direction = NULL,
+      legend.justification = "center",
       #legend.key =  element_rect(color = '#D0D0D0'),
       # Modifiying legend.position
       complete = TRUE
@@ -139,12 +145,77 @@ NULL
 
 
 
+#' @title Theme with no Black Background
+#'
+#' @description A ggplot2 theme with black background.
+#' @param font_family Default font family.
+#' @param font_size Overall font size. Default is 14.
+#' @return The theme.
+#'
+#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_blank}}.
+#'
+#' @examples
+#' ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
+#' geom_freqpoly(stat="count",size=2) + theme_black()
+#'
+#' @export
+#'
+`theme_black`<-function(font_size=14, font_family ="sans"){
+  theme_grey(base_size = font_size, base_family = font_family) %+replace%
+    theme(plot.title = element_text(face = "bold",
+                                      size = rel(1.2), hjust = 0.5),
+            # Specify axis options
+            axis.line=element_blank(),
+            axis.text.x=element_text(size=font_size*0.8,color="white",
+                                     lineheight=0.9,vjust=1),
+            axis.text.y=element_text(size=font_size*0.8,color="white",
+                                     lineheight=0.9,hjust=1),
+            axis.ticks=element_line(color="white",size = 0.2),
+            axis.title.x=element_text(size=font_size,color="white",vjust=1),
+            axis.title.y=element_text(size=font_size,color="white",angle=90,
+                                      vjust=0.5),
+            axis.ticks.length=grid::unit(0.3,"lines"),
+            axis.ticks.margin=grid::unit(0.5,"lines"),
+            # Specify legend options
+            legend.background=element_rect(color=NA,fill="black"),
+            legend.key=element_rect(color="white", fill="black"),
+            legend.key.size=grid::unit(1.2,"lines"),
+            legend.key.height=NULL,
+            legend.key.width=NULL,
+            legend.text=element_text(size=font_size*0.8,color="white"),
+            legend.title=element_text(size=font_size*0.8,face="bold",hjust=0,
+                                      color="white"),
+            legend.position="right",
+            legend.text.align=NULL,
+            legend.title.align=NULL,
+            legend.direction="vertical",
+            legend.box=NULL,
+            # Specify panel options
+            panel.background=element_rect(fill="black",color = NA),
+            panel.border=element_rect(fill=NA,color="white"),
+            panel.grid.major=element_blank(),
+            panel.grid.minor=element_blank(),
+            panel.margin=grid::unit(0.25,"lines"),
+            # Specify facetting options
+            strip.background=element_rect(fill="grey30",color="grey10"),
+            strip.text.x=element_text(size=font_size*0.8,color="white"),
+            strip.text.y=element_text(size=font_size*0.8,color="white", angle=-90),
+            # Specify plot options
+            plot.background=element_rect(color="black",fill="black"),
+            plot.title=element_text(size=font_size*1.2,color="white"),
+            plot.margin = grid::unit(c(0.4, 0.2, 0.1, 0.1),"cm")
+    )
+}
+NULL
+
+
+
 
 #' Create a Completely Empty Theme
 #'
 #' The theme created by this function shows nothing but the plot panel.
-#' @param base_size Overall font size. Default is 14.
-#' @param base_family Base font family.
+#' @param font_family Default font family.
+#' @param font_size Overall font size. Default is 12.
 #' @return The theme.
 #' @examples
 #' # plot with small amount of remaining padding
@@ -152,8 +223,8 @@ NULL
 #' # remaining padding removed
 #' qplot(1:10, (1:10)^2) + theme_blank() + labs(x = NULL, y = NULL)
 #' @export
-`theme_blank` <- function(base_size = 12, base_family = ""){
-  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+`theme_blank` <- function(font_size = 12, font_family = ""){
+  theme_grey(base_size = font_size, base_family = font_family) %+replace%
     theme(
       rect              = element_rect(fill = "transparent", colour = NA, color = NA, size = 0, linetype = 0),
       line              = element_blank(),
@@ -222,112 +293,6 @@ NULL
 
 
 
-#' @title Themes for ggplot graphs
-#'
-#' @description  Theme for plotting  with ggplot.
-#'
-`theme_fte` <- function (base_size = 13, base_family = "sans", horizontal = TRUE, dkpanel = FALSE){
-  ret <- theme(line = element_line(colour = "black", size = 0.5, linetype = 1, lineend = "butt"),
-               rect = element_rect(fill = "#D5E4EB", colour = NA, size = 0.5, linetype = 1),
-               text = element_text(family = base_family, face = "plain", colour = "black", size = base_size, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1), axis.text = element_text(size = rel(1)),
-               axis.line = element_line(size = rel(0.8)), axis.line.y = element_blank(),
-               axis.text.x = element_text(vjust = 1), axis.text.y = element_text(hjust = 0),
-               axis.ticks = element_line(), axis.ticks.y = element_blank(),
-               axis.title = element_text(size = rel(1)), axis.title.x = element_text(),
-               axis.title.y = element_text(angle = 90), axis.ticks.length = grid::unit(-base_size *
-                                                                                   0.5, "points"), axis.ticks.margin = grid::unit(base_size *
-                                                                                                                              1.25, "points"),
-               legend.background = element_rect(linetype = 0),
-               legend.margin = grid::unit(base_size * 1.5, "points"), legend.key = element_rect(linetype = 0),
-               legend.key.size = grid::unit(1.2, "lines"), legend.key.height = NULL,
-               legend.key.width = NULL, legend.text = element_text(size = rel(1.25)),
-               legend.text.align = NULL, legend.title = element_text(size = rel(1),
-                                                                     hjust = 0), legend.title.align = NULL, legend.position = "top",
-               legend.direction = NULL, legend.justification = "center",
-               panel.background = element_rect(linetype = 0), panel.border = element_blank(),
-               panel.grid.major = element_line(colour = "#c9c9c9", size = rel(1.5)),
-               panel.grid.minor = element_blank(), panel.margin = grid::unit(0.25,
-                                                                       "lines"), strip.background = element_rect(fill ="#D5E4EB",
-                                                                                                                 colour = NA, linetype = 0), strip.text = element_text(size = rel(1.25)),
-               strip.text.x = element_text(), strip.text.y = element_text(angle = -90),
-               plot.background = element_rect(fill = "#D5E4EB",
-                                              colour = NA), plot.title = element_text(size = rel(1.5), hjust = 0, face = "bold"), plot.margin = grid::unit(c(6, 5, 6, 5) * 2, "points"), complete = TRUE)
-  if (horizontal) {
-    ret <- ret + theme(panel.grid.major.x = element_blank())
-  }
-  else {
-    ret <- ret + theme(panel.grid.major.y = element_blank())
-  }
-  if (dkpanel == TRUE) {
-    ret <- ret + theme(panel.background = element_rect(fill = "#c3d6df"),
-                       strip.background = element_rect(fill = "#c3d6df"))
-  }
-  ret
-}
-NULL
-
-
-
-
-
-#' @title Theme with no Black Background
-#'
-#' @description A ggplot2 theme with black background.
-#'
-#' @param base_size The size to use for text.  Various textual components are scaled off of this value.
-#' @param base_family The base font family.
-#'
-#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_blank}}.
-#' @export
-#'
-#'
-`theme_black`<-function(base_size=14, base_family ="helvetica") {
-  .theme_dumb(base_size=base_size) +
-    + theme(plot.title = element_text(face = "bold",
-                                      size = rel(1.2), hjust = 0.5),
-      # Specify axis options
-      axis.line=element_blank(),
-      axis.text.x=element_text(size=base_size*0.8,color="white",
-                               lineheight=0.9,vjust=1),
-      axis.text.y=element_text(size=base_size*0.8,color="white",
-                               lineheight=0.9,hjust=1),
-      axis.ticks=element_line(color="white",size = 0.2),
-      axis.title.x=element_text(size=base_size,color="white",vjust=1),
-      axis.title.y=element_text(size=base_size,color="white",angle=90,
-                                vjust=0.5),
-      axis.ticks.length=grid::unit(0.3,"lines"),
-      axis.ticks.margin=grid::unit(0.5,"lines"),
-      # Specify legend options
-      legend.background=element_rect(color=NA,fill="black"),
-      legend.key=element_rect(color="white", fill="black"),
-      legend.key.size=grid::unit(1.2,"lines"),
-      legend.key.height=NULL,
-      legend.key.width=NULL,
-      legend.text=element_text(size=base_size*0.8,color="white"),
-      legend.title=element_text(size=base_size*0.8,face="bold",hjust=0,
-                                color="white"),
-      legend.position="right",
-      legend.text.align=NULL,
-      legend.title.align=NULL,
-      legend.direction="vertical",
-      legend.box=NULL,
-      # Specify panel options
-      panel.background=element_rect(fill="black",color = NA),
-      panel.border=element_rect(fill=NA,color="white"),
-      panel.grid.major=element_blank(),
-      panel.grid.minor=element_blank(),
-      panel.margin=grid::unit(0.25,"lines"),
-      # Specify facetting options
-      strip.background=element_rect(fill="grey30",color="grey10"),
-      strip.text.x=element_text(size=base_size*0.8,color="white"),
-      strip.text.y=element_text(size=base_size*0.8,color="white", angle=-90),
-      # Specify plot options
-      plot.background=element_rect(color="black",fill="black"),
-      plot.title=element_text(size=base_size*1.2,color="white"),
-      plot.margin = grid::unit(c(0.4, 0.2, 0.1, 0.1),"cm")
-    )
-}
-
 
 
 #' @title Scale colors for ggplot graphs
@@ -336,8 +301,7 @@ NULL
 #' @export
 #' @rdname scale_fill_pub
 scale_fill_pub <- function(...){
-  discrete_scale("fill",
-                          "pub",
+  discrete_scale("fill", "pub",
                           scales::manual_pal(values =
                                                c("#386CB0",
                                                  "#FF6347",
@@ -365,10 +329,9 @@ NULL
 #' @description Discrete scale colors for the theme_pub().
 #' @param \dots parameters to be used.
 #' @export
-#' @rdname scale_colour_pub
-scale_colour_pub <- function(...){
-discrete_scale("colour",
-                        "pub",
+#' @rdname scale_color_pub
+scale_color_pub <- function(...){
+discrete_scale("color", "pub",
                         scales::manual_pal(values =
                                              c("#386CB0",
                                                "#FF6347",
@@ -386,6 +349,29 @@ discrete_scale("colour",
                                                "#FE7C96",
                                                "#CA9743")
                                            ), ...)
+}
+NULL
+
+
+
+#' @title Scale color-blind-friendly for ggplot graphs
+#' @description Discrete  color-blind-friendly scale for ggplot().
+#' @param \dots parameters to be used.
+#' @export
+#' @rdname scale_color_blind
+scale_color_blind <- function(...){
+  discrete_scale("color", "blind",
+                 scales::manual_pal(values =
+                                      c("#000000",
+                                        "#E69F00",
+                                        "#56B4E9",
+                                        "#009E73",
+                                        "#F0E442",
+                                        "#0072B2",
+                                        "#D55E00",
+                                        "#CC79A7",
+                                        "#999999")
+                 ), ...)
 }
 NULL
 

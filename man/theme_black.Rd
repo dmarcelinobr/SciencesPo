@@ -4,15 +4,22 @@
 \alias{theme_black}
 \title{Theme with no Black Background}
 \usage{
-theme_black(base_size = 14, base_family = "helvetica")
+theme_black(font_size = 14, font_family = "sans")
 }
 \arguments{
-\item{base_size}{The size to use for text.  Various textual components are scaled off of this value.}
+\item{font_size}{Overall font size. Default is 14.}
 
-\item{base_family}{The base font family.}
+\item{font_family}{Default font family.}
+}
+\value{
+The theme.
 }
 \description{
 A ggplot2 theme with black background.
+}
+\examples{
+ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
+geom_freqpoly(stat="count",size=2) + theme_black()
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_blank}}.
