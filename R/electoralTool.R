@@ -39,11 +39,15 @@
 #' @keywords Diversity, Basics, Elections
 #' @examples
 #' # Here are some examples, help yourself:
+#' # The wikipedia examples
+#'
 #' A <- c(.75,.25);
-#' B <- c(.35,.35,.30);
-#' C <- c(.75,.10,rep(0.01,15))
+#' B <- c(.75,.10,rep(0.01,15))
+#' C <- c(.55,.45);
 #'
 #' politicalDiversity(A, index= "laakso/taagepera")
+#' politicalDiversity(B, index= "laakso/taagepera")
+#' politicalDiversity(C, index= "laakso/taagepera")
 #'
 #' # The 1980 presidential election in the US (vote share):
 #' party_1980 <- c("Democratic", "Republican", "Independent",
@@ -59,12 +63,12 @@
 #' "Constitution", "Green", "Others")
 #' US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
 #'
-#' politicalDiversity(US2004, index= "herfindahl")
+#' politicalDiversity(US2004, index = "H") # will match Herfindahl
 #'
 #' # Using Grigorii Golosov approach:
-#' politicalDiversity(US2004, index= "golosov")
+#' politicalDiversity(US2004, index= "Golosov")
 #'
-#' # The 1999 Finland election
+#' # The 1999 Finland election:
 #' votes_1999 <- c(612963, 600592, 563835,
 #' 291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442,
 #' 10378, 10104, 5451, 5194, 4481, 3903, 3455, 21734)
@@ -107,13 +111,14 @@
 #'
 #' politicalDiversity(seats_2014, index= "golosov")
 #'
-#' @export
+#' @export politicalDiversity
+#'
 politicalDiversity <-
 function (x, index = "laakso/taagepera", margin = 1, base = exp(1))
 {
   x <- drop(as.matrix(x))
-  methods <- c("enc",  "enp", "ENC",  "ENP", "Herfindahl", "herfindahl", "laakso/taagepera", "Laakso/Taagepera", "gini", "golosov", "Gini", "Golosov", "shannon", "simpson",  "Shannon", "Simpson", "invsimpson", "lsq", "Lsq")
-  index <- match.arg(index, methods)
+  methods <- c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon")
+  index <- .Match(index, methods)
   if (length(dim(x)) > 1) {
     total <- apply(x, margin, sum)
     x <- sweep(x, margin, total, "/")
@@ -121,19 +126,19 @@ function (x, index = "laakso/taagepera", margin = 1, base = exp(1))
   else {
     x <- x/sum(x)
   }
-  if (index == "shannon"||index == "Shannon")
+  if (index == "shannon")
     x <- -x * log(x, base)
-  else if (index=="golosov"||index == "Golosov")
+  else if (index=="golosov")
     x <- sum((x)/((x)+((x[1])^2)-((x)^2)))
   else x <- x * x
   if (length(dim(x)) > 1)
     idx <- apply(x, margin, sum, na.rm = TRUE)
   else idx <- sum(x, na.rm = TRUE)
-  if (index == "simpson"||index == "Simpson"||index == "herfindahl"||index == "Herfindahl")
+  if (index == "simpson"||index == "herfindahl")
     idx <- 1 - idx
-  else if (index == "invsimpson"|| index == "laakso/taagepera" || index == "Laakso/Taagepera" || index == "enc" || index == "enp"|| index == "ENC" || index == "ENP")
+  else if (index == "laakso/taagepera" || index == "invsimpson"||  index == "enc" || index == "enp")
     idx <- 1/idx
-  return(rounded(idx, 3))
+  return(round(idx, 3))
 }### end -- politicalDiversity function
 NULL
 

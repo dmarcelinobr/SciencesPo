@@ -35,8 +35,8 @@ setGeneric("normalize", def=function(x, method = "range"){
 
 #' @rdname normalize-methods
 setMethod(f="normalize", definition=function(x, method = "range"){
-  methods = c("range", "center", "Z-score")
-  method = match.arg(method, methods)
+  methods = c("range", "center", "Z-score", "z-score", "scale")
+  method = .Match(method, methods)
   mat <- as.matrix(x)
   if(method=="range"){
   min_attr = apply(mat, 2, min)
@@ -48,6 +48,8 @@ setMethod(f="normalize", definition=function(x, method = "range"){
   return(ans)
   }
   else if(method=="center"){
+  }
+  else if(method=="Z-score"||method=="z-score"||method=="scale"){
   }
   else if (!is.numeric(resul <- x))
     warning("Data not numeric, normalization not applicable")
