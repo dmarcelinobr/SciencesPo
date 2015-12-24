@@ -18,8 +18,7 @@ likelihood.ratio(x, y = NULL)
 Computes the likelihood ratio test (G test) for contingency tables. Currently does not do Williams' and Yates' correction.
 }
 \examples{
-if (interactive()) {
-# 1992 General Social Survey- Sex and Party affiliation
+# 1992 General Social Survey-Sex and Party affiliation
 gss <- data.frame(
    expand.grid(sex=c("female", "male"),
    party=c("dem", "indep", "rep")),
@@ -28,7 +27,6 @@ gss <- data.frame(
  GSS <- gss[rep(1:nrow(gss), gss[["count"]]), ]
 
 likelihood.ratio(GSS$party, GSS$sex)
-}
 }
 \references{
 Agresti, Alan (1996) \emph{Introduction to categorical data

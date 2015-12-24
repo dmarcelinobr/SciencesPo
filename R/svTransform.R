@@ -9,7 +9,7 @@
 #' @seealso  \code{\link{normalize}}.
 #' @examples
 #'  x <- sample(10); x;
-#'  y <- normalize(x, range=c(0,1)); y;
+#'  y <- normalize(x); y;
 #'  svTransform(y)
 #' @export
 `svTransform` <- function(y)

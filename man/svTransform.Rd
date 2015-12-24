@@ -15,7 +15,7 @@ Simple function to transform a dependent variable that in [0,1] rather than (0, 
 }
 \examples{
 x <- sample(10); x;
- y <- normalize(x, range=c(0,1)); y;
+ y <- normalize(x); y;
  svTransform(y)
 }
 \references{

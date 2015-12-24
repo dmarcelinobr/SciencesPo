@@ -23,13 +23,12 @@ Computes the Cramer's V coefficient of association
 \url{http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf}, p. 1821
 }
 \examples{
-if (interactive()) {
-# Consider an experiment with two conditions, each with 100
-participants.
-# Each participant chooses between one of three parties.
+# Consider an experiment with two conditions, each with 100 participants.
+# Each participant chooses between one of following three parties.
+
 cond1 <- c(40, 25, 35)
 cond2 <- c(25, 35, 45)
-mat <- cbind( cond1, cond2 )
+mat <- cbind(cond1, cond2)
 rownames(mat) <- c( 'party1', 'party2', 'party3')
 
 # To test the null hypothesis that the distribution of preferences
@@ -41,9 +40,8 @@ stats::chisq.test(mat)
 
 cramer(mat)
 }
-}
 \references{
 Agresti, Alan (1996) \emph{Introduction to categorical data
- analysis}. NY: John Wiley and Sons.
+analysis}. NY: John Wiley and Sons.
 }
 

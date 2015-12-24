@@ -532,11 +532,10 @@ NULL
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
-#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' anderson.darling(x)
-#'}
+#'
 anderson.darling <- function (x)
 {
   DNAME <- deparse(substitute(x))
@@ -587,12 +586,14 @@ NULL
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
-#' if (interactive()) {
+#'
 #' set.seed(1234)
 #' x = rnorm(1000)
-#' skewness(x)
+#'
+#' skewness(x) # is data normal?
+#'
 #' agostino(x)
-#'}
+#'
 `agostino` <-
   function (x, alternative=c("two.sided","less","greater"))
   {
@@ -653,8 +654,7 @@ NULL
 #'  Thousand Oaks, CA: Sage. pp. 39-41.
 #'
 #' @examples
-#' if (interactive()) {
-#' # 1992 General Social Survey- Sex and Party affiliation
+#' # 1992 General Social Survey-Sex and Party affiliation
 #' gss <- data.frame(
 #'    expand.grid(sex=c("female", "male"),
 #'    party=c("dem", "indep", "rep")),
@@ -663,7 +663,7 @@ NULL
 #'  GSS <- gss[rep(1:nrow(gss), gss[["count"]]), ]
 #'
 #' likelihood.ratio(GSS$party, GSS$sex)
-#' }
+#'
 #' @export
 `likelihood.ratio` <- function(x, y = NULL) UseMethod("likelihood.ratio")
 
@@ -711,27 +711,26 @@ NULL
 #'
 #' @references
 #' Agresti, Alan (1996) \emph{Introduction to categorical data
-#'  analysis}. NY: John Wiley and Sons.
+#' analysis}. NY: John Wiley and Sons.
 #'
 #' @examples
-#' if (interactive()) {
-#' # Consider an experiment with two conditions, each with 100
-#' participants.
-#' # Each participant chooses between one of three parties.
+#' # Consider an experiment with two conditions, each with 100 participants.
+#' # Each participant chooses between one of following three parties.
+#'
 #' cond1 <- c(40, 25, 35)
 #' cond2 <- c(25, 35, 45)
-#' mat <- cbind( cond1, cond2 )
+#' mat <- cbind(cond1, cond2)
 #' rownames(mat) <- c( 'party1', 'party2', 'party3')
 #'
-#'# To test the null hypothesis that the distribution of preferences
-#'# is identical in the two conditions, we run a chi-square test:
+#' # To test the null hypothesis that the distribution of preferences
+#' # is identical in the two conditions, we run a chi-square test:
 #'
 #' stats::chisq.test(mat)
 #'
 #' # But, if we want to estimate the effect size, we then use Cramer's V:
 #'
 #' cramer(mat)
-#' }
+#'
 #' @export
 `cramer` <- function(x, y = NULL) UseMethod("cramer")
 
@@ -787,15 +786,13 @@ NULL
 #'
 #'
 #' @examples
-#' if (interactive()) {
 #'  # some data:
 #' male <- c(33, 76, 6)
 #' female <- c(47, 153, 25)
 #' mat <- cbind( male, female )
-#' colnames(mat) <- c( 'good', 'satisfactory', 'bad')
+#' rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 #'
 #' phi(mat)
-#' }
 #' @export
 `phi` <- function(x, y = NULL) UseMethod("phi")
 
@@ -834,26 +831,31 @@ NULL
 
 #' @title Pearson's Contingency Coefficient for Tables
 #'
-#' @description Computes the Pearson's C coefficient of contingency for tables.
+#' @description Compute Pearson's contingency coefficient for an RxC contingency table. \deqn{C = \sqrt{\frac{T}{N + T}}}, where T = the chi-square test statistic and N = the total sample size.
+#'
 #' @param x A vector or a matrix.
 #' @param y A vector that is ignored if x is a matrix and required if x is a vector.
 #'
+#' @details If we have N observations with two variables where each observation can be classified into one of R mutually exclusive categories for variable one and one of C mutually exclusive categories for variable two, then a cross-tabulation of the data results in a two-way contingency table (also referred to as an RxC contingency table).
+#' A common question with regards to a two-way contingency table is whether we have independence. By independence, we mean that the row and column variables are unassociated (i.e., knowing the value of the row variable will not help us predict the value of column variable and likewise knowing the value of the column variable will not help us predict the value of the row variable).
+#' One criticism of this statistic is that it does not give a meaningful description of the degree of dependence (or strength of association). That is, it is useful for determining whether there is dependence. However, since the strength of that association also depends on the degrees of freedom as well as the value of the test statistic, it is not easy to interpert the strength of association.
+#'
+#' @note The Cramer contingency coefficient is more commonly used than the Pearson contingency coefficient.
+#'
 #' @references
 #' Agresti, Alan (1996) \emph{Introduction to categorical data
-#'  analysis}. NY: John Wiley and Sons
-#'
+#'  analysis}. NY: John Wiley and Sons.
 #' Blaikie, N. 2003. \emph{Analyzing Quantative Data}. London: SAGE.
 #'
 #' @examples
-#' if (interactive()) {
 #' # some data:
 #' male <- c(33, 76, 6)
 #' female <- c(47, 153, 25)
 #' mat <- cbind( male, female )
-#' colnames(mat) <- c( 'good', 'satisfactory', 'bad')
+#' rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 #'
 #' contingency(mat)
-#' }
+#'
 #' @export
 `contingency` <- function(x, y = NULL) UseMethod("contingency")
 
@@ -903,19 +905,18 @@ NULL
 #' Tschuprow, A. A. (1939) \emph{Principles of the Mathematical Theory of Correlation}. Translated by M. Kantorowitsch. W. Hodge & Co.
 #'
 #' @examples
-#' if (interactive()) {
 #' # some data:
 #' male <- c(33, 76, 6);
 #' female <- c(47, 153, 25);
 #' mat <- cbind( male, female );
-#' colnames(mat) <- c( 'good', 'satisfactory', 'bad');
+#' rownames(mat) <- c( 'good', 'satisfactory', 'bad');
 #'
 #' tschuprow(mat);
 #'
+#' # long format
 #' long = untable(mat);
 #'
 #' tschuprow(long$Var1, long$Var2)
-#' }
 #' @export
 #'
 `tschuprow` <- function(x, y = NULL) UseMethod("tschuprow")
@@ -961,7 +962,6 @@ NULL
 #' Gibbons, J.D. and Chakraborti, S. (2003). \emph{Nonparametric Statistical Inference}, 4th ed. (pp. 97-98). URL: \url{http://books.google.pt/books?id=dPhtioXwI9cC&lpg=PA97&ots=ZGaQCmuEUq}
 #'
 #' @examples
-#' if (interactive()) {
 #' # Example 5.1 in Gibbons and Chakraborti (2003), p.98.
 #' # Annual data on total number of tourists to the United States for 1970-1982.
 #'  years <- 1970:1982
@@ -969,11 +969,10 @@ NULL
 #'  18610, 19842, 20310, 22500, 23080, 21916)
 #'
 #'  # See it graphically
-#'  plot(years, tourists, pch=20)
+#'  qplot(factor(years), tourists)+ geom_point()
 #'
 #' # Test the null against a trend
 #'  bartels.rank(tourists, alternative="left.sided", pvalue="beta")
-#' }
 #' @export
 `bartels.rank` <- function(x, alternative="two.sided", pvalue="normal") UseMethod("bartels.rank")
 

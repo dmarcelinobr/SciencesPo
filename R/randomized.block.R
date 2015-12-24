@@ -17,7 +17,8 @@
 #' blk <- randomized.block(blocksize = 20, n = 80, seed = 51)
 #' blk;
 #' table(blk$block, blk$condition)
-#' # let's do some imaginary analysis
+#'
+#' # let's do some analysis
 #' set.seed(51);
 #' blk$y <- rnorm(n = 80, mean = 20, sd = 5)
 #'

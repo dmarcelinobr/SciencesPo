@@ -23,19 +23,18 @@ Computes the Tschuprow's T coefficient of association for tables.
 Tschuprow's T has the disadvantage of producing an overcorrection. Although kept from being > 1, the correlation coefficient often cannot reach the permissible maximum value of 1. This problem is likely to occur if \code{R} is much greater than \code{C} (or the other way around) in a large \code{R x C} table.
 }
 \examples{
-if (interactive()) {
 # some data:
 male <- c(33, 76, 6);
 female <- c(47, 153, 25);
 mat <- cbind( male, female );
-colnames(mat) <- c( 'good', 'satisfactory', 'bad');
+rownames(mat) <- c( 'good', 'satisfactory', 'bad');
 
 tschuprow(mat);
 
+# long format
 long = untable(mat);
 
 tschuprow(long$Var1, long$Var2)
-}
 }
 \references{
 Tschuprow, A. A. (1939) \emph{Principles of the Mathematical Theory of Correlation}. Translated by M. Kantorowitsch. W. Hodge & Co.

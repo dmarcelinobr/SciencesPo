@@ -21,12 +21,12 @@ Under the hypothesis of normality, data should be symmetrical (i.e. skewness sho
  This test has such null hypothesis and is useful to detect a significant skewness in normally distributed data.
 }
 \examples{
-if (interactive()) {
 set.seed(1234)
 x = rnorm(1000)
-skewness(x)
+
+skewness(x) # is data normal?
+
 agostino(x)
-}
 }
 \references{
 D'Agostino, R.B. (1970). Transformation to Normality of the Null Distribution of G1. Biometrika, 57, 3, 679-681.

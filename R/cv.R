@@ -15,11 +15,10 @@
 #'
 #' @keywords Descriptive Stats
 #' @examples
-#' if (interactive()) {
 #' set.seed(51);
 #' x <- sample(100);
 #' cv(x);
-#' }
+#'
 #' @export cv
 #' @docType methods
 #' @rdname cv-methods

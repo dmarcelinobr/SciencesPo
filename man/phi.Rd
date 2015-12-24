@@ -24,15 +24,13 @@ an increment or ratio, not with a correlation coefficient.
 Alternatives to Phi are the Pearson's C; Tschuprow's T, and Cramer's V.
 }
 \examples{
-if (interactive()) {
- # some data:
+# some data:
 male <- c(33, 76, 6)
 female <- c(47, 153, 25)
 mat <- cbind( male, female )
-colnames(mat) <- c( 'good', 'satisfactory', 'bad')
+rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 
 phi(mat)
-}
 }
 \references{
 Agresti, Alan (1996) \emph{Introduction to categorical data

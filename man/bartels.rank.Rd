@@ -35,7 +35,6 @@ The RVN test statistic is
 where \eqn{R_i=rank(X_i), i=1,\dots, n}{R_i=rank(X_i), i=1,...,n}. It is known that \eqn{(RVN-2)/\sigma} is asymptotically standard normal, where \eqn{\sigma^2=\frac{4(n-2)(5n^2-2n-9)}{5n(n+1)(n-1)^2}}{\sigma^2=[4(n-2)(5n^2-2n-9)]/[5n(n+1)(n-1)^2]}.
 }
 \examples{
-if (interactive()) {
 # Example 5.1 in Gibbons and Chakraborti (2003), p.98.
 # Annual data on total number of tourists to the United States for 1970-1982.
  years <- 1970:1982
@@ -43,11 +42,10 @@ tourists <- c(12362, 12739, 13057, 13955, 14123,  15698, 17523,
  18610, 19842, 20310, 22500, 23080, 21916)
 
  # See it graphically
- plot(years, tourists, pch=20)
+ qplot(factor(years), tourists)+ geom_point()
 
 # Test the null against a trend
  bartels.rank(tourists, alternative="left.sided", pvalue="beta")
-}
 }
 \references{
 Bartels, R. (1982). The Rank Version of von Neumann's Ratio Test for Randomness, \emph{Journal of the American Statistical Association}, \bold{77}(377), 40-46.

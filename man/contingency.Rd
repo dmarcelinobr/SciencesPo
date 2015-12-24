@@ -15,23 +15,28 @@ contingency(x, y = NULL)
 \item{y}{A vector that is ignored if x is a matrix and required if x is a vector.}
 }
 \description{
-Computes the Pearson's C coefficient of contingency for tables.
+Compute Pearson's contingency coefficient for an RxC contingency table. \deqn{C = \sqrt{\frac{T}{N + T}}}, where T = the chi-square test statistic and N = the total sample size.
+}
+\details{
+If we have N observations with two variables where each observation can be classified into one of R mutually exclusive categories for variable one and one of C mutually exclusive categories for variable two, then a cross-tabulation of the data results in a two-way contingency table (also referred to as an RxC contingency table).
+A common question with regards to a two-way contingency table is whether we have independence. By independence, we mean that the row and column variables are unassociated (i.e., knowing the value of the row variable will not help us predict the value of column variable and likewise knowing the value of the column variable will not help us predict the value of the row variable).
+One criticism of this statistic is that it does not give a meaningful description of the degree of dependence (or strength of association). That is, it is useful for determining whether there is dependence. However, since the strength of that association also depends on the degrees of freedom as well as the value of the test statistic, it is not easy to interpert the strength of association.
+}
+\note{
+The Cramer contingency coefficient is more commonly used than the Pearson contingency coefficient.
 }
 \examples{
-if (interactive()) {
 # some data:
 male <- c(33, 76, 6)
 female <- c(47, 153, 25)
 mat <- cbind( male, female )
-colnames(mat) <- c( 'good', 'satisfactory', 'bad')
+rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 
 contingency(mat)
 }
-}
 \references{
 Agresti, Alan (1996) \emph{Introduction to categorical data
- analysis}. NY: John Wiley and Sons
-
+ analysis}. NY: John Wiley and Sons.
 Blaikie, N. 2003. \emph{Analyzing Quantative Data}. London: SAGE.
 }
 
