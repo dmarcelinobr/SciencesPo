@@ -32,7 +32,7 @@ female <- c(47, 153, 25)
 mat <- cbind( male, female )
 rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 
-phi(mat)
+Phi(mat)
 }
 \references{
 Agresti, Alan (1996) \emph{Introduction to categorical data

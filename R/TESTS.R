@@ -808,7 +808,8 @@ NULL
 #' mat <- cbind( male, female )
 #' rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 #'
-#' phi(mat)
+#' Phi(mat)
+#'
 #' @export
 `Phi` <- function(x, y = NULL, ...) UseMethod("Phi")
 
