@@ -112,35 +112,41 @@
 #' politicalDiversity(seats_2014, index= "golosov")
 #'
 #' @export politicalDiversity
-#'
-politicalDiversity <-
-function (x, index = "laakso/taagepera", margin = 1, base = exp(1))
-{
-  x <- drop(as.matrix(x))
-  methods <- c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon")
-  index <- .Match(index, methods)
-  if (length(dim(x)) > 1) {
-    total <- apply(x, margin, sum)
-    x <- sweep(x, margin, total, "/")
-  }
-  else {
-    x <- x/sum(x)
-  }
-  if (index == "shannon")
-    x <- -x * log(x, base)
-  else if (index=="golosov")
-    x <- sum((x)/((x)+((x[1])^2)-((x)^2)))
-  else x <- x * x
-  if (length(dim(x)) > 1)
-    idx <- apply(x, margin, sum, na.rm = TRUE)
-  else idx <- sum(x, na.rm = TRUE)
-  if (index == "simpson"||index == "herfindahl")
-    idx <- 1 - idx
-  else if (index == "laakso/taagepera" || index == "invsimpson"||  index == "enc" || index == "enp")
-    idx <- 1/idx
-  return(round(idx, 3))
-}### end -- politicalDiversity function
+#' @docType methods
+#' @rdname politicalDiversity-methods
+#' @aliases politicalDiversity,numeric,character,integer,numeric,ANY-method
+`politicalDiversity`<- setClass("politicalDiversity", representation(x = "numeric",index="character", margin="integer", base="numeric"))
+setGeneric("politicalDiversity", def=function(x, index = "laakso/taagepera", margin=1, base = exp(1)){
+standardGeneric("politicalDiversity")})
+
+#' @rdname politicalDiversity-methods
+setMethod(f="politicalDiversity", definition=function(x, index = "laakso/taagepera", margin = 1, base = exp(1)){
+      x <- drop(as.matrix(x))
+      methods <- c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon")
+      index <- .Match(index, methods)
+      if (length(dim(x)) > 1) {
+        total <- apply(x, margin, sum)
+        x <- sweep(x, margin, total, "/")
+      }
+      else {
+        x <- x/sum(x)
+      }
+      if (index == "shannon")
+        x <- -x * log(x, base)
+      else if (index=="golosov")
+        x <- sum((x)/((x)+((x[1])^2)-((x)^2)))
+      else x <- x * x
+      if (length(dim(x)) > 1)
+        idx <- apply(x, margin, sum, na.rm = TRUE)
+      else idx <- sum(x, na.rm = TRUE)
+      if (index == "simpson"||index == "herfindahl")
+        idx <- 1 - idx
+      else if (index == "laakso/taagepera" || index == "invsimpson"||  index == "enc" || index == "enp")
+        idx <- 1/idx
+      return(round(idx, 3))
+})### end -- politicalDiversity function
 NULL
+
 
 
 

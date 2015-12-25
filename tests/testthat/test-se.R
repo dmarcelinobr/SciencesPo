@@ -1,6 +1,10 @@
 context("se expectations")
+pdf(NULL) # suppress generating any PDFs
 test_that("computes standard error", {
-  expect_equal(se(c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)), 4.236195, tolerance=1e-3)
-})
+  dat = c(1, 2.3, 2, 3, 4, 8, 12, 43, -1, -4)
+  dat %>% se %>%
+      expect_equal(4.23, tolerance=.005)
+  })
+
 
 

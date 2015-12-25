@@ -1,4 +1,5 @@
 context("cv expectations")
+pdf(NULL) # suppress generating any PDFs
 test_that("computes coefficient of variation", {
   set.seed(51)
   x <- sample(100)
