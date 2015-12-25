@@ -2,7 +2,8 @@
 
 [![CRAN Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo)
 [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo)  [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
- ![](http://cranlogs.r-pkg.org/badges/grand-total/SciencesPo) 
+ ![](http://cranlogs.r-pkg.org/badges/month/SciencesPo) 
+ [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo)
  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11474.svg)](http://dx.doi.org/10.5281/zenodo.11474)
 
 _SciencesPo_ is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](http://cran.r-project.org/package=SciencesPo/) and is also hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
@@ -38,11 +39,11 @@ R CMD INSTALL <path to .zip file>
 ```
 
 ## Helping Out
-*SciencesPo* is intended to be a useful project for the social and political scientists community. Contributions are welcomed.
+**SciencesPo** is intended to be a useful project for the social  sciences community. Contributions are welcomed.
 
 ## Usage
 
-For a brief introcution to _SciencesPo_ functionality, run:
+For a brief introduction to *SciencesPo* functionality, run:
 
 ```
 demo(SciencesPo)
