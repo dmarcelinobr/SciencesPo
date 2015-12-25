@@ -8,13 +8,13 @@
 \usage{
 crossTable(.data, rowVar, colVar, freqVar = NULL, observed = TRUE,
   expected = FALSE, sresid = FALSE, total.pct = FALSE, row.pct = FALSE,
-  col.pct = FALSE, chisq = FALSE, phi = FALSE, cramersv = FALSE,
+  col.pct = FALSE, chisq = FALSE, phi = FALSE, cramerV = FALSE,
   contingency = FALSE)
 
 \method{crossTable}{default}(.data, rowVar, colVar, freqVar = NULL,
   observed = TRUE, expected = FALSE, sresid = FALSE, total.pct = FALSE,
   row.pct = FALSE, col.pct = FALSE, chisq = FALSE, phi = FALSE,
-  cramersv = FALSE, contingency = FALSE)
+  cramerV = FALSE, contingency = FALSE)
 }
 \arguments{
 \item{.data}{The data.frame.}
@@ -41,12 +41,12 @@ crossTable(.data, rowVar, colVar, freqVar = NULL, observed = TRUE,
 
 \item{phi}{If TRUE, the Phi coefficient is included.}
 
-\item{cramersv}{If TRUE, Cramer's V coefficient is included.}
+\item{cramerV}{If TRUE, Cramer's V coefficient is included.}
 
 \item{contingency}{If TRUE, the Contingency coefficient (C) is included.}
 }
 \description{
-Makes a contingency table and computes chi-square test of independence, phi coefficient, Cramer's V and Contingency coefficient.
+Makes a contingency table and computes chi-square test of independence, Phi coefficient, Cramer's V and Contingency coefficient.
 }
 \examples{
 titanic \%>\% crossTable("SEX", "AGE")

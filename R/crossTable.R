@@ -1,7 +1,7 @@
 #' @encoding UTF-8
 #' @title Cross-tabulation
 #'
-#' @description Makes a contingency table and computes chi-square test of independence, phi coefficient, Cramer's V and Contingency coefficient.
+#' @description Makes a contingency table and computes chi-square test of independence, Phi coefficient, Cramer's V and Contingency coefficient.
 #' @param .data The data.frame.
 #' @param rowVar The row variable.
 #' @param colVar The column variable.
@@ -14,7 +14,7 @@
 #' @param col.pct If TRUE, column proportions are included.
 #' @param chisq If TRUE, the result of chi-square test of independence is included.
 #' @param phi If TRUE, the Phi coefficient is included.
-#' @param cramersv If TRUE, Cramer's V coefficient is included.
+#' @param cramerV If TRUE, Cramer's V coefficient is included.
 #' @param contingency If TRUE, the Contingency coefficient (C) is included.
 #'
 #' @examples
@@ -51,7 +51,7 @@
                      col.pct = FALSE,
                      chisq = FALSE,
                      phi = FALSE,
-                     cramersv = FALSE,
+                     cramerV = FALSE,
                      contingency = FALSE) UseMethod("crossTable")
 
 #' @rdname crossTable
@@ -68,7 +68,7 @@
                              col.pct = FALSE,
                              chisq = FALSE,
                              phi = FALSE,
-                             cramersv = FALSE,
+                             cramerV = FALSE,
                              contingency = FALSE) {
 	if (is.character(.data)) {
 	  nameData <- .data
@@ -260,7 +260,7 @@
 					cat("\n")
 				} ### if (any(c(observed, expected, total.pct, row.pct, col.pct) == TRUE))
 
-				if (chisq || phi || cramersv || contingency) {
+				if (chisq || phi || cramerV || contingency) {
 					chisq.label <- NULL
 					if (chisq) {
 						chisq.label <- c(chisq.label, "Pearson Chi-Square", "Likelihood Ratio Chi-Square")
@@ -269,7 +269,7 @@
 						tlable.length3 <- nchar(round(result[[1]][[1]], 4)) + 2
 					} else { tlable.length2 <- 0; tlable.length3 <- 0 }
 					if (phi) 		{ chisq.label <- c(chisq.label, "Phi Coefficient") }
-					if (cramersv) 	{ chisq.label <- c(chisq.label, "Cramer's V") }
+					if (cramerV) 	{ chisq.label <- c(chisq.label, "Cramer's V") }
 					if (contingency) 	{ chisq.label <- c(chisq.label, "Contingency Coefficient") }
 					tlable.length1 <- max(nchar(chisq.label)) + 2
 					ncell <- nrow(crosstable) * ncol(crosstable)
@@ -295,25 +295,25 @@
     						    formatC(result[[1]][[1]], digits = 4, width = tlable.length3, format = "f", flag = "#"),
 						    formatC(result[[3]][[1]], digits = 4, width = 8, format = "f", flag = "#"), "\n", sep = "")
 						cat(formatC(chisq.label[2], width = tlable.length1, format = "s", flag = "-"),
-						    formatC(likelihood.ratio(crosstable)$df, width = tlable.length2, flag = "-"),
-	    					    formatC(likelihood.ratio(crosstable)$statistics, digits = 4, width = tlable.length3, format = "f", flag = "#"),
-						    formatC(likelihood.ratio(crosstable)$p.value, digits = 4, width = 8, format = "f", flag = "#"), "\n", sep = "")
+						    formatC(LR(crosstable)$df, width = tlable.length2, flag = "-"),
+	    					    formatC(LR(crosstable)$statistics, digits = 4, width = tlable.length3, format = "f", flag = "#"),
+						    formatC(LR(crosstable)$p.value, digits = 4, width = 8, format = "f", flag = "#"), "\n", sep = "")
 					}
 
 					if (phi) {
 						cat(formatC("Phi Coefficient", width = tlable.length1, format = "s", flag = "-"), sep = "")
 						if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-					    	cat(formatC(phi(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
+					    	cat(formatC(Phi(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
 					}
 					if (contingency) {
 						cat(formatC("Contingency Coefficient", width = tlable.length1, format = "s", flag = "-"), sep = "")
 						if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-					    	cat(formatC(contingency(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
+					    	cat(formatC(Contingency(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
 					}
-					if (cramersv) {
+					if (cramerV) {
 						cat(formatC("Cramer's V", width = tlable.length1, format = "s", flag = "-"), sep = "")
 						if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-					    	cat(formatC(cramer(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
+					    	cat(formatC(cramerV(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
 					}
 					if (all(dim(crosstable) == 2) && chisq) {
 						cat(formatC("Fisher's Exact Test", width = tlable.length1, format = "s", flag = "-"),
@@ -331,7 +331,7 @@
 					if (NExpFreqless5 > 0) { cat(paste(rep("*", num.error <- num.error + 1), collapse = "", sep = ""), " Cells with Expected Frequency < 5: ", NExpFreqless5, " of ", ncell, " (",round((NExpFreqless5/ncell)*100, 2),"%)\n", sep = "") }
 					if (NExpFreqless1 > 0) { cat(paste(rep("*", num.error <- num.error + 1), collapse = "", sep = ""), " Cells with Expected Frequency < 1: ", NExpFreqless1, " of ", ncell, " (",round((NExpFreqless1/ncell)*100, 2),"%)\n", sep = "") }
 					cat("\n")
-				} ### end -- if (chisq || phi || cramersv || contingency)
+				} ### end -- if (chisq || phi || cramerV || contingency)
 
 				if (sresid) {
 					cat("Residuals for Table ", rowVar[i], " by ", colVar[j], "\n\n", sep = "")

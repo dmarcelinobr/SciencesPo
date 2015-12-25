@@ -24,14 +24,13 @@ Under the hypothesis of normality, data should have Geary's
      kurtosis in normally distributed data.
 }
 \examples{
-if (interactive()) {
 set.seed(1234)
 x = rnorm(1000)
 geary(x)
 bonett.seier(x)
 }
-}
 \references{
 Bonett, D.G., Seier, E. (2002) A test of normality with high uniform power. Computational Statistics and Data Analysis, 40, 435-445.
 }
+\keyword{Tests}
 

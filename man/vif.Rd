@@ -14,22 +14,21 @@ vif(model, ...)
 }
 \value{
 A numeric value indicating the variance inflation in the model
-#'
 }
 \description{
 Extracts Variance Inflation Factor from a model of class \dQuote{lm}
 }
 \examples{
-if (interactive()) {
 data(mtcars)
 
 m1 <- lm(mpg ~ qsec + hp, data=mtcars)
 
 vif(m1)
 }
-}
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
+#'
 }
-\keyword{Models}
+\keyword{Models,}
+\keyword{Tests}
 

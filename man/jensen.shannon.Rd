@@ -14,7 +14,6 @@ jensen.shannon(mat)
 The Jensen-Shannon divergence or distance matrix stores the \eqn{n*(n-1)/2} pairwise distances/similarities between observations in an \eqn{n x p} matrix where n correspond to the independent observational units and p represent the covariates measured on each individual.
 }
 \examples{
-if (interactive()) {
 # create a matrix
 n  = 10
 m = matrix(runif(n*10), ncol = 10)
@@ -22,5 +21,5 @@ m = m/rowSums(m)
 
 jensen.shannon(m)
 }
-}
+\keyword{Tests}
 

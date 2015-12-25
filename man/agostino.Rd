@@ -31,4 +31,5 @@ agostino(x)
 \references{
 D'Agostino, R.B. (1970). Transformation to Normality of the Null Distribution of G1. Biometrika, 57, 3, 679-681.
 }
+\keyword{Tests}
 

@@ -20,4 +20,5 @@ Probing Regression Interactions
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
+\keyword{Tests}
 

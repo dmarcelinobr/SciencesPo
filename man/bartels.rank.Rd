@@ -52,4 +52,5 @@ Bartels, R. (1982). The Rank Version of von Neumann's Ratio Test for Randomness,
 
 Gibbons, J.D. and Chakraborti, S. (2003). \emph{Nonparametric Statistical Inference}, 4th ed. (pp. 97-98). URL: \url{http://books.google.pt/books?id=dPhtioXwI9cC&lpg=PA97&ots=ZGaQCmuEUq}
 }
+\keyword{Tests}
 

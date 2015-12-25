@@ -35,8 +35,7 @@ setGeneric("normalize", def=function(x, method = "range"){
 
 #' @rdname normalize-methods
 setMethod(f="normalize", definition=function(x, method = "range"){
-  methods = c("range", "center", "Z-score", "z-score", "scale")
-  method = .Match(method, methods)
+  method = .Match(arg = method, choices = c("range", "center", "Z-score", "z-score", "scale"))
   mat <- as.matrix(x)
   if(method=="range"){
   min_attr = apply(mat, 2, min)

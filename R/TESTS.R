@@ -8,7 +8,11 @@
 #' @param alternative add both \code{z1} and \code{z2} to model or just one of them.
 #'
 #' @details Two new covariates, z1 and z2 are generated such that \deqn{z1 = 0.5 \* logit^{2} * I(pi >= 0.5)}, \deqn{z2 = - 0.5 \* logit^{2} \* I(pi <= 0.5)}, where \deqn{I(arg) = 1} if arg is \code{TRUE} and \deqn{I(arg) = 1} if \code{FALSE}.
+#'
 #' @note Adapted from program published by Brett Presnell's code available at the Florida University.
+#'
+#' @keywords Tests
+#'
 #'@references
 #' Stukel, T.A. (1988) Generalized logistic models. \emph{Journal of the American Statistical Association} 83: 426-431.
 #'@references
@@ -69,19 +73,19 @@ NULL
 #' @param model a model object
 #' @param \dots further arguments passed to or used by other methods.
 #' @return A numeric value indicating the variance inflation in the model
-#' #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#'#' @keywords Tests
 #'
 #' @importFrom stats coef vcov terms cov2cor model.matrix coefficients
 #'
-#' @keywords Models
+#' @keywords Models, Tests
 #' @examples
-#' if (interactive()) {
 #' data(mtcars)
 #'
 #' m1 <- lm(mpg ~ qsec + hp, data=mtcars)
 #'
 #' vif(m1)
-#' }
+#'
 #' @export
 `vif` <-
   function(model, ...) {
@@ -127,8 +131,8 @@ NULL
 #' @return statistic The Geary's test of statistic G.
 #' @return p.value The significant probability of the null-hypothesis testing.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @keywords Tests
 #' @examples
-#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' geary(x)
@@ -138,7 +142,6 @@ NULL
 #' y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
 #'
 #' stats::qqnorm(y)
-#'}
 #' @export
 `geary` <- function(x, na.rm=TRUE) {
   if (any(i.na <- is.na(x))) {
@@ -177,6 +180,7 @@ NULL
 #'
 #' @param y The response variable.
 #' @param k The grouping factor.
+#' @keywords Tests
 #' @export
 james.stein <- function(y, k)
 {
@@ -221,19 +225,17 @@ NULL
 #' @description This function performs the Jarque-Bera test on the given data sample to determine if the data are sample drawn from a normal population.
 #' @param x  A numeric vector of data.
 #' @details The Jarque-Bera statistic is chi-square distributed with two degrees of freedom. Under the hypothesis of normality, data should be symmetrical (i.e. skewness should be equal to zero) and have skewness chose to three.
-#'
+#' @keywords Tests
 #' @references
 #' Jarque, C. M., Bera, A. K. (1980) Efficient test for normality, homoscedasticity and serial independence of residuals,
 #' Economic Letters, Vol. 6 Issue 3, 255-259.
 #'
 #' @examples
-#' if (interactive()) {
 #' set.seed(1234)
 #'
 #' x <- rnorm(1000)
 #'
 #' jarque.bera(x)
-#' }
 #' @export
 jarque.bera <- function(x)
 {
@@ -264,15 +266,16 @@ NULL
 #'
 #' @description The Jensen-Shannon divergence or distance matrix stores the \eqn{n*(n-1)/2} pairwise distances/similarities between observations in an \eqn{n x p} matrix where n correspond to the independent observational units and p represent the covariates measured on each individual.
 #' @param mat An n x p matrix.
+#' @keywords Tests
 #' @examples
-#' if (interactive()) {
+#'
 #' # create a matrix
 #' n  = 10
 #' m = matrix(runif(n*10), ncol = 10)
 #' m = m/rowSums(m)
 #'
 #' jensen.shannon(m)
-#' }
+#'
 #' @export
 jensen.shannon <- function(mat) {
   kld = function(p,q) sum(ifelse(p == 0 | q == 0, 0, log(p/q)*p))
@@ -299,6 +302,7 @@ NULL
 #' @param x the independent variable.
 #' @param z the moderator variable.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @keywords Tests
 #'@export
 `johnson.neyman` = function(y,x,z){
   mod = stats::lm(y~x + z + x:z)
@@ -331,18 +335,19 @@ NULL
 #'
 #' @param x A numeric vector of data values, the number of observations must be greater than 4.
 #'  Missing values are allowed.
+#' @keywords Tests
 #' @references
 #' Thode Jr., H.C. (2002): Testing for Normality. Marcel Dekker, New York.
 #'
 #' @importFrom stats complete.cases pnorm
 #' @export
 #' @examples
-#' if (interactive()) {
+#'
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' lilliefors(x)
-#'}
-lilliefors <- function(x){
+#'
+`lilliefors` <- function(x){
   DNAME <- deparse(substitute(x))
   x <- sort(x[stats::complete.cases(x)])
   n <- length(x)
@@ -408,17 +413,16 @@ NULL
 #'    kurtosis equal to \code{sqrt(2/pi)} (0.7979). This test has such null
 #'     hypothesis and is useful to detect a significant difference of Geary's
 #'      kurtosis in normally distributed data.
+#' @keywords Tests
 #'  @references
 #'  Bonett, D.G., Seier, E. (2002) A test of normality with high uniform power. Computational Statistics and Data Analysis, 40, 435-445.
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
-#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' geary(x)
 #' bonett.seier(x)
-#' }
 `bonett.seier` <-
   function (x, alternative=c("two.sided","less","greater"))
   {
@@ -469,17 +473,17 @@ NULL
 #' @details Under the hypothesis of normality, data should have kurtosis equal
 #'  to 3.This test has such null hypothesis and is useful to detect a
 #'  significant difference of kurtosis in normally distributed data.
+#' @keywords Tests
 #' @references Anscombe, F.J., Glynn, W.J. (1983) Distribution of kurtosis
 #' statistic for normal statistics. Biometrika, 70, 1, 227-234
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
-#' if (interactive()) {
 #' set.seed(1234)
 #' x = rnorm(1000)
 #' kurtosis(x)
 #' anscombe.glynn(x)
-#' }
+#'
 `anscombe.glynn` <-
   function (x, alternative=c("two.sided","less","greater"))
   {
@@ -528,7 +532,7 @@ NULL
 #'
 #' @param x A numeric vector of data values, the number of observations must be greater than 7. Missing values are allowed.
 #'  @details The Anderson-Darling test is the recommended EDF test by Stephens (1986) followed by the Cramer-von Mises test. Compared to the later, the Anderson-Darling gives more weight to the tails of the distribution.
-#'
+#' @keywords Tests
 #' @importFrom stats complete.cases  pnorm
 #' @export
 #' @examples
@@ -581,6 +585,8 @@ NULL
 #'  You can specify just the initial letter.
 #'  @details Under the hypothesis of normality, data should be symmetrical (i.e. skewness should be equal to zero).
 #'  This test has such null hypothesis and is useful to detect a significant skewness in normally distributed data.
+#'
+#' @keywords Tests
 #' @references
 #' D'Agostino, R.B. (1970). Transformation to Normality of the Null Distribution of G1. Biometrika, 57, 3, 679-681.
 #' @importFrom stats complete.cases  pnorm
@@ -644,6 +650,8 @@ NULL
 #'
 #' @param x A vector or a matrix.
 #' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#' @param \dots Extra parameters pass to the \code{\link{table}} function.
+#' @keywords Tests
 #'
 #' @references
 #' Agresti, Alan (1996) \emph{Introduction to categorical data
@@ -662,14 +670,14 @@ NULL
 #' # expand it:
 #'  GSS <- gss[rep(1:nrow(gss), gss[["count"]]), ]
 #'
-#' likelihood.ratio(GSS$party, GSS$sex)
+#' LR(GSS$party, GSS$sex)
 #'
 #' @export
-`likelihood.ratio` <- function(x, y = NULL) UseMethod("likelihood.ratio")
+`LR` <- function(x, y = NULL, ...) UseMethod("LR")
 
-#' @rdname likelihood.ratio
+#' @rdname LR
 #' @export
-likelihood.ratio.default <- function(x, y = NULL) {
+`LR.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -682,15 +690,19 @@ likelihood.ratio.default <- function(x, y = NULL) {
     x <- factor(x[ok])
     y <- factor(y[ok])
     if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y)
+    x <- table(x,y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
-  if (all(dim(x) == 2)) { result <- stats::chisq.test(x, correct = TRUE) } else { result <- suppressWarnings(stats::chisq.test(x, correct = FALSE)) }
+  if (all(dim(x) == 2)) {
+    result <- stats::chisq.test(x, correct = TRUE)
+  } else {
+      result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
+      }
 
   G <- 2 * sum(result$obs * log(result$obs/result$exp), na.rm = TRUE)
   pvalue <- 1 - pchisq(G, result[[2]][[1]])
   return(list(statistics = G, df = result[[2]][[1]], p.value = pvalue))
-} ### end -- likelihood.ratio function
+} ### end -- LR function
 NULL
 
 
@@ -704,10 +716,12 @@ NULL
 #'
 #' @param x A vector or a matrix.
 #' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#' @param \dots Extra parameters pass to the \code{\link{table}} function.
 #'
 #' @note
 #' # Bootstrap confidence intervals for Cramer's V
 #' \url{http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf}, p. 1821
+#' @keywords Association, Nominal, Ordinal Tests
 #'
 #' @references
 #' Agresti, Alan (1996) \emph{Introduction to categorical data
@@ -729,14 +743,14 @@ NULL
 #'
 #' # But, if we want to estimate the effect size, we then use Cramer's V:
 #'
-#' cramer(mat)
+#' cramerV(mat)
 #'
 #' @export
-`cramer` <- function(x, y = NULL) UseMethod("cramer")
+`cramerV` <- function(x, y = NULL, ...) UseMethod("cramerV")
 
-#' @rdname cramer
+#' @rdname cramerV
 #' @export
-`cramer.default` <- function(x, y = NULL) {
+`cramerV.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -749,30 +763,31 @@ NULL
     x <- factor(x[ok])
     y <- factor(y[ok])
     if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y)
+    x <- table(x,y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- stats::chisq.test(x, correct = TRUE)
+    result <- stats::chisq.test(x, correct = FALSE)
     cramersV <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
     cramersV <- sqrt(result[[1]][[1]]/(sum(x)*(min(dim(x))-1)))
   }
   return(cramersV)
-} ### end -- cramers'v function
+} ### end -- Cramers'V function
 NULL
 
 
 
 
 
-#' @title Cramer's Phi Coefficient for Tables
+#' @title The Phi Coefficient for \code{2 x 2} Tables
 #'
 #' @description Computes the Cramer's Phi coefficient for tables.
 #'
 #' @param x A vector or a matrix.
 #' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#' @param \dots Extra parameters pass to the \code{\link{table}} function.
 #'
 #' @details
 #' Phi is seldom applied for indexing a \code{2 x 2} table, because the
@@ -780,6 +795,7 @@ NULL
 #' an increment or ratio, not with a correlation coefficient.
 #' Alternatives to Phi are the Pearson's C; Tschuprow's T, and Cramer's V.
 #'
+#' @keywords Association, Nominal, Ordinal, Tests
 #' @references
 #' Agresti, Alan (1996) \emph{Introduction to categorical data
 #'  analysis}. NY: John Wiley and Sons
@@ -794,12 +810,12 @@ NULL
 #'
 #' phi(mat)
 #' @export
-`phi` <- function(x, y = NULL) UseMethod("phi")
+`Phi` <- function(x, y = NULL, ...) UseMethod("Phi")
 
 
-#' @rdname phi
+#' @rdname Phi
 #' @export
-`phi.default` <- function(x, y = NULL) {
+`Phi.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -812,20 +828,19 @@ NULL
     x <- factor(x[ok])
     y <- factor(y[ok])
     if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y)
+    x <- table(x,y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- stats::chisq.test(x, correct = TRUE)
-    phicoef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
+    result <- as.numeric(sqrt(suppressWarnings(stats::chisq.test(x, correct = FALSE)$statistic) / sum(x)))
+    #phicoef <- (prod(diag(result$observed)) - (result$observed[2,1]*result$observed[1,2]))/sqrt(prod(result$observed))
   } else {
-    result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
-    phicoef <- sqrt(result[[1]][[1]]/sum(x))
+    result <- as.numeric(sqrt(suppressWarnings(stats::chisq.test(x, correct = FALSE)$statistic) / sum(x)))
+   # phicoef <- sqrt(result[[1]][[1]]/sum(x))
   }
-  return(phicoef)
+  return(result)
 } ### end -- phi function
 NULL
-
 
 
 
@@ -835,12 +850,14 @@ NULL
 #'
 #' @param x A vector or a matrix.
 #' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#' @param \dots Extra parameters pass to the \code{\link{table}} function.
 #'
 #' @details If we have N observations with two variables where each observation can be classified into one of R mutually exclusive categories for variable one and one of C mutually exclusive categories for variable two, then a cross-tabulation of the data results in a two-way contingency table (also referred to as an RxC contingency table).
 #' A common question with regards to a two-way contingency table is whether we have independence. By independence, we mean that the row and column variables are unassociated (i.e., knowing the value of the row variable will not help us predict the value of column variable and likewise knowing the value of the column variable will not help us predict the value of the row variable).
 #' One criticism of this statistic is that it does not give a meaningful description of the degree of dependence (or strength of association). That is, it is useful for determining whether there is dependence. However, since the strength of that association also depends on the degrees of freedom as well as the value of the test statistic, it is not easy to interpert the strength of association.
 #'
 #' @note The Cramer contingency coefficient is more commonly used than the Pearson contingency coefficient.
+#' @keywords Tests
 #'
 #' @references
 #' Agresti, Alan (1996) \emph{Introduction to categorical data
@@ -854,14 +871,14 @@ NULL
 #' mat <- cbind( male, female )
 #' rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 #'
-#' contingency(mat)
+#' Contingency(mat)
 #'
 #' @export
-`contingency` <- function(x, y = NULL) UseMethod("contingency")
+`Contingency` <- function(x, y = NULL, ...) UseMethod("Contingency")
 
-#' @rdname contingency
+#' @rdname Contingency
 #' @export
-`contingency.default` <- function(x, y = NULL) {
+`Contingency.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -874,7 +891,7 @@ NULL
     x <- factor(x[ok])
     y <- factor(y[ok])
     if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y)
+    x <- table(x,y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
@@ -885,7 +902,7 @@ NULL
     cont.coef <- sqrt(result[[1]][[1]]/(sum(x) + result[[1]][[1]]))
   }
   return(cont.coef)
-} ### end -- contingency function
+} ### end -- Contingency function
 NULL
 
 
@@ -900,6 +917,7 @@ NULL
 #' @param \dots Extra parameters pass to the \code{\link{table}} function.
 #'
 #' @details Tschuprow's T has the disadvantage of producing an overcorrection. Although kept from being > 1, the correlation coefficient often cannot reach the permissible maximum value of 1. This problem is likely to occur if \code{R} is much greater than \code{C} (or the other way around) in a large \code{R x C} table.
+#' @keywords Tests
 #'
 #' @references
 #' Tschuprow, A. A. (1939) \emph{Principles of the Mathematical Theory of Correlation}. Translated by M. Kantorowitsch. W. Hodge & Co.
@@ -911,20 +929,20 @@ NULL
 #' mat <- cbind( male, female );
 #' rownames(mat) <- c( 'good', 'satisfactory', 'bad');
 #'
-#' tschuprow(mat);
+#' tschuprowT(mat);
 #'
 #' # long format
 #' long = untable(mat);
 #'
-#' tschuprow(long$Var1, long$Var2)
+#' tschuprowT(long$Var1, long$Var2)
 #' @export
 #'
-`tschuprow` <- function(x, y = NULL) UseMethod("tschuprow")
+`tschuprowT` <- function(x, y = NULL) UseMethod("tschuprowT")
 
 
-#' @rdname tschuprow
+#' @rdname tschuprowT
 #' @export
-`tschuprow.default` <- function(x, y = NULL, ...){
+`tschuprowT.default` <- function(x, y = NULL, ...){
 
   if(!is.null(y)) x <- table(x, y, ...)
   # http://en.wikipedia.org/wiki/Tschuprow's_T
@@ -956,6 +974,8 @@ NULL
 #' \item{method}{a character string indicating the test performed.}
 #' \item{data.name}{a character string giving the name of the data.}
 #' \item{alternative}{a character string describing the alternative.}
+#'
+#' @keywords Tests
 #' @references
 #' Bartels, R. (1982). The Rank Version of von Neumann's Ratio Test for Randomness, \emph{Journal of the American Statistical Association}, \bold{77}(377), 40-46.
 #'
@@ -1028,3 +1048,183 @@ method = "Bartels Ratio Test", data.name = dname, parameter=c(n=n), n=n, alterna
 } ### end -- bartels.rank function
 NULL
 
+
+
+#' @keywords Tests
+
+
+
+Tau <- function(x, y = NULL, direction = c("row", "column"), conf.level = NA, ...){
+
+  if(!is.null(y)) x <- table(x, y, ...)
+
+  n <- sum(x)
+  n.err.unconditional <- n^2
+  sum.row <- rowSums(x)
+  sum.col <- colSums(x)
+
+  switch( match.arg( arg = direction, choices = c("row", "column") )
+          , "column" = {             # Tau Column|Row
+
+            for(i in 1:nrow(x))
+              n.err.unconditional <- n.err.unconditional-n*sum(x[i,]^2/sum.row[i])
+            n.err.conditional <- n^2-sum(sum.col^2)
+            tau.CR <- 1-(n.err.unconditional/n.err.conditional)
+            v <- n.err.unconditional/(n^2)
+            d <- n.err.conditional/(n^2)
+            f <- d*(v+1)-2*v
+            var.tau.CR <- 0
+            for(i in 1:nrow(x))
+              for(j in 1:ncol(x))
+                var.tau.CR <- var.tau.CR + x[i,j]*(-2*v*(sum.col[j]/n)+d*((2*x[i,j]/sum.row[i])-sum((x[i,]/sum.row[i])^2))-f)^2/(n^2*d^4)
+            ASE.tau.CR <- sqrt(var.tau.CR)
+            est <- tau.CR
+            sigma2 <- ASE.tau.CR^2
+          }
+          , "row" = {             # Tau Row|Column
+
+            for(j in 1:ncol(x))
+              n.err.unconditional <- n.err.unconditional-n*sum(x[,j]^2/sum.col[j])
+            n.err.conditional <- n^2-sum(sum.row^2)
+            tau.RC <- 1-(n.err.unconditional/n.err.conditional)
+            v <- n.err.unconditional/(n^2)
+            d <- n.err.conditional/(n^2)
+            f <- d*(v+1)-2*v
+            var.tau.RC <- 0
+            for(i in 1:nrow(x))
+              for(j in 1:ncol(x))
+                var.tau.RC <- var.tau.RC + x[i,j]*(-2*v*(sum.row[i]/n)+d*((2*x[i,j]/sum.col[j])-sum((x[,j]/sum.col[j])^2))-f)^2/(n^2*d^4)
+            ASE.tau.RC <- sqrt(var.tau.RC)
+            est <- tau.RC
+            sigma2 <- ASE.tau.RC^2
+          }
+  )
+
+  if(is.na(conf.level)){
+    res <- est
+  } else {
+    pr2 <- 1 - (1 - conf.level)/2
+    ci <- qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + est
+    res <- c(tauA=est, lwr.ci=ci[1], upr.ci=ci[2])
+  }
+
+  return(res)
+}
+NULL
+
+
+
+
+
+#' @keywords Tests
+
+
+
+#' # Example from Garson's book p. 31
+#' `city manager` <- c(80, 9, 1)
+#' `mayor-council` <- c(40, 1, 9)
+#' tab <- rbind(`city manager`, `mayor-council`)
+#' colnames(tab) <- c( 'city size1', 'city size2', 'city size3')
+#'
+#' lambda(tab, direction="row")
+#'
+#' # In the table above, knowing city size reduces errors in guessing form of government by 16%.
+
+#'
+# good description
+# http://salises.mona.uwi.edu/sa63c/Crosstabs%20Measures%20for%20Nominal%20Data.htm
+
+Lambda <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, ...){
+
+  if(!is.null(y)) x <- table(x, y, ...)
+
+  # Guttman'a lambda (1941), resp. Goodman Kruskal's Lambda (1954)
+
+  n <- sum(x)
+  csum <- colSums(x)
+  rsum <- rowSums(x)
+  rmax <- apply(x, 1, max)
+  cmax <- apply(x, 2, max)
+  max.rsum <- max(rsum)
+  max.csum <- max(csum)
+
+  nr <- nrow(x)
+  nc <- ncol(x)
+
+  switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
+          , "symmetric" = { res <- 0.5*(sum(rmax, cmax) - (max.csum +  max.rsum)) / (n - 0.5*(max.csum +  max.rsum)) }
+          , "column" = { res <- (sum(rmax) - max.csum) / (n - max.csum) }
+          , "row" = { res <- (sum(cmax) - max.rsum) / (n - max.rsum) }
+  )
+
+  if(is.na(conf.level)){
+    res <- res
+  } else {
+
+    L.col <- matrix(,nc)
+    L.row <- matrix(,nr)
+
+    switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
+            , "symmetric" = {
+
+              #     How to see:
+              #     http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
+              #     pp. 1744
+              #     Author:   Nina
+
+              l <- which.max(csum)
+              k <- which.max(rsum)
+              li <- apply(x,1,which.max)
+              ki <- apply(x,2,which.max)
+
+              w <- 2*n-max.csum-max.rsum
+              v <- 2*n -sum(rmax,cmax)
+              xx <- sum(rmax[li==l], cmax[ki==k], rmax[k], cmax[l])
+              y <- 8*n-w-v-2*xx
+
+              t <- rep(NA, length(li))
+              for (i in 1:length(li)){
+                t[i] <- (ki[li[i]]==i & li[ki[li[i]]]==li[i])
+              }
+
+              sigma2 <- 1/w^4*(w*v*y-2 *w^2*(n - sum(rmax[t]))-2*v^2*(n-x[k,l]))
+
+            }
+            , "column" = {
+              L.col.max <- min(which(csum == max.csum))
+              for(i in 1:nr) {
+                if(length(which(x[i, intersect(which(x[i,] == max.csum), which(x[i,] == max.rsum))] == n))>0)
+                  L.col[i] <- min(which(x[i, intersect(which(x[i,] == max.csum), which(x[i,] == max.rsum))] == n))
+                else
+                  if(x[i, L.col.max] == max.csum)
+                    L.col[i] <- L.col.max
+                  else
+                    L.col[i] <- min(which(x[i,] == rmax[i]))
+              }
+              sigma2 <- (n-sum(rmax))*(sum(rmax) + max.csum -
+                                         2*(sum(rmax[which(L.col == L.col.max)])))/(n-max.csum)^3
+            }
+            , "row" = {
+              L.row.max <- min(which(rsum == max.rsum))
+              for(i in 1:nc) {
+                if(length(which(x[intersect(which(x[,i] == max.rsum), which(x[,i] == max.csum)),i] == n))>0)
+                  L.row[i] <- min(which(x[i,intersect(which(x[i,] == max.csum), which(x[i,] == max.rsum))] == n))
+                else
+                  if(x[L.row.max,i] == max.rsum)
+                    L.row[i] <- L.row.max
+                  else
+                    L.row[i] <- min(which(x[,i] == cmax[i]))
+              }
+              sigma2 <- (n-sum(cmax))*(sum(cmax) + max.rsum -
+                                         2*(sum(cmax[which(L.row == L.row.max)])))/(n-max.rsum)^3
+            }
+    )
+
+    pr2 <- 1 - (1 - conf.level)/2
+    ci <- pmin(1, pmax(0, qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + res))
+    res <- c(lambda = res,  lwr.ci=ci[1], ups.ci=ci[2])
+  }
+
+  return(res)
+}
+NULL

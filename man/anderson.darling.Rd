@@ -21,4 +21,5 @@ set.seed(1234)
 x = rnorm(1000)
 anderson.darling(x)
 }
+\keyword{Tests}
 

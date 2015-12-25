@@ -23,4 +23,5 @@ James, Willard and Stein, Charles (1961) ``Estimation with
 Quadratic Loss.'' \emph{Proceedings of the Fourth Berkeley
 Symposium on Mathematical Statistics and Probability}, Vol. 1: 361-379.
 }
+\keyword{Tests}
 

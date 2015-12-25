@@ -122,8 +122,7 @@ standardGeneric("politicalDiversity")})
 #' @rdname politicalDiversity-methods
 setMethod(f="politicalDiversity", definition=function(x, index = "laakso/taagepera", margin = 1, base = exp(1)){
       x <- drop(as.matrix(x))
-      methods <- c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon")
-      index <- .Match(index, methods)
+      index <- .Match(arg = index, choices = c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon") )
       if (length(dim(x)) > 1) {
         total <- apply(x, margin, sum)
         x <- sweep(x, margin, total, "/")

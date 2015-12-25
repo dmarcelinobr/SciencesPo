@@ -23,15 +23,14 @@ Under the hypothesis of normality, data should have kurtosis equal
  significant difference of kurtosis in normally distributed data.
 }
 \examples{
-if (interactive()) {
 set.seed(1234)
 x = rnorm(1000)
 kurtosis(x)
 anscombe.glynn(x)
 }
-}
 \references{
 Anscombe, F.J., Glynn, W.J. (1983) Distribution of kurtosis
 statistic for normal statistics. Biometrika, 70, 1, 227-234
 }
+\keyword{Tests}
 

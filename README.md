@@ -1,8 +1,8 @@
 <img src="/inst/doc/SciencesPo_logo.png" alt="SciencesPo" />
 
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo)
 [![CRAN Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo)
+[![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo)
 [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo)
 [![Coverage Status](https://coveralls.io/repos/danielmarcelino/SciencesPo/badge.svg?branch=master&service=github)](https://coveralls.io/github/danielmarcelino/SciencesPo?branch=master)
  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11474.svg)](http://dx.doi.org/10.5281/zenodo.11474)
@@ -56,29 +56,9 @@ To see what functions are implemented in _SciencesPo_, run:
 ```
 help(package=SciencesPo)
 ```
-## The Indices 
-
-## Descriptive Stats
-
-## The Viz
-To quickly get our feet wet with creating charming charts, we start with a minimal example.
-
-
-### Voronoi diagram
-
-```voronoi(p=2, n=20, dim=1000)```
-
-<img src="/inst/doc/voronoi.png" alt="Voronoi Diagram" />
-
-
-### Sample Power 
-
-```sample.power(mu0=68, mu1=69, sigma=3.1, n=100)```
-
-<img src="/inst/doc/sample.power.png" alt="Sample Power Graph" />
-
-
-### Plots for count data
-
-
+## Examples
+* `Concepts and Basics of SciencesPo <http://rpubs.com/basics>`_
+* `Descriptive Stats <http://rpubs.com/plot_lm>`_
+* `Political Behavior Indices <http://rpubs.com/plot_lm>`_
+* `The Viz: Plotting Features in SciencesPo <http://rpubs.com/plot_lm>`_
 

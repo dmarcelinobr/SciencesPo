@@ -3,5 +3,6 @@ pdf(NULL) # suppress generating any PDFs
 test_that("computes coefficient of variation", {
   set.seed(51)
   x <- sample(100)
-  expect_equal(cv(x), 0.574485, tolerance=1e-3)
+  x %>% cv %>%
+    expect_equal(0.574, tolerance=.005)
 })

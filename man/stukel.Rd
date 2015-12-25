@@ -29,4 +29,5 @@ Hosmer, David W., et al (1997) A comparison of goodness-of-fit tests for the log
 
 Allison, Paul (2014) \emph{Another Goodness-of-Fit Test for Logistic Regression}.
 }
+\keyword{Tests}
 
