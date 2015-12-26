@@ -3,23 +3,31 @@
 \encoding{UTF-8}
 \name{rounded}
 \alias{rounded}
-\title{Round Numbers with no Leading Zero}
+\title{Round Numbers Without Leading Zeros}
 \usage{
-rounded(x, digits = 2, add = TRUE, max = (digits + 3))
+rounded(x, digits = 2, add = FALSE, max = (digits + 2))
 }
 \arguments{
-\item{x}{A numeric vector of values to be rounded.}
+\item{x}{A numeric vector.}
 
 \item{digits}{An integer for the number of digits to round to.}
 
-\item{add}{An optional dichotomous indicator for whether additional digits should be added if no numbers appear in pre-set digit level.}
+\item{add}{Logical, whether additional digits are to be added if no number appears in the pre-set digit level, default is \code{FALSE}.}
 
-\item{max}{Maximum number of digits to be shown if \code{add=TRUE}.}
+\item{max}{The Maximum number of digits to be shown, only affects if \code{add=TRUE}.}
+}
+\value{
+A vector of the same length of \code{x}, but stored as string.
 }
 \description{
-Rounds numbers without leading zeros.
+Given a numeric vector, round numbers with no leading
+zeros. Something nice for a plot or publicatio.
 }
 \examples{
-rounded(seq(0, 1, by=.1))
+x = seq(0, 1, by=.1)
+rounded(x)
+}
+\author{
+Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 

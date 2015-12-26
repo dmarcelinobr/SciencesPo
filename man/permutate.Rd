@@ -8,9 +8,9 @@
 permutate(input, k)
 }
 \arguments{
-\item{input}{vector to be permutated.}
+\item{input}{A vector to be permutated.}
 
-\item{k}{number of permutations.}
+\item{k}{number of permutations to be conducted.}
 }
 \description{
 Creates a k random permutation of a vector.
@@ -19,7 +19,12 @@ Creates a k random permutation of a vector.
 should be used only for length(input)! >> k
 }
 \examples{
+# row wise permutations
 permutate(input=1:5, k=5)
 }
-\keyword{Sampling}
+\author{
+Daniel Marcelino, \email{dmarcelino@live.com}.
+}
+\keyword{Manipulation}
+\keyword{Sampling,}
 

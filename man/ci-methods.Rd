@@ -5,7 +5,7 @@
 \name{ci}
 \alias{ci}
 \alias{ci,ANY-method}
-\alias{ci,numeric,numeric,numeric,logical,ANY-method}
+\alias{ci,numeric,numeric,numeric,logical,ci-method}
 \title{Confidence Intervals}
 \usage{
 ci(x, conf.level = 0.95, alpha = 1 - conf.level, ...)
@@ -34,9 +34,12 @@ ci(x, conf.level = 0.95, alpha = 1 - conf.level, ...)
 Calculates the confidence intervals of a vector.
 }
 \examples{
-set.seed(51)
-x = rnorm(1000)
+x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
+
 ci(x, conf.level=.95)
+}
+\author{
+Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \keyword{Stats}
 \keyword{Univariate}

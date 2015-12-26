@@ -22,5 +22,8 @@ unclass(myvar) # testing order
 
 destring(myvar)
 }
-\keyword{Misc}
+\seealso{
+\code{\link{safe.chars}}.
+}
+\keyword{Manipulation}
 

@@ -14,7 +14,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' blk <- randomized.block(blocksize = 20, n = 80, seed = 51)
+#' blk <- blockRandomizedDesign(blocksize = 20, n = 80, seed = 51)
 #' blk;
 #' table(blk$block, blk$condition)
 #'
@@ -50,8 +50,7 @@
 #'
 #' @importFrom stats runif
 #'
-
-`randomized.block` = function(blocksize, n, seed=NULL){
+`blockRandomizedDesign` = function(blocksize, n, seed=NULL){
   if(!is.null(seed)){
     set.seed(seed)
   }

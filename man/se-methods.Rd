@@ -5,7 +5,7 @@
 \name{se}
 \alias{se}
 \alias{se,ANY-method}
-\alias{se,numeric,logical,ANY-method}
+\alias{se,numeric,logical,se-method}
 \title{Calculates the Standard Error}
 \usage{
 se(x, na.rm = TRUE)

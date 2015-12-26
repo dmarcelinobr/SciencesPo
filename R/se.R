@@ -17,7 +17,7 @@
 #' @export se
 #' @docType methods
 #' @rdname se-methods
-#' @aliases se,numeric,logical,ANY-method
+#' @aliases se,numeric,logical,se-method
 se<- setClass("se", representation(x = "numeric",na.rm="logical"))
 setGeneric("se", def=function(x, na.rm = TRUE){
   standardGeneric("se")
@@ -25,6 +25,12 @@ setGeneric("se", def=function(x, na.rm = TRUE){
 
 #' @rdname se-methods
 setMethod(f="se", definition=function(x, na.rm = TRUE){
+  if (!is(x, "numeric") & !is(x, "integer")) {
+    stop("\"x\" must be numeric")
+  }
+  if (!is(na.rm, "logical") | length(na.rm) != 1) {
+    stop("\"na.rm\" must be a single logical value")
+  }
   valid <- function(x) return(sum(!is.na(x)))
   valid_ <-function(x) return(ifelse(na.rm,sum(!is.na(x)),length(x)))
   dim <- dim(x)

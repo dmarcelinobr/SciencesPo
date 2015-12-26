@@ -20,13 +20,19 @@ LR(x, y = NULL, ...)
 Computes the likelihood ratio test (G test) for contingency tables. Currently does not do Williams' and Yates' correction.
 }
 \examples{
-# 1992 General Social Survey-Sex and Party affiliation
+# 2000 General Social Survey-Sex and Party affiliation
+# Agresti (1996) p. 38:
+
 gss <- data.frame(
    expand.grid(sex=c("female", "male"),
    party=c("dem", "indep", "rep")),
-   count=c(279,165,73,47,225,191))
+   count=c(762,484,327,239, 468,477))
+
+crosstabs(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
+
 # expand it:
- GSS <- gss[rep(1:nrow(gss), gss[["count"]]), ]
+# GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
+GSS = untable(gss, freq = "count")
 
 LR(GSS$party, GSS$sex)
 }

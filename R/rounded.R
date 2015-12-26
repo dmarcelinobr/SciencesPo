@@ -1,14 +1,19 @@
 #' @encoding UTF-8
-#' @title Round Numbers with no Leading Zero
-#' @description Rounds numbers without leading zeros.
-#' @param x A numeric vector of values to be rounded.
+#' @title Round Numbers Without Leading Zeros
+#' @description Given a numeric vector, round numbers with no leading
+#' zeros. Something nice for a plot or publicatio.
+#' @param x A numeric vector.
 #' @param digits An integer for the number of digits to round to.
-#' @param add An optional dichotomous indicator for whether additional digits should be added if no numbers appear in pre-set digit level.
-#' @param max Maximum number of digits to be shown if \code{add=TRUE}.
+#' @param add Logical, whether additional digits are to be added if no number appears in the pre-set digit level, default is \code{FALSE}.
+#' @param max The Maximum number of digits to be shown, only affects if \code{add=TRUE}.
+#' @return A vector of the same length of \code{x}, but stored as string.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #' @export
 #' @examples
-#' rounded(seq(0, 1, by=.1))
-`rounded` <- function(x, digits=2, add=TRUE, max=(digits+3)){
+#'  x = seq(0, 1, by=.1)
+#' rounded(x)
+#'
+`rounded` <- function(x, digits=2, add=FALSE, max=(digits+2)){
   y <- round(x, digits=digits)
   yk <- format(y, nsmall=digits)
   nzero <- sum(unlist(y)==0)
@@ -22,7 +27,8 @@
       if(digits>(max-1))
         nzero <- 0
     }
-  }
+  }##--end of add zeros
   z <- sub("^([-]?)0[.]","\\1.", gsub(" +", "", yk))
-  print(noquote(z))
-}
+  return(noquote(z))
+}##--end of rounded
+NULL

@@ -5,6 +5,7 @@
 #'
 #' @param x A factor whose levels will be converted.
 #'
+#' @seealso \code{\link{safe.chars}}.
 #' @examples
 #' mylevels <- c('Strongly Disagree', 'Disagree', 'Neither', 'Agree', 'Strongly Agree')
 #'
@@ -14,7 +15,7 @@
 #'
 #' destring(myvar)
 #'
-#' @keywords Misc
+#' @keywords Manipulation
 #'
 #' @export
 `destring` <- function(x) {

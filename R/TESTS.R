@@ -670,7 +670,7 @@ NULL
 #'    party=c("dem", "indep", "rep")),
 #'    count=c(762,484,327,239, 468,477))
 #'
-#' crossTable(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
+#' crosstabs(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
 #'
 #' # expand it:
 #' # GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
@@ -760,7 +760,7 @@ NULL
 #'
 #' cramerV(GSS$race, GSS$party)
 #'
-#' crossTable(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
+#' crosstabs(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
 #'
 #' @export
 `cramerV` <- function(x, y = NULL, ...) UseMethod("cramerV")
@@ -784,7 +784,7 @@ NULL
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- stats::chisq.test(x, correct = FALSE)
+    result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
     cramersV <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
@@ -824,9 +824,10 @@ NULL
 #' ADMIT=c("Admitted", "Rejected")),
 #' Freq=c(1198,557,1493,1278))
 #'
-#' crossTable(Berkeley,  "ADMIT", "GENDER", "Freq", total.pct=TRUE, row.pct=TRUE, contingency = TRUE, phi=TRUE, cramerV=TRUE)
+#' crosstabs(Berkeley,  "ADMIT", "GENDER", "Freq", contingency = TRUE, phi=TRUE, cramerV=TRUE)
 #'
-#' Phi(mat)
+#' tab = as.table(rbind(c(1198,557), c(1493,1278)))
+#' Phi(tab)
 #'
 #' @export
 `Phi` <- function(x, y = NULL, ...) UseMethod("Phi")
@@ -914,7 +915,7 @@ NULL
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- stats::chisq.test(x, correct = TRUE)
+    result <- suppressWarnings(stats::chisq.test(x, correct = TRUE))
     cont.coef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
@@ -1065,185 +1066,4 @@ method = "Bartels Ratio Test", data.name = dname, parameter=c(n=n), n=n, alterna
   class(rval) <- "htest"
   return(rval)
 } ### end -- bartels.rank function
-NULL
-
-
-
-#' @keywords Tests
-
-
-
-Tau <- function(x, y = NULL, direction = c("row", "column"), conf.level = NA, ...){
-
-  if(!is.null(y)) x <- table(x, y, ...)
-
-  n <- sum(x)
-  n.err.unconditional <- n^2
-  sum.row <- rowSums(x)
-  sum.col <- colSums(x)
-
-  switch( match.arg( arg = direction, choices = c("row", "column") )
-          , "column" = {             # Tau Column|Row
-
-            for(i in 1:nrow(x))
-              n.err.unconditional <- n.err.unconditional-n*sum(x[i,]^2/sum.row[i])
-            n.err.conditional <- n^2-sum(sum.col^2)
-            tau.CR <- 1-(n.err.unconditional/n.err.conditional)
-            v <- n.err.unconditional/(n^2)
-            d <- n.err.conditional/(n^2)
-            f <- d*(v+1)-2*v
-            var.tau.CR <- 0
-            for(i in 1:nrow(x))
-              for(j in 1:ncol(x))
-                var.tau.CR <- var.tau.CR + x[i,j]*(-2*v*(sum.col[j]/n)+d*((2*x[i,j]/sum.row[i])-sum((x[i,]/sum.row[i])^2))-f)^2/(n^2*d^4)
-            ASE.tau.CR <- sqrt(var.tau.CR)
-            est <- tau.CR
-            sigma2 <- ASE.tau.CR^2
-          }
-          , "row" = {             # Tau Row|Column
-
-            for(j in 1:ncol(x))
-              n.err.unconditional <- n.err.unconditional-n*sum(x[,j]^2/sum.col[j])
-            n.err.conditional <- n^2-sum(sum.row^2)
-            tau.RC <- 1-(n.err.unconditional/n.err.conditional)
-            v <- n.err.unconditional/(n^2)
-            d <- n.err.conditional/(n^2)
-            f <- d*(v+1)-2*v
-            var.tau.RC <- 0
-            for(i in 1:nrow(x))
-              for(j in 1:ncol(x))
-                var.tau.RC <- var.tau.RC + x[i,j]*(-2*v*(sum.row[i]/n)+d*((2*x[i,j]/sum.col[j])-sum((x[,j]/sum.col[j])^2))-f)^2/(n^2*d^4)
-            ASE.tau.RC <- sqrt(var.tau.RC)
-            est <- tau.RC
-            sigma2 <- ASE.tau.RC^2
-          }
-  )
-
-  if(is.na(conf.level)){
-    res <- est
-  } else {
-    pr2 <- 1 - (1 - conf.level)/2
-    ci <- qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + est
-    res <- c(tauA=est, lwr.ci=ci[1], upr.ci=ci[2])
-  }
-
-  return(res)
-}
-NULL
-
-
-
-
-
-#' @keywords Tests
-
-
-
-#' # Example from Garson's book p. 31
-#' `city manager` <- c(80, 9, 1)
-#' `mayor-council` <- c(40, 1, 9)
-#' tab <- rbind(`city manager`, `mayor-council`)
-#' colnames(tab) <- c( 'city size1', 'city size2', 'city size3')
-#'
-#' lambda(tab, direction="row")
-#'
-#' # In the table above, knowing city size reduces errors in guessing form of government by 16%.
-
-#'
-# good description
-# http://salises.mona.uwi.edu/sa63c/Crosstabs%20Measures%20for%20Nominal%20Data.htm
-
-Lambda <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, ...){
-
-  if(!is.null(y)) x <- table(x, y, ...)
-
-  # Guttman'a lambda (1941), resp. Goodman Kruskal's Lambda (1954)
-
-  n <- sum(x)
-  csum <- colSums(x)
-  rsum <- rowSums(x)
-  rmax <- apply(x, 1, max)
-  cmax <- apply(x, 2, max)
-  max.rsum <- max(rsum)
-  max.csum <- max(csum)
-
-  nr <- nrow(x)
-  nc <- ncol(x)
-
-  switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
-          , "symmetric" = { res <- 0.5*(sum(rmax, cmax) - (max.csum +  max.rsum)) / (n - 0.5*(max.csum +  max.rsum)) }
-          , "column" = { res <- (sum(rmax) - max.csum) / (n - max.csum) }
-          , "row" = { res <- (sum(cmax) - max.rsum) / (n - max.rsum) }
-  )
-
-  if(is.na(conf.level)){
-    res <- res
-  } else {
-
-    L.col <- matrix(,nc)
-    L.row <- matrix(,nr)
-
-    switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
-            , "symmetric" = {
-
-              #     How to see:
-              #     http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
-              #     pp. 1744
-              #     Author:   Nina
-
-              l <- which.max(csum)
-              k <- which.max(rsum)
-              li <- apply(x,1,which.max)
-              ki <- apply(x,2,which.max)
-
-              w <- 2*n-max.csum-max.rsum
-              v <- 2*n -sum(rmax,cmax)
-              xx <- sum(rmax[li==l], cmax[ki==k], rmax[k], cmax[l])
-              y <- 8*n-w-v-2*xx
-
-              t <- rep(NA, length(li))
-              for (i in 1:length(li)){
-                t[i] <- (ki[li[i]]==i & li[ki[li[i]]]==li[i])
-              }
-
-              sigma2 <- 1/w^4*(w*v*y-2 *w^2*(n - sum(rmax[t]))-2*v^2*(n-x[k,l]))
-
-            }
-            , "column" = {
-              L.col.max <- min(which(csum == max.csum))
-              for(i in 1:nr) {
-                if(length(which(x[i, intersect(which(x[i,] == max.csum), which(x[i,] == max.rsum))] == n))>0)
-                  L.col[i] <- min(which(x[i, intersect(which(x[i,] == max.csum), which(x[i,] == max.rsum))] == n))
-                else
-                  if(x[i, L.col.max] == max.csum)
-                    L.col[i] <- L.col.max
-                  else
-                    L.col[i] <- min(which(x[i,] == rmax[i]))
-              }
-              sigma2 <- (n-sum(rmax))*(sum(rmax) + max.csum -
-                                         2*(sum(rmax[which(L.col == L.col.max)])))/(n-max.csum)^3
-            }
-            , "row" = {
-              L.row.max <- min(which(rsum == max.rsum))
-              for(i in 1:nc) {
-                if(length(which(x[intersect(which(x[,i] == max.rsum), which(x[,i] == max.csum)),i] == n))>0)
-                  L.row[i] <- min(which(x[i,intersect(which(x[i,] == max.csum), which(x[i,] == max.rsum))] == n))
-                else
-                  if(x[L.row.max,i] == max.rsum)
-                    L.row[i] <- L.row.max
-                  else
-                    L.row[i] <- min(which(x[,i] == cmax[i]))
-              }
-              sigma2 <- (n-sum(cmax))*(sum(cmax) + max.rsum -
-                                         2*(sum(cmax[which(L.row == L.row.max)])))/(n-max.rsum)^3
-            }
-    )
-
-    pr2 <- 1 - (1 - conf.level)/2
-    ci <- pmin(1, pmax(0, qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + res))
-    res <- c(lambda = res,  lwr.ci=ci[1], ups.ci=ci[2])
-  }
-
-  return(res)
-}
 NULL
