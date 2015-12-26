@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo)
 [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo)
 [![Coverage Status](https://coveralls.io/repos/danielmarcelino/SciencesPo/badge.svg?branch=master&service=github)](https://coveralls.io/github/danielmarcelino/SciencesPo?branch=master)
- [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11474.svg)](http://dx.doi.org/10.5281/zenodo.11474)
+
 
 _SciencesPo_ is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](http://cran.r-project.org/package=SciencesPo/) and is also hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
 
@@ -57,8 +57,7 @@ To see what functions are implemented in _SciencesPo_, run:
 help(package=SciencesPo)
 ```
 ## Examples
-* `Concepts and Basics of SciencesPo <http://rpubs.com/basics>`_
-* `Descriptive Stats <http://rpubs.com/plot_lm>`_
-* `Political Behavior Indices <http://rpubs.com/plot_lm>`_
-* `The Viz: Plotting Features in SciencesPo <http://rpubs.com/plot_lm>`_
-
+* [Concepts and Basics of SciencesPo]()
+* [Descriptive Stats] ()
+* [Political Behavior Indices]()
+* [The Viz: Plotting Features in SciencesPo]()

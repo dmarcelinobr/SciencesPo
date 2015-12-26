@@ -20,23 +20,16 @@
 #' @examples
 #' titanic %>% crossTable("SEX", "AGE")
 #'
-#' crossTable(titanic, "SEX", "AGE",
-#' row.pct=TRUE,
-#'  expected=TRUE,
-#'  sresid=TRUE)
 #'
-#' # Two variables
-#' titanic %>%
-#' crossTable(c("SEX","AGE"), "SURVIVED")
-#'
-#' #' # Agresti (2002), table 3.11, p. 106
-#' # 1992 General Social Survey- Sex and Party affiliation
+#' #' #' # Agresti (2002), table 3.10, p. 104
+#' # 1991 General Social Survey: hypothesis of independence between
+#' # party identification and race.
 #' gss <- data.frame(
-#'    expand.grid(sex=c("female", "male"),
+#'    expand.grid(race=c("black", "white"),
 #'    party=c("dem", "indep", "rep")),
-#'    count=c(279,165,73,47,225,191))
+#'    count=c(103,341,15,105,11,405))
 #'
-#' crossTable(gss, "sex", "party", "count")
+#' crossTable(gss, "race", "party", "count", chisq=TRUE)
 #'
 #' @export
 `crossTable` <- function(.data,
@@ -45,10 +38,10 @@
                      freqVar = NULL,
                      observed = TRUE,
                      expected = FALSE,
-                     sresid = FALSE,
-                     total.pct = FALSE,
+                     total.pct = TRUE,
                      row.pct = FALSE,
                      col.pct = FALSE,
+                     sresid = FALSE,
                      chisq = FALSE,
                      phi = FALSE,
                      cramerV = FALSE,
@@ -62,10 +55,10 @@
                              freqVar = NULL,
                              observed = TRUE,
                              expected = FALSE,
-                             sresid = FALSE,
-                             total.pct = FALSE,
+                             total.pct = TRUE,
                              row.pct = FALSE,
                              col.pct = FALSE,
+                             sresid = FALSE,
                              chisq = FALSE,
                              phi = FALSE,
                              cramerV = FALSE,
@@ -194,37 +187,37 @@
 							if (k <= nrow(crosstable)) {
 								if (show.stat[1] != "expected") { cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "") }
 							    	if (length(show.stat) > 1) { cat(formatC("Expected Freq", width = RowHeading2, format = "s", flag = "-"),"|", sep = "") }
-								for (z in (1:ncol(crosstable))) cat(formatC(result[[7]][k,z], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-								if (RTHeading) cat(formatC(rowSums(result[[7]])[[k]], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n", sep = "")
+								for (z in (1:ncol(crosstable))) cat(formatC(result[[7]][k,z], digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
+								if (RTHeading) cat(formatC(rowSums(result[[7]])[[k]], digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n", sep = "")
 							} else {
 								if (length(show.stat) > 1) {
 									cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
 									cat(formatC("Expected Freq", width = RowHeading2, format = "s", flag = "-"), "|", sep = "")
 								}
-								for (z in (1:ncol(crosstable))) cat(formatC(colSums(result$exp)[[z]], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-								if (RTHeading) cat(formatC(sum(result$exp), digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|","\n", sep = "")
+								for (z in (1:ncol(crosstable))) cat(formatC(colSums(result$exp)[[z]], digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
+								if (RTHeading) cat(formatC(sum(result$exp), digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|","\n", sep = "")
 							}
 						} ### end -- if (expected)
 
 						if (row.pct && k <= nrow(crosstable)) {
 							if (show.stat[1] != "row.pct") { cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "") }
 							if (length(show.stat) > 1) { cat(formatC(paste("% within", rowVar[i]), width = RowHeading2, format = "s", flag = "-"), "|", sep = "") }
-						    	for (z in (1:ncol(crosstable))) cat(formatC(rowPercentage[k,z], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-							if (RTHeading) cat(formatC(sum(rowPercentage[k,]), digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n", sep = "")
+						    	for (z in (1:ncol(crosstable))) cat(formatC(rowPercentage[k,z], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
+							if (RTHeading) cat(formatC(sum(rowPercentage[k,]), digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n", sep = "")
 						} ### end -- if (row.pct && k <= nrow(crosstable))
 
 						if (col.pct) {
 							if (k <= nrow(crosstable)) {
 								if (show.stat[1] != "col.pct") { cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "") }
 								if (length(show.stat) > 1) { cat(formatC(paste("% within", colVar[j]), width = RowHeading2, format = "s", flag = "-"),"|", sep = "") }
-							    	for (z in (1:ncol(crosstable))) cat(formatC(colPercentage[k,z], digits = 4, width = ColWidth + 1, format = "f", flag = "#"),"|", sep = "")
+							    	for (z in (1:ncol(crosstable))) cat(formatC(colPercentage[k,z], digits = 2, width = ColWidth + 1, format = "f", flag = "#"),"|", sep = "")
 								if (RTHeading) cat(formatC("", width = ColWidth + 1, format = "s"),"|", "\n",sep = "") else cat("\n", sep = "")
 							} else {
 								if (length(show.stat) > 1) {
 									cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
 									cat(formatC(paste("% within", colVar[j]), width = RowHeading2, format = "s", flag = "-"),"|", sep = "")
 								}
-							    	for (z in (1:ncol(crosstable))) cat(formatC(colSums(colPercentage)[[z]], digits = 4, width = ColWidth + 1, format = "f", flag = "#"),"|", sep = "")
+							    	for (z in (1:ncol(crosstable))) cat(formatC(colSums(colPercentage)[[z]], digits = 2, width = ColWidth + 1, format = "f", flag = "#"),"|", sep = "")
 								if (RTHeading) { cat(formatC("", width = ColWidth + 1, format = "s"),"|", "\n",sep = "") } else { cat("\n", sep = "") }
 							}
 						} ### end -- if (col.pct)
@@ -233,15 +226,15 @@
 							if (k <= nrow(crosstable)) {
 							    	if (show.stat[1] != "total.pct") cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
 								if (length(show.stat) > 1) { cat(formatC("% of Total", width = RowHeading2, format = "s", flag = "-"), "|", sep = "") }
-						    		for (z in (1:ncol(crosstable))) cat(formatC(totPercentage[k,z], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-								if (RTHeading) cat(formatC(rowSums(totPercentage)[[k]], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n",sep = "")
+						    		for (z in (1:ncol(crosstable))) cat(formatC(totPercentage[k,z], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
+								if (RTHeading) cat(formatC(rowSums(totPercentage)[[k]], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n",sep = "")
 							} else {
 								if (length(show.stat) > 1) {
 									cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
 									cat(formatC("% of Total", width = RowHeading2, format = "s", flag = "-"), "|", sep = "")
 								}
-						    		for (z in (1:ncol(crosstable))) cat(formatC(colSums(totPercentage)[[z]], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-								if (RTHeading) cat(formatC(sum(totPercentage), digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n",sep = "")
+						    		for (z in (1:ncol(crosstable))) cat(formatC(colSums(totPercentage)[[z]], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
+								if (RTHeading) cat(formatC(sum(totPercentage), digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n",sep = "")
 							}
 						} ### end -- if (total.pct)
 						if (CTHeading && k == (nrow(crosstable)+1)) {
@@ -263,14 +256,15 @@
 				if (chisq || phi || cramerV || contingency) {
 					chisq.label <- NULL
 					if (chisq) {
-						chisq.label <- c(chisq.label, "Pearson Chi-Square", "Likelihood Ratio Chi-Square")
+						chisq.label <- c(chisq.label, "Pearson Chi-Square", "Likelihood Ratio")
 						if (all(dim(crosstable) == 2)) { fisher.result <- fisher.test(crosstable, alternative = "two.sided"); chisq.label <- c(chisq.label, "Fisher's Exact Test")	}
 						tlable.length2 <- max(nchar(result[[2]][[1]]),2) + 2
 						tlable.length3 <- nchar(round(result[[1]][[1]], 4)) + 2
 					} else { tlable.length2 <- 0; tlable.length3 <- 0 }
+					if (contingency) 	{chisq.label <- c(chisq.label, "Contingency Coeff.") }
 					if (phi) 		{ chisq.label <- c(chisq.label, "Phi Coefficient") }
 					if (cramerV) 	{ chisq.label <- c(chisq.label, "Cramer's V") }
-					if (contingency) 	{ chisq.label <- c(chisq.label, "Contingency Coefficient") }
+
 					tlable.length1 <- max(nchar(chisq.label)) + 2
 					ncell <- nrow(crosstable) * ncol(crosstable)
 					NExpFreqless1 <- length(result[[7]][which(result[[7]] < 1)])
@@ -279,7 +273,7 @@
 
 					cat(formatC("Statistics", width = tlable.length1, format = "s", flag = "-"), sep = "")
 					if (chisq) cat(formatC("DF", width = tlable.length2, format = "s", flag = "-"), sep = "")
-	      	          	cat(formatC("Value", width = tlable.length3, format = "s"), sep = "")
+	      	cat(formatC("Value", width = tlable.length3, format = "s"), sep = "")
 					if (chisq) cat(formatC("Prob", width = 9, format = "s"), sep = "")
 					cat("\n")
 
@@ -292,34 +286,34 @@
 					if (chisq) {
 						cat(formatC("Pearson Chi-Square", width = tlable.length1, format = "s", flag = "-"),
 						    formatC(result[[2]][[1]], width = tlable.length2, flag = "-"),
-    						    formatC(result[[1]][[1]], digits = 4, width = tlable.length3, format = "f", flag = "#"),
-						    formatC(result[[3]][[1]], digits = 4, width = 8, format = "f", flag = "#"), "\n", sep = "")
+    						    formatC(result[[1]][[1]], digits = 3, width = tlable.length3, format = "f", flag = "#"),
+						    formatC(result[[3]][[1]], digits = 3, width = 8, format = "f", flag = "#"), "\n", sep = "")
 						cat(formatC(chisq.label[2], width = tlable.length1, format = "s", flag = "-"),
 						    formatC(LR(crosstable)$df, width = tlable.length2, flag = "-"),
-	    					    formatC(LR(crosstable)$statistics, digits = 4, width = tlable.length3, format = "f", flag = "#"),
-						    formatC(LR(crosstable)$p.value, digits = 4, width = 8, format = "f", flag = "#"), "\n", sep = "")
+	    					    formatC(LR(crosstable)$statistics, digits = 3, width = tlable.length3, format = "f", flag = "#"),
+						    formatC(LR(crosstable)$p.value, digits = 3, width = 8, format = "f", flag = "#"), "\n", sep = "")
 					}
 
 					if (phi) {
 						cat(formatC("Phi Coefficient", width = tlable.length1, format = "s", flag = "-"), sep = "")
 						if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-					    	cat(formatC(Phi(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
+					    	cat(formatC(Phi(crosstable), digits = 3, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
 					}
 					if (contingency) {
-						cat(formatC("Contingency Coefficient", width = tlable.length1, format = "s", flag = "-"), sep = "")
+						cat(formatC("Contingency Coeff.", width = tlable.length1, format = "s", flag = "-"), sep = "")
 						if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-					    	cat(formatC(Contingency(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
+					    	cat(formatC(Contingency(crosstable), digits = 3, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
 					}
 					if (cramerV) {
 						cat(formatC("Cramer's V", width = tlable.length1, format = "s", flag = "-"), sep = "")
 						if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-					    	cat(formatC(cramerV(crosstable), digits = 4, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
+					    	cat(formatC(cramerV(crosstable), digits = 3, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
 					}
 					if (all(dim(crosstable) == 2) && chisq) {
 						cat(formatC("Fisher's Exact Test", width = tlable.length1, format = "s", flag = "-"),
 						    formatC("", width = tlable.length2, format = "s", flag = "-"),
 						    formatC("", width = tlable.length3, format = "s", flag = "-"),
-						    formatC(fisher.result[[1]], digits = 4, width = 8, format = "f", flag = "#"), "\n", sep = "")
+						    formatC(fisher.result[[1]], digits = 3, width = 8, format = "f", flag = "#"), "\n", sep = "")
 					}
 					cat(formatC(paste(rep("-", tlable.length1), collapse = ""), width = tlable.length1), sep = "")
 					if (chisq) cat(formatC(paste(rep("-", tlable.length2), collapse = ""), width = tlable.length2), sep = "")
@@ -347,7 +341,7 @@
 					for (k in (1:nrow(crosstable))) {
 						cat(formatC(dimnames(crosstable)[[1]][k], width = RowHeading1 + addSpace, format = "s", flag = "-"), "|",sep = "")
 						for (z in (1:ncol(crosstable))) {
-							cat(formatC(result[[8]][k,z], digits = 4, width = ColWidth + 1, format = "f", flag = "#"), "|",sep = "")
+							cat(formatC(result[[8]][k,z], digits = 3, width = ColWidth + 1, format = "f", flag = "#"), "|",sep = "")
 						}
 						cat("\n")
 					}

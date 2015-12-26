@@ -662,13 +662,19 @@ NULL
 #'  Thousand Oaks, CA: Sage. pp. 39-41.
 #'
 #' @examples
-#' # 1992 General Social Survey-Sex and Party affiliation
+#' # 2000 General Social Survey-Sex and Party affiliation
+#' # Agresti (1996) p. 38:
+#'
 #' gss <- data.frame(
 #'    expand.grid(sex=c("female", "male"),
 #'    party=c("dem", "indep", "rep")),
-#'    count=c(279,165,73,47,225,191))
+#'    count=c(762,484,327,239, 468,477))
+#'
+#' crossTable(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
+#'
 #' # expand it:
-#'  GSS <- gss[rep(1:nrow(gss), gss[["count"]]), ]
+#' # GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
+#' GSS = untable(gss, freq = "count")
 #'
 #' LR(GSS$party, GSS$sex)
 #'
@@ -738,12 +744,23 @@ NULL
 #'
 #' # To test the null hypothesis that the distribution of preferences
 #' # is identical in the two conditions, we run a chi-square test:
+#' stats::chisq.test(mat) # still significant
 #'
-#' stats::chisq.test(mat)
-#'
-#' # But, if we want to estimate the effect size, we then use Cramer's V:
-#'
+#' # However, if we want to estimate the effect size, we then use Cramer's V:
 #' cramerV(mat)
+#'
+#' # Agresti (2002), table 3.10, p. 104
+#' # 1991 General Social Survey: The effect size of race on party identification.
+#' gss <- data.frame(
+#'    expand.grid(race=c("black", "white"),
+#'    party=c("dem", "indep", "rep")),
+#'    count=c(103,341,15,105,11,405))
+#'
+#' GSS = untable(gss, freq = "count")
+#'
+#' cramerV(GSS$race, GSS$party)
+#'
+#' crossTable(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
 #'
 #' @export
 `cramerV` <- function(x, y = NULL, ...) UseMethod("cramerV")
@@ -783,7 +800,7 @@ NULL
 
 #' @title The Phi Coefficient for \code{2 x 2} Tables
 #'
-#' @description Computes the Cramer's Phi coefficient for tables.
+#' @description Computes the Phi coefficient for \code{2 x 2} tables.
 #'
 #' @param x A vector or a matrix.
 #' @param y A vector that is ignored if x is a matrix and required if x is a vector.
@@ -797,16 +814,17 @@ NULL
 #'
 #' @keywords Association, Nominal, Ordinal, Tests
 #' @references
-#' Agresti, Alan (1996) \emph{Introduction to categorical data
-#'  analysis}. NY: John Wiley and Sons
+#' Friendly, Michael (2000) \emph{Visualizing Categorical Data}. SAS Institute Inc., p. 63.
 #'
 #'
 #' @examples
-#'  # some data:
-#' male <- c(33, 76, 6)
-#' female <- c(47, 153, 25)
-#' mat <- cbind( male, female )
-#' rownames(mat) <- c( 'good', 'satisfactory', 'bad')
+#' # Admission to Berkeley graduate programs:
+#' Berkeley <- data.frame(
+#' expand.grid(GENDER=c("Male", "Female"),
+#' ADMIT=c("Admitted", "Rejected")),
+#' Freq=c(1198,557,1493,1278))
+#'
+#' crossTable(Berkeley,  "ADMIT", "GENDER", "Freq", total.pct=TRUE, row.pct=TRUE, contingency = TRUE, phi=TRUE, cramerV=TRUE)
 #'
 #' Phi(mat)
 #'
