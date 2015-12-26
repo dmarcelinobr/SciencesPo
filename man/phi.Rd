@@ -17,7 +17,7 @@ Phi(x, y = NULL, ...)
 \item{\dots}{Extra parameters pass to the \code{\link{table}} function.}
 }
 \description{
-Computes the Cramer's Phi coefficient for tables.
+Computes the Phi coefficient for \code{2 x 2} tables.
 }
 \details{
 Phi is seldom applied for indexing a \code{2 x 2} table, because the
@@ -26,17 +26,19 @@ an increment or ratio, not with a correlation coefficient.
 Alternatives to Phi are the Pearson's C; Tschuprow's T, and Cramer's V.
 }
 \examples{
-# some data:
-male <- c(33, 76, 6)
-female <- c(47, 153, 25)
-mat <- cbind( male, female )
-rownames(mat) <- c( 'good', 'satisfactory', 'bad')
+# Admission to Berkeley graduate programs:
+Berkeley <- data.frame(
+expand.grid(GENDER=c("Male", "Female"),
+ADMIT=c("Admitted", "Rejected")),
+Freq=c(1198,557,1493,1278))
 
-Phi(mat)
+crosstabs(Berkeley,  "ADMIT", "GENDER", "Freq", contingency = TRUE, phi=TRUE, cramerV=TRUE)
+
+tab = as.table(rbind(c(1198,557), c(1493,1278)))
+Phi(tab)
 }
 \references{
-Agresti, Alan (1996) \emph{Introduction to categorical data
- analysis}. NY: John Wiley and Sons
+Friendly, Michael (2000) \emph{Visualizing Categorical Data}. SAS Institute Inc., p. 63.
 }
 \keyword{Association,}
 \keyword{Nominal,}

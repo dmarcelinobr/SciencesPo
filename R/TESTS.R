@@ -670,7 +670,7 @@ NULL
 #'    party=c("dem", "indep", "rep")),
 #'    count=c(762,484,327,239, 468,477))
 #'
-#' crossTable(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
+#' crosstabs(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
 #'
 #' # expand it:
 #' # GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
@@ -760,7 +760,7 @@ NULL
 #'
 #' cramerV(GSS$race, GSS$party)
 #'
-#' crossTable(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
+#' crosstabs(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
 #'
 #' @export
 `cramerV` <- function(x, y = NULL, ...) UseMethod("cramerV")
@@ -784,7 +784,7 @@ NULL
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- stats::chisq.test(x, correct = FALSE)
+    result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
     cramersV <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
@@ -824,9 +824,10 @@ NULL
 #' ADMIT=c("Admitted", "Rejected")),
 #' Freq=c(1198,557,1493,1278))
 #'
-#' crossTable(Berkeley,  "ADMIT", "GENDER", "Freq", total.pct=TRUE, row.pct=TRUE, contingency = TRUE, phi=TRUE, cramerV=TRUE)
+#' crosstabs(Berkeley,  "ADMIT", "GENDER", "Freq", contingency = TRUE, phi=TRUE, cramerV=TRUE)
 #'
-#' Phi(mat)
+#' tab = as.table(rbind(c(1198,557), c(1493,1278)))
+#' Phi(tab)
 #'
 #' @export
 `Phi` <- function(x, y = NULL, ...) UseMethod("Phi")
@@ -914,7 +915,7 @@ NULL
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- stats::chisq.test(x, correct = TRUE)
+    result <- suppressWarnings(stats::chisq.test(x, correct = TRUE))
     cont.coef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
   } else {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))

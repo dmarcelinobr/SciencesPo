@@ -35,12 +35,23 @@ rownames(mat) <- c( 'party1', 'party2', 'party3')
 
 # To test the null hypothesis that the distribution of preferences
 # is identical in the two conditions, we run a chi-square test:
+stats::chisq.test(mat) # still significant
 
-stats::chisq.test(mat)
-
-# But, if we want to estimate the effect size, we then use Cramer's V:
-
+# However, if we want to estimate the effect size, we then use Cramer's V:
 cramerV(mat)
+
+# Agresti (2002), table 3.10, p. 104
+# 1991 General Social Survey: The effect size of race on party identification.
+gss <- data.frame(
+   expand.grid(race=c("black", "white"),
+   party=c("dem", "indep", "rep")),
+   count=c(103,341,15,105,11,405))
+
+GSS = untable(gss, freq = "count")
+
+cramerV(GSS$race, GSS$party)
+
+crosstabs(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
 }
 \references{
 Agresti, Alan (1996) \emph{Introduction to categorical data
