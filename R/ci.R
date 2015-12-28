@@ -1,10 +1,10 @@
 #' @encoding UTF-8
 #' @title Confidence Intervals
-#' @description Calculates the confidence intervals of a vector.
-#' @keywords Univariate Stats
-#' @param x a vector of data.
-#' @param conf.level confidence level. Default is 0.95.
-#' @param alpha confidence level. Default is 1-conf.level.
+#' @description Calculates the confidence intervals for a vector of data values.
+#' @keywords Exploratory
+#' @param x A vector of data values.
+#' @param conf.level The confidence level. Default is \code{0.95}.
+#' @param alpha The significance level. Default is \code{1-conf.level}. If alpha equals 0.05, then your confidence level is 0.95.
 #' @param na.rm A logical value, default is \code{FALSE}
 #' @param \dots Extra parameters.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
@@ -14,20 +14,16 @@
 #' \item{CI upper}{Upper bound of interval.}
 #' \item{Std. Error}{Standard Error of the mean.}
 #'
+#' @examples
+#' x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
+#'
+#' ci(x, conf.level=.90)
+#'
 #' @docType methods
 #' @rdname ci-methods
-#' @examples
-#'  x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
-#'
-#' ci(x, conf.level=.95)
 #' @export
-#' @aliases ci,numeric,numeric,numeric,logical,ci-method
 `ci`<-setClass("ci", representation(x = "numeric", conf.level = "numeric",alpha = "numeric",na.rm="logical"))
 
-setGeneric("ci", def=function(x, conf.level=0.95, alpha=1-conf.level,...){
-  standardGeneric("ci")
-})
-NULL
 
 #' @rdname ci-methods
 setMethod(f="ci", definition=function(x, conf.level=0.95, alpha=1-conf.level,na.rm=FALSE,...){

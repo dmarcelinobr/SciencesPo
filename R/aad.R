@@ -1,10 +1,11 @@
 #' @encoding UTF-8
-#' @title Average (Mean) Absolute Deviation
+#' @title Average Absolute Deviation
 #' @description Calculates the average (mean) absolute deviation from the sample mean.
 #' @param x	A numeric vector containing the observations.
 #' @param na.rm A logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
-#' @details The statistical literature has not yet adopted a standard notation, as both the "Mean absolute deviation around the mean" and the "Median absolute deviation around the median" have been denoted as "MAD", which may lead to confusion once they may produce different values. Thus, the \code{aad} version calculates the "Mean Absolute Deviation"--or  "Average Deviation (AD)" ad suggested by Garrett, who defines it as "the mean of the deviation of all the separate scores in the series taken from their mean (occasionally from the median or mode)", (1971, p. 481).
-#' The R \code{\link[stats]{mad}} by default computes the "Median Absolute Deviation" with an adjusting factor for asymptotically normal consistency. To obtain the "Mean Absolute Deviation" one should use \code{stats::mad(x, constant = 1)}.
+#' @details The statistical literature has not yet adopted a standard notation, as both the "Mean Absolute Deviation" and the "Median Absolute Deviation" have been denoted as "MAD", which may lead to confusion as they may produce different values.
+#' The R \code{\link[stats]{mad}} computes the "Median Absolute Deviation" by default; to obtain the "Mean Absolute Deviation" one has to use \code{mad(x, constant = 1)}.
+#' Thus, the function \code{\link[SciencesPo]{aad}} will calculate the "Mean Absolute Deviation"--or "Average Deviation (AD)" as proposed by Garrett, who defines it as "the mean of the deviation of all the separate scores in the series taken from their mean (occasionally from the median or mode)", (1971, p. 481).
 #'
 #' @references
 #' Garrett, Henry (1982) \emph{Statistics in Psychology and Education}. 6th, Paragon.
@@ -15,10 +16,9 @@
 #' x <- c(15, 10, 6, 8, 11)
 #' aad(x)
 #'
-#' @export aad
+#' @export
 #' @docType methods
 #' @rdname aad-methods
-#' @aliases aad,numeric,logical,aad-method
 `aad`<- setClass("aad", representation(x = "numeric",na.rm="logical"))
 setGeneric("aad", def=function(x, na.rm = TRUE){
   standardGeneric("aad")

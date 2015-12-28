@@ -5,20 +5,19 @@
 \name{ci}
 \alias{ci}
 \alias{ci,ANY-method}
-\alias{ci,numeric,numeric,numeric,logical,ci-method}
 \title{Confidence Intervals}
 \usage{
-ci(x, conf.level = 0.95, alpha = 1 - conf.level, ...)
+ci(...)
 
 \S4method{ci}{ANY}(x, conf.level = 0.95, alpha = 1 - conf.level,
   na.rm = FALSE, ...)
 }
 \arguments{
-\item{x}{a vector of data.}
+\item{x}{A vector of data values.}
 
-\item{conf.level}{confidence level. Default is 0.95.}
+\item{conf.level}{The confidence level. Default is \code{0.95}.}
 
-\item{alpha}{confidence level. Default is 1-conf.level.}
+\item{alpha}{The significance level. Default is \code{1-conf.level}. If alpha equals 0.05, then your confidence level is 0.95.}
 
 \item{na.rm}{A logical value, default is \code{FALSE}}
 
@@ -31,16 +30,15 @@ ci(x, conf.level = 0.95, alpha = 1 - conf.level, ...)
 \item{Std. Error}{Standard Error of the mean.}
 }
 \description{
-Calculates the confidence intervals of a vector.
+Calculates the confidence intervals for a vector of data values.
 }
 \examples{
 x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
 
-ci(x, conf.level=.95)
+ci(x, conf.level=.90)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
-\keyword{Stats}
-\keyword{Univariate}
+\keyword{Exploratory}
 

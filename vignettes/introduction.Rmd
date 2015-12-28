@@ -1,0 +1,328 @@
+---
+title: "Introduction to the SciencesPo Package"
+author: "Daniel Marcelino"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 5
+vignette: >
+  %\VignetteIndexEntry{Introduction to SciencesPo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+  
+# Overview
+The **SciencesPo** package is meant to provide algorithms and functions for analyzing political behavior data, including measures of political fragmentation and seats allocation. In addition, it also offers built-in functions for descriptive statistics, tests, tables, and pre set publication-ready plots and themes for **ggplot2**, which will require only a minimum amount of fiddling with sizes and labels, etc. The package is intended to give students and postdocs an easy way of making the most of their data--usually small datasets. Although this package is available for the general public, it meets my personal needs and tastes. Yours may be different.
+
+You can find the package source on [Github](https://github.com/danielmarcelino/SciencesPo), and you are welcome to contribute code via pull requests, or file feature requests and bug reports via [Github issues](https://github.com/danielmarcelino/SciencesPo/issues).
+
+# Learning by doing
+This vignette builds on the examples scattered through the package's manual available on [https://cran.r-project.org](https://cran.r-project.org/web/packages/SciencesPo/SciencesPo.pdf). This first example walks through setting up **SciencesPo** for conducting basic data analysis.
+
+
+## Loading and Unloading *SciencesPo*
+```{r echo=FALSE, message=FALSE}
+library(SciencesPo)
+
+getOption("digits")
+
+
+## Do things 
+
+
+detach("package:SciencesPo", unload=TRUE)
+
+
+#You can also use the unloadNamespace command,
+
+unloadNamespace("SciencesPo")
+
+```
+
+## Search results from help.search()
+Here are some examples demonstrating the results of help.search(), or you can also use ?? to search for a string.
+```{r echo=FALSE, message=FALSE}
+help.search('bar.plot')
+
+
+help.search('crosstabs', package = 'SciencesPo')
+```
+
+## Vignette and dataset lists
+
+```{r echo=FALSE, message=FALSE}
+vignette(package = "SciencesPo")
+```
+
+
+```{r echo=FALSE, message=FALSE}
+data(package = "SciencesPo")
+```
+
+
+# Loading data much easier
+
+
+
+## Example of printing objects
+First we take a look at a quick example of printing some R objects in the R console:
+
+Whenever you load the package, it will setup its own environment, including plotting themes. Thus, some objects may be printed differently with what you would have seen in a normal R console. To not use the default settings, one can use : 
+
+## Exploratory data functions
+
+### Compute the Skewness
+This function performs three types of skewness tests:
+```{r echo=FALSE, message=FALSE}
+require(SciencesPo)
+
+set.seed(51)
+ w <-sample(4,10, TRUE)
+ x <- sample(10, 1000, replace=TRUE, prob=w)
+ 
+ skewness(x, type = 1)
+ skewness(x) # Type 2 is the default 
+ skewness(x, type = 3)
+```
+
+Compute the Kurtosis
+```{r echo=FALSE, message=FALSE}
+require(SciencesPo)
+
+set.seed(51)
+ w <-sample(4,10, TRUE)
+ x <- sample(10, 1000, replace=TRUE, prob=w)
+ 
+ skewness(x, type = 1)
+ skewness(x) # Type 2 is the default 
+ skewness(x, type = 3)
+```
+
+### Standard Error and Confidence Interval
+The Standard Error and Confidence Interval gained S4 methods. Notice  that the output of `ci` also provides the estimated standard error.
+
+```{r echo=FALSE, message=FALSE}
+require(SciencesPo)
+x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
+
+se(x) # std. error
+
+ci(x, conf.level=.95) # confidence interval
+```
+
+
+
+```{r echo=FALSE, message=FALSE}
+aad(x) 
+```
+# Data Manipulation
+
+
+## `safe.chars`
+By default, R converts character columns to factors. Instead of re-reading the data using \code{stringsAsFactors=FALSE}, the \code{\link{safe.chars}} function identifies which columns are currently factors, and convert them all to characters parsing the levels as strings.
+
+```{r echo=FALSE, message=FALSE}
+require(SciencesPo)
+str(iris)
+
+iris_2 = safe.chars(iris)
+
+str(iris_2)
+```
+
+
+## `destring`
+This function converts factor variables to numeric, much like the way Stata does.
+```{r echo=FALSE, message=FALSE}
+require(SciencesPo)
+
+mylevels <- c('Strongly Disagree', 
+              'Disagree', 
+              'Neither', 
+              'Agree', 
+              'Strongly Agree')
+
+myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
+```
+
+
+As we can see, this vector is un(ordered) in a "strange" way so to reflect the meaning of the levels I've attributed:
+```{r echo=FALSE, message=FALSE}
+unclass(myvar) # testing the order
+```
+
+By `destring` this, we should get a numeric result with the same (un)order:
+```{r echo=FALSE, message=FALSE}
+destring(myvar) 
+```
+
+## `rounded`
+It's rather common to use numbers without leading zeros. The `rounded` function does just that. Isn't fancy?
+
+```{r echo=FALSE, message=FALSE}
+ (x = seq(0, 1, by=.1))
+ rounded(x) 
+```
+
+
+# Distributions 
+
+## `uniform`
+
+
+In addition to the class definition, there are also some free
+functions defined; `uniform_get_max` and `uniform_set_max`; these
+are going to be used to set up active members in the R6 class for
+getting and setting the `max` field of the class.
+
+# Plot design
+
+There's a complete discussion of this in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/)
+
+The default **ggplot2** design has its charm, in my opinion. But, I don't like the gray background grid for scientific publication. I feel it often distracts from the data. For example, see this **ggplot2** visualization of the following plot:
+
+```{r eval=TRUE}
+detach("package:SciencesPo")
+qplot(1:3, 1:3)
+```
+
+I rather prefer a clean layout for publication. Starting with simple layouts is better because we can add things as we need rather than taking them away. Thus, by default, the `theme_pub` prints a plot without background and minor grid lines. Also, if a legend is needed, it will appear underneath of the plot rather than on the right side.
+
+```{r eval=TRUE}
+require(SciencesPo)
+qplot(1:3, 1:3)
+```
+
+If you ever want to use the default **ggplot2** or some other theme while using the **SciencesPo** package, simply add the theme to your plot object, or set it is as the default for all subsequent plots using the `theme_set()` command.
+
+```{r eval=FALSE}
+plot + theme_gray() # create plot with default ggplot2 theme
+theme_set(theme_gray()) # switch to default ggplot2 theme
+```
+
+To modify general aspects of the `theme_pub` theme:
+
+```{r echo=FALSE, message=FALSE}
+require(SciencesPo)
+theme_set(theme_pub(font_size=12)) # default fontsize doesn't work well for online viewing
+qplot(1:3, 1:3)
+```
+
+
+The default fontfamily used in the theme is "Helvetica", but it is easy to chane to another style: 
+```{r echo=FALSE, message=FALSE}
+require(SciencesPo)
+# "Verdana", "serif" and "sans" are also high-readability fonts
+theme_set(theme_pub(font_size=12, font_family = "Consolas")) 
+qplot(1:3, 1:3)
+```
+
+Modify it with theme()
+```{r echo=FALSE, message=FALSE}
+prefs <- theme(axis.text = element_text(size=14, colour=NULL))
+
+qplot(1:3, 1:3) + prefs
+```
+
+```{r echo=FALSE, message=FALSE}
+# Modifying a theme function
+themeMod <- theme_gray() +
+  theme(text = element_text(family = "Times", colour = "blue", size = 14))
+
+ggplot(mpg, aes(x = cty, y = hwy, colour = factor(cyl))) + 
+   geom_point(size = 2.5)
+```
+
+
+You might be able to put the legend inside the plot area, using:
+  
+line_plot + theme(legend.justification=c(1,0), legend.position=c(1,0))
+
+This positions the legend inside the plot area, at the bottom-right. You can also put the legend at the top or bottom of the plot using, e.g.:
+  
+line_plot + theme(legend.position="bottom")
+
+```{r echo=FALSE, message=FALSE}
+# Only change the 'colour' property of theme element 'text'
+
+mytheme1 <- theme_grey() + theme(text = element_text(colour="red"))
+mytheme1$text
+```
+
+
+```{r echo=FALSE, message=FALSE}
+# Replace the 'text' element entirely
+mytheme2 <- theme_grey() %+replace% theme(text = element_text(colour="red"))
+mytheme2$text
+```
+
+By default, **cowplot** disables grid lines on the plot. In many cases, this is the cleanest and most elegant way to display the data. However, sometimes gridlines may be useful, and thus **cowplot** provides a simple way of adding gridlines, via the function `background_grid()`:
+
+```{r eval=FALSE, message=FALSE}
+plot.mpg + background_grid(major = "xy", minor = "none")
+```
+
+While the same result could be obtained using the function `theme()`, the function `background_grid()` makes the most commonly used option easily accessible. See the reference documentation for details.
+
+# Generic plot annotations
+
+Finally, the `draw_plot()` function also allows us to place graphs at arbitrary locations and at arbitrary sizes onto the canvas. This is useful for combining subplots into a layout that is not a simple grid, e.g. with one sub-plot spanning the entire width of the figure and two other figures using up half of the figure width:
+
+
+```{r eval=FALSE, message=FALSE, fig.width=7, fig.height=5}
+plot.iris <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) + 
+  geom_point() + facet_grid(. ~ Species) + stat_smooth(method = "lm") +
+  background_grid(major = 'y', minor = "none") + # add thin horizontal lines 
+  panel_border() # and a border around each panel
+# plot.mpg and plot.diamonds were defined earlier
+ggdraw() +
+  draw_plot(plot.iris, 0, .5, 1, .5) +
+  draw_plot(plot.mpg, 0, 0, .5, .5) +
+  draw_plot_label(c("A", "B", "C"), c(0, 0, 0.5), c(1, 0.5, 0.5), size = 15)
+```
+
+
+The functions `background_grid()` and `panel_border()` are convenience functions defined by **cowplot** to save some typing when manipulating the background grid and panel border. 
+
+```{r eval=FALSE, echo=FALSE, message=FALSE, fig.width=7, fig.height=5}
+# Of course, we can also go crazy:
+ggdraw() +
+  #geom_rect(data = boxes, aes(xmin = x, xmax = x + .15, ymin = y, ymax = y + .15),
+  #          colour = "gray60", fill = "red", alpha=.03) +
+  geom_path(data = spiral, aes(x = x, y = y, colour = t), size = 6, alpha = .4) +
+  draw_plot(plot.mpg, .3, .3, .4, .4) +
+  draw_plot(plot.iris, 0, .7, .7, .35 ) +
+  draw_plot(plot.iris, .45, .0, .6, .3 )
+```
+
+## Annotations underneath plots
+
+The function `geom_foot()` can be used to add annotation text as a plot footnotes. To demonstrate its use, we first make a plot, adding the footnote next: 
+
+```{r fig.width=5, fig.height=4}
+
+# Generating a ratio winner/opponent measure 
+Presidents = transform(Presidents, 
+                       height_ratio = winner.height/opponent.height) 
+
+# Avoid missing data
+Presidents <- subset(Presidents, !is.na(height_ratio))
+
+
+fit=lm(winner.vote~height_ratio,data=Presidents)
+
+mylabel=lm2eqn("Presidents","height_ratio","winner.vote")
+
+p1 <- ggplot(Presidents, aes(x=height_ratio, y=winner.vote)) +
+  geom_smooth(method=lm, colour="red", fill="gold")+
+  geom_point(size = 5, alpha = .7) +
+annotate(geom = 'text', x = 1.15, y = 70, size = 5, label = mylabel, fontface = 'italic') +
+  xlim(0.85,1.2) + ylim(25, 70) +
+  xlab("Winner/Opponent Height Ratio") + 
+  ylab("Relative Support for the Winner")
+p1 
+
+geom_foot("Draft Analysis, 2015", color = "magenta")
+
+```
+

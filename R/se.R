@@ -14,10 +14,9 @@
 #' myse
 #' # With the 'se' function:
 #' se(x)
-#' @export se
+#' @export
 #' @docType methods
 #' @rdname se-methods
-#' @aliases se,numeric,logical,se-method
 se<- setClass("se", representation(x = "numeric",na.rm="logical"))
 setGeneric("se", def=function(x, na.rm = TRUE){
   standardGeneric("se")
