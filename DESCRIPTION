@@ -16,7 +16,8 @@ Depends:
     utils,
     graphics,
     grDevices,
-    methods
+    methods,
+    shiny
 Imports:
     coda,
     RSQLite,

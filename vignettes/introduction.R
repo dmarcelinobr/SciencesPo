@@ -50,15 +50,16 @@ set.seed(51)
  skewness(x, type = 3)
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
-require(SciencesPo)
-x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
+pres =c(42,43,46,46,47,48,49,49,50,51,51,51,51,51,52,52,54,54,54,54,54,55,55,55,55,56,56,56,57,57,57,57,58,60,61,61,61,62,64,64,65,68,69)
 
-se(x) # std. error
+se(pres) # std. error
 
-ci(x, conf.level=.95) # confidence interval
+ci(pres, conf.level=.95) # confidence interval
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
-aad(x) 
+x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
+
+aad(pres) 
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 require(SciencesPo)
