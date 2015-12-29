@@ -4,7 +4,6 @@
 [![CRAN Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo)
 [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo)
 [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo)
-[![Coverage Status](https://coveralls.io/repos/danielmarcelino/SciencesPo/badge.svg?branch=master&service=github)](https://coveralls.io/github/danielmarcelino/SciencesPo?branch=master)
 
 
 *SciencesPo* is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](http://cran.r-project.org/package=SciencesPo/) and is also hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
