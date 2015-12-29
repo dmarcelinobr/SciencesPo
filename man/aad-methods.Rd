@@ -5,7 +5,7 @@
 \name{aad}
 \alias{aad}
 \alias{aad,ANY-method}
-\title{Average (Mean) Absolute Deviation}
+\title{Average Absolute Deviation}
 \usage{
 aad(x, na.rm = TRUE)
 
