@@ -131,17 +131,18 @@ detail <-
                            SD = stats[, 3],
                            Min. = stats[, 10],
                            Max. = stats[, 11] )
-    }
+      }
+
     output <- format(round(data.frame(temp), 1), nsmall = 0)
     class(output) <- c("SciencesPo", "describe", "data.frame")
-    s2 <- Sys.time()
-    timediff <- c( s2 - s1 )
-    cat("\n")
-    cat("Date of Analysis: ", format(Sys.time(), "%a %b %d %Y"), "\n", "Computation time: ",timediff, sep="", "\n")
-    cat("\n")
-    cat("Descriptive Statistics for ", length(vars), " variables", " from ", data_name, sep = "","\n")
-	cat("-------------------------------------------------------------\n")
-	    cat("\n")
-
     return(output)
+
+s2 <- Sys.time()
+timediff <- c( s2 - s1 )
+cat("\n")
+cat("Date of Analysis: ", format(Sys.time(), "%a %b %d %Y"), "\n", "Computation time: ",timediff, sep="", "\n")
+cat("\n")
+cat("Descriptive Statistics for ", length(vars), " variables", " from ", data_name, sep = "","\n")
+cat("-------------------------------------------------------------\n")
+cat("\n")
   }

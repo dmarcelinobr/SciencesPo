@@ -32,9 +32,21 @@ if (getRversion() >= "2.15.1")
   }
 packageStartupMessage(msg())
   #suppressMessages(msg())
+options(n.cat=0)
+options(quiet=FALSE)
+options(brief=FALSE)
   ggplot2::theme_set(theme_pub())
 }
 NULL
+
+
+say.hello <- function() {
+  print("Hello World!")
+}
+
+say.yo <- function() {
+  print("Yo world!")
+}
 
 "%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
 

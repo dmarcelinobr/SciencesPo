@@ -4,10 +4,9 @@
 \name{hamilton}
 \alias{hamilton}
 \alias{hamilton,ANY-method}
-\alias{hamilton,character,integer,integer}
 \title{The Hamilton method of apportionment}
 \usage{
-hamilton(parties, votes, seats)
+hamilton(...)
 
 \S4method{hamilton}{ANY}(parties, votes, seats)
 }

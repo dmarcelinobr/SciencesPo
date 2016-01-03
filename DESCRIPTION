@@ -16,8 +16,7 @@ Depends:
     utils,
     graphics,
     grDevices,
-    methods,
-    shiny
+    methods
 Imports:
     coda,
     RSQLite,
@@ -30,7 +29,8 @@ Imports:
     readxl,
     foreign,
     sas7bdat,
-    stringr
+    stringr,
+    shiny
 Suggests:
     testthat,
     knitr

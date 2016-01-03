@@ -13,20 +13,14 @@
 #'  state with the second-largest fraction and so on.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #' @docType methods
-#' @rdname hamilton-methods
 #' @importFrom utils head
 #' @examples
 #' votes <- sample(1:10000, 5)
 #' parties <- sample(LETTERS, 5)
 #' hamilton(parties, votes, 4)
 #' @export
-#' @aliases hamilton,character,integer,integer
+#' @rdname hamilton-methods
 `hamilton` <-setClass("hamilton", representation(parties="character", votes = "integer", seats = "integer"))
-NULL
-
-setGeneric("hamilton", def=function(parties, votes, seats){
-  standardGeneric("hamilton")
-  })
 NULL
 
 #' @rdname hamilton-methods

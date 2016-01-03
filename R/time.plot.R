@@ -19,9 +19,9 @@ if (getRversion() >= "2.15.1") globalVariables(c("value", "z", "time", "type", "
 `timeplot` <-function(ts, ylab = '', ylim=c(-1,1), ci=.95, ...){
     ts.df <- data.frame(time=c(1:length(ts)),value=ts)
     timeSeriesPlot <- ggplot(ts.df,aes(x=time,y=value)) +
-      geom_line()
-    ts.acf<-stats::acf(ts, plot=FALSE)
-    ts.pacf<-stats::pacf(ts, plot=FALSE)
+    geom_line()
+    ts.acf <-stats::acf(ts, plot=FALSE)
+    ts.pacf <-stats::pacf(ts, plot=FALSE)
     clim0 <- stats::qnorm((1 + ci)/2)/sqrt(ts.acf$n.used)
     clim <- c(-clim0,clim0)
 

@@ -59,7 +59,8 @@ bar.plot<-function(data, x.var=NULL, y.var=NULL,group.var=NULL,
   data=data.frame(data)
   data[,x.var]=factor(data[,x.var])
   if(is.null(group.var)){
-    if(!is.null(y.var)) gplot <-ggplot(data=data, aes_string(x=x.var, y=y.var))
+    if(!is.null(y.var))
+      gplot <-ggplot(data=data, aes_string(x=x.var, y=y.var))
     else gplot<-ggplot(data=data, aes_string(x=x.var))#barplot of the count
   }
   else {

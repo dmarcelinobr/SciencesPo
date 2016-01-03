@@ -5,7 +5,7 @@ test_that("The Cramer's V coefficient for tables", {
                        c(15, 54, 14, 10),
                        c(20,  84, 17, 94),
                        c(68, 119, 26, 7)));
-  tab %>% cramerV %>%
+  tab %>% calc.CV %>%
     expect_equal(0.279, tolerance=.005)
 })
 

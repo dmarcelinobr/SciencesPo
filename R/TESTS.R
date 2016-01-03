@@ -676,14 +676,15 @@ NULL
 #' # GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
 #' GSS = untable(gss, freq = "count")
 #'
-#' LR(GSS$party, GSS$sex)
+#' calc.LR(GSS$party, GSS$sex)
 #'
+#' @rdname calc.LR
 #' @export
-`LR` <- function(x, y = NULL, ...) UseMethod("LR")
+`calc.LR` <- function(x, y = NULL, ...) UseMethod("calc.LR")
 
-#' @rdname LR
+#' @rdname calc.LR
 #' @export
-`LR.default` <- function(x, y = NULL, ...) {
+`calc.LR.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -747,7 +748,7 @@ NULL
 #' stats::chisq.test(mat) # still significant
 #'
 #' # However, if we want to estimate the effect size, we then use Cramer's V:
-#' cramerV(mat)
+#' calc.CV(mat)
 #'
 #' # Agresti (2002), table 3.10, p. 104
 #' # 1991 General Social Survey: The effect size of race on party identification.
@@ -758,16 +759,17 @@ NULL
 #'
 #' GSS = untable(gss, freq = "count")
 #'
-#' cramerV(GSS$race, GSS$party)
+#' calc.CV(GSS$race, GSS$party)
 #'
 #' crosstabs(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
 #'
 #' @export
-`cramerV` <- function(x, y = NULL, ...) UseMethod("cramerV")
+#' @rdname calc.CV
+`calc.CV` <- function(x, y = NULL, ...) UseMethod("calc.CV")
 
-#' @rdname cramerV
+#' @rdname calc.CV
 #' @export
-`cramerV.default` <- function(x, y = NULL, ...) {
+`calc.CV.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -827,15 +829,16 @@ NULL
 #' crosstabs(Berkeley,  "ADMIT", "GENDER", "Freq", contingency = TRUE, phi=TRUE, cramerV=TRUE)
 #'
 #' tab = as.table(rbind(c(1198,557), c(1493,1278)))
-#' Phi(tab)
+#' calc.Phi(tab)
 #'
 #' @export
-`Phi` <- function(x, y = NULL, ...) UseMethod("Phi")
+#' @rdname calc.Phi
+`calc.Phi` <- function(x, y = NULL, ...) UseMethod("calc.Phi")
 
 
-#' @rdname Phi
+#' @rdname calc.Phi
 #' @export
-`Phi.default` <- function(x, y = NULL, ...) {
+`calc.Phi.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -891,14 +894,14 @@ NULL
 #' mat <- cbind( male, female )
 #' rownames(mat) <- c( 'good', 'satisfactory', 'bad')
 #'
-#' Contingency(mat)
+#' calc.CC(mat)
 #'
 #' @export
-`Contingency` <- function(x, y = NULL, ...) UseMethod("Contingency")
+`calc.CC` <- function(x, y = NULL, ...) UseMethod("calc.CC")
 
-#' @rdname Contingency
+#' @rdname calc.CC
 #' @export
-`Contingency.default` <- function(x, y = NULL, ...) {
+`calc.CC.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
   if (is.data.frame(x)) x <- as.matrix(x)
   if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
@@ -949,20 +952,20 @@ NULL
 #' mat <- cbind( male, female );
 #' rownames(mat) <- c( 'good', 'satisfactory', 'bad');
 #'
-#' tschuprowT(mat);
+#' calc.TT(mat);
 #'
 #' # long format
 #' long = untable(mat);
 #'
-#' tschuprowT(long$Var1, long$Var2)
+#' calc.TT(long$Var1, long$Var2)
 #' @export
-#'
-`tschuprowT` <- function(x, y = NULL) UseMethod("tschuprowT")
+#' @rdname calc.TT
+`calc.TT` <- function(x, y = NULL) UseMethod("calc.TT")
 
 
-#' @rdname tschuprowT
+#' @rdname calc.TT
 #' @export
-`tschuprowT.default` <- function(x, y = NULL, ...){
+`calc.TT.default` <- function(x, y = NULL, ...){
 
   if(!is.null(y)) x <- table(x, y, ...)
   # http://en.wikipedia.org/wiki/Tschuprow's_T
@@ -1067,3 +1070,124 @@ method = "Bartels Ratio Test", data.name = dname, parameter=c(n=n), n=n, alterna
   return(rval)
 } ### end -- bartels.rank function
 NULL
+
+
+
+
+
+#' @title The Uncertainty Coefficient
+#'
+#' @description The uncertainty coefficient \code{U(C|R)} measures the proportion of uncertainty (entropy) in the column variable \code{Y} that is explained by the row variable \code{X}.
+#'
+#' @param x A numeric vector, a factor, matrix or data frame.
+#' @param y A vector that is ignored if x is a matrix and required if x is a vector.
+#' @param direction The direction of the calculation, either \code{"symmetric"} (default), \code{"row"}, or \code{"column"}. \code{"row"} calculates \code{uncertainty(R|C)} (column dependent relationship).
+#' @param conf.level The confidence level of the interval. If set to NA (which is the default) no confidence interval will be calculated.
+#' @param p.zero.correction Slightly nudge zero values so that their logarithm can be calculated.
+#' @param \dots Further arguments are passed to the function \code{\link{table}}, allowing i.e. to set useNA. This refers only to the vector interface.
+#'
+#' @details The uncertainty coefficient is computed as
+#' \deqn{U(C|R) = \frac{H(X) + H(Y) - H(XY)}{H(Y)} } and ranges from [0, 1].
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com},
+#'  strongly based on code from Antti Arppe \email{antti.arppe@@helsinki.fi} and Andri Signorell \email{andri@@signorell.net}.
+#'
+#' @references
+#' Theil, H. (1972), \emph{Statistical Decomposition Analysis}, Amsterdam: North-Holland Publishing Company.
+#'
+#' @keywords Multivariate
+#'
+#' @examples
+#'  if (interactive()) {
+#' # example from Goodman Kruskal (1954)
+#' m <- as.table(cbind(c(1768,946,115), c(807,1387,438), c(189,746,288), c(47,53,16)));
+#' dimnames(m) <- list(paste("A", 1:3), paste("B", 1:4));
+#' print(m)
+#'
+#' calc.UC(m); # default is direction = "symmetric"
+#'
+#' calc.UC(m, conf.level=0.95); # direction "symmetric"
+#'
+#' calc.UC(m, direction="column");
+#' }
+#' @export
+#' @rdname calc.UC
+`calc.UC` <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, p.zero.correction = 1/sum(x)^2, ...) UseMethod("calc.UC")
+
+#' @rdname calc.UC
+`calc.UC.default` <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, p.zero.correction = 1/sum(x)^2, ... ) {
+  # Theil's UC (1970)
+  # slightly nudge zero values so that their logarithm can be calculated (cf. Theil 1970: x->0 => xlogx->0)
+  if(!is.null(y)) x <- table(x, y, ...)
+  x[x == 0] <- p.zero.correction
+  n <- sum(x)
+  rsum <- apply(x, 1, sum)
+  csum <- apply(x, 2, sum)
+  hx <- -sum((apply(x, 1, sum) * log(apply(x, 1, sum)/n))/n)
+  hy <- -sum((apply(x, 2, sum) * log(apply(x, 2, sum)/n))/n)
+  hxy <- -sum(apply(x, c(1, 2), sum) * log(apply(x, c(1, 2), sum)/n)/n)
+  switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
+          , "symmetric" = { res <- 2 * (hx + hy - hxy)/(hx + hy) }
+          , "row" = { res <- (hx + hy - hxy)/hx }
+          , "column" = { res <- (hx + hy - hxy)/hy }
+  )
+
+  if(!is.na(conf.level)){
+    var.uc.RC <- var.uc.CR <- 0
+    for(i in 1:nrow(x))
+      for(j in 1:ncol(x))
+      { var.uc.RC <- var.uc.RC + x[i,j]*(hx*log(x[i,j]/csum[j])+((hy-hxy)*log(rsum[i]/n)))^2/(n^2*hx^4);
+      var.uc.CR <- var.uc.CR + x[i,j]*(hy*log(x[i,j]/rsum[i])+((hx-hxy)*log(csum[j]/n)))^2/(n^2*hy^4);
+      }
+    switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
+            , "symmetric" = {
+              sigma2 <- 4*sum(x * (hxy * log(rsum %o% csum/n^2) - (hx+hy)*log(x/n))^2 ) /
+                (n^2*(hx+hy)^4)
+            }
+            , "row" = { sigma2 <- var.uc.RC }
+            , "column" = { sigma2 <- var.uc.CR }
+    )
+    pr2 <- 1 - (1 - conf.level)/2
+    ci <- stats::qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + res
+    retval <- c(
+      "Est. Mean" = res,
+      "CI lower"=max(ci[1], -1),
+      "CI upper"=min(ci[2], 1))
+  }
+  return(retval)
+}### end -- uncertainty function
+NULL
+
+
+
+
+
+
+
+#' @title Cronbach's Alpha for a matrix or data frame
+#' @name cronbach
+#' @description This function calculates the Cronbach's alpha
+#'  value of a data frame or matrix.
+#'
+#' # @seealso \code{\link{reliability.test}}
+#'
+#' @param df \code{data.frame} or matrix with more than 2 columns.
+#' @return The Cronbach's alpha value for \code{df}.
+#'
+#' @importFrom stats na.omit var
+#' @export
+`cronbach` <- function(df) {
+  df <- stats::na.omit(df)
+  if (is.null(ncol(df)) || ncol(df) < 2) {
+    warning("Too less columns in this factor to calculate alpha value!", call. = F)
+    return(NULL)
+  }
+  return(dim(df)[2] / (dim(df)[2] - 1) * (1 - sum(apply(df, 2, var)) / stats::var(rowSums(df))))
+}
+NULL
+
+
+
+
+
+

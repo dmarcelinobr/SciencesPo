@@ -126,7 +126,7 @@ function(file=NULL, format=c("csv", "SPSS", "R", "Excel", "SAS"),
       else
         delim <- ","
       if (isnot.row2)  # read data
-         d <- utils::read.csv(file=file, na.strings=missing, sep=delim, ...)
+ d <- utils::read.csv(file=file, na.strings=missing, sep=delim, stringsAsFactors=FALSE, ...)
     }
   }  # end text file
   else if (format == "Excel") {

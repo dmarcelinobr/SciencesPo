@@ -12,8 +12,6 @@
 #'
 #' @note Adapted from Carlos Bellosta's replies in the R-list.
 #'
-#' @export
-#'
 #' @examples
 #' votes <- sample(1:10000, 5)
 #' parties <- sample(letters, 5)
@@ -36,7 +34,16 @@
 #'
 #' dHondt(parties, votes , 42)
 #'
-`dHondt` <- function(parties, votes, seats){
+#' @docType methods
+#' @importFrom utils head
+#' @rdname dHondt-methods
+#' @export
+`dHondt` <-setClass("dHondt", representation(parties="character", votes = "integer", seats = "integer"))
+NULL
+
+
+#' @rdname dHondt-methods
+setMethod(f="dHondt", definition=function(parties, votes, seats){
   # creates a party score object
   .temp <- data.frame(
     parties = rep(parties, each = seats ),
@@ -48,5 +55,5 @@
       names(out) <-c("Parties", "Frequency", "Percent");
    out <- out[ order(out[,2], decreasing = TRUE),]
      return(out)
-}
+})
 NULL
