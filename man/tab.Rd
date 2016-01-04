@@ -3,10 +3,7 @@
 \encoding{UTF-8}
 \name{tab}
 \alias{tab}
-\title{Stata-Like Two-Way Tabulation
-
-\code{tabulate} is a modified version of \code{\link{crosstable}} for printing a summary table with cell counts and column proportions (similar to STATA's
-\code{tabulate} \emph{varname1} \emph{varname2}, \code{col}).}
+\title{Stata-Like Two-Way Tabulation}
 \usage{
 tab(x, y, digits = 2)
 }
@@ -16,6 +13,10 @@ tab(x, y, digits = 2)
 \item{digits}{The number of digits for rounding proportions.}
 }
 \description{
+The function is a modified version of \code{\link{crosstabs}} for printing a summary table with cell counts and column proportions (similar to STATA's
+\code{tabulate varname1 varname2, col}).
+}
+\details{
 `tab` <- function(.data, row, col){
  argx <- deparse(substitute(row))
  argy <- deparse(substitute(col))

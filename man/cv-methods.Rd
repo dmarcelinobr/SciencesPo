@@ -8,7 +8,7 @@
 \alias{cv,numeric,logical,ANY-method}
 \title{Pearson's Coefficient of Variation}
 \usage{
-cv(x, na.rm = TRUE)
+cv(x, ...)
 
 \S4method{cv}{ANY}(x, na.rm = TRUE)
 }

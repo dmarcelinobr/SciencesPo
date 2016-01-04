@@ -61,7 +61,6 @@ is.valid.name <- function(x) {
 }
 
 
-
 noathenb <- function(a, b) {
   if (length(a) > 0) a else b
 }
@@ -363,130 +362,6 @@ NULL
 }
 
 
-.varlist <- function(n.pred, i, var.name, pred.lbl, n.obs, n.keep, lvls=NULL) {
-
-  if (i == 1)
-    txt <- "Response Variable:  "
-  else
-    if (n.pred > 1) txt <- paste(pred.lbl, " ",
-      toString(i-1), ": ", sep="")
-    else txt <- "Predictor Variable: "
-  cat(txt, var.name)
-
-  dname <- getOption("dname")
-  if (exists(dname, where=.GlobalEnv))
-    mylabels <- attr(get(dname, pos=.GlobalEnv), which="variable.labels")
-  else
-    mylabels <- NULL
-
-  if (!is.null(mylabels)) {
-    lbl <- mylabels[which(names(mylabels) == var.name)]
-    if (!is.null(lbl)) cat(", ", as.character(lbl))
-  }
-
-  if (!is.null(lvls)) if (i > 1) cat("\n  Levels:", lvls)
-  cat("\n")
-
-  if (i == n.pred+1) {
-    cat("\n")
-    cat("Number of cases (rows) of data: ", n.obs, "\n")
-    cat("Number of cases retained for analysis: ", n.keep, "\n")
-  }
-}
-
-
-.varlist2 <- function(n.pred, i, var.name, pred.lbl, n.obs, lvls=NULL) {
-  tx <- character(length = 0)
-
-  if (i == 1)
-    txt <- "Response Variable:  "
-  else
-    if (n.pred > 1) txt <- paste(pred.lbl, " ",
-      toString(i-1), ": ", sep="")
-    else txt <- "Predictor Variable: "
-  tx[length(tx)+1] <- paste(txt, var.name, sep="")
-
-  dname <- getOption("dname")
-  if (exists(dname, where=.GlobalEnv))
-    mylabels <- attr(get(dname, pos=.GlobalEnv), which="variable.labels")
-  else
-    mylabels <- NULL
-  if (exists(dname, where=.GlobalEnv))
-    myunits <- attr(get(dname, pos=.GlobalEnv), which="variable.units")
-  else
-    myunits <- NULL
-
-  if (!is.null(mylabels)) {
-    lbl <- mylabels[which(names(mylabels) == var.name)]
-    unt <- myunits[which(names(myunits) == var.name)]
-    if (!is.null(unt)) if (nzchar(unt))
-      lbl <- paste(lbl, " (", unt, ")", sep="")
-    else
-      lbl <- lbl
-    if (!is.null(lbl))
-      tx[length(tx)] <- paste(tx[length(tx)], ", ", as.character(lbl), sep="")
-  }
-
-  if (!is.null(lvls)) if (i > 1) tx[length(tx)+1] <- paste("\n  Levels:", lvls)
-
-  return(tx)
-}
-
-
-.title <- function(x.name, y.name, x.lbl, y.lbl, isnullby) {
-
-  txt1 <- x.name
-  if (!is.null(x.lbl)) txt1 <- paste(txt1, ", ", x.lbl, sep="")
-
-  if (isnullby) txt1 <- paste("---", txt1, "---")
-  else {
-    txt2 <- paste(y.name, sep="")
-    if (!is.null(y.lbl)) txt2 <- paste(txt2, ", ", y.lbl, sep="")
-  }
-
-  cat("\n")
-  cat(txt1, "\n")
-  if (!isnullby) {
-    cat("  - by levels of - \n")
-    cat(txt2, "\n")
-    ndash <- max(nchar(txt1),nchar(txt2))
-    .dash(ndash)
-  }
-  cat("\n")
-
-}
-
-.title2 <- function(x.name, y.name, x.lbl, y.lbl, isnullby, new.ln=TRUE) {
-
-  txt1 <- x.name
-  if (!is.null(x.lbl)) txt1 <- paste(txt1, ", ", x.lbl, sep="")
-
-  if (isnullby) {
-    txt1 <- paste("---", txt1, "---")
-    if (new.ln) txt1 <- paste(txt1, "\n", sep="")
-  }
-  else {
-    txt2 <- paste(y.name, sep="")
-    if (!is.null(y.lbl)) txt2 <- paste(txt2, ", ", y.lbl, sep="")
-  }
-
-  tx <- character(length = 0)
-
-  tx[length(tx)+1] <- txt1
-  if (!isnullby) {
-    if (is.null(y.lbl))
-      tx[length(tx)+1] <- "  - by levels of - "
-    else
-      tx[length(tx)+1] <- "\n  - by levels of - \n"
-    tx[length(tx)+1] <- txt2
-    if (is.null(y.lbl))
-      tx[length(tx)+1] <- .dash2(max(nchar(txt1),nchar(txt2)))
-  }
-
-  return(tx)
-
-}
-
 
 
 
@@ -501,44 +376,6 @@ NULL
           "decrease  n.cat ",
           "to specify\n",
           "   a lower number of unique values.\n")
-
-}
-
-
-
-
-.maketrans <- function(col.name, trans.level) {
-  r.tr <- col2rgb(col.name)[1]
-  g.tr <- col2rgb(col.name)[2]
-  b.tr <- col2rgb(col.name)[3]
-
-  #trans.level <- (1-trans.level) * 256
-  col.trans <- rgb(r.tr, g.tr, b.tr, alpha=trans.level, maxColorValue=256)
-
-  return(col.trans)
-}
-
-
-.to256 <- function(trans.level)
-   trn <- (1-getOption(trans.level))*256
-
-
-# change class call to class character
-.fun.call.deparse <- function(fun.call) {
-
-  fc.d <- deparse(fun.call)
-  if (length(fc.d) > 1) {  # multiple lines
-    fc <- fc.d[1]
-    for (i in 2:length(fc.d)) fc <- paste(fc, fc.d[i], sep="")
-  }
-  else
-    fc <- fc.d
-
-  fc <- sub("     ", " ", fc, fixed=TRUE)
-  fc <- sub("    ", " ", fc, fixed=TRUE)
-  fc <- sub("  ", " ", fc, fixed=TRUE)
-
-  return(fc)
 
 }
 
@@ -694,7 +531,7 @@ NULL
 
 
 `.freq` <-
-  function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=2, include.lowest = TRUE, ord = c("level", "desc", "asc", "name"),
+  function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=3, include.lowest = TRUE, ord = c("level", "desc", "asc", "name"),
            useNA = c("no", "ifany", "always"),...){
 
     # check if x is a vector (do not use is.vector())

@@ -387,8 +387,8 @@ NULL
 #' @encoding UTF-8
 #' @title Stata-Like Two-Way Tabulation
 #'
-#' \code{tabulate} is a modified version of \code{\link{crosstable}} for printing a summary table with cell counts and column proportions (similar to STATA's
-#' \code{tabulate} \emph{varname1} \emph{varname2}, \code{col}).
+#' @description The function is a modified version of \code{\link{crosstabs}} for printing a summary table with cell counts and column proportions (similar to STATA's
+#' \code{tabulate varname1 varname2, col}).
 #'
 #' @param x,y The variables for the cross tabulation.
 #' @param digits The number of digits for rounding proportions.

@@ -24,6 +24,10 @@
 #' @export
 `ci`<-setClass("ci", representation(x = "numeric", conf.level = "numeric",alpha = "numeric",na.rm="logical"))
 
+setGeneric("ci", def=function(x,...){
+  standardGeneric("ci")
+})
+
 
 #' @rdname ci-methods
 setMethod(f="ci", definition=function(x, conf.level=0.95, alpha=1-conf.level,na.rm=FALSE,...){

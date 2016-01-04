@@ -7,7 +7,7 @@
 \alias{ci,ANY-method}
 \title{Confidence Intervals}
 \usage{
-ci(...)
+ci(x, ...)
 
 \S4method{ci}{ANY}(x, conf.level = 0.95, alpha = 1 - conf.level,
   na.rm = FALSE, ...)

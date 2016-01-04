@@ -1169,7 +1169,7 @@ NULL
 #' @description This function calculates the Cronbach's alpha
 #'  value of a data frame or matrix.
 #'
-#' # @seealso \code{\link{reliability.test}}
+#'
 #'
 #' @param df \code{data.frame} or matrix with more than 2 columns.
 #' @return The Cronbach's alpha value for \code{df}.
