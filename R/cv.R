@@ -24,7 +24,7 @@
 #' @rdname cv-methods
 #' @aliases cv,numeric,logical,ANY-method
 `cv`<-setClass("cv", representation(x = "numeric", na.rm="logical"))
-setGeneric("cv", def=function(x, ...){
+setGeneric("cv", def=function(x, na.rm = TRUE){
   standardGeneric("cv")
 })
 

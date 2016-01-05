@@ -7,9 +7,9 @@
 \alias{dHondt,ANY-method}
 \title{The D'Hondt Method of Allocating Seats Proportionally}
 \usage{
-dHondt(parties, votes, seats, ...)
+dHondt(parties = NULL, votes = NULL, seats = NULL)
 
-\S4method{dHondt}{ANY}(parties, votes, seats)
+\S4method{dHondt}{ANY}(parties = NULL, votes = NULL, seats = NULL)
 }
 \arguments{
 \item{parties}{A vector containig parties labels or candidates accordingly to the \code{votes} vector order.}
@@ -25,8 +25,9 @@ The function calculate the seats allotment in legislative house, given the total
 Adapted from Carlos Bellosta's replies in the R-list.
 }
 \examples{
-# Example: 2014 Brazilian election for the lower house in the state of Ceara.
-# Coalitions leading by the following parties:
+# Example: 2014 Brazilian election for the lower house in
+# the state of Ceara. Coalitions were leading by the
+# following parties:
 
 results <- c(DEM=490205, PMDB=1151547, PRB=2449440,
 PSB=48274, PSTU=54403, PTC=173151)

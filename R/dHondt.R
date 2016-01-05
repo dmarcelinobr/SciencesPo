@@ -15,8 +15,9 @@
 #' @note Adapted from Carlos Bellosta's replies in the R-list.
 #'
 #' @examples
-#' # Example: 2014 Brazilian election for the lower house in the state of Ceara.
-#' # Coalitions leading by the following parties:
+#' # Example: 2014 Brazilian election for the lower house in
+#' # the state of Ceara. Coalitions were leading by the
+#' # following parties:
 #'
 #' results <- c(DEM=490205, PMDB=1151547, PRB=2449440,
 #' PSB=48274, PSTU=54403, PTC=173151)
@@ -38,13 +39,13 @@
 `dHondt` <- setClass("dHondt", slots = list(parties="character", votes = "integer", seats = "integer"))
 NULL
 
-setGeneric("dHondt", def=function(parties, votes, seats, ...){
+setGeneric("dHondt", def=function(parties=NULL, votes=NULL, seats=NULL){
   standardGeneric("dHondt")
 })
 
 
 #' @rdname dHondt-methods
-setMethod(f="dHondt", definition=function(parties, votes, seats){
+setMethod(f="dHondt", definition=function(parties=NULL, votes=NULL, seats=NULL){
   # creates a party score object
   .temp <- data.frame(
     parties = rep(parties, each = seats ),
@@ -95,9 +96,13 @@ NULL
 #'
 #' parties <- c("PCdoB", "PDT","PEN", "PMDB", "PRB","PSB","PSC", "PSTU", "PTdoB", "PTC", "PTN")
 #'
-#' highestAverages(parties, votes, seats = 42, method="dt")
+#' dat=highestAverages(parties, votes, seats = 42, method = "dt")
 #'
-#' # Let's create a typical election result data.frame with the following parties and votes to return 10 seats:
+#' # Plot it
+#' bar.plot(data=dat, "Parties", "Seats")+theme_538()
+#'
+#' # Let's create a data.frame with typical election results
+#' # with the following parties and votes to return 10 seats:
 #'
 #' my_election <- data.frame(
 #' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
@@ -115,6 +120,7 @@ NULL
 #' seats = 10,
 #' method="sl")
 #'
+#'
 #' @docType methods
 #' @importFrom utils head
 #' @rdname highestAverages-methods
@@ -123,7 +129,7 @@ NULL
                              slots = list(parties="character", votes = "integer", seats = "integer", method = "integer"))
 NULL
 
-setGeneric("highestAverages", def=function(parties, votes, seats, ...){
+setGeneric("highestAverages", def=function(parties, votes, seats, method){
   standardGeneric("highestAverages")
 })
 
@@ -138,11 +144,11 @@ setMethod(f="highestAverages", definition=function(parties, votes, seats, method
          },
          sl = { #Sainte-Laguë
            wari.vec <- seq(from = 1, by = 2, length.out = seats)
-           method.name <- c("Sainte-Laguë")
+           method.name <- c("Sainte-Lagu\u00EB")
          },
          msl = { #Modified Sainte-Laguë
            wari.vec <- c(1.4, seq(from = 3, by = 2, length.out = seats-1))
-           method.name <- c("Modified Sainte-Laguë")
+           method.name <- c("Modified Sainte-Lagu\u00EB")
          },
          danish = { #Danish
            wari.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))

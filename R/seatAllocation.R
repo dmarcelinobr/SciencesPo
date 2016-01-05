@@ -29,7 +29,7 @@
 `hamilton` <- setClass("hamilton", slots = list(parties="character", votes = "integer", seats = "integer"))
 NULL
 
-setGeneric("hamilton", def=function(parties, votes, seats, ...){
+setGeneric("hamilton", def=function(parties, votes, seats){
   standardGeneric("hamilton")
 })
 

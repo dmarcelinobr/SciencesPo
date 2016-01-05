@@ -7,7 +7,7 @@
 \alias{highestAverages,ANY-method}
 \title{The Highest Averages Method of Allocating Seats Proportionally}
 \usage{
-highestAverages(parties, votes, seats, ...)
+highestAverages(parties, votes, seats, method)
 
 \S4method{highestAverages}{ANY}(parties, votes, seats, method)
 }
@@ -44,9 +44,13 @@ votes <- c(187906, 326841, 132531, 981096, 2043217,15061,103679,109830, 213988, 
 
 parties <- c("PCdoB", "PDT","PEN", "PMDB", "PRB","PSB","PSC", "PSTU", "PTdoB", "PTC", "PTN")
 
-highestAverages(parties, votes, seats = 42, method="dt")
+dat=highestAverages(parties, votes, seats = 42, method = "dt")
 
-# Let's create a typical election result data.frame with the following parties and votes to return 10 seats:
+# Plot it
+bar.plot(data=dat, "Parties", "Seats")+theme_538()
+
+# Let's create a data.frame with typical election results
+# with the following parties and votes to return 10 seats:
 
 my_election <- data.frame(
 party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),

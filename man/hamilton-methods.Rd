@@ -7,7 +7,7 @@
 \alias{hamilton,ANY-method}
 \title{The Hamilton Method of Allocating Seats Proportionally}
 \usage{
-hamilton(parties, votes, seats, ...)
+hamilton(parties, votes, seats)
 
 \S4method{hamilton}{ANY}(parties, votes, seats)
 }
