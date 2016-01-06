@@ -107,7 +107,21 @@ naathenb <- function(a, b) {
 NULL
 
 
+formatBRL<- function(x, digits=2, nsmall=2){
+  paste("\u0052\u0024",symbol, format(x, digits = digits, nsmall=nsmall, big.mark = ".", decimal.mark = ","))
+}
 
+formatEUR<- function(x, digits=2, nsmall=2){
+  paste("\u20ac", symbol, format(x, digits = digits, nsmall=nsmall))
+}
+
+formatUSD<- function(x, digits=2, nsmall=2){
+  paste("\u0024", format(x, digits = digits, nsmall=nsmall))
+}
+
+formatPercent<- function(x, digits=2, nsmall=2, decimal.mark = ","){
+  paste("\u0025", format(x, digits = digits, nsmall=nsmall,  decimal.mark =  decimal.mark ))
+}
 
 `user.prompt` <- function (msg = NULL) {
   if (is.null(msg))

@@ -48,28 +48,27 @@ A <- c(.75,.25);
 B <- c(.75,.10,rep(0.01,15))
 C <- c(.55,.45);
 
-politicalDiversity(A, index= "laakso/taagepera")
-politicalDiversity(B, index= "laakso/taagepera")
-politicalDiversity(C, index= "laakso/taagepera")
+# The "laakso/taagepera" method is the default
+politicalDiversity(A)
+politicalDiversity(B)
+
+# Using Grigorii Golosov method
+politicalDiversity(B, index="golosov")
+politicalDiversity(C, index="golosov")
 
 # The 1980 presidential election in the US (vote share):
-party_1980 <- c("Democratic", "Republican", "Independent",
- "Libertarian", "Citizens", "Others")
-US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
+US1980 <- c("Democratic"=0.410, "Republican"=0.507,
+"Independent"=0.066, "Libertarian"=0.011, "Citizens"=0.003,
+"Others"=0.003)
 
-politicalDiversity(US1980, index= "laakso/taagepera")
+politicalDiversity(US1980)
 
 politicalDiversity(US1980, index= "herfindahl")
 
-
-party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian",
-"Constitution", "Green", "Others")
-US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
+US2004 <- c("Democratic"=0.481, "Republican"=0.509, "Independent"=0.0038,
+"Libertarian"=0.0032, "Constitution"=0.0012, "Green"=0.00096, "Others"=0.00084)
 
 politicalDiversity(US2004, index = "H") # will match Herfindahl
-
-# Using Grigorii Golosov approach:
-politicalDiversity(US2004, index= "Golosov")
 
 # The 1999 Finland election:
 votes_1999 <- c(612963, 600592, 563835,
@@ -78,35 +77,25 @@ votes_1999 <- c(612963, 600592, 563835,
 
 seats_1999 <- c(51, 48, 46, 20, 11, 11, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-# Helsinki's 1999
-votes_1999 <- c(68885,18343, 86448,
-21982, 51587, 27227, 8482, 7250, 365,
-2734, 1925, 475, 1693, 693, 308, 980,
-560, 590, 185)
-
-#Sainte-Lague allocation:
-seats_1999sl <- c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-# D'Hondt allocation:
-seats_1999dh <- c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-
 # 2010 Brazilian legislative election
 
-party_2010 = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV",
-"PC do B","PPS","PRB", "PMN", "PT do B", "PSOL","PHS","PRTB","PRP","PSL","PTC")
-votes_2010 = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345,
-4478736, 3808646, 2981714,2886633, 2545279, 2376475, 1659973, 1026220,
-605768, 968475, 719611, 283047, 232530, 457490, 563145)
+votes_2010 = c("PT"=13813587, "PMDB"=11692384, "PSDB"=9421347,
+"DEM"=6932420, "PR"=7050274, "PP"=5987670, "PSB"=6553345,
+"PDT"=4478736, "PTB"=3808646, "PSC"=2981714, "PV"=2886633,
+"PC do B"=2545279, "PPS"=2376475, "PRB"=1659973, "PMN"=1026220,
+"PT do B"=605768, "PSOL"=968475, "PHS"=719611, "PRTB"=283047,
+"PRP"=232530, "PSL"=457490,"PTC"=563145)
 
-# 2010 Election outcome as proportion of seats
-seats_2010 = c(88, 79, 53, 43, 41, 41, 34, 28, 21,
-17, 15, 15, 12, 8, 4, 3, 3, 2, 2, 2, 1, 1)/513
+seats_2010 = c("PT"=88, "PMDB"=79, "PSDB"=53, "DEM"=43,
+"PR"=41, "PP"=41, "PSB"=34, "PDT"=28, "PTB"=21, "PSC"=17,
+"PV"=15, "PC do B"=15, "PPS"=12, "PRB"=8, "PMN"=4, "PT do B"=3,
+ "PSOL"=3, "PHS"=2, "PRTB"=2, "PRP"=2, "PSL"=1,"PTC"=1)
 
 # 2014 Election outcome as proportion of seats
 seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15,
 12, 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 
-politicalDiversity(seats_2014, index= "laakso/taagepera")
+politicalDiversity(seats_2014)
 
 # or:
 

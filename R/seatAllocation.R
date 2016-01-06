@@ -3,43 +3,42 @@
 #'
 #' @description Computes the Alexander Hamilton's apportionment method (1792), also known as Hare-Niemeyer method or as Vinton's method. The Hamilton method is a largest-remainder method which uses the Hare Quota.
 #'
-#' @param parties A vector containig parties labels or candidates accordingly to the \code{votes} vector order.
-#' @param votes A vector containing the number of formal votes received by the parties/candidates.
+#' @param parties A vector containig parties labels or candidates in the same order of \code{votes}.
+#' @param votes A vector with the formal votes received by the parties/candidates.
 #' @param seats An integer for the number of seats to be returned.
-#' @details The Hamilton/Vinton Method sets the divisor as the proportion
-#' of the total population per house seat. After each state's population
-#' is divided by the divisor, the whole number of the quotient is kept
-#' and the fraction dropped. This results in surplus house seats. Then,
-#' the first surplus seat is assigned to the state with the largest
-#' fraction after the original division. The next is assigned to the
-#' state with the second-largest fraction and so on.
+#' @param \dots Additional arguements (currently ignored)
+
+#' @details The Hamilton/Vinton Method sets the divisor as the
+#' proportion of the total population per house seat.
+#' After each state's population is divided by the divisor,
+#' the whole number of the quotient is kept and the fraction
+#' dropped. This results in surplus house seats. Then, the first
+#' surplus seat is assigned to the state with the largest
+#' fraction after the original division. The next is assigned to
+#' the state with the second-largest fraction and so on.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
 #' @seealso \code{\link{dHondt}}, \code{\link{highestAverages}}, \code{\link{politicalDiversity}}.
 #'
-#' @docType methods
 #' @importFrom utils head
 #' @examples
 #' votes <- sample(1:10000, 5)
 #' parties <- sample(LETTERS, 5)
-#' hamilton(parties, votes, 4)
+#' hamilton(parties, votes, seats = 4)
+#'
 #' @export
-#' @rdname hamilton-methods
-`hamilton` <- setClass("hamilton", slots = list(parties="character", votes = "integer", seats = "integer"))
-NULL
-
-setGeneric("hamilton", def=function(parties, votes, seats){
-  standardGeneric("hamilton")
-})
+#' @rdname hamilton
+`hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...) UseMethod("hamilton")
 
 
-#' @rdname hamilton-methods
-setMethod(f="hamilton", definition=function(parties, votes, seats){
+#' @export
+#' @rdname hamilton
+`hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...){
   .temp <- data.frame(
-   parties = parties,
-   scores = votes / sum(votes) * seats,
-   perc = round(votes / sum(votes),3));
+  parties = parties,
+  scores = votes / sum(votes) * seats,
+  perc = round(votes / sum(votes),3));
   integer <- with(.temp, floor(scores));
   fraction <- with(.temp, scores - integer);
   remainder <- seats - sum(integer);
@@ -47,7 +46,189 @@ setMethod(f="hamilton", definition=function(parties, votes, seats){
   extra <- utils::head(order(fraction, decreasing=TRUE), remainder);
   .temp$scores[extra] <- (.temp$scores[extra] + 1);
   if(sum(.temp$scores) != seats) stop("Allocation error.");
-  names(.temp) <-c("Parties", "Seats", "Shares");
-  return(.temp);
-})
+  names(.temp) <-c("Parties", "Seats", "Share");
+  print(.temp, digits = max(3, getOption("digits") - 3))
+}
 NULL
+
+
+
+#' @encoding UTF-8
+#' @title The D'Hondt Method of Allocating Seats Proportionally
+#'
+#' @description The function calculate the seats allotment in legislative house, given the total number of seats and the votes for each party based on the Victor D'Hondt's method (1878), which is mathematically equivalent to the method proposed by Thomas Jefferson few years before (1792).
+#'
+#' @param parties A vector containig parties labels or candidates accordingly to the \code{votes} vector order.
+#' @param votes A vector containing the total number of formal votes received by the parties/candidates.
+#' @param seats An integer for the number of seats to be filled (the district magnitude).
+#' @param \dots Additional arguements (currently ignored)
+#'
+#' @keywords Electoral
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#' @seealso \code{\link{highestAverages}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
+#'
+#' @note Adapted from Carlos Bellosta's replies in the R-list.
+#'
+#' @examples
+#' # Example: 2014 Brazilian election for the lower house in
+#' # the state of Ceara. Coalitions were leading by the
+#' # following parties:
+#'
+#' results <- c(DEM=490205, PMDB=1151547, PRB=2449440,
+#' PSB=48274, PSTU=54403, PTC=173151)
+#'
+#' dHondt(parties=names(results), votes=results, seats=19)
+#'
+#' # The next example is for the state legislative house of Ceara (2014):
+#'
+#' votes <- c(187906, 326841, 132531, 981096, 2043217,15061,103679,109830, 213988, 67145, 278267)
+#'
+#' parties <- c("PCdoB", "PDT","PEN", "PMDB", "PRB","PSB","PSC", "PSTU", "PTdoB", "PTC", "PTN")
+#'
+#' dHondt(parties, votes , seats=42)
+#'
+#' @importFrom utils head
+#' @rdname dHondt
+#' @export
+`dHondt` <- function(parties=NULL, votes=NULL, seats=NULL, ...) UseMethod("dHondt")
+
+#' @rdname dHondt
+#' @export
+`dHondt` <-function(parties=NULL, votes=NULL, seats=NULL, ...){
+  # creates a party score object
+  .temp <- data.frame(
+    parties = rep(parties, each = seats ),
+    scores = as.vector(sapply( votes, function(x) x /
+                                 1:seats ))
+  );
+  out <- with(.temp, (parties[order(-scores)][1:seats]))
+  out <- data.frame(.freq(out)[,1:3]);
+  names(out) <-c("Parties", "Seats", "Shares");
+  out <- out[ order(out[,2], decreasing = TRUE),]
+  return(out)
+}
+NULL
+
+
+
+
+
+#' @encoding latin1
+#' @title The Highest Averages Method of Allocating Seats Proportionally
+#'
+#' @description Computes the highest averages method for a variety of formulas to allocate seats proportionally for voting systems with representative assemblies.
+#' @param parties A character vector for parties labels or candidates accordingly to the \code{votes} order.
+#' @param votes A numeric vector for the number of formal votes received by each party or candidate.
+#' @param seats The number of seats to be filled (scalar or vector).
+#' @param method A character name for the method to be used. See details.
+#'
+#' @return A \code{data.frame}.
+#' @keywords Electoral
+#'
+#' @details The following methods are available:
+#' \itemize{
+#' \item {"dh"}{d'Hondt method}
+#' \item {"sl"}{Sainte-Lagu\"e method}
+#' \item {"msl"}{Modified Sainte-Lagu\"e method}
+#' \item {"danish"}{Danish method}
+#' \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
+#' \item {"hh"}{Huntington-Hill method}
+#' }
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#' @seealso \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
+#'
+#' @examples
+#' # Results for the state legislative house of Ceara (2014):
+#'
+#' votes <- c(187906, 326841, 132531, 981096, 2043217,15061,103679,109830, 213988, 67145, 278267)
+#'
+#' parties <- c("PCdoB", "PDT","PEN", "PMDB", "PRB","PSB","PSC", "PSTU", "PTdoB", "PTC", "PTN")
+#'
+#' dat=highestAverages(parties, votes, seats = 42, method = "dh")
+#'
+#' # Plot it
+#' bar.plot(data=dat, "Parties", "Seats")+theme_538()
+#'
+#' # Let's create a data.frame with typical election results
+#' # with the following parties and votes to return 10 seats:
+#'
+#' my_election <- data.frame(
+#' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
+#' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
+#'
+#' highestAverages(my_election$party,
+#' my_election$votes,
+#' seats = 10,
+#' method="dh")
+#'
+#' # How this compares to the Sainte-Lague Method
+#'
+#' highestAverages(my_election$party,
+#' my_election$votes,
+#' seats = 10,
+#' method="sl")
+#'
+#' @rdname highestAverages
+#' @export
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method) UseMethod("highestAverages")
+
+
+#' @importFrom utils head
+#' @export
+#' @rdname highestAverages
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method){
+  #Define Quotient
+
+  switch(method,
+         dh = { #d'Hondt
+           wari.vec <- seq(from = 1, by = 1, length.out = seats)
+           method.name <- c("d'Hondt")
+         },
+         sl = { #Sainte-Lague
+           wari.vec <- seq(from = 1, by = 2, length.out = seats)
+           method.name <- c("Sainte-Lagu\u00EB")
+         },
+         msl = { #Modified Sainte-Lague
+           wari.vec <- c(1.4, seq(from = 3, by = 2, length.out = seats-1))
+           method.name <- c("Modified Sainte-Lagu\u00EB")
+         },
+         danish = { #Danish
+           wari.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
+           method.name <- c("Danish")
+         },
+         imperiali = { #Imperiali
+           wari.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
+           method.name <- c("Imperiali")
+         },
+         hh = { #Huntington-Hill
+           wari.vec0 <- seq(from = 1, by = 1, length.out = seats)
+           wari.vec <- sqrt(wari.vec0 * (wari.vec0 - 1))
+           method.name <- c("Hungtinton-Hill")
+         }
+  )
+
+  .temp <- data.frame(
+    parties = rep(parties, each = seats ),
+    scores = as.vector(sapply( votes, function(x) x /
+                                 wari.vec ))
+  );
+
+  out <- with(.temp, (parties[order(-scores)][1:seats]))
+  out <- data.frame(.freq(out)[,1:3]);
+  names(out) <-c("Parties", "Seats", "Shares");
+  out <- out[ order(out[,2], decreasing = TRUE),]
+  # Measures
+  ENP_final <- 1/sum((out$Seats/sum(out$Seats))^2)
+  # G.index <- sqrt(0.5 * sum((((raw.votes/sum(raw.votes))*100) - ((result.vec/sum(result.vec))*100))^2))
+
+  cat("Method:", method.name, "\n")
+  cat(paste("ENP(Final):", round(ENP_final, 2)), "\n \n")
+  #cat(paste("Gallagher Index:", round(G.index, 3)), "\n")
+  return(out)
+}
+NULL
+
+
+

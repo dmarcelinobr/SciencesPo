@@ -45,28 +45,27 @@
 #' B <- c(.75,.10,rep(0.01,15))
 #' C <- c(.55,.45);
 #'
-#' politicalDiversity(A, index= "laakso/taagepera")
-#' politicalDiversity(B, index= "laakso/taagepera")
-#' politicalDiversity(C, index= "laakso/taagepera")
+#' # The "laakso/taagepera" method is the default
+#' politicalDiversity(A)
+#' politicalDiversity(B)
+#'
+#' # Using Grigorii Golosov method
+#' politicalDiversity(B, index="golosov")
+#' politicalDiversity(C, index="golosov")
 #'
 #' # The 1980 presidential election in the US (vote share):
-#' party_1980 <- c("Democratic", "Republican", "Independent",
-#'  "Libertarian", "Citizens", "Others")
-#' US1980 <- c(0.410, 0.507, 0.066, 0.011, 0.003, 0.003)
+#' US1980 <- c("Democratic"=0.410, "Republican"=0.507,
+#' "Independent"=0.066, "Libertarian"=0.011, "Citizens"=0.003,
+#' "Others"=0.003)
 #'
-#' politicalDiversity(US1980, index= "laakso/taagepera")
+#' politicalDiversity(US1980)
 #'
 #' politicalDiversity(US1980, index= "herfindahl")
 #'
-#'
-#' party_2004 <- c("Democratic", "Republican", "Independent", "Libertarian",
-#' "Constitution", "Green", "Others")
-#' US2004 <- c(0.481, 0.509, 0.0038, 0.0032, 0.0012, 0.00096, 0.00084)
+#' US2004 <- c("Democratic"=0.481, "Republican"=0.509, "Independent"=0.0038,
+#' "Libertarian"=0.0032, "Constitution"=0.0012, "Green"=0.00096, "Others"=0.00084)
 #'
 #' politicalDiversity(US2004, index = "H") # will match Herfindahl
-#'
-#' # Using Grigorii Golosov approach:
-#' politicalDiversity(US2004, index= "Golosov")
 #'
 #' # The 1999 Finland election:
 #' votes_1999 <- c(612963, 600592, 563835,
@@ -75,35 +74,25 @@
 #'
 #' seats_1999 <- c(51, 48, 46, 20, 11, 11, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 #'
-#' # Helsinki's 1999
-#' votes_1999 <- c(68885,18343, 86448,
-#' 21982, 51587, 27227, 8482, 7250, 365,
-#' 2734, 1925, 475, 1693, 693, 308, 980,
-#' 560, 590, 185)
-#'
-#' #Sainte-Lague allocation:
-#' seats_1999sl <- c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-#' # D'Hondt allocation:
-#' seats_1999dh <- c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-#'
-#'
 #' # 2010 Brazilian legislative election
 #'
-#' party_2010 = c("PT","PMDB","PSDB", "DEM","PR","PP","PSB","PDT","PTB", "PSC","PV",
-#' "PC do B","PPS","PRB", "PMN", "PT do B", "PSOL","PHS","PRTB","PRP","PSL","PTC")
-#' votes_2010 = c(13813587, 11692384, 9421347, 6932420, 7050274, 5987670, 6553345,
-#' 4478736, 3808646, 2981714,2886633, 2545279, 2376475, 1659973, 1026220,
-#' 605768, 968475, 719611, 283047, 232530, 457490, 563145)
+#' votes_2010 = c("PT"=13813587, "PMDB"=11692384, "PSDB"=9421347,
+#' "DEM"=6932420, "PR"=7050274, "PP"=5987670, "PSB"=6553345,
+#' "PDT"=4478736, "PTB"=3808646, "PSC"=2981714, "PV"=2886633,
+#' "PC do B"=2545279, "PPS"=2376475, "PRB"=1659973, "PMN"=1026220,
+#' "PT do B"=605768, "PSOL"=968475, "PHS"=719611, "PRTB"=283047,
+#' "PRP"=232530, "PSL"=457490,"PTC"=563145)
 #'
-#' # 2010 Election outcome as proportion of seats
-#' seats_2010 = c(88, 79, 53, 43, 41, 41, 34, 28, 21,
-#' 17, 15, 15, 12, 8, 4, 3, 3, 2, 2, 2, 1, 1)/513
+#' seats_2010 = c("PT"=88, "PMDB"=79, "PSDB"=53, "DEM"=43,
+#' "PR"=41, "PP"=41, "PSB"=34, "PDT"=28, "PTB"=21, "PSC"=17,
+#' "PV"=15, "PC do B"=15, "PPS"=12, "PRB"=8, "PMN"=4, "PT do B"=3,
+#'  "PSOL"=3, "PHS"=2, "PRTB"=2, "PRP"=2, "PSL"=1,"PTC"=1)
 #'
 #' # 2014 Election outcome as proportion of seats
 #' seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15,
 #' 12, 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
 #'
-#' politicalDiversity(seats_2014, index= "laakso/taagepera")
+#' politicalDiversity(seats_2014)
 #'
 #' # or:
 #'
@@ -157,6 +146,7 @@ NULL
 #'
 #' @param v A numeric vector of data values for votes each political party obtained.
 #' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param \dots Additional arguements (currently ignored)
 #'
 #' @details The representation score is calculated as: sqrt(sum((Z-R)^2)/2).
 #' @return A single score (The Gallagher's Representation Score.) given the votes each party received and seats obtained.
@@ -168,7 +158,7 @@ NULL
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
 #'  @examples
-#'  if (interactive()) {
+
 #' # 2005 UK General Election
 #' pvotes = c(Lab=35.20, Cons=32.40, Lib=22, DUP=0.90,
 #' SNP=1.50, Sinn.Fein=0.60, Plaid=0.60, SDLP=0.50, UUP=0.50,
@@ -180,21 +170,20 @@ NULL
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
 #' gallagher(pvotes, pseats)
-#' }
-#' @export gallagher
-#' @docType methods
-#' @rdname gallagher-methods
-#' @aliases gallagher,numeric,numeric,ANY-method
-`gallagher`<-setClass("gallagher", representation(v = "numeric", s = "numeric"))
-setGeneric("gallagher", def=function(v, s){
-  standardGeneric("gallagher")
-})
-#' @rdname gallagher-methods
-setMethod(f="gallagher", definition=function(v, s){
+
+#' @export
+#' @rdname gallagher
+`gallagher`<- function(v, s, ...) UseMethod("gallagher")
+
+#' @export
+#' @rdname gallagher
+`gallagher` <-function(v, s, ...){
   idx=sqrt(sum((v-s)^2)/2)
-  return(rounded(idx, 2))
-})### end -- gallagher function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- gallagher function
 NULL
+
+
 
 
 
@@ -204,34 +193,33 @@ NULL
 #'
 #' @param v A numeric vector of data values for votes each political party obtained.
 #' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param \dots Additional arguements (currently ignored)
 #'
 #' @return A single score given the votes each party received and seats obtained.
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
 #' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}
 #'
 #' @examples
-#' if (interactive()) {
+
 #' # 2012 Quebec provincial election:
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' lijphart(pvotes, pseats)
-#' }
 #'
-#' @export lijphart
-#' @docType methods
-#' @rdname lijphart-methods
-#' @aliases lijphart,numeric,numeric,ANY-method
-`lijphart`<-setClass("lijphart", representation(v = "numeric", s = "numeric"))
-setGeneric("lijphart", def=function(v, s){
-  standardGeneric("lijphart")
-})
-#' @rdname lijphart-methods
-setMethod(f="lijphart", definition=function(v, s){
+#' @rdname lijphart
+#' @export
+`lijphart`<- function(v, s, ...) UseMethod("lijphart")
+
+
+#' @export
+#' @rdname lijphart
+`lijphart` <-function(v, s, ...){
   idx=max(s-v)
-  return(rounded(idx, 2))
-})### end -- lijphart function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- lijphart function
 NULL
 
 
@@ -243,6 +231,7 @@ NULL
 #'
 #' @param v A numeric vector of data values for votes each political party obtained.
 #' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param \dots Additional arguements (currently ignored)
 #'
 #' @return A single score given the votes each party received and seats obtained.
 #'
@@ -253,28 +242,24 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
-#' if (interactive()) {
+#'
 #' # 2012 Quebec provincial election:
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' grofman(pvotes, pseats)
-#' }
 #'
-#' @export grofman
-#' @docType methods
-#' @rdname grofman-methods
-#' @aliases grofman,numeric,numeric,ANY-method
-`grofman`<-setClass("grofman", representation(v = "numeric", s = "numeric"))
-setGeneric("grofman", def=function(v, s){
-  standardGeneric("grofman")
-})
-#' @rdname grofman-methods
-setMethod(f="grofman", definition=function(v, s){
+#' @export
+#' @rdname grofman
+`grofman`<- function(v, s, ...) UseMethod("grofman")
+
+#' @rdname grofman
+#' @export
+`grofman` <- function(v, s, ...){
   N <- politicalDiversity(s, index = "laakso/taagepera")
   idx=(1/N) * sum(abs(v-s))/2
-  return(rounded(idx, 2))
-})### end -- grofman function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- grofman function
 NULL
 
 
@@ -284,6 +269,7 @@ NULL
 #' @description Calculates the Farina index also referred to as the cosine proportionality score based on a vector of votes and a vector for the electoral outcome.
 #' @param v A numeric vector of data values for votes each political party obtained.
 #' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param \dots Additional arguements (currently ignored)
 #'
 #' @return A single score given the votes each party received and seats obtained.
 #'
@@ -294,26 +280,23 @@ NULL
 #' Koppel, M., and A. Diskin. (2009) Measuring disproportionality, volatility and malapportionment: axiomatization and solutions. Social Choice and Welfare 33, no. 2: 281-286.
 #'
 #' @examples
-#' if (interactive()) {
+#'
 #' # 2012 Queensland state elecion
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
 #' farina(pvotes, pseats)
-#' }
+#'
 #' @export farina
-#' @docType methods
-#' @rdname farina-methods
-#' @aliases farina,numeric,numeric,ANY-method
-`farina`<-setClass("farina", representation(v = "numeric", s = "numeric"))
-setGeneric("farina", def=function(v, s){
-  standardGeneric("farina")
-})
-#' @rdname farina-methods
-setMethod(f="farina", definition=function(v, s){
+#' @rdname farina
+`farina`<- function(v, s, ...) UseMethod("farina")
+
+#' @export
+#' @rdname farina
+`farina` <- function(v, s, ...){
   idx= acos(sum(v*s)/(sum(v^2)*sum(s^2))^.5)
-  return(rounded(idx, 3))
-})### end -- farina function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- farina function
 NULL
 
 
@@ -328,6 +311,8 @@ NULL
 #'
 #' @param v A numeric vector of data values for votes each political party obtained.
 #' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param \dots Additional arguements (currently ignored)
+
 #'
 #' @return A single score given the votes each party received and seats obtained.
 #'
@@ -350,21 +335,18 @@ NULL
 #' cox.shugart(pvotes, pseats)
 #' }
 #'
-#' @export cox.shugart
-#' @docType methods
-#' @rdname cox.shugart-methods
-#' @aliases cox.shugart,numeric,numeric,ANY-method
-`cox.shugart`<-setClass("cox.shugart", representation(v = "numeric", s = "numeric"))
-setGeneric("cox.shugart", def=function(v, s){
-  standardGeneric("cox.shugart")
-})
-#' @rdname cox.shugart-methods
-setMethod(f="cox.shugart", definition=function(v, s){
+#' @export
+#' @rdname cox.shugart
+`cox.shugart` <- function(v, s, ...) UseMethod("cox.shugart")
+
+
+#' @rdname cox.shugart
+`cox.shugart` <- function(v, s, ...){
   S <- mean(s)
   V <- mean(v)
   idx <- sum((s-S) * (v-V))/sum((v-V)^2)
-  return(rounded(idx, 3))
-})### end -- cox.shugart function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- cox.shugart function
 NULL
 
 
@@ -377,13 +359,15 @@ NULL
 #'
 #' @param v A numeric vector of data values for votes each political party obtained.
 #' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param \dots Additional arguements (currently ignored)
+
 #'
 #' @return A single score given the votes each party received and seats obtained.
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
 #' @examples
-#' if (interactive()) {
+#'
 #' # 2012 Queensland state elecion:
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
@@ -395,24 +379,22 @@ NULL
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' inv.cox.shugart(pvotes, pseats)
-#' }
+#'
 #' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
 #'
-#' @export inv.cox.shugart
-#' @docType methods
-#' @rdname inv.cox.shugart-methods
-#' @aliases inv.cox.shugart,numeric,numeric,ANY-method
-`inv.cox.shugart`<-setClass("inv.cox.shugart", representation(v = "numeric", s = "numeric"))
-setGeneric("inv.cox.shugart", def=function(v, s){
-  standardGeneric("inv.cox.shugart")
-})
-#' @rdname inv.cox.shugart-methods
-setMethod(f="inv.cox.shugart", definition=function(v, s){
+#' @export
+#' @rdname inv.cox.shugart
+`inv.cox.shugart` <-function(v, s, ...) UseMethod("inv.cox.shugart")
+
+
+#' @export
+#' @rdname inv.cox.shugart
+`inv.cox.shugart` <-function(v, s, ...){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
-  return(rounded(idx, 3))
-})### end -- inv.cox.shugart function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- inv.cox.shugart function
 NULL
 
 
@@ -426,6 +408,8 @@ NULL
 #' @param n A vector of frequencies of the same length as \code{x}.
 #' @param parameter A parameter of the inequality measure (if set to \code{NULL} the default parameter of the respective measure is used).
 #' @param na.rm A logical. Should missing values be removed? The Default is set to \code{na.rm=FALSE}.
+#' @param \dots Additional arguements (currently ignored)
+#'
 #' @references
 #' Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
 #'
@@ -440,20 +424,14 @@ NULL
 #' # compute Atkinson coefficient with parameter=0.5
 #' atkinson(x, parameter=0.5)
 #'}
-#' @export atkinson
-#' @docType methods
-#' @rdname atkinson-methods
-#' @aliases atkinson,numeric,numeric,numeric,logical,ANY-method
-`atkinson`<-setClass("atkinson", representation(x = "numeric", n = "numeric", parameter = "numeric", na.rm = "logical"))
+#' @export
+#' @rdname atkinson
+`atkinson` <-function(x, n = rep(1, length(x)), parameter=0.5, na.rm=FALSE, ...) UseMethod("atkinson")
 NULL
 
-setGeneric("atkinson", def=function(x, n = rep(1, length(x)), parameter=0.5, na.rm=FALSE){
-  standardGeneric("atkinson")
-})
-NULL
-
-#' @rdname atkinson-methods
-setMethod(f="atkinson", definition=function(x, n = rep(1, length(x)), parameter = 0.5, na.rm = FALSE){
+#' @export
+#' @rdname atkinson
+`atkinson` <- function(x, n = rep(1, length(x)), parameter = 0.5, na.rm = FALSE, ...){
   x <- rep(x, n)    # same handling as Lc and Gini
   if(na.rm) x <- na.omit(x)
   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
@@ -466,8 +444,8 @@ setMethod(f="atkinson", definition=function(x, n = rep(1, length(x)), parameter 
     x <- (x/mean(x))^(1-parameter)
     idx <- 1 - mean(x)^(1/(1-parameter))
   }
-  return(rounded(idx, 3))
-})### end -- atkinson function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- atkinson function
 NULL
 
 
@@ -477,39 +455,35 @@ NULL
 
 #' @title Rosenbluth Index of Concentration
 #'
-#' @description Calculates the Rosenbluth Index of concentration. This index is also known as Hall or Tiedemann Indices.
+#' @description Calculates the Rosenbluth Index of concentration, also known as Hall or Tiedemann Indices.
 #'
 #' @param x A vector of data values of non-negative elements.
 #' @param n A vector of frequencies of the same length as \code{x}.
 #' @param na.rm A logical. Should missing values be removed? The Default is set to \code{na.rm=FALSE}.
+#' @param \dots Additional arguements (currently ignored)
+#'
 #' @references
 #' Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
 #' @seealso \code{\link{atkinson}}, \code{\link{herfindahl}},  \code{\link{gini}}.
+#'
 #' @examples
-#' if (interactive()){
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #'
 #' # compute Rosenbluth coefficient
 #' rosenbluth(x)
-#'}
-#' @export rosenbluth
-#' @docType methods
-#' @rdname rosenbluth-methods
-#' @aliases rosenbluth,numeric,numeric,logical,ANY-method
-`rosenbluth`<-setClass("rosenbluth", representation(x = "numeric", n = "numeric", na.rm = "logical"))
+#'
+#' @export
+#' @rdname rosenbluth
+`rosenbluth` <-function(x, n = rep(1, length(x)), na.rm=FALSE, ...)  UseMethod("rosenbluth")
 NULL
 
-setGeneric("rosenbluth", def=function(x, n = rep(1, length(x)), na.rm=FALSE){
-  standardGeneric("rosenbluth")
-})
-NULL
-
-#' @rdname rosenbluth-methods
-setMethod(f="rosenbluth", definition=function(x, n = rep(1, length(x)), na.rm = FALSE){
+#' @export
+#' @rdname rosenbluth
+`rosenbluth` <-function(x, n = rep(1, length(x)), na.rm = FALSE, ...){
   x <- rep(x, n)
   if(na.rm) x <- na.omit(x)
   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
@@ -518,8 +492,8 @@ setMethod(f="rosenbluth", definition=function(x, n = rep(1, length(x)), na.rm = 
   idx <- (n:1)*x
   idx <- 2*sum(idx/sum(x))
   idx <- 1/(idx-1)
-  return(rounded(idx, 3))
-})### end -- rosenbluth function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- rosenbluth function
 NULL
 
 
@@ -528,6 +502,9 @@ NULL
 
 
 
+
+
+#' @encoding UTF-8
 #' @title Herfindahl Index of Concentration
 #'
 #' @description Calculates the Herfindahl Index of concentration.
@@ -536,8 +513,9 @@ NULL
 #' @param n A vector of frequencies of the same length as \code{x}.
 #' @param parameter A parameter of the concentration measure (if set to \code{NULL} the default parameter of the respective measure is used).
 #' @param na.rm A logical. Should missing values be removed? The Default is set to \code{na.rm=FALSE}.
+#' @param \dots Additional arguements (currently ignored)
 #'
-#' @details The same measure is also known as the Simpson index in ecology, as the Herfindahl index or the Herfindahl-Hirschman index (HHI) in economics, and as the Effective Number of Parties in political science.
+#' @details This index is also known as the \emph{Simpson Index} in ecology, the \emph{Herfindahl-Hirschman Index (HHI)} in economics, and as the \emph{Effective Number of Parties (ENP)} in political science.
 #'
 #' @references
 #' Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
@@ -546,27 +524,21 @@ NULL
 #'
 #' @seealso \code{\link{atkinson}}, \code{\link{rosenbluth}}, \code{\link{politicalDiversity}}, \code{\link{gini}}.
 #' @examples
-#' if (interactive()) {
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #'
-#' # compute Herfindahl coefficient with parameter=1
+#' # compute the Herfindahl coefficient with parameter=1
 #' herfindahl(x, parameter=1)
-#' }
-#' @export herfindahl
-#' @docType methods
-#' @rdname herfindahl-methods
-#' @aliases herfindahl,numeric,numeric,numeric,logical,ANY-method
-`herfindahl`<-setClass("herfindahl", representation(x = "numeric", n = "numeric", parameter = "numeric", na.rm = "logical"))
-NULL
+#'
+#'
+#' @export
+#' @rdname herfindahl
+`herfindahl` <- function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE, ...) UseMethod("herfindahl")
 
-setGeneric("herfindahl", def=function(x, n = rep(1, length(x)), parameter=1, na.rm=FALSE){
-  standardGeneric("herfindahl")
-})
-NULL
 
-#' @rdname herfindahl-methods
-setMethod(f="herfindahl", definition=function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE){
+#' @export
+#' @rdname herfindahl
+`herfindahl` <- function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE, ...){
   x <- rep(x, n)
   if(na.rm) x <- na.omit(x)
   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
@@ -578,10 +550,9 @@ setMethod(f="herfindahl", definition=function(x, n = rep(1, length(x)), paramete
   idx <- x/sum(x)
   idx <- idx^(m+1)
   idx <- sum(idx)^(1/m)
-  return(rounded(idx, 3))
-})### end -- herfindahl function
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- herfindahl function
 NULL
-
 
 
 

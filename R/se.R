@@ -5,6 +5,8 @@
 #'
 #' @param x  A vector of class numeric or integer
 #' @param na.rm A logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
+#' @param \dots Additional arguements (currently ignored)
+#'
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
@@ -15,15 +17,12 @@
 #' # With the 'se' function:
 #' se(x)
 #' @export
-#' @docType methods
-#' @rdname se-methods
-se<- setClass("se", representation(x = "numeric",na.rm="logical"))
-setGeneric("se", def=function(x, na.rm = TRUE){
-  standardGeneric("se")
-})
+#' @rdname se
+`se` <- function(x, na.rm = TRUE, ...) UseMethod("se")
 
-#' @rdname se-methods
-setMethod(f="se", definition=function(x, na.rm = TRUE){
+#' @rdname se
+#' @export
+`se.default` <-function(x, na.rm = TRUE, ...){
   if (!is(x, "numeric") & !is(x, "integer")) {
     stop("\"x\" must be numeric")
   }
@@ -47,6 +46,7 @@ setMethod(f="se", definition=function(x, na.rm = TRUE){
       sd <- unlist(apply(x, 2,  stats::sd, na.rm = na.rm))
     }
   }
-  return(sd/sqrt(n.valid))
-})
+  ans = (sd/sqrt(n.valid));
+  return(ans)
+}
 NULL

@@ -34,27 +34,13 @@ set.seed(51)
  w <-sample(4,10, TRUE)
  x <- sample(10, 1000, replace=TRUE, prob=w)
  
- skewness(x, type = 1)
- skewness(x) # Type 2 is the default 
- skewness(x, type = 3)
+skewness(x, type = 1);
+kurtosis(x, type = 1);
+skewness(x); # Type 2 is the default 
+kurtosis(x); # Type 2 is the default 
+skewness(x, type = 3);
+kurtosis(x, type = 3);
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
-require(SciencesPo)
-
-set.seed(51)
- w <-sample(4,10, TRUE)
- x <- sample(10, 1000, replace=TRUE, prob=w)
- 
- skewness(x, type = 1)
- skewness(x) # Type 2 is the default 
- skewness(x, type = 3)
-
-## ----echo=FALSE, message=FALSE-------------------------------------------
-pres =c(42,43,46,46,47,48,49,49,50,51,51,51,51,51,52,52,54,54,54,54,54,55,55,55,55,56,56,56,57,57,57,57,58,60,61,61,61,62,64,64,65,68,69)
-
-se(pres) # std. error
-
-ci(pres, conf.level=.95) # confidence interval
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
@@ -89,6 +75,47 @@ destring(myvar)
 ## ----echo=FALSE, message=FALSE-------------------------------------------
  (x = seq(0, 1, by=.1))
  rounded(x) 
+
+## ----echo=FALSE, message=FALSE-------------------------------------------
+library("SciencesPo")
+
+# The 1980 presidential election in the US (vote share):
+
+US1980 <- c("Democratic"=0.410, "Republican"=0.507, "Independent"=0.066, "Libertarian"=0.011, "Citizens"=0.003, "Others"=0.003)
+
+politicalDiversity(US1980) # laakso/taagepera method
+
+politicalDiversity(US1980, index= "golosov")
+
+politicalDiversity(US1980, index= "herfindahl")
+
+
+## ----eval=TRUE-----------------------------------------------------------
+# Helsinki's 1999
+
+Helsinki <- data.frame(
+votes = c(68885,18343,86448,21982,51587,27227,8482,7250,365,
+2734,1925,475,1693,693,308,980,560,590,185),
+seats_SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+seats_DH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+
+politicalDiversity(Helsinki$votes) #ENEP Votes
+
+politicalDiversity(Helsinki$seats_SL) #ENP for Saint-Lague
+
+politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
+
+## ----eval=FALSE----------------------------------------------------------
+#  highestAverages(parties=names(Ceara), votes=Ceara,
+#                  seats = 42, method = "dh")
+
+## ----eval=TRUE-----------------------------------------------------------
+highestAverages(parties=names(Ceara), votes=Ceara,
+                seats = 42, method = "sl") 
+
+## ----eval=TRUE-----------------------------------------------------------
+highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "msl") 
 
 ## ----eval=TRUE-----------------------------------------------------------
 detach("package:SciencesPo")
@@ -141,6 +168,7 @@ mytheme2$text
 #  plot.mpg + background_grid(major = "xy", minor = "none")
 
 ## ----eval=FALSE, message=FALSE, fig.width=7, fig.height=5----------------
+#  
 #  plot.iris <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 #    geom_point() + facet_grid(. ~ Species) + stat_smooth(method = "lm") +
 #    background_grid(major = 'y', minor = "none") + # add thin horizontal lines

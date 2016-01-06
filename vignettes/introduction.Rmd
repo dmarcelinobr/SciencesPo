@@ -11,6 +11,10 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
   
+  To call in the statistician after the experiment is done may be no more than asking him to perform a post-mortem examination: he may be able to say what the experiment died of. ~ Sir Ronald Aylmer Fisher
+The plural of anecdote is not data. ~ Roger Brinner
+The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data. ~ John Tukey
+
 # Overview
 The **SciencesPo** package is meant to provide algorithms and functions for analyzing political behavior data, including measures of political fragmentation and seats allocation. In addition, it also offers built-in functions for descriptive statistics, tests, tables, and pre set publication-ready plots and themes for **ggplot2**, which will require only a minimum amount of fiddling with sizes and labels, etc. The package is intended to give students and postdocs an easy way of making the most of their data--usually small datasets. Although this package is available for the general public, it meets my personal needs and tastes. Yours may be different.
 
@@ -41,6 +45,7 @@ unloadNamespace("SciencesPo")
 
 ## Search results from help.search()
 Here are some examples demonstrating the results of help.search(), or you can also use ?? to search for a string.
+
 ```{r echo=FALSE, message=FALSE}
 help.search('bar.plot')
 
@@ -63,7 +68,6 @@ data(package = "SciencesPo")
 # Loading data much easier
 
 
-
 ## Example of printing objects
 First we take a look at a quick example of printing some R objects in the R console:
 
@@ -71,7 +75,7 @@ Whenever you load the package, it will setup its own environment, including plot
 
 ## Exploratory data functions
 
-### Compute the Skewness
+### Computing the Skewness and Kurtosis of the Data
 This function performs three types of skewness tests:
 ```{r echo=FALSE, message=FALSE}
 require(SciencesPo)
@@ -80,34 +84,29 @@ set.seed(51)
  w <-sample(4,10, TRUE)
  x <- sample(10, 1000, replace=TRUE, prob=w)
  
- skewness(x, type = 1)
- skewness(x) # Type 2 is the default 
- skewness(x, type = 3)
+skewness(x, type = 1);
+kurtosis(x, type = 1);
+skewness(x); # Type 2 is the default 
+kurtosis(x); # Type 2 is the default 
+skewness(x, type = 3);
+kurtosis(x, type = 3);
+
 ```
 
-Compute the Kurtosis
-```{r echo=FALSE, message=FALSE}
-require(SciencesPo)
-
-set.seed(51)
- w <-sample(4,10, TRUE)
- x <- sample(10, 1000, replace=TRUE, prob=w)
- 
- skewness(x, type = 1)
- skewness(x) # Type 2 is the default 
- skewness(x, type = 3)
-```
 
 ### Standard Error and Confidence Interval
-The Standard Error and Confidence Interval gained S4 methods. Notice  that the output of `ci` also provides the estimated standard error. 
-Listed below are the ages of the Presidents of the United States at the times of their inaugurations.
 
-```{r echo=FALSE, message=FALSE}
+The Standard Error, Confidence Interval and other little, but essential functions gained S4 classes; thus each slot--or attribute is accessed using `@`, just as `$` for lists.
+To demonstrate the functions output, below are the ages of the Presidents of the United States at the times of their inaugurations.
+
+```{r echo=FALSE, message=FALSE, cache=TRUE}
 pres =c(42,43,46,46,47,48,49,49,50,51,51,51,51,51,52,52,54,54,54,54,54,55,55,55,55,56,56,56,57,57,57,57,58,60,61,61,61,62,64,64,65,68,69)
 
-se(pres) # std. error
+ci(pres, level=.95) # confidence interval
 
-ci(pres, conf.level=.95) # confidence interval
+ci(pres, level=.95)@mean # confidence interval
+
+se(pres) # std. error
 ```
 
 
@@ -117,6 +116,8 @@ x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
 
 aad(pres) 
 ```
+
+
 # Data Manipulation
 
 
@@ -172,16 +173,80 @@ It's rather common to use numbers without leading zeros. The `rounded` function 
 ## `uniform`
 
 
-In addition to the class definition, there are also some free
-functions defined; `uniform_get_max` and `uniform_set_max`; these
-are going to be used to set up active members in the R6 class for
-getting and setting the `max` field of the class.
+# Political Behavior Measures
 
-# Plot design
+One of the the first objectives of the **SciencesPo** when it was still a bunch of separate functions was to provide methods for computing many of the popular measures used in political science courses, such as indices of political concentration/fragmentation, inequality, and seat apportionment methods. The following examples demontrates how these functions work in **SciencesPo**.
 
-There's a complete discussion of this in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/)
+## Political Diversity Indices
 
-The default **ggplot2** design has its charm, in my opinion. But, I don't like the gray background grid for scientific publication. I feel it often distracts from the data. For example, see this **ggplot2** visualization of the following plot:
+```{r echo=FALSE, message=FALSE}
+library("SciencesPo")
+
+# The 1980 presidential election in the US (vote share):
+
+US1980 <- c("Democratic"=0.410, "Republican"=0.507, "Independent"=0.066, "Libertarian"=0.011, "Citizens"=0.003, "Others"=0.003)
+
+politicalDiversity(US1980) # laakso/taagepera method
+
+politicalDiversity(US1980, index= "golosov")
+
+politicalDiversity(US1980, index= "herfindahl")
+
+```
+
+Electoral results for the 1999 election in Helsinki, with seats allocated using the Saint-Lague and the D'Hondt methods: 
+
+```{r eval=TRUE}
+# Helsinki's 1999
+
+Helsinki <- data.frame(
+votes = c(68885,18343,86448,21982,51587,27227,8482,7250,365,
+2734,1925,475,1693,693,308,980,560,590,185),
+seats_SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+seats_DH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+
+politicalDiversity(Helsinki$votes) #ENEP Votes
+
+politicalDiversity(Helsinki$seats_SL) #ENP for Saint-Lague
+
+politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
+```
+
+## The Highest Averages Method of Allocating Seats Proportionally
+
+Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results between the D'Hondt and Saint-Lague methods.
+
+```{r eval=TRUE, cache=TRUE}
+# Results for the state legislative house of Ceara (2014):
+Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
+           "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
+           "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
+```
+
+```{r eval=FALSE}
+highestAverages(parties=names(Ceara), votes=Ceara,
+                seats = 42, method = "dh") 
+```
+
+```{r eval=TRUE}
+highestAverages(parties=names(Ceara), votes=Ceara,
+                seats = 42, method = "sl") 
+```
+
+How this one compares to the Modified Sainte-Lague version?
+
+```{r eval=TRUE}
+highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "msl") 
+```
+
+
+# Exploratory Statistical Tests
+
+
+# Plot Design
+
+The default **ggplot2** design has its charm, in my opinion. But, very often I don't like the gray background grid, particularly when I'm preparing academic papers because I feel it distracts from the data. For example, see this **ggplot2** visualization of the following plot:
 
 ```{r eval=TRUE}
 detach("package:SciencesPo")
@@ -195,7 +260,9 @@ require(SciencesPo)
 qplot(1:3, 1:3)
 ```
 
-If you ever want to use the default **ggplot2** or some other theme while using the **SciencesPo** package, simply add the theme to your plot object, or set it is as the default for all subsequent plots using the `theme_set()` command.
+There's a complete discussion of plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
+
+If you ever want to use the default **ggplot2** or some other theme while using the **SciencesPo** library, simply add the theme to your plot object, or set it as the default for all subsequent plots using the `theme_set()` command.
 
 ```{r eval=FALSE}
 plot + theme_gray() # create plot with default ggplot2 theme
@@ -258,7 +325,7 @@ mytheme2 <- theme_grey() %+replace% theme(text = element_text(colour="red"))
 mytheme2$text
 ```
 
-By default, **cowplot** disables grid lines on the plot. In many cases, this is the cleanest and most elegant way to display the data. However, sometimes gridlines may be useful, and thus **cowplot** provides a simple way of adding gridlines, via the function `background_grid()`:
+By default, **SciencesPo** disables grid lines on the plot. In many cases, this is the cleanest and most elegant way to display the data. However, sometimes gridlines may be useful, and thus **SciencesPo** provides a simple way of adding gridlines, via the function `background_grid()`:
 
 ```{r eval=FALSE, message=FALSE}
 plot.mpg + background_grid(major = "xy", minor = "none")
@@ -270,8 +337,8 @@ While the same result could be obtained using the function `theme()`, the functi
 
 Finally, the `draw_plot()` function also allows us to place graphs at arbitrary locations and at arbitrary sizes onto the canvas. This is useful for combining subplots into a layout that is not a simple grid, e.g. with one sub-plot spanning the entire width of the figure and two other figures using up half of the figure width:
 
-
 ```{r eval=FALSE, message=FALSE, fig.width=7, fig.height=5}
+
 plot.iris <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) + 
   geom_point() + facet_grid(. ~ Species) + stat_smooth(method = "lm") +
   background_grid(major = 'y', minor = "none") + # add thin horizontal lines 
@@ -284,7 +351,7 @@ ggdraw() +
 ```
 
 
-The functions `background_grid()` and `panel_border()` are convenience functions defined by **cowplot** to save some typing when manipulating the background grid and panel border. 
+The functions `background_grid()` and `panel_border()` are convenience functions defined by **SciencesPo** to save some typing when manipulating the background grid and panel border. 
 
 ```{r eval=FALSE, echo=FALSE, message=FALSE, fig.width=7, fig.height=5}
 # Of course, we can also go crazy:

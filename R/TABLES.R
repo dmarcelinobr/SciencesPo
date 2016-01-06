@@ -135,9 +135,9 @@
         if (col.pct) { ncolPercent <- nchar(paste("% within", col[j])) }	else ncolPercent <- 0
 
         if (all(dim(crosstable) == 2)){
-          result <- suppressWarnings(chisq.test(crosstable, correct = FALSE))
+          result <- suppressWarnings(stats::chisq.test(crosstable, correct = FALSE))
         } else {
-          result <- suppressWarnings(chisq.test(crosstable, correct = FALSE)) }
+          result <- suppressWarnings(stats::chisq.test(crosstable, correct = FALSE)) }
         if (any(c(observed, expected, total.pct, row.pct, col.pct) == TRUE)) {
           # --- PRINTS SOME SUMMAY STATISTICS --- #
           rowPercentage <- prop.table(crosstable, 1) * 100
@@ -268,7 +268,7 @@
           chisq.label <- NULL
           if (chisq) {
             chisq.label <- c(chisq.label, "Pearson Chi-Square", "Likelihood Ratio Chi-Square")
-            if (all(dim(crosstable) == 2)) { fisher.result <- suppressWarnings(fisher.test(crosstable, alternative = "two.sided")); chisq.label <- c(chisq.label, "Fisher's Exact Test")	}
+            if (all(dim(crosstable) == 2)) { fisher.result <- suppressWarnings(stats::fisher.test(crosstable, alternative = "two.sided")); chisq.label <- c(chisq.label, "Fisher's Exact Test")	}
             tlable.length2 <- max(nchar(result[[2]][[1]]),2) + 2
             tlable.length3 <- nchar(round(result[[1]][[1]], 4)) + 2
           } else { tlable.length2 <- 0; tlable.length3 <- 0 }

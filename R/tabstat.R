@@ -1,3 +1,4 @@
+if (getRversion() >= "2.15.1") globalVariables(c("x", "y", "f"))
 #' @title Table With Summary Statistics
 #'
 #' @description Generates a table with summary statistics.
@@ -126,7 +127,7 @@ statToCompute <- availableStatistics[na.omit(match(statToCompute, availableStati
 	# --- compute the median of the variable
 	if(!is.na(match("median", statToCompute))) {
 		a <- NULL
-		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, median, na.rm = TRUE)))
+		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, stats::median, na.rm = TRUE)))
 		ifelse(is.null(summaryTable), summaryTable <- a, summaryTable <- cbind(summaryTable, a[ncol(a)]))
 		colnames(summaryTable)[ncol(summaryTable)] <- "Median"
 		outputLabel <- c(outputLabel,"Median")
@@ -134,21 +135,21 @@ statToCompute <- availableStatistics[na.omit(match(statToCompute, availableStati
 	# --- determine the modal value of the variable
 	if(!is.na(match("mode", statToCompute))) {
 		a <- NULL
-		for (i in (1:ncol(tempVar))) a <- rbind(a, data.frame(Var = i, Freq = paste(tapply(tempVar[[i]], tempGrp, modalValue, na.rm = TRUE)[[1]], collapse = ", ", sep = "")))
+		for (i in (1:ncol(tempVar))) a <- rbind(a, data.frame(Var = i, Freq = paste(tapply(tempVar[[i]], tempGrp, Mode, na.rm = TRUE)[[1]], collapse = ", ", sep = "")))
 		ifelse(is.null(summaryTable), summaryTable <- a, summaryTable <- cbind(summaryTable, a[ncol(a)]))
 		colnames(summaryTable)[ncol(summaryTable)] <- "Mode"
 		outputLabel <- c(outputLabel,"Mode")
 	}
 	if(!is.na(match("q1", statToCompute))) {
 		a <- NULL
-		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, quantile, probs = 0.25, na.rm = TRUE)))
+		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, stats::quantile, probs = 0.25, na.rm = TRUE)))
 		ifelse(is.null(summaryTable), summaryTable <- a, summaryTable <- cbind(summaryTable, a[ncol(a)]))
 		colnames(summaryTable)[ncol(summaryTable)] <- "Q1"
 		outputLabel <- c(outputLabel,"1st Quartile")
 	}
 	if(!is.na(match("q3", statToCompute))) {
 		a <- NULL
-		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, quantile, probs = 0.75, na.rm = TRUE)))
+		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, stats::quantile, probs = 0.75, na.rm = TRUE)))
 		ifelse(is.null(summaryTable), summaryTable <- a, summaryTable <- cbind(summaryTable, a[ncol(a)]))
 		colnames(summaryTable)[ncol(summaryTable)] <- "Q3"
 		outputLabel <- c(outputLabel,"3rd Quartile")
@@ -162,7 +163,7 @@ statToCompute <- availableStatistics[na.omit(match(statToCompute, availableStati
 	}
 	if(!is.na(match("iqr", statToCompute))) {
 		a <- NULL
-		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, quantile,probs = 0.75, na.rm = TRUE) - tapply(tempVar[[i]], tempGrp, quantile, probs = 0.25, na.rm = TRUE)))
+		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, stats::quantile,probs = 0.75, na.rm = TRUE) - tapply(tempVar[[i]], tempGrp, stats::quantile, probs = 0.25, na.rm = TRUE)))
 		ifelse(is.null(summaryTable), summaryTable <- a, summaryTable <- cbind(summaryTable, a[ncol(a)]))
 		colnames(summaryTable)[ncol(summaryTable)] <- "IQR"
 		outputLabel <- c(outputLabel,"Inter Quartile Range")
@@ -183,7 +184,7 @@ statToCompute <- availableStatistics[na.omit(match(statToCompute, availableStati
 	}
 	if(!is.na(match("se.mean", statToCompute))) {
 		a <- NULL
-		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, stdmean, na.rm = TRUE)))
+		for (i in (1:ncol(tempVar))) a <- rbind(a, as.data.frame.table(tapply(tempVar[[i]], tempGrp, se, na.rm = TRUE)))
 		ifelse(is.null(summaryTable), summaryTable <- a, summaryTable <- cbind(summaryTable, a[ncol(a)]))
 		colnames(summaryTable)[ncol(summaryTable)] <- "SE_Mean"
 		outputLabel <- c(outputLabel,"Std. Error of the Mean")

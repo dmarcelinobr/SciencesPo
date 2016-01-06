@@ -31,17 +31,17 @@
   yy = yy[idx]
 
   # make a blank plot
-  plot(xx, yy, type = "n", axes = FALSE, xlab = xlab, ylab = "")
+  graphics::plot(xx, yy, type = "n", axes = FALSE, xlab = xlab, ylab = "")
 
   # draw scale
-  axis(1)
-  ylow = par("usr")[3]
-  abline(h = ylow) # extend to full width
+  graphics::axis(1)
+  ylow = graphics::par("usr")[3]
+  graphics::abline(h = ylow) # extend to full width
 
   # draw points and support resizing
-  recordGraphics({
-    yinc = 0.5 * spacing * par("cxy")[2]
-    points(xx, ylow + yinc * (yy - .5), pch = pch, ...)
+  grDevices::recordGraphics({
+    yinc = 0.5 * spacing * graphics::par("cxy")[2]
+    graphics::points(xx, ylow + yinc * (yy - .5), pch = pch, ...)
   },
   list(),
   environment(NULL))
