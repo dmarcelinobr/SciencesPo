@@ -136,3 +136,111 @@ NULL
   }
 NULL
 
+
+
+#' @title Standard Error of Kurtosis
+#'
+#' @description  Generate the standard error of the kurtosis.
+#' @param x An \R object.
+#' @param na.rm a logical value indicating whether \code{NA}
+#' should be stripped before the computation proceeds.
+#' @export
+#' @rdname stdkurtosis
+stdkurtosis <- function(x, na.rm = TRUE) UseMethod("stdkurtosis")
+
+#' @export
+#' @rdname stdkurtosis
+stdkurtosis.default <- function(x, na.rm = TRUE) {
+  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
+  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
+  stdkurtosis <- kurtosis(x)/sqrt(24/length(x))
+  return(stdkurtosis)
+}
+
+#' @export
+#' @rdname stdkurtosis
+stdkurtosis.data.frame <- function(x, na.rm = TRUE) sapply(x, stdkurtosis)
+NULL
+
+
+
+
+#' @title Standard Error of Skewness
+#'
+#' @description  Generate the standard error of the skewness.
+#' @param x An \R object.
+#' @param na.rm a logical value indicating whether \code{NA}
+#' should be stripped before the computation proceeds.
+#' @export
+#' @rdname stdskewness
+stdskewness <- function(x, na.rm = TRUE) UseMethod("stdskewness")
+
+#' @export
+#' @rdname stdskewness
+stdskewness.default <- function(x, na.rm = TRUE) {
+  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
+  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
+  stdskewness <- skew(x)/sqrt(6/length(x))
+  return(stdskewness)
+}
+
+#' @export
+#' @rdname stdskewness
+stdskewness.data.frame <- function(x, na.rm = TRUE) sapply(x, stdskewness)
+NULL
+
+
+
+#' @title Corrected Sum of Squares
+#' @description Computes the corrected sum of squares.
+#' @param x A numeric vector.
+#' @param na.rm A logical value indicating whether \code{NA}
+#' values should be stripped before the computation proceeds.
+#'
+#' @export
+#' @rdname css
+css <- function(x, na.rm = TRUE) UseMethod("css")
+
+#' @export
+#' @rdname css
+css.default <- function(x, na.rm = TRUE) {
+  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
+  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
+  css <- sum(x**2) - ((sum(x)**2)/length(x))
+  return(css)
+}
+#' @export
+#' @rdname css
+css.data.frame <- function(x, na.rm = TRUE) sapply(x, css)
+NULL
+
+
+
+
+#' @title Uncorrected Sum of Squares
+#' @description Generate the uncorrected sum of squares.
+#' @param x An \R object.
+#' @param na.rm A logical value indicating whether \code{NA}
+#' should be stripped before the computation proceeds.
+#'
+#' @export
+#' @rdname ucss
+ucss <- function(x, na.rm = TRUE) UseMethod("ucss")
+
+
+#' @export
+#' @rdname ucss
+ucss.default <- function(x, na.rm = TRUE) {
+  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
+  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
+  ucss <- sum(x**2)
+  return(ucss)
+}
+
+#' @export
+#' @rdname ucss
+ucss.data.frame <- function(x, na.rm = TRUE) sapply(x, ucss)
+NULL
+
+
+

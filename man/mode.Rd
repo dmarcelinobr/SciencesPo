@@ -3,14 +3,21 @@
 \encoding{UTF-8}
 \name{Mode}
 \alias{Mode}
+\alias{Mode.data.frame}
 \title{Calculate the Mode}
 \usage{
 Mode(x, na.rm = FALSE)
+
+Mode(x, na.rm = FALSE)
+
+Mode.data.frame(x, na.rm = TRUE)
 }
 \arguments{
-\item{x}{A data vector}
+\item{x}{An \R object.}
 
-\item{na.rm}{A logical value, default is \code{FALSE}}
+\item{na.rm}{A logical value indicating whether \code{NA}
+should be stripped before the computation proceeds. Default
+is \code{FALSE}}
 }
 \description{
 Estimates the mode for a vector

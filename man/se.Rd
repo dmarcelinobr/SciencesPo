@@ -3,22 +3,27 @@
 \encoding{UTF-8}
 \name{se}
 \alias{se}
+\alias{se.data.frame}
 \alias{se.default}
-\title{Calculates the Standard Error}
+\title{Calculates the Standard Error of the Mean}
 \usage{
 se(x, na.rm = TRUE, ...)
 
 \method{se}{default}(x, na.rm = TRUE, ...)
+
+\method{se}{data.frame}(x, na.rm = TRUE, ...)
 }
 \arguments{
-\item{x}{A vector of class numeric or integer}
+\item{x}{An \R object.}
 
-\item{na.rm}{A logical value for \code{na.rm}, default is \code{na.rm=TRUE}.}
+\item{na.rm}{A logical value indicating whether \code{NA}
+should be stripped before the computation proceeds.
+Default is \code{na.rm=TRUE}.}
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
 \description{
-Compute the standard errors of a numeric vector
+Computes the standard error of the sample mean.
 }
 \details{
 The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}

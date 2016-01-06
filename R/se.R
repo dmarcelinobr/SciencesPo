@@ -1,10 +1,12 @@
 #' @encoding UTF-8
-#' @title Calculates the Standard Error
+#' @title Calculates the Standard Error of the Mean
 #'
-#' @description Compute the standard errors of a numeric vector
+#' @description Computes the standard error of the sample mean.
 #'
-#' @param x  A vector of class numeric or integer
-#' @param na.rm A logical value for \code{na.rm}, default is \code{na.rm=TRUE}.
+#' @param x  An \R object.
+#' @param na.rm A logical value indicating whether \code{NA}
+#' should be stripped before the computation proceeds.
+#' Default is \code{na.rm=TRUE}.
 #' @param \dots Additional arguements (currently ignored)
 #'
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
@@ -22,31 +24,15 @@
 
 #' @rdname se
 #' @export
-`se.default` <-function(x, na.rm = TRUE, ...){
-  if (!is(x, "numeric") & !is(x, "integer")) {
-    stop("\"x\" must be numeric")
-  }
-  if (!is(na.rm, "logical") | length(na.rm) != 1) {
-    stop("\"na.rm\" must be a single logical value")
-  }
-  valid <- function(x) return(sum(!is.na(x)))
-  valid_ <-function(x) return(ifelse(na.rm,sum(!is.na(x)),length(x)))
-  dim <- dim(x)
-  if (is.null(dim)) {
-    sd <- stats::sd(x, na.rm = na.rm)
-    n.valid <- valid_(x)
-  }
-  else {
-    if (is.data.frame(x)) {
-      n.valid <- unlist(sapply(x, valid_))
-      sd <- unlist(sapply(x, stats::sd, na.rm = na.rm))
-    }
-    else {
-      n.valid <- unlist(apply(x, 2, valid))
-      sd <- unlist(apply(x, 2,  stats::sd, na.rm = na.rm))
-    }
-  }
-  ans = (sd/sqrt(n.valid));
+`se.default` <- function(x, na.rm = TRUE, ...) {
+  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
+  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
+  ans <- sqrt(var(x)/length(x))
   return(ans)
 }
+
+#' @rdname se
+#' @export
+`se.data.frame` <- function(x, na.rm = TRUE, ...) sapply(x, se)
+
 NULL
