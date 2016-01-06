@@ -108,11 +108,11 @@ NULL
 
 
 formatBRL<- function(x, digits=2, nsmall=2){
-  paste("\u0052\u0024",symbol, format(x, digits = digits, nsmall=nsmall, big.mark = ".", decimal.mark = ","))
+  paste("\u0052\u0024", format(x, digits = digits, nsmall=nsmall, big.mark = ".", decimal.mark = ","))
 }
 
 formatEUR<- function(x, digits=2, nsmall=2){
-  paste("\u20ac", symbol, format(x, digits = digits, nsmall=nsmall))
+  paste("\u20ac", format(x, digits = digits, nsmall=nsmall))
 }
 
 formatUSD<- function(x, digits=2, nsmall=2){
