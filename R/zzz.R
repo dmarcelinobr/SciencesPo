@@ -178,6 +178,27 @@ NULL
 }
 
 
+
+# change class call to class character
+.fun.call.deparse <- function(fun.call) {
+
+  fc.d <- deparse(fun.call)
+  if (length(fc.d) > 1) {  # multiple lines
+    fc <- fc.d[1]
+    for (i in 2:length(fc.d)) fc <- paste(fc, fc.d[i], sep="")
+  }
+  else
+    fc <- fc.d
+
+  fc <- sub("     ", " ", fc, fixed=TRUE)
+  fc <- sub("    ", " ", fc, fixed=TRUE)
+  fc <- sub("  ", " ", fc, fixed=TRUE)
+
+  return(fc)
+
+}
+
+
 .specifyDecimals <- function(x, k) format(round(x, k), nsmall=k)
 
 .getdigits <- function(x, min.digits) {
