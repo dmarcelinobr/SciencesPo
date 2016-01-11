@@ -2,7 +2,7 @@ if (getRversion() >= "2.15.1") globalVariables(c("x", "y", "f"))
 #' @encoding UTF-8
 #' @title The Butterfly Curve
 #'
-#' @description The butterfly curve is a parametric equation discovered by Temple Fay where two functions in a plane produces a butterfly-like curves.
+#' @description The butterfly curve is a parametric equation discovered by Temple Fay where two functions in a plane produces butterfly-like curves.
 
 #' @param n An integer for background points.
 #' @param nb An integer for the butterfly's points.

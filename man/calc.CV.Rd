@@ -50,8 +50,6 @@ gss <- data.frame(
 GSS = untable(gss, freq = "count")
 
 calc.CV(GSS$race, GSS$party)
-
-crosstabs(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
 }
 \references{
 Agresti, Alan (1996) \emph{Introduction to categorical data

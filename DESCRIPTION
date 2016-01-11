@@ -18,10 +18,8 @@ Depends:
     grDevices,
     methods
 Imports:
-    coda,
     RSQLite,
     data.table,
-    zoo,
     grid (>= 3.0.0),
     gridExtra,
     scales,

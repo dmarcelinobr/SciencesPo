@@ -15,7 +15,7 @@ butterfly(n = 100, nb = 500, title = element_blank())
 \item{title}{A character vector for plot title.}
 }
 \description{
-The butterfly curve is a parametric equation discovered by Temple Fay where two functions in a plane produces a butterfly-like curves.
+The butterfly curve is a parametric equation discovered by Temple Fay where two functions in a plane produces butterfly-like curves.
 }
 \examples{
 if (interactive()) {

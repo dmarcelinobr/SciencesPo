@@ -436,68 +436,6 @@ NULL
 }
 
 
-# remove argument and character value from a function call
-.rm.arg <-  function(argm, fc) {
-
-  loc <- regexec(argm, fc)[[1]]  # beginning of argument
-
-  if (loc > 0) {
-
-    first.arg <- ifelse (substr(fc, loc-1, loc-1) == "(", TRUE, FALSE)
-
-    j <- loc
-    if (!first.arg)  # is not first argument, start at preceding comma
-      while(substr(fc, start=j, stop=j) != ",") if (j > 0) j <- j - 1
-    strt <- j  #  closing parentheses or comma before argument
-
-    while(substr(fc, start=j, stop=j) != "\"") if (j < 1000) j <- j + 1
-    j <- j + 1  # first " after ,
-    while(substr(fc, start=j, stop=j) != "\"") if (j < 1000) j <- j + 1
-    stp <- j  # second " after ,
-
-    if (first.arg) stp <- stp + 2  # remove trailing comma and space
-
-    remv <- substr(fc, start=strt, stop=stp)
-    fc.new <- sub(remv, "", fc, fixed=TRUE)
-
-  }
-
-  return(fc.new)
-}
-
-
-# remove argument and Non-String value from a function call
-.rm.arg.ns <-  function(argm, fc) {
-
-  loc <- regexec(argm, fc)[[1]]  # beginning of argument
-
-  if (loc > 0) {
-
-    first.arg <- ifelse (substr(fc, loc-1, loc-1) == "(", TRUE, FALSE)
-
-    j <- loc
-    if (!first.arg)  # is not first argument, start at preceding comma
-      while(substr(fc, start=j, stop=j) != ",") if (j > 0) j <- j - 1
-    strt <- j  #  closing parentheses or comma before argument
-
-    dlm <- c(",", ")")
-
-    j <- j + 1
-    while(!(substr(fc, start=j, stop=j) %in% dlm))
-      if (j < 1000) j <- j + 1
-
-    stp <- j  # got a "," or a ")"
-    stp <- stp - 1  # retain the "," or ")"
-
-    if (first.arg) stp <- stp + 2  # remove trailing comma and space
-
-    remv <- substr(fc, start=strt, stop=stp)
-    fc.new <- sub(remv, "", fc, fixed=TRUE)
-
-  return(fc.new)
-  }
-
-}
 
 
 #' @title Progress Bar
@@ -612,6 +550,7 @@ NULL
 
 
 # from rstudio/dygraphs https://github.com/rstudio/dygraphs
+
 asISO8601Time <- function(x) {
   if (!inherits(x, "POSIXct"))
     x <- try({as.POSIXct(x, tz = "GMT")})

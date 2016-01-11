@@ -486,8 +486,8 @@ NULL
 #'  }
 #' @source
 #' US Presidents: \url{http://www.jimwegryn.com/Names/Presidents.php}
-#' Inside Gov. \url{http://us-presidents.insidegov.com}.
-#' Wikipedia: \url{http://en.wikipedia.org/wiki/United_States_presidential_election,_2012}
+#' Inside Gov. \url{http://www.us-presidents.insidegov.com}.
+#' Wikipedia: \url{http://en.wikipedia.org/wiki/United_States_presidential_election,_2012}.
 #' Wikipedia:\url{http://en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
 #'
 #' @docType data

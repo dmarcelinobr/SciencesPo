@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{theme_pub}
 \alias{theme_pub}
-\title{Create the default pub theme}
+\title{Makes the Default Theme}
 \usage{
 theme_pub(font_family = "", font_size = 14, line_size = 0.5,
   legend = "bottom", axis.line.x = element_line(),

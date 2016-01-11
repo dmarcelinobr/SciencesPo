@@ -32,8 +32,6 @@ expand.grid(GENDER=c("Male", "Female"),
 ADMIT=c("Admitted", "Rejected")),
 Freq=c(1198,557,1493,1278))
 
-crosstabs(Berkeley,  "ADMIT", "GENDER", "Freq", contingency = TRUE, phi=TRUE, cramerV=TRUE)
-
 tab = as.table(rbind(c(1198,557), c(1493,1278)))
 calc.Phi(tab)
 }

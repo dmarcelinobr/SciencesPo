@@ -28,8 +28,6 @@ gss <- data.frame(
    party=c("dem", "indep", "rep")),
    count=c(762,484,327,239, 468,477))
 
-crosstabs(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
-
 # expand it:
 # GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
 GSS = untable(gss, freq = "count")

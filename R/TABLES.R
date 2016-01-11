@@ -1,25 +1,28 @@
 #' @encoding UTF-8
 #' @title Cross-tabulation
 #'
-#' @description Makes a contingency table and computes chi-square test of independence, Phi coefficient, Cramer's V and Contingency coefficient.
-#' @param .data The data.frame.
-#' @param row The row variable.
-#' @param col The column variable.
-#' @param weights The frequency variable.
-#' @param observed If FALSE, observed values are excluded from the table.
+#' @description Makes a contingency table and computes tests of independence.
+#' @param x The row variable.
+#' @param y The column variable.
 #' @param expected If TRUE, expected values are included.
+#' @param row If TRUE, row proportions are included.
+#' @param column If TRUE, column proportions are included.
+#' @param total If TRUE, total proportions are included.
+#' @param resid If TRUE, residual (Pearson) are included.
 #' @param sresid If TRUE, standardized residuals are included.
-#' @param total.pct If TRUE, total proportions are included.
-#' @param row.pct If TRUE, row proportions are included.
-#' @param col.pct If TRUE, column proportions are included.
-#' @param chisq If TRUE, the result of chi-square test of independence is included.
-#' @param phi If TRUE, the Phi coefficient is included.
-#' @param cramerV If TRUE, Cramer's V coefficient is included.
-#' @param contingency If TRUE, the Contingency coefficient (C) is included.
+#' @param asresid If TRUE, adjusted standardized residual are included.
+#' @param chisq If TRUE, the results of chi-square test of independence are included.
+#' @param fisher If TRUE, the results of a Fisher Exact are included.
+#' @param mcnemar If TRUE, the results of a McNemar test are included.
+#' @param missing.include If TRUE, then remove any unused factor levels.
+#' @param digits The number of digits after the decimal point for cell proportions.
+#' @param max.width In the case of a 1 x n table, the default will be to print the output horizontally. If the number of columns exceeds max.width, the table will be wrapped for each successive increment of max.width columns. If you want a single column vertical table, set max.width to 1.
+#' @param \dots Additional arguements (currently ignored)
 #'
+#' @note
+#' Heavily adapted from Gregory R. Warnes' CrossTable() function in the gregmisc package.
 #' @examples
-#' titanic %>% crosstabs("SEX", "AGE")
-#'
+#' # titanic %>% CrossTabs(SEX, AGE)
 #'
 #' # Tea-Tasting Experiment data
 #'  tea <- data.frame(
@@ -27,7 +30,9 @@
 #'    guess=c("Yes", "No")),
 #'    count=c(3,1,1,3))
 #'
-#' tea %>% crosstabs("guess", "poured", "count", row.pct=TRUE, col.pct=TRUE)
+#' data = untable(tea, freq="count")
+#'
+#' with(data, CrossTabs(guess, poured, row=TRUE, column=TRUE, fisher=TRUE))
 #'
 #' # Agresti (2002), table 3.10, p. 104
 #' # 1991 General Social Survey: hypothesis of independence between
@@ -37,346 +42,343 @@
 #'    party=c("dem", "indep", "rep")),
 #'    count=c(103,341,15,105,11,405))
 #'
-#' crosstabs(gss, "race", "party", "count", chisq=TRUE)
+#' data = untable(gss, freq="count")
+#'
+#' with(data, CrossTabs(race, party, chisq=TRUE))
 #'
 #' @export
-`crosstabs` <- function(.data,
-                        row,
-                        col,
-                        weights = NULL,
-                        observed = TRUE,
-                        expected = TRUE,
-                        total.pct = FALSE,
-                        row.pct = FALSE,
-                        col.pct = FALSE,
-                        sresid = FALSE,
-                        chisq = FALSE,
-                        phi = FALSE,
-                        cramerV = FALSE,
-                        contingency = FALSE) UseMethod("crosstabs")
+#' @rdname CrossTabs
+#' @aliases twoway
+`CrossTabs` <- function (x, y, expected = TRUE,
+                        row = FALSE, column = FALSE, total = FALSE,
+                        resid = FALSE, sresid = FALSE, asresid = FALSE,
+                        chisq = FALSE, fisher = FALSE, mcnemar = FALSE,
+                        missing.include = FALSE, digits = 2, max.width = 5, ...) UseMethod("CrossTabs")
 
-#' @rdname crosstabs
+#' @rdname CrossTabs
 #' @export
-`crosstabs.default` <- function(.data,
-                                row,
-                                col,
-                                weights = NULL,
-                                observed = TRUE,
-                                expected = TRUE,
-                                total.pct = FALSE,
-                                row.pct = FALSE,
-                                col.pct = FALSE,
-                                sresid = FALSE,
-                                chisq = FALSE,
-                                phi = FALSE,
-                                cramerV = FALSE,
-                                contingency = FALSE) {
-  if (is.character(.data)) {
-    nameData <- data.table::data.table(.data)
-    if (!exists(.data)) { stop(paste("The object '", nameData,"' not found.", sep = "")) }
-    tempData <- eval(parse(text = .data))
-  } else {
-    nameData <- paste(deparse(substitute(.data)))
-    tempData <- .data
+`CrossTabs.default` <- function (x, y, expected = TRUE,
+                       row = FALSE, column = FALSE, total = FALSE,
+                       resid = FALSE, sresid = FALSE, asresid = FALSE,
+                       chisq = FALSE, fisher = FALSE, mcnemar = FALSE,
+                       missing.include = FALSE, digits = 3, max.width = 5, ...)
+{
+  if (max.width < 1)
+    stop("max.width must be >= 1")
+  vector.x <- FALSE
+  if (missing(y)) {
+    if (is.null(dim(x))) {
+      TotalN = length(x)
+      if (missing.include)
+        x <- factor(x,exclude=c())
+      else
+        x <- factor(x)
+      t <- t(as.matrix(table(x)))
+      vector.x <- TRUE
+    }
+    else if (length(dim(x) == 2)) {
+      if (any(x < 0) || any(is.na(x)))
+        stop("all entries of x must be nonnegative and finite")
+      if (is.null(rownames(x)))
+        rownames(x) <- paste("[", 1:nrow(x), ",]", sep = "")
+      if (is.null(colnames(x)))
+        colnames(x) <- paste("[,", 1:ncol(x), "]", sep = "")
+      t <- x
+    }
+    else stop("x must be either a vector or a 2 dimensional matrix, if y is not given")
   }
-  if (any(is.na(match(row, names(tempData))))) { stop("At least one item in the 'row' does not match any column in the dataset('", nameData,"').", sep = "")	}
-  if (any(is.na(match(col, names(tempData))))) { stop("At least one item in the 'col' does not match any column in the dataset('", nameData,"').", sep = "")	}
-  if (!is.null(weights)) {
-    if(is.na(match(weights, names(tempData)))) { stop("At least one item in the 'col' does not match any column in the dataset('", nameData,"').", sep = "")     }
+  else {
+    if (length(x) != length(y))
+      stop("x and y must have the same length")
+    TotalN = length(x)
+    RowData <- deparse(substitute(x))
+    ColData <- deparse(substitute(y))
+    if (missing.include) {
+      x <- factor(x,exclude=c())
+      y <- factor(y,exclude=c())
+    }
+    else {
+      x <- factor(x)
+      y <- factor(y)
+    }
+    t <- table(x, y)
+  }
+  if (any(dim(t) < 2)) {
+    column <- row <- chisq <- expected <- fisher <- mcnemar <- FALSE
+  }
+  CPR <- prop.table(t, 1)*100
+  CPC <- prop.table(t, 2)*100
+  CPT <- prop.table(t)*100
+  GT <- sum(t)
+  if (length(dim(x) == 2))
+    TotalN = GT
+  RS <- rowSums(t)
+  CS <- colSums(t)
+  ColTotal <- "Column Total"
+  RowTotal <- "Row Total"
+  CWidth <- max(digits + 2, c(nchar(t), nchar(dimnames(t)[[2]]),
+                              nchar(RS), nchar(CS), nchar(RowTotal)))
+  RWidth <- max(c(nchar(dimnames(t)[[1]]), nchar(ColTotal)))
+  if (exists("RowData"))
+    RWidth <- max(RWidth, nchar(RowData))
+  RowSep <- paste(rep("-", CWidth + 2), collapse = "")
+  RowSep1 <- paste(rep("-", RWidth + 1), collapse = "")
+  SpaceSep1 <- paste(rep(" ", RWidth), collapse = "")
+  SpaceSep2 <- paste(rep(" ", CWidth), collapse = "")
+  FirstCol <- formatC(dimnames(t)[[1]], width = RWidth, format = "s")
+  ColTotal <- formatC(ColTotal, width = RWidth, format = "s")
+  RowTotal <- formatC(RowTotal, width = CWidth, format = "s")
+  if (chisq) {
+    if (all(dim(t) == 2))
+      CSTc <- chisq.test(t, correct = TRUE)
+    CST <- chisq.test(t, correct = FALSE)
+  }
+  else
+    CST <- suppressWarnings(chisq.test(t, correct = FALSE))
+  if (asresid & !vector.x)
+    ASR <- (CST$observed-CST$expected)/sqrt(CST$expected*((1-RS/GT) %*% t(1-CS/GT)))
+
+
+
+  print.CrossTable.default <- function() {
+    if (exists("RowData")) {
+      cat(SpaceSep1, "|", ColData, "\n")
+      cat(cat(formatC(RowData, width = RWidth, format = "s"),sep=" | ",collapse=""),
+          cat(formatC(dimnames(t)[[2]], width = CWidth-1, format = "s"),sep="  | ",collapse=""),
+          cat(RowTotal, sep = " | ", collapse = "\n"),sep="",collapse="")
+    }
+    else cat(SpaceSep1, formatC(dimnames(t)[[2]], width = CWidth,
+                                format = "s"), RowTotal, sep = " | ", collapse = "\n")
+    cat(RowSep1, rep(RowSep, ncol(t) + 1), sep = "|", collapse = "\n")
+    for (i in 1:nrow(t)) {
+      cat(cat(FirstCol[i],sep=" | ",collapse=""),
+          cat(formatC(c(t[i, ], RS[i]), width = CWidth-1),
+              sep = "  | ", collapse = "\n"),sep="",collapse="")
+      if (expected)
+        cat(cat(SpaceSep1,sep=" | ",collapse=""),
+            cat(formatC(CST$expected[i, ], digits = digits,
+                        format = "f", width = CWidth-1), sep = "  | ",
+                collapse = ""),
+            cat(SpaceSep2,sep = " | ", collapse = "\n"),sep="",collapse="")
+      if (row)
+        cat(cat(SpaceSep1,sep=" | ",collapse = ""),
+            cat(formatC(c(CPR[i, ], 100*RS[i]/GT),
+                        width = CWidth-1, digits = digits, format = "f"),
+                sep = "% | ", collapse = "\n"),sep="",collapse = "")
+      if (column)
+        cat(cat(SpaceSep1,sep=" | ",collapse = ""),
+            cat(formatC(CPC[i, ], width = CWidth-1,
+                        digits = digits, format = "f"),sep = "% | ",collapse=""),
+            cat(SpaceSep2,sep = " | ", collapse = "\n"),sep="",collapse="")
+      if (total)
+        cat(cat(SpaceSep1,sep=" | ",collapse = ""),
+            cat(formatC(CPT[i, ], width = CWidth-1,
+                        digits = digits, format = "f"),sep = "% | ", collapse=""),
+            cat(SpaceSep2,sep = " | ", collapse = "\n"),sep="",collapse="")
+      if (resid)
+        cat(cat(SpaceSep1,sep=" | ",collapse = ""),
+            cat(formatC(CST$observed[i, ]-CST$expected[i, ], digits = digits,
+                        format = "f", width = CWidth-1), sep = "  | ",
+                collapse = ""),
+            cat(SpaceSep2,sep = " | ", collapse = "\n"),sep="",collapse="")
+      if (sresid)
+        cat(cat(SpaceSep1,sep=" | ",collapse = ""),
+            cat(formatC(CST$residual[i, ], digits = digits,
+                        format = "f", width = CWidth-1), sep = "  | ",
+                collapse = ""),
+            cat(SpaceSep2,sep = " | ", collapse = "\n"),sep="",collapse="")
+      if (asresid)
+        cat(cat(SpaceSep1,sep=" | ",collapse = ""),
+            cat(formatC(ASR[i, ], digits = digits,
+                        format = "f", width = CWidth-1), sep = "  | ",
+                collapse = ""),
+            cat(SpaceSep2,sep = " | ", collapse = "\n"),sep="",collapse="")
+      cat(RowSep1, rep(RowSep, ncol(t) + 1), sep = "|",
+          collapse = "\n")
+    }
+    cat(cat(ColTotal,sep=" | ",collapse=""),
+        cat(formatC(c(CS, GT), width = CWidth-1), sep = "  | ",
+            collapse = "\n"),sep="",collapse="")
+    if (column)
+      cat(cat(SpaceSep1,sep=" | ",collapse=""),
+          cat(formatC(100*CS/GT, width = CWidth-1, digits = digits,
+                      format = "f"),sep = "% | ", collapse = ""),
+          cat(SpaceSep2,sep = " | ", collapse = "\n"),sep="",collapes="")
+    cat(RowSep1, rep(RowSep, ncol(t) + 1), sep = "|", collapse = "\n")
   }
 
-  options(width = 5000, digits = 6)
 
-  # determine the output needed
-  show.stat <- NULL;
-  RTHeading <- FALSE;
-  CTHeading <- FALSE
-  if (observed){ nobsFreq <- nchar("Obs Freq");
-  RTHeading <- TRUE;
-  CTHeading <- TRUE;
-  show.stat <- c(show.stat, "observed")
-  } else nobsFreq <- 0
-  if (expected) {
-    nexpFreq <- nchar("Exp Freq");
-    RTHeading <- TRUE; CTHeading <- TRUE; show.stat <- c(show.stat, "expected")
-  } else nexpFreq <- 0
-  if (total.pct){
-    ntotPercent <- nchar("% of Total");
-    RTHeading <- TRUE;
-    CTHeading <- TRUE;
-    show.stat <- c(show.stat, "total.pct")
-  } else ntotPercent <- 0
-  if (row.pct) { RTHeading <- TRUE;
-  show.stat <- c(show.stat, "row.pct")
-  }
-  if (col.pct) {
-    CTHeading <- TRUE;
-    show.stat <- c(show.stat, "col.pct")
-  }
-
-  if (!is.null(weights)) {
-    row <- row[1]
-    col <- col[1]
-    tempTable <- matrix(0, nrow = length(unique(tempData[,row])), ncol = length(unique(tempData[,col])),
-                        dimnames = list(unique(tempData[,row]),unique(tempData[,col])))
-    for (i in (1:nrow(tempData))) {
-      rowIndex <- match(tempData[i,row], dimnames(tempTable)[[1]])
-      colIndex <- match(tempData[i,col], dimnames(tempTable)[[2]])
-      tempTable[rowIndex, colIndex] <- tempTable[rowIndex, colIndex] + tempData[i,weights]
+  print.CrossTable.vector <- function() {
+    if (length(t) > max.width) {
+      final.row <- length(t)%%max.width
+      max <- length(t) - final.row
+      start <- seq(1, max, max.width)
+      end <- start + (max.width - 1)
+      if (final.row > 0) {
+        start <- c(start, end[length(end)] + 1)
+        end <- c(end, end[length(end)] + final.row)
+      }
+    }
+    else {
+      start <- 1
+      end <- length(t)
+    }
+    SpaceSep3 <- paste(SpaceSep2, " ", sep = "")
+    for (i in 1:length(start)) {
+      cat(cat(SpaceSep2,sep=" | ",collapse=""),
+          cat(formatC(dimnames(t)[[2]][start[i]:end[i]],
+                      width = CWidth-1, format = "s"), sep = "  | ", collapse = "\n"),
+          sep="",collapse="")
+      cat(SpaceSep3, rep(RowSep, (end[i] - start[i]) +
+                           1), sep = "|", collapse = "\n")
+      cat(cat(SpaceSep2,sep=" | ",collapse=""),
+          cat(formatC(t[, start[i]:end[i]], width = CWidth-1),
+              sep = "  | ", collapse = "\n"),
+          sep="",collapse="")
+      cat(cat(SpaceSep2, sep=" | ",collapse=""),
+          cat(formatC(CPT[, start[i]:end[i]], width = CWidth-1,
+                      digits = digits, format = "f"), sep = "% | ",
+              collapse = ""),sep="",collapse="\n")
+      cat(SpaceSep3, rep(RowSep, (end[i] - start[i]) +
+                           1), sep = "|", collapse = "\n")
     }
   }
-  crosstable <- NULL
+  cat("\n")
+  cat("   Cell Contents\n")
+  cat("|-----------------|\n")
+  cat("|           Count |\n")
+  if (!vector.x) {
+    if (expected)
+      cat("| Expected Values |\n")
+    if (row)
+      cat("|     Row Percent |\n")
+    if (column)
+      cat("|  Column Percent |\n")
+    if (total)
+      cat("|   Total Percent |\n")
+    if (resid)
+      cat("|        Residual |\n")
+    if (sresid)
+      cat("|    Std Residual |\n")
+    if (asresid)
+      cat("|   Adj Std Resid |\n")
+  }
+  else
+    cat("|     Row Percent |\n")
+  cat("|-----------------|\n")
+  cat("\n")
+  cat("Total Observations in Table: ", GT, "\n")
+  cat("\n")
+  if (!vector.x)
+    print.CrossTable.default()
+  else print.CrossTable.vector()
+  if (GT < TotalN)
+    cat("\nNumber of Missing Observations: ",TotalN-GT," (",100*(TotalN-GT)/TotalN,"%)\n",sep="")
 
-  for (i in (1:length(row))) {
-    for (j in (1:length(col))) {
-      if (row[i] != col[j]) {
-        if (!is.null(weights)) { crosstable <- tempTable } else{ crosstable <- table(tempData[,row[i]], tempData[,col[j]]) }
-        if (row.pct) { nrowPercent <- nchar(paste("% within", row[i])) } else nrowPercent <- 0
-        if (col.pct) { ncolPercent <- nchar(paste("% within", col[j])) }	else ncolPercent <- 0
+  if (chisq) {
+    cat("\n")
+    cat("============================================================\n\n")
+    cat("Statistics for All Table Factors\n\n")
+    cat(CST$method, "\n")
+    cat("------------------------------------------------------------\n")
+    cat("Chi^2 = ", CST$statistic, "    d.f. = ", CST$parameter,
+        "    p = ", CST$p.value, "\n\n")
+    if (all(dim(t) == 2)) {
+      cat(CSTc$method, "\n")
+      cat("------------------------------------------------------------\n")
+      cat("Chi^2 = ", CSTc$statistic, "    d.f. = ", CSTc$parameter,
+          "    p = ", CSTc$p.value, "\n")
+    }
+  }
+  if (mcnemar) {
+    McN <- mcnemar.test(t, correct = FALSE)
+    cat("\n")
+    cat(McN$method, "\n")
+    cat("------------------------------------------------------------\n")
+    cat("Chi^2 = ", McN$statistic, "    d.f. = ", McN$parameter,
+        "    p = ", McN$p.value, "\n\n")
+    if (all(dim(t) == 2)) {
+      McNc <- mcnemar.test(t, correct = TRUE)
+      cat(McNc$method, "\n")
+      cat("------------------------------------------------------------\n")
+      cat("Chi^2 = ", McNc$statistic, "    d.f. = ", McNc$parameter,
+          "    p = ", McNc$p.value, "\n")
+    }
+  }
+  if (fisher) {
+    cat("\n")
+    FTt <- fisher.test(t, alternative = "two.sided")
+    if (all(dim(t) == 2)) {
+      FTl <- fisher.test(t, alternative = "less")
+      FTg <- fisher.test(t, alternative = "greater")
+    }
+    cat("Fisher's Exact Test for Count Data\n")
+    cat("------------------------------------------------------------\n")
+    if (all(dim(t) == 2)) {
+      cat("Sample estimate odds ratio: ", FTt$estimate,
+          "\n\n")
+      cat("Alternative hypothesis: true odds ratio is not equal to 1\n")
+      cat("p = ", FTt$p.value, "\n")
+      cat("95% confidence interval: ", FTt$conf.int, "\n\n")
+      cat("Alternative hypothesis: true odds ratio is less than 1\n")
+      cat("p = ", FTl$p.value, "\n")
+      cat("95% confidence interval: ", FTl$conf.int, "\n\n")
+      cat("Alternative hypothesis: true odds ratio is greater than 1\n")
+      cat("p = ", FTg$p.value, "\n")
+      cat("95% confidence interval: ", FTg$conf.int, "\n\n")
+    }
+    else {
+      cat("Alternative hypothesis: two.sided\n")
+      cat("p = ", FTt$p.value, "\n")
+    }
+  }
+  cat("\n")
+  CT <- list(t = t, prop.row = CPR, prop.col = CPC, prop.tbl = CPT)
+  if (any(chisq, fisher, mcnemar)) {
+    if (all(dim(t) == 2)) {
+      if (chisq)
+        CT <- c(CT, list(chisq = CST, chisq.corr = CSTc))
+      if (fisher)
+        CT <- c(CT, list(fisher.ts = FTt, fisher.tl = FTl,
+                         fisher.gt = FTg))
+      if (mcnemar)
+        CT <- c(CT, list(mcnemar = McN, mcnemar.corr = McNc))
+    }
+    else {
+      if (chisq)
+        CT <- c(CT, list(chisq = CST))
+      if (fisher)
+        CT <- c(CT, list(fisher.ts = FTt))
+      if (mcnemar)
+        CT <- c(CT, list(mcnemar = McN))
+    }
+  }
+  invisible(CT)
 
-        if (all(dim(crosstable) == 2)){
-          result <- suppressWarnings(stats::chisq.test(crosstable, correct = FALSE))
-        } else {
-          result <- suppressWarnings(stats::chisq.test(crosstable, correct = FALSE)) }
-        if (any(c(observed, expected, total.pct, row.pct, col.pct) == TRUE)) {
-          # --- PRINTS SOME SUMMAY STATISTICS --- #
-          rowPercentage <- prop.table(crosstable, 1) * 100
-          colPercentage <- prop.table(crosstable, 2) * 100
-          totPercentage <- prop.table(crosstable) * 100
-          rowSum <- margin.table(crosstable,1)
-          colSum <- margin.table(crosstable,2)
+  if (any(dim(t) >= 2) & any(chisq,mcnemar,fisher)) {
+    MinExpF = min(CST$expected)
+    cat('       Minimum expected frequency:',MinExpF,"\n")
+    NMinExpF = length(CST$expected[which(CST$expected<5)])
+    if (NMinExpF > 0) {
+      NCells = length(CST$expected)
+      cat('Cells with Expected Frequency < 5: ',NMinExpF,' of ',NCells," (",100*NMinExpF/NCells,"%)\n",sep="")
+    }
+    cat("\n")
+  }
+}##-end crosstabs
 
-          RowHeading1 <- max(nchar(row[i]), nchar("Total"), nchar(dimnames(crosstable)[[1]])) + 1
-          if (length(show.stat) == 1) { RowHeading2 <- 0; addSpace <- 1 } else { RowHeading2 <- max(nobsFreq, nexpFreq, ntotPercent, nrowPercent, ncolPercent) + 1; addSpace <- 2 }
-          RowWidth = RowHeading1 + RowHeading2
-          ColWidth <- max(nchar(crosstable), max(nchar(round(result[[7]], 0)), nchar(round(rowPercentage, 0)), nchar(round(colPercentage, 0)), nchar(round(totPercentage, 0))) + 2, nchar(dimnames(crosstable)[[2]]), nchar("Total")) + 2
-          RowSpace1 <- paste(rep("-", RowWidth+addSpace), collapse = "")
-          RowSpace2 <- paste(rep("-", ColWidth+1), collapse = "")
-          show.numdigits <- max(nchar(round(rowPercentage,4)), nchar(round(colPercentage,4)), nchar(round(totPercentage,4)))
 
-          options(width = 5000, digits = 6)
-          if (length(show.stat) > 1) { cat("Table of ", row[i], " by ", col[j], "\n\n", sep = "")
-          } else {
-            if (observed) cat("Table of Observed Frequency: ", row[i], " by ", col[j], "\n\n", sep = "")
-            if (expected) cat("Table of Expected Frequency: ", row[i], " by ", col[j], "\n\n", sep = "")
-            if (total.pct) cat("Table of Total Percentage: ", row[i], " by ", col[j], "\n\n", sep = "")
-            if (col.pct) cat("Table of Column Percentage: ", row[i], " by ", col[j], "\n\n", sep = "")
-            if (row.pct) cat("Table of Row Percentage: ", row[i], " by ", col[j], "\n\n", sep = "")
-          }
-          cat(paste(formatC("", width = RowWidth + addSpace, format = "s", flag = "-"),"|", formatC(col[j], width = ColWidth, format = "s", flag = "-"), sep = "", collapse = "\n"), "\n")
-          cat(RowSpace1, "+", sep = "")
-          for (z in (1:ncol(crosstable))) cat(RowSpace2, "+", sep = "")
-          if (RTHeading) cat(RowSpace2, "+", sep = "")
-          cat("\n", formatC(row[i], width = RowWidth + addSpace, format = "s", flag = "-"), "|", sep = "")
-          for (z in (1:ncol(crosstable))) cat(formatC(dimnames(crosstable)[[2]][z], width = ColWidth+1, format = "s", flag = "-"), "|", sep = "")
-          if (observed || expected || total.pct || row.pct) {
-            cat(formatC("Total", width = ColWidth+1, format = "s", flag = "-"), "|", "\n", sep = "")
-          } else {
-            cat("\n", sep = "")
-          }
-          cat(RowSpace1, "+", sep = "")
-          for (z in (1:ncol(crosstable))) cat(RowSpace2, "+", sep = "")
-          if (RTHeading) cat(RowSpace2, "+", sep = "")
-          cat("\n")
 
-          for (k in (1:(nrow(crosstable)+1))) {
-            if (k <= nrow(crosstable)) { cat(formatC(dimnames(crosstable)[[1]][k], width = RowHeading1 + 1, format = "s", flag = "-"), "|", sep = "")
-            } else { if (CTHeading) cat(formatC("Total", width = RowHeading1, format = "s", flag = "-"), "|") }
-            if (observed) {
-              if (k <= nrow(crosstable)) {
-                if (length(show.stat) > 1) { cat(formatC("Obs Freq", width = RowHeading2, format = "s", flag = "-"), "|", sep = "") }
-                for (z in (1:ncol(crosstable))) cat(formatC(crosstable[k,z], width = ColWidth+1, format = "d"), "|", sep = "")
-                if (RTHeading) cat(formatC(rowSum[[k]], width = ColWidth+1, format = "d"), "|", "\n", sep = "")
-              } else {
-                if (length(show.stat) > 1) { cat(formatC("Obs Freq", width = RowHeading2, format = "s", flag = "-"), "|", sep = "") }
-                for (z in (1:ncol(crosstable))) cat(formatC(colSum[[z]], width = ColWidth + 1, format = "d"), "|", sep = "")
-                if (RTHeading) cat(formatC(sum(crosstable), width = ColWidth + 1, format = "d"), "|","\n", sep = "")
-              }
-            } ### end -- if (observed)
-
-            if (expected) {
-              if (k <= nrow(crosstable)) {
-                if (show.stat[1] != "expected") { cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "") }
-                if (length(show.stat) > 1) { cat(formatC("Exp Freq", width = RowHeading2, format = "s", flag = "-"),"|", sep = "") }
-                for (z in (1:ncol(crosstable))) cat(formatC(result[[7]][k,z], digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-                if (RTHeading) cat(formatC(rowSums(result[[7]])[[k]], digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n", sep = "")
-              } else {
-                if (length(show.stat) > 1) {
-                  cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
-                  cat(formatC("Exp Freq", width = RowHeading2, format = "s", flag = "-"), "|", sep = "")
-                }
-                for (z in (1:ncol(crosstable))) cat(formatC(colSums(result$exp)[[z]], digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-                if (RTHeading) cat(formatC(sum(result$exp), digits = 1, width = ColWidth + 1, format = "f", flag = "#"), "|","\n", sep = "")
-              }
-            } ### end -- if (expected)
-
-            if (row.pct && k <= nrow(crosstable)) {
-              if (show.stat[1] != "row.pct") { cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "") }
-              if (length(show.stat) > 1) { cat(formatC(paste("% within", row[i]), width = RowHeading2, format = "s", flag = "-"), "|", sep = "") }
-              for (z in (1:ncol(crosstable))) cat(formatC(rowPercentage[k,z], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-              if (RTHeading) cat(formatC(sum(rowPercentage[k,]), digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n", sep = "")
-            } ### end -- if (row.pct && k <= nrow(crosstable))
-
-            if (col.pct) {
-              if (k <= nrow(crosstable)) {
-                if (show.stat[1] != "col.pct") { cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "") }
-                if (length(show.stat) > 1) { cat(formatC(paste("% within", col[j]), width = RowHeading2, format = "s", flag = "-"),"|", sep = "") }
-                for (z in (1:ncol(crosstable))) cat(formatC(colPercentage[k,z], digits = 2, width = ColWidth + 1, format = "f", flag = "#"),"|", sep = "")
-                if (RTHeading) cat(formatC("", width = ColWidth + 1, format = "s"),"|", "\n",sep = "") else cat("\n", sep = "")
-              } else {
-                if (length(show.stat) > 1) {
-                  cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
-                  cat(formatC(paste("% within", col[j]), width = RowHeading2, format = "s", flag = "-"),"|", sep = "")
-                }
-                for (z in (1:ncol(crosstable))) cat(formatC(colSums(colPercentage)[[z]], digits = 2, width = ColWidth + 1, format = "f", flag = "#"),"|", sep = "")
-                if (RTHeading) { cat(formatC("", width = ColWidth + 1, format = "s"),"|", "\n",sep = "") } else { cat("\n", sep = "") }
-              }
-            } ### end -- if (col.pct)
-
-            if (total.pct) {
-              if (k <= nrow(crosstable)) {
-                if (show.stat[1] != "total.pct") cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
-                if (length(show.stat) > 1) { cat(formatC("% of Total", width = RowHeading2, format = "s", flag = "-"), "|", sep = "") }
-                for (z in (1:ncol(crosstable))) cat(formatC(totPercentage[k,z], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-                if (RTHeading) cat(formatC(rowSums(totPercentage)[[k]], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n",sep = "")
-              } else {
-                if (length(show.stat) > 1) {
-                  cat(formatC("", width = RowHeading1 + 1, format = "s"), "|", sep = "")
-                  cat(formatC("% of Total", width = RowHeading2, format = "s", flag = "-"), "|", sep = "")
-                }
-                for (z in (1:ncol(crosstable))) cat(formatC(colSums(totPercentage)[[z]], digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", sep = "")
-                if (RTHeading) cat(formatC(sum(totPercentage), digits = 2, width = ColWidth + 1, format = "f", flag = "#"), "|", "\n",sep = "")
-              }
-            } ### end -- if (total.pct)
-            if (CTHeading && k == (nrow(crosstable)+1)) {
-              cat(RowSpace1, "+", sep = "")
-              for (z in (1:ncol(crosstable))) cat(RowSpace2, "+", sep = "")
-              if (RTHeading) cat(RowSpace2, "+", sep = "")
-              cat("\n")
-            }
-            if (k <= nrow(crosstable)) {
-              cat(RowSpace1, "+", sep = "")
-              for (z in (1:ncol(crosstable))) cat(RowSpace2, "+", sep = "")
-              if (RTHeading) cat(RowSpace2, "+", sep = "")
-              cat("\n")
-            }
-          } ### for (k in (1:nrow(crosstable)))
-          cat("\n")
-        } ### if (any(c(observed, expected, total.pct, row.pct, col.pct) == TRUE))
-
-        if (chisq || phi || cramerV || contingency) {
-          chisq.label <- NULL
-          if (chisq) {
-            chisq.label <- c(chisq.label, "Pearson Chi-Square", "Likelihood Ratio Chi-Square")
-            if (all(dim(crosstable) == 2)) { fisher.result <- suppressWarnings(stats::fisher.test(crosstable, alternative = "two.sided")); chisq.label <- c(chisq.label, "Fisher's Exact Test")	}
-            tlable.length2 <- max(nchar(result[[2]][[1]]),2) + 2
-            tlable.length3 <- nchar(round(result[[1]][[1]], 4)) + 2
-          } else { tlable.length2 <- 0; tlable.length3 <- 0 }
-          if (phi) 		{ chisq.label <- c(chisq.label, "Phi Coefficient") }
-          if (contingency) 	{chisq.label <- c(chisq.label, "Contingency Coefficient") }
-          if (cramerV) 	{ chisq.label <- c(chisq.label, "Cramer's V") }
-
-          tlable.length1 <- max(nchar(chisq.label)) + 2
-          ncell <- nrow(crosstable) * ncol(crosstable)
-          NExpFreqless1 <- length(result[[7]][which(result[[7]] < 1)])
-          NExpFreqless5 <- length(result[[7]][which(result[[7]] < 10)])
-          cat("Statistics for Table ", row[i], " by ", col[j], "\n\n", sep = "")
-
-          cat(formatC("Statistics", width = tlable.length1, format = "s", flag = "-"), sep = "")
-          if (chisq) cat(formatC("DF", width = tlable.length2, format = "s", flag = "-"), sep = "")
-          cat(formatC("Value", width = tlable.length3, format = "s"), sep = "")
-          if (chisq) cat(formatC("Prob", width = 9, format = "s"), sep = "")
-          cat("\n")
-
-          cat(formatC(paste(rep("-", tlable.length1), collapse = ""), width = tlable.length1), sep = "")
-          if (chisq) cat(formatC(paste(rep("-", tlable.length2), collapse = ""), width = tlable.length2), sep = "")
-          cat(formatC(paste(rep("-", tlable.length3), collapse = ""), width = tlable.length3), sep = "")
-          if (chisq) cat(formatC(paste(rep("-", 9), collapse = ""), width = 9), sep = "")
-          cat("\n")
-
-          if (chisq) {
-            cat(formatC("Pearson Chi-Square", width = tlable.length1, format = "s", flag = "-"),
-                formatC(result[[2]][[1]], width = tlable.length2, flag = "-"),
-                formatC(result[[1]][[1]], digits = 3, width = tlable.length3, format = "f", flag = "#"),
-                formatC(result[[3]][[1]], digits = 3, width = 8, format = "f", flag = "#"), "\n", sep = "")
-            cat(formatC(chisq.label[2], width = tlable.length1, format = "s", flag = "-"),
-                formatC(suppressWarnings(calc.LR(crosstable)$df), width = tlable.length2, flag = "-"),
-                formatC(suppressWarnings(calc.LR(crosstable)$statistics), digits = 3, width = tlable.length3, format = "f", flag = "#"),
-                formatC(suppressWarnings(calc.LR(crosstable)$p.value), digits = 3, width = 8, format = "f", flag = "#"), "\n", sep = "")
-          }
-
-          if (phi) {
-            cat(formatC("Phi Coefficient", width = tlable.length1, format = "s", flag = "-"), sep = "")
-            if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-            cat(formatC(suppressWarnings(calc.Phi(crosstable)), digits = 3, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
-          }
-          if (contingency) {
-            cat(formatC("Contingency Coefficient", width = tlable.length1, format = "s", flag = "-"), sep = "")
-            if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-            cat(formatC(suppressWarnings(calc.CC(crosstable)), digits = 3, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
-          }
-          if (cramerV) {
-            cat(formatC("Cramer's V", width = tlable.length1, format = "s", flag = "-"), sep = "")
-            if (chisq) cat(formatC("", width = tlable.length2, format = "s", flag = "-"), sep = "")
-            cat(formatC(suppressWarnings(calc.CV(crosstable)), digits = 3, width = tlable.length3, format = "f", flag = "#"), "\n", sep = "")
-          }
-          if (all(dim(crosstable) == 2) && chisq) {
-            cat(formatC("Fisher's Exact Test", width = tlable.length1, format = "s", flag = "-"),
-                formatC("", width = tlable.length2, format = "s", flag = "-"),
-                formatC("", width = tlable.length3, format = "s", flag = "-"),
-                formatC(fisher.result[[1]], digits = 3, width = 8, format = "f", flag = "#"), "\n", sep = "")
-          }
-          cat(formatC(paste(rep("-", tlable.length1), collapse = ""), width = tlable.length1), sep = "")
-          if (chisq) cat(formatC(paste(rep("-", tlable.length2), collapse = ""), width = tlable.length2), sep = "")
-          cat(formatC(paste(rep("-", tlable.length3), collapse = ""), width = tlable.length3), sep = "")
-          if (chisq) cat(formatC(paste(rep("-", 9), collapse = ""), width = 9), sep = "")
-          cat("\n")
-
-          num.error <- 0
-          if (NExpFreqless5 > 0) { cat(paste(rep("*", num.error <- num.error + 1), collapse = "", sep = ""), " Cells with expected counts < 5: ", NExpFreqless5, " of ", ncell, " (",round((NExpFreqless5/ncell)*100, 2),"%)\n  Chi-Square may not be a valid test.", sep = "") }
-          if (NExpFreqless1 > 0) { cat(paste(rep("*", num.error <- num.error + 1), collapse = "", sep = ""), " Cells with Expected counts < 1: ", NExpFreqless1, " of ", ncell, " (",round((NExpFreqless1/ncell)*100, 2),"%)\n  Chi-Square may not be a valid test.", sep = "") }
-          cat("\n")
-        } ### end -- if (chisq || phi || cramerV || contingency)
-
-        if (sresid) {
-          cat("Residuals for Table ", row[i], " by ", col[j], "\n\n", sep = "")
-          cat(paste(formatC("", width = RowHeading1 + addSpace, format = "s", flag = "-"),"|", formatC(col[j], width = ColWidth, format = "s", flag = "-"), sep = "", collapse = "\n"), "\n")
-          cat(paste(rep("-",RowHeading1+addSpace), collapse = ""), "+", sep = "")
-          for (z in (1:ncol(crosstable))) cat(RowSpace2, "+", sep = "")
-          cat("\n", formatC(row[i], width = RowHeading1 + addSpace, format = "s", flag = "-"), "|", sep = "")
-          for (z in (1:ncol(crosstable))) cat(formatC(dimnames(crosstable)[[2]][z], width = ColWidth+1, format = "s", flag = "-"), "|", sep = "")
-          cat("\n")
-          cat(paste(rep("-", RowHeading1+addSpace), collapse = ""), "+", sep = "")
-          for (z in (1:ncol(crosstable))) cat(RowSpace2, "+", sep = "")
-          cat("\n")
-          for (k in (1:nrow(crosstable))) {
-            cat(formatC(dimnames(crosstable)[[1]][k], width = RowHeading1 + addSpace, format = "s", flag = "-"), "|",sep = "")
-            for (z in (1:ncol(crosstable))) {
-              cat(formatC(result[[8]][k,z], digits = 3, width = ColWidth + 1, format = "f", flag = "#"), "|",sep = "")
-            }
-            cat("\n")
-          }
-          cat(paste(rep("-", RowHeading1+addSpace), collapse = ""), "+", sep = "")
-          for (z in (1:ncol(crosstable))) cat(RowSpace2, "+", sep = "")
-          cat("\n\n")
-        }
-      } ### if (row[i] != col[j])
-    } ## for (j in (1:length(col)))
-  } ## for (i in (1:length(row)))
-} ### end -- crossTable function
+NestedCrossTabs <- function(A,B,C,chisq=F,...) {
+  n <- levels(factor(C))
+  for (i in 1:length(C)) {
+    r <- A[C==n[i]]
+    c <- B[C==n[i]]
+    print(paste("Table of (r)",label(A), " by (c) ->",label(B)))
+    CrossTabs(r,c,chisq=F,...)
+  }
+}
 NULL
-
-
-#' `tab` <- function(.data, row, col){
-#'  argx <- deparse(substitute(row))
-#'  argy <- deparse(substitute(col))
-#'  return(crosstabs(.data, argx, argy,
-#'                   row.pct=FALSE,
-#'                   col.pct = FALSE,
-#'                   total.pct = FALSE,
-#'                   chisq = FALSE))
-#'} ### end -- tab function
-#'NULL
 
 
 
@@ -387,12 +389,12 @@ NULL
 #' @encoding UTF-8
 #' @title Stata-Like Two-Way Tabulation
 #'
-#' @description The function is a modified version of \code{\link{crosstabs}} for printing a summary table with cell counts and column proportions (similar to STATA's
+#' @description The function is a modified version of \code{\link{CrossTabs}} for printing a summary table with cell counts and column proportions (similar to STATA's
 #' \code{tabulate varname1 varname2, col}).
 #'
 #' @param x,y The variables for the cross tabulation.
 #' @param digits The number of digits for rounding proportions.
-#' @seealso \code{\link[stats]{xtabs}}, \code{\link{crosstabs}},
+#' @seealso \code{\link[stats]{xtabs}}, \code{\link{CrossTabs}},
 #' \code{\link[base]{table}}, \code{\link[base]{prop.table}}
 #' @export
 #' @examples
@@ -436,8 +438,6 @@ NULL
   Rspaces <- paste(rep(" ", maxR), collapse = "")
   Cspaces <- paste(rep(" ", maxC), collapse = "")
   outer.Column <- formatC(dim1, width = maxR, format = "s")
-
-
 
 printTheTable <- function() {
     xyNames <- abbreviate(c(xName,yName), minlength = 5, dot = T)
@@ -523,3 +523,6 @@ printTheTable <- function() {
   printTheTable()
 }
 NULL
+
+
+

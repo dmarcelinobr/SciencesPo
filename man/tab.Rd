@@ -13,20 +13,8 @@ tab(x, y, digits = 2)
 \item{digits}{The number of digits for rounding proportions.}
 }
 \description{
-The function is a modified version of \code{\link{crosstabs}} for printing a summary table with cell counts and column proportions (similar to STATA's
+The function is a modified version of \code{\link{CrossTabs}} for printing a summary table with cell counts and column proportions (similar to STATA's
 \code{tabulate varname1 varname2, col}).
-}
-\details{
-`tab` <- function(.data, row, col){
- argx <- deparse(substitute(row))
- argy <- deparse(substitute(col))
- return(crosstabs(.data, argx, argy,
-                  row.pct=FALSE,
-                  col.pct = FALSE,
-                  total.pct = FALSE,
-                  chisq = FALSE))
-} ### end -- tab function
-NULL
 }
 \examples{
 # Agresti (2002), table 3.10, p. 106
@@ -40,7 +28,7 @@ df <- gss[rep(1:nrow(gss), gss[["count"]]), ]
 with(df, tab(Race, party))
 }
 \seealso{
-\code{\link[stats]{xtabs}}, \code{\link{crosstabs}},
+\code{\link[stats]{xtabs}}, \code{\link{CrossTabs}},
 \code{\link[base]{table}}, \code{\link[base]{prop.table}}
 }
 

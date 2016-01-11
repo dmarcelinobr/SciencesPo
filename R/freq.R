@@ -14,7 +14,13 @@
 #'
 #' @importFrom stats sd
 #' @export
-`freq` <- function(.data, x, verbose=TRUE) {
+#' @rdname freq
+#' @aliases oneway
+`freq` <- function(.data, x, verbose=TRUE) UseMethod("freq")
+
+#' @rdname freq
+#' @export
+`freq.default` <- function(.data, x, verbose=TRUE) {
 vec <-eval(substitute(x), .data, parent.frame())
   nmiss=sum(is.na(vec))
   fsum=summary(factor(vec))
@@ -37,7 +43,7 @@ vec <-eval(substitute(x), .data, parent.frame())
     ftab[,3] <- round(ftab[,3],2)
     ftab[,4] <- round(ftab[,4],2)
     cat("\n")
-    cat("-----------------------------------------------------\n")
+    cat("--------------------------------------------------------\n")
     colnames(ftab)=c("Frequency","   Percent"," Valid Percent"," Cum Percent")
     if (dim(ftab)[1]==length(levels(vec)))
     {
@@ -48,7 +54,7 @@ vec <-eval(substitute(x), .data, parent.frame())
     }
     print(ftab)
   }
-  cat("-----------------------------------------------------\n")
+  cat("--------------------------------------------------------\n")
   cat("Total",rep(" ",8-trunc(log10(sum(fsum)))),sum(fsum),"\n",sep="")
   cat("\n")
 

@@ -2,9 +2,13 @@
 % Please edit documentation in R/freq.R
 \name{freq}
 \alias{freq}
+\alias{freq.default}
+\alias{oneway}
 \title{Frequency Table}
 \usage{
 freq(.data, x, verbose = TRUE)
+
+\method{freq}{default}(.data, x, verbose = TRUE)
 }
 \arguments{
 \item{.data}{The data.frame.}

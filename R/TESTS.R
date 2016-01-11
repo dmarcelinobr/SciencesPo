@@ -670,8 +670,6 @@ NULL
 #'    party=c("dem", "indep", "rep")),
 #'    count=c(762,484,327,239, 468,477))
 #'
-#' crosstabs(gss, "sex", "party", "count", chisq = TRUE, exp = TRUE) # In the table
-#'
 #' # expand it:
 #' # GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
 #' GSS = untable(gss, freq = "count")
@@ -761,8 +759,6 @@ NULL
 #'
 #' calc.CV(GSS$race, GSS$party)
 #'
-#' crosstabs(gss, "race", "party", "count", chisq = TRUE, cramerV=TRUE)
-#'
 #' @export
 #' @rdname calc.CV
 `calc.CV` <- function(x, y = NULL, ...) UseMethod("calc.CV")
@@ -825,8 +821,6 @@ NULL
 #' expand.grid(GENDER=c("Male", "Female"),
 #' ADMIT=c("Admitted", "Rejected")),
 #' Freq=c(1198,557,1493,1278))
-#'
-#' crosstabs(Berkeley,  "ADMIT", "GENDER", "Freq", contingency = TRUE, phi=TRUE, cramerV=TRUE)
 #'
 #' tab = as.table(rbind(c(1198,557), c(1493,1278)))
 #' calc.Phi(tab)

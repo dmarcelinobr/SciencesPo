@@ -1,5 +1,5 @@
 #' @encoding UTF-8
-#' @title Create the default pub theme
+#' @title Makes the Default Theme
 #'
 #' @description After loading the SciencesPo package, this theme will be
 #' set to default for all graphs made with ggplot2.
@@ -31,11 +31,11 @@
                         legend = 'bottom',
                         axis.line.x = element_line(),
                         axis.line.y = element_line()){
-  half_line <- font_size / 2
-  small_rel <- 0.857
-  small_size <- small_rel * font_size
+half_line <- font_size / 2
+small_rel <- 0.857
+small_size <- small_rel * font_size
 theme_grey(base_size = font_size, base_family = font_family) %+replace%
-  theme(rect = element_rect(fill = "transparent",
+theme(rect = element_rect(fill = "transparent",
                               colour = NA,
                               color = NA,
                               size = 0,
