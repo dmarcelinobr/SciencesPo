@@ -2,6 +2,7 @@
 % Please edit documentation in R/Themes.R
 \name{scale_color_blind}
 \alias{scale_color_blind}
+\alias{scale_colour_blind}
 \title{Scale color-blind-friendly for ggplot graphs}
 \usage{
 scale_color_blind(...)

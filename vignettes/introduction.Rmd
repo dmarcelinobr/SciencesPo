@@ -427,7 +427,7 @@ ggdraw() +
 
 The function `geom_foot()` can be used to add annotation text as a plot footnotes. To demonstrate its use, we first make a plot, adding the footnote next: 
 
-```{r fig.width=5, fig.height=4}
+```{r height.matters, fig.width=7, fig.height=5}
 
 # Generating a ratio winner/opponent measure 
 Presidents = transform(Presidents, 
@@ -450,7 +450,7 @@ annotate(geom = 'text', x = 1.15, y = 70, size = 5, label = mylabel, fontface = 
   ylab("Relative Support for the Winner")
 p1 
 
-geom_foot("Draft Analysis, 2015", color = "magenta")
+geom_foot("Draft Analysis, 2015", color = "brown1")
 
 ```
 

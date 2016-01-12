@@ -5,7 +5,9 @@
 #' @param .data The data.frame.
 #' @param x A column for which a frequency of values is desired.
 #' @param verbose A logical value, if \code{TRUE}, extra statistics are also provided.
-#' @seealso \code{\link{freq}}.
+#' @param \dots Additional arguements (currently ignored)
+#'
+#' @seealso \code{\link{freq}}, \code{\link{CrossTabs}}.
 #' @examples
 #' data(cathedrals)
 #'
@@ -17,11 +19,11 @@
 #' @export
 #' @rdname Freq
 #' @aliases oneway
-`Freq` <- function(.data, x, verbose=TRUE) UseMethod("Freq")
+`Freq` <- function(.data, x, verbose=TRUE, ...) UseMethod("Freq")
 
 #' @rdname Freq
 #' @export
-`Freq.default` <- function(.data, x, verbose=TRUE) {
+`Freq.default` <- function(.data, x, verbose=TRUE, ...) {
 vec <-eval(substitute(x), .data, parent.frame())
   nmiss=sum(is.na(vec))
   fsum=summary(factor(vec))
@@ -87,16 +89,17 @@ NULL
 
 
 
+
 #' @title Frequency Table
 #'
 #' @description Simulating the FREQ procedure of SPSS.
 #'
 #' @param x A vector of values for which the frequency is desired.
-#' @param weighs A vector
+#' @param weighs A vector of weights.
 #' @param breaks one of: 1) a vector giving the breakpoints between histogram cells; 2) a function to compute the vector of breakpoints; 3) a single number giving the number of cells for the histogram; 4) a character string naming an algorithm to compute the number of cells (see 'Details'); 5) a function to compute the number of cells.
 #' @param digits The number of significant digits required.
 #' @param include.lowest Logical; if \code{TRUE}, an x[i] equal to the breaks value will be included in the first (or last) category or bin.
-#' @param order
+#' @param order The order method.
 #' @param useNA Logical; if \code{TRUE}
 #' @param \dots Additional arguements (currently ignored)
 #'
@@ -143,12 +146,12 @@ NULL
     ptab <- base::prop.table(tab)
     names(tab)[is.na(names(tab))] <- "<NA>"
 
-    z <- data.frame(class = names(tab),
+    out <- data.frame(class = names(tab),
                     freq = as.vector(tab[]), perc = round(as.vector(ptab[]),digits))
-    #cumfreq = cumsum(tab[]), cumperc = round(cumsum(ptab[]),digits))
-    #rownames(z) <- NULL # enumerate from 1:nrow(z)
-    class(z) <- c("freq", "data.frame")
-    return(z)
+  #cumfreq = cumsum(tab[]), cumperc = round(cumsum(ptab[]),digits))
+    rownames(out) <- NULL # enumerate from 1:nrow(z)
+    class(out) <- c("freq", "data.frame")
+    return(out)
   }
 NULL
 

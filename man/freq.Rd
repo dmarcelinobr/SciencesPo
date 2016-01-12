@@ -16,7 +16,7 @@ freq(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks,
 \arguments{
 \item{x}{A vector of values for which the frequency is desired.}
 
-\item{weighs}{A vector}
+\item{weighs}{A vector of weights.}
 
 \item{breaks}{one of: 1) a vector giving the breakpoints between histogram cells; 2) a function to compute the vector of breakpoints; 3) a single number giving the number of cells for the histogram; 4) a character string naming an algorithm to compute the number of cells (see 'Details'); 5) a function to compute the number of cells.}
 
@@ -24,7 +24,7 @@ freq(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks,
 
 \item{include.lowest}{Logical; if \code{TRUE}, an x[i] equal to the breaks value will be included in the first (or last) category or bin.}
 
-\item{order}{}
+\item{order}{The order method.}
 
 \item{useNA}{Logical; if \code{TRUE}}
 

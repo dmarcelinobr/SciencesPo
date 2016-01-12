@@ -271,6 +271,7 @@ NULL
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_color_pub
+#' @aliases scale_colour_pub
 scale_color_pub <- function(...){
 discrete_scale("color", "pub",
                         scales::manual_pal(values =
@@ -300,6 +301,7 @@ NULL
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_color_blind
+#' @aliases scale_colour_blind
 scale_color_blind <- function(...){
   discrete_scale("color", "blind",
                  scales::manual_pal(values =
@@ -329,11 +331,12 @@ scale_fill_tableau20 <- function(...){
 NULL
 
 
-#' @title Scale color for ggplot graphs
-#' @description Discrete  color scale for ggplot2.
+#' @title The Tableau 20 colors for ggplot graphs
+#' @description Discrete scale colors like the Tableau 20 colors.
 #' @param \dots parameters to be used.
 #' @export
-#' @rdname scale_fill_tableau20
+#' @rdname scale_color_tableau20
+#' @aliases scale_colour_tableau20
 scale_color_tableau20 <- function(...){
   discrete_scale("color", "tableau",
                  scales::manual_pal(values = c("#1F77B4", "#AEC7E8", "#FF7F0E", "#FFBB78", "#2CA02C", "#98DF8A", "#D62728", "#FF9896", "#9467BD", "#C5B0D5", "#8C564B", "#C49C94", "#E377C2", "#F7B6D2", "#7F7F7F", "#C7C7C7", "#BCBD22", "#DBDB8D", "#17BECF", "#9EDAE5") ), ...)

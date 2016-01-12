@@ -2,6 +2,7 @@
 % Please edit documentation in R/Themes.R
 \name{scale_color_pub}
 \alias{scale_color_pub}
+\alias{scale_colour_pub}
 \title{Scale colors for ggplot graphs}
 \usage{
 scale_color_pub(...)
