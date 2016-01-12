@@ -3,13 +3,15 @@
 \encoding{latin1}
 \name{highestAverages}
 \alias{highestAverages}
-\title{The Highest Averages Method of Allocating Seats Proportionally}
+\title{Highest Averages Methods of Allocating Seats Proportionally}
 \usage{
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"))
+  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"),
+  threshold = 0)
 
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"))
+  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"),
+  threshold = 0)
 }
 \arguments{
 \item{parties}{A character vector for parties labels or candidates accordingly to the \code{votes} order.}
@@ -19,6 +21,8 @@ highestAverages(parties = NULL, votes = NULL, seats = NULL,
 \item{seats}{The number of seats to be filled (scalar or vector).}
 
 \item{method}{A character name for the method to be used. See details.}
+
+\item{threshold}{A numeric value between (0~1).}
 }
 \value{
 A \code{data.frame}.
@@ -34,7 +38,7 @@ The following methods are available:
 \item {"msl"}{Modified Sainte-Lagu\"e method}
 \item {"danish"}{Danish method}
 \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
-\item {"hh"}{Huntington-Hill method}
+\item {"hill"}{Huntington-Hill method}
 }
 }
 \examples{
@@ -47,7 +51,9 @@ parties <- c("PCdoB", "PDT","PEN", "PMDB", "PRB","PSB","PSC", "PSTU", "PTdoB", "
 dat=highestAverages(parties, votes, seats = 42, method = "dh")
 
 # Plot it
-bar.plot(data=dat, "Parties", "Seats")+theme_538()
+bar.plot(data=dat, "Party", "Seats") +
+ theme_538() +
+  scale_color_pub()
 
 # Let's create a data.frame with typical election results
 # with the following parties and votes to return 10 seats:
@@ -70,6 +76,13 @@ method="sl")
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.
+}
+\references{
+Gallagher, Michael (1992). "Comparing Proportional Representation
+Electoral Systems: Quotas, Thresholds, Paradoxes and Majorities".
+\emph{British Journal of Political Science}, 22, 4, 469-496.
+
+ Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 }
 \seealso{
 \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.

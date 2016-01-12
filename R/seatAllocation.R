@@ -46,7 +46,7 @@
   extra <- utils::head(order(fraction, decreasing=TRUE), remainder);
   .temp$scores[extra] <- (.temp$scores[extra] + 1);
   if(sum(.temp$scores) != seats) stop("Allocation error.");
-  names(.temp) <-c("Parties", "Seats", "Share");
+  names(.temp) <-c("Party", "Seats", "Share");
   print(.temp, digits = max(3, getOption("digits") - 3))
 }
 NULL
@@ -103,9 +103,9 @@ NULL
                                  1:seats ))
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- data.frame(freq(out)[,1:3]);
-  names(out) <-c("Parties", "Seats", "Shares");
-  out <- out[ order(out[,2], decreasing = TRUE),]
+  out <- freq(out, digits = 2);
+  names(out) <-c("Party", "Seats", "Share");
+  # out <- out[ order(out[,2], decreasing = TRUE),]
   return(out)
 }
 NULL
@@ -114,13 +114,14 @@ NULL
 
 
 #' @encoding latin1
-#' @title The Highest Averages Method of Allocating Seats Proportionally
+#' @title Highest Averages Methods of Allocating Seats Proportionally
 #'
 #' @description Computes the highest averages method for a variety of formulas to allocate seats proportionally for voting systems with representative assemblies.
 #' @param parties A character vector for parties labels or candidates accordingly to the \code{votes} order.
 #' @param votes A numeric vector for the number of formal votes received by each party or candidate.
 #' @param seats The number of seats to be filled (scalar or vector).
 #' @param method A character name for the method to be used. See details.
+#' @param threshold A numeric value between (0~1).
 #'
 #' @return A \code{data.frame}.
 #' @keywords Electoral
@@ -132,8 +133,15 @@ NULL
 #' \item {"msl"}{Modified Sainte-Lagu\"e method}
 #' \item {"danish"}{Danish method}
 #' \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
-#' \item {"hh"}{Huntington-Hill method}
+#' \item {"hill"}{Huntington-Hill method}
 #' }
+#'
+#' @references
+#' Gallagher, Michael (1992). "Comparing Proportional Representation
+#' Electoral Systems: Quotas, Thresholds, Paradoxes and Majorities".
+#' \emph{British Journal of Political Science}, 22, 4, 469-496.
+#'
+#'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #' @seealso \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
@@ -148,7 +156,9 @@ NULL
 #' dat=highestAverages(parties, votes, seats = 42, method = "dh")
 #'
 #' # Plot it
-#' bar.plot(data=dat, "Parties", "Seats")+theme_538()
+#' bar.plot(data=dat, "Party", "Seats") +
+#'  theme_538() +
+#'   scale_color_pub()
 #'
 #' # Let's create a data.frame with typical election results
 #' # with the following parties and votes to return 10 seats:
@@ -171,15 +181,18 @@ NULL
 #'
 #' @rdname highestAverages
 #' @export
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill")) UseMethod("highestAverages")
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill"), threshold=0) UseMethod("highestAverages")
 
 
 #' @importFrom utils head
 #' @export
 #' @rdname highestAverages
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill")){
-  #Define Quotient
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill"), threshold=0 ){
+  # local vars to use later
+  .ratio <- votes/sum(votes)
+  .votes <- ifelse(.ratio < threshold, 0, votes)
 
+  # Define Quotient
   switch(method,
          dh = { #d'Hondt
            wari.vec <- seq(from = 1, by = 1, length.out = seats)
@@ -208,23 +221,25 @@ NULL
          }
   )
 
+  # ratio = as.vector(sapply(votes, function(x) x /
+                            # sum(votes)))
   .temp <- data.frame(
     parties = rep(parties, each = seats ),
-    scores = as.vector(sapply( votes, function(x) x /
+    scores = as.vector(sapply(.votes, function(x) x /
                                  wari.vec ))
   );
 
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- freq(out);
-  names(out) <-c("Parties", "Seats", "Shares");
-  out <- out[ order(out[,2], decreasing = TRUE),]
-  # Measures
+  out <- freq(out, digits = 2);
+  names(out) <-c("Party", "Seats", "Share");
+  # out <- out[ order(out[,2], decreasing = TRUE),]
+  # Political diversity indices
   ENP_final <- 1/sum((out$Seats/sum(out$Seats))^2)
-  # G.index <- sqrt(0.5 * sum((((raw.votes/sum(raw.votes))*100) - ((result.vec/sum(result.vec))*100))^2))
+G.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
 
   cat("Method:", method.name, "\n")
   cat(paste("ENP(Final):", round(ENP_final, 2)), "\n \n")
-  #cat(paste("Gallagher Index:", round(G.index, 3)), "\n")
+  cat(paste("Gallagher Index:", round(G.index, 3)), "\n")
   return(out)
 }
 NULL
@@ -237,3 +252,69 @@ NULL
 
 
 
+
+
+#' @encoding latin1
+#' @title Largest Remainders Methods of Allocating Seats Proportionally
+
+
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#' @seealso \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}, \code{\link{highestAverages}}.
+#'
+#' @examples
+#' my_election <- data.frame(
+#' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
+#' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
+#'
+#' largestRemainders(my_election$party,
+#' my_election$votes,
+#' seats = 10,
+#' method="droop")
+#'
+#'
+#'
+#'
+largestRemainders <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare","droop","imperiali.q"), threshold=0){
+  result.df <- data.frame(candID = NA, partyID = NA, votes = NA)
+  nvotes <- length(votes)
+  nparty = length(parties)
+  .ratio <- votes/sum(votes)
+
+  # Define Quota
+  switch(method,
+         hare = { #Hare
+           quota <- sum(votes)/seats
+         },
+         droop = { #Droop
+           quota <- 1 + (sum(votes)/(seats+1))
+         },
+         imperiali.q = { #Imperiali Quota
+           quota <- sum(votes)/(seats+2)
+         }
+  )
+
+  score <- votes%/%quota
+  remain <- seats - sum(score)
+  temp.df <- data.frame(party = seq(1, nparty, 1),
+                        reminder = (votes/quota) - score)
+
+  temp.df <- temp.df[order(as.double(temp.df$reminder), decreasing = TRUE),]
+
+  rownames(temp.df) <- c(1:nrow(temp.df))
+  temp.df <- temp.df[1:remain,]
+
+  result.df <- data.frame(party = seq(1, nparty, 1), seat = score)
+
+  if(as.integer(remain) == 0){
+  }else if(as.integer(remain) == 1){
+    result.df[as.integer(temp.df[1,]$party), 2] <- result.df[as.integer(temp.df[1,]$party), 2] + 1
+  }else{
+    for(i in 1:remain){
+      result.df[as.integer(temp.df[i,]$party), 2] <- result.df[as.integer(temp.df[i,]$party), 2] + 1
+    }
+  }
+  result.vec <- result.df[,2]
+
+  return(result.vec)
+}
+NULL

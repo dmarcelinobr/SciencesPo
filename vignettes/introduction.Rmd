@@ -25,10 +25,8 @@ This vignette builds on the examples scattered through the package's manual avai
 
 
 ## Loading and Unloading *SciencesPo*
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA}
 library(SciencesPo)
-
-getOption("digits")
 
 
 ## Do things 
@@ -43,29 +41,28 @@ unloadNamespace("SciencesPo")
 
 ```
 
+
 ## Search results from help.search()
 Here are some examples demonstrating the results of help.search(), or you can also use ?? to search for a string.
 
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE}
 help.search('bar.plot')
 
 
-help.search('crosstabs', package = 'SciencesPo')
+help.search('twoway', package = 'SciencesPo')
 ```
 
-## Vignette and dataset lists
 
-```{r echo=FALSE, message=FALSE}
+## Vignette and dataset lists
+To see the existing vignettes, type: 
+```{r echo=TRUE, message=FALSE}
 vignette(package = "SciencesPo")
 ```
 
-
-```{r echo=FALSE, message=FALSE}
+To see the collection of data included in the package, type:
+```{r echo=TRUE, message=FALSE}
 data(package = "SciencesPo")
 ```
-
-
-# Loading data much easier
 
 
 ## Example of printing objects
@@ -96,10 +93,9 @@ kurtosis(x, type = 3);
 
 ### Standard Error and Confidence Interval
 
-The Standard Error, Confidence Interval and other little, but essential functions gained S4 classes; thus each slot--or attribute is accessed using `@`, just as `$` for lists.
-To demonstrate the functions output, below are the ages of the Presidents of the United States at the times of their inaugurations.
+To demonstrate the output of these functions, below are the ages of the Presidents of the United States at the time of their inaugurations.
 
-```{r echo=FALSE, message=FALSE, cache=TRUE}
+```{r pres-ages, echo=TRUE, message=FALSE, cache=TRUE}
 pres =c(42,43,46,46,47,48,49,49,50,51,51,51,51,51,52,52,54,54,54,54,54,55,55,55,55,56,56,56,57,57,57,57,58,60,61,61,61,62,64,64,65,68,69)
 
 ci(pres, level=.95) # confidence interval
@@ -110,11 +106,12 @@ se(pres) # std. error
 ```
 
 
-
+### Average Absolute Deviation and Winsorized Mean
 ```{r echo=FALSE, message=FALSE}
-x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
-
 aad(pres) 
+
+
+winsorize(pres)
 ```
 
 
@@ -136,7 +133,7 @@ str(iris_2)
 
 ## `destring`
 This function converts factor variables to numeric, much like the way Stata does.
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE}
 require(SciencesPo)
 
 mylevels <- c('Strongly Disagree', 
@@ -150,19 +147,19 @@ myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
 
 
 As we can see, this vector is un(ordered) in a "strange" way so to reflect the meaning of the levels I've attributed:
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE}
 unclass(myvar) # testing the order
 ```
 
 By `destring` this, we should get a numeric result with the same (un)order:
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE}
 destring(myvar) 
 ```
 
 ## `rounded`
 It's rather common to use numbers without leading zeros. The `rounded` function does just that. Isn't fancy?
 
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE}
  (x = seq(0, 1, by=.1))
  rounded(x) 
 ```
@@ -172,39 +169,34 @@ It's rather common to use numbers without leading zeros. The `rounded` function 
 There is a specific document covering one-way, two-way, and multiway tabulations with accompanying independent tests. 
 
 To tabulate on variable's responses, simply:
-
-```{r one-way, echo=FALSE, message=FALSE}
+```{r one-way, echo=TRUE, message=FALSE, comment=NA}
 CrossTabs(titanic$SURVIVED) 
 ```
 
 A more performant descriptive output can be obtained with the `Freq` command, which resembles the *SPSS* output. 
-
-```{r Freq, eval=FALSE, echo=FALSE, message=FALSE}
+```{r Freq, eval=FALSE, echo=FALSE, message=FALSE, comment=NA}
 Freq(titanic, SURVIVED) 
 ```
 
 To add a second, for a cross-tabulation:
-
-```{r two-way, echo=FALSE, message=FALSE}
+```{r two-way, echo=TRUE, message=FALSE}
 CrossTabs(titanic$SEX, titanic$SURVIVED) 
 ```
 
-
 To delete table entries that are less relevant, for instance, to delete expected frequency, `expected=FALSE`. 
-
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA}
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE) 
 ```
 
 To add table entries that relevant, add `TRUE` to it, for instance: `row=TRUE`, `column=TRUE`, `total=TRUE` etc.
-
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA}
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE) 
 ```
 
 
-# The 'chisq=FALSE' argument refers to a Chi-Square test of Independence, To calculate the test, switch it to `TRUE`.
-```{r chisq, echo=FALSE, message=FALSE}
+The 'chisq=FALSE' argument refers to a Chi-Square test of Independence, To calculate the test, switch it to `TRUE`.
+
+```{r chisq, echo=TRUE, message=FALSE, comment=NA}
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
 ```
 
@@ -256,7 +248,7 @@ politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
 
 ## The Highest Averages Method of Allocating Seats Proportionally
 
-Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results between the D'Hondt and Saint-Lague methods.
+Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results between the D'Hondt,  Saint-Lague, and Hungtinton-Hill methods.
 
 ```{r Ceara-election, echo=TRUE, cache=TRUE}
 # Results for the state legislative house of Ceara (2014):
@@ -265,30 +257,68 @@ Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531,
            "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
 ```
 
-```{r highestAverages1, eval=FALSE, echo=FALSE, message=FALSE}
+```{r highestAverages1, echo=TRUE, message=FALSE}
 highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "dh") 
 ```
 
-```{r eval=TRUE}
+
+```{r echo=TRUE, message=FALSE}
 highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "sl") 
 ```
 
-How this one compares to the Modified Sainte-Lague version?
+How does the Sainte-Lague method compare to the Modified Sainte-Lague one?
 
-```{r eval=TRUE}
+```{r echo=TRUE, message=FALSE}
 highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "msl") 
 ```
 
+How about the Hungtinton-Hill method?
+
+```{r echo=TRUE, message=FALSE}
+highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "hill") 
+```
+
+
+
+## Now let's consider some of the largest remainder methods
+
+
+```{r eval=FALSE, echo=TRUE, message=FALSE}
+largestRemainders(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "hare") 
+```
+
+
+
+```{r eval=FALSE, echo=TRUE, message=FALSE}
+largestRemainders(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "droop") 
+```
+
+ Next, using the largest remainder method with the Imperiali quota.
+ 
+```{r data-Italy, eval=FALSE, echo=TRUE, message=FALSE}
+
+# The 1946 Italian Constituent Assembly election results
+Italy = data.frame( party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI", "BNL", "PdA", "MIS", "PCd'I", "CDR", "PSd'Az", "MUI", "PCS", "PDL", "FDPR"), votes=c(8101004, 4758129, 4356686, 1560638,	1211956, 1003007, 637328, 334748, 171201, 102393, 97690, 78554, 71021, 51088, 40633, 21853))
+
+largestRemainders(parties=names(Italy), votes=Italy, 
+                seats = 556, method = "imperiali.q") 
+```
+
+ 
+
 
 ## Output suitable for RMarkdown documents 
-Because the output of these functions is a `data.frame`, we can use `knitr` to produce more academic style tables as in the following example.
+Because the output of these functions is a `data.frame`, we can use  `knitr` to produce academic style tables as in the following example.
 
-```{r eval=TRUE}
+```{r echo=TRUE}
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "msl") 
+                seats = 42, method = "dh") 
 
 library(knitr)
 
@@ -443,7 +473,7 @@ mylabel=lm2eqn("Presidents","height_ratio","winner.vote")
 p1 <- ggplot(Presidents, aes(x=height_ratio, y=winner.vote)) +
       geom_smooth(method=lm, colour="red", fill="gold")+
       geom_point(size = 5, alpha = .7) +
-      annotate(geom = 'text', x = 1.1, y = 70, size = 5, label = mylabel, fontface = 'italic') +
+      annotate(geom = 'text', x = 1.05, y = 70, size = 5, label = mylabel, fontface = 'italic') +
       xlim(0.85,1.2) + ylim(25, 70) +
       xlab("Winner/Opponent Height Ratio") + 
       ylab("Relative Support for the Winner")

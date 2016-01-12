@@ -1,7 +1,5 @@
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 library(SciencesPo)
-
-getOption("digits")
 
 
 ## Do things 
@@ -15,16 +13,16 @@ detach("package:SciencesPo", unload=TRUE)
 unloadNamespace("SciencesPo")
 
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 help.search('bar.plot')
 
 
-help.search('crosstabs', package = 'SciencesPo')
+help.search('twoway', package = 'SciencesPo')
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 vignette(package = "SciencesPo")
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 data(package = "SciencesPo")
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
@@ -43,9 +41,10 @@ kurtosis(x, type = 3);
 
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
-x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
-
 aad(pres) 
+
+
+winsorize(pres)
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 require(SciencesPo)
@@ -55,7 +54,7 @@ iris_2 = safe.chars(iris)
 
 str(iris_2)
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 require(SciencesPo)
 
 mylevels <- c('Strongly Disagree', 
@@ -66,32 +65,32 @@ mylevels <- c('Strongly Disagree',
 
 myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 unclass(myvar) # testing the order
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 destring(myvar) 
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
  (x = seq(0, 1, by=.1))
  rounded(x) 
 
-## ----one-way, echo=FALSE, message=FALSE----------------------------------
+## ----one-way, echo=TRUE, message=FALSE, comment=NA-----------------------
 CrossTabs(titanic$SURVIVED) 
 
-## ----Freq, eval=FALSE, echo=FALSE, message=FALSE-------------------------
+## ----Freq, eval=FALSE, echo=FALSE, message=FALSE, comment=NA-------------
 #  Freq(titanic, SURVIVED)
 
-## ----two-way, echo=FALSE, message=FALSE----------------------------------
+## ----two-way, echo=TRUE, message=FALSE-----------------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED) 
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE) 
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE) 
 
-## ----chisq, echo=FALSE, message=FALSE------------------------------------
+## ----chisq, echo=TRUE, message=FALSE, comment=NA-------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
 
 ## ----politicalDiversity1, echo=FALSE, message=FALSE----------------------
@@ -108,7 +107,7 @@ politicalDiversity(US1980, index= "golosov")
 politicalDiversity(US1980, index= "herfindahl")
 
 
-## ----eval=TRUE, echo=FALSE, message=FALSE--------------------------------
+## ----Helsinki-election, eval=TRUE, echo=FALSE, message=FALSE-------------
 # Helsinki's 1999
 
 Helsinki <- data.frame(
@@ -123,27 +122,33 @@ politicalDiversity(Helsinki$seats_SL) #ENP for Saint-Lague
 
 politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
 
-## ----data-ceara, echo=TRUE, cache=TRUE-----------------------------------
-# Results for the state legislative house of Ceara (2014):
-Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
-           "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
-           "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
+## ----highestAverages1, echo=TRUE, message=FALSE--------------------------
+highestAverages(parties=names(Ceara), votes=Ceara,
+                seats = 42, method = "dh") 
 
-## ----highestAverages1, eval=FALSE, echo=FALSE, message=FALSE-------------
-#  highestAverages(parties=names(Ceara), votes=Ceara,
-#                  seats = 42, method = "dh")
-
-## ----eval=TRUE-----------------------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "sl") 
 
-## ----eval=TRUE-----------------------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
 highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "msl") 
 
-## ----eval=TRUE-----------------------------------------------------------
+## ----echo=TRUE, message=FALSE--------------------------------------------
+highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "hill") 
+
+## ----eval=FALSE, echo=TRUE, message=FALSE--------------------------------
+#  largestRemainders(parties=names(Ceara), votes=Ceara,
+#                  seats = 42, method = "hare")
+
+## ----eval=FALSE, echo=TRUE, message=FALSE--------------------------------
+#  largestRemainders(parties=names(Ceara), votes=Ceara,
+#                  seats = 42, method = "droop")
+
+## ----echo=TRUE-----------------------------------------------------------
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "msl") 
+                seats = 42, method = "dh") 
 
 library(knitr)
 
@@ -233,18 +238,17 @@ Presidents = transform(Presidents,
 # Avoid missing data
 Presidents <- subset(Presidents, !is.na(height_ratio))
 
-
 fit=lm(winner.vote~height_ratio,data=Presidents)
 
 mylabel=lm2eqn("Presidents","height_ratio","winner.vote")
 
 p1 <- ggplot(Presidents, aes(x=height_ratio, y=winner.vote)) +
-  geom_smooth(method=lm, colour="red", fill="gold")+
-  geom_point(size = 5, alpha = .7) +
-annotate(geom = 'text', x = 1.15, y = 70, size = 5, label = mylabel, fontface = 'italic') +
-  xlim(0.85,1.2) + ylim(25, 70) +
-  xlab("Winner/Opponent Height Ratio") + 
-  ylab("Relative Support for the Winner")
+      geom_smooth(method=lm, colour="red", fill="gold")+
+      geom_point(size = 5, alpha = .7) +
+      annotate(geom = 'text', x = 1.05, y = 70, size = 5, label = mylabel, fontface = 'italic') +
+      xlim(0.85,1.2) + ylim(25, 70) +
+      xlab("Winner/Opponent Height Ratio") + 
+      ylab("Relative Support for the Winner")
 p1 
 
 geom_foot("Draft Analysis, 2015", color = "brown1")
