@@ -173,19 +173,19 @@ There is a specific document covering one-way, two-way, and multiway tabulations
 
 To tabulate on variable's responses, simply:
 
-```{r echo=FALSE, message=FALSE}
+```{r one-way, echo=FALSE, message=FALSE}
 CrossTabs(titanic$SURVIVED) 
 ```
 
 A more performant descriptive output can be obtained with the `Freq` command, which resembles the *SPSS* output. 
 
-```{r, eval=FALSE, echo=FALSE, message=FALSE}
+```{r Freq, eval=FALSE, echo=FALSE, message=FALSE}
 Freq(titanic, SURVIVED) 
 ```
 
 To add a second, for a cross-tabulation:
 
-```{r echo=FALSE, message=FALSE}
+```{r two-way, echo=FALSE, message=FALSE}
 CrossTabs(titanic$SEX, titanic$SURVIVED) 
 ```
 
@@ -204,7 +204,7 @@ CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE)
 
 
 # The 'chisq=FALSE' argument refers to a Chi-Square test of Independence, To calculate the test, switch it to `TRUE`.
-```{r echo=FALSE, message=FALSE}
+```{r chisq, echo=FALSE, message=FALSE}
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
 ```
 
@@ -221,7 +221,7 @@ One of the the first objectives of the **SciencesPo** when it was still a bunch 
 
 ## Political Diversity Indices
 
-```{r echo=FALSE, message=FALSE}
+```{r politicalDiversity1, echo=FALSE, message=FALSE}
 library("SciencesPo")
 
 # The 1980 presidential election in the US (vote share):
@@ -238,7 +238,7 @@ politicalDiversity(US1980, index= "herfindahl")
 
 Electoral results for the 1999 election in Helsinki, with seats allocated using the Saint-Lague and the D'Hondt methods: 
 
-```{r eval=TRUE}
+```{r eval=TRUE, echo=FALSE, message=FALSE}
 # Helsinki's 1999
 
 Helsinki <- data.frame(
@@ -258,14 +258,14 @@ politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
 
 Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results between the D'Hondt and Saint-Lague methods.
 
-```{r eval=TRUE, cache=TRUE}
+```{r data-ceara, echo=TRUE, cache=TRUE}
 # Results for the state legislative house of Ceara (2014):
 Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
            "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
            "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
 ```
 
-```{r eval=FALSE}
+```{r highestAverages1, eval=FALSE, echo=FALSE, message=FALSE}
 highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "dh") 
 ```
