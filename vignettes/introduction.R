@@ -146,6 +146,14 @@ highestAverages(parties=names(Ceara), votes=Ceara,
 #  largestRemainders(parties=names(Ceara), votes=Ceara,
 #                  seats = 42, method = "droop")
 
+## ----data-Italy, eval=FALSE, echo=TRUE, message=FALSE--------------------
+#  
+#  # The 1946 Italian Constituent Assembly election results
+#  Italy = data.frame( party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI", "BNL", "PdA", "MIS", "PCd'I", "CDR", "PSd'Az", "MUI", "PCS", "PDL", "FDPR"), votes=c(8101004, 4758129, 4356686, 1560638,	1211956, 1003007, 637328, 334748, 171201, 102393, 97690, 78554, 71021, 51088, 40633, 21853))
+#  
+#  largestRemainders(parties=names(Italy), votes=Italy,
+#                  seats = 556, method = "imperiali.q")
+
 ## ----echo=TRUE-----------------------------------------------------------
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 

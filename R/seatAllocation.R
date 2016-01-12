@@ -103,7 +103,7 @@ NULL
                                  1:seats ))
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- freq(out, digits = 2);
+  out <- freq(out, digits = 3);
   names(out) <-c("Party", "Seats", "Share");
   # out <- out[ order(out[,2], decreasing = TRUE),]
   return(out)
@@ -230,16 +230,15 @@ NULL
   );
 
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- freq(out, digits = 2);
+  out <- freq(out, digits = 3);
   names(out) <-c("Party", "Seats", "Share");
-  # out <- out[ order(out[,2], decreasing = TRUE),]
   # Political diversity indices
   ENP_final <- 1/sum((out$Seats/sum(out$Seats))^2)
 G.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
 
   cat("Method:", method.name, "\n")
-  cat(paste("ENP(Final):", round(ENP_final, 2)), "\n \n")
-  cat(paste("Gallagher Index:", round(G.index, 3)), "\n")
+  cat(paste("ENP(Final):", round(ENP_final, 2)), "\n")
+  cat(paste("Gallagher Index:", round(G.index, 3)), "\n \n")
   return(out)
 }
 NULL
@@ -254,67 +253,3 @@ NULL
 
 
 
-#' @encoding latin1
-#' @title Largest Remainders Methods of Allocating Seats Proportionally
-
-
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}, \code{\link{highestAverages}}.
-#'
-#' @examples
-#' my_election <- data.frame(
-#' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
-#' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
-#'
-#' largestRemainders(my_election$party,
-#' my_election$votes,
-#' seats = 10,
-#' method="droop")
-#'
-#'
-#'
-#'
-largestRemainders <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare","droop","imperiali.q"), threshold=0){
-  result.df <- data.frame(candID = NA, partyID = NA, votes = NA)
-  nvotes <- length(votes)
-  nparty = length(parties)
-  .ratio <- votes/sum(votes)
-
-  # Define Quota
-  switch(method,
-         hare = { #Hare
-           quota <- sum(votes)/seats
-         },
-         droop = { #Droop
-           quota <- 1 + (sum(votes)/(seats+1))
-         },
-         imperiali.q = { #Imperiali Quota
-           quota <- sum(votes)/(seats+2)
-         }
-  )
-
-  score <- votes%/%quota
-  remain <- seats - sum(score)
-  temp.df <- data.frame(party = seq(1, nparty, 1),
-                        reminder = (votes/quota) - score)
-
-  temp.df <- temp.df[order(as.double(temp.df$reminder), decreasing = TRUE),]
-
-  rownames(temp.df) <- c(1:nrow(temp.df))
-  temp.df <- temp.df[1:remain,]
-
-  result.df <- data.frame(party = seq(1, nparty, 1), seat = score)
-
-  if(as.integer(remain) == 0){
-  }else if(as.integer(remain) == 1){
-    result.df[as.integer(temp.df[1,]$party), 2] <- result.df[as.integer(temp.df[1,]$party), 2] + 1
-  }else{
-    for(i in 1:remain){
-      result.df[as.integer(temp.df[i,]$party), 2] <- result.df[as.integer(temp.df[i,]$party), 2] + 1
-    }
-  }
-  result.vec <- result.df[,2]
-
-  return(result.vec)
-}
-NULL
