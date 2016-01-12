@@ -238,7 +238,7 @@ politicalDiversity(US1980, index= "herfindahl")
 
 Electoral results for the 1999 election in Helsinki, with seats allocated using the Saint-Lague and the D'Hondt methods: 
 
-```{r eval=TRUE, echo=FALSE, message=FALSE}
+```{r Helsinki-election, eval=TRUE, echo=FALSE, message=FALSE}
 # Helsinki's 1999
 
 Helsinki <- data.frame(
@@ -258,7 +258,7 @@ politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
 
 Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results between the D'Hondt and Saint-Lague methods.
 
-```{r data-ceara, echo=TRUE, cache=TRUE}
+```{r Ceara-election, echo=TRUE, cache=TRUE}
 # Results for the state legislative house of Ceara (2014):
 Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
            "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
@@ -425,7 +425,7 @@ ggdraw() +
 
 ## Annotations underneath plots
 
-The function `geom_foot()` can be used to add annotation text as a plot footnotes. To demonstrate its use, we first make a plot, adding the footnote next: 
+The function `geom_foot()` can be used to add text as a plot footnote. To demonstrate its use, we first draw a plot, then add the footnote: 
 
 ```{r height.matters, fig.width=7, fig.height=5}
 
@@ -436,18 +436,17 @@ Presidents = transform(Presidents,
 # Avoid missing data
 Presidents <- subset(Presidents, !is.na(height_ratio))
 
-
 fit=lm(winner.vote~height_ratio,data=Presidents)
 
 mylabel=lm2eqn("Presidents","height_ratio","winner.vote")
 
 p1 <- ggplot(Presidents, aes(x=height_ratio, y=winner.vote)) +
-  geom_smooth(method=lm, colour="red", fill="gold")+
-  geom_point(size = 5, alpha = .7) +
-annotate(geom = 'text', x = 1.15, y = 70, size = 5, label = mylabel, fontface = 'italic') +
-  xlim(0.85,1.2) + ylim(25, 70) +
-  xlab("Winner/Opponent Height Ratio") + 
-  ylab("Relative Support for the Winner")
+      geom_smooth(method=lm, colour="red", fill="gold")+
+      geom_point(size = 5, alpha = .7) +
+      annotate(geom = 'text', x = 1.1, y = 70, size = 5, label = mylabel, fontface = 'italic') +
+      xlim(0.85,1.2) + ylim(25, 70) +
+      xlab("Winner/Opponent Height Ratio") + 
+      ylab("Relative Support for the Winner")
 p1 
 
 geom_foot("Draft Analysis, 2015", color = "brown1")

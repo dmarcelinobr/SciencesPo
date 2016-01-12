@@ -108,9 +108,9 @@ NULL
 #' @seealso \code{\link{Freq}}, \code{\link{CrossTabs}}.
 #'
 #' @examples
-#' data(cathedrals)
+#' data(Presidents)
 #'
-#' freq(cathedrals$Type)
+#' freq(Presidents$winner.party)
 #'
 #'
 #' @rdname freq
@@ -148,7 +148,7 @@ NULL
     ptab <- base::prop.table(tab)
     names(tab)[is.na(names(tab))] <- "<NA>"
     out <- data.frame(class = names(tab),
-                    freq = as.vector(tab[]), perc = round(as.vector(ptab[]),digits))
+                    Freq = as.vector(tab[]), Prop = round(as.vector(ptab[]),digits))
   #cumfreq = cumsum(tab[]), cumperc = round(cumsum(ptab[]),digits))
     rownames(out) <- NULL # enumerate from 1:nrow(z)
     class(out) <- c("freq", "data.frame")

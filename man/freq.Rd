@@ -34,9 +34,9 @@ freq(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks,
 Simulating the FREQ procedure of SPSS.
 }
 \examples{
-data(cathedrals)
+data(Presidents)
 
-freq(cathedrals$Type)
+freq(Presidents$winner.party)
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.
