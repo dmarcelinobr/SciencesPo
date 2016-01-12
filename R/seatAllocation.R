@@ -103,13 +103,12 @@ NULL
                                  1:seats ))
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- data.frame(.freq(out)[,1:3]);
+  out <- data.frame(freq(out)[,1:3]);
   names(out) <-c("Parties", "Seats", "Shares");
   out <- out[ order(out[,2], decreasing = TRUE),]
   return(out)
 }
 NULL
-
 
 
 
@@ -172,13 +171,13 @@ NULL
 #'
 #' @rdname highestAverages
 #' @export
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method) UseMethod("highestAverages")
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill")) UseMethod("highestAverages")
 
 
 #' @importFrom utils head
 #' @export
 #' @rdname highestAverages
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method){
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill")){
   #Define Quotient
 
   switch(method,
@@ -202,7 +201,7 @@ NULL
            wari.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
            method.name <- c("Imperiali")
          },
-         hh = { #Huntington-Hill
+         hill = { #Huntington-Hill
            wari.vec0 <- seq(from = 1, by = 1, length.out = seats)
            wari.vec <- sqrt(wari.vec0 * (wari.vec0 - 1))
            method.name <- c("Hungtinton-Hill")
@@ -216,7 +215,7 @@ NULL
   );
 
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- data.frame(.freq(out)[,1:3]);
+  out <- freq(out);
   names(out) <-c("Parties", "Seats", "Shares");
   out <- out[ order(out[,2], decreasing = TRUE),]
   # Measures
@@ -229,6 +228,9 @@ NULL
   return(out)
 }
 NULL
+
+
+
 
 
 

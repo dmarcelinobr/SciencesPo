@@ -168,6 +168,48 @@ It's rather common to use numbers without leading zeros. The `rounded` function 
 ```
 
 
+# Tables
+There is a specific document covering one-way, two-way, and multiway tabulations with accompanying independent tests. 
+
+To tabulate on variable's responses, simply:
+
+```{r echo=FALSE, message=FALSE}
+CrossTabs(titanic$SURVIVED) 
+```
+
+A more performant descriptive output can be obtained with the `Freq` command, which resembles the *SPSS* output. 
+
+```{r, eval=FALSE, echo=FALSE, message=FALSE}
+Freq(titanic, SURVIVED) 
+```
+
+To add a second, for a cross-tabulation:
+
+```{r echo=FALSE, message=FALSE}
+CrossTabs(titanic$SEX, titanic$SURVIVED) 
+```
+
+
+To delete table entries that are less relevant, for instance, to delete expected frequency, `expected=FALSE`. 
+
+```{r echo=FALSE, message=FALSE}
+CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE) 
+```
+
+To add table entries that relevant, add `TRUE` to it, for instance: `row=TRUE`, `column=TRUE`, `total=TRUE` etc.
+
+```{r echo=FALSE, message=FALSE}
+CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE) 
+```
+
+
+# The 'chisq=FALSE' argument refers to a Chi-Square test of Independence, To calculate the test, switch it to `TRUE`.
+```{r echo=FALSE, message=FALSE}
+CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
+```
+
+
+
 # Distributions 
 
 ## `uniform`
@@ -241,6 +283,20 @@ highestAverages(parties=names(Ceara), votes=Ceara,
 ```
 
 
+## Output suitable for RMarkdown documents 
+Because the output of these functions is a `data.frame`, we can use `knitr` to produce more academic style tables as in the following example.
+
+```{r eval=TRUE}
+mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "msl") 
+
+library(knitr)
+
+kable(mytable, align=c("l","c","c"))
+```
+
+
+
 # Exploratory Statistical Tests
 
 
@@ -250,6 +306,9 @@ The default **ggplot2** design has its charm, in my opinion. But, very often I d
 
 ```{r eval=TRUE}
 detach("package:SciencesPo")
+
+ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) + geom_point(alpha=0.7) + labs(title="Bubble Plot") + scale_size_continuous(range = c(3,10))
+
 qplot(1:3, 1:3)
 ```
 

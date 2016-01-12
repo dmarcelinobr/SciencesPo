@@ -77,6 +77,24 @@ destring(myvar)
  rounded(x) 
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
+CrossTabs(titanic$SURVIVED) 
+
+## ---- eval=FALSE, echo=FALSE, message=FALSE------------------------------
+#  Freq(titanic, SURVIVED)
+
+## ----echo=FALSE, message=FALSE-------------------------------------------
+CrossTabs(titanic$SEX, titanic$SURVIVED) 
+
+## ----echo=FALSE, message=FALSE-------------------------------------------
+CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE) 
+
+## ----echo=FALSE, message=FALSE-------------------------------------------
+CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE) 
+
+## ----echo=FALSE, message=FALSE-------------------------------------------
+CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
+
+## ----echo=FALSE, message=FALSE-------------------------------------------
 library("SciencesPo")
 
 # The 1980 presidential election in the US (vote share):
@@ -105,6 +123,12 @@ politicalDiversity(Helsinki$seats_SL) #ENP for Saint-Lague
 
 politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
 
+## ----eval=TRUE, cache=TRUE-----------------------------------------------
+# Results for the state legislative house of Ceara (2014):
+Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
+           "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
+           "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
+
 ## ----eval=FALSE----------------------------------------------------------
 #  highestAverages(parties=names(Ceara), votes=Ceara,
 #                  seats = 42, method = "dh")
@@ -118,7 +142,18 @@ highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "msl") 
 
 ## ----eval=TRUE-----------------------------------------------------------
+mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "msl") 
+
+library(knitr)
+
+kable(mytable, align=c("l","c","c"))
+
+## ----eval=TRUE-----------------------------------------------------------
 detach("package:SciencesPo")
+
+ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) + geom_point(alpha=0.7) + labs(title="Bubble Plot") + scale_size_continuous(range = c(3,10))
+
 qplot(1:3, 1:3)
 
 ## ----eval=TRUE-----------------------------------------------------------

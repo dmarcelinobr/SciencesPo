@@ -31,7 +31,7 @@ set to default for all graphs made with ggplot2.
 }
 \examples{
 ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
-geom_freqpoly(stat="count",size=2) + theme_pub(line_size=1)
+geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_size=1)
 
 dat <- data.frame()
 for(i in 1:4)
@@ -39,9 +39,9 @@ dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 
 ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
 fill="orange", shape=21) + geom_smooth(method="lm", fill=NA,
-fullrange=TRUE) + facet_wrap(~set, ncol=2)
+fullrange=TRUE) + facet_wrap(~set, ncol=2) + scale_color_pub()
 }
 \seealso{
-\code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}, \code{\link{theme_black}}.
+\code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 }
 

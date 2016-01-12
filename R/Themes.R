@@ -11,10 +11,10 @@
 #' @param axis.line.x Enables to set x axis line.
 #' @param axis.line.y Enables to set y axis line.
 #' @return The theme.
-#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}, \code{\link{theme_black}}.
+#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
 #' ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
-#' geom_freqpoly(stat="count",size=2) + theme_pub(line_size=1)
+#' geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_size=1)
 #'
 #' dat <- data.frame()
 #' for(i in 1:4)
@@ -22,7 +22,7 @@
 #'
 #' ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
 #' fill="orange", shape=21) + geom_smooth(method="lm", fill=NA,
-#' fullrange=TRUE) + facet_wrap(~set, ncol=2)
+#' fullrange=TRUE) + facet_wrap(~set, ncol=2) + scale_color_pub()
 #'
 #' @export
 `theme_pub` <- function(font_family = '',
@@ -92,9 +92,9 @@ NULL
 
 
 
-#' @title Themes for ggplot graphs
+#' @title Themes for ggplot2 Graphs
 #'
-#' @description  Theme for plotting  with ggplot.
+#' @description  Theme for plotting  with ggplot2.
 #'
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 13.
@@ -145,73 +145,6 @@ plot.title = element_text(size = rel(1.5), family = '' ,
       #legend.key =  element_rect(color = '#D0D0D0'),
       # Modifiying legend.position
       complete = TRUE
-    )
-}
-NULL
-
-
-
-
-
-#' @title Theme with no Black Background
-#'
-#' @description A ggplot2 theme with black background.
-#' @param font_family Default font family.
-#' @param font_size Overall font size. Default is 14.
-#' @return The theme.
-#'
-#' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_pub}}, \code{\link{theme_blank}}.
-#'
-#' @examples
-#' ggplot(diamonds,aes(cut,group=1)) + geom_bar()+
-#' geom_freqpoly(stat="count",size=2) + theme_black()
-#'
-#' @export
-#'
-`theme_black`<-function(font_size=14, font_family ="sans"){
-  theme_grey(base_size = font_size, base_family = font_family) %+replace%
-    theme(plot.title = element_text(face = "bold",
-                                      size = rel(1.2), hjust = 0.5),
-            # Specify axis options
-            axis.line=element_blank(),
-            axis.text.x=element_text(size=font_size*0.8,color="white",
-                                     lineheight=0.9,vjust=1),
-            axis.text.y=element_text(size=font_size*0.8,color="white",
-                                     lineheight=0.9,hjust=1),
-            axis.ticks=element_line(color="white",size = 0.2),
-            axis.title.x=element_text(size=font_size,color="white",vjust=1),
-            axis.title.y=element_text(size=font_size,color="white",angle=90,
-                                      vjust=0.5),
-            axis.ticks.length=grid::unit(0.3,"lines"),
-            axis.ticks.margin=grid::unit(0.5,"lines"),
-            # Specify legend options
-            legend.background=element_rect(color=NA,fill="black"),
-            legend.key=element_rect(color="white", fill="black"),
-            legend.key.size=grid::unit(1.2,"lines"),
-            legend.key.height=NULL,
-            legend.key.width=NULL,
-            legend.text=element_text(size=font_size*0.8,color="white"),
-            legend.title=element_text(size=font_size*0.8,face="bold",hjust=0,
-                                      color="white"),
-            legend.position="right",
-            legend.text.align=NULL,
-            legend.title.align=NULL,
-            legend.direction="vertical",
-            legend.box=NULL,
-            # Specify panel options
-            panel.background=element_rect(fill="black",color = NA),
-            panel.border=element_rect(fill=NA,color="white"),
-            panel.grid.major=element_blank(),
-            panel.grid.minor=element_blank(),
-            panel.margin=grid::unit(0.25,"lines"),
-            # Specify facetting options
-            strip.background=element_rect(fill="grey30",color="grey10"),
-            strip.text.x=element_text(size=font_size*0.8,color="white"),
-            strip.text.y=element_text(size=font_size*0.8,color="white", angle=-90),
-            # Specify plot options
-            plot.background=element_rect(color="black",fill="black"),
-            plot.title=element_text(size=font_size*1.2,color="white"),
-            plot.margin = grid::unit(c(0.4, 0.2, 0.1, 0.1),"cm")
     )
 }
 NULL
@@ -380,6 +313,30 @@ scale_color_blind <- function(...){
                                         "#CC79A7",
                                         "#999999")
                  ), ...)
+}
+NULL
+
+
+#' @title The Tableau 20 colors for ggplot graphs
+#' @description Discrete scale colors like the Tableau 20 colors.
+#' @param \dots parameters to be used.
+#' @export
+#' @rdname scale_fill_tableau20
+scale_fill_tableau20 <- function(...){
+  discrete_scale("fill", "tableau",
+                 scales::manual_pal(values = c("#1F77B4", "#AEC7E8", "#FF7F0E", "#FFBB78", "#2CA02C", "#98DF8A", "#D62728", "#FF9896", "#9467BD", "#C5B0D5", "#8C564B", "#C49C94", "#E377C2", "#F7B6D2", "#7F7F7F", "#C7C7C7", "#BCBD22", "#DBDB8D", "#17BECF", "#9EDAE5") ), ...)
+}
+NULL
+
+
+#' @title Scale color for ggplot graphs
+#' @description Discrete  color scale for ggplot2.
+#' @param \dots parameters to be used.
+#' @export
+#' @rdname scale_fill_tableau20
+scale_color_tableau20 <- function(...){
+  discrete_scale("color", "tableau",
+                 scales::manual_pal(values = c("#1F77B4", "#AEC7E8", "#FF7F0E", "#FFBB78", "#2CA02C", "#98DF8A", "#D62728", "#FF9896", "#9467BD", "#C5B0D5", "#8C564B", "#C49C94", "#E377C2", "#F7B6D2", "#7F7F7F", "#C7C7C7", "#BCBD22", "#DBDB8D", "#17BECF", "#9EDAE5") ), ...)
 }
 NULL
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Themes.R
 \name{theme_538}
 \alias{theme_538}
-\title{Themes for ggplot graphs}
+\title{Themes for ggplot2 Graphs}
 \usage{
 theme_538(font_size = 13, font_family = "", legend = "none")
 }
@@ -17,7 +17,7 @@ theme_538(font_size = 13, font_family = "", legend = "none")
 The theme.
 }
 \description{
-Theme for plotting  with ggplot.
+Theme for plotting  with ggplot2.
 }
 \examples{
 qplot(1:10, (1:10)^3) + theme_538()

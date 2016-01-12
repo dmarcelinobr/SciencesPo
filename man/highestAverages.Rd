@@ -5,9 +5,11 @@
 \alias{highestAverages}
 \title{The Highest Averages Method of Allocating Seats Proportionally}
 \usage{
-highestAverages(parties = NULL, votes = NULL, seats = NULL, method)
+highestAverages(parties = NULL, votes = NULL, seats = NULL,
+  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"))
 
-highestAverages(parties = NULL, votes = NULL, seats = NULL, method)
+highestAverages(parties = NULL, votes = NULL, seats = NULL,
+  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"))
 }
 \arguments{
 \item{parties}{A character vector for parties labels or candidates accordingly to the \code{votes} order.}
