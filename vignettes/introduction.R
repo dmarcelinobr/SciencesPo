@@ -76,13 +76,13 @@ destring(myvar)
  (x = seq(0, 1, by=.1))
  rounded(x) 
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----one-way, echo=FALSE, message=FALSE----------------------------------
 CrossTabs(titanic$SURVIVED) 
 
-## ---- eval=FALSE, echo=FALSE, message=FALSE------------------------------
+## ----Freq, eval=FALSE, echo=FALSE, message=FALSE-------------------------
 #  Freq(titanic, SURVIVED)
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----two-way, echo=FALSE, message=FALSE----------------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED) 
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
@@ -91,10 +91,10 @@ CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE)
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE) 
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----chisq, echo=FALSE, message=FALSE------------------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----politicalDiversity1, echo=FALSE, message=FALSE----------------------
 library("SciencesPo")
 
 # The 1980 presidential election in the US (vote share):
@@ -108,7 +108,7 @@ politicalDiversity(US1980, index= "golosov")
 politicalDiversity(US1980, index= "herfindahl")
 
 
-## ----eval=TRUE-----------------------------------------------------------
+## ----eval=TRUE, echo=FALSE, message=FALSE--------------------------------
 # Helsinki's 1999
 
 Helsinki <- data.frame(
@@ -123,13 +123,13 @@ politicalDiversity(Helsinki$seats_SL) #ENP for Saint-Lague
 
 politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
 
-## ----eval=TRUE, cache=TRUE-----------------------------------------------
+## ----data-ceara, echo=TRUE, cache=TRUE-----------------------------------
 # Results for the state legislative house of Ceara (2014):
 Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
            "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
            "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----highestAverages1, eval=FALSE, echo=FALSE, message=FALSE-------------
 #  highestAverages(parties=names(Ceara), votes=Ceara,
 #                  seats = 42, method = "dh")
 
@@ -224,7 +224,7 @@ mytheme2$text
 #    draw_plot(plot.iris, 0, .7, .7, .35 ) +
 #    draw_plot(plot.iris, .45, .0, .6, .3 )
 
-## ----fig.width=5, fig.height=4-------------------------------------------
+## ----height.matters, fig.width=7, fig.height=5---------------------------
 
 # Generating a ratio winner/opponent measure 
 Presidents = transform(Presidents, 
@@ -247,6 +247,6 @@ annotate(geom = 'text', x = 1.15, y = 70, size = 5, label = mylabel, fontface = 
   ylab("Relative Support for the Winner")
 p1 
 
-geom_foot("Draft Analysis, 2015", color = "magenta")
+geom_foot("Draft Analysis, 2015", color = "brown1")
 
 

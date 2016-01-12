@@ -1109,6 +1109,7 @@ NULL
 `calc.UC` <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, p.zero.correction = 1/sum(x)^2, ...) UseMethod("calc.UC")
 
 #' @rdname calc.UC
+#' @export
 `calc.UC.default` <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, p.zero.correction = 1/sum(x)^2, ... ) {
   # Theil's UC (1970)
   # slightly nudge zero values so that their logarithm can be calculated (cf. Theil 1970: x->0 => xlogx->0)

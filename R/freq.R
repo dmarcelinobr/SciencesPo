@@ -19,10 +19,10 @@
 #' @export
 #' @rdname Freq
 #' @aliases oneway
-`Freq` <- function(.data, x, verbose=TRUE, ...) UseMethod("Freq")
+`Freq` <- function(.data, x, verbose=TRUE, ...)UseMethod("Freq")
 
-#' @rdname Freq
 #' @export
+#' @rdname Freq
 `Freq.default` <- function(.data, x, verbose=TRUE, ...) {
 vec <-eval(substitute(x), .data, parent.frame())
   nmiss=sum(is.na(vec))
@@ -100,11 +100,13 @@ NULL
 #' @param digits The number of significant digits required.
 #' @param include.lowest Logical; if \code{TRUE}, an x[i] equal to the breaks value will be included in the first (or last) category or bin.
 #' @param order The order method.
-#' @param useNA Logical; if \code{TRUE}
+#' @param useNA Logical; if \code{TRUE} NA's values are included.
 #' @param \dots Additional arguements (currently ignored)
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{Freq}}.
+#'
+#' @seealso \code{\link{Freq}}, \code{\link{CrossTabs}}.
+#'
 #' @examples
 #' data(cathedrals)
 #'
@@ -145,7 +147,6 @@ NULL
 
     ptab <- base::prop.table(tab)
     names(tab)[is.na(names(tab))] <- "<NA>"
-
     out <- data.frame(class = names(tab),
                     freq = as.vector(tab[]), perc = round(as.vector(ptab[]),digits))
   #cumfreq = cumsum(tab[]), cumperc = round(cumsum(ptab[]),digits))

@@ -26,7 +26,7 @@ freq(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks,
 
 \item{order}{The order method.}
 
-\item{useNA}{Logical; if \code{TRUE}}
+\item{useNA}{Logical; if \code{TRUE} NA's values are included.}
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
@@ -42,6 +42,6 @@ freq(cathedrals$Type)
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \seealso{
-\code{\link{Freq}}.
+\code{\link{Freq}}, \code{\link{CrossTabs}}.
 }
 
