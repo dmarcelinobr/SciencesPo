@@ -40,15 +40,6 @@ skewness(x, type = 3);
 kurtosis(x, type = 3);
 
 
-## ----pres-ages, echo=TRUE, message=FALSE, cache=TRUE---------------------
-pres =c(42,43,46,46,47,48,49,49,50,51,51,51,51,51,52,52,54,54,54,54,54,55,55,55,55,56,56,56,57,57,57,57,58,60,61,61,61,62,64,64,65,68,69)
-
-ci(pres, level=.95) # confidence interval
-
-ci(pres, level=.95)@mean # confidence interval
-
-se(pres) # std. error
-
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 aad(pres) 
 
@@ -102,80 +93,109 @@ CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE)
 ## ----chisq, echo=TRUE, message=FALSE, comment=NA-------------------------
 CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
 
-## ----politicalDiversity1, echo=FALSE, message=FALSE----------------------
+## ----politicalDiversity1, echo=TRUE, message=FALSE-----------------------
 library("SciencesPo")
 
 # The 1980 presidential election in the US (vote share):
 
-US1980 <- c("Democratic"=0.410, "Republican"=0.507, "Independent"=0.066, "Libertarian"=0.011, "Citizens"=0.003, "Others"=0.003)
+(US1980 <- c("Democratic"=0.410, "Republican"=0.507,
+              "Independent"=0.066, "Libertarian"=0.011,
+              "Citizens"=0.003, "Others"=0.003));
 
-politicalDiversity(US1980) # laakso/taagepera method
+politicalDiversity(US1980); # ENEP (laakso/taagepera) method 
 
-politicalDiversity(US1980, index= "golosov")
+politicalDiversity(US1980, index= "golosov");
 
-politicalDiversity(US1980, index= "herfindahl")
+politicalDiversity(US1980, index= "herfindahl");
 
 
-## ----Helsinki-election, eval=TRUE, echo=FALSE, message=FALSE-------------
+
+## ----Helsinki-election, echo=TRUE, message=FALSE-------------------------
 # Helsinki's 1999
 
-Helsinki <- data.frame(
-votes = c(68885,18343,86448,21982,51587,27227,8482,7250,365,
-2734,1925,475,1693,693,308,980,560,590,185),
-seats_SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-seats_DH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+Helsinki <- data.frame(votes = c(68885, 18343, 86448, 21982, 51587,
+                                 27227, 8482, 7250, 365, 2734, 1925,
+                                 475, 1693, 693, 308, 980, 560, 590, 185),
+                       seats_SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0,
+                                  0, 0, 0, 0, 0),
+                       seats_DH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+                                  0, 0, 0, 0, 0))
 
-politicalDiversity(Helsinki$votes) #ENEP Votes
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+# politicalDiversity(Helsinki$votes); #ENEP Votes
 
-politicalDiversity(Helsinki$seats_SL) #ENP for Saint-Lague
+politicalDiversity(Helsinki$seats_SL); #ENP for Saint-Lague
 
-politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
+politicalDiversity(Helsinki$seats_DH); #ENP for D'Hondt
 
-## ----Ceara-election, echo=TRUE, cache=TRUE-------------------------------
-# Results for the state legislative house of Ceara (2014):
-Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
-           "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
-           "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
-
-## ----highestAverages1, echo=TRUE, message=FALSE--------------------------
+## ----highestAverages1, echo=TRUE, message=FALSE, comment=NA--------------
 highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "dh") 
 
-## ----echo=TRUE, message=FALSE--------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "sl") 
 
-## ----echo=TRUE, message=FALSE--------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "msl") 
 
-## ----echo=TRUE, message=FALSE--------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "hill") 
 
-## ----eval=FALSE, echo=TRUE, message=FALSE--------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "imperiali") 
+
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+
+const <- c("A"=100, "B"=150,"C"=300, "D"=400, "E"=50)
+
+highestAverages(parties=names(const), votes=const,
+               seats = 3, method = "dh", threshold = 7/100) 
+
+## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
 #  largestRemainders(parties=names(Ceara), votes=Ceara,
 #                  seats = 42, method = "hare")
 
-## ----eval=FALSE, echo=TRUE, message=FALSE--------------------------------
+## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
 #  largestRemainders(parties=names(Ceara), votes=Ceara,
 #                  seats = 42, method = "droop")
 
 ## ----data-Italy, eval=FALSE, echo=TRUE, message=FALSE--------------------
 #  
 #  # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
-#  Italy = data.frame( party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI", "BNL", "PdA", "MIS", "PCd'I", "CDR", "PSd'Az", "MUI", "PCS", "PDL", "FDPR"), votes=c(8101004, 4758129, 4356686, 1560638,	1211956, 1003007, 637328, 334748, 171201, 102393, 97690, 78554, 71021, 51088, 40633, 21853))
 #  
+#  Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
+#                              "BNL", "PdA", "MIS", "PCd'I", "CDR",
+#                             "PSd'Az", "MUI", "PCS", "PDL", "FDPR"),
+#                     votes=c(8101004, 4758129, 4356686, 1560638,	1211956,
+#                             1003007, 637328, 334748, 171201, 102393,
+#                             97690, 78554, 71021, 51088, 40633, 21853))
+
+## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
 #  with(Italy, largestRemainders(parties=party, votes=votes,
 #                  seats = 556, method = "imperiali.q") )
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 
 library(knitr)
 
 kable(mytable, align=c("l","c","c"))
+
+## ----echo=TRUE, message=FALSE, fig.width=4.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"----
+
+mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "dh") 
+
+p <- ggplot(mytable, aes(x=reorder(Party, Seats), y=Seats)) + 
+  geom_bar( position="dodge", stat = "identity") +
+  coord_flip() + labs(x="", y="# Seats")
+
+p + theme_grey() 
 
 ## ----eval=TRUE-----------------------------------------------------------
 detach("package:SciencesPo")
@@ -249,8 +269,7 @@ mytheme2$text
 #    draw_plot(plot.iris, .45, .0, .6, .3 )
 
 ## ----height.matters, fig.width=7, fig.height=5---------------------------
-#theme_set(theme_pub(base_size = 14))
-library(SciencesPo)
+theme_set(theme_pub())
 
 # Generating a ratio winner/opponent measure 
 Presidents = transform(Presidents, 
@@ -266,12 +285,12 @@ mylabel=lm2eqn("Presidents","height_ratio","winner.vote")
 p1 <- ggplot(Presidents, aes(x=height_ratio, y=winner.vote)) +
       geom_smooth(method=lm, colour="red", fill="gold")+
       geom_point(size = 5, alpha = .7) +
-      annotate(geom = 'text', x = 1.05, y = 70, size = 5, label = mylabel, fontface = 'italic') +
+      annotate(geom = 'text', x = 1.1, y = 70, size = 5, label = mylabel, fontface = 'italic') +
       xlim(0.85,1.2) + ylim(25, 70) +
       xlab("Winner/Opponent Height Ratio") + 
       ylab("Relative Support for the Winner")
 p1 
 
-geom_foot("Draft Analysis, 2015", color = "brown1")
+geom_foot("Draft Analysis, 2015", color = fade("brown1"))
 
 

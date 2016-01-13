@@ -8,18 +8,18 @@
 
 *SciencesPo* is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](http://cran.r-project.org/package=SciencesPo/) and is also hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
 
-1 - From the CRAN repository:
+1 - From the CRAN repository (stable version):
 
   ```
-  install.packages('SciencesPo',repos='http://cran.r-project.org')
-  require(SciencesPo)
+  install.packages('SciencesPo', dep=TRUE)
+  library(SciencesPo)
   ```
 
 2 -  You can always download the latest development version using the nifty function from devtools package.
 
 
   ```
-  require(devtools)
+  library(devtools)
   install_github("danielmarcelino/SciencesPo")
   ```
   

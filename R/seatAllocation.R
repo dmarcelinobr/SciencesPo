@@ -121,7 +121,7 @@ NULL
 #' @param votes A numeric vector for the number of formal votes received by each party or candidate.
 #' @param seats The number of seats to be filled (scalar or vector).
 #' @param method A character name for the method to be used. See details.
-#' @param threshold A numeric value between (0~1).
+#' @param threshold A numeric value between (0~1). Default is set to 0.
 #' @param \dots Additional arguements (currently ignored)
 #'
 #' @return A \code{data.frame}.
@@ -241,6 +241,15 @@ G.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats)
   return(out)
 }
 NULL
+
+
+
+
+
+
+
+
+
 
 
 

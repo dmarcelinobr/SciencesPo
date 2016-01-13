@@ -22,7 +22,7 @@ highestAverages(parties = NULL, votes = NULL, seats = NULL,
 
 \item{method}{A character name for the method to be used. See details.}
 
-\item{threshold}{A numeric value between (0~1).}
+\item{threshold}{A numeric value between (0~1). Default is set to 0.}
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
