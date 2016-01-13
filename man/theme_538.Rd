@@ -4,7 +4,7 @@
 \alias{theme_538}
 \title{Themes for ggplot2 Graphs}
 \usage{
-theme_538(font_size = 13, font_family = "", legend = "none")
+theme_538(font_size = 12, font_family = "sans", legend = "none")
 }
 \arguments{
 \item{font_size}{Overall font size. Default is 13.}

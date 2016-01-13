@@ -7,11 +7,11 @@
 \usage{
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
   method = c("dh", "sl", "msl", "danish", "imperiali", "hill"),
-  threshold = 0)
+  threshold = 0, ...)
 
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
   method = c("dh", "sl", "msl", "danish", "imperiali", "hill"),
-  threshold = 0)
+  threshold = 0, ...)
 }
 \arguments{
 \item{parties}{A character vector for parties labels or candidates accordingly to the \code{votes} order.}
@@ -23,6 +23,8 @@ highestAverages(parties = NULL, votes = NULL, seats = NULL,
 \item{method}{A character name for the method to be used. See details.}
 
 \item{threshold}{A numeric value between (0~1).}
+
+\item{\dots}{Additional arguements (currently ignored)}
 }
 \value{
 A \code{data.frame}.
@@ -43,17 +45,11 @@ The following methods are available:
 }
 \examples{
 # Results for the state legislative house of Ceara (2014):
+votes <- c(187906, 326841, 132531, 981096, 2043217, 15061, 103679,109830, 213988, 67145, 278267)
 
-votes <- c(187906, 326841, 132531, 981096, 2043217,15061,103679,109830, 213988, 67145, 278267)
+parties <- c("PCdoB", "PDT", "PEN", "PMDB", "PRB", "PSB", "PSC", "PSTU", "PTdoB", "PTC", "PTN")
 
-parties <- c("PCdoB", "PDT","PEN", "PMDB", "PRB","PSB","PSC", "PSTU", "PTdoB", "PTC", "PTN")
-
-dat=highestAverages(parties, votes, seats = 42, method = "dh")
-
-# Plot it
-bar.plot(data=dat, "Party", "Seats") +
- theme_538() +
-  scale_color_pub()
+highestAverages(parties, votes, seats = 42, method = "dh")
 
 # Let's create a data.frame with typical election results
 # with the following parties and votes to return 10 seats:
@@ -69,10 +65,14 @@ method="dh")
 
 # How this compares to the Sainte-Lague Method
 
-highestAverages(my_election$party,
+(dat= highestAverages(my_election$party,
 my_election$votes,
 seats = 10,
-method="sl")
+method="sl"))
+
+# Plot it
+bar.plot(data=dat, "Party", "Seats") +
+theme_538()
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.

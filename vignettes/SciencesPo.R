@@ -40,6 +40,15 @@ skewness(x, type = 3);
 kurtosis(x, type = 3);
 
 
+## ----pres-ages, echo=TRUE, message=FALSE, cache=TRUE---------------------
+pres =c(42,43,46,46,47,48,49,49,50,51,51,51,51,51,52,52,54,54,54,54,54,55,55,55,55,56,56,56,57,57,57,57,58,60,61,61,61,62,64,64,65,68,69)
+
+ci(pres, level=.95) # confidence interval
+
+ci(pres, level=.95)@mean # confidence interval
+
+se(pres) # std. error
+
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 aad(pres) 
 
@@ -122,6 +131,12 @@ politicalDiversity(Helsinki$seats_SL) #ENP for Saint-Lague
 
 politicalDiversity(Helsinki$seats_DH) #ENP for D'Hondt
 
+## ----Ceara-election, echo=TRUE, cache=TRUE-------------------------------
+# Results for the state legislative house of Ceara (2014):
+Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, 
+           "PMDB"=981096, "PRB"=2043217,"PSB"=15061,"PSC"=103679,
+           "PSTU"=109830, "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
+
 ## ----highestAverages1, echo=TRUE, message=FALSE--------------------------
 highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "dh") 
@@ -148,11 +163,11 @@ highestAverages(parties=names(Ceara), votes=Ceara,
 
 ## ----data-Italy, eval=FALSE, echo=TRUE, message=FALSE--------------------
 #  
-#  # The 1946 Italian Constituent Assembly election results
+#  # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
 #  Italy = data.frame( party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI", "BNL", "PdA", "MIS", "PCd'I", "CDR", "PSd'Az", "MUI", "PCS", "PDL", "FDPR"), votes=c(8101004, 4758129, 4356686, 1560638,	1211956, 1003007, 637328, 334748, 171201, 102393, 97690, 78554, 71021, 51088, 40633, 21853))
 #  
-#  largestRemainders(parties=names(Italy), votes=Italy,
-#                  seats = 556, method = "imperiali.q")
+#  with(Italy, largestRemainders(parties=party, votes=votes,
+#                  seats = 556, method = "imperiali.q") )
 
 ## ----echo=TRUE-----------------------------------------------------------
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
@@ -172,10 +187,6 @@ qplot(1:3, 1:3)
 ## ----eval=TRUE-----------------------------------------------------------
 require(SciencesPo)
 qplot(1:3, 1:3)
-
-## ----eval=FALSE----------------------------------------------------------
-#  plot + theme_gray() # create plot with default ggplot2 theme
-#  theme_set(theme_gray()) # switch to default ggplot2 theme
 
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 require(SciencesPo)
@@ -238,6 +249,8 @@ mytheme2$text
 #    draw_plot(plot.iris, .45, .0, .6, .3 )
 
 ## ----height.matters, fig.width=7, fig.height=5---------------------------
+#theme_set(theme_pub(base_size = 14))
+library(SciencesPo)
 
 # Generating a ratio winner/opponent measure 
 Presidents = transform(Presidents, 

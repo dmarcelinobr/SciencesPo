@@ -25,12 +25,12 @@
 #' fullrange=TRUE) + facet_wrap(~set, ncol=2) + scale_color_pub()
 #'
 #' @export
-`theme_pub` <- function(font_family = '',
-                        font_size = 14,
+`theme_pub` <- function(font_family = 'sans',
+                        font_size = 13,
                         line_size = .5,
                         legend = 'bottom',
                         axis.line.x = element_line(),
-                        axis.line.y = element_line()){
+                        axis.line.y = element_blank()){
 half_line <- font_size / 2
 small_rel <- 0.857
 small_size <- small_rel * font_size
@@ -103,8 +103,9 @@ NULL
 #'
 #' @examples
 #' qplot(1:10, (1:10)^3) + theme_538()
+#'
 #' @export
-theme_538 <- function(font_size = 13, font_family = '', legend = 'none'){
+theme_538 <- function(font_size = 12, font_family = 'sans', legend = 'none'){
 theme_grey(base_size = font_size, base_family = font_family) %+replace%
     theme(
       # Base elements which are not used directly but inherited by others
@@ -131,6 +132,7 @@ plot.title = element_text(size = rel(1.5), family = '' ,
       # Modified inheritance structure of rect element
       plot.background =  element_rect(),
       panel.background =  element_rect(),
+     strip.background = element_rect(),
       legend.background = element_rect(linetype = 0),
       legend.margin = grid::unit(font_size * 1.1, "points"),
       legend.key = element_rect(linetype = 0),
@@ -141,6 +143,7 @@ plot.title = element_text(size = rel(1.5), family = '' ,
       legend.title.align = NULL,
       legend.position = legend,
       legend.direction = NULL,
+      legend.box = "vertical",
       legend.justification = "center",
       #legend.key =  element_rect(color = '#D0D0D0'),
       # Modifiying legend.position
@@ -320,7 +323,8 @@ NULL
 
 
 #' @title The Tableau 20 colors for ggplot graphs
-#' @description Discrete scale colors like the Tableau 20 colors.
+#' @description Discrete scale colors like the
+#' \href{http://www.tableausoftware.com/}{Tableau} 20 colors .
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_fill_tableau20
@@ -332,7 +336,8 @@ NULL
 
 
 #' @title The Tableau 20 colors for ggplot graphs
-#' @description Discrete scale colors like the Tableau 20 colors.
+#' @description Discrete scale colors like the
+#' \href{http://www.tableausoftware.com/}{Tableau} 20 colors .
 #' @param \dots parameters to be used.
 #' @export
 #' @rdname scale_color_tableau20
@@ -343,8 +348,207 @@ scale_color_tableau20 <- function(...){
 }
 NULL
 
+
+#' Palette data for the themes used by package
+#'
+#' Data used by the palettes in the package.
+#'
+#' @format A \code{list}.
+#'
+themes_data <- {
+x <- list()
+
+x$pub <- list()
+x$pub$colors <- c(rgb(0,107,164, max = 255),
+                        rgb(255,128,14, max = 255),
+                        rgb(171,171,171, max = 255),
+                        rgb(89,89,89, max = 255),
+                        rgb(95,158,209, max = 255),
+                        rgb(200,82,0, max = 255),
+                        rgb(137,137,137, max = 255),
+                        rgb(162,200,236, max = 255),
+                        rgb(255,188,121, max = 255),
+                        rgb(207,207,207, max = 255))
+
+x$colorblind <- c(rgb(0,107,164, max = 255),
+                 rgb(255,128,14, max = 255),
+                 rgb(171,171,171, max = 255),
+                 rgb(89,89,89, max = 255),
+                 rgb(95,158,209, max = 255),
+                 rgb(200,82,0, max = 255),
+                 rgb(137,137,137, max = 255),
+                 rgb(162,200,236, max = 255),
+                 rgb(255,188,121, max = 255),
+                 rgb(207,207,207, max = 255))
+
+x$tableau <- list()
+x$tableau$colors <-
+  list(
+  tableau20 =
+  c(rgb(31, 119, 180, max = 255),
+    rgb(174, 199, 232, max = 255),
+    rgb(255, 127, 14, max = 255),
+    rgb(255, 187, 120, max = 255),
+    rgb(44, 160, 44, max = 255),
+    rgb(152, 223, 138, max = 255),
+    rgb(214, 39, 40, max = 255),
+    rgb(255, 152, 150, max = 255),
+    rgb(148, 103, 189, max = 255),
+    rgb(197, 176, 213, max = 255),
+    rgb(140, 86, 75, max = 255),
+    rgb(196, 156, 148, max = 255),
+    rgb(227, 119, 194, max = 255),
+    rgb(247, 182, 210, max = 255),
+    rgb(127, 127, 127, max = 255),
+    rgb(199, 199, 199, max = 255),
+    rgb(188, 189, 34, max = 255),
+    rgb(219, 219, 141, max = 255),
+    rgb(23, 190, 207, max = 255),
+    rgb(158, 218, 229, max = 255))
+  )
+
+x$parties <- list()
+x$parties$Brazil <- c(PT=rgb(255,39,0, max = 255),
+                     PMDB=rgb(255,153,0, max = 255),
+                     PSDB=rgb(0,143,213, max = 255),
+                     PSB=rgb(213,94,0, max = 255),
+                     PV=rgb(119,171,67, max = 255))
+
+
+x$fte<-c(red=rgb(255,39,0, max = 255),
+        blue=rgb(0,143,213, max = 255),
+        green=rgb(119,171,67, max = 255))
+
+x$seasons <-c(autumn=rgb(16,78,139, max = 255),
+              spring=rgb(110,139,61, max = 255),
+              summer=rgb(154,50,205, max = 255),
+              winter=rgb(255,193,37, max = 255))
+}
+
+
+#' @title Color Palettes based on Tableau (discrete)
+#'
+#' @description  Color palettes used in
+#' \href{http://www.tableausoftware.com/}{Tableau}.
+#'
+#' @export
+#' @param palette Palette name.
+#'
+`tableau_color_pal` <- function(palette = "tableau10") {
+  pal.list <- themes_data$tableau$colors
+  if (!palette %in% c(names(pal.list), "tableau20", "tableau10", "tableau10light")) {
+    stop(sprintf("%s is not a valid palette name", palette))
+  }
+  if (palette == "tableau10") {
+    types <- pal.list[["tableau20"]][seq(1, 20, by = 2)]
+  } else if (palette == "tableau10light") {
+    types <- pal.list[["tableau20"]][seq(2, 20, by = 2)]
+  } else {
+    types <- pal.list[[palette]]
+  }
+  function(n) {
+    unname(types)[seq_len(n)]
+  }
+}
+
+
+#'  @title Tableau color scales.
+#'
+#' @description See \code{\link{tableau_color_pal}} for details.
+#'
+#' @inheritParams ggplot2::scale_colour_hue
+#' @inheritParams tableau_color_pal
+#' @family colour tableau
+#' @rdname scale_color_tableau
+#' @export
+#' @seealso \code{\link{tableau_color_pal}} for references.
+#'
+scale_colour_tableau <- function(palette = "tableau10", ...) {
+  discrete_scale("colour", "tableau", tableau_color_pal(palette), ...)
+}
+
+#' @export
+#' @rdname scale_color_tableau
+scale_fill_tableau <- function(palette = "tableau10", ...) {
+  discrete_scale("fill", "tableau", tableau_color_pal(palette), ...)
+}
+
+#' @export
+#' @rdname scale_color_tableau
+scale_color_tableau <- scale_colour_tableau
+
+
+#' fivethirtyeight.com color palette
+#'
+#' The standard fivethirtyeight.com palette for line plots is blue, red, green.
+#'
+#' @family colour fte
+#' @export
+fte_pal <- function() {
+  function(n) {
+    colors <- themes_data$fte[c("blue", "red", "green")]
+    unname(colors[seq_len(n)])
+  }
+}
+
+#' fivethirtyeight.com color scales
+#'
+#' Color scales using the colors in the fivethirtyeight graphics.
+#'
+#' @inheritParams ggplot2::scale_colour_hue
+#' @family colour fte
+#' @rdname scale_fte
+#' @seealso \code{\link{theme_538}} for examples.
+#' @export
+scale_colour_fte <- function(...) {
+ discrete_scale("colour", "538", fte_pal(), ...)
+}
+
+#' @rdname scale_fte
+#' @export
+scale_color_fte <- scale_colour_fte
+
+#' @rdname scale_fte
+#' @export
+scale_fill_fte <- function(...) {
+  discrete_scale("fill", "538", fte_pal(), ...)
+}
+
+
+#' Color blind color palette (discrete)
+#'
+#' Color palettes for color blind.
+#'
+#' @family colour colorblind
+#' @export
+colorblind_pal <- function() {
+  scales::manual_pal(unname(themes_data$colorblind))
+}
+
+
+
+#' Color blind color palette (discrete)
+#'
+#' Color palettes for color blind.
+#'
+#' @inheritParams ggplot2::scale_colour_hue
+#' @family colour colorblind
+#' @rdname scale_colorblind
+#' @export
+scale_fill_colorblind <- function(...) {
+  discrete_scale("fill", "colorblind", colorblind_pal(), ...)
+}
+
+#' @export
+#' @rdname scale_colorblind
+scale_colour_colorblind <- function(...) {
+  discrete_scale("colour", "colorblind", colorblind_pal(), ...)
+}
+
+#' @export
+#' @rdname scale_colorblind
+scale_color_colorblind <- scale_colour_colorblind
+
 # http://color.adobe.com/
-
+# http://www.farb-tabelle.de/en/rgb2hex.htm?
 # "#9b59b6", "#3498db", "#95a5a6", "#e74c3c", "#34495e", "#2ecc71" "FF7E0D"
-
-# "windows blue", "amber", "greyish", "faded green", "dusty purple"

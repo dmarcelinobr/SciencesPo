@@ -5,9 +5,9 @@
 \alias{theme_pub}
 \title{Makes the Default Theme}
 \usage{
-theme_pub(font_family = "", font_size = 14, line_size = 0.5,
+theme_pub(font_family = "sans", font_size = 13, line_size = 0.5,
   legend = "bottom", axis.line.x = element_line(),
-  axis.line.y = element_line())
+  axis.line.y = element_blank())
 }
 \arguments{
 \item{font_family}{Default font family.}

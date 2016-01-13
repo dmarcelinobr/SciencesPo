@@ -11,6 +11,7 @@ scale_color_tableau20(...)
 \item{\dots}{parameters to be used.}
 }
 \description{
-Discrete scale colors like the Tableau 20 colors.
+Discrete scale colors like the
+\href{http://www.tableausoftware.com/}{Tableau} 20 colors .
 }
 

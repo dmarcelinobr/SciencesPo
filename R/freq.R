@@ -8,6 +8,7 @@
 #' @param \dots Additional arguements (currently ignored)
 #'
 #' @seealso \code{\link{freq}}, \code{\link{CrossTabs}}.
+#'
 #' @examples
 #' data(cathedrals)
 #'
@@ -19,7 +20,7 @@
 #' @export
 #' @rdname Freq
 #' @aliases oneway
-`Freq` <- function(.data, x, verbose=TRUE, ...)UseMethod("Freq")
+`Freq` <- function(.data, x, verbose=TRUE, ...) UseMethod("Freq")
 
 #' @export
 #' @rdname Freq
@@ -81,7 +82,7 @@ vec <-eval(substitute(x), .data, parent.frame())
   colnames(s3)=c("Valid cases",  "Missing cases")
   print(s3)
   cat("\n")
-}
+}#--end of Freq
 NULL
 
 
@@ -153,6 +154,6 @@ NULL
     rownames(out) <- NULL # enumerate from 1:nrow(z)
     class(out) <- c("freq", "data.frame")
     return(out)
-  }
+  }##-end of freq
 NULL
 

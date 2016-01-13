@@ -306,8 +306,8 @@ largestRemainders(parties=names(Ceara), votes=Ceara,
 # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
 Italy = data.frame( party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI", "BNL", "PdA", "MIS", "PCd'I", "CDR", "PSd'Az", "MUI", "PCS", "PDL", "FDPR"), votes=c(8101004, 4758129, 4356686, 1560638,	1211956, 1003007, 637328, 334748, 171201, 102393, 97690, 78554, 71021, 51088, 40633, 21853))
 
-largestRemainders(parties=names(Italy), votes=Italy, 
-                seats = 556, method = "imperiali.q") 
+with(Italy, largestRemainders(parties=party, votes=votes, 
+                seats = 556, method = "imperiali.q") )
 ```
 
  
@@ -351,14 +351,10 @@ qplot(1:3, 1:3)
 
 There's a complete discussion of plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
 
-If you ever want to use the default **ggplot2** or some other theme while using the **SciencesPo** library, simply add the theme to your plot object, or set it as the default for all subsequent plots using the `theme_set()` command.
+## Changing defaults 
+If you want to change the theme for an entire session you can use `theme_set()` as in `theme_set(theme_gray())` to switch to default **ggplot2** theme for all subsequent plots. Otherwise, you may also apply themes without changing the default setup as of `plot + theme_gray()`. 
 
-```{r eval=FALSE}
-plot + theme_gray() # create plot with default ggplot2 theme
-theme_set(theme_gray()) # switch to default ggplot2 theme
-```
-
-To modify general aspects of the `theme_pub` theme:
+To modify general aspects of the `theme_pub()` as fontsize, font family etc:
 
 ```{r echo=FALSE, message=FALSE}
 require(SciencesPo)
@@ -382,6 +378,8 @@ prefs <- theme(axis.text = element_text(size=14, colour=NULL))
 qplot(1:3, 1:3) + prefs
 ```
 
+
+
 ```{r echo=FALSE, message=FALSE}
 # Modifying a theme function
 themeMod <- theme_gray() +
@@ -399,6 +397,8 @@ line_plot + theme(legend.justification=c(1,0), legend.position=c(1,0))
 This positions the legend inside the plot area, at the bottom-right. You can also put the legend at the top or bottom of the plot using, e.g.:
   
 line_plot + theme(legend.position="bottom")
+
+
 
 ```{r echo=FALSE, message=FALSE}
 # Only change the 'colour' property of theme element 'text'
@@ -458,6 +458,8 @@ ggdraw() +
 The function `geom_foot()` can be used to add text as a plot footnote. To demonstrate its use, we first draw a plot, then add the footnote: 
 
 ```{r height.matters, fig.width=7, fig.height=5}
+#theme_set(theme_pub(base_size = 14))
+library(SciencesPo)
 
 # Generating a ratio winner/opponent measure 
 Presidents = transform(Presidents, 
