@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Daniel Marcelino" />
+
+<meta name="date" content="2016-01-14" />
+
+<title>Political Behavior Measures</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0A%7D%0Apre%20%7B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">Political Behavior Measures</h1>
+<h4 class="author"><em>Daniel Marcelino</em></h4>
+<h4 class="date"><em>2016-01-14</em></h4>
+</div>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The very objective of the <em>SciencesPo</em> package is to provide methods for computing some of the popular measures used in political science literature, such as the indices of political concentration–or fragmentation, inequality, and seat apportionment methods. The following examples demontrates how to use some of the methods already available in <em>SciencesPo</em>.</p>
+</div>
+<div id="political-diversity-indices" class="section level2">
+<h2>Political Diversity Indices</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;SciencesPo&quot;</span>)
+
+<span class="co"># The 1980 presidential election in the US (vote share):</span>
+
+US1980 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Democratic&quot;</span>=<span class="fl">0.410</span>, <span class="st">&quot;Republican&quot;</span>=<span class="fl">0.507</span>,
+              <span class="st">&quot;Independent&quot;</span>=<span class="fl">0.066</span>, <span class="st">&quot;Libertarian&quot;</span>=<span class="fl">0.011</span>,
+              <span class="st">&quot;Citizens&quot;</span>=<span class="fl">0.003</span>, <span class="st">&quot;Others&quot;</span>=<span class="fl">0.003</span>);
+
+<span class="kw">print</span>(US1980)</code></pre></div>
+<pre><code> Democratic  Republican Independent Libertarian    Citizens      Others 
+      0.410       0.507       0.066       0.011       0.003       0.003 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">politicalDiversity</span>(US1980); <span class="co"># ENEP (laakso/taagepera) method </span></code></pre></div>
+<pre><code>[1] 2.328</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">politicalDiversity</span>(US1980, <span class="dt">index=</span> <span class="st">&quot;golosov&quot;</span>);</code></pre></div>
+<pre><code>[1] 2.597</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">politicalDiversity</span>(US1980, <span class="dt">index=</span> <span class="st">&quot;herfindahl&quot;</span>);</code></pre></div>
+<pre><code>[1] 0.57</code></pre>
+<p>Considers the following <code>data.frame</code> with electoral results for the 1999 election in Helsinki, the seats were allocated using both the Saint-Laguë and the D’Hondt methods:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Helsinki's 1999</span>
+
+Helsinki &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">votes =</span> <span class="kw">c</span>(<span class="dv">68885</span>, <span class="dv">18343</span>, <span class="dv">86448</span>, <span class="dv">21982</span>, <span class="dv">51587</span>,
+                                 <span class="dv">27227</span>, <span class="dv">8482</span>, <span class="dv">7250</span>, <span class="dv">365</span>, <span class="dv">2734</span>, <span class="dv">1925</span>,
+                                 <span class="dv">475</span>, <span class="dv">1693</span>, <span class="dv">693</span>, <span class="dv">308</span>, <span class="dv">980</span>, <span class="dv">560</span>, <span class="dv">590</span>, <span class="dv">185</span>),
+                       <span class="dt">seats_SL=</span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
+                                  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),
+                       <span class="dt">seats_DH=</span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
+                                  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># politicalDiversity(Helsinki$votes); #ENEP Votes</span>
+
+<span class="kw">politicalDiversity</span>(Helsinki$seats_SL); <span class="co">#ENP for Saint-Lague</span></code></pre></div>
+<pre><code>[1] 4.762</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">politicalDiversity</span>(Helsinki$seats_DH); <span class="co">#ENP for D'Hondt</span></code></pre></div>
+<pre><code>[1] 4.167</code></pre>
+</div>
+<div id="highest-averages-methods-of-allocating-seats-proportionally" class="section level2">
+<h2>Highest Averages Methods of Allocating Seats Proportionally</h2>
+<p>Illustrative examples of the operation of some highest averages formulas in a six member district with four parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Table A.l</span>
+lijphart &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>=<span class="dv">41000</span>, <span class="st">&quot;B&quot;</span>=<span class="dv">29000</span>,<span class="st">&quot;C&quot;</span>=<span class="dv">17000</span>, <span class="st">&quot;D&quot;</span>=<span class="dv">13000</span>)</code></pre></div>
+<p>The basic imputs for this class of functions are: 1) a list of parties, 2) a list of positive votes, and 3) a constant value for the number of seats to be returned. A numeric value (0~1) for the threshold is optional.</p>
+<div id="dhondt" class="section level3">
+<h3>d’Hondt</h3>
+<p>Under the D’Hondt formula, seats are allocated using divisors of 1, 2, 3, 4, etc.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart,
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
+<pre><code>Method: d'Hondt 
+ENP(Final): 2.57 
+Gallagher Index: 11.595 
+ </code></pre>
+<pre><code>  Party Seats Share
+1     A     3 0.500
+2     B     2 0.333
+3     C     1 0.167
+4     D     0 0.000</code></pre>
+<p>The d’Hondt method is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota which is a Largest remainder method), and Hungtinton-Hill.</p>
+</div>
+<div id="modified-saint-lague" class="section level3">
+<h3>Modified Saint-Laguë</h3>
+<p>How does d’Hondt compare to modified Sainte-Laguë? The modified Sainte-Laguë use divisors of 1.4, 3, 5, 7, etc.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Seats allocated using modified Sainte-Lague divisors of 1.4, 3, 5.</span>
+<span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;msl&quot;</span>) </code></pre></div>
+<pre><code>Method: Modified Sainte-Laguë 
+ENP(Final): 3.6 
+Gallagher Index: 6.749 
+ </code></pre>
+<pre><code>  Party Seats Share
+1     A     2 0.333
+2     B     2 0.333
+3     C     1 0.167
+4     D     1 0.167</code></pre>
+</div>
+<div id="saint-lague" class="section level3">
+<h3>Saint-Laguë</h3>
+<p>In this setting, the pure Sainte-Laguë formula, which uses the odd-integer divisor series 1, 3, 5, 7, and so forth, would produce the same outcome.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart,
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>) </code></pre></div>
+<pre><code>Method: Sainte-Laguë 
+ENP(Final): 3.6 
+Gallagher Index: 6.749 
+ </code></pre>
+<pre><code>  Party Seats Share
+1     A     2 0.333
+2     B     2 0.333
+3     C     1 0.167
+4     D     1 0.167</code></pre>
+</div>
+<div id="danish" class="section level3">
+<h3>Danish</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;danish&quot;</span>) </code></pre></div>
+<pre><code>Method: Danish 
+ENP(Final): 2.57 
+Gallagher Index: 11.595 
+ </code></pre>
+<pre><code>  Party Seats Share
+1     A     3 0.500
+2     B     2 0.333
+3     C     1 0.167
+4     D     0 0.000</code></pre>
+</div>
+<div id="hungtinton-hill" class="section level3">
+<h3>Hungtinton-Hill</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;hill&quot;</span>) </code></pre></div>
+<pre><code>Method: Hungtinton-Hill 
+ENP(Final): 3.6 
+Gallagher Index: 6.749 
+ </code></pre>
+<pre><code>  Party Seats Share
+1     A     2 0.333
+2     B     2 0.333
+3     C     1 0.167
+4     D     1 0.167</code></pre>
+</div>
+<div id="imperiali" class="section level3">
+<h3>Imperiali</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>) </code></pre></div>
+<pre><code>Method: Imperiali 
+ENP(Final): 2.57 
+Gallagher Index: 11.595 
+ </code></pre>
+<pre><code>  Party Seats Share
+1     A     3 0.500
+2     B     2 0.333
+3     C     1 0.167
+4     D     0 0.000</code></pre>
+</div>
+<div id="using-thresholds" class="section level3">
+<h3>Using thresholds</h3>
+<p>Let’s assume that we have an election with 1,000 total voters in which five parties (A, B, C, D, and E) have gained 100 (10%), 150 (15%), 300 (30%), 400 (40%), and 50 (5%) votes, respectively. In this electoral constituency, there are 3 seats up for election, and all votes cast are valid; the electoral system has a 7% vote threshold. Meaning that parties must get at least 7% of the total unspoiled votes cast in order to participate in the distribution of seats. Party <em>E</em> would then be elimiated from competition at the outset. If the d’Hondt method of seat allocation were employed, then party <em>C</em> would get 1 seat (or 33% of the number of seats), and party <em>D</em> 2 seats (or 67% of the seats).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">const &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>=<span class="dv">100</span>, <span class="st">&quot;B&quot;</span>=<span class="dv">150</span>,<span class="st">&quot;C&quot;</span>=<span class="dv">300</span>, <span class="st">&quot;D&quot;</span>=<span class="dv">400</span>, <span class="st">&quot;E&quot;</span>=<span class="dv">50</span>)
+
+<span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(const), <span class="dt">votes=</span>const,
+               <span class="dt">seats =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>, <span class="dt">threshold =</span> <span class="dv">7</span>/<span class="dv">100</span>) </code></pre></div>
+<pre><code>Method: d'Hondt 
+ENP(Final): 1.8 
+Gallagher Index: 55.101 
+ </code></pre>
+<pre><code>  Party Seats Share
+1     D     2 0.667
+2     C     1 0.333
+3     A     0 0.000
+4     B     0 0.000
+5     E     0 0.000</code></pre>
+<p>Other methods divide the votes by a mathematically derived quota, such as the Droop quota, the Hare quota (or Hamilton/Vinton), or the Imperiali quota, see next.</p>
+</div>
+</div>
+<div id="largest-remainder-methods-of-allocating-seats-proportionally" class="section level2">
+<h2>Largest Remainder Methods of Allocating Seats Proportionally</h2>
+<p>llustrative examples of the operation of three largest remainders formulas in an eight member district with the same four parties of the previous examples.</p>
+<div id="hare-quota" class="section level3">
+<h3>Hare quota</h3>
+<p>The Droop quota is obtained by quota = <span class="math inline">\(\frac{V}{(S)}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">largestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">8</span>, <span class="dt">method =</span> <span class="st">&quot;hare&quot;</span>) </code></pre></div>
+</div>
+<div id="droop-quota" class="section level3">
+<h3>Droop quota</h3>
+<p>The Droop quota is obtained by quota = <span class="math inline">\(\frac{V}{(S + 1)}+1\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">largestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">8</span>, <span class="dt">method =</span> <span class="st">&quot;droop&quot;</span>) </code></pre></div>
+</div>
+<div id="imperiali-quota" class="section level3">
+<h3>Imperiali quota</h3>
+<p>The imperial quota is obtained by quota = <span class="math inline">\(\frac{V}{(S + 2)}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The 1946 Italian Constituent Assembly election results: parties and unspoilt votes</span>
+
+Italy =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party=</span><span class="kw">c</span>(<span class="st">&quot;DC&quot;</span>, <span class="st">&quot;PSIUP&quot;</span>, <span class="st">&quot;PCI&quot;</span>, <span class="st">&quot;UDN&quot;</span>, <span class="st">&quot;UQ&quot;</span>, <span class="st">&quot;PRI&quot;</span>,
+                            <span class="st">&quot;BNL&quot;</span>, <span class="st">&quot;PdA&quot;</span>, <span class="st">&quot;MIS&quot;</span>, <span class="st">&quot;PCd'I&quot;</span>, <span class="st">&quot;CDR&quot;</span>,
+                           <span class="st">&quot;PSd'Az&quot;</span>, <span class="st">&quot;MUI&quot;</span>, <span class="st">&quot;PCS&quot;</span>, <span class="st">&quot;PDL&quot;</span>, <span class="st">&quot;FDPR&quot;</span>),
+                   <span class="dt">votes=</span><span class="kw">c</span>(<span class="dv">8101004</span>, <span class="dv">4758129</span>, <span class="dv">4356686</span>, <span class="dv">1560638</span>,  <span class="dv">1211956</span>,
+                           <span class="dv">1003007</span>, <span class="dv">637328</span>, <span class="dv">334748</span>, <span class="dv">171201</span>, <span class="dv">102393</span>,
+                           <span class="dv">97690</span>, <span class="dv">78554</span>, <span class="dv">71021</span>, <span class="dv">51088</span>, <span class="dv">40633</span>, <span class="dv">21853</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Italy, <span class="kw">largestRemainders</span>(<span class="dt">parties=</span>party, <span class="dt">votes=</span>votes, 
+                <span class="dt">seats =</span> <span class="dv">556</span>, <span class="dt">method =</span> <span class="st">&quot;imperiali.q&quot;</span>) )</code></pre></div>
+</div>
+<div id="suitable-output-for-recycling-in-rmarkdown-documents" class="section level3">
+<h3>Suitable output for recycling in RMarkdown documents</h3>
+<p>The output produced by the <code>highestAveragesof()</code> and <code>largestRemainders()</code> functions is always a <code>data.frame</code>; therefore, it should be very straightforward to use with other aplications. I like the idea of using the output with the <strong>knitr</strong> package to produce publishable-quality tables, or graphs with <strong>ggplot2</strong>.</p>
+<p>For instance, let’s take the data from 2014 Brazilian legislative elections, especifically from one electoral district–the state of Ceará, and compare the results among several highest averages methods.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results for the state legislative house of Ceara (2014):</span>
+Ceara &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;PCdoB&quot;</span>=<span class="dv">187906</span>, <span class="st">&quot;PDT&quot;</span>=<span class="dv">326841</span>,<span class="st">&quot;PEN&quot;</span>=<span class="dv">132531</span>, <span class="st">&quot;PMDB&quot;</span>=<span class="dv">981096</span>,
+           <span class="st">&quot;PRB&quot;</span>=<span class="dv">2043217</span>,<span class="st">&quot;PSB&quot;</span>=<span class="dv">15061</span>, <span class="st">&quot;PSC&quot;</span>=<span class="dv">103679</span>, <span class="st">&quot;PSTU&quot;</span>=<span class="dv">109830</span>,
+           <span class="st">&quot;PTdoB&quot;</span>=<span class="dv">213988</span>, <span class="st">&quot;PTC&quot;</span>=<span class="dv">67145</span>, <span class="st">&quot;PTN&quot;</span>=<span class="dv">278267</span>)</code></pre></div>
+<p>Make a table with the d’Hondt formula results:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mytable =<span class="st"> </span><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
+                <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
+<pre><code>Method: d'Hondt 
+ENP(Final): 3.14 
+Gallagher Index: 47.007 
+ </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+<span class="kw">kable</span>(mytable, <span class="dt">align=</span><span class="kw">c</span>(<span class="st">&quot;l&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;c&quot;</span>))</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Party</th>
+<th align="center">Seats</th>
+<th align="center">Share</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PRB</td>
+<td align="center">21</td>
+<td align="center">0.500</td>
+</tr>
+<tr class="even">
+<td align="left">PMDB</td>
+<td align="center">10</td>
+<td align="center">0.238</td>
+</tr>
+<tr class="odd">
+<td align="left">PDT</td>
+<td align="center">3</td>
+<td align="center">0.071</td>
+</tr>
+<tr class="even">
+<td align="left">PTN</td>
+<td align="center">2</td>
+<td align="center">0.048</td>
+</tr>
+<tr class="odd">
+<td align="left">PTdoB</td>
+<td align="center">2</td>
+<td align="center">0.048</td>
+</tr>
+<tr class="even">
+<td align="left">PCdoB</td>
+<td align="center">1</td>
+<td align="center">0.024</td>
+</tr>
+<tr class="odd">
+<td align="left">PEN</td>
+<td align="center">1</td>
+<td align="center">0.024</td>
+</tr>
+<tr class="even">
+<td align="left">PSC</td>
+<td align="center">1</td>
+<td align="center">0.024</td>
+</tr>
+<tr class="odd">
+<td align="left">PSTU</td>
+<td align="center">1</td>
+<td align="center">0.024</td>
+</tr>
+<tr class="even">
+<td align="left">PSB</td>
+<td align="center">0</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">PTC</td>
+<td align="center">0</td>
+<td align="center">0.000</td>
+</tr>
+</tbody>
+</table>
+<p>Next, we produce a graph comparing three largest-remainders formulas.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out1 =<span class="st"> </span><span class="kw">largestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
+                <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;hare&quot;</span>) 
+out2 =<span class="st"> </span><span class="kw">largestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
+                <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;droop&quot;</span>)
+out3 =<span class="st"> </span><span class="kw">largestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
+                <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;imperiali.q&quot;</span>)
+
+<span class="co"># add the method:</span>
+out1$method =<span class="st"> &quot;hare&quot;</span>
+out2$method =<span class="st"> &quot;droop&quot;</span>
+out3$method =<span class="st"> &quot;imperiali&quot;</span>
+
+data &lt;-<span class="st"> </span><span class="kw">rbind</span>(out1, out2, out3)
+
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(Party, Seats), <span class="dt">y=</span>Seats),
+            <span class="dt">fill=</span>method) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>( <span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;&quot;</span>, <span class="dt">y=</span><span class="st">&quot;# Seats&quot;</span>)
+
+p +<span class="st"> </span><span class="kw">theme_grey</span>() </code></pre></div>
+</div>
+</div>
+<div id="measures-of-proportionality" class="section level2">
+<h2>Measures of Proportionality</h2>
+<p>Let’s consider the following two real-data examples taken from the Wikipedia. These two elections refer to subnational elections, one from Queensland (NZ) and the other from Quebec (CA).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 2012 Queensland state elecion:</span>
+Queensland &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>, <span class="st">&quot;E&quot;</span>, <span class="st">&quot;F&quot;</span>),
+                         <span class="dt">pvotes =</span> <span class="kw">c</span>(<span class="fl">49.65</span>, <span class="fl">26.66</span>, <span class="fl">11.5</span>, <span class="fl">7.53</span>, <span class="fl">3.16</span>, <span class="fl">1.47</span>),
+                         <span class="dt">pseats =</span> <span class="kw">c</span>(<span class="fl">87.64</span>, <span class="fl">7.87</span>, <span class="fl">2.25</span>, <span class="fl">0.00</span>, <span class="fl">2.25</span>, <span class="fl">0.00</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 2012 Quebec provincial election:</span>
+Quebec &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="kw">c</span>(<span class="st">&quot;PQ&quot;</span>, <span class="st">&quot;Lib&quot;</span>, <span class="st">&quot;CAQ&quot;</span>, <span class="st">&quot;QS&quot;</span>, <span class="st">&quot;Option&quot;</span>, <span class="st">&quot;Other&quot;</span>),
+                         <span class="dt">pvotes =</span> <span class="kw">c</span>(<span class="fl">31.95</span>, <span class="fl">31.20</span>, <span class="fl">27.05</span>, <span class="fl">6.03</span>, <span class="fl">1.89</span>, <span class="fl">1.88</span>),
+                         <span class="dt">pseats =</span> <span class="kw">c</span>(<span class="dv">54</span>, <span class="dv">50</span>, <span class="dv">19</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</code></pre></div>
+<div id="the-gallagher-index" class="section level3">
+<h3>The Gallagher Index</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">gallagher</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 31.16</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">gallagher</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 21.54</code></pre>
+</div>
+<div id="the-lijpharts-index-of-proportionality" class="section level3">
+<h3>The Lijphart’s Index of Proportionality</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">lijphart</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 37.99</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">lijphart</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 22.05</code></pre>
+</div>
+<div id="the-grofman-index" class="section level3">
+<h3>The Grofman Index</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">grofman</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 29.43</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">grofman</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 10.49</code></pre>
+</div>
+<div id="farina-index" class="section level3">
+<h3>Farina Index</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">farina</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 0.4559</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">farina</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 0.3094</code></pre>
+</div>
+<div id="the-cox-shugart-measure-of-proportionality" class="section level3">
+<h3>The Cox-Shugart measure of proportionality</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">cox.shugart</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 1.711</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">cox.shugart</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 1.567</code></pre>
+</div>
+<div id="the-inverse-cox-shugart-measure-of-proportionality" class="section level3">
+<h3>The inverse Cox-Shugart measure of proportionality</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">inv.cox.shugart</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 0.4811</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">inv.cox.shugart</span>(pvotes, pseats))</code></pre></div>
+<pre><code>[1] 0.5439</code></pre>
+</div>
+</div>
+<div id="measures-of-inequality-and-concentration" class="section level2">
+<h2>Measures of Inequality and Concentration</h2>
+<p>I will write soon…</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.</p>
+<p>Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.</p>
+<p>Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): . Amsterdam.</p>
+<p>Cowell, F. A. (1995)  Harvester Wheatshef: Prentice Hall.</p>
+<ol start="2000" style="list-style-type: decimal">
+<li>Benoit, Kenneth. “Which Electoral Formula is the Most Proportional? A New Look with New Evidence.” Political Analysis 8(4): 381-388. Replication dataset.</li>
+</ol>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
