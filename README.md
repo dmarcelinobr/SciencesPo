@@ -59,5 +59,5 @@ help(package=SciencesPo)
 ## Examples
 * [Concepts and Basics of SciencesPo](http://cran.r-project.org/web/packages/SciencesPo/vignettes/SciencesPo.html)
 * [Descriptive Stats]
-* [Some Political Behavior Indices]
+* [Some Political Behavior Measures](http://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
 * [The Viz: Plotting Features in SciencesPo]
