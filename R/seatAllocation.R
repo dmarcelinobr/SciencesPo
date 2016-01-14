@@ -103,7 +103,7 @@ NULL
                                  1:seats ))
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- freq(out, digits = 3);
+  out <- freqw(out, digits = 3);
   names(out) <-c("Party", "Seats", "Share");
   # out <- out[ order(out[,2], decreasing = TRUE),]
   return(out)
@@ -229,7 +229,7 @@ NULL
   );
 
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- freq(out, digits = 3);
+  out <- freqw(out, digits = 3);
   names(out) <-c("Party", "Seats", "Share");
   # Political diversity indices
   ENP_final <- 1/sum((out$Seats/sum(out$Seats))^2)

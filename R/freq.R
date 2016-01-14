@@ -17,7 +17,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{Freq}}, \code{\link{CrossTabs}}.
+#' @seealso \code{\link{freq}}, \code{\link{CrossTabs}}.
 #'
 #' @examples
 #' data(Presidents)
@@ -25,13 +25,13 @@
 #' freq(Presidents$winner.party)
 #'
 #'
-#' @rdname freq
+#' @rdname freqw
 #' @export
-`freq` <- function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=3, include.lowest = TRUE, order = c("desc", "asc","level", "name"), useNA = c("no", "ifany", "always"),...) UseMethod("freq")
+`freqw` <- function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=3, include.lowest = TRUE, order = c("desc", "asc","level", "name"), useNA = c("no", "ifany", "always"),...) UseMethod("freq")
 
-#' @rdname freq
+#' @rdname freqw
 #' @export
-`freq.default` <-
+`freqw.default` <-
   function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=3, include.lowest = TRUE, order = c("desc", "asc","level", "name"), useNA = c("no", "ifany", "always"),...){
 
     # check if x is a vector (do not use is.vector())
