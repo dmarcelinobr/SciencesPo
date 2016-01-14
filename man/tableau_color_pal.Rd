@@ -10,7 +10,6 @@ tableau_color_pal(palette = "tableau10")
 \item{palette}{Palette name.}
 }
 \description{
-Color palettes used in
-\href{http://www.tableausoftware.com/}{Tableau}.
+Color palettes used in \href{http://www.tableausoftware.com/}{Tableau}.
 }
 

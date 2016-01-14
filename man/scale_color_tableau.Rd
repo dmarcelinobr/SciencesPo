@@ -21,9 +21,6 @@ to control name, limits, breaks, labels and so forth.}
 \description{
 See \code{\link{tableau_color_pal}} for details.
 }
-\details{
-
-}
 \seealso{
 \code{\link{tableau_color_pal}} for references.
 }

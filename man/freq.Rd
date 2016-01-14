@@ -3,7 +3,7 @@
 \name{freq}
 \alias{freq}
 \alias{freq.default}
-\title{Frequency Table}
+\title{Simple Frequency Table}
 \usage{
 freq(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks,
   digits = 3, include.lowest = TRUE, order = c("desc", "asc", "level",
@@ -18,7 +18,11 @@ freq(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks,
 
 \item{weighs}{A vector of weights.}
 
-\item{breaks}{one of: 1) a vector giving the breakpoints between histogram cells; 2) a function to compute the vector of breakpoints; 3) a single number giving the number of cells for the histogram; 4) a character string naming an algorithm to compute the number of cells (see 'Details'); 5) a function to compute the number of cells.}
+\item{breaks}{one of: 1) a vector giving the breakpoints between histogram
+cells; 2) a function to compute the vector of breakpoints; 3) a single
+number giving the number of cells for the histogram; 4) a character string
+ naming an algorithm to compute the number of cells (see 'Details'); 5) a
+  function to compute the number of cells.}
 
 \item{digits}{The number of significant digits required.}
 

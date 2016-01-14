@@ -349,9 +349,9 @@ scale_color_tableau20 <- function(...){
 NULL
 
 
-#' Palette data for the themes used by package
+#' @title Palette data for the themes used by package
 #'
-#' Data used by the palettes in the package.
+#' @description Data used by the palettes in the package.
 #'
 #' @format A \code{list}.
 #'
@@ -359,6 +359,7 @@ themes_data <- {
 x <- list()
 
 x$pub <- list()
+
 x$pub$colors <- c(rgb(0,107,164, max = 255),
                         rgb(255,128,14, max = 255),
                         rgb(171,171,171, max = 255),
@@ -383,8 +384,7 @@ x$colorblind <- c(rgb(0,107,164, max = 255),
 
 x$tableau <- list()
 x$tableau$colors <-
-  list(
-  tableau20 =
+  list(tableau20 =
   c(rgb(31, 119, 180, max = 255),
     rgb(174, 199, 232, max = 255),
     rgb(255, 127, 14, max = 255),
@@ -408,6 +408,7 @@ x$tableau$colors <-
   )
 
 x$parties <- list()
+
 x$parties$Brazil <- c(PT=rgb(255,39,0, max = 255),
                      PMDB=rgb(255,153,0, max = 255),
                      PSDB=rgb(0,143,213, max = 255),
@@ -416,23 +417,26 @@ x$parties$Brazil <- c(PT=rgb(255,39,0, max = 255),
 
 
 x$fte<-c(red=rgb(255,39,0, max = 255),
-        blue=rgb(0,143,213, max = 255),
-        green=rgb(119,171,67, max = 255))
+         blue=rgb(0,143,213, max = 255),
+         green=rgb(119,171,67, max = 255))
 
 x$seasons <-c(autumn=rgb(16,78,139, max = 255),
               spring=rgb(110,139,61, max = 255),
               summer=rgb(154,50,205, max = 255),
               winter=rgb(255,193,37, max = 255))
+## return
+x
 }
+NULL
 
 
 #' @title Color Palettes based on Tableau (discrete)
 #'
-#' @description  Color palettes used in
-#' \href{http://www.tableausoftware.com/}{Tableau}.
+#' @description Color palettes used in \href{http://www.tableausoftware.com/}{Tableau}.
+#'
+#' @param palette Palette name.
 #'
 #' @export
-#' @param palette Palette name.
 #'
 `tableau_color_pal` <- function(palette = "tableau10") {
   pal.list <- themes_data$tableau$colors
@@ -450,9 +454,10 @@ x$seasons <-c(autumn=rgb(16,78,139, max = 255),
     unname(types)[seq_len(n)]
   }
 }
+NULL
 
 
-#'  @title Tableau color scales.
+#' @title Tableau color scales.
 #'
 #' @description See \code{\link{tableau_color_pal}} for details.
 #'
@@ -466,16 +471,22 @@ x$seasons <-c(autumn=rgb(16,78,139, max = 255),
 scale_colour_tableau <- function(palette = "tableau10", ...) {
   discrete_scale("colour", "tableau", tableau_color_pal(palette), ...)
 }
+NULL
 
 #' @export
 #' @rdname scale_color_tableau
 scale_fill_tableau <- function(palette = "tableau10", ...) {
   discrete_scale("fill", "tableau", tableau_color_pal(palette), ...)
 }
+NULL
+
+
 
 #' @export
 #' @rdname scale_color_tableau
 scale_color_tableau <- scale_colour_tableau
+
+
 
 
 #' fivethirtyeight.com color palette
@@ -490,6 +501,9 @@ fte_pal <- function() {
     unname(colors[seq_len(n)])
   }
 }
+NULL
+
+
 
 #' fivethirtyeight.com color scales
 #'
@@ -503,6 +517,9 @@ fte_pal <- function() {
 scale_colour_fte <- function(...) {
  discrete_scale("colour", "538", fte_pal(), ...)
 }
+NULL
+
+
 
 #' @rdname scale_fte
 #' @export
@@ -513,6 +530,7 @@ scale_color_fte <- scale_colour_fte
 scale_fill_fte <- function(...) {
   discrete_scale("fill", "538", fte_pal(), ...)
 }
+NULL
 
 
 #' Color blind color palette (discrete)
@@ -524,7 +542,7 @@ scale_fill_fte <- function(...) {
 colorblind_pal <- function() {
   scales::manual_pal(unname(themes_data$colorblind))
 }
-
+NULL
 
 
 #' Color blind color palette (discrete)
@@ -538,16 +556,22 @@ colorblind_pal <- function() {
 scale_fill_colorblind <- function(...) {
   discrete_scale("fill", "colorblind", colorblind_pal(), ...)
 }
+NULL
+
+
 
 #' @export
 #' @rdname scale_colorblind
 scale_colour_colorblind <- function(...) {
   discrete_scale("colour", "colorblind", colorblind_pal(), ...)
 }
+NULL
+
 
 #' @export
 #' @rdname scale_colorblind
 scale_color_colorblind <- scale_colour_colorblind
+
 
 # http://color.adobe.com/
 # http://www.farb-tabelle.de/en/rgb2hex.htm?

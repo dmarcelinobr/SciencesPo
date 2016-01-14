@@ -8,3 +8,5 @@
 #' @import parallel
 #' @import methods
 NULL
+
+globalVariables("themes_data")
