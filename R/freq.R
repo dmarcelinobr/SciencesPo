@@ -1,6 +1,6 @@
 #' @title Simple Frequency Table
 #'
-#' @description Simulating the FREQ procedure of SPSS.
+#' @description Creates a simple frequency data.frame.
 #'
 #' @param x A vector of values for which the frequency is desired.
 #' @param weighs A vector of weights.
@@ -17,7 +17,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{freq}}, \code{\link{CrossTabs}}.
+#' @seealso \code{\link{Frequency}}, \code{\link{CrossTabs}}.
 #'
 #' @examples
 #' data(Presidents)
@@ -25,13 +25,13 @@
 #' freq(Presidents$winner.party)
 #'
 #'
-#' @rdname freqw
+#' @rdname freq
 #' @export
-`freqw` <- function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=3, include.lowest = TRUE, order = c("desc", "asc","level", "name"), useNA = c("no", "ifany", "always"),...) UseMethod("freq")
+`freq` <- function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=3, include.lowest = TRUE, order = c("desc", "asc","level", "name"), useNA = c("no", "ifany", "always"),...) UseMethod("freq")
 
-#' @rdname freqw
+#' @rdname freq
 #' @export
-`freqw.default` <-
+`freq.default` <-
   function(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks, digits=3, include.lowest = TRUE, order = c("desc", "asc","level", "name"), useNA = c("no", "ifany", "always"),...){
 
     # check if x is a vector (do not use is.vector())

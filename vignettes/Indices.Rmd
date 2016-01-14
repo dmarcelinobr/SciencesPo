@@ -73,7 +73,7 @@ The basic imputs for this class of functions are: 1) a list of parties, 2) a lis
 ### d'Hondt
 Under the D'Hondt formula, seats are allocated using divisors of 1, 2, 3, 4, etc.
 
-```{r highestAverages1, echo=TRUE, message=FALSE, comment=NA}
+```{r highestAverages1, message=FALSE, comment=NA}
 highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "dh") 
 ```

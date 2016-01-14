@@ -539,25 +539,25 @@ NULL
 #' @param verbose A logical value, if \code{TRUE}, extra statistics are also provided.
 #' @param \dots Additional arguements (currently ignored)
 #'
-#' @seealso \code{\link{freqw}}, \code{\link{CrossTabs}}.
+#' @seealso \code{\link{freq}}, \code{\link{CrossTabs}}.
 #'
 #' @examples
 #' data(cathedrals)
 #'
-#' freq(cathedrals, Type)
+#' Freq(cathedrals, Type)
 #'
-#' cathedrals %>% freq(Height)
+#' cathedrals %>% Frequency(Height)
 #'
 #' @importFrom stats sd
-#' @rdname freq
+#' @rdname Frequency
+#' @aliases Freq
 #' @export
-#' @aliases oneway
-`freq` <- function(.data, x, verbose=TRUE, ...) UseMethod("Freq")
+`Frequency` <- function(.data, x, verbose=TRUE, ...) UseMethod("Frequency")
 
 
-#' @rdname freq
+#' @rdname Frequency
 #' @export
-`freq.default` <- function(.data, x, verbose=TRUE, ...) {
+`Frequency.default` <- function(.data, x, verbose=TRUE, ...) {
   vec <-eval(substitute(x), .data, parent.frame())
   nmiss=sum(is.na(vec))
   fsum=summary(factor(vec))
@@ -617,3 +617,7 @@ NULL
   cat("\n")
 }#--end of Freq
 NULL
+
+#' @export
+#' @rdname Frequency
+Freq <- Frequency

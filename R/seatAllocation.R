@@ -103,7 +103,7 @@ NULL
                                  1:seats ))
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- freqw(out, digits = 3);
+  out <- freq(out, digits = 3);
   names(out) <-c("Party", "Seats", "Share");
   # out <- out[ order(out[,2], decreasing = TRUE),]
   return(out)
@@ -229,19 +229,18 @@ NULL
   );
 
   out <- with(.temp, (parties[order(-scores)][1:seats]))
-  out <- freqw(out, digits = 3);
+  out <- freq(out, digits = 3);
   names(out) <-c("Party", "Seats", "Share");
   # Political diversity indices
-  ENP_final <- 1/sum((out$Seats/sum(out$Seats))^2)
+  ENP_after <- 1/sum((out$Seats/sum(out$Seats))^2)
 G.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
 
   cat("Method:", method.name, "\n")
-  cat(paste("ENP(Final):", round(ENP_final, 2)), "\n")
+  cat(paste("ENP(Final):", round(ENP_after, 2)), "\n")
   cat(paste("Gallagher Index:", round(G.index, 3)), "\n \n")
   return(out)
 }
 NULL
-
 
 
 
