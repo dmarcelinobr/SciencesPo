@@ -544,7 +544,7 @@ NULL
 #' @examples
 #' data(cathedrals)
 #'
-#' Freq(cathedrals, Type)
+#' Frequency(cathedrals, Type)
 #'
 #' cathedrals %>% Frequency(Height)
 #'
@@ -618,6 +618,3 @@ NULL
 }#--end of Freq
 NULL
 
-#' @export
-#' @rdname Frequency
-Freq <- Frequency
