@@ -35,6 +35,6 @@ Daniel Marcelino \email{dmarcelino@live.com}
 Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 

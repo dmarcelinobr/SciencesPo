@@ -22,6 +22,6 @@ Color scales using the colors in the fivethirtyeight graphics.
 \seealso{
 \code{\link{theme_538}} for examples.
 
-Other colour fte: \code{\link{fte_pal}}
+Other colour fte: \code{\link{fte_color_pal}}
 }
 

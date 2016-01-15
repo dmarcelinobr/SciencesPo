@@ -40,6 +40,6 @@ inv.cox.shugart(pvotes, pseats)
 Daniel Marcelino \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+\code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 }
 

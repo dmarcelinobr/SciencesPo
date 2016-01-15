@@ -35,10 +35,14 @@
 #' @export
 #' @rdname hamilton
 `hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...){
+  # Modified :
+  # v0.0 2011-10-25
+  # v0.1 2012-07-10
+  # v0.2 2016-01-05
   .temp <- data.frame(
-  parties = parties,
-  scores = votes / sum(votes) * seats,
-  perc = round(votes / sum(votes),3));
+    parties = parties,
+    scores = votes / sum(votes) * seats,
+    perc = round(votes / sum(votes),3));
   integer <- with(.temp, floor(scores));
   fraction <- with(.temp, scores - integer);
   remainder <- seats - sum(integer);
@@ -46,7 +50,7 @@
   extra <- utils::head(order(fraction, decreasing=TRUE), remainder);
   .temp$scores[extra] <- (.temp$scores[extra] + 1);
   if(sum(.temp$scores) != seats) stop("Allocation error.");
-  names(.temp) <-c("Party", "Seats", "Share");
+  names(.temp) <-c("Party", "Seats", "\u0025Seats");
   print(.temp, digits = max(3, getOption("digits") - 3))
 }
 NULL
@@ -96,6 +100,10 @@ NULL
 #' @rdname dHondt
 #' @export
 `dHondt` <-function(parties=NULL, votes=NULL, seats=NULL, ...){
+  # Modified :
+  # v0.0 2011-10-25
+  # v0.1 2012-07-10
+  # v0.2 2016-01-05
   # creates a party score object
   .temp <- data.frame(
     parties = rep(parties, each = seats ),
@@ -104,7 +112,7 @@ NULL
   );
   out <- with(.temp, (parties[order(-scores)][1:seats]))
   out <- freq(out, digits = 3);
-  names(out) <-c("Party", "Seats", "Share");
+  names(out) <-c("Party", "Seats", "\u0025Seats");
   # out <- out[ order(out[,2], decreasing = TRUE),]
   return(out)
 }
@@ -130,8 +138,8 @@ NULL
 #' @details The following methods are available:
 #' \itemize{
 #' \item {"dh"}{d'Hondt method}
-#' \item {"sl"}{Sainte-Lagu\"e method}
-#' \item {"msl"}{Modified Sainte-Lagu\"e method}
+#' \item {"sl"}{Sainte-Lague method}
+#' \item {"msl"}{Modified Sainte-Lague method}
 #' \item {"danish"}{Danish method}
 #' \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
 #' \item {"hill"}{Huntington-Hill method}
@@ -145,7 +153,7 @@ NULL
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
+#' @seealso \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 #'
 #' @examples
 #' # Results for the state legislative house of Ceara (2014):
@@ -186,64 +194,67 @@ NULL
 
 #' @export
 #' @rdname highestAverages
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill"), threshold=0, ...){
-  # local vars to use later
+`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill"), threshold=0, ...){
+  # Modified :
+  # v0.0 2013-11-21
+  # v0.1 2014-10-02
+  # v0.2 2016-01-13
+  if (is.null(parties)){
+    parties <- LETTERS(length(votes))
+  }
+
+  # local vars for using later
   .ratio <- votes/sum(votes)
   .votes <- ifelse(.ratio < threshold, 0, votes)
 
   # Define Quotient
   switch(method,
          dh = { #d'Hondt
-           wari.vec <- seq(from = 1, by = 1, length.out = seats)
+           divisor.vec <- seq(from = 1, by = 1, length.out = seats)
            method.name <- c("d'Hondt")
          },
          sl = { #Sainte-Lague
-           wari.vec <- seq(from = 1, by = 2, length.out = seats)
+           divisor.vec <- seq(from = 1, by = 2, length.out = seats)
            method.name <- c("Sainte-Lagu\u00EB")
          },
          msl = { #Modified Sainte-Lague
-           wari.vec <- c(1.4, seq(from = 3, by = 2, length.out = seats-1))
+           divisor.vec <- c(1.4, seq(from = 3, by = 2, length.out = seats-1))
            method.name <- c("Modified Sainte-Lagu\u00EB")
          },
          danish = { #Danish
-           wari.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
+           divisor.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
            method.name <- c("Danish")
          },
          imperiali = { #Imperiali
-           wari.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
+           divisor.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
            method.name <- c("Imperiali")
          },
          hill = { #Huntington-Hill
-           wari.vec0 <- seq(from = 1, by = 1, length.out = seats)
-           wari.vec <- sqrt(wari.vec0 * (wari.vec0 - 1))
+           divisor.vec0 <- seq(from = 1, by = 1, length.out = seats)
+           divisor.vec <- sqrt(divisor.vec0 * (divisor.vec0 - 1))
            method.name <- c("Hungtinton-Hill")
          }
   )
 
   # ratio = as.vector(sapply(votes, function(x) x /
-                            # sum(votes)))
+  # sum(votes)))
   .temp <- data.frame(
     parties = rep(parties, each = seats ),
     scores = as.vector(sapply(.votes, function(x) x /
-                                 wari.vec ))
+                                divisor.vec ))
   );
 
   out <- with(.temp, (parties[order(-scores)][1:seats]))
   out <- freq(out, digits = 3);
-  names(out) <-c("Party", "Seats", "Share");
+  names(out) <-c("Party", "Seats", "\u0025Seats");
   # Political diversity indices
   ENP_after <- 1/sum((out$Seats/sum(out$Seats))^2)
-G.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
+  G.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
 
   cat("Method:", method.name, "\n")
+  #cat("Divisors:", divisor.vec, "\n")
   cat(paste("ENP(Final):", round(ENP_after, 2)), "\n")
   cat(paste("Gallagher Index:", round(G.index, 3)), "\n \n")
   return(out)
 }
 NULL
-
-
-
-
-
-

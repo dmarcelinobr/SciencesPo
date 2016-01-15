@@ -33,6 +33,6 @@ Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon,
 Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 }
 \seealso{
-\code{\link{atkinson}}, \code{\link{herfindahl}},  \code{\link{gini}}.
+\code{\link{atkinson}}, \code{\link{herfindahl}},  \code{\link{gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 }
 

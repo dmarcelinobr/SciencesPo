@@ -40,9 +40,9 @@
 #'
 `ci` <- function(x, level=0.95, alpha=1-level,na.rm=FALSE,...){
   estimate <- mean(x, na.rm = na.rm);
-  stderr <- stats::sd(x, na.rm=na.rm)/sqrt(nobs(x));
-  ci.low <- estimate + stats::qt(alpha/2,nobs(x)-1)*stderr;
-  ci.high <- estimate - stats::qt(alpha/2,nobs(x)-1)*stderr;
+  stderr <- stats::sd(x, na.rm=na.rm)/sqrt(length(x));
+  ci.low <- estimate + stats::qt(alpha/2,length(x)-1)*stderr;
+  ci.high <- estimate - stats::qt(alpha/2,length(x)-1)*stderr;
   retval <- new("ci",
                 lower=ci.low,
                 mean=estimate,

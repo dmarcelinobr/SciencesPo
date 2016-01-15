@@ -3,15 +3,16 @@
 \encoding{latin1}
 \name{highestAverages}
 \alias{highestAverages}
+\alias{highestAverages.default}
 \title{Highest Averages Methods of Allocating Seats Proportionally}
 \usage{
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
   method = c("dh", "sl", "msl", "danish", "imperiali", "hill"),
   threshold = 0, ...)
 
-highestAverages(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"),
-  threshold = 0, ...)
+\method{highestAverages}{default}(parties = NULL, votes = NULL,
+  seats = NULL, method = c("dh", "sl", "msl", "danish", "imperiali",
+  "hill"), threshold = 0, ...)
 }
 \arguments{
 \item{parties}{A character vector for parties labels or candidates accordingly to the \code{votes} order.}
@@ -36,8 +37,8 @@ Computes the highest averages method for a variety of formulas to allocate seats
 The following methods are available:
 \itemize{
 \item {"dh"}{d'Hondt method}
-\item {"sl"}{Sainte-Lagu\"e method}
-\item {"msl"}{Modified Sainte-Lagu\"e method}
+\item {"sl"}{Sainte-Lague method}
+\item {"msl"}{Modified Sainte-Lague method}
 \item {"danish"}{Danish method}
 \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
 \item {"hill"}{Huntington-Hill method}
@@ -85,7 +86,7 @@ Electoral Systems: Quotas, Thresholds, Paradoxes and Majorities".
  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 }
 \seealso{
-\code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
+\code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 }
 \keyword{Electoral}
 

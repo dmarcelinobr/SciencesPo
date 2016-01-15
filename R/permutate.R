@@ -11,7 +11,7 @@
 #' permutate(input=1:5, k=5)
 #' @export
 permutate <- function(input,k){
-  n <- nobs(input)
+  n <- length(input)
   mat <- matrix(data=NA,nrow=k,ncol=n) # allocate memory
   k <- min(k, .npermutate(input))
   inserted <- 0
@@ -30,8 +30,8 @@ NULL
 .npermutate <- function(vec){
   tab <- table(vec); # count occurences of each element
   occurences <- tab[tab>1]; # get those greater than 1
-  numerator <- lfactorial(nobs(vec))
-  if(nobs(occurences ) > 0){
+  numerator <- lfactorial(length(vec))
+  if(length(occurences ) > 0){
     denominator <- sum(sapply(occurences , lfactorial))
   } else {
     denominator <- 0

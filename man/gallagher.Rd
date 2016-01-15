@@ -44,6 +44,6 @@ Daniel Marcelino \email{dmarcelino@live.com}
 Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}
+\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 

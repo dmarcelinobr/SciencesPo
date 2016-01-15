@@ -1,23 +1,23 @@
 ---
-title: "Political Behavior Measures"
+title: "Measures of Political Behavior"
 author: "Daniel Marcelino"
 date: "`r Sys.Date()`"
-output:
+output: 
   rmarkdown::html_vignette:
     fig_width: 5
 vignette: >
-  %\VignetteIndexEntry{Political Behavior Measures}
-  %\VignetteEngine{knitr::rmarkdown}
-   \usepackage[T1]{fontenc}
-    \usepackage[utf8]{inputenc}
-    %\usepackage[portuguese]{babel}
+  \VignetteIndexEntry{Measures of Political Behavior}
+   \VignetteEngine{knitr::rmarkdown}
+    \usepackage[T1]{fontenc}
+     \usepackage[utf8]{inputenc}
+     %\usepackage[portuguese]{babel}
 ---
   
 ## Introduction
 
-The very objective of the *SciencesPo* package is to provide methods for computing some of the popular measures used in political science literature, such as the indices of political concentration--or fragmentation, inequality, and seat apportionment methods. The following examples demontrates how to use some of the methods already available in *SciencesPo*.
+The very objective of the *SciencesPo* package is to provide methods for computing some of the popular measures used in political science literature, such as the indices of political concentration--or fragmentation, inequality, and seat apportionment methods. The following examples demontrates how to use some of the applications available in the R library *SciencesPo*.
 
-## Political Diversity Indices
+## Indices of Political Diversity 
 
 ```{r politicalDiversity1, echo=TRUE, message=FALSE, comment=NA}
 library("SciencesPo")
@@ -61,7 +61,7 @@ politicalDiversity(Helsinki$seats_DH); #ENP for D'Hondt
 
 ## Highest Averages Methods of Allocating Seats Proportionally
 
-Illustrative examples of the operation of some highest averages formulas in a six member district with four parties.
+Highest averages methods allocate seats proportionally to the number of votes by assigning seats in a way that assures the highest quotient by seat for each party. In what follows are illustrative examples of the operation of some highest averages formulas in a six member district with four parties taken from Lijphart (1994).
 
 ```{r table_A.1, echo=TRUE, cache=TRUE}
 # Table A.l
@@ -78,7 +78,7 @@ highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "dh") 
 ```
 
-The d'Hondt method is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota which is a Largest remainder method), and Hungtinton-Hill. 
+The d'Hondt method is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota, which is a Largest remainder method), and Hungtinton-Hill. 
 
 ### Modified Saint-Laguë
 How does d'Hondt compare to modified Sainte-Laguë? The modified Sainte-Laguë use divisors of 1.4, 3, 5, 7, etc.
@@ -118,10 +118,11 @@ highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "imperiali") 
 ```
 
-### Using thresholds
+### Using Thresholds
 
-Let's assume that we have an election with 1,000 total voters in which five parties (A, B, C, D, and E) have gained 100 (10\%), 150 (15\%), 300 (30\%), 400 (40\%), and 50 (5\%) votes, respectively. In this electoral constituency, there are 3 seats up for election, and all votes cast are valid; the electoral system has a 7\% vote threshold. Meaning that parties must get at least 7\% of the total unspoiled votes cast in order to participate in the distribution of seats. 
-Party *E* would then be elimiated from competition at the outset. If the d'Hondt method of seat allocation were employed, then party *C* would get 1 seat (or 33\% of the number of seats), and party *D* 2 seats (or 67\% of the seats).
+Let's assume that we have an election with 1,000 total voters in which five parties (A, B, C, D, and E) have gained 100 (10\%), 150 (15\%), 300 (30\%), 400 (40\%), and 50 (5\%) votes, respectively. In this electoral constituency, there are 3 seats up for election, and all votes cast are valid. The electoral system has a 7\% vote threshold, meaning that parties must get at least 7\% of the total unspoiled votes cast in order to participate in the distribution of seats. Party *E* would then be elimiated from competition at the outset. 
+
+If the d'Hondt method of seat allocation were employed in this hypothetical election, then party *C* would get 1 seat (or 33\% of the number of seats), and party *D* 2 seats (or 67\% of the seats).
 
 ```{r highestAverages7, echo=TRUE, message=FALSE, comment=NA}
 
@@ -136,10 +137,10 @@ Other methods divide the votes by a mathematically derived quota, such as the Dr
 
 ## Largest Remainder Methods of Allocating Seats Proportionally
 
-llustrative examples of the operation of three largest remainders formulas in an eight member district with the same four parties of the previous examples.
+Highest averages methods allocate seats proportionally to the number of votes by dividing the number of votes required for each party by a quota. The quota may vary because it is the result of dividing the number of unspoiled votes ($v$) by some whole number close to the number of seats that would next be assigned ($s$). In what follows are llustrative examples of the operation of three largest remainders formulas in an eight member district with the same four parties of the previous examples.
 
 ### Hare quota
-The Droop quota is obtained by quota = $\frac{V}{(S)}$.
+The Droop quota is obtained by quota = $\frac{v}{(s)}$.
 
 ```{r largestRemainders1, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
 largestRemainders(parties=names(lijphart), votes=lijphart, 
@@ -147,7 +148,7 @@ largestRemainders(parties=names(lijphart), votes=lijphart,
 ```
 
 ### Droop quota
-The Droop quota is obtained by quota = $\frac{V}{(S + 1)}+1$.
+The Droop quota is obtained by quota = $\frac{v}{(s + 1)}+1$.
 
 ```{r largestRemainders2, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
 largestRemainders(parties=names(lijphart), votes=lijphart, 
@@ -155,7 +156,7 @@ largestRemainders(parties=names(lijphart), votes=lijphart,
 ```
 
 ### Imperiali quota
-The imperial quota is obtained by quota = $\frac{V}{(S + 2)}$.
+The imperial quota is obtained by quota = $\frac{v}{(s + 2)}$.
  
 ```{r data-Italy, eval=FALSE, echo=TRUE, message=FALSE}
 # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
@@ -174,11 +175,11 @@ with(Italy, largestRemainders(parties=party, votes=votes,
 ```
 
 
-### Suitable output for recycling in RMarkdown documents 
+### Suitable output for recycling within RMarkdown documents 
 
-The output produced by the `highestAveragesof()` and `largestRemainders()`  functions is always a `data.frame`; therefore, it should be very straightforward to use with other aplications. I like the idea of using the output with the **knitr** package to produce publishable-quality tables, or graphs with **ggplot2**.
+The output produced by `highestAveragesof()` and `largestRemainders()`  functions is a `data.frame`. Thus, it should be very straightforward to use with other aplications. For instance, using the output with the **knitr** package to produce publishable-quality tables, or graphs with **ggplot2**.
 
-For instance, let's take the data from 2014 Brazilian legislative elections, especifically from one electoral district--the state of Ceará, and compare the results among several highest averages methods.
+Let's take the data from 2014 Brazilian legislative elections, especifically from one electoral district--the state of Ceará to compare how the caucus would look like among different apportionment methods.
 
 ```{r Ceara-election, echo=TRUE, cache=TRUE}
 # Results for the state legislative house of Ceara (2014):
@@ -195,44 +196,50 @@ mytable = highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "dh") 
 
 library(knitr)
-kable(mytable, align=c("l","c","c"))
+kable(mytable, align=c("l","c","c"), caption="Election Outcome: d'Hondt")
 ```
 
 
-Next, we produce a graph comparing three largest-remainders formulas.
+Next, we produce a graph comparing three highest-averages formulas.
 
-```{r largestRemainders5, eval=FALSE, echo=TRUE, message=FALSE, fig.width=4.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
+```{r largestRemainders5, eval=TRUE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
 
-out1 = largestRemainders(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "hare") 
-out2 = largestRemainders(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "droop")
-out3 = largestRemainders(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "imperiali.q")
+out1 = highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "dh") 
+out2 = highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "sl")
+out3 = highestAverages(parties=names(Ceara), votes=Ceara, 
+                seats = 42, method = "hill")
 
 # add the method:
-out1$method = "hare"
-out2$method = "droop"
-out3$method = "imperiali"
+out1$Method = "d'Hondt"
+out2$Method = "Saint-Lague"
+out3$Method = "Hill"
 
 data <- rbind(out1, out2, out3)
 
-p <- ggplot(data, aes(x=reorder(Party, Seats), y=Seats),
-            fill=method) + 
-  geom_bar( position="dodge", stat = "identity") +
-  coord_flip() + labs(x="", y="# Seats")
-
-p + theme_grey() 
+p = ggplot(data=data, aes(x=reorder(Party, -Seats), y=Seats, fill=Method)) +
+    geom_bar(stat="identity",position=position_dodge()) +
+   labs(x="", y="# Seats")
+p + scale_fill_fte() + 
+  theme_538(legend = "top") 
 ```
 
 
+```{r largestRemainders5, eval=TRUE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
+
+```
+
+
+geom_point(aes(fill=factor(stress)),size=8, shape=21)+
+
 ##  Measures of Proportionality
 
-Let's consider the following two real-data examples taken from the Wikipedia. These two elections refer to subnational elections, one from Queensland (NZ) and the other from Quebec (CA).  
+Let's consider the following two real-data examples taken from the Wikipedia. These two elections refer to subnational elections, one from Queensland (AUS) and the other from Quebec (CAN).  
 
 ```{r Queensland-election, echo=TRUE, cache=TRUE}
 # 2012 Queensland state elecion:
-Queensland <- data.frame(party = c("A", "B", "C", "D", "E", "F"),
+Queensland <- data.frame(party = c("LNP", "ALP", "Katter", "Greens", "Ind", "Others"),
                          pvotes = c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47),
                          pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00))
 ```
@@ -307,12 +314,30 @@ I will write soon...
 
 ## References
 
+Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): Handbook of Income Distribution. Amsterdam.
+
+Cowell, F. A. (1995) Measuring Inequality Harvester Wheatshef: Prentice Hall.
+
+Benoit, Kenneth. (2000) "Which Electoral Formula is the Most Proportional? A New Look with New Evidence." Political Analysis 8(4): 381-388.
+
+Blais, A., and L. Massicotte (1997) Electoral Formulas: A Macroscopic Perspective, European Journal of Political Research, 32, 107–129.
+
+Gallagher, Michael and Paul Mitchell (2005) The Politics of Electoral Systems. Oxford University Press.
+
+Gallagher, Michael (1992) "Comparing Proportional Representation Electoral Systems: Quotas, Thresholds, Paradoxes and Majorities". British Journal of Political Science, 22, 4, 469-496.
+
 Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
 
-Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
+Golosov, Grigorii (2010) The Effective Number of Parties: A New Approach, Party Politics, 16: 171-192.
 
-Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): \emph{Handbook of Income Distribution}. Amsterdam.
+Laakso, Markku and Rein Taagepera (1979) Effective Number of Parties: A Measure with Application to West Europe, Comparative Political Studies, 12: 3-27.
+ 
+Lijphart, Arend (1994) Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990. Oxford University Press.
 
-Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
+Nicolau, Jairo (2008) Sistemas Eleitorais. Rio de Janeiro, FGV.
 
-2000. Benoit, Kenneth. "Which Electoral Formula is the Most Proportional? A New Look with New Evidence." Political Analysis 8(4): 381-388. Replication dataset.
+Norris, Pippa (1997) Choosing electoral systems: proportional, majoritarian and mixed systems.
+
+Taagepera, R., and B. Grofman (2003) Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, 6: 659-77.
+
+Taagepera, Rein and Matthew S. Shugart (1989) Seats and Votes: The Effects and Determinants of Electoral Systems. New Haven: Yale University Press.

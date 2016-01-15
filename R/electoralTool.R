@@ -24,7 +24,7 @@
 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{grofman}}, \code{\link{gallagher}}, \code{\link{lijphart}}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{grofman}}, \code{\link{gallagher}}, \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
 #'
@@ -153,7 +153,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
@@ -199,7 +199,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @examples
 
@@ -238,7 +238,7 @@ NULL
 #'  @references
 #' Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
@@ -273,7 +273,7 @@ NULL
 #'
 #' @return A single score given the votes each party received and seats obtained.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @references
@@ -318,7 +318,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+#' @seealso \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @examples
 #' if (interactive()) {
@@ -380,7 +380,7 @@ NULL
 #'
 #' inv.cox.shugart(pvotes, pseats)
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @export
 #' @rdname inv.cox.shugart
@@ -415,7 +415,7 @@ NULL
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
-#' @seealso \code{\link{herfindahl}}, \code{\link{rosenbluth}},  \code{\link{gini}}.
+#' @seealso \code{\link{herfindahl}}, \code{\link{rosenbluth}},  \code{\link{gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #' @examples
 #' if (interactive()) {
 #' # generate a vector (of incomes)
@@ -467,7 +467,7 @@ NULL
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
-#' @seealso \code{\link{atkinson}}, \code{\link{herfindahl}},  \code{\link{gini}}.
+#' @seealso \code{\link{atkinson}}, \code{\link{herfindahl}},  \code{\link{gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @examples
 #' # generate a vector (of incomes)
@@ -522,7 +522,7 @@ NULL
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
-#' @seealso \code{\link{atkinson}}, \code{\link{rosenbluth}}, \code{\link{politicalDiversity}}, \code{\link{gini}}.
+#' @seealso \code{\link{atkinson}}, \code{\link{rosenbluth}}, \code{\link{politicalDiversity}}, \code{\link{gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)

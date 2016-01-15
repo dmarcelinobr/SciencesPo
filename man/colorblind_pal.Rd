@@ -9,6 +9,9 @@ colorblind_pal()
 \description{
 Color palettes for color blind.
 }
+\examples{
+scales::show_col(colorblind_pal()(8))
+}
 \seealso{
 Other colour colorblind: \code{\link{scale_color_colorblind}},
   \code{\link{scale_colour_colorblind}},
