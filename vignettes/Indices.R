@@ -54,10 +54,6 @@ highestAverages(parties=names(lijphart), votes=lijphart,
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "danish") 
 
-## ----highestAverages5, echo=TRUE, message=FALSE, comment=NA--------------
-highestAverages(parties=names(lijphart), votes=lijphart, 
-                seats = 6, method = "hh") 
-
 ## ----highestAverages6, echo=TRUE, message=FALSE, comment=NA--------------
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "wb") 
@@ -67,6 +63,18 @@ highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "imperiali") 
 
 ## ----highestAverages8, echo=TRUE, message=FALSE, comment=NA--------------
+Bruges=c("CD&V/N-VA"=32092, "SP.A/Spirit"=20028, 
+         "Flemish Interest"=13408, "Open VLD/Vivant"=9520,
+         "Green!"=5328, "Other"=2207)
+
+highestAverages(parties=names(Bruges), votes=Bruges, 
+                seats = 47, method = "imperiali") 
+
+## ----highestAverages5, echo=TRUE, message=FALSE, comment=NA--------------
+highestAverages(parties=names(lijphart), votes=lijphart, 
+                seats = 6, method = "hh") 
+
+## ----highestAverages9, echo=TRUE, message=FALSE, comment=NA--------------
 
 const <- c("A"=100, "B"=150,"C"=300, "D"=400, "E"=50)
 
@@ -95,7 +103,7 @@ highestAverages(parties=names(const), votes=const,
 #  with(Italy, largestRemainders(parties=party, votes=votes,
 #                  seats = 556, method = "imperiali.q") )
 
-## ----highestAverages9, echo=TRUE, message=FALSE, comment=NA--------------
+## ----highestAverages10, echo=TRUE, message=FALSE, comment=NA-------------
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 

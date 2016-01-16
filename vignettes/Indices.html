@@ -134,7 +134,6 @@ lijphart &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st
 <span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart,
                 <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
 <pre><code>Method: d'Hondt 
-Divisors: 1 2 3 4 5 6 
 ENP(Final): 2.57 
 Gallagher Index: 11.595 
  </code></pre>
@@ -143,7 +142,7 @@ Gallagher Index: 11.595
 2     B     2  0.333
 3     C     1  0.167
 4     D     0  0.000</code></pre>
-<p>The d’Hondt is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota, which is a Largest remainder method), Hungtinton-Hill, etc.</p>
+<p>The d’Hondt is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota, which is a Largest remainder method), Hungtinton-Hill, Webster, etc.</p>
 </div>
 <div id="modified-saint-lague" class="section level3">
 <h3>Modified Saint-Laguë</h3>
@@ -152,7 +151,6 @@ Gallagher Index: 11.595
 <span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
                 <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;msl&quot;</span>) </code></pre></div>
 <pre><code>Method: Modified Sainte-Laguë 
-Divisors: 1.4 3 5 7 9 11 
 ENP(Final): 3.6 
 Gallagher Index: 6.749 
  </code></pre>
@@ -169,7 +167,6 @@ Gallagher Index: 6.749
 <span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart,
                 <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>) </code></pre></div>
 <pre><code>Method: Sainte-Laguë 
-Divisors: 1 3 5 7 9 11 
 ENP(Final): 3.6 
 Gallagher Index: 6.749 
  </code></pre>
@@ -185,23 +182,6 @@ Gallagher Index: 6.749
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
                 <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;danish&quot;</span>) </code></pre></div>
 <pre><code>Method: Danish 
-Divisors: 1 4 7 10 13 16 
-ENP(Final): 3.6 
-Gallagher Index: 6.749 
- </code></pre>
-<pre><code>  Party Seats %Seats
-1     A     2  0.333
-2     B     2  0.333
-3     C     1  0.167
-4     D     1  0.167</code></pre>
-</div>
-<div id="hungtinton-hill" class="section level3">
-<h3>Hungtinton-Hill</h3>
-<p>The method proposed by Joseph Hill and Edward Huntington does not use a standard divisor, but a different one and also a modified quota such that rounding with cut-off point at <em>geometric</em> mean: hh = <span class="math inline">\(\sqrt{L(L + 1)}\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
-                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;hh&quot;</span>) </code></pre></div>
-<pre><code>Method: Hungtinton-Hill 
-Divisors: 0 1.414214 2.44949 3.464102 4.472136 5.477226 
 ENP(Final): 3.6 
 Gallagher Index: 6.749 
  </code></pre>
@@ -217,7 +197,6 @@ Gallagher Index: 6.749
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
                 <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;wb&quot;</span>) </code></pre></div>
 <pre><code>Method: Webster 
-Divisors: 0.5 2.5 4.5 6.5 8.5 10.5 
 ENP(Final): 3.6 
 Gallagher Index: 6.749 
  </code></pre>
@@ -229,11 +208,10 @@ Gallagher Index: 6.749
 </div>
 <div id="imperiali" class="section level3">
 <h3>Imperiali</h3>
-<p>The Italian Imperiali divisor system has a slowly-increasing sequence (1, 1.5, 2, 2.5, 3, …), with 0.5 difference between consecutive divisors. This is tighter than the d’Hondt divisors for which this difference is 1. Thus the Imperiali system, like d’Hondt, is designed to encourage coalitions and secure majority governments under a PR system, but the Imperiali will be the most favourable to large parties as they will gain many seats before their quotients are reduced below those of the smaller parties.</p>
+<p>The Italian Imperiali divisor system has a slowly-increasing sequence (1, 1.5, 2, 2.5, 3, …), with 0.5 difference between consecutive divisors. This is tighter than the d’Hondt divisors for which this difference is 1. The Imperiali system, like d’Hondt, is designed to encourage coalitions and secure majority governments under a PR system, but the Imperiali will be the most favourable to large parties as they will gain many seats before their quotients are reduced below those of the smaller parties.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
                 <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>) </code></pre></div>
 <pre><code>Method: Imperiali 
-Divisors: 1 1.5 2 2.5 3 3.5 
 ENP(Final): 2.57 
 Gallagher Index: 11.595 
  </code></pre>
@@ -242,6 +220,39 @@ Gallagher Index: 11.595
 2     B     2  0.333
 3     C     1  0.167
 4     D     0  0.000</code></pre>
+<p>The Belgian municipal councils were elected by the Imperiali highest averages method. The following example comes from the 2006 election in Bruges, where 47 seats were upon.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Bruges=<span class="kw">c</span>(<span class="st">&quot;CD&amp;V/N-VA&quot;</span>=<span class="dv">32092</span>, <span class="st">&quot;SP.A/Spirit&quot;</span>=<span class="dv">20028</span>, 
+         <span class="st">&quot;Flemish Interest&quot;</span>=<span class="dv">13408</span>, <span class="st">&quot;Open VLD/Vivant&quot;</span>=<span class="dv">9520</span>,
+         <span class="st">&quot;Green!&quot;</span>=<span class="dv">5328</span>, <span class="st">&quot;Other&quot;</span>=<span class="dv">2207</span>)
+
+<span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Bruges), <span class="dt">votes=</span>Bruges, 
+                <span class="dt">seats =</span> <span class="dv">47</span>, <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>) </code></pre></div>
+<pre><code>Method: Imperiali 
+ENP(Final): 3.47 
+Gallagher Index: 3.785 
+ </code></pre>
+<pre><code>             Party Seats %Seats
+1        CD&amp;V/N-VA    20  0.426
+2      SP.A/Spirit    12  0.255
+3 Flemish Interest     8  0.170
+4  Open VLD/Vivant     5  0.106
+5           Green!     2  0.043
+6            Other     0  0.000</code></pre>
+</div>
+<div id="hungtinton-hill" class="section level3">
+<h3>Hungtinton-Hill</h3>
+<p>The method proposed by Joseph Hill and Edward Huntington does not use a standard divisor, but a different one and also a modified quota such that rounding with cut-off point at <em>geometric</em> mean: hh = <span class="math inline">\(\sqrt{L(L + 1)}\)</span>. This method makes sense only if every party is guaranteed at least one seat. It has been used for allotting seats in the US House of Representatives to the states.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;hh&quot;</span>) </code></pre></div>
+<pre><code>Method: Hungtinton-Hill 
+ENP(Final): 3.6 
+Gallagher Index: 6.749 
+ </code></pre>
+<pre><code>  Party Seats %Seats
+1     A     2  0.333
+2     B     2  0.333
+3     C     1  0.167
+4     D     1  0.167</code></pre>
 </div>
 <div id="using-thresholds" class="section level3">
 <h3>Using Thresholds</h3>
@@ -252,7 +263,6 @@ Gallagher Index: 11.595
 <span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(const), <span class="dt">votes=</span>const,
                <span class="dt">seats =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>, <span class="dt">threshold =</span> <span class="dv">7</span>/<span class="dv">100</span>) </code></pre></div>
 <pre><code>Method: d'Hondt 
-Divisors: 1 2 3 
 ENP(Final): 1.8 
 Gallagher Index: 55.101 
  </code></pre>
@@ -282,7 +292,7 @@ Gallagher Index: 55.101
 </div>
 <div id="imperiali-quota" class="section level3">
 <h3>Imperiali quota</h3>
-<p>The imperial quota is obtained by quota = <span class="math inline">\(\frac{v}{(s + 2)}\)</span>.</p>
+<p>The imperial quota is obtained by quota = <span class="math inline">\(\frac{v}{(s + 2)}\)</span>. For Italian elections during the 1950s the quota was <span class="math inline">\(\frac{v}{(s + 3)}\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The 1946 Italian Constituent Assembly election results: parties and unspoilt votes</span>
 
 Italy =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party=</span><span class="kw">c</span>(<span class="st">&quot;DC&quot;</span>, <span class="st">&quot;PSIUP&quot;</span>, <span class="st">&quot;PCI&quot;</span>, <span class="st">&quot;UDN&quot;</span>, <span class="st">&quot;UQ&quot;</span>, <span class="st">&quot;PRI&quot;</span>,
@@ -306,7 +316,6 @@ Ceara &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mytable =<span class="st"> </span><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
 <pre><code>Method: d'Hondt 
-Divisors: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 
 ENP(Final): 3.14 
 Gallagher Index: 47.007 
  </code></pre>
@@ -383,21 +392,18 @@ Gallagher Index: 47.007
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out1 =<span class="st"> </span><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
 <pre><code>## Method: d'Hondt 
-## Divisors: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 
 ## ENP(Final): 3.14 
 ## Gallagher Index: 47.007 
 ## </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out2 =<span class="st"> </span><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>)</code></pre></div>
 <pre><code>## Method: Sainte-Laguë 
-## Divisors: 1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51 53 55 57 59 61 63 65 67 69 71 73 75 77 79 81 83 
 ## ENP(Final): 3.74 
 ## Gallagher Index: 43.992 
 ## </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out3 =<span class="st"> </span><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;hh&quot;</span>)</code></pre></div>
 <pre><code>## Method: Hungtinton-Hill 
-## Divisors: 0 1.414214 2.44949 3.464102 4.472136 5.477226 6.480741 7.483315 8.485281 9.486833 10.48809 11.48913 12.49 13.49074 14.49138 15.49193 16.49242 17.49286 18.49324 19.49359 20.4939 21.49419 22.49444 23.49468 24.4949 25.4951 26.49528 27.49545 28.49561 29.49576 30.4959 31.49603 32.49615 33.49627 34.49638 35.49648 36.49658 37.49667 38.49675 39.49684 40.49691 41.49699 
 ## ENP(Final): 4.05 
 ## Gallagher Index: 42.76 
 ## </code></pre>

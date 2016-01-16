@@ -112,15 +112,6 @@ highestAverages(parties=names(lijphart), votes=lijphart,
 ```
 
 
-### Hungtinton-Hill
-The method proposed by Joseph Hill and Edward Huntington does not use a standard divisor, but a different one and also a modified quota such that rounding with cut-off point at *geometric* mean: hh = $\sqrt{L(L + 1)}$.
-
-
-```{r highestAverages5, echo=TRUE, message=FALSE, comment=NA}
-highestAverages(parties=names(lijphart), votes=lijphart, 
-                seats = 6, method = "hh") 
-```
-
 ### Webster
 This approach does not use a standard divisor either. It uses instead a different divisor and modified quota such that rounding with cut-off point at *algebraic* mean of lower and upper quotas: wb = $\frac{L + (L + 1)}{2}$.
 
@@ -131,13 +122,32 @@ highestAverages(parties=names(lijphart), votes=lijphart,
 
 
 ### Imperiali
-The Italian Imperiali divisor system has a slowly-increasing sequence (1, 1.5, 2, 2.5, 3, ...), with 0.5 difference between consecutive divisors. This is tighter than the d'Hondt divisors for which this difference is 1. Thus the Imperiali system, like d'Hondt, is designed to encourage coalitions and secure majority governments under a PR system, but the Imperiali will be the most favourable to large parties as they will gain many seats before their quotients are reduced below those of the smaller parties.
+The Italian Imperiali divisor system has a slowly-increasing sequence (1, 1.5, 2, 2.5, 3, ...), with 0.5 difference between consecutive divisors. This is tighter than the d'Hondt divisors for which this difference is 1. The Imperiali system, like d'Hondt, is designed to encourage coalitions and secure majority governments under a PR system, but the Imperiali will be the most favourable to large parties as they will gain many seats before their quotients are reduced below those of the smaller parties.
 
 ```{r highestAverages7, echo=TRUE, message=FALSE, comment=NA}
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "imperiali") 
 ```
 
+The Belgian municipal councils were elected by the Imperiali highest averages method. The following example comes from the 2006 election in Bruges, where 47 seats were upon.
+
+```{r highestAverages8, echo=TRUE, message=FALSE, comment=NA}
+Bruges=c("CD&V/N-VA"=32092, "SP.A/Spirit"=20028, 
+         "Flemish Interest"=13408, "Open VLD/Vivant"=9520,
+         "Green!"=5328, "Other"=2207)
+
+highestAverages(parties=names(Bruges), votes=Bruges, 
+                seats = 47, method = "imperiali") 
+```
+
+### Hungtinton-Hill
+The method proposed by Joseph Hill and Edward Huntington does not use a standard divisor, but a different one and also a modified quota such that rounding with cut-off point at *geometric* mean: hh = $\sqrt{L(L + 1)}$. This method makes sense only if every party is guaranteed at least one seat. It has been used for allotting seats in the US House of Representatives to the states.
+
+
+```{r highestAverages5, echo=TRUE, message=FALSE, comment=NA}
+highestAverages(parties=names(lijphart), votes=lijphart, 
+                seats = 6, method = "hh") 
+```
 
 ### Using Thresholds
 
@@ -145,7 +155,7 @@ Let's assume that we have an election with 1,000 total voters in which five part
 
 If the d'Hondt method of seat allocation were employed in this hypothetical election, then party *C* would get 1 seat (or 33\% of the number of seats), and party *D* 2 seats (or 67\% of the seats).
 
-```{r highestAverages8, echo=TRUE, message=FALSE, comment=NA}
+```{r highestAverages9, echo=TRUE, message=FALSE, comment=NA}
 
 const <- c("A"=100, "B"=150,"C"=300, "D"=400, "E"=50)
 
@@ -177,7 +187,7 @@ largestRemainders(parties=names(lijphart), votes=lijphart,
 ```
 
 ### Imperiali quota
-The imperial quota is obtained by quota = $\frac{v}{(s + 2)}$.
+The imperial quota is obtained by quota = $\frac{v}{(s + 2)}$. For Italian elections during the 1950s the quota was $\frac{v}{(s + 3)}$.
  
 ```{r data-Italy, eval=FALSE, echo=TRUE, message=FALSE}
 # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
@@ -212,7 +222,7 @@ Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
 
 Make a table with the d'Hondt formula results:
 
-```{r highestAverages9, echo=TRUE, message=FALSE, comment=NA}
+```{r highestAverages10, echo=TRUE, message=FALSE, comment=NA}
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 

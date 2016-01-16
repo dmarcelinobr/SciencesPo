@@ -7,11 +7,11 @@
 \title{Highest Averages Methods of Allocating Seats Proportionally}
 \usage{
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "imperiali", "hh", "wb", "jef",
+  method = c("dh", "sl", "msl", "danish", "hh", "imperiali", "wb", "jef",
   "ad", "hb"), threshold = 0, ...)
 
 \method{highestAverages}{default}(parties = NULL, votes = NULL,
-  seats = NULL, method = c("dh", "sl", "msl", "danish", "imperiali", "hh",
+  seats = NULL, method = c("dh", "sl", "msl", "danish", "hh", "imperiali",
   "wb", "jef", "ad", "hb"), threshold = 0, ...)
 }
 \arguments{
