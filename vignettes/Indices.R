@@ -113,16 +113,17 @@ kable(mytable, align=c("l","c","c"), caption="Election Outcome: d'Hondt")
 ## ----largestRemainders5, eval=TRUE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"----
 
 out1 = highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "dh") 
+                seats = 42, method = "dh")
 out2 = highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "sl")
+                seats = 42, method = "imperiali") 
 out3 = highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "hh")
+                seats = 42, method = "sl")
 
 # add the method:
 out1$Method = "d'Hondt"
-out2$Method = "Saint-Lague"
-out3$Method = "Hungtinton-Hill"
+out2$Method = "imperiali"
+out3$Method = "Saint-Laguë"
+
 
 data <- rbind(out1, out2, out3)
 
