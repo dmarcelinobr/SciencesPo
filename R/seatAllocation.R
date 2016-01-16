@@ -141,6 +141,7 @@ NULL
 #' \item {"sl"}{Sainte-Lague method}
 #' \item {"msl"}{Modified Sainte-Lague method}
 #' \item {"danish"}{Danish modified Sainte-Lague method}
+#' \item {"slh"}{Hungarian modified Sainte-Lague method}
 #' \item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
 #' \item {"hh"}{Huntington-Hill method}
 #' \item {"wb"}{Webster's method}
@@ -192,13 +193,13 @@ NULL
 #'
 #' @rdname highestAverages
 #' @export
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("highestAverages")
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "slh", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("highestAverages")
 
 
 
 #' @export
 #' @rdname highestAverages
-`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
+`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "slh", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02
@@ -230,7 +231,11 @@ NULL
          },
          danish = { #Danish
            divisor.vec <- c(1, seq(from = 4, by = 3, length.out = seats-1))
-           method.name <- c("Danish")
+           method.name <- c("Danish Sainte-Lagu\u00EB")
+         },
+         slh = { #Hungarian
+           divisor.vec <- c(1.5, seq(from = 3, by = 2, length.out = seats-1))
+           method.name <- c("Hungarian Sainte-Lagu\u00EB")
          },
          imperiali = { #Imperiali
            divisor.vec <- c(1, seq(from = 1.5, by = .5, length.out = seats-1))
@@ -274,12 +279,12 @@ NULL
   names(out) <-c("Party", "Seats", "\u0025Seats");
   # Political diversity indices
   ENP_after <- 1/sum((out$Seats/sum(out$Seats))^2)
-  G.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
+  LSq.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
 
   cat("Method:", method.name, "\n")
   #cat("Divisors:", divisor.vec, "\n")
   cat(paste("ENP(Final):", round(ENP_after, 2)), "\n")
-  cat(paste("Gallagher Index:", round(G.index, 3)), "\n \n")
+  cat(paste("Gallagher Index:", round(LSq.index, 3)), "\n \n")
   return(out)
 }
 NULL

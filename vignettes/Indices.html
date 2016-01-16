@@ -144,6 +144,22 @@ Gallagher Index: 11.595
 4     D     0  0.000</code></pre>
 <p>The d’Hondt is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota, which is a Largest remainder method), Hungtinton-Hill, Webster, etc.</p>
 </div>
+<div id="saint-lague" class="section level3">
+<h3>Saint-Laguë</h3>
+<p>Named after its founder, the pure Sainte-Laguë formula, also known as Schepers method, uses the odd-integer divisor series (1, 3, 5, 7, …) to elect candidates from political parties in approximate proportion as the proportion of votes won by the party. The outcome would be the same as the outcome produced by the Webster’s divisors method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The Sainte-Laguë will give the same results as the Webster's method (wb)</span>
+<span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart,
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>) </code></pre></div>
+<pre><code>Method: Sainte-Laguë 
+ENP(Final): 3.6 
+Gallagher Index: 6.749 
+ </code></pre>
+<pre><code>  Party Seats %Seats
+1     A     2  0.333
+2     B     2  0.333
+3     C     1  0.167
+4     D     1  0.167</code></pre>
+</div>
 <div id="modified-saint-lague" class="section level3">
 <h3>Modified Saint-Laguë</h3>
 <p>The modified Sainte-Laguë use divisors of 1.4, 3, 5, 7, etc. How does the d’Hondt divisor compare to the Modified Sainte-Laguë one? Which divisor method tend to favor larger parties and which one smaller parties?</p>
@@ -160,13 +176,12 @@ Gallagher Index: 6.749
 3     C     1  0.167
 4     D     1  0.167</code></pre>
 </div>
-<div id="saint-lague" class="section level3">
-<h3>Saint-Laguë</h3>
-<p>The pure Sainte-Laguë formula, also known as Schepers method, uses the odd-integer divisor series (1, 3, 5, 7, …). In this setting, the outcome produced would be the as by the Webster’s divisor method.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The Sainte-Laguë will give the same results as the Webster's method (wb)</span>
-<span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart,
-                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>) </code></pre></div>
-<pre><code>Method: Sainte-Laguë 
+<div id="danish" class="section level3">
+<h3>Danish</h3>
+<p>The Danish divisors (1, 4, 7, 10, …) increase so fast that large parties are quickly cut down, acting much to the benefit of smaller parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;danish&quot;</span>) </code></pre></div>
+<pre><code>Method: Danish Sainte-Laguë 
 ENP(Final): 3.6 
 Gallagher Index: 6.749 
  </code></pre>
@@ -176,12 +191,12 @@ Gallagher Index: 6.749
 3     C     1  0.167
 4     D     1  0.167</code></pre>
 </div>
-<div id="danish" class="section level3">
-<h3>Danish</h3>
-<p>The Danish divisors (1, 4, 7, 10, …) increase so fast that large parties are quickly cut down, acting much to the benefit of smaller parties.</p>
+<div id="hungarian" class="section level3">
+<h3>Hungarian</h3>
+<p>The Hungarian version of Sainte-Laguë uses divisors of (1.5, 3, 5, 7, 9, …) increase so fast that large parties are quickly cut down, acting much to the benefit of smaller parties.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
                 <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;danish&quot;</span>) </code></pre></div>
-<pre><code>Method: Danish 
+<pre><code>Method: Danish Sainte-Laguë 
 ENP(Final): 3.6 
 Gallagher Index: 6.749 
  </code></pre>
@@ -277,7 +292,7 @@ Gallagher Index: 55.101
 </div>
 <div id="largest-remainder-methods-of-allocating-seats-proportionally" class="section level2">
 <h2>Largest Remainder Methods of Allocating Seats Proportionally</h2>
-<p>Highest averages methods allocate seats proportionally to the number of votes by dividing the number of votes required for each party by a quota. The quota may vary because it is the result of dividing the number of unspoiled votes (<span class="math inline">\(v\)</span>) by some whole number close to the number of seats that would next be assigned (<span class="math inline">\(s\)</span>). In what follows are llustrative examples of the operation of three largest remainders formulas in an eight member district with the same four parties of the previous examples.</p>
+<p>Highest averages methods allocate seats proportionally to the number of votes by dividing the number of votes required for each party by a quota. The quota may vary because it is the result of dividing the number of unspoiled votes (<span class="math inline">\(v\)</span>) by some whole number close to the number of seats that would next be assigned (<span class="math inline">\(s\)</span>). In what follows are llustrative examples of the operation of some largest remainders formulas in an eight member district with the same four parties of the previous examples.</p>
 <div id="hare-quota" class="section level3">
 <h3>Hare quota</h3>
 <p>The Droop quota is obtained by quota = <span class="math inline">\(\frac{v}{(s)}\)</span>.</p>
@@ -290,9 +305,15 @@ Gallagher Index: 55.101
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">largestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
                 <span class="dt">seats =</span> <span class="dv">8</span>, <span class="dt">method =</span> <span class="st">&quot;droop&quot;</span>) </code></pre></div>
 </div>
+<div id="hagenbach-bischoff" class="section level3">
+<h3>Hagenbach-Bischoff</h3>
+<p>The Hagenbach-Bischoff quota is obtained by <span class="math inline">\(\frac{v}{(s + 1)}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">largestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">8</span>, <span class="dt">method =</span> <span class="st">&quot;hagb&quot;</span>) </code></pre></div>
+</div>
 <div id="imperiali-quota" class="section level3">
 <h3>Imperiali quota</h3>
-<p>The imperial quota is obtained by quota = <span class="math inline">\(\frac{v}{(s + 2)}\)</span>. For Italian elections during the 1950s the quota was <span class="math inline">\(\frac{v}{(s + 3)}\)</span>.</p>
+<p>The imperial quota is obtained by quota = <span class="math inline">\(\frac{v}{(s + 2)}\)</span>. For Italian elections during the 1950s the quota was a reinforced Imperiali quota version: <span class="math inline">\(\frac{v}{(s + 3)}\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The 1946 Italian Constituent Assembly election results: parties and unspoilt votes</span>
 
 Italy =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party=</span><span class="kw">c</span>(<span class="st">&quot;DC&quot;</span>, <span class="st">&quot;PSIUP&quot;</span>, <span class="st">&quot;PCI&quot;</span>, <span class="st">&quot;UDN&quot;</span>, <span class="st">&quot;UQ&quot;</span>, <span class="st">&quot;PRI&quot;</span>,
@@ -428,7 +449,9 @@ p +<span class="st"> </span><span class="kw">scale_fill_fte</span>() +<span clas
 <p>Let’s consider the following two real-data examples taken from the Wikipedia. These two elections refer to subnational elections, one from Queensland (AUS) and the other from Quebec (CAN).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 2012 Queensland state elecion:</span>
 Queensland &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="kw">c</span>(<span class="st">&quot;LNP&quot;</span>, <span class="st">&quot;ALP&quot;</span>, <span class="st">&quot;Katter&quot;</span>, <span class="st">&quot;Greens&quot;</span>, <span class="st">&quot;Ind&quot;</span>, <span class="st">&quot;Others&quot;</span>),
+                         <span class="dt">votes =</span> <span class="kw">c</span>(<span class="dv">1214553</span>,<span class="dv">652092</span>,<span class="dv">282098</span>,<span class="dv">184147</span>,<span class="dv">77282</span>,<span class="dv">35794</span>),
                          <span class="dt">pvotes =</span> <span class="kw">c</span>(<span class="fl">49.65</span>, <span class="fl">26.66</span>, <span class="fl">11.5</span>, <span class="fl">7.53</span>, <span class="fl">3.16</span>, <span class="fl">1.47</span>),
+                         <span class="dt">seats =</span> <span class="kw">c</span>(<span class="dv">78</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>),
                          <span class="dt">pseats =</span> <span class="kw">c</span>(<span class="fl">87.64</span>, <span class="fl">7.87</span>, <span class="fl">2.25</span>, <span class="fl">0.00</span>, <span class="fl">2.25</span>, <span class="fl">0.00</span>))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 2012 Quebec provincial election:</span>
 Quebec &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="kw">c</span>(<span class="st">&quot;PQ&quot;</span>, <span class="st">&quot;Lib&quot;</span>, <span class="st">&quot;CAQ&quot;</span>, <span class="st">&quot;QS&quot;</span>, <span class="st">&quot;Option&quot;</span>, <span class="st">&quot;Other&quot;</span>),

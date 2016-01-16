@@ -40,17 +40,21 @@ politicalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
 highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "dh") 
 
-## ----highestAverages3, echo=TRUE, message=FALSE, comment=NA--------------
-# Seats allocated using modified Sainte-Lague divisors of 1.4, 3, 5.
-highestAverages(parties=names(lijphart), votes=lijphart, 
-                seats = 6, method = "msl") 
-
 ## ----highestAverages2, echo=TRUE, message=FALSE, comment=NA--------------
 # The Sainte-Laguë will give the same results as the Webster's method (wb)
 highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "sl") 
 
+## ----highestAverages3, echo=TRUE, message=FALSE, comment=NA--------------
+# Seats allocated using modified Sainte-Lague divisors of 1.4, 3, 5.
+highestAverages(parties=names(lijphart), votes=lijphart, 
+                seats = 6, method = "msl") 
+
 ## ----highestAverages4, echo=TRUE, message=FALSE, comment=NA--------------
+highestAverages(parties=names(lijphart), votes=lijphart, 
+                seats = 6, method = "danish") 
+
+## ----highestAverages5, echo=TRUE, message=FALSE, comment=NA--------------
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "danish") 
 
@@ -70,11 +74,11 @@ Bruges=c("CD&V/N-VA"=32092, "SP.A/Spirit"=20028,
 highestAverages(parties=names(Bruges), votes=Bruges, 
                 seats = 47, method = "imperiali") 
 
-## ----highestAverages5, echo=TRUE, message=FALSE, comment=NA--------------
+## ----highestAverages9, echo=TRUE, message=FALSE, comment=NA--------------
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "hh") 
 
-## ----highestAverages9, echo=TRUE, message=FALSE, comment=NA--------------
+## ----highestAverages10, echo=TRUE, message=FALSE, comment=NA-------------
 
 const <- c("A"=100, "B"=150,"C"=300, "D"=400, "E"=50)
 
@@ -89,6 +93,10 @@ highestAverages(parties=names(const), votes=const,
 #  largestRemainders(parties=names(lijphart), votes=lijphart,
 #                  seats = 8, method = "droop")
 
+## ----largestRemainders3, eval=FALSE, echo=TRUE, message=FALSE, comment=NA----
+#  largestRemainders(parties=names(lijphart), votes=lijphart,
+#                  seats = 8, method = "hagb")
+
 ## ----data-Italy, eval=FALSE, echo=TRUE, message=FALSE--------------------
 #  # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
 #  
@@ -99,11 +107,11 @@ highestAverages(parties=names(const), votes=const,
 #                             1003007, 637328, 334748, 171201, 102393,
 #                             97690, 78554, 71021, 51088, 40633, 21853))
 
-## ----largestRemainders3, eval=FALSE, echo=TRUE, message=FALSE, comment=NA----
+## ----largestRemainders4, eval=FALSE, echo=TRUE, message=FALSE, comment=NA----
 #  with(Italy, largestRemainders(parties=party, votes=votes,
 #                  seats = 556, method = "imperiali.q") )
 
-## ----highestAverages10, echo=TRUE, message=FALSE, comment=NA-------------
+## ----highestAverages11, echo=TRUE, message=FALSE, comment=NA-------------
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 

@@ -7,12 +7,12 @@
 \title{Highest Averages Methods of Allocating Seats Proportionally}
 \usage{
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "hh", "imperiali", "wb", "jef",
-  "ad", "hb"), threshold = 0, ...)
+  method = c("dh", "sl", "msl", "danish", "slh", "hh", "imperiali", "wb",
+  "jef", "ad", "hb"), threshold = 0, ...)
 
 \method{highestAverages}{default}(parties = NULL, votes = NULL,
-  seats = NULL, method = c("dh", "sl", "msl", "danish", "hh", "imperiali",
-  "wb", "jef", "ad", "hb"), threshold = 0, ...)
+  seats = NULL, method = c("dh", "sl", "msl", "danish", "slh", "hh",
+  "imperiali", "wb", "jef", "ad", "hb"), threshold = 0, ...)
 }
 \arguments{
 \item{parties}{A character vector for parties labels or candidates in the same order as \code{votes}. If \code{NULL}, alphabet will be assigned.}
@@ -40,6 +40,7 @@ The following methods are available:
 \item {"sl"}{Sainte-Lague method}
 \item {"msl"}{Modified Sainte-Lague method}
 \item {"danish"}{Danish modified Sainte-Lague method}
+\item {"slh"}{Hungarian modified Sainte-Lague method}
 \item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
 \item {"hh"}{Huntington-Hill method}
 \item {"wb"}{Webster's method}
