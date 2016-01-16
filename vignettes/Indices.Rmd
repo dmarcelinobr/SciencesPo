@@ -6,8 +6,8 @@ output:
   rmarkdown::html_vignette:
     fig_width: 5
 vignette: >
-  \VignetteIndexEntry{Measures of Political Behavior}
-   \VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Measures of Political Behavior}
+   %\VignetteEngine{knitr::rmarkdown}
     \usepackage[T1]{fontenc}
      \usepackage[utf8]{inputenc}
      %\usepackage[portuguese]{babel}
@@ -61,6 +61,8 @@ politicalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
 politicalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
 ```
 
+Most democratic countries use apportionment methods to transform election results into whole numbers, which indicate the number of seats that each party obtained in a legislative body. Which apportionment method does this best is not a trivial topic in political science and that several methods have been proposed. The following sections briefly present some of these apportionment methods.
+
 ## Highest Averages Methods of Allocating Seats Proportionally
 
 Highest averages methods allocate seats proportionally to the number of votes by assigning seats in a way that assures the highest quotient by seat for each party. In what follows are illustrative examples of the operation of some highest averages formulas in a six member district with four parties taken from Lijphart (1994).
@@ -73,17 +75,18 @@ lijphart <- c("A"=41000, "B"=29000,"C"=17000, "D"=13000)
 The basic imputs for this class of functions are: 1) a list of parties, 2) a list of positive votes, and 3) a constant value for the number of seats to be returned. A numeric value (0~1) for the threshold is optional.
 
 ### d'Hondt
-Under the D'Hondt formula, seats are allocated using divisors of 1, 2, 3, 4, etc.
+Under the D'Hondt formula, seats are allocated using divisors of 1, 2, 3, 4, etc. Thus, suggesting that the divisors are simply one more than the number of seats that party already has. 
 
 ```{r highestAverages1, message=FALSE, comment=NA}
+# The d'Hondt will give the same results as the Jefferson's method (jef).
 highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "dh") 
 ```
 
-The d'Hondt method is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota, which is a Largest remainder method), and Hungtinton-Hill. 
+The d'Hondt is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota, which is a Largest remainder method), Hungtinton-Hill, Webster, etc. 
 
 ### Modified Saint-Laguë
-How does d'Hondt compare to modified Sainte-Laguë? The modified Sainte-Laguë use divisors of 1.4, 3, 5, 7, etc.
+The modified Sainte-Laguë use divisors of 1.4, 3, 5, 7, etc. How does the d'Hondt divisor compare to the Modified Sainte-Laguë one? Which divisor method tend to favor larger parties and which one smaller parties?
 
 ```{r highestAverages3, echo=TRUE, message=FALSE, comment=NA}
 # Seats allocated using modified Sainte-Lague divisors of 1.4, 3, 5.
@@ -92,22 +95,25 @@ highestAverages(parties=names(lijphart), votes=lijphart,
 ```
 
 ### Saint-Laguë
-In this setting, the pure Sainte-Laguë formula, which uses the odd-integer divisor series 1, 3, 5, 7, and so forth, would produce the same outcome.
+In this setting the pure Sainte-Laguë formula, which uses the odd-integer divisor series (1, 3, 5, 7, ...), would produce the same outcome.
 
 ```{r highestAverages2, echo=TRUE, message=FALSE, comment=NA}
+# The Sainte-Laguë will give the same results as the Webster's method (wb)
 highestAverages(parties=names(lijphart), votes=lijphart,
                 seats = 6, method = "sl") 
 ```
 
 ### Danish
+The Danish divisors (1, 4, 7, 10, ...) increase so fast that large parties are quickly cut down, leading much to the benefit of smaller parties.
 
 ```{r highestAverages4, echo=TRUE, message=FALSE, comment=NA}
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "danish") 
 ```
 
+
 ### Hungtinton-Hill
-The method of proposed by Joseph Hill and Edward Huntington do not use standard divisor, but a different divisor and modified quota such that rounding with cut-off point at geometric mean: hh = $\sqrt{L}{(L + 1)}$.
+The method proposed by Joseph Hill and Edward Huntington does not use a standard divisor, but a different one and also a modified quota such that rounding with cut-off point at *geometric* mean: hh = $\sqrt{L(L + 1)}$.
 
 
 ```{r highestAverages5, echo=TRUE, message=FALSE, comment=NA}
@@ -116,20 +122,22 @@ highestAverages(parties=names(lijphart), votes=lijphart,
 ```
 
 ### Webster
-This approach do not use standard divisor either. Instead, it uses a different divisor and modified quota such that rounding with cut-off point at algebraic mean  of lower and upper quotas: hh = $\frac{L + (L +1)}{2}$.
+This approach does not use a standard divisor either. It uses instead a different divisor and modified quota such that rounding with cut-off point at *algebraic* mean of lower and upper quotas: wb = $\frac{L + (L + 1)}{2}$.
 
-```{r highestAverages6, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r highestAverages6, echo=TRUE, message=FALSE, comment=NA}
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "wb") 
 ```
 
 
 ### Imperiali
+The Italian Imperiali divisor system has a slowly-increasing sequence (1, 1.5, 2, 2.5, 3, ...), with 0.5 difference between consecutive divisors. This is tighter than the d'Hondt divisors for which this difference is 1. Thus the Imperiali system, like d'Hondt, is designed to encourage coalitions and secure majority governments under a PR system, but the Imperiali will be the most favourable to large parties as they will gain many seats before their quotients are reduced below those of the smaller parties.
 
 ```{r highestAverages7, echo=TRUE, message=FALSE, comment=NA}
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "imperiali") 
 ```
+
 
 ### Using Thresholds
 

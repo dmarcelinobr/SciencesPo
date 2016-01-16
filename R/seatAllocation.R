@@ -140,9 +140,13 @@ NULL
 #' \item {"dh"}{d'Hondt method}
 #' \item {"sl"}{Sainte-Lague method}
 #' \item {"msl"}{Modified Sainte-Lague method}
-#' \item {"danish"}{Danish method}
-#' \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
+#' \item {"danish"}{Danish modified Sainte-Lague method}
+#' \item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
 #' \item {"hh"}{Huntington-Hill method}
+#' \item {"wb"}{Webster's method}
+#' \item {"jef"}{Jefferson's method}
+#' \item {"ad"}{Adams's method}
+#' \item {"hb"}{Hagenbach-Bischoff method}
 #' }
 #'
 #' @references
@@ -188,13 +192,13 @@ NULL
 #'
 #' @rdname highestAverages
 #' @export
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hh"), threshold=0, ...) UseMethod("highestAverages")
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("highestAverages")
 
 
 
 #' @export
 #' @rdname highestAverages
-`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hh"), threshold=0, ...){
+`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02
@@ -205,7 +209,7 @@ NULL
 
   # To deal with  NULL party labels
   if (is.null(parties)){
-    parties <- replicate(1:length(votes),
+    parties <- replicate(length(votes),
                          paste(sample(LETTERS, 3,
                                       replace=TRUE), collapse=""))
   }
@@ -225,17 +229,34 @@ NULL
            method.name <- c("Modified Sainte-Lagu\u00EB")
          },
          danish = { #Danish
-           divisor.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
+           divisor.vec <- c(1, seq(from = 4, by = 3, length.out = seats-1))
            method.name <- c("Danish")
          },
          imperiali = { #Imperiali
-           divisor.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
+           divisor.vec <- c(1, seq(from = 1.5, by = .5, length.out = seats-1))
            method.name <- c("Imperiali")
          },
-         hh = { #Huntington-Hill
+         hh = { #Huntington-Hill Equal Proportions Method
            divisor.vec0 <- seq(from = 1, by = 1, length.out = seats)
            divisor.vec <- sqrt(divisor.vec0 * (divisor.vec0 - 1))
            method.name <- c("Hungtinton-Hill")
+         },
+         wb = { #Webster Major Fractions Method
+           divisor.vec0 <- seq(from = 1, by = 2, length.out = seats)
+           divisor.vec <- (divisor.vec0+(divisor.vec0 - 1))/2
+           method.name <- c("Webster")
+         },
+         jef = { #Jefferson Greatest Divisors or Hagenbach-Bischoff Method
+           divisor.vec <- seq(from = 1, by = 1, length.out = seats)
+           method.name <- c("Jefferson")
+         },
+         ad = { #Adam's Method Smallest Devisors
+           divisor.vec <- c(0, seq(from = 1, by = 1, length.out = seats-1))
+           method.name <- c("Adam's Method")
+         },
+         hb = { #Hagenbach-Bischoff Method
+           divisor.vec <- seq(from = 1, by = 1, length.out = seats)
+           method.name <- c("Hagenbach-Bischoff")
          }
   )
 
@@ -262,3 +283,12 @@ NULL
   return(out)
 }
 NULL
+
+
+
+
+
+
+
+
+

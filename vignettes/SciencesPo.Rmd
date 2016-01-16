@@ -4,10 +4,10 @@ author: "Daniel Marcelino"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
-    fig_width: 5
+    fig_width: 6
 vignette: >
-  \VignetteIndexEntry{Introduction to SciencesPo}
-   \VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Introduction to SciencesPo}
+   %\VignetteEngine{knitr::rmarkdown}
     \usepackage[T1]{fontenc}
      \usepackage[utf8]{inputenc}
 ---
