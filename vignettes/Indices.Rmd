@@ -22,19 +22,20 @@ The very objective of the *SciencesPo* package is to provide methods for computi
 ```{r politicalDiversity1, echo=TRUE, message=FALSE, comment=NA}
 library("SciencesPo")
 
-# The 1980 presidential election in the US (vote share):
+# The 2004 presidential election in the US (vote share):
 
-US1980 <- c("Democratic"=0.410, "Republican"=0.507,
-              "Independent"=0.066, "Libertarian"=0.011,
-              "Citizens"=0.003, "Others"=0.003);
+US2004 <- c("Democratic"=0.481, "Republican"=0.509, 
+            "Independent"=0.0038, "Libertarian"=0.0032, 
+            "Constitution"=0.0012, "Green"=0.00096,
+            "Others"=0.00084)
 
-print(US1980)
+print(US2004)
 
-politicalDiversity(US1980); # ENEP (laakso/taagepera) method 
+politicalDiversity(US2004); # ENEP (laakso/taagepera) method 
 
-politicalDiversity(US1980, index= "golosov");
+politicalDiversity(US2004, index= "golosov");
 
-politicalDiversity(US1980, index= "herfindahl");
+politicalDiversity(US2004, index= "herfindahl");
 ```
 
 Considers the following `data.frame` with electoral results for the 1999 election in Helsinki, the seats were allocated using both the Saint-Laguë and the D'Hondt methods: 
@@ -42,21 +43,22 @@ Considers the following `data.frame` with electoral results for the 1999 electio
 ```{r Helsinki-election, echo=TRUE, message=FALSE}
 # Helsinki's 1999
 
-Helsinki <- data.frame(votes = c(68885, 18343, 86448, 21982, 51587,
-                                 27227, 8482, 7250, 365, 2734, 1925,
-                                 475, 1693, 693, 308, 980, 560, 590, 185),
-                       seats_SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0,
-                                  0, 0, 0, 0, 0),
-                       seats_DH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
-                                  0, 0, 0, 0, 0))
+Helsinki <- data.frame(
+  votes = c(68885, 18343, 86448, 21982, 51587,
+            27227, 8482, 7250, 365, 2734, 1925,
+            475, 1693, 693, 308, 980, 560, 590, 185),
+  seats.SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0),
+  seats.dH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0))
 ```
 
 ```{r politicalDiversity2, echo=TRUE, message=FALSE, comment=NA}
 # politicalDiversity(Helsinki$votes); #ENEP Votes
 
-politicalDiversity(Helsinki$seats_SL); #ENP for Saint-Lague
+politicalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
 
-politicalDiversity(Helsinki$seats_DH); #ENP for D'Hondt
+politicalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
 ```
 
 ## Highest Averages Methods of Allocating Seats Proportionally
@@ -105,15 +107,26 @@ highestAverages(parties=names(lijphart), votes=lijphart,
 ```
 
 ### Hungtinton-Hill
+The method of proposed by Joseph Hill and Edward Huntington do not use standard divisor, but a different divisor and modified quota such that rounding with cut-off point at geometric mean: hh = $\sqrt{L}{(L + 1)}$.
+
 
 ```{r highestAverages5, echo=TRUE, message=FALSE, comment=NA}
 highestAverages(parties=names(lijphart), votes=lijphart, 
-                seats = 6, method = "hill") 
+                seats = 6, method = "hh") 
 ```
+
+### Webster
+This approach do not use standard divisor either. Instead, it uses a different divisor and modified quota such that rounding with cut-off point at algebraic mean  of lower and upper quotas: hh = $\frac{L + (L +1)}{2}$.
+
+```{r highestAverages6, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+highestAverages(parties=names(lijphart), votes=lijphart, 
+                seats = 6, method = "wb") 
+```
+
 
 ### Imperiali
 
-```{r highestAverages6, echo=TRUE, message=FALSE, comment=NA}
+```{r highestAverages7, echo=TRUE, message=FALSE, comment=NA}
 highestAverages(parties=names(lijphart), votes=lijphart, 
                 seats = 6, method = "imperiali") 
 ```
@@ -124,7 +137,7 @@ Let's assume that we have an election with 1,000 total voters in which five part
 
 If the d'Hondt method of seat allocation were employed in this hypothetical election, then party *C* would get 1 seat (or 33\% of the number of seats), and party *D* 2 seats (or 67\% of the seats).
 
-```{r highestAverages7, echo=TRUE, message=FALSE, comment=NA}
+```{r highestAverages8, echo=TRUE, message=FALSE, comment=NA}
 
 const <- c("A"=100, "B"=150,"C"=300, "D"=400, "E"=50)
 
@@ -191,7 +204,7 @@ Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
 
 Make a table with the d'Hondt formula results:
 
-```{r highestAverages8, echo=TRUE, message=FALSE, comment=NA}
+```{r highestAverages9, echo=TRUE, message=FALSE, comment=NA}
 mytable = highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 
@@ -209,29 +222,28 @@ out1 = highestAverages(parties=names(Ceara), votes=Ceara,
 out2 = highestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "sl")
 out3 = highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "hill")
+                seats = 42, method = "hh")
 
 # add the method:
 out1$Method = "d'Hondt"
 out2$Method = "Saint-Lague"
-out3$Method = "Hill"
+out3$Method = "Hungtinton-Hill"
 
 data <- rbind(out1, out2, out3)
 
 p = ggplot(data=data, aes(x=reorder(Party, -Seats), y=Seats, fill=Method)) +
     geom_bar(stat="identity",position=position_dodge()) +
-   labs(x="", y="# Seats")
+   labs(x="", y="Seats")
 p + scale_fill_fte() + 
-  theme_538(legend = "top") 
+  theme_fte(legend = "top") 
 ```
 
 
-```{r largestRemainders5, eval=TRUE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
+```{r largestRemainders6, eval=TRUE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
 
 ```
 
 
-geom_point(aes(fill=factor(stress)),size=8, shape=21)+
 
 ##  Measures of Proportionality
 
@@ -260,6 +272,7 @@ with(Queensland, gallagher(pvotes, pseats))
 
 with(Quebec, gallagher(pvotes, pseats))
 ```
+
 
 
 ### The Lijphart's Index of Proportionality

@@ -125,7 +125,7 @@ NULL
 #' @title Highest Averages Methods of Allocating Seats Proportionally
 #'
 #' @description Computes the highest averages method for a variety of formulas to allocate seats proportionally for voting systems with representative assemblies.
-#' @param parties A character vector for parties labels or candidates accordingly to the \code{votes} order.
+#' @param parties A character vector for parties labels or candidates in the same order as \code{votes}. If \code{NULL}, alphabet will be assigned.
 #' @param votes A numeric vector for the number of formal votes received by each party or candidate.
 #' @param seats The number of seats to be filled (scalar or vector).
 #' @param method A character name for the method to be used. See details.
@@ -142,7 +142,7 @@ NULL
 #' \item {"msl"}{Modified Sainte-Lague method}
 #' \item {"danish"}{Danish method}
 #' \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
-#' \item {"hill"}{Huntington-Hill method}
+#' \item {"hh"}{Huntington-Hill method}
 #' }
 #'
 #' @references
@@ -184,28 +184,31 @@ NULL
 #'
 #' # Plot it
 #' bar.plot(data=dat, "Party", "Seats") +
-#' theme_538()
+#' theme_fte()
 #'
 #' @rdname highestAverages
 #' @export
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill"), threshold=0, ...) UseMethod("highestAverages")
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hh"), threshold=0, ...) UseMethod("highestAverages")
 
 
 
 #' @export
 #' @rdname highestAverages
-`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hill"), threshold=0, ...){
+`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "imperiali", "hh"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02
   # v0.2 2016-01-13
-  if (is.null(parties)){
-    parties <- LETTERS(length(votes))
-  }
-
   # local vars for using later
   .ratio <- votes/sum(votes)
   .votes <- ifelse(.ratio < threshold, 0, votes)
+
+  # To deal with  NULL party labels
+  if (is.null(parties)){
+    parties <- replicate(1:length(votes),
+                         paste(sample(LETTERS, 3,
+                                      replace=TRUE), collapse=""))
+  }
 
   # Define Quotient
   switch(method,
@@ -229,7 +232,7 @@ NULL
            divisor.vec <- c(2, seq(from = 3, by = 1, length.out = seats-1))
            method.name <- c("Imperiali")
          },
-         hill = { #Huntington-Hill
+         hh = { #Huntington-Hill
            divisor.vec0 <- seq(from = 1, by = 1, length.out = seats)
            divisor.vec <- sqrt(divisor.vec0 * (divisor.vec0 - 1))
            method.name <- c("Hungtinton-Hill")
@@ -245,6 +248,7 @@ NULL
   );
 
   out <- with(.temp, (parties[order(-scores)][1:seats]))
+
   out <- freq(out, digits = 3);
   names(out) <-c("Party", "Seats", "\u0025Seats");
   # Political diversity indices

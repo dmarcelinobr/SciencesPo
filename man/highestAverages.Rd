@@ -7,15 +7,15 @@
 \title{Highest Averages Methods of Allocating Seats Proportionally}
 \usage{
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "imperiali", "hill"),
-  threshold = 0, ...)
+  method = c("dh", "sl", "msl", "danish", "imperiali", "hh"), threshold = 0,
+  ...)
 
 \method{highestAverages}{default}(parties = NULL, votes = NULL,
-  seats = NULL, method = c("dh", "sl", "msl", "danish", "imperiali",
-  "hill"), threshold = 0, ...)
+  seats = NULL, method = c("dh", "sl", "msl", "danish", "imperiali", "hh"),
+  threshold = 0, ...)
 }
 \arguments{
-\item{parties}{A character vector for parties labels or candidates accordingly to the \code{votes} order.}
+\item{parties}{A character vector for parties labels or candidates in the same order as \code{votes}. If \code{NULL}, alphabet will be assigned.}
 
 \item{votes}{A numeric vector for the number of formal votes received by each party or candidate.}
 
@@ -41,7 +41,7 @@ The following methods are available:
 \item {"msl"}{Modified Sainte-Lague method}
 \item {"danish"}{Danish method}
 \item {"imperiali"}{Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
-\item {"hill"}{Huntington-Hill method}
+\item {"hh"}{Huntington-Hill method}
 }
 }
 \examples{
@@ -73,7 +73,7 @@ method="sl"))
 
 # Plot it
 bar.plot(data=dat, "Party", "Seats") +
-theme_538()
+theme_fte()
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.

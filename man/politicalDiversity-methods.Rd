@@ -48,11 +48,11 @@ A <- c(.75,.25);
 B <- c(.75,.10,rep(0.01,15))
 C <- c(.55,.45);
 
-# The "laakso/taagepera" method is the default
+# The index by "laakso/taagepera" is the default
 politicalDiversity(A)
 politicalDiversity(B)
 
-# Using Grigorii Golosov method
+# Using Grigorii Golosov method gives:
 politicalDiversity(B, index="golosov")
 politicalDiversity(C, index="golosov")
 
@@ -65,10 +65,7 @@ politicalDiversity(US1980)
 
 politicalDiversity(US1980, index= "herfindahl")
 
-US2004 <- c("Democratic"=0.481, "Republican"=0.509, "Independent"=0.0038,
-"Libertarian"=0.0032, "Constitution"=0.0012, "Green"=0.00096, "Others"=0.00084)
-
-politicalDiversity(US2004, index = "H") # will match Herfindahl
+politicalDiversity(US1980, index = "H") # will match Herfindahl
 
 # The 1999 Finland election:
 votes_1999 <- c(612963, 600592, 563835,
@@ -91,17 +88,9 @@ seats_2010 = c("PT"=88, "PMDB"=79, "PSDB"=53, "DEM"=43,
 "PV"=15, "PC do B"=15, "PPS"=12, "PRB"=8, "PMN"=4, "PT do B"=3,
  "PSOL"=3, "PHS"=2, "PRTB"=2, "PRP"=2, "PSL"=1,"PTC"=1)
 
-# 2014 Election outcome as proportion of seats
-seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15,
-12, 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
+politicalDiversity(seats_2010)
 
-politicalDiversity(seats_2014)
-
-# or:
-
-politicalDiversity(seats_2014, index= "invsimpson")
-
-politicalDiversity(seats_2014, index= "golosov")
+politicalDiversity(seats_2010, index= "golosov")
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.

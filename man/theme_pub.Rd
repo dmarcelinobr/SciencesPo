@@ -3,20 +3,20 @@
 \encoding{UTF-8}
 \name{theme_pub}
 \alias{theme_pub}
-\title{Makes the Default Theme}
+\title{The Default Theme}
 \usage{
-theme_pub(font_family = "sans", font_size = 13, line_size = 0.5,
-  legend = "bottom", axis.line.x = element_line(),
+theme_pub(legend = "bottom", font_family = "sans", font_size = 13,
+  line_width = 0.5, axis.line.x = element_line(),
   axis.line.y = element_blank())
 }
 \arguments{
+\item{legend}{Enables to set legend position, default is "bottom".}
+
 \item{font_family}{Default font family.}
 
 \item{font_size}{Overall font size. Default is 14.}
 
-\item{line_size}{Default line size.}
-
-\item{legend}{Enables to set legend position, default is "bottom".}
+\item{line_width}{Default line size.}
 
 \item{axis.line.x}{Enables to set x axis line.}
 
@@ -27,11 +27,11 @@ The theme.
 }
 \description{
 After loading the SciencesPo package, this theme will be
-set to default for all graphs made with ggplot2.
+set to default for all subsequent graphs made with ggplot2.
 }
 \examples{
 ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
-geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_size=1)
+geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_width=1)
 
 dat <- data.frame()
 for(i in 1:4)
@@ -39,7 +39,7 @@ dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 
 ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
 fill="orange", shape=21) + geom_smooth(method="lm", fill=NA,
-fullrange=TRUE) + facet_wrap(~set, ncol=2) + scale_color_pub()
+fullrange=TRUE) + facet_wrap(~set, ncol=2)
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.

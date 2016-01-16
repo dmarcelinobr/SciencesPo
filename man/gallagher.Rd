@@ -25,12 +25,6 @@ Calculates the Gallagher index of LSq index.
 The representation score is calculated as: sqrt(sum((Z-R)^2)/2).
 }
 \examples{
-# 2005 UK General Election
-pvotes = c(Lab=35.20, Cons=32.40, Lib=22, DUP=0.90,
-SNP=1.50, Sinn.Fein=0.60, Plaid=0.60, SDLP=0.50, UUP=0.50,
-Ind=0.50, Respect=0.30, Health=0.10, Speaker=0.10, Others=4.80)
-seats = c(385,198, 62, 9,6,5,3,3,1,1,1,1,1,0)/676
-
 # 2012 Queensland state elecion
 pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)

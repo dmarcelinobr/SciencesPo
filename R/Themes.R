@@ -1,20 +1,20 @@
 #' @encoding UTF-8
-#' @title Makes the Default Theme
+#' @title The Default Theme
 #'
 #' @description After loading the SciencesPo package, this theme will be
-#' set to default for all graphs made with ggplot2.
+#' set to default for all subsequent graphs made with ggplot2.
 #'
+#' @param legend Enables to set legend position, default is "bottom".
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 14.
-#' @param line_size Default line size.
-#' @param legend Enables to set legend position, default is "bottom".
+#' @param line_width Default line size.
 #' @param axis.line.x Enables to set x axis line.
 #' @param axis.line.y Enables to set y axis line.
 #' @return The theme.
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
 #' ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
-#' geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_size=1)
+#' geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_width=1)
 #'
 #' dat <- data.frame()
 #' for(i in 1:4)
@@ -22,13 +22,13 @@
 #'
 #' ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
 #' fill="orange", shape=21) + geom_smooth(method="lm", fill=NA,
-#' fullrange=TRUE) + facet_wrap(~set, ncol=2) + scale_color_pub()
+#' fullrange=TRUE) + facet_wrap(~set, ncol=2)
 #'
 #' @export
-`theme_pub` <- function(font_family = 'sans',
+`theme_pub` <- function(legend = 'bottom',
+                        font_family = 'sans',
                         font_size = 13,
-                        line_size = .5,
-                        legend = 'bottom',
+                        line_width = .5,
                         axis.line.x = element_line(),
                         axis.line.y = element_blank()){
 half_line <- font_size / 2
@@ -61,8 +61,8 @@ axis.text = element_text(color="black", size = small_size),
             angle = 90,
             margin = ggplot2::margin(r = small_size / 2, l = small_size / 4),
           ),
-axis.ticks = element_line(color = "#525252", size = line_size),
-axis.line = element_line(color = "#525252", size = line_size),
+axis.ticks = element_line(color = "#525252", size = line_width),
+axis.line = element_line(color = "#525252", size = line_width),
           legend.position = legend,
           # legend.position = c(-0.03, 1.05),
           # legend.justification = c("left", "top"),
@@ -96,16 +96,17 @@ NULL
 #'
 #' @description  Theme for plotting  with ggplot2.
 #'
+#' @param legend Enables to set legend position, default is "none".
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 13.
-#' @param legend Enables to set legend position, default is "none".
 #' @return The theme.
 #'
 #' @examples
-#' qplot(1:10, (1:10)^3) + theme_538()
+#' qplot(1:10, (1:10)^3) + theme_fte()
 #'
 #' @export
-theme_538 <- function(font_size = 12, font_family = 'sans', legend = 'none'){
+#' @aliases theme_538
+`theme_fte` <- function(legend = 'none', font_size = 12, font_family = 'sans'){
 theme_grey(base_size = font_size, base_family = font_family) %+replace%
     theme(
       # Base elements which are not used directly but inherited by others
@@ -152,7 +153,9 @@ plot.title = element_text(size = rel(1.5), family = '' ,
 }
 NULL
 
-
+#' @export
+#' @rdname theme_fte
+theme_538 <- theme_fte
 
 
 #' Create a Completely Empty Theme

@@ -6,8 +6,8 @@ output:
   rmarkdown::html_vignette:
     fig_width: 5
 vignette: >
-  %\VignetteIndexEntry{Introduction to SciencesPo}
-  %\VignetteEngine{knitr::rmarkdown}
+  \VignetteIndexEntry{Introduction to SciencesPo}
+   \VignetteEngine{knitr::rmarkdown}
     \usepackage[T1]{fontenc}
      \usepackage[utf8]{inputenc}
 ---
@@ -171,14 +171,14 @@ There is a specific document covering one-way, two-way, and multiway tabulations
 
 To tabulate on variable's responses, simply:
 
-```{r one-way, echo=TRUE, message=FALSE, comment=NA}
+```{r one-way, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
 CrossTabs(titanic$SURVIVED) 
 ```
 
 A more performant descriptive output can be obtained with the `Freq` command, which resembles the *SPSS* output. 
 
-```{r Freq, eval=FALSE, echo=FALSE, message=FALSE, comment=NA}
-Freq(titanic, SURVIVED) 
+```{r Freq, echo=TRUE, message=FALSE, comment=NA}
+Frequency(titanic, SURVIVED) 
 ```
 
 To add a second, for a cross-tabulation:
@@ -187,24 +187,7 @@ To add a second, for a cross-tabulation:
 CrossTabs(titanic$SEX, titanic$SURVIVED) 
 ```
 
-To delete table entries that are less relevant, for instance, to delete expected frequency, `expected=FALSE`. 
-```{r echo=TRUE, message=FALSE, comment=NA}
-CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE) 
-```
-
-To add table entries that relevant, add `TRUE` to it, for instance: `row=TRUE`, `column=TRUE`, `total=TRUE` etc.
-
-```{r echo=TRUE, message=FALSE, comment=NA}
-CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, row=TRUE, column=TRUE) 
-```
-
-
-The 'chisq=FALSE' argument refers to a Chi-Square test of Independence, To calculate the test, switch it to `TRUE`.
-
-```{r chisq, echo=TRUE, message=FALSE, comment=NA}
-CrossTabs(titanic$SEX, titanic$SURVIVED, expected=FALSE, chisq=TRUE) 
-```
-
+To delete table entries that are less relevant, switch it to `FALSE`. And switch it to `TRUE` to add table entries that relevant. For instance, the `chisq` argument refers to a Chi-Square test of Independence, to calculate the test, switch it to `TRUE`.
 
 
 # Distributions 
@@ -229,12 +212,9 @@ politicalDiversity(US1980); # ENEP (laakso/taagepera) method
 
 politicalDiversity(US1980, index= "golosov");
 
-politicalDiversity(US1980, index= "herfindahl");
-
-
 ```
 
-Considers the following `data.frame` with electoral results for the 1999 election in Helsinki, the seats were allocated using both the Saint-Lague and the D'Hondt methods: 
+Considers the following `data.frame` with electoral results for the 1999 election in Helsinki, the seats were allocated using both the Saint-Laguë and the D'Hondt methods: 
 
 ```{r Helsinki-election, echo=TRUE, message=FALSE}
 # Helsinki's 1999
@@ -242,23 +222,23 @@ Considers the following `data.frame` with electoral results for the 1999 electio
 Helsinki <- data.frame(votes = c(68885, 18343, 86448, 21982, 51587,
                                  27227, 8482, 7250, 365, 2734, 1925,
                                  475, 1693, 693, 308, 980, 560, 590, 185),
-                       seats_SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0,
+                       seats.SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0,
                                   0, 0, 0, 0, 0),
-                       seats_DH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+                       seats.dH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
                                   0, 0, 0, 0, 0))
 ```
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 # politicalDiversity(Helsinki$votes); #ENEP Votes
 
-politicalDiversity(Helsinki$seats_SL); #ENP for Saint-Lague
+politicalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
 
-politicalDiversity(Helsinki$seats_DH); #ENP for D'Hondt
+politicalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
 ```
 
 ## Highest Averages Methods of Allocating Seats Proportionally
 
-Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results between the D'Hondt,  Saint-Lague, and Hungtinton-Hill methods.
+Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results from D'Hondt, Saint-Lague, Hungtinton-Hill, and Imperiali methods.
 
 ```{r Ceara-election, echo=TRUE, cache=TRUE}
 # Results for the state legislative house of Ceara (2014):
@@ -285,20 +265,11 @@ highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "sl") 
 ```
 
-### Modified Saint-Lague
-How does the Sainte-Lague method compare to the modified Sainte-Lague one?
-
-```{r echo=TRUE, message=FALSE, comment=NA}
-highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "msl") 
-```
-
 ### Hungtinton-Hill
-How about the Hungtinton-Hill method?
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 highestAverages(parties=names(Ceara), votes=Ceara, 
-                seats = 42, method = "hill") 
+                seats = 42, method = "hh") 
 ```
 
 ### Imperiali
@@ -310,15 +281,11 @@ highestAverages(parties=names(Ceara), votes=Ceara,
 
 ### Using thresholds
 
-Let's assume that we have an election with 1,000 total voters in which five parties (A, B, C, D, and E) have gained 100 (10\%), 150 (15\%), 300 (30\%), 400 (40\%), and 50 (5\%) votes, respectively. In this electoral constituency, there are 3 seats up for election, and all votes cast are valid; the electoral system has a 7\% vote threshold. Meaning that parties must get at least 7\% of the total unspoiled votes cast in order to participate in the distribution of seats. 
-Party *E* would then be elimiated from competition at the outset. If the d'Hondt method of seat allocation were employed, then party *C* would get 1 seat (or 33\% of the number of seats), and party *D* 2 seats (or 67\% of the seats).
+Let's assume the electoral system has a 5\% vote threshold. Meaning that parties must get at least 5\% of the total unspoiled votes cast in order to participate in the distribution of seats. Parties *PCdoB*, *PTdoB*, *PEN*, *PSC*, *PSTU*, *PSB*, and *PTC* would then be elimiated from competition at the outset. If the d'Hondt method of seat allocation were employed, then party *PRB* would get 4 extra seats than otherwise, and party *PMDB* 3 additional seats.
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
-
-const <- c("A"=100, "B"=150,"C"=300, "D"=400, "E"=50)
-
-highestAverages(parties=names(const), votes=const,
-               seats = 3, method = "dh", threshold = 7/100) 
+highestAverages(parties=names(Ceara), votes=Ceara,
+               seats = 42, method = "dh", threshold = 5/100) 
 ```
 
 Other methods divide the votes by a mathematically derived quota, such as the Droop quota, the Hare quota (or Hamilton/Vinton), or the Imperiali quota, see next. 
@@ -382,9 +349,8 @@ mytable = highestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "dh") 
 
 p <- ggplot(mytable, aes(x=reorder(Party, Seats), y=Seats)) + 
-  geom_bar( position="dodge", stat = "identity") +
+  geom_bar(position="dodge", stat = "identity") +
   coord_flip() + labs(x="", y="# Seats")
-
 p + theme_grey() 
 ```
 

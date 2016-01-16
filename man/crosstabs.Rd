@@ -5,59 +5,35 @@
 \alias{CrossTabs}
 \alias{CrossTabs.default}
 \alias{twoway}
-\title{Cross-tabulation}
+\title{Stata-Like Two-Way Tabulation}
 \usage{
-CrossTabs(x, y, expected = TRUE, row = FALSE, column = FALSE,
-  total = FALSE, resid = FALSE, sresid = FALSE, asresid = FALSE,
-  chisq = FALSE, fisher = FALSE, mcnemar = FALSE,
-  missing.include = FALSE, digits = 2, max.width = 5, ...)
+CrossTabs(x, y, digits = 2, missing.include = FALSE, ...)
 
-\method{CrossTabs}{default}(x, y, expected = TRUE, row = FALSE,
-  column = FALSE, total = FALSE, resid = FALSE, sresid = FALSE,
-  asresid = FALSE, chisq = FALSE, fisher = FALSE, mcnemar = FALSE,
-  missing.include = FALSE, digits = 3, max.width = 5, ...)
+\method{CrossTabs}{default}(x, y, digits = 2, missing.include = FALSE, ...)
 }
 \arguments{
-\item{x}{The row variable.}
+\item{x,y}{The variables for the cross tabulation.}
 
-\item{y}{The column variable.}
-
-\item{expected}{If TRUE, expected values are included.}
-
-\item{row}{If TRUE, row proportions are included.}
-
-\item{column}{If TRUE, column proportions are included.}
-
-\item{total}{If TRUE, total proportions are included.}
-
-\item{resid}{If TRUE, residual (Pearson) are included.}
-
-\item{sresid}{If TRUE, standardized residuals are included.}
-
-\item{asresid}{If TRUE, adjusted standardized residual are included.}
-
-\item{chisq}{If TRUE, the results of chi-square test of independence are included.}
-
-\item{fisher}{If TRUE, the results of a Fisher Exact are included.}
-
-\item{mcnemar}{If TRUE, the results of a McNemar test are included.}
+\item{digits}{The number of digits for rounding proportions.}
 
 \item{missing.include}{If TRUE, then remove any unused factor levels.}
 
-\item{digits}{The number of digits after the decimal point for cell proportions.}
-
-\item{max.width}{In the case of a 1 x n table, the default will be to print the output horizontally. If the number of columns exceeds max.width, the table will be wrapped for each successive increment of max.width columns. If you want a single column vertical table, set max.width to 1.}
-
-\item{\dots}{Additional arguements (currently ignored)}
+\item{\dots}{Additional arguements (currently ignored).}
 }
 \description{
-Makes a contingency table and computes tests of independence.
-}
-\note{
-Heavily adapted from Gregory R. Warnes' CrossTable() function in the gregmisc package.
+The function produces a cross-tabulation with cell counts and column proportions (similar to STATA's \code{tabulate varname1 varname2, col}).
 }
 \examples{
-# titanic \%>\% CrossTabs(SEX, AGE)
+# Agresti (2002), table 3.10, p. 106
+# 1992 General Social Survey- Race and Party affiliation
+gss <- data.frame(
+   expand.grid(Race=c("black", "white"),
+   party=c("dem", "indep", "rep")),
+   count=c(103,341,15,105,11,405))
+
+df <- gss[rep(1:nrow(gss), gss[["count"]]), ]
+
+with(df, CrossTabs(Race, party))
 
 # Tea-Tasting Experiment data
  tea <- data.frame(
@@ -66,19 +42,11 @@ Heavily adapted from Gregory R. Warnes' CrossTable() function in the gregmisc pa
    count=c(3,1,1,3))
 
 data = untable(tea, freq="count")
-
-with(data, CrossTabs(guess, poured, row=TRUE, column=TRUE, fisher=TRUE))
-
-# Agresti (2002), table 3.10, p. 104
-# 1991 General Social Survey: hypothesis of independence between
-# party identification and race.
-gss <- data.frame(
-   expand.grid(race=c("black", "white"),
-   party=c("dem", "indep", "rep")),
-   count=c(103,341,15,105,11,405))
-
-data = untable(gss, freq="count")
-
-with(data, CrossTabs(race, party, chisq=TRUE))
+with(data, CrossTabs(guess, poured))
+# with(data, CrossTabs(guess, poured, row=TRUE, column=TRUE, fisher=TRUE))
+}
+\seealso{
+\code{\link[stats]{xtabs}}, \code{\link{CrossTabs}},
+\code{\link[base]{table}}, \code{\link[base]{prop.table}}
 }
 

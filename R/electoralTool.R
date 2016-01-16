@@ -45,11 +45,11 @@
 #' B <- c(.75,.10,rep(0.01,15))
 #' C <- c(.55,.45);
 #'
-#' # The "laakso/taagepera" method is the default
+#' # The index by "laakso/taagepera" is the default
 #' politicalDiversity(A)
 #' politicalDiversity(B)
 #'
-#' # Using Grigorii Golosov method
+#' # Using Grigorii Golosov method gives:
 #' politicalDiversity(B, index="golosov")
 #' politicalDiversity(C, index="golosov")
 #'
@@ -62,10 +62,7 @@
 #'
 #' politicalDiversity(US1980, index= "herfindahl")
 #'
-#' US2004 <- c("Democratic"=0.481, "Republican"=0.509, "Independent"=0.0038,
-#' "Libertarian"=0.0032, "Constitution"=0.0012, "Green"=0.00096, "Others"=0.00084)
-#'
-#' politicalDiversity(US2004, index = "H") # will match Herfindahl
+#' politicalDiversity(US1980, index = "H") # will match Herfindahl
 #'
 #' # The 1999 Finland election:
 #' votes_1999 <- c(612963, 600592, 563835,
@@ -88,17 +85,9 @@
 #' "PV"=15, "PC do B"=15, "PPS"=12, "PRB"=8, "PMN"=4, "PT do B"=3,
 #'  "PSOL"=3, "PHS"=2, "PRTB"=2, "PRP"=2, "PSL"=1,"PTC"=1)
 #'
-#' # 2014 Election outcome as proportion of seats
-#' seats_2014 = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15,
-#' 12, 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)/513
+#' politicalDiversity(seats_2010)
 #'
-#' politicalDiversity(seats_2014)
-#'
-#' # or:
-#'
-#' politicalDiversity(seats_2014, index= "invsimpson")
-#'
-#' politicalDiversity(seats_2014, index= "golosov")
+#' politicalDiversity(seats_2010, index= "golosov")
 #'
 #' @export politicalDiversity
 #' @docType methods
@@ -157,14 +146,8 @@ NULL
 #'
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
-#'  @examples
-
-#' # 2005 UK General Election
-#' pvotes = c(Lab=35.20, Cons=32.40, Lib=22, DUP=0.90,
-#' SNP=1.50, Sinn.Fein=0.60, Plaid=0.60, SDLP=0.50, UUP=0.50,
-#' Ind=0.50, Respect=0.30, Health=0.10, Speaker=0.10, Others=4.80)
-#' seats = c(385,198, 62, 9,6,5,3,3,1,1,1,1,1,0)/676
 #'
+#'  @examples
 #' # 2012 Queensland state elecion
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)

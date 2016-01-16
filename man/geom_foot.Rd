@@ -36,13 +36,12 @@ data <- data.frame(time, supply,demand)
 # make the plot
 library(ggplot2)
 ggplot(data,aes(time)) +
-geom_line(aes(y=demand),size=1.6) +
-geom_line(aes(y=supply),size=1.6) +
-theme_538() +
-annotate("text",x=90,y=12,label="Demand",colour="red") +
-annotate("text",x=80,y=23,label="Supply",colour="blue")
-geom_foot(fontsize = 12)
-geom_foot("danielmarcelino.github.io", color = "orange", rotn = -90, just ="right" )
+geom_line(aes(y=demand),size=1.6, color="#008fd5") +
+geom_line(aes(y=supply),size=1.6, color="#ff2700") +
+theme_fte() +
+annotate("text",x=90,y=12,label="Demand") +
+annotate("text",x=80,y=23,label="Supply")
+geom_foot("danielmarcelino.github.io", color = "#77ab43", rotn = -90, just ="right" )
 }
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
