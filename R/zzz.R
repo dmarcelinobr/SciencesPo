@@ -50,6 +50,7 @@ say.yo <- function() {
 
 "%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
 
+`shorten` <- function(x, n) cat(x[1:n], "...")
 
 # useful for avoinding extra space between columns
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {

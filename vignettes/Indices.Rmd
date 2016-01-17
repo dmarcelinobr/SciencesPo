@@ -2,9 +2,9 @@
 title: "Measures of Political Behavior"
 author: "Daniel Marcelino"
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette:
-    fig_width: 5
+output: pdf_document
+ # rmarkdown::html_vignette:
+  #  fig_width: 5
 vignette: >
   %\VignetteIndexEntry{Measures of Political Behavior}
    %\VignetteEngine{knitr::rmarkdown}
@@ -214,7 +214,7 @@ largestRemainders(parties=names(lijphart), votes=lijphart,
 
 
 ### Imperiali quota
-The imperial quota is obtained by quota = $\frac{v}{(s + 2)}$. For Italian elections during the 1950s the quota was a reinforced Imperiali quota version: $\frac{v}{(s + 3)}$.
+The Imperiali quota is obtained by $\frac{v}{(s + 2)}$. For Italian elections during the 1950s, the quota used was a reinforced version of the quota: $\frac{v}{(s + 3)}$.
  
 ```{r data-Italy, eval=FALSE, echo=TRUE, message=FALSE}
 # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
