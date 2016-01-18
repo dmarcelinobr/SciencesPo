@@ -6,11 +6,11 @@
 \alias{scale_fill_pub}
 \title{Publication color scales.}
 \usage{
-scale_colour_pub(palette = "tableau10", ...)
+scale_colour_pub(palette = "tableau20", ...)
 
-scale_fill_pub(palette = "tableau10", ...)
+scale_fill_pub(palette = "tableau20", ...)
 
-scale_color_pub(palette = "tableau10", ...)
+scale_color_pub(palette = "tableau20", ...)
 }
 \arguments{
 \item{palette}{Palette name.}

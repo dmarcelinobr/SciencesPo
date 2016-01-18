@@ -4,16 +4,30 @@
 \alias{pub_color_pal}
 \title{Color Palettes for Publication (discrete)}
 \usage{
-pub_color_pal(palette = "tableau10")
+pub_color_pal(palette = "pub12")
 }
 \arguments{
 \item{palette}{Palette name.}
 }
 \description{
-Color palettes based on \href{http://www.tableausoftware.com/}{Tableau}.
+Color palettes for publication-quality graphs. See details.
+}
+\details{
+The following palettes are available:
+\itemize{
+\item {"pub12"}{Default colors of theme_pub}
+\item {"tableau20"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+\item {"tableau10"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+\item {"colorblind"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+ \item {"tableau10light"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+}
 }
 \examples{
 library(scales)
+show_col(pub_color_pal("pub12")(12))
 show_col(pub_color_pal("tableau20")(20))
+show_col(pub_color_pal("tableau10")(10))
+show_col(pub_color_pal("colorblind")(10))
+show_col(pub_color_pal("tableau10light")(10))
 }
 

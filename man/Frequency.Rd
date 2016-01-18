@@ -10,6 +10,8 @@
 Frequency(.data, x, verbose = TRUE, ...)
 
 \method{Frequency}{default}(.data, x, verbose = TRUE, ...)
+
+Freq(.data, x, verbose = TRUE, ...)
 }
 \arguments{
 \item{.data}{The data.frame.}

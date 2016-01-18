@@ -239,30 +239,6 @@ NULL
 
 
 
-#' @title Scale color-blind-friendly for ggplot graphs
-#' @description Discrete  color-blind-friendly scale for ggplot().
-#' @param \dots parameters to be used.
-#' @export
-#' @rdname scale_color_blind
-#' @aliases scale_colour_blind
-scale_color_blind <- function(...){
-  discrete_scale("color", "blind",
-                 scales::manual_pal(values =
-                                      c("#000000",
-                                        "#E69F00",
-                                        "#56B4E9",
-                                        "#009E73",
-                                        "#F0E442",
-                                        "#0072B2",
-                                        "#D55E00",
-                                        "#CC79A7",
-                                        "#999999")
-                 ), ...)
-}
-NULL
-
-
-
 
 #' @title Palette data for the themes used by package
 #'
@@ -274,8 +250,9 @@ themes_data <- {
 x <- list()
 x$pub <- list()
 x$pub$colors <-
-  list(tableau20 =
-  c(rgb(31, 119, 180, max = 255),
+  list(
+  tableau20=c(
+    rgb(31, 119, 180, max = 255),
     rgb(174, 199, 232, max = 255),
     rgb(255, 127, 14, max = 255),
     rgb(255, 187, 120, max = 255),
@@ -294,39 +271,55 @@ x$pub$colors <-
     rgb(188, 189, 34, max = 255),
     rgb(219, 219, 141, max = 255),
     rgb(23, 190, 207, max = 255),
-    rgb(158, 218, 229, max = 255))
+    rgb(158, 218, 229, max = 255)
+    ),
+  pub12=c(
+    rgb(56, 108, 176, max = 255),
+    rgb(253, 180, 98, max = 255),
+    rgb(127, 201, 127, max = 255),
+    rgb(239, 59, 44, max = 255),
+    rgb(102, 37, 6, max = 255),
+    rgb(166, 206, 227, max = 255),
+    rgb(251, 154, 153, max = 255),
+    rgb(152, 78, 163, max = 255),
+    rgb(255, 255, 51, max = 255)
+    ),
+  colorblind=c(
+    rgb(0, 107, 164, max = 255),
+    rgb(255, 128, 14, max = 255),
+    rgb(171, 171, 171, max = 255),
+    rgb(89, 89, 89, max = 255),
+    rgb(95, 158, 209, max = 255),
+    rgb(200, 82, 0, max = 255),
+    rgb(137, 137, 137, max = 255),
+    rgb(162, 200, 236, max = 255),
+    rgb(255, 188, 121, max = 255),
+    rgb(207, 207, 207, max = 255)
+    )
   )
 
 x$parties <- list()
 
-x$parties$BRA <- c(PT=rgb(255,39,0, max = 255),
-                     PMDB=rgb(255,153,0, max = 255),
-                     PSDB=rgb(0,143,213, max = 255),
-                     PSB=rgb(213,94,0, max = 255),
-                     PV=rgb(119,171,67, max = 255))
+x$parties$BRA <- c(
+  PT = rgb(255, 39, 0, max = 255),
+  PMDB = rgb(255, 153, 0, max = 255),
+  PSDB = rgb(0, 143, 213, max = 255),
+  PSB = rgb(213, 94, 0, max = 255),
+  PV = rgb(119, 171, 67, max = 255)
+  )
 
-
-x$fte<-c(red=rgb(255,39,0, max = 255),
-         blue=rgb(0,143,213, max = 255),
-         green=rgb(119,171,67, max = 255),
-         orange=rgb(230,159,0, max = 255))
-
-x$seasons <-c(autumn=rgb(16,78,139, max = 255),
-              spring=rgb(110,139,61, max = 255),
-              summer=rgb(154,50,205, max = 255),
-              winter=rgb(255,193,37, max = 255))
-
-x$colorblind <- c(rgb(0,107,164, max = 255),
-                  rgb(255,128,14, max = 255),
-                  rgb(171,171,171, max = 255),
-                  rgb(89,89,89, max = 255),
-                  rgb(95,158,209, max = 255),
-                  rgb(200,82,0, max = 255),
-                  rgb(137,137,137, max = 255),
-                  rgb(162,200,236, max = 255),
-                  rgb(255,188,121, max = 255),
-                  rgb(207,207,207, max = 255))
-
+x$fte <- c(
+  red=rgb(255, 39, 0, max = 255),
+  blue=rgb(0, 143, 213, max = 255),
+  green=rgb(119, 171, 67, max = 255),
+  orange=rgb(230, 159, 0, max = 255)
+  )
+x$seasons <- c(
+  autumn=rgb(16, 78, 139, max = 255),
+  spring=rgb(110, 139, 61, max = 255),
+  summer=rgb(154, 50, 205, max = 255),
+  winter=rgb(255, 193, 37, max = 255)
+  )
 ## return
 x
 }
@@ -335,23 +328,39 @@ NULL
 
 #' @title Color Palettes for Publication (discrete)
 #'
-#' @description Color palettes based on \href{http://www.tableausoftware.com/}{Tableau}.
-#'
+#' @description Color palettes for publication-quality graphs. See details.
 #' @param palette Palette name.
+#'
+#' @details The following palettes are available:
+#' \itemize{
+#' \item {"pub12"}{Default colors of theme_pub}
+#' \item {"tableau20"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+#' \item {"tableau10"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+#' \item {"colorblind"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+#'  \item {"tableau10light"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+#' }
 #' @examples
 #' library(scales)
+#' show_col(pub_color_pal("pub12")(12))
 #' show_col(pub_color_pal("tableau20")(20))
+#' show_col(pub_color_pal("tableau10")(10))
+#' show_col(pub_color_pal("colorblind")(10))
+#' show_col(pub_color_pal("tableau10light")(10))
 #' @export
 #'
-`pub_color_pal` <- function(palette = "tableau10") {
+`pub_color_pal` <- function(palette = "pub12") {
   pal.list <- themes_data$pub$colors
-  if (!palette %in% c(names(pal.list), "tableau20", "tableau10", "tableau10light")) {
+  if (!palette %in% c(names(pal.list), "pub12", "tableau10", "tableau20", "tableau10", "tableau10light", "colorblind")) {
     stop(sprintf("%s is not a valid palette name", palette))
   }
-  if (palette == "tableau10") {
+  if (palette == "pub12") {
+    types <- pal.list[["pub12"]][seq(1, 9, by = 1)]
+  } else if (palette == "tableau10") {
     types <- pal.list[["tableau20"]][seq(1, 20, by = 2)]
   } else if (palette == "tableau10light") {
     types <- pal.list[["tableau20"]][seq(2, 20, by = 2)]
+  } else if (palette == "colorblind") {
+    types <- pal.list[["colorblind"]][seq(1, 10, by = 1)]
   } else {
     types <- pal.list[[palette]]
   }
@@ -373,14 +382,14 @@ NULL
 #' @export
 #' @seealso \code{\link{pub_color_pal}} for references.
 #'
-scale_colour_pub <- function(palette = "tableau10", ...) {
-  discrete_scale("colour", "tableau", pub_color_pal(palette), ...)
+scale_colour_pub <- function(palette = "tableau20", ...) {
+  discrete_scale("colour", "pub", pub_color_pal(palette), ...)
 }
 NULL
 
 #' @export
 #' @rdname scale_color_pub
-scale_fill_pub <- function(palette = "tableau10", ...) {
+scale_fill_pub <- function(palette = "tableau20", ...) {
   discrete_scale("fill", "pub", pub_color_pal(palette), ...)
 }
 NULL
@@ -441,50 +450,6 @@ scale_fill_fte <- function(...) {
 NULL
 
 
-#' Color blind color palette (discrete)
-#'
-#' Color palettes for color blind.
-#'
-#' @family colour colorblind
-#' @examples
-#' scales::show_col(colorblind_pal()(8))
-#' @export
-colorblind_pal <- function() {
-  scales::manual_pal(unname(themes_data$colorblind))
-}
-NULL
-
-
-#' Color blind color palette (discrete)
-#'
-#' Color palettes for color blind.
-#'
-#' @inheritParams ggplot2::scale_colour_hue
-#' @family colour colorblind
-#' @rdname scale_colorblind
-#' @export
-scale_fill_colorblind <- function(...) {
-  discrete_scale("fill", "colorblind", colorblind_pal(), ...)
-}
-NULL
-
-
-
-#' @export
-#' @rdname scale_colorblind
-scale_colour_colorblind <- function(...) {
-  discrete_scale("colour", "colorblind", colorblind_pal(), ...)
-}
-NULL
-
-
-#' @export
-#' @rdname scale_colorblind
-scale_color_colorblind <- scale_colour_colorblind
-
-
-
-
 
 
 #' @title Color Palettes for Political Organizations (discrete)
@@ -503,7 +468,7 @@ scale_color_colorblind <- scale_colour_colorblind
     stop(sprintf("%s is not a valid palette name", palette))
   }
   if (palette == "BRA") {
-    types <- pal.list[["BRA"]][seq(1, 20, by = 1)]
+    types <- pal.list[["BRA"]][seq(1, 30, by = 1)]
   } else if (palette == "ARG") {
     types <- pal.list[["ARG"]][seq(1, 20, by = 1)]
   } else {

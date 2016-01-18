@@ -282,9 +282,9 @@ NULL
   LSq.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
 
   cat("Method:", method.name, "\n")
-  shorten(round(divisor.vec, 2), 5)
-  cat(paste("ENP(Final):", round(ENP_after, 2)), "\n")
-  cat(paste("Gallagher Index:", round(LSq.index, 3)), "\n \n")
+  shorten(round(divisor.vec, 2), 4)
+  cat(paste("ENP:", round(ENP_after,2), "(Final):", round(ENP_after,2)),"\n")
+  cat(paste("Gallagher Index:", round(LSq.index, 2)), "\n \n")
   return(out)
 }
 NULL

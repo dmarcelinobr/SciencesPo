@@ -312,3 +312,6 @@ NULL
 }#--end of Freq
 NULL
 
+#' @export
+#' @rdname Frequency
+Freq <- Frequency
