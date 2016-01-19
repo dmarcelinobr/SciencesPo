@@ -102,7 +102,7 @@ The Hungarian version of Sainte-Laguë uses divisors of (1.5, 3, 5, 7, 9, ...) i
 highestAverages(parties=names(lijphart),
                 votes=lijphart, 
                 seats = 6, 
-                method = "danish") 
+                method = "hsl") 
 ```
 
 
@@ -477,7 +477,7 @@ Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. 
 Golosov, Grigorii (2010) The Effective Number of Parties: A New Approach, Party Politics, 16: 171-192.
 
 Laakso, Markku and Rein Taagepera (1979) Effective Number of Parties: A Measure with Application to West Europe, Comparative Political Studies, 12: 3-27.
- 
+
 Lijphart, Arend (1994) Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990. Oxford University Press.
 
 Nicolau, Jairo (2008) Sistemas Eleitorais. Rio de Janeiro, FGV.

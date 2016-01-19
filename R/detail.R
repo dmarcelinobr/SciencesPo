@@ -48,12 +48,12 @@ NULL
 #'
 #' @export
 detail <-
-  function(.data, by = NULL, basic = TRUE, na.rm = TRUE, trim = 0.2, type = 2, k = 1)
+  function(.data, by = NULL, basic = FALSE, na.rm = TRUE, trim = 0.2, type = 2, k = 1)
   {
 	  data_name <- deparse(substitute(.data))
 	   s1 <- Sys.time()
     cl <- match.call()
-    valid <- function(.data) {
+    .valid <- function(.data) {
       sum(!is.na(.data))
     }
     if (!na.rm)
@@ -81,7 +81,7 @@ detail <-
     else {
       stats = matrix(rep(NA, ncol(.data) * 13), ncol = 13)
       rownames(stats) <- colnames(.data)
-      stats[, 1] <- apply(.data, 2, valid)
+      stats[, 1] <- apply(.data, 2, .valid)
       vars <- c(1:ncol(.data))
       for (i in seq_along(.data)) {
         if (is.factor(.data[[i]]) || is.logical(.data[[i]])) {
@@ -116,21 +116,21 @@ detail <-
                            Var = stats[, 4],
                            SE = stats[, 5],
                            Median = stats[, 6],
-                           Mad. = stats[, 7],
+                           Mad = stats[, 7],
                            Trimmed = stats[, 8],
-                           Winsor. = stats[, 9],
+                           winsorize = stats[, 9],
                            Range = stats[, 11] - stats[, 10],
-                           Min. = stats[, 10],
-                           Max. = stats[, 11],
-                           Skew. = stats[, 12],
-                           Kurt. = stats[, 13])
+                           Min = stats[, 10],
+                           Max = stats[, 11],
+                           Skew = stats[, 12],
+                           Kurt = stats[, 13])
       }
       else {
         temp <- data.frame(Obs = stats[, 1],
                            Mean = stats[, 2],
                            SD = stats[, 3],
-                           Min. = stats[, 10],
-                           Max. = stats[, 11] )
+                           Min = stats[, 10],
+                           Max = stats[, 11] )
       }
 
     output <- format(round(data.frame(temp), 1), nsmall = 0)

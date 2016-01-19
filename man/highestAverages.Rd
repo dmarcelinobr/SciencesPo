@@ -7,11 +7,11 @@
 \title{Highest Averages Methods of Allocating Seats Proportionally}
 \usage{
 highestAverages(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "slh", "hh", "imperiali", "wb",
+  method = c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb",
   "jef", "ad", "hb"), threshold = 0, ...)
 
 \method{highestAverages}{default}(parties = NULL, votes = NULL,
-  seats = NULL, method = c("dh", "sl", "msl", "danish", "slh", "hh",
+  seats = NULL, method = c("dh", "sl", "msl", "danish", "hsl", "hh",
   "imperiali", "wb", "jef", "ad", "hb"), threshold = 0, ...)
 }
 \arguments{
@@ -28,10 +28,10 @@ highestAverages(parties = NULL, votes = NULL, seats = NULL,
 \item{\dots}{Additional arguements (currently ignored)}
 }
 \value{
-A \code{data.frame}.
+A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
 }
 \description{
-Computes the highest averages method for a variety of formulas to allocate seats proportionally for voting systems with representative assemblies.
+Computes the highest averages method for a variety of formulas of allocating seats proportionally.
 }
 \details{
 The following methods are available:
@@ -40,7 +40,7 @@ The following methods are available:
 \item {"sl"}{Sainte-Lague method}
 \item {"msl"}{Modified Sainte-Lague method}
 \item {"danish"}{Danish modified Sainte-Lague method}
-\item {"slh"}{Hungarian modified Sainte-Lague method}
+\item {"hsl"}{Hungarian modified Sainte-Lague method}
 \item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
 \item {"hh"}{Huntington-Hill method}
 \item {"wb"}{Webster's method}
@@ -91,7 +91,7 @@ Electoral Systems: Quotas, Thresholds, Paradoxes and Majorities".
  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 }
 \seealso{
-\code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
+\code{\link{largestRemainders}}, \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 }
 \keyword{Electoral}
 

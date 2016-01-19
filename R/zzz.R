@@ -48,9 +48,14 @@ say.yo <- function() {
   print("Yo world!")
 }
 
+
 "%=%" <- function(x,y) {assign(as.character(substitute(x)), y, envir = parent.frame())}
 
 `shorten` <- function(x, n) cat("Divisors:", x[1:n], "...", "\n")
+
+`charopts` <- function(x) {
+  paste(sprintf("\\code{\"%s\"}", x), collapse = ", ")
+}
 
 # useful for avoinding extra space between columns
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
@@ -77,6 +82,7 @@ naathenb <- function(a, b) {
 }
 
 "%^^%" <- naathenb
+
 
 
 # Adds extra habilities to the base match.arg function:
@@ -223,27 +229,22 @@ NULL
 
 
 
-
-
-
 .fmt <- function(k, d=getOption("digits.d"), w=0) {
   format(sprintf("%.*f", d, k), width=w, justify="right", scientific=FALSE)
 }
-
 
 .fmti <- function(k, w=0) {
   format(sprintf("%i", k), width=w, justify="right")
 }
 
-
 .fmtc <- function(k, w=0, j="right") {
   format(sprintf("%s", k), width=w, justify=j)
 }
 
-
 .fmtNS <- function(k) {
   format(k, scientific=FALSE )
 }
+
 
 
 .xstatus <- function(var.name, dname, quiet=FALSE) {
@@ -418,7 +419,6 @@ NULL
 
 # get the value for a specified function argument
 .get.arg <- function(argm, fc) {
-
   loc <- regexec(argm, fc)
   strt1 <- loc[[1]]  # beginning of argument
   if (strt1 > 0) {
@@ -501,11 +501,6 @@ NULL
   round(as.numeric(gsub(",", ".", gsub("\\.", "", x))),2)
 }
 NULL
-
-
-
-
-
 
 # from rstudio/dygraphs https://github.com/rstudio/dygraphs
 

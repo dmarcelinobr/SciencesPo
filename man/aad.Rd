@@ -18,8 +18,8 @@ aad(x, na.rm = TRUE, ...)
 Calculates the average (mean) absolute deviation from the sample mean.
 }
 \details{
-The statistical literature has not yet adopted a standard notation, as both the "Mean Absolute Deviation" and the "Median Absolute Deviation" have been denoted as "MAD", which may lead to confusion as they may produce different values.
-The R \code{\link[stats]{mad}} computes the "Median Absolute Deviation" by default; to obtain the "Mean Absolute Deviation" one has to use \code{mad(x, constant = 1)}.
+The statistical literature has not yet adopted a standard notation for  the "Mean Absolute Deviation" and the "Median Absolute Deviation". As a result, both statistics have been denoted as "MAD", which may lead to confusion once they may produce different values.
+The R \code{\link[stats]{mad}} by default computes the "Median Absolute Deviation"; to obtain the "Mean Absolute Deviation" one has to use \code{mad(x, constant = 1)}.
 Thus, the function \code{\link[SciencesPo]{aad}} will calculate the "Mean Absolute Deviation"--or "Average Deviation (AD)" as proposed by Garrett, who defines it as "the mean of the deviation of all the separate scores in the series taken from their mean (occasionally from the median or mode)", (1971, p. 481).
 }
 \examples{

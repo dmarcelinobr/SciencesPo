@@ -5,10 +5,10 @@
 \alias{detail}
 \title{Method to Produce Descriptive Statistics Summary}
 \usage{
-detail(.data, by = NULL, basic = TRUE, na.rm = TRUE, trim = 0.2,
+detail(.data, by = NULL, basic = FALSE, na.rm = TRUE, trim = 0.2,
   type = 2, k = 1)
 
-detail(.data, by = NULL, basic = TRUE, na.rm = TRUE, trim = 0.2,
+detail(.data, by = NULL, basic = FALSE, na.rm = TRUE, trim = 0.2,
   type = 2, k = 1)
 }
 \arguments{

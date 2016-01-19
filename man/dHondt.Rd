@@ -18,6 +18,9 @@ dHondt(parties = NULL, votes = NULL, seats = NULL, ...)
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
+\value{
+A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
+}
 \description{
 The function calculate the seats allotment in legislative house, given the total number of seats and the votes for each party based on the Victor D'Hondt's method (1878), which is mathematically equivalent to the method proposed by Thomas Jefferson few years before (1792).
 }
@@ -45,8 +48,11 @@ dHondt(parties, votes , seats=42)
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
+\references{
+Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
+}
 \seealso{
-\code{\link{highestAverages}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
+\code{\link{highestAverages}}, \code{\link{largestRemainders}},  \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
 }
 \keyword{Electoral}
 

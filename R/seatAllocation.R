@@ -7,19 +7,21 @@
 #' @param votes A vector with the formal votes received by the parties/candidates.
 #' @param seats An integer for the number of seats to be returned.
 #' @param \dots Additional arguements (currently ignored)
-
+#' @return A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
 #' @details The Hamilton/Vinton Method sets the divisor as the
 #' proportion of the total population per house seat.
 #' After each state's population is divided by the divisor,
 #' the whole number of the quotient is kept and the fraction
-#' dropped. This results in surplus house seats. Then, the first
+#' dropped resulting in surplus house seats. Then, the first
 #' surplus seat is assigned to the state with the largest
 #' fraction after the original division. The next is assigned to
 #' the state with the second-largest fraction and so on.
+#' @references
+#'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{dHondt}}, \code{\link{highestAverages}}, \code{\link{politicalDiversity}}.
+#' @seealso \code{\link{dHondt}}, \code{\link{highestAverages}}, \code{\link{largestRemainders}}, \code{\link{politicalDiversity}}.
 #'
 #' @importFrom utils head
 #' @examples
@@ -67,10 +69,14 @@ NULL
 #' @param seats An integer for the number of seats to be filled (the district magnitude).
 #' @param \dots Additional arguements (currently ignored)
 #'
+#' @return A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
+#'
 #' @keywords Electoral
+#' @references
+#'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{highestAverages}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
+#' @seealso \code{\link{highestAverages}}, \code{\link{largestRemainders}},  \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
 #'
 #' @note Adapted from Carlos Bellosta's replies in the R-list.
 #'
@@ -124,7 +130,7 @@ NULL
 #' @encoding latin1
 #' @title Highest Averages Methods of Allocating Seats Proportionally
 #'
-#' @description Computes the highest averages method for a variety of formulas to allocate seats proportionally for voting systems with representative assemblies.
+#' @description Computes the highest averages method for a variety of formulas of allocating seats proportionally.
 #' @param parties A character vector for parties labels or candidates in the same order as \code{votes}. If \code{NULL}, alphabet will be assigned.
 #' @param votes A numeric vector for the number of formal votes received by each party or candidate.
 #' @param seats The number of seats to be filled (scalar or vector).
@@ -132,7 +138,7 @@ NULL
 #' @param threshold A numeric value between (0~1). Default is set to 0.
 #' @param \dots Additional arguements (currently ignored)
 #'
-#' @return A \code{data.frame}.
+#' @return A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
 #' @keywords Electoral
 #'
 #' @details The following methods are available:
@@ -141,7 +147,7 @@ NULL
 #' \item {"sl"}{Sainte-Lague method}
 #' \item {"msl"}{Modified Sainte-Lague method}
 #' \item {"danish"}{Danish modified Sainte-Lague method}
-#' \item {"slh"}{Hungarian modified Sainte-Lague method}
+#' \item {"hsl"}{Hungarian modified Sainte-Lague method}
 #' \item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
 #' \item {"hh"}{Huntington-Hill method}
 #' \item {"wb"}{Webster's method}
@@ -158,7 +164,7 @@ NULL
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
+#' @seealso \code{\link{largestRemainders}}, \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 #'
 #' @examples
 #' # Results for the state legislative house of Ceara (2014):
@@ -193,13 +199,13 @@ NULL
 #'
 #' @rdname highestAverages
 #' @export
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "slh", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("highestAverages")
+`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("highestAverages")
 
 
 
 #' @export
 #' @rdname highestAverages
-`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "slh", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
+`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02
@@ -233,7 +239,7 @@ NULL
            divisor.vec <- c(1, seq(from = 4, by = 3, length.out = seats-1))
            method.name <- c("Danish Sainte-Lagu\u00EB")
          },
-         slh = { #Hungarian
+         hsl = { #Hungarian
            divisor.vec <- c(1.5, seq(from = 3, by = 2, length.out = seats-1))
            method.name <- c("Hungarian Sainte-Lagu\u00EB")
          },
@@ -278,13 +284,14 @@ NULL
   out <- freq(out, digits = 3);
   names(out) <-c("Party", "Seats", "\u0025Seats");
   # Political diversity indices
-  ENP_after <- 1/sum((out$Seats/sum(out$Seats))^2)
-  LSq.index <- sqrt(0.5 * sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
+  ENP.votes <- 1/sum(.ratio^2)
+  ENP.seats <- 1/sum((out$Seats/sum(out$Seats))^2)
+  LSq.index <- sqrt(0.5*sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
 
   cat("Method:", method.name, "\n")
   shorten(round(divisor.vec, 2), 4)
-  cat(paste("ENP:", round(ENP_after,2), "(Final):", round(ENP_after,2)),"\n")
-  cat(paste("Gallagher Index:", round(LSq.index, 2)), "\n \n")
+  cat(paste("ENP:",round(ENP.votes,2),"(After):",round(ENP.seats,2)),"\n")
+  cat(paste("Gallagher Index: ", round(LSq.index, 2)), "\n \n")
   return(out)
 }
 NULL
@@ -294,6 +301,72 @@ NULL
 
 
 
+#' @encoding latin1
+#' @title Largest Remainders Methods of Allocating Seats Proportionally
+#'
+#' @description Computes the largest remainders method for a variety of formulas of allocating seats proportionally.
+#' @param parties A character vector for parties labels or candidates in the order as \code{votes}. If \code{NULL}, a random combination of letters will be assigned.
+#' @param votes A numeric vector for the number of formal votes received by each party or candidate.
+#' @param seats The number of seats to be filled (scalar or vector).
+#' @param method A character name for the method to be used. See details.
+#' @param threshold A numeric value between (0~1). Default is set to 0.
+#' @param \dots Additional arguements (currently ignored)
+#'
+#' @return A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
+#' @keywords Electoral
+#'
+#' @details The following methods are available:
+#' \itemize{
+#' \item {"dh"}{d'Hondt method}
+#' \item {"sl"}{Sainte-Lague method}
+#' }
+#'
+#' @references
+#' Gallagher, Michael (1992). "Comparing Proportional Representation
+#' Electoral Systems: Quotas, Thresholds, Paradoxes and Majorities".
+#' \emph{British Journal of Political Science}, 22, 4, 469-496.
+#'
+#'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
+#'
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#' @seealso  \code{\link{highestAverages}}, \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
+#'
+#' @examples
+#' # Let's create a data.frame with typical election results
+#' # with the following parties and votes to return 10 seats:
+#'
+#' my_election <- data.frame(
+#' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
+#' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
+#'
+#' largestRemainders(my_election$party,
+#' my_election$votes, seats = 10,  method="droop")
+#'
+#' @rdname largestRemainders
+#' @export
+`largestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("largestRemainders")
 
 
+
+#' @export
+#' @rdname largestRemainders
+`largestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
+  # Modified :
+  # v0.0 2013-11-21
+  # v0.1 2014-10-02
+  # v0.2 2016-01-13
+  # local vars for using later
+  .ratio <- votes/sum(votes)
+  .votes <- ifelse(.ratio < threshold, 0, votes)
+
+  # To deal with  NULL party labels
+  if (is.null(parties)){
+    parties <- replicate(length(votes),
+                         paste(sample(LETTERS, 3,
+                                      replace=TRUE), collapse=""))
+  }
+
+  # Define Quotient
+
+}
 

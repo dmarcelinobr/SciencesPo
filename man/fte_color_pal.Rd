@@ -11,7 +11,8 @@ The standard fivethirtyeight.com palette for line plots is blue, red, green.
  I add an orange ton.
 }
 \examples{
-scales::show_col(fte_color_pal()(4))
+library(scales)
+show_col(fte_color_pal()(4))
 }
 \seealso{
 Other colour fte: \code{\link{scale_color_fte}},

@@ -30,7 +30,7 @@ highestAverages(parties=names(lijphart),
 highestAverages(parties=names(lijphart),
                 votes=lijphart, 
                 seats = 6, 
-                method = "danish") 
+                method = "hsl") 
 
 ## ----highestAverages6, echo=TRUE, message=FALSE, comment=NA--------------
 highestAverages(parties=names(lijphart),

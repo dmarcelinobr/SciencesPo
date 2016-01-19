@@ -18,6 +18,9 @@ hamilton(parties = NULL, votes = NULL, seats = NULL, ...)
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
+\value{
+A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
+}
 \description{
 Computes the Alexander Hamilton's apportionment method (1792), also known as Hare-Niemeyer method or as Vinton's method. The Hamilton method is a largest-remainder method which uses the Hare Quota.
 }
@@ -26,7 +29,7 @@ The Hamilton/Vinton Method sets the divisor as the
 proportion of the total population per house seat.
 After each state's population is divided by the divisor,
 the whole number of the quotient is kept and the fraction
-dropped. This results in surplus house seats. Then, the first
+dropped resulting in surplus house seats. Then, the first
 surplus seat is assigned to the state with the largest
 fraction after the original division. The next is assigned to
 the state with the second-largest fraction and so on.
@@ -39,7 +42,10 @@ hamilton(parties, votes, seats = 4)
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
+\references{
+Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
+}
 \seealso{
-\code{\link{dHondt}}, \code{\link{highestAverages}}, \code{\link{politicalDiversity}}.
+\code{\link{dHondt}}, \code{\link{highestAverages}}, \code{\link{largestRemainders}}, \code{\link{politicalDiversity}}.
 }
 

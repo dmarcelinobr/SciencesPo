@@ -13,7 +13,8 @@ parties_color_pal(palette = "BRA")
 Color palettes for political organizations.
 }
 \examples{
-scales::show_col(parties_color_pal()(10))
+library(scales)
+show_col(parties_color_pal()(10))
 }
 \seealso{
 Other colour parties: \code{\link{scale_color_parties}},

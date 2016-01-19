@@ -122,7 +122,8 @@ theme_grey(base_size = font_size, base_family = font_family) %+replace%
       # Modified inheritance structure of text element
 plot.title = element_text(size = rel(1.5), family = '' ,
                                 face = 'bold', hjust = -0.05,
-                                vjust = 1.5, color = '#3C3C3C', margin = ggplot2::margin(), debug = FALSE),
+                                vjust = 1.5, color = '#3C3C3C',
+                          margin = ggplot2::margin(), debug = FALSE),
       axis.title.x = element_blank(),
       axis.title.y = element_blank(),
       axis.text = element_text(),
@@ -133,14 +134,16 @@ plot.title = element_text(size = rel(1.5), family = '' ,
       # Modified inheritance structure of rect element
       plot.background =  element_rect(),
       panel.background =  element_rect(),
-     strip.background = element_rect(),
+      strip.background = element_rect(),
       legend.background = element_rect(linetype = 0),
       legend.margin = grid::unit(font_size * 1.1, "points"),
       legend.key = element_rect(linetype = 0),
-      legend.key.size = grid::unit(1.1, "lines"), legend.key.height = NULL,
-      legend.key.width = NULL, legend.text = element_text(size = rel(1.2)),
-      legend.text.align = NULL, legend.title = element_text(size = rel(1),
-                                                            hjust = 0),
+      legend.key.size = grid::unit(1.1, "lines"),
+legend.key.height = NULL,
+      legend.key.width = NULL,
+legend.text = element_text(size = rel(1.1)),
+      legend.text.align = NULL,
+legend.title = element_text(size = rel(1), hjust = 0),
       legend.title.align = NULL,
       legend.position = legend,
       legend.direction = NULL,
@@ -314,6 +317,12 @@ x$fte <- c(
   green=rgb(119, 171, 67, max = 255),
   orange=rgb(230, 159, 0, max = 255)
   )
+x$development <- c(
+  autumn=rgb(16, 78, 139, max = 255),
+  spring=rgb(110, 139, 61, max = 255),
+  summer=rgb(154, 50, 205, max = 255),
+  winter=rgb(255, 193, 37, max = 255)
+)
 x$seasons <- c(
   autumn=rgb(16, 78, 139, max = 255),
   spring=rgb(110, 139, 61, max = 255),
@@ -410,7 +419,8 @@ scale_color_pub <- scale_colour_pub
 #'
 #' @family colour fte
 #' @examples
-#' scales::show_col(fte_color_pal()(4))
+#' library(scales)
+#' show_col(fte_color_pal()(4))
 #' @export
 fte_color_pal <- function() {
   function(n) {
@@ -459,7 +469,8 @@ NULL
 #' @param palette Palette name.
 #' @family colour parties
 #' @examples
-#' scales::show_col(parties_color_pal()(10))
+#' library(scales)
+#' show_col(parties_color_pal()(10))
 #' @export
 #'
 `parties_color_pal` <- function(palette = "BRA") {
