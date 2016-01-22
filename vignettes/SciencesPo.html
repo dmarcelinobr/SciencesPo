@@ -10,7 +10,7 @@
 
 <meta name="author" content="Daniel Marcelino" />
 
-<meta name="date" content="2016-01-16" />
+<meta name="date" content="2016-01-22" />
 
 <title>Introduction to the SciencesPo Package</title>
 
@@ -72,7 +72,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">Introduction to the SciencesPo Package</h1>
 <h4 class="author"><em>Daniel Marcelino</em></h4>
-<h4 class="date"><em>2016-01-16</em></h4>
+<h4 class="date"><em>2016-01-22</em></h4>
 </div>
 
 
@@ -223,34 +223,142 @@ Warning: Statistics may not be meaningful for factors!
   Valid cases Missing cases
          2201             0</code></pre>
 <p>To add a second, for a cross-tabulation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">CrossTabs</span>(titanic$SEX, titanic$SURVIVED) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crosstable</span>(titanic, SEX, CLASS, SURVIVED) </code></pre></div>
+<pre><code>## Warning: 'dplyr::regroup' is deprecated.
+## Use 'group_by_' instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <pre><code>## 
-##  
-##           || Key || 
-## |=========================|
-## |               Frequency |
-## |       Column Proportion |
-## |=========================|
+## SEX : female
 ## 
-## Total Observations in Table:  2201 
+## =========
+##                  SURVIVED          
+##                -------------       
+## SEX    CLASS   no    yes   Total 
+## ---------
+## female 90
+##        3
+##        20
+##        118
+##        62
+##        154
+##        25
+##        422
+##        88
+##        670
+##        192
+## ---------
+## male   90
+##        3
+##        20
+##        118
+##        62
+##        154
+##        25
+##        422
+##        88
+##        670
+##        192
+## ---------
+## Total  90
+##        3
+##        20
+##        118
+##        62
+##        154
+##        25
+##        422
+##        88
+##        670
+##        192
+## =========
 ## 
-## X =  titanic$SEX 
-## Y =  titanic$SURVIVED 
+## Chi-Square Test for Independence
 ## 
-##  
-##               [Y] t$SUR. 
-## [X] t$SEX. 
-##        |    no |   yes | TOTAL | 
-## -------|-------|-------|-------|
-## female |   126 |   344 |   470 | 
-##        |  0.08 |  0.48 |  0.21 | 
-## -------|-------|-------|-------|
-##   male |  1364 |   367 |  1731 | 
-##        |  0.92 |  0.52 |  0.79 | 
-## -------|-------|-------|-------|
-##  TOTAL |  1490 |   711 |  2201 | 
-##        |  1.00 |  1.00 |       | 
-## -------|-------|-------|-------|</code></pre>
+## Number of cases in table: 1490 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 152.19, df = 3, p-value = 8.86e-33
+##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 168.99  3        0
+## Pearson          152.19  3        0
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.304 
+## Cramer's V        : 0.32 
+## 
+## 
+## SEX : male  
+## 
+## =========
+##                  SURVIVED          
+##                -------------       
+## SEX    CLASS   no    yes   Total 
+## ---------
+## female 90
+##        3
+##        20
+##        118
+##        62
+##        154
+##        25
+##        422
+##        88
+##        670
+##        192
+## ---------
+## male   90
+##        3
+##        20
+##        118
+##        62
+##        154
+##        25
+##        422
+##        88
+##        670
+##        192
+## ---------
+## Total  90
+##        3
+##        20
+##        118
+##        62
+##        154
+##        25
+##        422
+##        88
+##        670
+##        192
+## =========
+## 
+## Chi-Square Test for Independence
+## 
+## Number of cases in table: 711 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 208.97, df = 3, p-value = 4.851e-45
+##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 233.97  3        0
+## Pearson          208.97  3        0
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.477 
+## Cramer's V        : 0.542 
+## 
+## 
+## Total
+## 
+## Number of cases in table: 2201 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 349.9, df = 3, p-value = 1.557e-75
+##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 412.60  3        0
+## Pearson          349.91  3        0
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.37 
+## Cramer's V        : 0.399</code></pre>
 <p>To delete table entries that are less relevant, switch it to <code>FALSE</code>. And switch it to <code>TRUE</code> to add table entries that relevant. For instance, the <code>chisq</code> argument refers to a Chi-Square test of Independence, to calculate the test, switch it to <code>TRUE</code>.</p>
 </div>
 <div id="distributions" class="section level1">
@@ -306,8 +414,9 @@ Ceara &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara,
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
 <pre><code>Method: d'Hondt 
-ENP(Final): 3.14 
-Gallagher Index: 47.007 
+Divisors: 1 2 3 4 ... 
+ENP: 3.65 (After): 3.14 
+Gallagher Index:  47.01 
  </code></pre>
 <pre><code>   Party Seats %Seats
 1    PRB    21  0.500
@@ -328,8 +437,9 @@ Gallagher Index: 47.007
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara,
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>) </code></pre></div>
 <pre><code>Method: Sainte-Laguë 
-ENP(Final): 3.74 
-Gallagher Index: 43.992 
+Divisors: 1 3 5 7 ... 
+ENP: 3.65 (After): 3.74 
+Gallagher Index:  43.99 
  </code></pre>
 <pre><code>   Party Seats %Seats
 1    PRB    19  0.452
@@ -349,8 +459,9 @@ Gallagher Index: 43.992
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;hh&quot;</span>) </code></pre></div>
 <pre><code>Method: Hungtinton-Hill 
-ENP(Final): 4.05 
-Gallagher Index: 42.76 
+Divisors: 0 1.41 2.45 3.46 ... 
+ENP: 3.65 (After): 4.05 
+Gallagher Index:  42.76 
  </code></pre>
 <pre><code>   Party Seats %Seats
 1    PRB    18  0.429
@@ -370,8 +481,9 @@ Gallagher Index: 42.76
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>) </code></pre></div>
 <pre><code>Method: Imperiali 
-ENP(Final): 2.48 
-Gallagher Index: 52.146 
+Divisors: 1 1.5 2 2.5 ... 
+ENP: 3.65 (After): 2.48 
+Gallagher Index:  52.15 
  </code></pre>
 <pre><code>   Party Seats %Seats
 1    PRB    24  0.571
@@ -392,8 +504,9 @@ Gallagher Index: 52.146
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara,
                <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>, <span class="dt">threshold =</span> <span class="dv">5</span>/<span class="dv">100</span>) </code></pre></div>
 <pre><code>Method: d'Hondt 
-ENP(Final): 2.39 
-Gallagher Index: 53.225 
+Divisors: 1 2 3 4 ... 
+ENP: 3.65 (After): 2.39 
+Gallagher Index:  53.23 
  </code></pre>
 <pre><code>   Party Seats %Seats
 1    PRB    24  0.571
@@ -442,8 +555,9 @@ Italy =<span class="st"> </span><span class="kw">data.frame</span>(<span class="
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mytable =<span class="st"> </span><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
 <pre><code>Method: d'Hondt 
-ENP(Final): 3.14 
-Gallagher Index: 47.007 
+Divisors: 1 2 3 4 ... 
+ENP: 3.65 (After): 3.14 
+Gallagher Index:  47.01 
  </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
 
@@ -517,8 +631,9 @@ Gallagher Index: 47.007
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mytable =<span class="st"> </span><span class="kw">highestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), <span class="dt">votes=</span>Ceara, 
                 <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
 <pre><code>## Method: d'Hondt 
-## ENP(Final): 3.14 
-## Gallagher Index: 47.007 
+## Divisors: 1 2 3 4 ... 
+## ENP: 3.65 (After): 3.14 
+## Gallagher Index:  47.01 
 ## </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mytable, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(Party, Seats), <span class="dt">y=</span>Seats)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) +

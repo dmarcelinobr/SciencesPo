@@ -33,6 +33,6 @@ Frequency(cathedrals, Type)
 cathedrals \%>\% Frequency(Height)
 }
 \seealso{
-\code{\link{freq}}, \code{\link{CrossTabs}}.
+\code{\link{freq}}, \code{\link{crosstable}}.
 }
 

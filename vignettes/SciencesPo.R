@@ -40,15 +40,6 @@ skewness(x, type = 3);
 kurtosis(x, type = 3);
 
 
-## ----pres-ages, echo=TRUE, message=FALSE, cache=TRUE---------------------
-pres =c(42,43,46,46,47,48,49,49,50,51,51,51,51,51,52,52,54,54,54,54,54,55,55,55,55,56,56,56,57,57,57,57,58,60,61,61,61,62,64,64,65,68,69)
-
-ci(pres, level=.95) # confidence interval
-
-ci(pres, level=.95)@mean # confidence interval
-
-se(pres) # std. error
-
 ## ----echo=FALSE, message=FALSE-------------------------------------------
 aad(pres) 
 
@@ -91,7 +82,7 @@ destring(myvar)
 Frequency(titanic, SURVIVED) 
 
 ## ----two-way, echo=TRUE, message=FALSE-----------------------------------
-CrossTabs(titanic$SEX, titanic$SURVIVED) 
+crosstable(titanic, SEX, CLASS, SURVIVED) 
 
 ## ----politicalDiversity1, echo=TRUE, message=FALSE-----------------------
 library("SciencesPo")
@@ -124,12 +115,6 @@ Helsinki <- data.frame(votes = c(68885, 18343, 86448, 21982, 51587,
 politicalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
 
 politicalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
-
-## ----Ceara-election, echo=TRUE, cache=TRUE-------------------------------
-# Results for the state legislative house of Ceara (2014):
-Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
-           "PRB"=2043217,"PSB"=15061, "PSC"=103679, "PSTU"=109830,
-           "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
 
 ## ----highestAverages1, echo=TRUE, message=FALSE, comment=NA--------------
 highestAverages(parties=names(Ceara), votes=Ceara,

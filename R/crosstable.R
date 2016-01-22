@@ -1,26 +1,52 @@
 #' @encoding UTF-8
 #' @title Cross-tabulation
-#' @description \code{crosstable} produces all possible two-way tabulations of the variables specified.
+#' @description \code{crosstable} produces all possible two-way and three-way tabulations of variables.
 #' @param .data The data object.
-#' @param \dots The data paremeters.
+#' @param \dots The variables for the cross tabulation.
 #' @param row \code{TRUE}.
-#' @param col \code{TRUE}.
+#' @param column \code{TRUE}.
 #' @param deparse.level Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).
+#'
+#' @seealso \code{\link[stats]{xtabs}}, \code{\link{Frequency}},
+#' \code{\link[base]{table}}, \code{\link[base]{prop.table}}
+#'
 #' @return A cross-tabulated object.
 #' @examples
-#' crosstable(titanic, SEX, AGE)
-#'
 #' titanic %>% crosstable( SEX, AGE, SURVIVED)
 #'
+#' #' # Agresti (2002), table 3.10, p. 106
+#' # 1992 General Social Survey--Race and Party affiliation
+#' gss <- data.frame(
+#'    expand.grid(Race=c("black", "white"),
+#'    party=c("dem", "indep", "rep")),
+#'    count=c(103,341,15,105,11,405))
+#'
+#' df <- gss[rep(1:nrow(gss), gss[["count"]]), ]
+#'
+#' crosstable(df, Race, party)
+#'
+#' # Tea-Tasting Experiment data
+#'  tea <- data.frame(
+#'    expand.grid(poured=c("Yes", "No"),
+#'    guess=c("Yes", "No")),
+#'    count=c(3,1,1,3))
+#'
+#' # nicer way of recreating long tables
+#' data = untable(tea, freq="count")
+#'
+#' crosstable(data, guess, poured, row=TRUE, column=TRUE) # fisher=TRUE
+#'
+
+
 #' @keywords Exploratory
 #' @import vcd
 #' @export
 #' @rdname crosstable
-`crosstable` <- function(.data, ..., row=TRUE, col=TRUE, deparse.level = 2) UseMethod("crosstable")
+`crosstable` <- function(.data, ..., row=TRUE, column=TRUE, deparse.level = 2) UseMethod("crosstable")
 
 #' @export
 #' @rdname crosstable
-`crosstable.default` <- function(.data, ..., row=TRUE, col=TRUE, deparse.level = 2){
+`crosstable.default` <- function(.data, ..., row=TRUE, column=TRUE, deparse.level = 2){
   #################################################################
   #                                                               #
   # Function created by Daniel Marcelino                          #
@@ -49,7 +75,7 @@ table <- structure(expanded_res, .Dim = unname(lengths(lev)), .Dimnames = lev)
 
 #' @export
 #' @rdname crosstable
-summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
+print.crosstable <- function(table, digits=2, tests=TRUE, latex=FALSE){
 
     tab      <- table
     class(tab) <- "table"
@@ -64,12 +90,12 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
       if(row==TRUE){
       # place sum in the last row
       tab <- rbind(tab, Sum = colSums(tab))
-      # place sum in the last col
+      # place sum in the last column
       tab <- cbind(tab, Sum = rowSums(tab))
       p <- tab/tab[,"Sum"] * 100
       }
-      else if(col==TRUE){
-        # place sum in the last col
+      else if(column==TRUE){
+        # place sum in the last column
         tab <- cbind(tab, Sum = rowSums(tab))
       # place sum in the last row
         tab <- rbind(tab, Sum = colSums(tab))
@@ -77,7 +103,7 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
    }else {
      # place sum in the last row
      tab <- rbind(tab, Sum = colSums(tab))
-     # place sum in the last col
+     # place sum in the last column
      tab <- cbind(tab, Sum = rowSums(tab))
      p <- sweep(tab, 2, tab["Sum",], "/") * 100}
       names(dimnames(tab)) <- varnames
@@ -115,6 +141,7 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
 
       col <-  c(rbind(count, percent))
       col <-  format(col, justify="right", width=width)
+
       if(latex){
         col <- c(" ", " ", "\\multicolumn{1}{c}{Total}", col)
       } else {
@@ -131,6 +158,7 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
 
       # output <- paste(rowvar, output, sep=sep)
       nchar  <- nchar(output[1], type="width")
+
       if(latex) {
         output <-  paste(output, "\\\\")
         line1 <- "\\midrule"
@@ -153,8 +181,10 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
     if(length(dim) == 2) {
       # Two dimensional
       output <- .twoDimTable(tab)
+
       if(latex) output[3] <- sprintf("\\cline{%s-%s}", 2, 2+dim[2]-1)
       output <- paste(output, collapse="\n")
+
       if(latex){
 
         output <- sprintf("\\begin{table}[htbp]
@@ -170,8 +200,7 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
 
       cat("\n")
       cat(output, fill=TRUE)
-      cat("\n")
-      cat("Chi-Square Test for Independence", fill=TRUE)
+      cat("\n") # 2x2 Tests of Independence
       if(tests){
         print(summary(vcd::assocstats(tab)))
       } else {
@@ -207,7 +236,7 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
       output.header[3] <-  paste(stratumvar, output.header[3], sep=sep)
 
 
-      output <- lapply(output, function(x) return(tab[ -c(1:5, length(x))]))
+      output <- lapply(output, function(x) return(x[ -c(1:5, length(x))]))
       for(i in seq_along(output)) {
         col         <- c(stratumcat[i], rep.int(" ", length(output[[i]])-1))
         col         <- format(col, justify="left")
@@ -253,17 +282,14 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
                           \\end{table}",
                           varnames[1], varnames[2], varnames[3],
                           paste(rep.int("r",dim[3]+1), collapse=""),output)}
+
+      cat("\n")
+      cat(output, fill=TRUE)
       cat("\n")
       for(i in seq_len(dim[1])) {
         x.tmp <-  as.table(tab[i, , ])
         cat(sprintf("%s : %s", names(dimnames(tab))[1], stratumcat[i]), fill=TRUE)
-      cat("\n")
-      cat(output, fill=TRUE)
-      cat("\n")
-      cat("Chi-Square Test for Independence", fill=TRUE)
-
-
-        if(tests){
+          if(tests){
           print(summary(vcd::assocstats(x.tmp)))
         } else {
           cat("\n")
@@ -282,7 +308,7 @@ summary.crosstable <- function(table, digits=2, latex=FALSE, tests=TRUE, ...){
       cat("\n")
     }
   }
-  return(summary.crosstable(table))
+  return(print.crosstable(table))
 }
 NULL
 

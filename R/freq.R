@@ -17,7 +17,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{Frequency}}, \code{\link{CrossTabs}}.
+#' @seealso \code{\link{Frequency}}, \code{\link{crosstable}}.
 #'
 #' @examples
 #' data(Presidents)

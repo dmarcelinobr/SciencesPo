@@ -6,32 +6,56 @@
 \alias{crosstable.default}
 \title{Cross-tabulation}
 \usage{
-crosstable(.data, ..., row = TRUE, col = TRUE, deparse.level = 2)
+crosstable(.data, ..., row = TRUE, column = TRUE, deparse.level = 2)
 
-\method{crosstable}{default}(.data, ..., row = TRUE, col = TRUE,
-  deparse.level = 2)
+\method{crosstable}{default}(.data, ..., row = TRUE, column = TRUE,
+  deparse.level = 2, latex = FALSE)
 }
 \arguments{
 \item{.data}{The data object.}
 
 \item{row}{\code{TRUE}.}
 
-\item{col}{\code{TRUE}.}
+\item{column}{\code{TRUE}.}
 
 \item{deparse.level}{Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).}
 
-\item{\dots}{The data paremeters.}
+\item{\dots}{The variables for the cross tabulation.}
 }
 \value{
 A cross-tabulated object.
 }
 \description{
-\code{crosstable} produces all possible two-way tabulations of the variables specified.
+\code{crosstable} produces all possible two-way and three-way tabulations of variables.
 }
 \examples{
-crosstable(titanic, SEX, AGE)
-
 titanic \%>\% crosstable( SEX, AGE, SURVIVED)
+
+#' # Agresti (2002), table 3.10, p. 106
+# 1992 General Social Survey--Race and Party affiliation
+gss <- data.frame(
+   expand.grid(Race=c("black", "white"),
+   party=c("dem", "indep", "rep")),
+   count=c(103,341,15,105,11,405))
+
+df <- gss[rep(1:nrow(gss), gss[["count"]]), ]
+
+crosstable(df, Race, party)
+
+# Tea-Tasting Experiment data
+ tea <- data.frame(
+   expand.grid(poured=c("Yes", "No"),
+   guess=c("Yes", "No")),
+   count=c(3,1,1,3))
+
+# nicer way of recreating long tables
+data = untable(tea, freq="count")
+
+crosstable(data, guess, poured, row=TRUE, column=TRUE) # fisher=TRUE
+}
+\seealso{
+\code{\link[stats]{xtabs}}, \code{\link{Frequency}},
+\code{\link[base]{table}}, \code{\link[base]{prop.table}}
 }
 \keyword{Exploratory}
 

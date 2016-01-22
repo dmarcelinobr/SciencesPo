@@ -184,7 +184,7 @@ Frequency(titanic, SURVIVED)
 To add a second, for a cross-tabulation:
 
 ```{r two-way, echo=TRUE, message=FALSE}
-CrossTabs(titanic$SEX, titanic$SURVIVED) 
+crosstable(titanic, SEX, CLASS, SURVIVED) 
 ```
 
 To delete table entries that are less relevant, switch it to `FALSE`. And switch it to `TRUE` to add table entries that relevant. For instance, the `chisq` argument refers to a Chi-Square test of Independence, to calculate the test, switch it to `TRUE`.

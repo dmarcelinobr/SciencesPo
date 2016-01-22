@@ -46,6 +46,6 @@ freq(Presidents$winner.party)
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \seealso{
-\code{\link{Frequency}}, \code{\link{CrossTabs}}.
+\code{\link{Frequency}}, \code{\link{crosstable}}.
 }
 

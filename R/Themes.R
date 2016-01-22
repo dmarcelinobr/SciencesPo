@@ -196,54 +196,6 @@ NULL
 
 
 
-#' @title Add/Modify/Remove the background grid in a ggplot2 plot
-#'
-#' This function provides a simple way to modify the background grid in ggplot2. It
-#' doesn't do anything that can't be done just the same with \code{theme()}. However, it simplifies
-#' creation of the most commonly needed variations.
-#' @param major Specifies along which axes you would like to plot major grid lines. Options are "xy", "x",
-#'  "y", "only_minor" (disables major grid lines but allows you to switch on minor grid lines), "none".
-#' @param minor Specifies along which axes you would like to plot minor grid lines. Options are "xy", "x",
-#'  "y", "none".
-#' @param size.major Size of the major grid lines.
-#' @param size.minor Size of the minor grid lines.
-#' @param colour.major Color of the major grid lines.
-#' @param colour.minor Color of the minor grid lines.
-#' @export
-`background_grid` <- function(major = c("xy", "x", "y", "only_minor", "none"),
-                            minor = c("xy", "x", "y", "none"),
-                            size.major = 0.2, size.minor = 0.5,
-                            colour.major = "grey90", colour.minor = "grey98"){
-
-  if (major[1] == "none") return(theme(panel.grid = element_blank()))
-
-  t <- switch( major[1],
-               x = theme(panel.grid.major   = element_line(colour = colour.major,
-                                                           size = size.major),
-                         panel.grid.major.y = element_blank()),
-               y = theme(panel.grid.major   = element_line(colour = colour.major,
-                                                           size = size.major),panel.grid.major.x = element_blank()), xy = theme(panel.grid.major = element_line(colour = colour.major, size = size.major)),
-yx = theme(panel.grid.major = element_line(colour = colour.major,
-size = size.major)),
-theme(panel.grid.major = element_blank()))
-  t + switch( minor[1],
-x = theme(panel.grid.minor   = element_line(colour = colour.minor,
-size = size.minor),
-panel.grid.minor.y = element_blank()),
-y = theme(panel.grid.minor   = element_line(colour = colour.minor,
-size = size.minor),
-panel.grid.minor.x = element_blank()),
-xy = theme(panel.grid.minor = element_line(colour = colour.minor,
-size = size.minor)),
-yx = theme(panel.grid.minor = element_line(colour = colour.minor,
-size = size.minor)),
-theme(panel.grid.minor = element_blank()))
-}
-NULL
-
-
-
-
 #' @title Palette data for the themes used by package
 #'
 #' @description Data used by the palettes in the package.
@@ -277,6 +229,16 @@ x$pub$colors <-
     rgb(23, 190, 207, max = 255),
     rgb(158, 218, 229, max = 255)
     ),
+  tableau10medium=c("#729ECE",
+      "#FF9E4A",
+      "#67BF5C",
+      "#ED665D",
+      "#AD8BC9",
+      "#A8786E",
+      "#ED97CA",
+      "#A2A2A2",
+      "#CDCC5D",
+      "#6DCCDA"),
   pub12=c(
     rgb(56, 108, 176, max = 255),
     rgb(253, 180, 98, max = 255),
@@ -288,6 +250,76 @@ x$pub$colors <-
     rgb(152, 78, 163, max = 255),
     rgb(255, 255, 51, max = 255)
     ),
+  gray5=c("#60636A",
+            "#A5ACAF",
+            "#414451",
+            "#8F8782",
+            "#CFCFCF"),
+  trafficlight=c("#B10318",
+                   "#DBA13A",
+                   "#309343",
+                   "#D82526",
+                   "#FFC156",
+                   "#69B764",
+                   "#F26C64",
+                   "#FFDD71",
+                   "#9FCD99"),
+  bluered12=c("#2C69B0",
+      "#B5C8E2",
+      "#F02720",
+      "#FFB6B0",
+      "#AC613C",
+      "#E9C39B",
+      "#6BA3D6",
+      "#B5DFFD",
+      "#AC8763",
+      "#DDC9B4",
+      "#BD0A36",
+      "#F4737A"),
+  purplegray12=c("#7B66D2",
+      "#A699E8",
+      "#DC5FBD",
+      "#FFC0DA",
+      "#5F5A41",
+      "#B4B19B",
+      "#995688",
+      "#D898BA",
+      "#AB6AD5",
+      "#D098EE",
+      "#8B7C6E",
+      "#DBD4C5"),
+  greenorange12=c("#32A251",
+      "#ACD98D",
+      "#FF7F0F",
+      "#FFB977",
+      "#3CB7CC",
+      "#98D9E4",
+      "#B85A0D",
+      "#FFD94A",
+      "#39737C",
+      "#86B4A9",
+      "#82853B",
+      "#CCC94D"),
+  cyclic=c("#1F83B4",
+      "#1696AC",
+      "#18A188",
+      "#29A03C",
+      "#54A338",
+      "#82A93F",
+      "#ADB828",
+      "#D8BD35",
+      "#FFBD4C",
+      "#FFB022",
+      "#FF9C0E",
+      "#FF810E",
+      "#E75727",
+      "#D23E4E",
+      "#C94D8C",
+      "#C04AA7",
+      "#B446B3",
+      "#9658B1",
+      "#8061B4",
+      "#6F63BB"),
   colorblind=c(
     rgb(0, 107, 164, max = 255),
     rgb(255, 128, 14, max = 255),
@@ -305,11 +337,11 @@ x$pub$colors <-
 x$parties <- list()
 
 x$parties$BRA <- c(
-  PT = rgb(255, 39, 0, max = 255),
-  PMDB = rgb(255, 153, 0, max = 255),
-  PSDB = rgb(0, 143, 213, max = 255),
-  PSB = rgb(213, 94, 0, max = 255),
-  PV = rgb(119, 171, 67, max = 255)
+  PT=rgb(255, 39, 0, max = 255),
+  PMDB=rgb(255, 153, 0, max = 255),
+  PSDB=rgb(0, 143, 213, max = 255),
+  PSB=rgb(213, 94, 0, max = 255),
+  PV=rgb(119, 171, 67, max = 255)
   )
 
 x$fte <- c(
