@@ -519,11 +519,11 @@ asISO8601Time <- function(x) {
 
 
 
-counts <- function(.data, ..., wt = NULL) {
+regroup <- function(.data, ..., wt = NULL) {
 vars <- lazyeval::lazy_dots(...)
   wt <- substitute(wt)
-
-  grouped <- dplyr::regroup(.data, vars)
+  n <- NULL
+  grouped <- dplyr::group_by_(.data, .dots=vars)
   if (is.null(wt)) {
     dplyr::summarise(grouped, n = n())
   } else {

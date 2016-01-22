@@ -34,7 +34,7 @@
 #' # nicer way of recreating long tables
 #' data = untable(tea, freq="count")
 #'
-#' crosstable(data, guess, poured, row=TRUE, column=TRUE) # fisher=TRUE
+#' crosstable(data, poured, guess, row=TRUE, column=TRUE) # fisher=TRUE
 #'
 
 
@@ -58,14 +58,12 @@
   #                                                               #
   #################################################################
 
-
   ### dplyr version of table, to improve speed
   ## count for each variable combination present
-  res <- counts(.data, ...)
+  res <- regroup(.data, ...)
   ## expand to include all possible variable combinations
   ## (in future may not be necessary, see
   ## https://github.com/hadley/dplyr/issues/341)
-
   lev <- lapply(res[,-ncol(res)], function(x) sort(unique(x)))
   expanded_res <- suppressMessages(merge(expand.grid(lev), res)$n)
   expanded_res[is.na(expanded_res)] <- 0 # set absent combinations to 0
@@ -222,6 +220,7 @@ print.crosstable <- function(table, digits=2, tests=TRUE, latex=FALSE){
         x.tmp <- as.table(tab[i, , ])
         output[[i]] <- .twoDimTable(x.tmp, width=width)
       }
+
       total <- margin.table(tab, c(2, 3))
       output[[dim[1]+1]] <- .twoDimTable(total, width=width)
 

@@ -9,7 +9,7 @@
 crosstable(.data, ..., row = TRUE, column = TRUE, deparse.level = 2)
 
 \method{crosstable}{default}(.data, ..., row = TRUE, column = TRUE,
-  deparse.level = 2, latex = FALSE)
+  deparse.level = 2)
 }
 \arguments{
 \item{.data}{The data object.}
@@ -51,7 +51,7 @@ crosstable(df, Race, party)
 # nicer way of recreating long tables
 data = untable(tea, freq="count")
 
-crosstable(data, guess, poured, row=TRUE, column=TRUE) # fisher=TRUE
+crosstable(data, poured, guess, row=TRUE, column=TRUE) # fisher=TRUE
 }
 \seealso{
 \code{\link[stats]{xtabs}}, \code{\link{Frequency}},
