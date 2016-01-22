@@ -3,12 +3,12 @@ title: "Measures of Political Behavior"
 author: "Daniel Marcelino"
 date: "`r Sys.Date()`"
 output: 
-  pdf_document:
-    number_sections: true
-    toc: no
-    toc_depth: 2
- # rmarkdown::html_vignette:
-  #  fig_width: 5
+  #pdf_document:
+   # number_sections: true
+  #  toc: no
+  #  toc_depth: 2
+  rmarkdown::html_vignette:
+    fig_width: 5
 vignette: >
   %\VignetteIndexEntry{Measures of Political Behavior}
    %\VignetteEngine{knitr::rmarkdown}
@@ -47,7 +47,7 @@ Under the D'Hondt formula, seats are allocated using divisors of 1, 2, 3, 4, etc
 
 
 ```{r highestAverages1, message=FALSE, comment=NA}
-library("SciencesPo")
+library("SciencesPo", quietly = TRUE)
 
 # The d'Hondt will give the same results as Jefferson's method
 highestAverages(parties=names(lijphart),

@@ -67,9 +67,7 @@ data(package = "SciencesPo")
 
 
 ## Example of printing objects
-First we take a look at a quick example of printing some R objects in the R console:
-
-Whenever you load the package, it will setup its own environment, including plotting themes. Thus, some objects may be printed differently with what you would have seen in a normal R console. To not use the default settings, one can use : 
+Whenever you load the package, it will setup its own environment, including the plotting theme. Thus, some objects may be printed or plotted differently with what you would have seen in a normal R console. To not use the default settings of the package, you can use `getOption()` to see what defaults are, and change them accordingly. 
 
 ## Exploratory data functions
 
@@ -194,7 +192,6 @@ To delete table entries that are less relevant, switch it to `FALSE`. And switch
 
 ## `uniform`
 
-
 # Political Behavior Measures
 
 ## Political Diversity Indices
@@ -227,6 +224,7 @@ Helsinki <- data.frame(votes = c(68885, 18343, 86448, 21982, 51587,
                        seats.dH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
                                   0, 0, 0, 0, 0))
 ```
+
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 # politicalDiversity(Helsinki$votes); #ENEP Votes
@@ -321,6 +319,7 @@ Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
                            97690, 78554, 71021, 51088, 40633, 21853))
 ```
 
+
 ```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
 with(Italy, largestRemainders(parties=party, votes=votes, 
                 seats = 556, method = "imperiali.q") )
@@ -353,8 +352,6 @@ p <- ggplot(mytable, aes(x=reorder(Party, Seats), y=Seats)) +
   coord_flip() + labs(x="", y="# Seats")
 p + theme_grey() 
 ```
-
-
 
 
 # Exploratory Statistical Tests
@@ -427,7 +424,6 @@ line_plot + theme(legend.justification=c(1,0), legend.position=c(1,0))
 This positions the legend inside the plot area, at the bottom-right. You can also put the legend at the top or bottom of the plot using, e.g.:
   
 line_plot + theme(legend.position="bottom")
-
 
 
 ```{r echo=FALSE, message=FALSE}

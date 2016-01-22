@@ -69,7 +69,7 @@
   expanded_res[is.na(expanded_res)] <- 0 # set absent combinations to 0
   ## restructure as table
 table <- structure(expanded_res, .Dim = unname(lengths(lev)), .Dimnames = lev)
-  class(table) <- c("crosstable", "table")
+  class(table) <- c("SciencesPo", "crosstable", "table")
 
 #' @export
 #' @rdname crosstable

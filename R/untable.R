@@ -82,7 +82,7 @@ NULL
       # overwrite the dimnames, if requested
       if(!is.null(rownames)) rownames(res) <- rownames
       if(!is.null(colnames)) colnames(res) <- colnames
-
+      class(res) <- c("SciencesPo", "untable", "data.frame")
       return(res)
 }
 NULL

@@ -1,9 +1,5 @@
-## ----table_A.1, echo=TRUE, cache=TRUE------------------------------------
-# Table A.l
-lijphart <- c("A"=41000, "B"=29000,"C"=17000, "D"=13000)
-
 ## ----highestAverages1, message=FALSE, comment=NA-------------------------
-library("SciencesPo")
+library("SciencesPo", quietly = TRUE)
 
 # The d'Hondt will give the same results as Jefferson's method
 highestAverages(parties=names(lijphart),
@@ -72,12 +68,6 @@ highestAverages(parties=names(const),
                 seats = 3, method = "dh",
                 threshold = 7/100) 
 
-## ----Valencia-election, echo=FALSE, cache=TRUE, comment=NA---------------
-(Valencia <- c("PP"=442005, "Podemos"=395729, "PSOE"=275680,
-              "C's"=221299, "IU"=68759, "PACMA"=14445, "Others"=35943)) 
-blanco=8738
-nulo=11891
-
 ## ----Valencia, echo=TRUE, message=FALSE, comment=NA----------------------
 # Valencia returned 15 members
 highestAverages(parties=names(Valencia),
@@ -114,12 +104,6 @@ highestAverages(parties=names(Valencia),
 #  with(Italy, largestRemainders(parties=party,
 #                                votes=votes, seats = 556,
 #                                method = "imperiali.q") )
-
-## ----Ceara-election, echo=TRUE, cache=TRUE-------------------------------
-# Results for the state legislative house of Ceará (2014):
-Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
-           "PRB"=2043217,"PSB"=15061, "PSC"=103679, "PSTU"=109830,
-           "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
 
 ## ----highestAverages11, echo=TRUE, message=FALSE, comment=NA-------------
 mytable = highestAverages(parties=names(Ceara), 
@@ -206,20 +190,6 @@ Helsinki <- data.frame(
 politicalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
 
 politicalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
-
-## ----Queensland-election, echo=TRUE, cache=TRUE--------------------------
-# 2012 Queensland state elecion:
-Queensland <- data.frame(party = c("LNP", "ALP", "Katter", "Greens", "Ind", "Others"),
-                         votes = c(1214553,652092,282098,184147,77282,35794),
-                         pvotes = c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47),
-                         seats = c(78, 7, 2, 0, 2, 0),
-                         pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00))
-
-## ----Quebec-election, echo=TRUE, cache=TRUE------------------------------
-# 2012 Quebec provincial election:
-Quebec <- data.frame(party = c("PQ", "Lib", "CAQ", "QS", "Option", "Other"),
-                         pvotes = c(31.95, 31.20, 27.05, 6.03, 1.89, 1.88),
-                         pseats = c(54, 50, 19, 2, 0, 0))
 
 ## ----proportionality1, echo=TRUE, message=FALSE, comment=NA--------------
 with(Queensland, gallagher(pvotes, pseats))

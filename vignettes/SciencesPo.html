@@ -107,6 +107,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <span class="kw">help.search</span>(<span class="st">'twoway'</span>, <span class="dt">package =</span> <span class="st">'SciencesPo'</span>)</code></pre></div>
+<pre><code>## No vignettes or demos or help files found with alias or concept or
+## title matching 'twoway' using fuzzy matching.</code></pre>
 </div>
 <div id="vignette-and-dataset-lists" class="section level2">
 <h2>Vignette and dataset lists</h2>
@@ -117,8 +119,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="example-of-printing-objects" class="section level2">
 <h2>Example of printing objects</h2>
-<p>First we take a look at a quick example of printing some R objects in the R console:</p>
-<p>Whenever you load the package, it will setup its own environment, including plotting themes. Thus, some objects may be printed differently with what you would have seen in a normal R console. To not use the default settings, one can use :</p>
+<p>Whenever you load the package, it will setup its own environment, including the plotting theme. Thus, some objects may be printed or plotted differently with what you would have seen in a normal R console. To not use the default settings of the package, you can use <code>getOption()</code> to see what defaults are, and change them accordingly.</p>
 </div>
 <div id="exploratory-data-functions" class="section level2">
 <h2>Exploratory data functions</h2>
@@ -224,55 +225,50 @@ Warning: Statistics may not be meaningful for factors!
          2201             0</code></pre>
 <p>To add a second, for a cross-tabulation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crosstable</span>(titanic, SEX, CLASS, SURVIVED) </code></pre></div>
-<pre><code>## Warning: 'dplyr::regroup' is deprecated.
-## Use 'group_by_' instead.
-## See help(&quot;Deprecated&quot;)</code></pre>
 <pre><code>## 
-## SEX : female
-## 
-## =========
+## =================================
 ##                  SURVIVED          
 ##                -------------       
 ## SEX    CLASS   no    yes   Total 
-## ---------
-## female 90
-##        3
-##        20
-##        118
-##        62
-##        154
-##        25
-##        422
-##        88
-##        670
-##        192
-## ---------
-## male   90
-##        3
-##        20
-##        118
-##        62
-##        154
-##        25
-##        422
-##        88
-##        670
-##        192
-## ---------
-## Total  90
-##        3
-##        20
-##        118
-##        62
-##        154
-##        25
-##        422
-##        88
-##        670
-##        192
-## =========
+## ---------------------------------
+## female 1st        4    118    122
+##               3.28%    97%   100%
+##        2nd       13    154    167
+##               7.78%    92%   100%
+##        3rd      106    422    528
+##              20.08%    80%   100%
+##        crew       3    670    673
+##               0.45%   100%   100%
+##        --------------------------
+##        Total    126   1364   1490
+##               8.46%    92%   100%
+## ---------------------------------
+## male   1st      141     62    203
+##               69.5%    31%   100%
+##        2nd       93     25    118
+##               78.8%    21%   100%
+##        3rd       90     88    178
+##               50.6%    49%   100%
+##        crew      20    192    212
+##                9.4%    91%   100%
+##        --------------------------
+##        Total    344    367    711
+##               48.4%    52%   100%
+## ---------------------------------
+## Total  1st      145    180    325
+##               44.6%    55%   100%
+##        2nd      106    179    285
+##               37.2%    63%   100%
+##        3rd      196    510    706
+##               27.8%    72%   100%
+##        crew      23    862    885
+##                2.6%    97%   100%
+##        --------------------------
+##        Total    470   1731   2201
+##               21.4%    79%   100%
+## =================================
 ## 
-## Chi-Square Test for Independence
+## SEX : female
 ## 
 ## Number of cases in table: 1490 
 ## Number of factors: 2 
@@ -288,50 +284,6 @@ Warning: Statistics may not be meaningful for factors!
 ## 
 ## 
 ## SEX : male  
-## 
-## =========
-##                  SURVIVED          
-##                -------------       
-## SEX    CLASS   no    yes   Total 
-## ---------
-## female 90
-##        3
-##        20
-##        118
-##        62
-##        154
-##        25
-##        422
-##        88
-##        670
-##        192
-## ---------
-## male   90
-##        3
-##        20
-##        118
-##        62
-##        154
-##        25
-##        422
-##        88
-##        670
-##        192
-## ---------
-## Total  90
-##        3
-##        20
-##        118
-##        62
-##        154
-##        25
-##        422
-##        88
-##        670
-##        192
-## =========
-## 
-## Chi-Square Test for Independence
 ## 
 ## Number of cases in table: 711 
 ## Number of factors: 2 

@@ -89,8 +89,10 @@ if (getRversion() >= "2.15.1") globalVariables(c("Units"))
 
   factor <- Units[Units$from == from & Units$to==to, "factor"]
   if(length(factor)==0) factor <- NA
+  ans <-(x * factor)
+  class(ans) <- c("SciencesPo", "converter", "vector")
 
-  return(x * factor)
+  return(ans)
 
 }
 NULL

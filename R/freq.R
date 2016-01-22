@@ -63,7 +63,7 @@
                       Freq = as.vector(tab[]), Prop = round(as.vector(ptab[]),digits))
     #cumfreq = cumsum(tab[]), cumperc = round(cumsum(ptab[]),digits))
     rownames(out) <- NULL # enumerate from 1:nrow(z)
-    class(out) <- c("freq", "data.frame")
+    class(out) <- c("SciencesPo", "freq", "data.frame")
     return(out)
   }##-end of freq
 NULL
