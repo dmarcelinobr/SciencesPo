@@ -5,9 +5,11 @@
 \alias{theme_fte}
 \title{Themes for ggplot2 Graphs}
 \usage{
-theme_fte(legend = "none", font_size = 12, font_family = "sans")
+theme_fte(legend = "none", font_size = 12, font_family = "sans",
+  colors = c("#F0F0F0", "#D0D0D0", "#535353", "#3C3C3C"))
 
-theme_538(legend = "none", font_size = 12, font_family = "sans")
+theme_538(legend = "none", font_size = 12, font_family = "sans",
+  colors = c("#F0F0F0", "#D0D0D0", "#535353", "#3C3C3C"))
 }
 \arguments{
 \item{legend}{Enables to set legend position, default is "none".}
@@ -15,6 +17,8 @@ theme_538(legend = "none", font_size = 12, font_family = "sans")
 \item{font_size}{Overall font size. Default is 13.}
 
 \item{font_family}{Default font family.}
+
+\item{colors}{Default colors used in the plot in the following order: background, lines, text, and title.}
 }
 \value{
 The theme.

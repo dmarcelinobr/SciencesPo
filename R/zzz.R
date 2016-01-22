@@ -559,3 +559,18 @@ tableau_colors <- function(palette="tableau20") {
 
   return(x[[palette]])
 }
+
+
+
+counts <- function(.data, ..., wt = NULL) {
+vars <- lazyeval::lazy_dots(...)
+  wt <- substitute(wt)
+
+  grouped <- dplyr::regroup(.data, vars)
+  if (is.null(wt)) {
+    dplyr::summarise(grouped, n = n())
+  } else {
+    call <- substitute(dplyr::summarise(grouped, n = sum(wt)), list(wt = wt))
+    eval(call)
+  }
+}

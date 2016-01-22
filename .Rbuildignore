@@ -8,3 +8,11 @@ tests/old
 ^\.png$
 ^\.travis\.yml$
 cran-comments.md
+Rlogo.png
+SciencesPo_logo.png
+butterfly.png
+draw.norm.png
+hist.kdnc.png
+sample.power.png
+stream.plot.png
+voronoi.png

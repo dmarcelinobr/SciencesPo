@@ -99,6 +99,7 @@ NULL
 #' @param legend Enables to set legend position, default is "none".
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 13.
+#' @param colors Default colors used in the plot in the following order: background, lines, text, and title.
 #' @return The theme.
 #'
 #' @examples
@@ -106,23 +107,23 @@ NULL
 #'
 #' @export
 #' @aliases theme_538
-`theme_fte` <- function(legend = 'none', font_size = 12, font_family = 'sans'){
+`theme_fte` <- function(legend = 'none', font_size = 12, font_family = 'sans', colors=c('#F0F0F0', '#D0D0D0', '#535353', '#3C3C3C') ){
 theme_grey(base_size = font_size, base_family = font_family) %+replace%
     theme(
       # Base elements which are not used directly but inherited by others
 
-      line = element_line(color = '#D0D0D0', size = 0.75,
+      line = element_line(color = colors[2], size = 0.75,
                           linetype = 1, lineend = "butt"),
-      rect = element_rect(fill = "#F0F0F0", color = "#F0F0F0",
+      rect = element_rect(fill = colors[1], color = colors[1],
                           size = 0.5, linetype = 1),
       text = element_text(family = font_family, face = 'bold',
-                          color = "#535353", size = font_size,
+                          color = colors[3], size = font_size,
                           hjust = 0.5, vjust = 0.5, angle = 0,
-                          lineheight = 0.9, margin = ggplot2::margin(), debug = FALSE),
+                          lineheight = 1, margin = ggplot2::margin(1,1,1,1), debug = FALSE),
       # Modified inheritance structure of text element
 plot.title = element_text(size = rel(1.5), family = '' ,
                                 face = 'bold', hjust = -0.05,
-                                vjust = 1.5, color = '#3C3C3C',
+                                vjust = 1.5, color = colors[4],
                           margin = ggplot2::margin(), debug = FALSE),
       axis.title.x = element_blank(),
       axis.title.y = element_blank(),
