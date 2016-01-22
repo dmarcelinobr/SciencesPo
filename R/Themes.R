@@ -229,16 +229,18 @@ x$pub$colors <-
     rgb(23, 190, 207, max = 255),
     rgb(158, 218, 229, max = 255)
     ),
-  tableau10medium=c("#729ECE",
-      "#FF9E4A",
-      "#67BF5C",
-      "#ED665D",
-      "#AD8BC9",
-      "#A8786E",
-      "#ED97CA",
-      "#A2A2A2",
-      "#CDCC5D",
-      "#6DCCDA"),
+  tableau10medium=c(
+    rgb(114, 158, 206, max = 255),
+    rgb(255, 158, 74, max = 255),
+    rgb(103, 191, 92, max = 255),
+    rgb(237, 102, 93, max = 255),
+    rgb(173, 139, 201, max = 255),
+    rgb(168, 120, 110, max = 255),
+    rgb(237, 151, 202, max = 255),
+    rgb(162, 162, 162, max = 255),
+    rgb(205, 204, 93, max = 255),
+    rgb(109, 204, 218, max = 255)
+  ),
   pub12=c(
     rgb(56, 108, 176, max = 255),
     rgb(253, 180, 98, max = 255),
@@ -250,11 +252,12 @@ x$pub$colors <-
     rgb(152, 78, 163, max = 255),
     rgb(255, 255, 51, max = 255)
     ),
-  gray5=c("#60636A",
-            "#A5ACAF",
-            "#414451",
-            "#8F8782",
-            "#CFCFCF"),
+  gray5=c(
+    rgb(96, 99, 106, max = 255),
+    rgb(165, 172, 175, max = 255),
+    rgb(65, 68, 81, max = 255),
+    rgb(143, 135, 130, max = 255),
+    rgb(207, 207, 207, max = 255)),
   trafficlight=c("#B10318",
                    "#DBA13A",
                    "#309343",
@@ -384,10 +387,18 @@ NULL
 #' @examples
 #' library(scales)
 #' show_col(pub_color_pal("pub12")(12))
+#' show_col(pub_color_pal("gray5")(6))
+#' show_col(pub_color_pal("colorblind")(10))
 #' show_col(pub_color_pal("tableau20")(20))
 #' show_col(pub_color_pal("tableau10")(10))
-#' show_col(pub_color_pal("colorblind")(10))
+#' show_col(pub_color_pal("tableau10medium")(10))
 #' show_col(pub_color_pal("tableau10light")(10))
+#' show_col(pub_color_pal("cyclic")(20))
+#' show_col(pub_color_pal("purplegray12")(12))
+#' show_col(pub_color_pal("greenorange12")(12))
+#' show_col(pub_color_pal("bluered12")(12))
+#' show_col(pub_color_pal("trafficlight")(9))
+#'
 #' @export
 #'
 `pub_color_pal` <- function(palette = "pub12") {

@@ -16,12 +16,31 @@ vignette: >
      \usepackage[utf8]{inputenc}
      %\usepackage[portuguese]{babel}
 ---
-       > To call in the statistician after the experiment is done may be no more than asking him to perform a post-mortem examination: he may be able to say what the experiment died of. Sir R.A. Fisher (1938)
+  > To call in the statistician after the experiment is done may be no more than asking him to perform a post-mortem examination: he may be able to say what the experiment died of. (Sir R. A. Fisher, 1938)
 
 # Introduction
+Fisher compared a dataset to a sample of gold ore. The finest analysis could only extract the proportion of gold contained in the ore. But a good design could yield a sample with more gold! [data = ore;   information = gold.]
+
+
 One important concept of experimental designs is the Randomized Block Designs (RBD). Because all experiments have counfounding factors, the experimenter will typically need to spend some time deciding which counfounding factors are important enough to keep track of or control, if possible, during the experiment. For example, in applying a treatment, nuisance factors might be the specific operator who prepared the treatment, the time of day the experiment was run, and the room temperature. 
 In experimental trials, blocking is used to remove--or reduce the effects of  the most important nuisance variables. Randomization is then used to reduce the contaminating effects of the remaining counfounding variables.
 The basic idea of a randomized block experiment is that the whole experiment is a collection of completely randomized experiments, each run within one of the blocks of the total experiment.
+
+
+Any experimental design in which the randomization of treatments is restricted to groups of experimental units within a predefined block of units assumed to be internally homogeneous is called a randomized block design.   Blocks of units are created to control known sources of variation in expected (mean) response among experimental units.
+
+There are two classifications or factors in an RBD: block “effects” and treatment “effects”.
+
+Carefully examine the situation at hand and identify those factors which are known to affect the proposed response.
+Choose one or two of these factors as the basis for creating blocks.
+
+How blocks are formed is critical to the effectiveness of the analysis.
+
+
+table <- as.data.frame(x1 =c("Gender", "Age", "Socio-demographics
+"),x2=c("Person"))
+names(table) = c("Disturbing Variable", "Experimental Unit")
+
 
 The *SciencesPo* library has a long named function which helps creating block-randomized designs. The `rbd()` function generates randomized blocks based on the number of units \code{n} and block-size, where the block-size is the number of experimental conditions. 
 The number of Independent Variables (IV), as well as the number of levels in each IV are specified as input information. The output produced will be the block randomized design given the information supplied. The same design can be always replicated by using the same value in the \code{seed} parameter. Therefore, the function can very helpful in planning randomized trails.

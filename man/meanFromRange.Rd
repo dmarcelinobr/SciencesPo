@@ -2,7 +2,7 @@
 % Please edit documentation in R/meanFromRange.R
 \name{meanFromRange}
 \alias{meanFromRange}
-\title{Estimates Mean and Standard Deviation from the Median and the Range}
+\title{Estimates Mean and Standard Deviation from Median and Range}
 \usage{
 meanFromRange(low, med, high, n)
 }

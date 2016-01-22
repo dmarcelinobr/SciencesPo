@@ -20,8 +20,10 @@ Generate block-randomized designs based on the number of units \code{n} and bloc
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
 
-blk <- rbd(blocksize = 20, n = 80, seed = 51)
+blk <- rbd(blocksize = 10, n = 40, seed = 51)
+
 blk;
+
 crosstable(blk, block, condition)
 }
 \references{

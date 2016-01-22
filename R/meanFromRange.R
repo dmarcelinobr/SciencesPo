@@ -1,4 +1,4 @@
-#' @title  Estimates Mean and Standard Deviation from the Median and the Range
+#' @title  Estimates Mean and Standard Deviation from Median and Range
 
 #' @description When conductig a meta-analysis study, it is not always possible to recover from reports the mean and standard deviation values, but rather the medians and range of values. This function provides an approach to convert the median/range into a mean and a variance.
 #'
@@ -13,7 +13,7 @@
 #' @examples
 #' meanFromRange(5,8,12,10)
 #'
-`meanFromRange` <-function(low,med,high,n)
+`meanFromRange` <-function(low, med, high, n)
 {
   mn<-(low+2*med+high)/4+(low-2*med+high)/(4*n)
   s=sqrt((low*low+med*med+high*high+(n-3)*((low+med)^2+(med+high)^2)/8-n*mn*mn)/(n-1))

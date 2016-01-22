@@ -248,7 +248,7 @@ mytheme2$text
 #    draw_plot(plot.iris, 0, .7, .7, .35 ) +
 #    draw_plot(plot.iris, .45, .0, .6, .3 )
 
-## ----height.matters, fig.width=7, fig.height=5---------------------------
+## ----echo=TRUE, fig.width=7, fig.height=5--------------------------------
 theme_set(theme_pub())
 
 # Generating a ratio winner/opponent measure 
@@ -273,4 +273,35 @@ p1
 
 geom_foot("Draft Analysis, 2015", color = fade("brown1"))
 
+
+## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
+library("scales", quietly = TRUE)
+
+show_col(pub_color_pal("pub12")(12))
+ 
+show_col(pub_color_pal("gray5")(6))
+
+show_col(pub_color_pal("colorblind")(10))
+
+show_col(pub_color_pal("tableau20")(20))
+
+show_col(pub_color_pal("tableau10")(10))
+
+show_col(pub_color_pal("tableau10medium")(10))
+
+show_col(pub_color_pal("tableau10light")(10))
+
+show_col(pub_color_pal("cyclic")(20))
+
+show_col(pub_color_pal("purplegray12")(12))
+
+show_col(pub_color_pal("greenorange12")(12))
+
+show_col(pub_color_pal("bluered12")(12))
+
+show_col(pub_color_pal("trafficlight")(9))
+
+show_col(parties_color_pal()(10))
+
+show_col(fte_color_pal()(4))
 

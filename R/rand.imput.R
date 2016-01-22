@@ -9,21 +9,21 @@
 #'
 #' @examples
 #' x <- c(1,2,NA,4,5,NA)
-#' randomImput(x)
+#' rand.imput(x)
 #'
 #' if (interactive()) {
 #' n = 100
 #' mat <- matrix(ncol=3, nrow=n)
 #' for(i in 1:n){
-#' mu = mean(randomImput(x))
-#' med = median(randomImput(x))
-#' mod = Mode(randomImput(x))
+#' mu = mean(rand.imput(x))
+#' med = median(rand.imput(x))
+#' mod = Mode(rand.imput(x))
 #' mat[i,] <- c(mu, med, mod[1])
 #' }
 #' print(mat)
 #' }
 #' @export
-`randomImput` <- function(x){
+`rand.imput` <- function(x){
   y <- is.na(x)
   xx <- x[!y]
   x[y] <- sample(x=xx,size=sum(y),replace=TRUE)

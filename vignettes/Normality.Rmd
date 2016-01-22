@@ -1,9 +1,22 @@
 ---
-title: "Untitled"
+title: "Are My Data Normal?"
 author: "Daniel Marcelino"
-date: "August 12, 2015"
-output: html_document
+date: "`r Sys.Date()`"
+output: 
+  #pdf_document:
+   # number_sections: true
+  #  toc: no
+  #  toc_depth: 2
+  rmarkdown::html_vignette:
+    fig_width: 5
+vignette: >
+  %\VignetteIndexEntry{Are My Data Normal?}
+   %\VignetteEngine{knitr::rmarkdown}
+    \usepackage[T1]{fontenc}
+     \usepackage[utf8]{inputenc}
+     %\usepackage[portuguese]{babel}
 ---
+
 
 # What is normality?
 It's a kind of statistic distribution, used with continuous variables, that depend only on the mean (\mu) and standard deviation (\sigma).

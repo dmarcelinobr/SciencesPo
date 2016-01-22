@@ -52,7 +52,6 @@ if(plot==TRUE){
     cat("\n")
     cat("Date of Analysis: ",format(Sys.time(), "%a %b %d %Y"), "\n", "Computation time: ",timediff,sep="","\n")
     cat("-----------------------------------\n")
-    class(frame) <- c("SciencesPo", "voronoi", "data.frame")
 return(frame)
 }
 }### end -- voronoi function

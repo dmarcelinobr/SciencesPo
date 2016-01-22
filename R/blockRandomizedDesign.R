@@ -14,8 +14,10 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' blk <- rbd(blocksize = 20, n = 80, seed = 51)
+#' blk <- rbd(blocksize = 10, n = 40, seed = 51)
+#'
 #' blk;
+#'
 #' crosstable(blk, block, condition)
 #'
 #'@export
@@ -28,7 +30,7 @@
   }
   # blocking factor
   block = rep(1:ceiling(n/blocksize), each = blocksize)
-  a1 = data.frame(id= 1: length(block), block, rand=runif(length(block)))
+  a1 = data.frame(id=1:length(block), block, rand=runif(length(block)))
   a2 = a1[order(a1$block,a1$rand),]
   # matching treatment
   a2$condition = rep(c("Treat", "Control"),times = length(block)/2)
