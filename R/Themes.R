@@ -340,12 +340,39 @@ x$pub$colors <-
 x$parties <- list()
 
 x$parties$BRA <- c(
-  PT=rgb(255, 39, 0, max = 255),
-  PMDB=rgb(255, 153, 0, max = 255),
-  PSDB=rgb(0, 143, 213, max = 255),
-  PSB=rgb(213, 94, 0, max = 255),
-  PV=rgb(119, 171, 67, max = 255)
-  )
+  PT=rgb(255,39,0, max = 255),
+  PMDB=rgb(255,153,0, max = 255),
+  PSDB=rgb(0,143,213, max = 255),
+  PSB=rgb(213,94,0, max = 255),
+  PV=rgb(119,171,67, max = 255),
+  PTB=rgb(65, 68, 81, max = 255),
+  PDT=rgb(65, 68, 81, max = 255),
+  DEM=rgb(65, 68, 81, max = 255),
+  PCdoB=rgb(65, 68, 81, max = 255),
+  PTC=rgb(65, 68, 81, max = 255),
+  PSC=rgb(65, 68, 81, max = 255),
+  PMN=rgb(65, 68, 81, max = 255),
+  PRP=rgb(65, 68, 81, max = 255),
+  PPS=rgb(65, 68, 81, max = 255),
+  PTdoB=rgb(65, 68, 81, max = 255),
+  PP=rgb(65, 68, 81, max = 255),
+  PSTU=rgb(65, 68, 81, max = 255),
+  PCB=rgb(65, 68, 81, max = 255),
+  PRTB=rgb(65, 68, 81, max = 255),
+  PHS=rgb(65, 68, 81, max = 255),
+  PSDC=rgb(65, 68, 81, max = 255),
+  PCO=rgb(65, 68, 81, max = 255),
+  PTN=rgb(65, 68, 81, max = 255),
+  PSL=rgb(65, 68, 81, max = 255),
+  PRB=rgb(65, 68, 81, max = 255),
+  PSOL=rgb(65, 68, 81, max = 255),
+  PR=rgb(65, 68, 81, max = 255),
+  PSD=rgb(65, 68, 81, max = 255),
+  PPL=rgb(65, 68, 81, max = 255),
+  PEN=rgb(65, 68, 81, max = 255),
+  PROS=rgb(65, 68, 81, max = 255),
+  SDD=rgb(65, 68, 81, max = 255)
+    )
 
 x$fte <- c(
   red=rgb(255, 39, 0, max = 255),
