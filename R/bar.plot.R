@@ -23,60 +23,70 @@
 #' }
 #' @import ggplot2
 #' @export
-bar.plot<-function(data, x.var=NULL, y.var=NULL,group.var=NULL,
-                          group.colors=NULL, palette=NULL, stat="identity",...)
+bar.plot <- function(data,
+                     x.var = NULL,
+                     y.var = NULL,
+                     group.var = NULL,
+                     group.colors = NULL,
+                     palette = NULL,
+                     stat = "identity",
+                     ...)
 {
   #stat: the statistical transformation to use on the data for this layer. Default value is "identity"
   #To get a bar graph of counts, don't map a variable to y, and use stat="bin"
-  stat=stat
+  stat = stat
 
-  if(is.null(x.var) & is.null(y.var)){
-    if(!is.vector(data)) stop("y.var is missing or NULL. In this case data should be a numeric or character vector")
-    data=cbind(value=data, index=1:length(data))
-    x.var="index"
-    if(is.numeric(data)) y.var="value"
-    else if(is.character(data)){
-      y.var=NULL #barplot of the count
-      x.var="value"
+  if (is.null(x.var) & is.null(y.var)) {
+    if (!is.vector(data))
+      stop("y.var is missing or NULL. In this case data should be a numeric or character vector")
+    data = cbind(value = data, index = 1:length(data))
+    x.var = "index"
+    if (is.numeric(data))
+      y.var = "value"
+    else if (is.character(data)) {
+      y.var = NULL #barplot of the count
+      x.var = "value"
     }
 
   }
   #x variable is null; create a new data
   #Barplot of y using the index as x.var
-  if(is.null(x.var) & !is.null(y.var)){
-    yy=as.numeric(unlist(data[,y.var]))
-    data=as.data.frame(cbind(yy, index=1:length(y)))
-    colnames(data)<-c(y.var, "index")
-    x.var="index"
+  if (is.null(x.var) & !is.null(y.var)) {
+    yy = as.numeric(unlist(data[, y.var]))
+    data = as.data.frame(cbind(yy, index = 1:length(y)))
+    colnames(data) <- c(y.var, "index")
+    x.var = "index"
   }
   #barplot of the count
-  else if(!is.null(x.var) & is.null(y.var)){
+  else if (!is.null(x.var) & is.null(y.var)) {
     #stat: the statistical transformation to use on the data for this layer. Default value is "identity"
     #To get a bar graph of counts, don't map a variable to y, and use stat="bin"
-    stat="bin"
+    stat = "bin"
   }
   #data
-  data=data.frame(data)
-  data[,x.var]=factor(data[,x.var])
-  if(is.null(group.var)){
-    if(!is.null(y.var))
-      gplot <-ggplot(data=data, aes_string(x=x.var, y=y.var))
-    else gplot<-ggplot(data=data, aes_string(x=x.var))#barplot of the count
+  data = data.frame(data)
+  data[, x.var] = factor(data[, x.var])
+  if (is.null(group.var)) {
+    if (!is.null(y.var))
+      gplot <- ggplot(data = data, aes_string(x = x.var, y = y.var))
+    else
+      gplot <- ggplot(data = data, aes_string(x = x.var))#barplot of the count
   }
   else {
-    data[,group.var]=factor(data[,group.var])#transform group.var to factor
-    gplot<-ggplot(data=data, aes_string(x=x.var, y=y.var, fill=group.var))
+    data[, group.var] = factor(data[, group.var])#transform group.var to factor
+    gplot <-
+      ggplot(data = data, aes_string(x = x.var, y = y.var, fill = group.var))
   }
-  gplot<- gplot+geom_bar(stat=stat,...)
+  gplot <- gplot + geom_bar(stat = stat, ...)
 
   #group colors
-  if(!is.null(group.colors)){
-    gplot<-gplot+scale_fill_manual(values=group.colors)
-    gplot<-gplot+scale_colour_manual(values=group.colors)
+  if (!is.null(group.colors)) {
+    gplot <- gplot + scale_fill_manual(values = group.colors)
+    gplot <- gplot + scale_colour_manual(values = group.colors)
   }
-  else if(!is.null(palette)){
-    gplot<-gplot+scale_fill_brewer(palette=palette)
-    gplot<-gplot+scale_colour_brewer(palette=palette, guide="none")
+  else if (!is.null(palette)) {
+    gplot <- gplot + scale_fill_brewer(palette = palette)
+    gplot <- gplot + scale_colour_brewer(palette = palette, guide = "none")
   }
   #gplot<-ggplot2.customize(p,...)
   return(gplot)
@@ -171,31 +181,66 @@ bar.plot<-function(data, x.var=NULL, y.var=NULL,group.var=NULL,
 #facetingTextAngles=c(NULL, NULL) : angle of the x and y texts (in [0, 360])
 
 
-ggplot2.customize<-function(plot,...)
+ggplot2.customize <- function(plot, ...)
 {
-  args=list(...)
+  args = list(...)
 
   #Facets display subsets of the dataset in different panels.
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  if(!is.null(args$faceting)) faceting=args$faceting else faceting=FALSE
-  if(!is.null(args$facetingVarNames)) facetingVarNames=args$facetingVarNames else facetingVarNames=NULL
-  if(!is.null(args$facetingDirection)) facetingDirection=args$facetingDirection else facetingDirection="vertical"
-  if(!is.null(args$facetingScales)) facetingScales=args$facetingScales else facetingScales="fixed"
-  if(!is.null(args$facetingFont)) facetingFont=args$facetingFont else facetingFont=c(size=12, font="plain", color="black")
-  if(!is.null(args$facetingRect)) facetingRect=args$facetingRect else facetingRect=list(background=NULL, lineType=NULL, lineColor=NULL, lineSize=NULL)
-  if(!is.null(args$facetingTextAngles)) facetingTextAngles=args$facetingTextAngles else facetingTextAngles=c(NULL, NULL)
-  if(faceting && !is.null(facetingVarNames)){
+  if (!is.null(args$faceting))
+    faceting = args$faceting
+  else
+    faceting = FALSE
+  if (!is.null(args$facetingVarNames))
+    facetingVarNames = args$facetingVarNames
+  else
+    facetingVarNames = NULL
+  if (!is.null(args$facetingDirection))
+    facetingDirection = args$facetingDirection
+  else
+    facetingDirection = "vertical"
+  if (!is.null(args$facetingScales))
+    facetingScales = args$facetingScales
+  else
+    facetingScales = "fixed"
+  if (!is.null(args$facetingFont))
+    facetingFont = args$facetingFont
+  else
+    facetingFont = c(size = 12,
+                     font = "plain",
+                     color = "black")
+  if (!is.null(args$facetingRect))
+    facetingRect = args$facetingRect
+  else
+    facetingRect = list(
+      background = NULL,
+      lineType = NULL,
+      lineColor = NULL,
+      lineSize = NULL
+    )
+  if (!is.null(args$facetingTextAngles))
+    facetingTextAngles = args$facetingTextAngles
+  else
+    facetingTextAngles = c(NULL, NULL)
+  if (faceting && !is.null(facetingVarNames)) {
     #Faceting is done accoording to one variable
-    if(length(facetingVarNames)==1){
-      if(facetingDirection=="vertical")
-        plot<-plot+ facet_grid(stats::as.formula(paste(facetingVarNames," ~ .", sep='')), scales=facetingScales)
-      else if(facetingDirection=="horizontal")
-        plot<-plot+ facet_grid(stats::as.formula(paste(". ~ ", facetingVarNames,sep='')), scales=facetingScales)
+    if (length(facetingVarNames) == 1) {
+      if (facetingDirection == "vertical")
+        plot <-
+          plot + facet_grid(stats::as.formula(paste(facetingVarNames, " ~ .", sep =
+                                                      '')), scales = facetingScales)
+      else if (facetingDirection == "horizontal")
+        plot <-
+          plot + facet_grid(stats::as.formula(paste(". ~ ", facetingVarNames, sep =
+                                                      '')), scales = facetingScales)
     }#end of if
     #Faceting is done accoording to 2 variables
     #first variable is vertical and second variable is horizontal
-    else if(length(facetingVarNames)==2)
-      plot<-plot+ facet_grid(stats::as.formula(paste(facetingVarNames[1], "~ ", facetingVarNames[2],sep='')), scales=facetingScales)
+    else if (length(facetingVarNames) == 2)
+      plot <-
+        plot + facet_grid(stats::as.formula(paste(
+          facetingVarNames[1], "~ ", facetingVarNames[2], sep = ''
+        )), scales = facetingScales)
 
   }
 
@@ -203,15 +248,22 @@ ggplot2.customize<-function(plot,...)
   # Background color
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   #Plot panel background color
-  if(!is.null(args$backgroundColor)){
-    backgroundColor<-args$backgroundColor
-    if(backgroundColor%in%c("gray", "grey")) plot<-plot+theme_gray()#gray theme
-    else if(backgroundColor=="white") plot<-plot+theme_bw()#black and white theme
+  if (!is.null(args$backgroundColor)) {
+    backgroundColor <- args$backgroundColor
+    if (backgroundColor %in% c("gray", "grey"))
+      plot <- plot + theme_gray()#gray theme
+    else if (backgroundColor == "white")
+      plot <- plot + theme_bw()#black and white theme
     #for the other color
     else{
-      plot<-plot+theme(
-        panel.background=element_rect(fill=backgroundColor, size=0.5,
-                                      linetype='solid',colour=backgroundColor) )
+      plot <- plot + theme(
+        panel.background = element_rect(
+          fill = backgroundColor,
+          size = 0.5,
+          linetype = 'solid',
+          colour = backgroundColor
+        )
+      )
     }
   }
 
@@ -220,113 +272,273 @@ ggplot2.customize<-function(plot,...)
   #Attention : should be here after backgroundColor modification => don't change the place
   #If you put the text before backgroundColor modification, the facet backgrount remain gray, even if
   #you indicate another color
-  if(faceting && !is.null(facetingVarNames)){
-    plot<-plot+theme(
-      strip.text.x = element_text(size=facetingFont[1], face=facetingFont[2], color=facetingFont[3], angle=facetingTextAngles[1]),
-      strip.text.y = element_text(size=facetingFont[1], face=facetingFont[2], color=facetingFont[3], angle=facetingTextAngles[2]),
-      strip.background =element_rect(fill=facetingRect$background, colour=facetingRect$lineColor, linetype=facetingRect$lineType, size=facetingRect$lineSize)
+  if (faceting && !is.null(facetingVarNames)) {
+    plot <- plot + theme(
+      strip.text.x = element_text(
+        size = facetingFont[1],
+        face = facetingFont[2],
+        color = facetingFont[3],
+        angle = facetingTextAngles[1]
+      ),
+      strip.text.y = element_text(
+        size = facetingFont[1],
+        face = facetingFont[2],
+        color = facetingFont[3],
+        angle = facetingTextAngles[2]
+      ),
+      strip.background = element_rect(
+        fill = facetingRect$background,
+        colour = facetingRect$lineColor,
+        linetype = facetingRect$lineType,
+        size = facetingRect$lineSize
+      )
     )
   }
 
   #Change axis default value accoording to call arguments
   #+++++++++++++++++++++++++++++++++++
   #x and y axis titles and scales
-  if(!is.null(args$xShowTitle)) xShowTitle<-args$xShowTitle else xShowTitle=TRUE
-  if(!is.null(args$yShowTitle)) yShowTitle<-args$yShowTitle else yShowTitle=TRUE
-  if(!is.null(args$xtitle)) xtitle<-args$xtitle else xtitle=NULL
-  if(!is.null(args$ytitle)) ytitle<-args$ytitle else ytitle=NULL
-  if(!is.null(args$xtitleFont)) xtitleFont<-args$xtitleFont else xtitleFont=c(14,"bold", "black")
-  if(!is.null(args$ytitleFont)) ytitleFont<-args$ytitleFont else ytitleFont=c(14,"bold", "black")
-  if(!is.null(args$ylim)) ylim<-args$ylim else ylim=NULL
-  if(!is.null(args$xlim)) xlim<-args$xlim else xlim=NULL
-  if(!is.null(args$xScale)) xScale<-args$xScale else xScale=c("none", "log2", "log10")
-  if(!is.null(args$yScale)) yScale<-args$yScale else yScale=c("none", "log2", "log10")
+  if (!is.null(args$xShowTitle))
+    xShowTitle <- args$xShowTitle
+  else
+    xShowTitle = TRUE
+  if (!is.null(args$yShowTitle))
+    yShowTitle <- args$yShowTitle
+  else
+    yShowTitle = TRUE
+  if (!is.null(args$xtitle))
+    xtitle <- args$xtitle
+  else
+    xtitle = NULL
+  if (!is.null(args$ytitle))
+    ytitle <- args$ytitle
+  else
+    ytitle = NULL
+  if (!is.null(args$xtitleFont))
+    xtitleFont <- args$xtitleFont
+  else
+    xtitleFont = c(14, "bold", "black")
+  if (!is.null(args$ytitleFont))
+    ytitleFont <- args$ytitleFont
+  else
+    ytitleFont = c(14, "bold", "black")
+  if (!is.null(args$ylim))
+    ylim <- args$ylim
+  else
+    ylim = NULL
+  if (!is.null(args$xlim))
+    xlim <- args$xlim
+  else
+    xlim = NULL
+  if (!is.null(args$xScale))
+    xScale <- args$xScale
+  else
+    xScale = c("none", "log2", "log10")
+  if (!is.null(args$yScale))
+    yScale <- args$yScale
+  else
+    yScale = c("none", "log2", "log10")
   #x and y axis tick mark labels
-  if(!is.null(args$xShowTickLabel)) xShowTickLabel<-args$xShowTickLabel else xShowTickLabel=TRUE
-  if(!is.null(args$yShowTickLabel)) yShowTickLabel<-args$yShowTickLabel else yShowTickLabel=TRUE
-  if(!is.null(args$xTickLabelFont)) xTickLabelFont<-args$xTickLabelFont else xTickLabelFont=c(12, "bold", "black")
-  if(!is.null(args$yTickLabelFont)) yTickLabelFont<-args$yTickLabelFont else yTickLabelFont=c(12, "bold", "black")
-  if(!is.null(args$xtickLabelRotation)) xtickLabelRotation<-args$xtickLabelRotation else xtickLabelRotation=0
-  if(!is.null(args$ytickLabelRotation)) ytickLabelRotation<-args$ytickLabelRotation else ytickLabelRotation=0
-  if(!is.null(args$hideAxisTicks)) hideAxisTicks<-args$hideAxisTicks else hideAxisTicks=FALSE
+  if (!is.null(args$xShowTickLabel))
+    xShowTickLabel <- args$xShowTickLabel
+  else
+    xShowTickLabel = TRUE
+  if (!is.null(args$yShowTickLabel))
+    yShowTickLabel <- args$yShowTickLabel
+  else
+    yShowTickLabel = TRUE
+  if (!is.null(args$xTickLabelFont))
+    xTickLabelFont <-
+      args$xTickLabelFont
+  else
+    xTickLabelFont = c(12, "bold", "black")
+  if (!is.null(args$yTickLabelFont))
+    yTickLabelFont <-
+      args$yTickLabelFont
+  else
+    yTickLabelFont = c(12, "bold", "black")
+  if (!is.null(args$xtickLabelRotation))
+    xtickLabelRotation <-
+      args$xtickLabelRotation
+  else
+    xtickLabelRotation = 0
+  if (!is.null(args$ytickLabelRotation))
+    ytickLabelRotation <-
+      args$ytickLabelRotation
+  else
+    ytickLabelRotation = 0
+  if (!is.null(args$hideAxisTicks))
+    hideAxisTicks <- args$hideAxisTicks
+  else
+    hideAxisTicks = FALSE
   #axis line
-  if(!is.null(args$axisLine)) axisLine<-args$axisLine else axisLine=c(0.5, "solid", "#E5E5E5")
+  if (!is.null(args$axisLine))
+    axisLine <- args$axisLine
+  else
+    axisLine = c(0.5, "solid", "#E5E5E5")
 
 
-plot<-ggplot2.setAxis(plot, xShowTitle=xShowTitle, yShowTitle=yShowTitle,
-                        xtitle=xtitle, ytitle=ytitle,
-                        xtitleFont=xtitleFont, ytitleFont=ytitleFont,
-                        xlim=xlim, ylim=ylim,xScale=xScale, yScale=yScale,
-                        xShowTickLabel=xShowTickLabel, yShowTickLabel=yShowTickLabel,
-                        xTickLabelFont=xTickLabelFont, yTickLabelFont=yTickLabelFont,
-                        xtickLabelRotation=xtickLabelRotation, ytickLabelRotation=ytickLabelRotation,
-                        hideAxisTicks=hideAxisTicks, axisLine=axisLine)
+  plot <-
+    ggplot2.setAxis(
+      plot,
+      xShowTitle = xShowTitle,
+      yShowTitle = yShowTitle,
+      xtitle = xtitle,
+      ytitle = ytitle,
+      xtitleFont = xtitleFont,
+      ytitleFont = ytitleFont,
+      xlim = xlim,
+      ylim = ylim,
+      xScale = xScale,
+      yScale = yScale,
+      xShowTickLabel = xShowTickLabel,
+      yShowTickLabel = yShowTickLabel,
+      xTickLabelFont = xTickLabelFont,
+      yTickLabelFont = yTickLabelFont,
+      xtickLabelRotation = xtickLabelRotation,
+      ytickLabelRotation = ytickLabelRotation,
+      hideAxisTicks = hideAxisTicks,
+      axisLine = axisLine
+    )
 
   # Customize main title
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  if(!is.null(args$mainTitle))plot<-plot+ggtitle(args$mainTitle)
-  if(!is.null(args$mainTitleFont)) mainTitleFont=args$mainTitleFont
-  else mainTitleFont=c(14, "bold", "black")
-  plot<-plot+theme(plot.title=element_text(size=as.numeric(mainTitleFont[1]), lineheight=1.0,face=mainTitleFont[2], colour=mainTitleFont[3], ))
+  if (!is.null(args$mainTitle))
+    plot <- plot + ggtitle(args$mainTitle)
+  if (!is.null(args$mainTitleFont))
+    mainTitleFont = args$mainTitleFont
+  else
+    mainTitleFont = c(14, "bold", "black")
+  plot <-
+    plot + theme(
+      plot.title = element_text(
+        size = as.numeric(mainTitleFont[1]),
+        lineheight = 1.0,
+        face = mainTitleFont[2],
+        colour = mainTitleFont[3],
+
+      )
+    )
 
   # plot Panel color and grid
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   #Plot panel grid color
-  if(!is.null(args$gridColor)){
-    gridColor=args$gridColor
-    plot<-plot+theme(panel.grid.major=element_line(size=0.5, linetype='solid',colour=gridColor))+
-      theme(panel.grid.minor=element_line(size=0.25, linetype='solid', colour=gridColor))
+  if (!is.null(args$gridColor)) {
+    gridColor = args$gridColor
+    plot <-
+      plot + theme(panel.grid.major = element_line(
+        size = 0.5,
+        linetype = 'solid',
+        colour = gridColor
+      )) +
+      theme(panel.grid.minor = element_line(
+        size = 0.25,
+        linetype = 'solid',
+        colour = gridColor
+      ))
   }
   #remove top right border of the plot
-  if(!is.null(args$removePanelBorder)){
-    removePanelBorder=args$removePanelBorder
-    if(removePanelBorder) plot<-plot+theme(panel.border=element_blank())
+  if (!is.null(args$removePanelBorder)) {
+    removePanelBorder = args$removePanelBorder
+    if (removePanelBorder)
+      plot <- plot + theme(panel.border = element_blank())
   }
   #Remove panel grid
-  if(!is.null(args$removePanelGrid)){
-    removePanelGrid=args$removePanelGrid
-    if(removePanelGrid) plot<-plot+theme(panel.grid.minor=element_blank(),
-                                         panel.grid.major=element_blank(),
-                                         axis.line=element_line(size=as.numeric(axisLine[1]), linetype=axisLine[2], colour=axisLine[3]))
+  if (!is.null(args$removePanelGrid)) {
+    removePanelGrid = args$removePanelGrid
+    if (removePanelGrid)
+      plot <- plot + theme(
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        axis.line = element_line(
+          size = as.numeric(axisLine[1]),
+          linetype = axisLine[2],
+          colour = axisLine[3]
+        )
+      )
   }
 
   # Legend
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  if(!is.null(args$showLegend)) showLegend=args$showLegend else showLegend=TRUE
+  if (!is.null(args$showLegend))
+    showLegend = args$showLegend
+  else
+    showLegend = TRUE
   #possible values for legend position: legendPosition=c("right", "left","top", "bottom")
   #legendPosition can be also a numeric vector c(x, y) indicating the coordinate of legendBox
   #x and y values must be between 0 and 1. c(0,0) corresponds to "bottom left"
   #and  c(1,1) corresponds to "top right" position
-  if(!is.null(args$legendPosition)) legendPosition=args$legendPosition else legendPosition ="right"
-  if(showLegend==TRUE) plot<-plot+theme(legend.position=legendPosition)
-  else plot<-plot+theme(legend.position='none')
+  if (!is.null(args$legendPosition))
+    legendPosition = args$legendPosition
+  else
+    legendPosition = "right"
+  if (showLegend == TRUE)
+    plot <- plot + theme(legend.position = legendPosition)
+  else
+    plot <- plot + theme(legend.position = 'none')
 
-  if(showLegend==TRUE){
+  if (showLegend == TRUE) {
     #+++++++legend background and text font style+++++
     #Legend background. legendBackground: c(boxFill, boxLineSize, boxLineType, boxLineColor)
-    if(!is.null(args$legendBackground)) legendBackground=args$legendBackground
-    else legendBackground=c("#FFFFFF", 0.5, "blank", "black")
+    if (!is.null(args$legendBackground))
+      legendBackground = args$legendBackground
+    else
+      legendBackground = c("#FFFFFF", 0.5, "blank", "black")
     #Legend text font. legendTextFont=c(size, style, color)
-    if(!is.null(args$legendTextFont)) legendTextFont=args$legendTextFont
-    else legendTextFont=c(10, "plain", "black")
+    if (!is.null(args$legendTextFont))
+      legendTextFont = args$legendTextFont
+    else
+      legendTextFont = c(10, "plain", "black")
     #legendTitleFont=c(size, style, color)
-    if(!is.null(args$legendTitleFont)) legendTitleFont=args$legendTitleFont
-    else legendTitleFont=c(10, "bold", "black")
-    plot<-plot+
-      theme(legend.title=element_text(size=as.numeric(legendTitleFont[1]), face=legendTitleFont[2], colour=legendTitleFont[3]))+
-      theme(legend.text=element_text(size=as.numeric(legendTextFont[1]), face=legendTextFont[2], colour=legendTextFont[3]))+
-      theme(legend.background=element_rect(fill=legendBackground[1], size=as.numeric(legendBackground[2]),linetype=legendBackground[3], colour=legendBackground[4]))
+    if (!is.null(args$legendTitleFont))
+      legendTitleFont = args$legendTitleFont
+    else
+      legendTitleFont = c(10, "bold", "black")
+    plot <- plot +
+      theme(
+        legend.title = element_text(
+          size = as.numeric(legendTitleFont[1]),
+          face = legendTitleFont[2],
+          colour = legendTitleFont[3]
+        )
+      ) +
+      theme(legend.text = element_text(
+        size = as.numeric(legendTextFont[1]),
+        face = legendTextFont[2],
+        colour = legendTextFont[3]
+      )) +
+      theme(
+        legend.background = element_rect(
+          fill = legendBackground[1],
+          size = as.numeric(legendBackground[2]),
+          linetype = legendBackground[3],
+          colour = legendBackground[4]
+        )
+      )
     #legendTitle: title of legend
-    if(!is.null(args$legendTitle)) plot<-plot+labs(fill=args$legendTitle, colour=args$legendTitle, shape=args$legendTitle)
+    if (!is.null(args$legendTitle))
+      plot <-
+      plot + labs(
+        fill = args$legendTitle,
+        colour = args$legendTitle,
+        shape = args$legendTitle
+      )
     #legendItemOrder : character vector indicating the order of items in the legends.
-    if(!is.null(args$legendItemOrder)) plot<-plot+scale_x_discrete(limits=as.character(args$legendItemOrder))
+    if (!is.null(args$legendItemOrder))
+      plot <-
+      plot + scale_x_discrete(limits = as.character(args$legendItemOrder))
   }
 
   # Orientation of the plot
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  if(!is.null(args$orientation)) orientation=args$orientation else orientation="standard"
-  if(orientation=="horizontal") plot<-plot+coord_flip()
-  if(orientation=="yAxisReversed") plot<-plot+scale_y_reverse()
+  if (!is.null(args$orientation))
+    orientation = args$orientation
+  else
+    orientation = "standard"
+  if (orientation == "horizontal")
+    plot <- plot + coord_flip()
+  if (orientation == "yAxisReversed")
+    plot <- plot + scale_y_reverse()
 
   plot
 }
@@ -353,56 +565,114 @@ plot<-ggplot2.setAxis(plot, xShowTitle=xShowTitle, yShowTitle=yShowTitle,
 #-Default value is c(0.5, "solid", "#E5E5E5").
 
 #usage: plot<-ggplot2.setAxis(plot, xtitle="x title", ytitle="y title")
-ggplot2.setAxis<-function(plot,
-                          #x and y axis titles and scales
-                          xShowTitle=TRUE, yShowTitle=TRUE,
-                          xtitle=NULL, ytitle=NULL,
-                          xtitleFont=c(14,"bold", "black"), ytitleFont=c(14,"bold", "black"),
-                          xlim=NULL, ylim=NULL,
-                          xScale=c("none", "log2", "log10"), yScale=c("none", "log2", "log10"),
-                          #x and y axis tick mark labels
-                          xShowTickLabel=TRUE, yShowTickLabel=TRUE,
-                          xTickLabelFont=c(12, "bold", "black"), yTickLabelFont=c(12, "bold", "black"), xtickLabelRotation=0, ytickLabelRotation=0, hideAxisTicks=FALSE, axisLine=c(0.5, "solid", "#E5E5E5"))
+ggplot2.setAxis <- function(plot,
+                            #x and y axis titles and scales
+                            xShowTitle = TRUE,
+                            yShowTitle = TRUE,
+                            xtitle = NULL,
+                            ytitle = NULL,
+                            xtitleFont = c(14, "bold", "black"),
+                            ytitleFont = c(14, "bold", "black"),
+                            xlim = NULL,
+                            ylim = NULL,
+                            xScale = c("none", "log2", "log10"),
+                            yScale = c("none", "log2", "log10"),
+                            #x and y axis tick mark labels
+                            xShowTickLabel = TRUE,
+                            yShowTickLabel = TRUE,
+                            xTickLabelFont = c(12, "bold", "black"),
+                            yTickLabelFont = c(12, "bold", "black"),
+                            xtickLabelRotation = 0,
+                            ytickLabelRotation = 0,
+                            hideAxisTicks = FALSE,
+                            axisLine = c(0.5, "solid", "#E5E5E5"))
 {
-
   #axis title
-  if(!is.null(xtitle)) plot<-plot+xlab(xtitle)
-  if(!is.null(ytitle)) plot<-plot+ylab(ytitle)
+  if (!is.null(xtitle))
+    plot <- plot + xlab(xtitle)
+  if (!is.null(ytitle))
+    plot <- plot + ylab(ytitle)
 
-  if(!xShowTitle)plot<-plot+theme(axis.title.x=element_blank())
-  else plot<-plot+theme(axis.title.x=element_text(size=as.numeric(xtitleFont[1]),face=xtitleFont[2], colour=xtitleFont[3], hjust=0.4))
-
-  if(!yShowTitle)
-    plot<-plot+theme(axis.title.y=element_blank())
+  if (!xShowTitle)
+    plot <- plot + theme(axis.title.x = element_blank())
   else
-    plot<-plot+theme(axis.title.y=element_text(size=as.numeric(ytitleFont[1]),face=ytitleFont[2], colour=ytitleFont[3], vjust=0.4, angle=90))
+    plot <-
+      plot + theme(
+        axis.title.x = element_text(
+          size = as.numeric(xtitleFont[1]),
+          face = xtitleFont[2],
+          colour = xtitleFont[3],
+          hjust = 0.4
+        )
+      )
+
+  if (!yShowTitle)
+    plot <- plot + theme(axis.title.y = element_blank())
+  else
+    plot <-
+      plot + theme(
+        axis.title.y = element_text(
+          size = as.numeric(ytitleFont[1]),
+          face = ytitleFont[2],
+          colour = ytitleFont[3],
+          vjust = 0.4,
+          angle = 90
+        )
+      )
 
 
   #xlim, ylim: limit for the x and y axis
-  if(!is.null(ylim)) plot<-plot+ylim(ylim[1], ylim[2])
-  if(!is.null(xlim)) plot<-plot+xlim(xlim[1], xlim[2])
+  if (!is.null(ylim))
+    plot <- plot + ylim(ylim[1], ylim[2])
+  if (!is.null(xlim))
+    plot <- plot + xlim(xlim[1], xlim[2])
 
   #log scale
-  if(xScale[1]=="log2")
-    plot<-plot+scale_x_continuous(trans='log2')
-  else if(xScale[1]=="log10")
-    plot<-plot+scale_x_log10()
+  if (xScale[1] == "log2")
+    plot <- plot + scale_x_continuous(trans = 'log2')
+  else if (xScale[1] == "log10")
+    plot <- plot + scale_x_log10()
 
-  if(yScale[1]=="log2")
-    plot<-plot+scale_y_continuous(trans='log2')
-  else if(yScale[1]=="log10")
-    plot<-plot+scale_y_log10()
+  if (yScale[1] == "log2")
+    plot <- plot + scale_y_continuous(trans = 'log2')
+  else if (yScale[1] == "log10")
+    plot <- plot + scale_y_log10()
 
   #x and y axis tick mark labels
-  if(!xShowTickLabel) plot<-plot+theme(axis.text.x=element_blank())
-  else plot<-plot+theme(axis.text.x=element_text(size=as.numeric(xTickLabelFont[1]), face=xTickLabelFont[2], colour=xTickLabelFont[3], angle=xtickLabelRotation))
-  if(!yShowTickLabel) plot<-plot+theme(axis.text.y=element_blank())
-  else plot<-plot+theme(axis.text.y=element_text(size=as.numeric(yTickLabelFont[1]), face=yTickLabelFont[2], colour=yTickLabelFont[3], angle=ytickLabelRotation))
-  if(hideAxisTicks)
-    plot<-plot+theme(axis.ticks=element_blank())
+  if (!xShowTickLabel)
+    plot <- plot + theme(axis.text.x = element_blank())
+  else
+    plot <-
+      plot + theme(
+        axis.text.x = element_text(
+          size = as.numeric(xTickLabelFont[1]),
+          face = xTickLabelFont[2],
+          colour = xTickLabelFont[3],
+          angle = xtickLabelRotation
+        )
+      )
+  if (!yShowTickLabel)
+    plot <- plot + theme(axis.text.y = element_blank())
+  else
+    plot <-
+      plot + theme(
+        axis.text.y = element_text(
+          size = as.numeric(yTickLabelFont[1]),
+          face = yTickLabelFont[2],
+          colour = yTickLabelFont[3],
+          angle = ytickLabelRotation
+        )
+      )
+  if (hideAxisTicks)
+    plot <- plot + theme(axis.ticks = element_blank())
 
   #Axis line
-  plot<-plot+theme(axis.line=element_line(size=as.numeric(axisLine[1]), linetype=axisLine[2], colour=axisLine[3]))
+  plot <-
+    plot + theme(axis.line = element_line(
+      size = as.numeric(axisLine[1]),
+      linetype = axisLine[2],
+      colour = axisLine[3]
+    ))
 
   plot
 }

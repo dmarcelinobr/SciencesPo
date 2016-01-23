@@ -42,11 +42,15 @@
       mu <- mean(x)
       n <- length(x[!is.na(x)])
       switch(type, {
-        skewer <- sqrt(n) * (sum((x - mu)^3, na.rm = na.rm)/(sum((x - mu)^2, na.rm = na.rm)^(3/2)))
+        skewer <-
+          sqrt(n) * (sum((x - mu) ^ 3, na.rm = na.rm) / (sum((x - mu) ^ 2, na.rm = na.rm) ^
+                                                           (3 / 2)))
       }, {
-        skewer <- n * sqrt(n - 1) * (sum((x - mu)^3, na.rm = na.rm)/((n - 2) * sum((x - mu)^2, na.rm = na.rm)^(3/2)))
+        skewer <-
+          n * sqrt(n - 1) * (sum((x - mu) ^ 3, na.rm = na.rm) / ((n - 2) * sum((x - mu) ^
+                                                                                 2, na.rm = na.rm) ^ (3 / 2)))
       }, {
-        skewer <- sum((x - mu)^3)/(n * sd(x)^3)
+        skewer <- sum((x - mu) ^ 3) / (n * sd(x) ^ 3)
       })
     }
     else {
@@ -61,15 +65,19 @@
       for (i in 1:dim(x)[2]) {
         n <- length(x[!is.na(x[, i]), i])
         switch(type, {
-          skewer[i] <- sqrt(n) * (sum((x[, i] - mu[i])^3,
-                                      na.rm = na.rm)/(sum((x[, i] - mu[i])^2, na.rm = na.rm)^(3/2)))
+          skewer[i] <- sqrt(n) * (sum((x[, i] - mu[i]) ^ 3,
+                                      na.rm = na.rm) / (sum((x[, i] - mu[i]) ^
+                                                              2, na.rm = na.rm) ^ (3 / 2)))
         }, {
           skewer[i] <- n * sqrt(n - 1) * (sum((x[, i] -
-                                                 mu[i])^3, na.rm = na.rm)/((n - 2) * sum((x[,
-                                                                                            i] - mu[i])^2, na.rm = na.rm)^(3/2)))
+                                                 mu[i]) ^ 3, na.rm = na.rm) /
+                                            ((n - 2) * sum((x[,
+                                                              i] - mu[i]) ^
+                                                             2, na.rm = na.rm) ^ (3 / 2)))
         }, {
-          skewer[i] <- sum((x[, i] - mu[i])^3, na.rm = na.rm)/(n *
-                                                                 stdev[i]^3)
+          skewer[i] <- sum((x[, i] - mu[i]) ^ 3, na.rm = na.rm) / (n *
+                                                                     stdev[i] ^
+                                                                     3)
         })
       }
     }
@@ -117,21 +125,23 @@ NULL
     if (any(i.na <- is.na(x))) {
       if (na.rm)
         x <- x[!i.na]
-      else return(NA)
+      else
+        return(NA)
     }
     if (!(type %in% (1:3)))
       stop("Your argument for 'type' is not valid.")
     n <- length(x)
     dev <- (x - mean(x))
-    r <- (n * sum(dev^4)/(sum(dev^2)^2))
+    r <- (n * sum(dev ^ 4) / (sum(dev ^ 2) ^ 2))
     y <- if (type == 1)
       r - 3
     else if (type == 2) {
       if (n < 4)
         stop("You need at least 4 complete observations.")
-      ((n + 1) * (r - 3) + 6) * (n - 1)/((n - 2) * (n - 3))
+      ((n + 1) * (r - 3) + 6) * (n - 1) / ((n - 2) * (n - 3))
     }
-    else r * (1 - 1/n)^2 - 3
+    else
+      r * (1 - 1 / n) ^ 2 - 3
     y
   }
 NULL
@@ -146,20 +156,30 @@ NULL
 #' should be stripped before the computation proceeds.
 #' @export
 #' @rdname stdkurtosis
-stdkurtosis <- function(x, na.rm = TRUE) UseMethod("stdkurtosis")
+stdkurtosis <- function(x, na.rm = TRUE)
+  UseMethod("stdkurtosis")
 
 #' @export
 #' @rdname stdkurtosis
 stdkurtosis.default <- function(x, na.rm = TRUE) {
-  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
-  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
-  stdkurtosis <- kurtosis(x)/sqrt(24/length(x))
+  if (!is.numeric(x) &&
+      !is.complex(x) &&
+      !is.logical(x) &&
+      !is.vector(x))
+    stop ("The argument should be a numeric vector.")
+  if (na.rm)
+    x <- x[!is.na(x)]
+  else if (any(is.na(x)))
+    return(x[FALSE][NA])
+  stdkurtosis <- kurtosis(x) / sqrt(24 / length(x))
   return(stdkurtosis)
 }
 
 #' @export
 #' @rdname stdkurtosis
-stdkurtosis.data.frame <- function(x, na.rm = TRUE) sapply(x, stdkurtosis)
+stdkurtosis.data.frame <-
+  function(x, na.rm = TRUE)
+    sapply(x, stdkurtosis)
 NULL
 
 
@@ -173,20 +193,30 @@ NULL
 #' should be stripped before the computation proceeds.
 #' @export
 #' @rdname stdskewness
-stdskewness <- function(x, na.rm = TRUE) UseMethod("stdskewness")
+stdskewness <- function(x, na.rm = TRUE)
+  UseMethod("stdskewness")
 
 #' @export
 #' @rdname stdskewness
 stdskewness.default <- function(x, na.rm = TRUE) {
-  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
-  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
-  stdskewness <- skewness(x)/sqrt(6/length(x))
+  if (!is.numeric(x) &&
+      !is.complex(x) &&
+      !is.logical(x) &&
+      !is.vector(x))
+    stop ("The argument should be a numeric vector.")
+  if (na.rm)
+    x <- x[!is.na(x)]
+  else if (any(is.na(x)))
+    return(x[FALSE][NA])
+  stdskewness <- skewness(x) / sqrt(6 / length(x))
   return(stdskewness)
 }
 
 #' @export
 #' @rdname stdskewness
-stdskewness.data.frame <- function(x, na.rm = TRUE) sapply(x, stdskewness)
+stdskewness.data.frame <-
+  function(x, na.rm = TRUE)
+    sapply(x, stdskewness)
 NULL
 
 
@@ -199,19 +229,28 @@ NULL
 #'
 #' @export
 #' @rdname css
-css <- function(x, na.rm = TRUE) UseMethod("css")
+css <- function(x, na.rm = TRUE)
+  UseMethod("css")
 
 #' @export
 #' @rdname css
 css.default <- function(x, na.rm = TRUE) {
-  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
-  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
-  css <- sum(x**2) - ((sum(x)**2)/length(x))
+  if (!is.numeric(x) &&
+      !is.complex(x) &&
+      !is.logical(x) &&
+      !is.vector(x))
+    stop ("The argument should be a numeric vector.")
+  if (na.rm)
+    x <- x[!is.na(x)]
+  else if (any(is.na(x)))
+    return(x[FALSE][NA])
+  css <- sum(x *  * 2) - ((sum(x) *  * 2) / length(x))
   return(css)
 }
 #' @export
 #' @rdname css
-css.data.frame <- function(x, na.rm = TRUE) sapply(x, css)
+css.data.frame <- function(x, na.rm = TRUE)
+  sapply(x, css)
 NULL
 
 
@@ -225,22 +264,28 @@ NULL
 #'
 #' @export
 #' @rdname ucss
-ucss <- function(x, na.rm = TRUE) UseMethod("ucss")
+ucss <- function(x, na.rm = TRUE)
+  UseMethod("ucss")
 
 
 #' @export
 #' @rdname ucss
 ucss.default <- function(x, na.rm = TRUE) {
-  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
-  if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
-  ucss <- sum(x**2)
+  if (!is.numeric(x) &&
+      !is.complex(x) &&
+      !is.logical(x) &&
+      !is.vector(x))
+    stop ("The argument should be a numeric vector.")
+  if (na.rm)
+    x <- x[!is.na(x)]
+  else if (any(is.na(x)))
+    return(x[FALSE][NA])
+  ucss <- sum(x *  * 2)
   return(ucss)
 }
 
 #' @export
 #' @rdname ucss
-ucss.data.frame <- function(x, na.rm = TRUE) sapply(x, ucss)
+ucss.data.frame <- function(x, na.rm = TRUE)
+  sapply(x, ucss)
 NULL
-
-
-

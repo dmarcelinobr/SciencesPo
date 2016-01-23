@@ -20,4 +20,5 @@
 #'
 #'
 #' @export
-`describe` <- function(x, ...) UseMethod("describe")
+`describe` <- function(x, ...)
+  UseMethod("describe")

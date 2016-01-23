@@ -20,7 +20,7 @@
 #' @export
 `destring` <- function(x) {
   ## convert factor to strings
-  if(is.character(x)) {
+  if (is.character(x)) {
     as.numeric(x)
   } else if (is.factor(x)) {
     as.numeric(as.factor(x))
@@ -28,5 +28,6 @@
     invisible(x)
   } else {
     stop("Could not convert to numeric")
-  }}
+  }
+}
 NULL

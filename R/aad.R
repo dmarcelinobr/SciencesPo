@@ -5,7 +5,7 @@
 #'
 #' @export
 setClass(Class = "aad",
-               slots = list(estimate = "numeric"))
+         slots = list(estimate = "numeric"))
 
 
 #' @encoding UTF-8
@@ -30,7 +30,7 @@ setClass(Class = "aad",
 #' aad(x)
 #'
 #' @export
-`aad`<-function(x, na.rm = TRUE, ...){
+`aad` <- function(x, na.rm = TRUE, ...) {
   if (!is(x, "numeric") & !is(x, "integer")) {
     stop("\"x\" must be numeric")
   }
@@ -41,14 +41,19 @@ setClass(Class = "aad",
     x <- x[!is.na(x)]
   }
   ans <- mean(abs(x - mean(x)))
-  retval <- new("aad", estimate=ans);
-  retval;
+  retval <- new("aad", estimate = ans)
+
+  retval
+
 }## -- end of aad
 NULL
 
 
-setMethod("show", signature(object="aad"),
-          definition=function(object) {
-            retval <- c(object@estimate)
-            print(retval, digits = max(3, getOption("digits") - 3))
-})
+setMethod(
+  "show",
+  signature(object = "aad"),
+  definition = function(object) {
+    retval <- c(object@estimate)
+    print(retval, digits = max(3, getOption("digits") - 3))
+  }
+)

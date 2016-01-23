@@ -7,11 +7,15 @@
 #' @slot stderr Standard Error of the mean.
 #'
 #' @export
-`ci`<-setClass(Class = "ci",
-               slots = list(lower = "numeric",
-                            mean = "numeric",
-                            upper = "numeric",
-                            stderr="numeric"))
+`ci` <- setClass(
+  Class = "ci",
+  slots = list(
+    lower = "numeric",
+    mean = "numeric",
+    upper = "numeric",
+    stderr = "numeric"
+  )
+)
 
 
 
@@ -38,30 +42,43 @@
 #' ci(x, level=.90)
 #' @export
 #'
-`ci` <- function(x, level=0.95, alpha=1-level,na.rm=FALSE,...){
-  estimate <- mean(x, na.rm = na.rm);
-  stderr <- stats::sd(x, na.rm=na.rm)/sqrt(length(x));
-  ci.low <- estimate + stats::qt(alpha/2,length(x)-1)*stderr;
-  ci.high <- estimate - stats::qt(alpha/2,length(x)-1)*stderr;
-  retval <- new("ci",
-                lower=ci.low,
-                mean=estimate,
-                upper=ci.high,
-                stderr=stderr
-  );
-  retval;
+`ci` <- function(x,
+                 level = 0.95,
+                 alpha = 1 - level,
+                 na.rm = FALSE,
+                 ...) {
+  estimate <- mean(x, na.rm = na.rm)
+
+  stderr <- stats::sd(x, na.rm = na.rm) / sqrt(length(x))
+
+  ci.low <- estimate + stats::qt(alpha / 2, length(x) - 1) * stderr
+
+  ci.high <- estimate - stats::qt(alpha / 2, length(x) - 1) * stderr
+
+  retval <- new(
+    "ci",
+    lower = ci.low,
+    mean = estimate,
+    upper = ci.high,
+    stderr = stderr
+  )
+
+  retval
+
 }
 NULL
 
 
-setMethod("show", signature(object="ci"),
-          definition=function(object) {
-            retval <- c(
-              "CI Lower"=object@lower,
-              "Est. Mean"=object@mean,
-              "CI Upper"=object@upper,
-              "Std. Error"=object@stderr
-  )
-print(retval, digits = max(3, getOption("digits") - 3))
-}
+setMethod(
+  "show",
+  signature(object = "ci"),
+  definition = function(object) {
+    retval <- c(
+      "CI Lower" = object@lower,
+      "Est. Mean" = object@mean,
+      "CI Upper" = object@upper,
+      "Std. Error" = object@stderr
+    )
+    print(retval, digits = max(3, getOption("digits") - 3))
+  }
 )

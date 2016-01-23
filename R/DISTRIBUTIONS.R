@@ -1,7 +1,3 @@
-# bind global variables
-utils::globalVariables(c("p.level"))
-
-
 #' @encoding UTF-8
 #' @title Inverse Cumulative Standard Normal Distribution
 #'
@@ -21,8 +17,8 @@ utils::globalVariables(c("p.level"))
 #'
 #' @export
 `invnormal` <-
-  function(area,mu=0,sigma=1){
-    stats::qnorm(p=area,mean=mu,sd=sigma)
+  function(area, mu = 0, sigma = 1) {
+    stats::qnorm(p = area, mean = mu, sd = sigma)
   }
 NULL
 
@@ -49,8 +45,8 @@ NULL
 #'
 #' @export
 `normalpdf` <-
-  function(x, mu=0,sigma=1){
-    stats::dnorm(x, mean=mu,sd=sigma)
+  function(x, mu = 0, sigma = 1) {
+    stats::dnorm(x, mean = mu, sd = sigma)
   }
 NULL
 
@@ -76,8 +72,12 @@ NULL
 #' normalcdf(lower=-1.96,upper=1.96,mu=0,sigma=1)
 #' @export
 `normalcdf` <-
-  function(lower,upper,mu=0,sigma=1){
-    abs(stats::pnorm(upper,mean=mu,sd=sigma)-stats::pnorm(lower,mean=mu,sd=sigma))
+  function(lower,
+           upper,
+           mu = 0,
+           sigma = 1) {
+    abs(stats::pnorm(upper, mean = mu, sd = sigma) - stats::pnorm(lower, mean =
+                                                                    mu, sd = sigma))
   }
 NULL
 
@@ -141,18 +141,20 @@ NULL
 #' @useDynLib SciencesPo
 #' @export
 `rdirichlet` <- function(n,
-                       alpha
-){
-  if( ((n %% 1) != 0) | (n <= 0)) stop("n must be an integer > 0")
-  if( any(alpha <= 0) ) stop("all values in alpha must be > 0")
+                         alpha) {
+  if (((n %% 1) != 0) | (n <= 0))
+    stop("n must be an integer > 0")
+  if (any(alpha <= 0))
+    stop("all values in alpha must be > 0")
   .vec <- is.vector(alpha)
   .mat <- is.matrix(alpha)
-  if(!.vec & !.mat){
+  if (!.vec & !.mat) {
     stop("alpha must be a vector or a matrix")
-  } else if(.vec & !.mat){
+  } else if (.vec & !.mat) {
     X <- .Call("rdirichlet_vector", n, alpha)
   } else {
-    if(n != nrow(alpha)) stop("when alpha is a matrix, the number of its rows must be equal to n")
+    if (n != nrow(alpha))
+      stop("when alpha is a matrix, the number of its rows must be equal to n")
     X <- .Call("rdirichlet_matrix", n, alpha, dim(alpha))
   }
   return(X)
@@ -164,15 +166,15 @@ NULL
 
 
 
-`rDirichlet` <- function( n, alpha ){
-    l = length( alpha )
-    theta = matrix( 0, n, l )
-    for ( j in 1:l ) {
-      theta[ , j ] = stats::rgamma( n, alpha[ j ], 1 )
-    }
-    theta = theta / apply( theta, 1, sum )
-    return( theta )
+`rDirichlet` <- function(n, alpha) {
+  l = length(alpha)
+  theta = matrix(0, n, l)
+  for (j in 1:l) {
+    theta[, j] = stats::rgamma(n, alpha[j], 1)
   }
+  theta = theta / apply(theta, 1, sum)
+  return(theta)
+}
 NULL
 
 
@@ -194,44 +196,63 @@ NULL
 #'
 #' @useDynLib SciencesPo
 #' @export
-`ddirichlet` <- function(x, alpha, log = FALSE, sum = FALSE){
-
-  if(is.null(dim(x))) stop("x must be a matrix")
+`ddirichlet` <- function(x, alpha, log = FALSE, sum = FALSE) {
+  if (is.null(dim(x)))
+    stop("x must be a matrix")
   x_dims <- dim(x)
-  if( any(alpha <= 0) ) stop('all values in alpha must be > 0.')
+  if (any(alpha <= 0))
+    stop('all values in alpha must be > 0.')
 
-  res <- if(is.vector(alpha)){
+  res <- if (is.vector(alpha)) {
     .Call("ddirichlet_log_vector", x, alpha, dim(x))
   } else {
-    if(any(dim(alpha) != dim(x))) stop("check if x and alpha are correctly specified")
+    if (any(dim(alpha) != dim(x)))
+      stop("check if x and alpha are correctly specified")
     .Call("ddirichlet_log_matrix", x, alpha, dim(x), dim(alpha))
   }
 
-  if(sum){
-    if(log) return(sum(res)) else return(exp(sum(res)))
+  if (sum) {
+    if (log)
+      return(sum(res))
+    else
+      return(exp(sum(res)))
   } else {
-    if(log) return(res) else return(exp(res))
+    if (log)
+      return(res)
+    else
+      return(exp(res))
   }
 }
 NULL
 
 
-`dDirichlet` <- function(x, alpha, log = FALSE, sum = FALSE){
-
-  if(is.null(dim(x))) stop("x must be a matrix")
-  if(is.vector(alpha)){
-    if(ncol(x) != length(alpha)) stop("alpha must be a vector/matrix fitting to the data in x")
-    alpha <- matrix(rep(alpha,nrow(x)),nrow(x),byrow=T)
+`dDirichlet` <- function(x, alpha, log = FALSE, sum = FALSE) {
+  if (is.null(dim(x)))
+    stop("x must be a matrix")
+  if (is.vector(alpha)) {
+    if (ncol(x) != length(alpha))
+      stop("alpha must be a vector/matrix fitting to the data in x")
+    alpha <- matrix(rep(alpha, nrow(x)), nrow(x), byrow = T)
   }
-  if(any(dim(alpha) != dim(x))) stop("check if x and alpha are correctly specified")
-  if( any(alpha <= 0) ) stop('all values in alpha must be > 0.')
+  if (any(dim(alpha) != dim(x)))
+    stop("check if x and alpha are correctly specified")
+  if (any(alpha <= 0))
+    stop('all values in alpha must be > 0.')
 
-  res <- lgamma(rowSums(alpha)) - rowSums(lgamma(alpha)) + rowSums((alpha-1)*log(x))
+  res <-
+    lgamma(rowSums(alpha)) - rowSums(lgamma(alpha)) + rowSums((alpha - 1) *
+                                                                log(x))
 
-  if(sum){
-    if(log) return(sum(res)) else return(exp(sum(res)))
+  if (sum) {
+    if (log)
+      return(sum(res))
+    else
+      return(exp(sum(res)))
   } else {
-    if(log) return(res) else return(exp(res))
+    if (log)
+      return(res)
+    else
+      return(exp(res))
   }
 }
 NULL
@@ -255,8 +276,8 @@ NULL
 #' binompdf(n = trials, p = prob, x = success)
 #' @export
 `binomcdf` <-
-  function(n,p,x){
-    stats::pbinom(x,size=n,prob=p)
+  function(n, p, x) {
+    stats::pbinom(x, size = n, prob = p)
   }
 NULL
 
@@ -281,7 +302,7 @@ NULL
 #'
 #' @export
 `binompdf` <-
-  function(n,p,x){
-    stats::dbinom(x,size=n,prob=p)
+  function(n, p, x) {
+    stats::dbinom(x, size = n, prob = p)
   }
 NULL

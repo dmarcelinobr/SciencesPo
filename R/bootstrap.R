@@ -24,10 +24,11 @@ bootstrap <- function (x, ...)
 #'
 #' @rdname bootstrap
 #' @export
-bootstrap.default<-function(x, nboots=100, FUN,  ...){
-	n=length(x)
-	lings <-replicate(nboots, match.fun(FUN)(sample(x, n, replace=TRUE)))
-	list(se = sd(lings),
+bootstrap.default <- function(x, nboots = 100, FUN,  ...) {
+  n = length(x)
+  lings <-
+    replicate(nboots, match.fun(FUN)(sample(x, n, replace = TRUE)))
+  list(se = sd(lings),
        lings = lings)
 }
 NULL
@@ -40,7 +41,5 @@ NULL
 #' @rdname bootstrap
 #' @export
 bootstrap.model <- function (x, ...)
-  list(
-    alpha = NULL,
-    beta = coef(x)
-  )
+  list(alpha = NULL,
+       beta = coef(x))

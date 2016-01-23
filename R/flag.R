@@ -1,4 +1,3 @@
-if(getRversion() >= "2.15.1") globalVariables(c(".data", "copy", ".N"))
 #' @encoding UTF-8
 #' @title Add an "id" Variable to a Dataset
 #'

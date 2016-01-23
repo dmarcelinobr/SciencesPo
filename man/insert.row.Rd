@@ -2,19 +2,19 @@
 % Please edit documentation in R/insert.row.R
 \name{insert.row}
 \alias{insert.row}
-\title{Add new row to dataframe}
+\title{Add New Row to a data.frame}
 \usage{
-insert.row(.data, newrow, where = 1)
+insert.row(.data, row, where = 1)
 }
 \arguments{
 \item{.data}{The existing data.frame}
 
-\item{newrow}{The new row to be appended.}
+\item{row}{The new row to be appended.}
 
-\item{where}{An integer for the position to add the row, default is at the top.}
+\item{where}{An integer for the position to add the row, default is at the top of the data.frame.}
 }
 \description{
-Facilitates insertion of a new row in a data.frame.
+Facilitates inserting new rows in a data.frame.
 }
 \examples{
 existingDF <- as.data.frame(matrix(seq(20),nrow=5,ncol=4))

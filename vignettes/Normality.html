@@ -10,7 +10,7 @@
 
 <meta name="author" content="Daniel Marcelino" />
 
-<meta name="date" content="2016-01-22" />
+<meta name="date" content="2016-01-23" />
 
 <title>Are My Data Normal?</title>
 
@@ -28,17 +28,21 @@
 <div id="header">
 <h1 class="title">Are My Data Normal?</h1>
 <h4 class="author"><em>Daniel Marcelino</em></h4>
-<h4 class="date"><em>2016-01-22</em></h4>
+<h4 class="date"><em>2016-01-23</em></h4>
 </div>
 
 
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The <em>SciencesPo</em> library provides several tests for data normality checks.</p>
+</div>
 <div id="what-is-normality" class="section level1">
 <h1>What is normality?</h1>
-<p>It’s a kind of statistic distribution, used with continuous variables, that depend only on the mean () and standard deviation ().</p>
+<p>To put it simple, it is a kind of statistic distribution used with continuous variables that depend on two information parameters: the mean (<span class="math inline">\(\mu\)</span>) and the standard deviation (<span class="math inline">\(\sigma\)</span>).</p>
 </div>
 <div id="is-the-normal-very-normal-in-political-sciences" class="section level1">
 <h1>Is the Normal very normal in Political Sciences?</h1>
-<p>Lots of political variables are the result of the sum of several independents features. As it explains the Central Limit Theorem, sums of that large number of variables will be distributed following the Normal law.</p>
+<p>Lots of political and social variables are the result of the sum of several independent features and that, as the Central Limit Theorem sustains, for a wide number of variables the greater the number of observations the closer to a normal distribution the variables will look like.</p>
 </div>
 <div id="why-testing-normality" class="section level1">
 <h1>Why testing normality?</h1>
@@ -54,15 +58,6 @@
 <p>Compute descriptive summary measures—are mean, median, trimed mean similar? Are skewness and kurtosis near zero?</p>
 <p>Do 2/3 of observations lie within 1 std dev of the mean? Do 95% of observations lie within 2 std dev of the mean?</p>
 <p>Look at a normal probability plot—is it approximately linear?</p>
-</div>
-<div id="conclusions" class="section level1">
-<h1>Conclusions</h1>
-<p>In order to investigate the normality of some data, we recommend to use both the descriptive part and the tests. As Shapiro et al (1968) conclude, our simulations established that S-W is the most powerful test we have studied.</p>
-<p>Mean, median and trimed mean are similar in each group. Skewness and kurtosis are not significantly ( =0.05) different from zero. With S-W we found the expected behavior of the test based on sample size and the deviation from normal with the df of the 2. D’Agostino’s test (1970) presents difficulties in calculating the p-value.</p>
-</div>
-<div id="references" class="section level1">
-<h1>References</h1>
-<p>Thode Jr., H.C. ―Testing for Normality‖. New York: Marcel Dekker. 2002.</p>
 <p>Run tests of normality, but, be cautious, highly influenced by sample size!</p>
 <p>Thode (2002) presents more than 40 normality test. But our software available for tests were:</p>
 <ul>
@@ -75,6 +70,15 @@
 <li><p>Jarque_Bera (J-B): the test is based on a join statistic using skewness and Comparison of efficacy of the normality test using normal data and non- kurtosis coefficients.</p></li>
 <li><p>Pearson chi-square (P-Chi): Chi-square goodness of fit of counted and the expected observations in class <em>i</em>. The classes are build is such a way that they are equiprobable under the hypothesis of normality</p></li>
 </ul>
+</div>
+<div id="conclusions" class="section level1">
+<h1>Conclusions</h1>
+<p>In order to investigate the normality of some data, we recommend to use both the descriptive part and the tests. As Shapiro et al (1968) conclude, our simulations established that S-W is the most powerful test we have studied.</p>
+<p>Mean, median and trimed mean are similar in each group. Skewness and kurtosis are not significantly ( =0.05) different from zero. With S-W we found the expected behavior of the test based on sample size and the deviation from normal with the df of the 2. D’Agostino’s test (1970) presents difficulties in calculating the p-value.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Thode Jr., H. C. <strong>Testing for Normality</strong>. New York: Marcel Dekker. 2002.</p>
 </div>
 
 

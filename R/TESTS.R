@@ -23,43 +23,52 @@
 #'
 #' @importFrom stats predict vcov residuals pchisq
 #'
-`stukel` <- function(object, alternative = c("both", "alpha1", "alpha2")) {
-  DNAME <- deparse(substitute(object))
-  METHOD <- "Stukel's test of the logistic link"
-  alternative <- match.arg(alternative)
-  eta <- predict(object, type = "link")
-  etasq <- 0.5 * eta * eta
-  etapos <- eta > 0
-  dv <- matrix(0, nrow = length(eta), ncol = 2)
-  dv[etapos,1] <- etasq[etapos]
-  dv[!etapos,2] <- - etasq[!etapos]
-  colnames(dv) <- c("z1","z2")
-  oinfo <- vcov(object)
-  oX <- qr.X(object$qr)
-  ImH <- - oX %*% oinfo %*% t(oX)
-  diag(ImH) <- 1 + diag(ImH)
-  wdv <- sqrt(object$weights) * dv
-  qmat <- t(wdv) %*% ImH %*% wdv
-  sc <- apply(dv * (object$weights * residuals(object, "working")), 2, sum)
-  allstat <- c(sc * sc / diag(qmat), sc %*% solve(qmat) %*% sc)
-  names(allstat) <- c("alpha1", "alpha2", "both")
-  allpar <- c(1,1,2)
-  names(allpar) <- names(allstat)
-  allpval <- pchisq(allstat, allpar, lower.tail=FALSE)
-  STATISTIC <- allstat[alternative]
-  PARAMETER <- allpar[alternative]
-  names(PARAMETER) <- "df"
-  PVAL <- allpval[alternative]
-  names(allpar) <- rep("df", 3)
-  structure(list(statistic = STATISTIC,
-                 parameter = PARAMETER,
-                 p.value = PVAL,
-                 alternative = alternative,
-                 method = METHOD, data.name = DNAME,
-                 allstat = allstat, allpar = allpar, allpval = allpval
-  ),
-  class = "htest")
-}### end -- stukel function
+`stukel` <-
+  function(object,
+           alternative = c("both", "alpha1", "alpha2")) {
+    DNAME <- deparse(substitute(object))
+    METHOD <- "Stukel's test of the logistic link"
+    alternative <- match.arg(alternative)
+    eta <- predict(object, type = "link")
+    etasq <- 0.5 * eta * eta
+    etapos <- eta > 0
+    dv <- matrix(0, nrow = length(eta), ncol = 2)
+    dv[etapos, 1] <- etasq[etapos]
+    dv[!etapos, 2] <- -etasq[!etapos]
+    colnames(dv) <- c("z1", "z2")
+    oinfo <- vcov(object)
+    oX <- qr.X(object$qr)
+    ImH <- -oX %*% oinfo %*% t(oX)
+    diag(ImH) <- 1 + diag(ImH)
+    wdv <- sqrt(object$weights) * dv
+    qmat <- t(wdv) %*% ImH %*% wdv
+    sc <-
+      apply(dv * (object$weights * residuals(object, "working")), 2, sum)
+    allstat <- c(sc * sc / diag(qmat), sc %*% solve(qmat) %*% sc)
+    names(allstat) <- c("alpha1", "alpha2", "both")
+    allpar <- c(1, 1, 2)
+    names(allpar) <- names(allstat)
+    allpval <- pchisq(allstat, allpar, lower.tail = FALSE)
+    STATISTIC <- allstat[alternative]
+    PARAMETER <- allpar[alternative]
+    names(PARAMETER) <- "df"
+    PVAL <- allpval[alternative]
+    names(allpar) <- rep("df", 3)
+    structure(
+      list(
+        statistic = STATISTIC,
+        parameter = PARAMETER,
+        p.value = PVAL,
+        alternative = alternative,
+        method = METHOD,
+        data.name = DNAME,
+        allstat = allstat,
+        allpar = allpar,
+        allpval = allpval
+      ),
+      class = "htest"
+    )
+  }### end -- stukel function
 NULL
 
 
@@ -94,13 +103,15 @@ NULL
     v <- vcov(model)
     assign <- attributes(model.matrix(model))$assign
     if (names(coefficients(model)[1]) == "(Intercept)") {
-      v <- v[-1, -1]
+      v <- v[-1,-1]
       assign <- assign[-1]
     }
-    else warning("Vifs may not be sensible without intercept.")
+    else
+      warning("Vifs may not be sensible without intercept.")
     parameters <- labels(terms(model))
     n.parameters <- length(parameters)
-    if (n.parameters < 2) stop("model contains fewer than 2 parameters")
+    if (n.parameters < 2)
+      stop("model contains fewer than 2 parameters")
     R <- cov2cor(v)
     detR <- det(R)
     result <- matrix(0, n.parameters, 3)
@@ -109,11 +120,13 @@ NULL
     for (parameters in 1:n.parameters) {
       subs <- which(assign == parameters)
       result[parameters, 1] <- det(as.matrix(R[subs, subs])) *
-        det(as.matrix(R[-subs, -subs])) / detR
+        det(as.matrix(R[-subs,-subs])) / detR
       result[parameters, 2] <- length(subs)
     }
-    if (all(result[, 2] == 1)) result <- result[, 1]
-    else result[, 3] <- result[, 1]^(1/(2 * result[, 2]))
+    if (all(result[, 2] == 1))
+      result <- result[, 1]
+    else
+      result[, 3] <- result[, 1] ^ (1 / (2 * result[, 2]))
     result
   }### end -- vif function
 NULL
@@ -143,21 +156,27 @@ NULL
 #'
 #' stats::qqnorm(y)
 #' @export
-`geary` <- function(x, na.rm=TRUE) {
+`geary` <- function(x, na.rm = TRUE) {
   if (any(i.na <- is.na(x))) {
-    if(na.rm)
+    if (na.rm)
       x <- x[!i.na]
-    else return(NA)
+    else
+      return(NA)
   }
   DNAME <- deparse(substitute(x))
   mu <- mean(x)
   n <- length(x)
-  kurt <- n*sum( (x-mean(x))^4 )/(sum( (x-mean(x))^2 )^2);
-  G <- sum(abs(x-mu))/sqrt(n*sum((x-mu)^2))
-  pval <- (1-stats::pnorm((G-sqrt(2/pi))/sqrt(1-3/pi)*sqrt(n)))*2
-  RVAL <- list(statistic = c(kurt = kurt, G = G), p.value = pval,
-               method = "Geary's test for normality",
-               data.name = DNAME)
+  kurt <- n * sum((x - mean(x)) ^ 4) / (sum((x - mean(x)) ^ 2) ^ 2)
+
+  G <- sum(abs(x - mu)) / sqrt(n * sum((x - mu) ^ 2))
+  pval <- (1 - stats::pnorm((G - sqrt(2 / pi)) / sqrt(1 - 3 / pi) * sqrt(n))) *
+    2
+  RVAL <- list(
+    statistic = c(kurt = kurt, G = G),
+    p.value = pval,
+    method = "Geary's test for normality",
+    data.name = DNAME
+  )
   class(RVAL) <- "htest"
   return(RVAL)
 } ### end -- geary function
@@ -184,35 +203,45 @@ NULL
 #' @export
 james.stein <- function(y, k)
 {
-  s <- !(is.na(y)|is.na(k))
-  y <- y[s];
+  s <- !(is.na(y) | is.na(k))
+  y <- y[s]
+
   k <- as.character(k[s])
   ## as.char -> unused levels OK
   k <- length(unique(k))
-  if(k<3)
+  if (k < 3)
     stop("must have >=3 groups")
 
   .stats <- function(w) {
     bar <- mean(w)
-    ss  <- sum((w-bar)^2)
+    ss  <- sum((w - bar) ^ 2)
     n <- length(w)
     ##if(n<2)
     ##  stop("a group has n<2")
 
-    c(n=length(w), mean=bar, ss=ss, var=ss/n/(n-1))
+    c(
+      n = length(w),
+      mean = bar,
+      ss = ss,
+      var = ss / n / (n - 1)
+    )
   }
 
   Z <- .stats(y)
-  st <- tapply(y, k, FUN=.stats)
+  st <- tapply(y, k, FUN = .stats)
   nams <- names(st)
-  z <- matrix(unlist(st),ncol=4,byrow=TRUE)
-  ssb <- .stats(z[,2])["ss"]
-  shrink <- 1 - (k-3)*z[,4]/ssb
-  shrink[z[,1]==1] <- 0
-  shrink <- pmin(pmax(shrink,0),1)
-  list(n=z[,1], mean=z[,2],
-       shrunk.mean=structure(Z["mean"]*(1-shrink)+shrink*z[,2], names=nams),
-       shrink=shrink)
+  z <- matrix(unlist(st), ncol = 4, byrow = TRUE)
+  ssb <- .stats(z[, 2])["ss"]
+  shrink <- 1 - (k - 3) * z[, 4] / ssb
+  shrink[z[, 1] == 1] <- 0
+  shrink <- pmin(pmax(shrink, 0), 1)
+  list(
+    n = z[, 1],
+    mean = z[, 2],
+    shrunk.mean = structure(Z["mean"] * (1 - shrink) + shrink * z[, 2], names =
+                              nams),
+    shrink = shrink
+  )
 }### end -- james.stein function
 NULL
 
@@ -239,22 +268,28 @@ NULL
 #' @export
 jarque.bera <- function(x)
 {
-  if ( !is.vector( x ) )
-    stop( "argument x is not a vector" )
-  if ( !is.numeric( x ) )
-    stop( "argument x is not numeric" )
-  DNAME <- deparse( substitute( x ) )
+  if (!is.vector(x))
+    stop("argument x is not a vector")
+  if (!is.numeric(x))
+    stop("argument x is not numeric")
+  DNAME <- deparse(substitute(x))
   n <- length(x)
   ALTERNATIVE <- "greater"
   METHOD <- "Jarque-Bera Normality Test"
-  K <- kurtosis( x )
-  S <- skewness( x )
-  JB  <- ( n / 6 ) * ( S^2 + 0.25 * ( ( K - 3 )^2 ) )
-  pval <- 1 - pchisq( JB, df=2 )
-  JBVAL <- list( statistic=c(JB=JB), p.value=pval, alternative=ALTERNATIVE, method=METHOD,
-                 data.name=DNAME )
-  class( JBVAL ) <- "htest"
-  return( JBVAL )
+  K <- kurtosis(x)
+  S <- skewness(x)
+  JB  <- (n / 6) * (S ^ 2 + 0.25 * ((K - 3) ^ 2))
+  pval <- 1 - pchisq(JB, df = 2)
+  JBVAL <-
+    list(
+      statistic = c(JB = JB),
+      p.value = pval,
+      alternative = ALTERNATIVE,
+      method = METHOD,
+      data.name = DNAME
+    )
+  class(JBVAL) <- "htest"
+  return(JBVAL)
 } ### end -- jarque.bera function
 NULL
 
@@ -278,14 +313,15 @@ NULL
 #'
 #' @export
 jensen.shannon <- function(mat) {
-  kld = function(p,q) sum(ifelse(p == 0 | q == 0, 0, log(p/q)*p))
+  kld = function(p, q)
+    sum(ifelse(p == 0 | q == 0, 0, log(p / q) * p))
   res = matrix(0, nrow(mat), nrow(mat))
   for (i in 1:(nrow(mat) - 1)) {
-    for (j in (i+1):nrow(mat)) {
-      m = (mat[i,] + mat[j,])/2
-      d1 = kld(mat[i,], m)
-      d2 = kld(mat[j,], m)
-      res[j,i] = sqrt(.5*(d1 + d2))
+    for (j in (i + 1):nrow(mat)) {
+      m = (mat[i, ] + mat[j, ]) / 2
+      d1 = kld(mat[i, ], m)
+      d2 = kld(mat[j, ], m)
+      res[j, i] = sqrt(.5 * (d1 + d2))
     }
   }
   res
@@ -304,22 +340,22 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @keywords Tests
 #'@export
-`johnson.neyman` = function(y,x,z){
-  mod = stats::lm(y~x + z + x:z)
-  gam1.v = stats::vcov(mod)["x","x"]
-  gam3.v = stats::vcov(mod)["x:z","x:z"]
-  gam1gam3.cv = stats::vcov(mod)["x","z"]
-  df = length(y)-length(stats::coef(mod))
-  t = stats::qt(.975,df)
-  zz = seq(min(z),max(z),by=.01)
-  se.w1 = sqrt(gam1.v + 2*zz*gam1gam3.cv + zz^2*gam3.v)
-  w1.hat = stats::coef(mod)["x"]+stats::coef(mod)["x:z"]*zz
-  z.tab = cbind(zz,t<abs(w1.hat/se.w1))
-  ci.low = w1.hat - t*se.w1
-  ci.upp = w1.hat + t*se.w1
-  w1.tab = data.frame(w1.hat,z=z.tab[,1],z.tab[,2],ci.low,ci.upp)
-  colnames(w1.tab) = c("Est","Z","Significant","LB95", "UB95")
-  w1.tab[,3] = ifelse(w1.tab[,3]=="1","Yes","No")
+`johnson.neyman` = function(y, x, z) {
+  mod = stats::lm(y ~ x + z + x:z)
+  gam1.v = stats::vcov(mod)["x", "x"]
+  gam3.v = stats::vcov(mod)["x:z", "x:z"]
+  gam1gam3.cv = stats::vcov(mod)["x", "z"]
+  df = length(y) - length(stats::coef(mod))
+  t = stats::qt(.975, df)
+  zz = seq(min(z), max(z), by = .01)
+  se.w1 = sqrt(gam1.v + 2 * zz * gam1gam3.cv + zz ^ 2 * gam3.v)
+  w1.hat = stats::coef(mod)["x"] + stats::coef(mod)["x:z"] * zz
+  z.tab = cbind(zz, t < abs(w1.hat / se.w1))
+  ci.low = w1.hat - t * se.w1
+  ci.upp = w1.hat + t * se.w1
+  w1.tab = data.frame(w1.hat, z = z.tab[, 1], z.tab[, 2], ci.low, ci.upp)
+  colnames(w1.tab) = c("Est", "Z", "Significant", "LB95", "UB95")
+  w1.tab[, 3] = ifelse(w1.tab[, 3] == "1", "Yes", "No")
   w1.tab
 }### end -- johnson.neyman function
 NULL
@@ -347,50 +383,57 @@ NULL
 #' x = rnorm(1000)
 #' lilliefors(x)
 #'
-`lilliefors` <- function(x){
+`lilliefors` <- function(x) {
   DNAME <- deparse(substitute(x))
   x <- sort(x[stats::complete.cases(x)])
   n <- length(x)
   if (n < 5)
     stop("sample size must be greater than 4")
-  p <- stats::pnorm((x - mean(x))/sd(x))
-  Dplus <- max(seq(1:n)/n - p)
-  Dminus <- max(p - (seq(1:n) - 1)/n)
+  p <- stats::pnorm((x - mean(x)) / sd(x))
+  Dplus <- max(seq(1:n) / n - p)
+  Dminus <- max(p - (seq(1:n) - 1) / n)
   K <- max(Dplus, Dminus)
   if (n <= 100) {
     Kd <- K
     nd <- n
   }
   else {
-    Kd <- K * ((n/100)^0.49)
+    Kd <- K * ((n / 100) ^ 0.49)
     nd <- 100
   }
-  pvalue <- exp(-7.01256 * Kd^2 * (nd + 2.78019) + 2.99587 *
-                  Kd * sqrt(nd + 2.78019) - 0.122119 + 0.974598/sqrt(nd) +
-                  1.67997/nd)
+  pvalue <- exp(
+    -7.01256 * Kd ^ 2 * (nd + 2.78019) + 2.99587 *
+      Kd * sqrt(nd + 2.78019) - 0.122119 + 0.974598 / sqrt(nd) +
+      1.67997 / nd
+  )
   if (pvalue > 0.1) {
-    KK <- (sqrt(n) - 0.01 + 0.85/sqrt(n)) * K
+    KK <- (sqrt(n) - 0.01 + 0.85 / sqrt(n)) * K
     if (KK <= 0.302) {
       pvalue <- 1
     }
     else if (KK <= 0.5) {
       pvalue <- 2.76773 - 19.828315 * KK + 80.709644 *
-        KK^2 - 138.55152 * KK^3 + 81.218052 * KK^4
+        KK ^ 2 - 138.55152 * KK ^ 3 + 81.218052 * KK ^ 4
     }
     else if (KK <= 0.9) {
       pvalue <- -4.901232 + 40.662806 * KK - 97.490286 *
-        KK^2 + 94.029866 * KK^3 - 32.355711 * KK^4
+        KK ^ 2 + 94.029866 * KK ^ 3 - 32.355711 * KK ^ 4
     }
     else if (KK <= 1.31) {
       pvalue <- 6.198765 - 19.558097 * KK + 23.186922 *
-        KK^2 - 12.234627 * KK^3 + 2.423045 * KK^4
+        KK ^ 2 - 12.234627 * KK ^ 3 + 2.423045 * KK ^ 4
     }
     else {
       pvalue <- 0
     }
   }
-  RVAL <- list(statistic = c(D = K), p.value = pvalue, method = "Lilliefors (Kolmogorov-Smirnov) normality test",
-               data.name = DNAME)
+  RVAL <-
+    list(
+      statistic = c(D = K),
+      p.value = pvalue,
+      method = "Lilliefors (Kolmogorov-Smirnov) normality test",
+      data.name = DNAME
+    )
   class(RVAL) <- "htest"
   return(RVAL)
 } ### end -- lilliefors function
@@ -424,21 +467,30 @@ NULL
 #' geary(x)
 #' bonett.seier(x)
 `bonett.seier` <-
-  function (x, alternative=c("two.sided","less","greater"))
+  function (x,
+            alternative = c("two.sided", "less", "greater"))
   {
     DNAME <- deparse(substitute(x))
     x <- sort(x[stats::complete.cases(x)])
     n <- length(x)
     s <- match.arg(alternative)
-    alter <- switch(s, two.sided=0, less=1, greater=2)
-    rho <- sqrt(sum((x-mean(x))^2)/n);
-    tau <- sum(abs(x-mean(x)))/n;
-    omega <- 13.29*(log(rho)-log(tau));
-    z <- sqrt(n+2)*(omega-3)/3.54;
+    alter <- switch(s,
+                    two.sided = 0,
+                    less = 1,
+                    greater = 2)
+    rho <- sqrt(sum((x - mean(x)) ^ 2) / n)
+
+    tau <- sum(abs(x - mean(x))) / n
+
+    omega <- 13.29 * (log(rho) - log(tau))
+
+    z <- sqrt(n + 2) * (omega - 3) / 3.54
+
     pval <- stats::pnorm(z, lower.tail = FALSE)
     if (alter == 0) {
-      pval <- 2*pval
-      if (pval > 1) pval<-2-pval
+      pval <- 2 * pval
+      if (pval > 1)
+        pval <- 2 - pval
       alt <- "kurtosis is not equal to sqrt(2/pi)"
     }
     else if (alter == 1)
@@ -447,12 +499,16 @@ NULL
     }
     else
     {
-      pval <- 1-pval
+      pval <- 1 - pval
       alt <- "kurtosis is lower than sqrt(2/pi)"
     }
-    RVAL <- list(statistic = c(tau = tau, z = z), alternative = alt,
-                 p.value = pval, method = "Bonett-Seier test for Geary kurtosis",
-                 data.name = DNAME)
+    RVAL <- list(
+      statistic = c(tau = tau, z = z),
+      alternative = alt,
+      p.value = pval,
+      method = "Bonett-Seier test for Geary kurtosis",
+      data.name = DNAME
+    )
     class(RVAL) <- "htest"
     return(RVAL)
   } ### end -- bonett.seier function
@@ -485,24 +541,41 @@ NULL
 #' anscombe.glynn(x)
 #'
 `anscombe.glynn` <-
-  function (x, alternative=c("two.sided","less","greater"))
+  function (x,
+            alternative = c("two.sided", "less", "greater"))
   {
     DNAME <- deparse(substitute(x))
     x <- sort(x[stats::complete.cases(x)])
     n <- length(x)
     s <- match.arg(alternative)
-    alter <- switch(s, two.sided=0, less=1, greater=2)
-    b <- n*sum( (x-mean(x))^4 )/(sum( (x-mean(x))^2 )^2);
-    eb2 <- 3*(n-1)/(n+1);
-    vb2 <- 24*n*(n-2)*(n-3)/ ((n+1)^2*(n+3)*(n+5));
-    m3 <- (6*(n^2-5*n+2)/((n+7)*(n+9)))*sqrt((6*(n+3)*(n+5))/(n*(n-2)*(n-3)));
-    a <- 6 + (8/m3) * (2/m3 + sqrt(1 + 4/m3^2));
-    xx <- (b-eb2)/sqrt(vb2);
-    z <- ( 1-2/(9*a)-( (1-2/a) / (1+xx*sqrt(2/(a-4))) )^(1/3))/ sqrt(2/(9*a));
+    alter <- switch(s,
+                    two.sided = 0,
+                    less = 1,
+                    greater = 2)
+    b <- n * sum((x - mean(x)) ^ 4) / (sum((x - mean(x)) ^ 2) ^ 2)
+
+    eb2 <- 3 * (n - 1) / (n + 1)
+
+    vb2 <- 24 * n * (n - 2) * (n - 3) / ((n + 1) ^ 2 * (n + 3) * (n + 5))
+
+    m3 <-
+      (6 * (n ^ 2 - 5 * n + 2) / ((n + 7) * (n + 9))) * sqrt((6 * (n + 3) * (n +
+                                                                               5)) / (n * (n - 2) * (n - 3)))
+
+    a <- 6 + (8 / m3) * (2 / m3 + sqrt(1 + 4 / m3 ^ 2))
+
+    xx <- (b - eb2) / sqrt(vb2)
+
+    z <-
+      (1 - 2 / (9 * a) - ((1 - 2 / a) / (1 + xx * sqrt(2 / (
+        a - 4
+      )))) ^ (1 / 3)) / sqrt(2 / (9 * a))
+
     pval <- stats::pnorm(z, lower.tail = FALSE)
     if (alter == 0) {
-      pval <- 2*pval
-      if (pval > 1) pval<-2-pval
+      pval <- 2 * pval
+      if (pval > 1)
+        pval <- 2 - pval
       alt <- "kurtosis is not equal to 3"
     }
     else if (alter == 1)
@@ -511,12 +584,16 @@ NULL
     }
     else
     {
-      pval <- 1-pval
+      pval <- 1 - pval
       alt <- "kurtosis is lower than 3"
     }
-    RVAL <- list(statistic = c(kurt = b, z = z), p.value = pval,
-                 alternative = alt, method = "Anscombe-Glynn kurtosis test",
-                 data.name = DNAME)
+    RVAL <- list(
+      statistic = c(kurt = b, z = z),
+      p.value = pval,
+      alternative = alt,
+      method = "Anscombe-Glynn kurtosis test",
+      data.name = DNAME
+    )
     class(RVAL) <- "htest"
     return(RVAL)
   }### end -- anscombe.glynn function
@@ -547,26 +624,32 @@ anderson.darling <- function (x)
   n <- length(x)
   if (n < 8)
     stop("sample size must be greater than 7")
-  logp1 <- stats::pnorm((x - mean(x))/sd(x), log.p = TRUE)
-  logp2 <- stats::pnorm(-(x - mean(x))/sd(x), log.p = TRUE)
+  logp1 <- stats::pnorm((x - mean(x)) / sd(x), log.p = TRUE)
+  logp2 <- stats::pnorm(-(x - mean(x)) / sd(x), log.p = TRUE)
   h <- (2 * seq(1:n) - 1) * (logp1 + rev(logp2))
   A <- -n - mean(h)
-  AA <- (1 + 0.75/n + 2.25/n^2) * A
+  AA <- (1 + 0.75 / n + 2.25 / n ^ 2) * A
   if (AA < 0.2) {
-    pval <- 1 - exp(-13.436 + 101.14 * AA - 223.73 * AA^2)
+    pval <- 1 - exp(-13.436 + 101.14 * AA - 223.73 * AA ^ 2)
   }
   else if (AA < 0.34) {
-    pval <- 1 - exp(-8.318 + 42.796 * AA - 59.938 * AA^2)
+    pval <- 1 - exp(-8.318 + 42.796 * AA - 59.938 * AA ^ 2)
   }
   else if (AA < 0.6) {
-    pval <- exp(0.9177 - 4.279 * AA - 1.38 * AA^2)
+    pval <- exp(0.9177 - 4.279 * AA - 1.38 * AA ^ 2)
   }
   else if (AA < 10) {
-    pval <- exp(1.2937 - 5.709 * AA + 0.0186 * AA^2)
+    pval <- exp(1.2937 - 5.709 * AA + 0.0186 * AA ^ 2)
   }
-  else pval <- 3.7e-24
-  RVAL <- list(statistic = c(A = A), p.value = pval, method = "Anderson-Darling normality test",
-               data.name = DNAME)
+  else
+    pval <- 3.7e-24
+  RVAL <-
+    list(
+      statistic = c(A = A),
+      p.value = pval,
+      method = "Anderson-Darling normality test",
+      data.name = DNAME
+    )
   class(RVAL) <- "htest"
   return(RVAL)
 } ### end -- anderson.darling function
@@ -601,26 +684,37 @@ NULL
 #' agostino(x)
 #'
 `agostino` <-
-  function (x, alternative=c("two.sided","less","greater"))
+  function (x,
+            alternative = c("two.sided", "less", "greater"))
   {
     DNAME <- deparse(substitute(x))
     x <- sort(x[stats::complete.cases(x)])
     n <- length(x)
     s <- match.arg(alternative)
-    alter <- switch(s, two.sided=0, less=1, greater=2)
+    alter <- switch(s,
+                    two.sided = 0,
+                    less = 1,
+                    greater = 2)
     if ((n < 8 || n > 46340))
       stop("sample size must be between 8 and 46340")
-    s3 <- (sum((x-mean(x))^3)/n)/(sum((x-mean(x))^2)/n)^(3/2)
-    y <- s3*sqrt((n+1)*(n+3)/(6*(n-2)))
-    b2 <- 3*(n*n+27*n-70)*(n+1)*(n+3)/((n-2)*(n+5)*(n+7)*(n+9))
-    w <- sqrt(-1+sqrt(2*(b2-1)));
-    d <- 1/sqrt(log(w));
-    a <- sqrt(2/(w*w-1));
-    z <- d*log(y/a+sqrt((y/a)^2+1));
+    s3 <- (sum((x - mean(x)) ^ 3) / n) / (sum((x - mean(x)) ^ 2) / n) ^
+      (3 / 2)
+    y <- s3 * sqrt((n + 1) * (n + 3) / (6 * (n - 2)))
+    b2 <- 3 * (n * n + 27 * n - 70) * (n + 1) * (n + 3) / ((n - 2) * (n +
+                                                                        5) * (n + 7) * (n + 9))
+    w <- sqrt(-1 + sqrt(2 * (b2 - 1)))
+
+    d <- 1 / sqrt(log(w))
+
+    a <- sqrt(2 / (w * w - 1))
+
+    z <- d * log(y / a + sqrt((y / a) ^ 2 + 1))
+
     pval <- stats::pnorm(z, lower.tail = FALSE)
     if (alter == 0) {
-      pval <- 2*pval
-      if (pval > 1) pval<-2-pval
+      pval <- 2 * pval
+      if (pval > 1)
+        pval <- 2 - pval
       alt <- "data have a skewness"
     }
     else if (alter == 1)
@@ -629,12 +723,16 @@ NULL
     }
     else
     {
-      pval <- 1-pval
+      pval <- 1 - pval
       alt <- "data have negative skewness"
     }
-    RVAL <- list(statistic = c(skew = s3, z = z), p.value = pval,
-                 alternative = alt, method = "D'Agostino skewness test",
-                 data.name = DNAME)
+    RVAL <- list(
+      statistic = c(skew = s3, z = z),
+      p.value = pval,
+      alternative = alt,
+      method = "D'Agostino skewness test",
+      data.name = DNAME
+    )
     class(RVAL) <- "htest"
     return(RVAL)
   } ### end -- agostino function
@@ -678,35 +776,52 @@ NULL
 #'
 #' @rdname calc.LR
 #' @export
-`calc.LR` <- function(x, y = NULL, ...) UseMethod("calc.LR")
+`calc.LR` <- function(x, y = NULL, ...)
+  UseMethod("calc.LR")
 
 #' @rdname calc.LR
 #' @export
 `calc.LR.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
-  if (is.data.frame(x)) x <- as.matrix(x)
-  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (is.data.frame(x))
+    x <- as.matrix(x)
+  if (is.matrix(x)) {
+    if (min(dim(x)) == 1)
+      x <- as.vector(x)
+  }
   if (!is.matrix(x)) {
-    if (is.null(y)) { stop("y must be a non-null vector") } else {
-      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    if (is.null(y)) {
+      stop("y must be a non-null vector")
+    } else {
+      if (length(x) != length(y)) {
+        stop("x and y must have the same length")
+      }
     }
     YDNAME <- deparse(substitute(y))
-    ok <- complete.cases(x,y)
+    ok <- complete.cases(x, y)
     x <- factor(x[ok])
     y <- factor(y[ok])
-    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y, ...)
+    if ((nlevels(x) < 2L) ||
+        (nlevels(y) < 2L)) {
+      stop("'x' and 'y' must have at least 2 levels")
+    }
+    x <- table(x, y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
     result <- stats::chisq.test(x, correct = TRUE)
   } else {
-      result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
-      }
+    result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
+  }
 
-  G <- 2 * sum(result$obs * log(result$obs/result$exp), na.rm = TRUE)
+  G <-
+    2 * sum(result$obs * log(result$obs / result$exp), na.rm = TRUE)
   pvalue <- 1 - pchisq(G, result[[2]][[1]])
-  return(list(statistics = G, df = result[[2]][[1]], p.value = pvalue))
+  return(list(
+    statistics = G,
+    df = result[[2]][[1]],
+    p.value = pvalue
+  ))
 } ### end -- LR function
 NULL
 
@@ -761,32 +876,47 @@ NULL
 #'
 #' @export
 #' @rdname calc.CV
-`calc.CV` <- function(x, y = NULL, ...) UseMethod("calc.CV")
+`calc.CV` <- function(x, y = NULL, ...)
+  UseMethod("calc.CV")
 
 #' @rdname calc.CV
 #' @export
 `calc.CV.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
-  if (is.data.frame(x)) x <- as.matrix(x)
-  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (is.data.frame(x))
+    x <- as.matrix(x)
+  if (is.matrix(x)) {
+    if (min(dim(x)) == 1)
+      x <- as.vector(x)
+  }
   if (!is.matrix(x)) {
-    if (is.null(y)) { stop("y must be a non-null vector") } else {
-      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    if (is.null(y)) {
+      stop("y must be a non-null vector")
+    } else {
+      if (length(x) != length(y)) {
+        stop("x and y must have the same length")
+      }
     }
     YDNAME <- deparse(substitute(y))
-    ok <- complete.cases(x,y)
+    ok <- complete.cases(x, y)
     x <- factor(x[ok])
     y <- factor(y[ok])
-    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y, ...)
+    if ((nlevels(x) < 2L) ||
+        (nlevels(y) < 2L)) {
+      stop("'x' and 'y' must have at least 2 levels")
+    }
+    x <- table(x, y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
-    cramersV <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
+    cramersV <-
+      (prod(diag(result$obs)) - (result$obs[2, 1] * result$obs[1, 2])) / sqrt(prod(result$obs))
   } else {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
-    cramersV <- sqrt(result[[1]][[1]]/(sum(x)*(min(dim(x))-1)))
+    cramersV <- sqrt(result[[1]][[1]] / (sum(x) * (min(dim(
+      x
+    )) - 1)))
   }
   return(cramersV)
 } ### end -- Cramers'V function
@@ -827,33 +957,51 @@ NULL
 #'
 #' @export
 #' @rdname calc.Phi
-`calc.Phi` <- function(x, y = NULL, ...) UseMethod("calc.Phi")
+`calc.Phi` <- function(x, y = NULL, ...)
+  UseMethod("calc.Phi")
 
 
 #' @rdname calc.Phi
 #' @export
 `calc.Phi.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
-  if (is.data.frame(x)) x <- as.matrix(x)
-  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (is.data.frame(x))
+    x <- as.matrix(x)
+  if (is.matrix(x)) {
+    if (min(dim(x)) == 1)
+      x <- as.vector(x)
+  }
   if (!is.matrix(x)) {
-    if (is.null(y)) { stop("y must be a non-null vector") } else {
-      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    if (is.null(y)) {
+      stop("y must be a non-null vector")
+    } else {
+      if (length(x) != length(y)) {
+        stop("x and y must have the same length")
+      }
     }
     YDNAME <- deparse(substitute(y))
-    ok <- complete.cases(x,y)
+    ok <- complete.cases(x, y)
     x <- factor(x[ok])
     y <- factor(y[ok])
-    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y, ...)
+    if ((nlevels(x) < 2L) ||
+        (nlevels(y) < 2L)) {
+      stop("'x' and 'y' must have at least 2 levels")
+    }
+    x <- table(x, y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
-    result <- as.numeric(sqrt(suppressWarnings(stats::chisq.test(x, correct = FALSE)$statistic) / sum(x)))
+    result <-
+      as.numeric(sqrt(suppressWarnings(
+        stats::chisq.test(x, correct = FALSE)$statistic
+      ) / sum(x)))
     #phicoef <- (prod(diag(result$observed)) - (result$observed[2,1]*result$observed[1,2]))/sqrt(prod(result$observed))
   } else {
-    result <- as.numeric(sqrt(suppressWarnings(stats::chisq.test(x, correct = FALSE)$statistic) / sum(x)))
-   # phicoef <- sqrt(result[[1]][[1]]/sum(x))
+    result <-
+      as.numeric(sqrt(suppressWarnings(
+        stats::chisq.test(x, correct = FALSE)$statistic
+      ) / sum(x)))
+    # phicoef <- sqrt(result[[1]][[1]]/sum(x))
   }
   return(result)
 } ### end -- phi function
@@ -891,32 +1039,45 @@ NULL
 #' calc.CC(mat)
 #'
 #' @export
-`calc.CC` <- function(x, y = NULL, ...) UseMethod("calc.CC")
+`calc.CC` <- function(x, y = NULL, ...)
+  UseMethod("calc.CC")
 
 #' @rdname calc.CC
 #' @export
 `calc.CC.default` <- function(x, y = NULL, ...) {
   DNAME <- deparse(substitute(x))
-  if (is.data.frame(x)) x <- as.matrix(x)
-  if (is.matrix(x)) { if (min(dim(x)) == 1) x <- as.vector(x)	}
+  if (is.data.frame(x))
+    x <- as.matrix(x)
+  if (is.matrix(x)) {
+    if (min(dim(x)) == 1)
+      x <- as.vector(x)
+  }
   if (!is.matrix(x)) {
-    if (is.null(y)) { stop("y must be a non-null vector") } else {
-      if (length(x) != length(y)) { stop("x and y must have the same length") }
+    if (is.null(y)) {
+      stop("y must be a non-null vector")
+    } else {
+      if (length(x) != length(y)) {
+        stop("x and y must have the same length")
+      }
     }
     YDNAME <- deparse(substitute(y))
-    ok <- complete.cases(x,y)
+    ok <- complete.cases(x, y)
     x <- factor(x[ok])
     y <- factor(y[ok])
-    if ((nlevels(x) < 2L) || (nlevels(y) < 2L)) { stop("'x' and 'y' must have at least 2 levels") }
-    x <- table(x,y, ...)
+    if ((nlevels(x) < 2L) ||
+        (nlevels(y) < 2L)) {
+      stop("'x' and 'y' must have at least 2 levels")
+    }
+    x <- table(x, y, ...)
     names(dimnames(x)) <- c(DNAME, YDNAME)
   }
   if (all(dim(x) == 2)) {
     result <- suppressWarnings(stats::chisq.test(x, correct = TRUE))
-    cont.coef <- (prod(diag(result$obs)) - (result$obs[2,1]*result$obs[1,2]))/sqrt(prod(result$obs))
+    cont.coef <-
+      (prod(diag(result$obs)) - (result$obs[2, 1] * result$obs[1, 2])) / sqrt(prod(result$obs))
   } else {
     result <- suppressWarnings(stats::chisq.test(x, correct = FALSE))
-    cont.coef <- sqrt(result[[1]][[1]]/(sum(x) + result[[1]][[1]]))
+    cont.coef <- sqrt(result[[1]][[1]] / (sum(x) + result[[1]][[1]]))
   }
   return(cont.coef)
 } ### end -- Contingency function
@@ -954,17 +1115,22 @@ NULL
 #' calc.TT(long$Var1, long$Var2)
 #' @export
 #' @rdname calc.TT
-`calc.TT` <- function(x, y = NULL) UseMethod("calc.TT")
+`calc.TT` <- function(x, y = NULL)
+  UseMethod("calc.TT")
 
 
 #' @rdname calc.TT
 #' @export
-`calc.TT.default` <- function(x, y = NULL, ...){
-
-  if(!is.null(y)) x <- table(x, y, ...)
+`calc.TT.default` <- function(x, y = NULL, ...) {
+  if (!is.null(y))
+    x <- table(x, y, ...)
   # http://en.wikipedia.org/wiki/Tschuprow's_T
   # Hartung S. 451
-  as.numeric( sqrt(suppressWarnings(stats::chisq.test(x, correct = FALSE)$statistic)/ (sum(x) * sqrt(prod(dim(x)-1)))))
+  as.numeric(sqrt(
+    suppressWarnings(stats::chisq.test(x, correct = FALSE)$statistic) / (sum(x) * sqrt(prod(dim(
+      x
+    ) - 1)))
+  ))
 
 }### end -- tschuprowT function
 NULL
@@ -1011,58 +1177,92 @@ NULL
 #' # Test the null against a trend
 #'  bartels.rank(tourists, alternative="left.sided", pvalue="beta")
 #' @export
-`bartels.rank` <- function(x, alternative="two.sided", pvalue="normal") UseMethod("bartels.rank")
+`bartels.rank` <-
+  function(x,
+           alternative = "two.sided",
+           pvalue = "normal")
+    UseMethod("bartels.rank")
 
 
 #' @rdname bartels.rank
 #' @export
-`bartels.rank.default` <- function(x, alternative="two.sided", pvalue="normal"){
-  dname <- deparse(substitute(x))
-  # Remove NAs
-  x <- na.omit(x)
-  stopifnot(is.numeric(x))
-  n <- length(x)
-  if (alternative == "t"){alternative <- "two.sided"}
-  if (alternative == "l"){alternative <- "left.sided"}
-  if (alternative == "r"){alternative <- "right.sided"}
-  if (alternative != "two.sided" & alternative != "left.sided" & alternative != "right.sided")
-  {stop("must give a valid alternative")}
-  if (n < 10){stop("sample size must be greater than 9")}
-  # unique
-  rk <- rank(x)
-  d <- diff(rk)
-  #d.rank <- n*(n^2-1)/12
-  d.rank <- sum(rk^2)-n*(mean(rk)^2)
-  RVN <- sum(d^2)/d.rank
-  mu <- 2
-  vr <- (4*(n-2)*(5*n^2-2*n-9))/(5*n*(n+1)*(n-1)^2)
-  # Computes the p-value
-  if (pvalue == "auto"){pvalue<-ifelse(n<=100,"beta","normal")}
-  if (pvalue == "beta"){
-    btp <- (5*n*(n+1)*(n-1)^2)/(2*(n-2)*(5*n^2-2*n-9))-1/2
-    pv0 <- stats::pbeta(RVN/4,shape1=btp,shape2=btp)
-  }
-  if (pvalue=="normal"){
-    pv0 <- stats::pnorm((RVN - mu) / sqrt(vr))
-  }
-  if (alternative=="two.sided"){
-    pv <- 2*min(pv0,1-pv0)
-    alternative<-"nonrandomness"
-  }
-  if (alternative=="left.sided"){
-    pv <- pv0
-    alternative<-"trend"
-  }
-  if (alternative=="right.sided"){
-    pv <- 1-pv0
-    alternative<-"systematic oscillation"
-  }
-test <- (RVN - mu) / sqrt(vr)
-rval <- list(statistic = c(statistic=test), nm=sum(d^2), rvn=RVN, mu=mu, var=vr, p.value = pv,
-method = "Bartels Ratio Test", data.name = dname, parameter=c(n=n), n=n, alternative=alternative)
-  class(rval) <- "htest"
-  return(rval)
-} ### end -- bartels.rank function
+`bartels.rank.default` <-
+  function(x,
+           alternative = "two.sided",
+           pvalue = "normal") {
+    dname <- deparse(substitute(x))
+    # Remove NAs
+    x <- na.omit(x)
+    stopifnot(is.numeric(x))
+    n <- length(x)
+    if (alternative == "t") {
+      alternative <- "two.sided"
+    }
+    if (alternative == "l") {
+      alternative <- "left.sided"
+    }
+    if (alternative == "r") {
+      alternative <- "right.sided"
+    }
+    if (alternative != "two.sided" &
+        alternative != "left.sided" & alternative != "right.sided")
+    {
+      stop("must give a valid alternative")
+    }
+    if (n < 10) {
+      stop("sample size must be greater than 9")
+    }
+    # unique
+    rk <- rank(x)
+    d <- diff(rk)
+    #d.rank <- n*(n^2-1)/12
+    d.rank <- sum(rk ^ 2) - n * (mean(rk) ^ 2)
+    RVN <- sum(d ^ 2) / d.rank
+    mu <- 2
+    vr <- (4 * (n - 2) * (5 * n ^ 2 - 2 * n - 9)) / (5 * n * (n + 1) * (n -
+                                                                          1) ^ 2)
+    # Computes the p-value
+    if (pvalue == "auto") {
+      pvalue <- ifelse(n <= 100, "beta", "normal")
+    }
+    if (pvalue == "beta") {
+      btp <- (5 * n * (n + 1) * (n - 1) ^ 2) / (2 * (n - 2) * (5 * n ^ 2 - 2 *
+                                                                 n - 9)) - 1 / 2
+      pv0 <- stats::pbeta(RVN / 4, shape1 = btp, shape2 = btp)
+    }
+    if (pvalue == "normal") {
+      pv0 <- stats::pnorm((RVN - mu) / sqrt(vr))
+    }
+    if (alternative == "two.sided") {
+      pv <- 2 * min(pv0, 1 - pv0)
+      alternative <- "nonrandomness"
+    }
+    if (alternative == "left.sided") {
+      pv <- pv0
+      alternative <- "trend"
+    }
+    if (alternative == "right.sided") {
+      pv <- 1 - pv0
+      alternative <- "systematic oscillation"
+    }
+    test <- (RVN - mu) / sqrt(vr)
+    rval <-
+      list(
+        statistic = c(statistic = test),
+        nm = sum(d ^ 2),
+        rvn = RVN,
+        mu = mu,
+        var = vr,
+        p.value = pv,
+        method = "Bartels Ratio Test",
+        data.name = dname,
+        parameter = c(n = n),
+        n = n,
+        alternative = alternative
+      )
+    class(rval) <- "htest"
+    return(rval)
+  } ### end -- bartels.rank function
 NULL
 
 
@@ -1106,51 +1306,100 @@ NULL
 #' }
 #' @export
 #' @rdname calc.UC
-`calc.UC` <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, p.zero.correction = 1/sum(x)^2, ...) UseMethod("calc.UC")
+`calc.UC` <-
+  function(x,
+           y = NULL,
+           direction = c("symmetric", "row", "column"),
+           conf.level = NA,
+           p.zero.correction = 1 / sum(x) ^ 2,
+           ...)
+    UseMethod("calc.UC")
 
 #' @rdname calc.UC
 #' @export
-`calc.UC.default` <- function(x, y = NULL, direction = c("symmetric", "row", "column"), conf.level = NA, p.zero.correction = 1/sum(x)^2, ... ) {
-  # Theil's UC (1970)
-  # slightly nudge zero values so that their logarithm can be calculated (cf. Theil 1970: x->0 => xlogx->0)
-  if(!is.null(y)) x <- table(x, y, ...)
-  x[x == 0] <- p.zero.correction
-  n <- sum(x)
-  rsum <- apply(x, 1, sum)
-  csum <- apply(x, 2, sum)
-  hx <- -sum((apply(x, 1, sum) * log(apply(x, 1, sum)/n))/n)
-  hy <- -sum((apply(x, 2, sum) * log(apply(x, 2, sum)/n))/n)
-  hxy <- -sum(apply(x, c(1, 2), sum) * log(apply(x, c(1, 2), sum)/n)/n)
-  switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
-          , "symmetric" = { res <- 2 * (hx + hy - hxy)/(hx + hy) }
-          , "row" = { res <- (hx + hy - hxy)/hx }
-          , "column" = { res <- (hx + hy - hxy)/hy }
-  )
-
-  if(!is.na(conf.level)){
-    var.uc.RC <- var.uc.CR <- 0
-    for(i in 1:nrow(x))
-      for(j in 1:ncol(x))
-      { var.uc.RC <- var.uc.RC + x[i,j]*(hx*log(x[i,j]/csum[j])+((hy-hxy)*log(rsum[i]/n)))^2/(n^2*hx^4);
-      var.uc.CR <- var.uc.CR + x[i,j]*(hy*log(x[i,j]/rsum[i])+((hx-hxy)*log(csum[j]/n)))^2/(n^2*hy^4);
+`calc.UC.default` <-
+  function(x,
+           y = NULL,
+           direction = c("symmetric", "row", "column"),
+           conf.level = NA,
+           p.zero.correction = 1 / sum(x) ^ 2,
+           ...) {
+    # Theil's UC (1970)
+    # slightly nudge zero values so that their logarithm can be calculated (cf. Theil 1970: x->0 => xlogx->0)
+    if (!is.null(y))
+      x <- table(x, y, ...)
+    x[x == 0] <- p.zero.correction
+    n <- sum(x)
+    rsum <- apply(x, 1, sum)
+    csum <- apply(x, 2, sum)
+    hx <- -sum((apply(x, 1, sum) * log(apply(x, 1, sum) / n)) / n)
+    hy <- -sum((apply(x, 2, sum) * log(apply(x, 2, sum) / n)) / n)
+    hxy <-
+      -sum(apply(x, c(1, 2), sum) * log(apply(x, c(1, 2), sum) / n) / n)
+    switch(
+      match.arg(
+        arg = direction,
+        choices = c("symmetric", "row", "column")
+      )
+      ,
+      "symmetric" = {
+        res <- 2 * (hx + hy - hxy) / (hx + hy)
       }
-    switch( match.arg( arg = direction, choices = c("symmetric", "row", "column") )
-            , "symmetric" = {
-              sigma2 <- 4*sum(x * (hxy * log(rsum %o% csum/n^2) - (hx+hy)*log(x/n))^2 ) /
-                (n^2*(hx+hy)^4)
-            }
-            , "row" = { sigma2 <- var.uc.RC }
-            , "column" = { sigma2 <- var.uc.CR }
+      ,
+      "row" = {
+        res <- (hx + hy - hxy) / hx
+      }
+      ,
+      "column" = {
+        res <- (hx + hy - hxy) / hy
+      }
     )
-    pr2 <- 1 - (1 - conf.level)/2
-    ci <- stats::qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + res
-    retval <- c(
-      "Est. Mean" = res,
-      "CI lower"=max(ci[1], -1),
-      "CI upper"=min(ci[2], 1))
-  }
-  return(retval)
-}### end -- uncertainty function
+
+    if (!is.na(conf.level)) {
+      var.uc.RC <- var.uc.CR <- 0
+      for (i in 1:nrow(x))
+        for (j in 1:ncol(x))
+        {
+          var.uc.RC <-
+            var.uc.RC + x[i, j] * (hx * log(x[i, j] / csum[j]) + ((hy - hxy) * log(rsum[i] /
+                                                                                     n))) ^ 2 / (n ^ 2 * hx ^ 4)
+
+          var.uc.CR <-
+            var.uc.CR + x[i, j] * (hy * log(x[i, j] / rsum[i]) + ((hx - hxy) * log(csum[j] /
+                                                                                     n))) ^ 2 / (n ^ 2 * hy ^ 4)
+
+        }
+      switch(
+        match.arg(
+          arg = direction,
+          choices = c("symmetric", "row", "column")
+        )
+        ,
+        "symmetric" = {
+          sigma2 <-
+            4 * sum(x * (hxy * log(rsum %o% csum / n ^ 2) - (hx + hy) * log(x / n)) ^
+                      2) /
+            (n ^ 2 * (hx + hy) ^ 4)
+        }
+        ,
+        "row" = {
+          sigma2 <- var.uc.RC
+        }
+        ,
+        "column" = {
+          sigma2 <- var.uc.CR
+        }
+      )
+      pr2 <- 1 - (1 - conf.level) / 2
+      ci <- stats::qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + res
+      retval <- c(
+        "Est. Mean" = res,
+        "CI lower" = max(ci[1],-1),
+        "CI upper" = min(ci[2], 1)
+      )
+    }
+    return(retval)
+  }### end -- uncertainty function
 NULL
 
 
@@ -1174,7 +1423,8 @@ NULL
 `cronbach` <- function(df) {
   df <- stats::na.omit(df)
   if (is.null(ncol(df)) || ncol(df) < 2) {
-    warning("Too less columns in this factor to calculate alpha value!", call. = F)
+    warning("Too less columns in this factor to calculate alpha value!",
+            call. = F)
     return(NULL)
   }
   return(dim(df)[2] / (dim(df)[2] - 1) * (1 - sum(apply(df, 2, var)) / stats::var(rowSums(df))))
@@ -1195,14 +1445,14 @@ NULL
 #' @param x p-value.
 #' @export
 star <- function(x) {
-  if(is.numeric(x)) {
-    return(cut(x,
-               breaks=c(-Inf,.001,.01,.05,.1,Inf),
-               labels=c('***','**','*','.',''))
-    )
+  if (is.numeric(x)) {
+    return(cut(
+      x,
+      breaks = c(-Inf, .001, .01, .05, .1, Inf),
+      labels = c('***', '**', '*', '.', '')
+    ))
   } else {
     return(NA)
   }
 }
 NULL
-

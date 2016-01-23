@@ -22,15 +22,15 @@
 #'
 #' @rdname cv
 #' @export
-`cv`<-function(x, na.rm = TRUE, ...)UseMethod("cv")
+`cv` <- function(x, na.rm = TRUE, ...)
+  UseMethod("cv")
 
 #' @rdname cv
 #' @export
-`cv.default`<-function(x, na.rm = TRUE, ...){
+`cv.default` <- function(x, na.rm = TRUE, ...) {
   sd <- sd(x, na.rm = na.rm)
   mean <- mean(x, na.rm = na.rm)
-  ans = (sd/mean)
+  ans = (sd / mean)
   return(ans)
 }
 NULL
-

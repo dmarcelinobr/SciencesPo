@@ -13,8 +13,8 @@
 #' @examples \dontrun{
 #' db <- database("mydb")
 #' }
-database <- function(dbname){
-  if(!stringr::str_detect(dbname, "\\.sqlite$")) {
+database <- function(dbname) {
+  if (!stringr::str_detect(dbname, "\\.sqlite$")) {
     dbname <- paste(dbname, "sqlite", sep = ".")
   }
   RSQLite::dbConnect(RSQLite::SQLite(), dbname)
@@ -44,9 +44,7 @@ NULL
 #' }
 #' @importFrom  RSQLite dbGetQuery
 #'
-dbTempTable <- function(db, tab_name, query){
+dbTempTable <- function(db, tab_name, query) {
   RSQLite::dbGetQuery(db, paste("CREATE TEMP TABLE", tab_name, "AS", query, ";"))
   message(sprintf("Temporary table '%s' created", tab_name))
 }
-
-

@@ -8,17 +8,18 @@
 converter(x, from, to)
 }
 \arguments{
-\item{x}{A numeric value or vector of data values to be converted.}
+\item{x}{A numeric value or a vector of values.}
 
-\item{from}{A character defining the original unit.}
+\item{from}{A character name defining the original unit.}
 
-\item{to}{A character defining the target unit.}
+\item{to}{A character name defining the target unit.}
 }
 \description{
-Converts data from a numeric value from one measurement system to another. For instance, distances in miles to kilometers.
+Converts a numeric value from one measurement system to another. For instance, distances in miles to kilometers.
 }
 \details{
 \code{NA} is returned if a conversion cannot be found.
+
 \tabular{lll}{
  \cr\cr
  \bold{Weight and mass}\tab \tab\cr

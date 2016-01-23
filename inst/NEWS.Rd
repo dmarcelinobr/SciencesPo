@@ -1,9 +1,9 @@
 \name{NEWS}
 \title{News from Package 'SciencesPo'}
-\section{Changes in SciencesPo version 1.3.9 (2016-02-02) }{
+\section{Changes in SciencesPo version 1.4.0 (2016-02-02) }{
   \subsection{Introduction}{
     \itemize{
-      \item Version 1.3.9 is the development release of the SciencesPo library. A more advanced version can be found at \url{http://github.com/danielmarcelino/SciencesPo}.
+      \item Version 1.4.0 is the development release of the SciencesPo library. A more advanced version can be found at \url{http://github.com/danielmarcelino/SciencesPo}.
     }
   }
   \subsection{News}{

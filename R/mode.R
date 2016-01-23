@@ -18,21 +18,23 @@
 #' Mode(myvar, FALSE)
 #' @export
 #' @rdname Mode
-`Mode` <- function(x, na.rm = FALSE) UseMethod("Mode")
+`Mode` <- function(x, na.rm = FALSE)
+  UseMethod("Mode")
 
 #' @export
 #' @rdname Mode
 `Mode` <- function(x, na.rm = FALSE) {
-  if(na.rm){
-    x = base::subset(x, !is.na(x))
+  if (na.rm) {
+    x = base::subset(x,!is.na(x))
   }
   y <- as.factor(x)
   freqs <- base::summary(y)
   mode <- names(freqs)[freqs[names(freqs)] == max(freqs)]
-  return(as.numeric(mode) )
+  return(as.numeric(mode))
 }
 NULL
 
 #' @export
 #' @rdname Mode
-`Mode.data.frame` <- function(x, na.rm = TRUE) sapply(x, Mode)
+`Mode.data.frame` <- function(x, na.rm = TRUE)
+  sapply(x, Mode)

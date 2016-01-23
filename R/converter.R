@@ -1,14 +1,14 @@
-if (getRversion() >= "2.15.1") globalVariables(c("Units"))
 #' @encoding UTF-8
 #' @title Unit Converter
 #'
-#' @description Converts data from a numeric value from one measurement system to another. For instance, distances in miles to kilometers.
+#' @description Converts a numeric value from one measurement system to another. For instance, distances in miles to kilometers.
 #'
-#' @param x A numeric value or vector of data values to be converted.
-#' @param from A character defining the original unit.
-#' @param to A character defining the target unit.
+#' @param x A numeric value or a vector of values.
+#' @param from A character name defining the original unit.
+#' @param to A character name defining the target unit.
 #'
 #' @details \code{NA} is returned if a conversion cannot be found.
+#'
 #' \tabular{lll}{
 #'  \cr\cr
 #'  \bold{Weight and mass}\tab \tab\cr
@@ -79,17 +79,20 @@ if (getRversion() >= "2.15.1") globalVariables(c("Units"))
 #' converter(c(5.6, 6.7), "in", "m")
 #'
 #' @export
-`converter` <- function(x, from, to){
-  if(from == "C") {
-    if(to=="F") return(x *1.8+32)
+`converter` <- function(x, from, to) {
+  if (from == "C") {
+    if (to == "F")
+      return(x * 1.8 + 32)
   }
-  if(from == "F") {
-    if(to=="C") return((x -32) *5/9)
+  if (from == "F") {
+    if (to == "C")
+      return((x - 32) * 5 / 9)
   }
 
-  factor <- Units[Units$from == from & Units$to==to, "factor"]
-  if(length(factor)==0) factor <- NA
-  ans <-(x * factor)
+  factor <- Units[Units$from == from & Units$to == to, "factor"]
+  if (length(factor) == 0)
+    factor <- NA
+  ans <- (x * factor)
   return(ans)
 
 }
