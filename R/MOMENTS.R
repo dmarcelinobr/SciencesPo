@@ -244,7 +244,7 @@ css.default <- function(x, na.rm = TRUE) {
     x <- x[!is.na(x)]
   else if (any(is.na(x)))
     return(x[FALSE][NA])
-  css <- sum(x *  * 2) - ((sum(x) *  * 2) / length(x))
+  css <- sum(x**2) - ((sum(x)**2) / length(x))
   return(css)
 }
 #' @export
@@ -280,7 +280,7 @@ ucss.default <- function(x, na.rm = TRUE) {
     x <- x[!is.na(x)]
   else if (any(is.na(x)))
     return(x[FALSE][NA])
-  ucss <- sum(x *  * 2)
+  ucss <- sum(x**2)
   return(ucss)
 }
 

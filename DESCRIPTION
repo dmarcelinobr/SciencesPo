@@ -6,7 +6,7 @@ Version: 1.4.0
 Date: 2016-02-02
 Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
-Description: Provides functions for analyzing political behavior data, including measures of political fragmentation, seat apportionment, and graphical demonstrations.
+Description: Provide functions for analyzing political behavior data, including measures of political fragmentation, seat apportionment, and options for small data visualization.
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: GPL (>= 2)
 Depends:
