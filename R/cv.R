@@ -16,9 +16,8 @@
 #'
 #' @keywords Exploratory
 #' @examples
-#' set.seed(51);
-#' x <- sample(100);
-#' cv(x);
+#'  x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
+#' cv(x)
 #'
 #' @rdname cv
 #' @export

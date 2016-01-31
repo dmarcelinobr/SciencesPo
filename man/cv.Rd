@@ -27,9 +27,8 @@ Computes the absolute \bold{coefficient of variation} \bold{cv} as proposed by K
 \eqn{\frac{sd(x)}{mean(x)} = cv}, which is the inverse of signal-to-noise ratio.
 }
 \examples{
-set.seed(51);
-x <- sample(100);
-cv(x);
+ x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
+cv(x)
 
 }
 \author{

@@ -50,6 +50,56 @@ NULL
 
 
 
+
+#' @title To Make Anonymous a Data Frame
+#'
+#' @description Replaces factor and character variables by a
+#' combination of letters and numbers. Numeric columns are also transformed, see details.
+#' @param .data A vector or a data frame.
+#' @param col.names A string for column names.
+#' @param row.names A string for rown names, default is empty.
+#' @return An object of the same type as \code{x}.
+#'
+#' @examples
+#' dt <- data.frame(
+#' Z = sample(LETTERS,10),
+#' X = sample(1:10),
+#' Y = sample(c("yes", "no"), 10, replace = TRUE)
+#' )
+#' dt;
+#'
+#' anonymize(dt)
+#'
+#' @export
+#' @rdname anonymize
+`anonymize` <- function(.data, col.names = "V", row.names = "")
+  UseMethod("anonymize")
+
+#' @rdname anonymize
+#' @export
+`anonymize.default` <- function(.data, col.names = "V", row.names = "") {
+  .fac <- function(x) {
+    if(is.factor(x)) {
+      levels(x) <- sample(LETTERS, length(levels(x)))
+    }
+    return(x)
+  }
+  ## replace the variable names
+  colnames(.data) <- paste(col.names, seq_len(ncol(.data)), sep = "")
+  ## fudge any factor levels
+  df <- data.frame(lapply(.data,  .fac))
+  ## replace rownames
+  rownames(df) <- paste(row.names, seq_len(nrow(df)), sep = "")
+  return(df)
+}
+NULL
+
+
+
+
+
+
+
 #' @encoding UTF-8
 #' @title Insert line breaks in long strings
 #' @name textwrap
