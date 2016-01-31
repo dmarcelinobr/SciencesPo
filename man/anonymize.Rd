@@ -17,7 +17,7 @@ anonymize(.data, col.names = "V", row.names = "")
 \item{row.names}{A string for rown names, default is empty.}
 }
 \value{
-An object of the same type as \code{x}.
+An object of the same type as \code{.data}.
 }
 \description{
 Replaces factor and character variables by a

@@ -101,7 +101,7 @@
       Freq = as.vector(TABLE[]),
       Prop = round(as.vector(ptab[]), digits)
     )
-    #cumfreq = cumsum(TABLE[]), cumperc = round(cumsum(ptab[]),digits))
+    #cumfreq = cumsum(TABLE[]), cumperc = round(cumsum(ptab[]),dig))
     rownames(out) <- NULL # enumerate from 1:nrow(z)
     class(out) <- c("SciencesPo", "freq", "data.frame")
     return(out)
@@ -258,7 +258,6 @@ Freq <- Frequency
 
 
 #' @keywords Exploratory
-#' @import vcd
 #' @export
 #' @rdname crosstable
 `crosstable` <-
@@ -266,6 +265,7 @@ Freq <- Frequency
            ...,
            row = TRUE,
            column = TRUE,
+           digits=2,
            deparse.level = 2)
     UseMethod("crosstable")
 
@@ -276,6 +276,7 @@ Freq <- Frequency
            ...,
            row = TRUE,
            column = TRUE,
+           digits=2,
            deparse.level = 2) {
     #################################################################
     #                                                               #
@@ -287,7 +288,7 @@ Freq <- Frequency
     # Best viewed using the companion function print.crosstable()   #
     #                                                               #
     #################################################################
-
+    dig <- digits
     ### dplyr version of table, to improve speed
     ## count for each variable combination present
     res <- regroup(.data, ...)
@@ -306,19 +307,16 @@ Freq <- Frequency
                 .Dimnames = lev)
     class(table) <- c("SciencesPo", "crosstable", "table")
 
-    #' @export
-    #' @rdname crosstable
+
     print.crosstable <-
       function(table,
-               digits = 2,
-               tests = TRUE,
                latex = FALSE) {
         tab      <- table
         class(tab) <- "table"
         sep    <- c("&"[latex], " "[!latex])
 
-        .twoDimTable <- function(tab,
-                                 digits = 2,
+      .twoDimTable <- function(tab,
+                                 digits = dig,
                                  width = 6) {
           output <- NULL
           dim    <- dim(tab)
@@ -332,20 +330,20 @@ Freq <- Frequency
             tab <- rbind(tab, Sum = colSums(tab))
             # place sum in the last column
             tab <- cbind(tab, Sum = rowSums(tab))
-            p <- tab / tab[, "Sum"] * 100
+            p <- tab / tab[, "Sum"]
           }
           else if (column == TRUE) {
             # place sum in the last column
             tab <- cbind(tab, Sum = rowSums(tab))
             # place sum in the last row
             tab <- rbind(tab, Sum = colSums(tab))
-            p <- sweep(tab, 2, tab["Sum", ], "/") * 100
+            p <- sweep(tab, 2, tab["Sum", ], "/")
           } else {
             # place sum in the last row
             tab <- rbind(tab, Sum = colSums(tab))
             # place sum in the last column
             tab <- cbind(tab, Sum = rowSums(tab))
-            p <- sweep(tab, 2, tab["Sum", ], "/") * 100
+            p <- sweep(tab, 2, tab["Sum", ], "/")
           }
           names(dimnames(tab)) <- varnames
           class(tab) <- "table"
@@ -358,10 +356,6 @@ Freq <- Frequency
           for (i in seq_len(dim[2])) {
             count   <- tab[, i]
             percent <-  format(p[, i], digits = digits)
-            if (latex)
-              percent <-  paste0(percent, "\\%")
-            else
-              percent <-  paste0(percent, "%")
 
             col <- c(rbind(count, percent))
             col <-  format(col, justify = "right", width = width)
@@ -376,11 +370,7 @@ Freq <- Frequency
           }
           i <- dim[2] + 1
           count   <- tab[, i]
-          percent <-  format(p[, i], digits = digits)
-          if (latex)
-            percent <- paste0(percent, "\\%")
-          else
-            percent <-  paste0(percent, "%")
+          percent <-  format(p[, i], digits = dig)
 
           col <-  c(rbind(count, percent))
           col <-  format(col, justify = "right", width = width)
@@ -446,16 +436,10 @@ Freq <- Frequency
               output
             )
           }
-
           cat("\n")
           cat(output, fill = TRUE)
           cat("\n") # 2x2 Tests of Independence
-          if (tests) {
-            print(summary(vcd::assocstats(tab)))
-          } else {
-            cat("\n")
-            print(summary.table(tab))
-          }
+
         } else {
           # Three Dimensional
           stratumcat <- dimnames(tab)[[1]]
@@ -542,32 +526,8 @@ Freq <- Frequency
               output
             )
           }
-
-          cat("\n")
-          cat(output, fill = TRUE)
-          cat("\n")
-          for (i in seq_len(dim[1])) {
-            x.tmp <-  as.table(tab[i, ,])
-            cat(sprintf("%s : %s", names(dimnames(tab))[1], stratumcat[i]), fill =
-                  TRUE)
-            if (tests) {
-              print(summary(vcd::assocstats(x.tmp)))
-            } else {
-              cat("\n")
-              print(summary.table(x.tmp))
-            }
-            cat("\n")
-          }
-          cat("Total", fill = TRUE)
-
-          if (tests) {
-            print(summary(vcd::assocstats(margin.table(tab, c(
-              2, 3
-            )))))
-          } else {
-            cat("\n")
-            print(summary.table(margin.table(tab, c(2, 3))))
-          }
+          cat("\n");
+          cat(output, fill = TRUE);
           cat("\n")
         }
       }

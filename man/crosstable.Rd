@@ -6,10 +6,11 @@
 \alias{crosstable.default}
 \title{Cross-tabulation}
 \usage{
-crosstable(.data, ..., row = TRUE, column = TRUE, deparse.level = 2)
+crosstable(.data, ..., row = TRUE, column = TRUE, digits = 2,
+  deparse.level = 2)
 
 \method{crosstable}{default}(.data, ..., row = TRUE, column = TRUE,
-  deparse.level = 2)
+  digits = 2, deparse.level = 2)
 }
 \arguments{
 \item{.data}{The data object.}

@@ -58,7 +58,7 @@ NULL
 #' @param .data A vector or a data frame.
 #' @param col.names A string for column names.
 #' @param row.names A string for rown names, default is empty.
-#' @return An object of the same type as \code{x}.
+#' @return An object of the same type as \code{.data}.
 #'
 #' @examples
 #' dt <- data.frame(
