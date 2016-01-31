@@ -19,6 +19,8 @@ crosstable(.data, ..., row = TRUE, column = TRUE, digits = 2,
 
 \item{column}{\code{TRUE}.}
 
+\item{digits}{The number of digits required, default is 2.}
+
 \item{deparse.level}{Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).}
 
 \item{\dots}{The variables for the cross tabulation.}

@@ -224,6 +224,7 @@ Freq <- Frequency
 #' @param \dots The variables for the cross tabulation.
 #' @param row \code{TRUE}.
 #' @param column \code{TRUE}.
+#' @param digits The number of digits required, default is 2.
 #' @param deparse.level Integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).
 #'
 #' @seealso \code{\link[stats]{xtabs}}, \code{\link{Frequency}},
