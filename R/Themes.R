@@ -453,6 +453,14 @@ x$parties$BRA <- c(
   SDD=rgb(65, 68, 81, max = 255)
     )
 
+x$continents <- c(
+  Africa=rgb(127,59,8, max = 255), # 52
+  Americas=rgb(165,0,38, max = 255), # 25
+  Asia=rgb(64,0,75, max = 255), # 33
+  Europe=rgb(39,100,25, max = 255), # 30
+  Oceania=rgb(49,54,149, max = 255) # 2
+)
+
 x$fte <- c(
   red=rgb(255, 39, 0, max = 255),
   blue=rgb(0, 143, 213, max = 255),
@@ -471,6 +479,8 @@ x$seasons <- c(
   summer=rgb(154, 50, 205, max = 255),
   winter=rgb(255, 193, 37, max = 255)
   )
+x$countries <- c(
+)
 ## return
 x
 }

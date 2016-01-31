@@ -78,16 +78,21 @@ NULL
 #' @rdname anonymize
 #' @export
 `anonymize.default` <- function(.data, col.names = "V", row.names = "") {
-  .fac <- function(x) {
+  .tweak <- function(x) {
     if(is.factor(x)) {
       levels(x) <- sample(LETTERS, length(levels(x)))
+    }
+    else if(is.numeric(x)) {
+      x <- x/mean(x, na.rm=T)
+    } else {
+      x <- x/mean(x, na.rm=T)
     }
     return(x)
   }
   ## replace the variable names
   colnames(.data) <- paste(col.names, seq_len(ncol(.data)), sep = "")
   ## fudge any factor levels
-  df <- data.frame(lapply(.data,  .fac))
+  df <- data.frame(lapply(.data,  .tweak))
   ## replace rownames
   rownames(df) <- paste(row.names, seq_len(nrow(df)), sep = "")
   return(df)
