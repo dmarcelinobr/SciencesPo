@@ -8,18 +8,7 @@ options("R.methodsS3:checkImports:setGenericS3" = TRUE)
 setnames <- `names<-`
 setclass <- `class<-`
 
-#' @title Chain operator
-#' @description Chain operator.
-#' @name %>%
-#' @importFrom magrittr %>%
-#' @export %>%
-#' @keywords manipulation
-#' @rdname chain
-#' @usage x %>% f(y) is translated into f(x, y).
 NULL
-
-if (getRversion() >= "2.15.1")
-  globalVariables(c(".data", ".dp.main"))
 
 
 .onAttach <- function(...) {

@@ -24,7 +24,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Normal probability density function
+#' @title Normal Probability Density Function
 #'
 #' @description Computes the pdf at each of the values in \emph{x} using the normal distribution with mean \eqn{\mu = 0} and standard deviation \eqn{\sigma = 1}.
 #'
@@ -84,7 +84,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Dirichlet distribution
+#' @title Dirichlet Distribution
 #' @description Density function and random number generation for the Dirichlet distribution
 #' @param n number of random observations to draw.
 #' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.
@@ -93,7 +93,7 @@ NULL
 #' \code{log} returns the logarithm of the densities (therefore the log-likelihood) and \code{sum.up} returns the product or sum and thereby the likelihood or log-likelihood.
 #'
 #' @return
-#' the \code{rdirichlet} returns a matrix with n rows, each containing a single random number according to the supplied alpha vector or matrix.
+#' The \code{rdirichlet} returns a matrix with \code{n} rows, each containing a single random number according to the supplied alpha vector or matrix.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @keywords Distributions
 #' @examples
@@ -111,7 +111,7 @@ NULL
 #'
 #' # 2) A pratical example of usage:
 #' # A Brazilian face-to-face poll by Datafolha conducted on Oct 03-04
-#' # with 18,116 insterviews asking for their preferences for the
+#' # with 18,116 insterviews asking for their vote preferences among the
 #' # presidential candidates.
 #'
 #' ## First, draw a sample from the posterior
@@ -226,6 +226,7 @@ NULL
 NULL
 
 
+
 `dDirichlet` <- function(x, alpha, log = FALSE, sum = FALSE) {
   if (is.null(dim(x)))
     stop("x must be a matrix")
@@ -260,7 +261,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Binomial cumulative distribution function
+#' @title Binomial Cumulative Distribution Function
 #'
 #' @description Computes a binomial cdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}.
 #'
@@ -273,7 +274,7 @@ NULL
 #' trials = 10
 #' prob = c(.2,.25,.3,.35)
 #' success = 4
-#' binompdf(n = trials, p = prob, x = success)
+#' binomcdf(n = trials, p = prob, x = success)
 #' @export
 `binomcdf` <-
   function(n, p, x) {
@@ -285,7 +286,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Binomial probability density function
+#' @title Binomial Probability Density Function
 #'
 #' @description Computes the binomial pdf at each of the values in \code{x} using the corresponding number of trials in \code{n} and probability of success for each trial in \code{p}.
 #'
@@ -298,7 +299,7 @@ NULL
 #' trials = 10
 #' prob = c(.2,.25,.3,.35)
 #' success = 4
-#' binomcdf(n = trials, p = prob, x = success)
+#' binompdf(n = trials, p = prob, x = success)
 #'
 #' @export
 `binompdf` <-
@@ -306,3 +307,27 @@ NULL
     stats::dbinom(x, size = n, prob = p)
   }
 NULL
+
+
+
+################################################################################
+#
+# Function: runifint.R
+# Purpose:  To create a random uniform sample of integers.  Not exported.
+# Author:   Rob Carnell
+# Created:  26 May 05
+#
+# Variables:
+#	n is the number of samples
+#	min_int the lower bounds (inclusive)
+#   max_int the upper bounds (inclusive)
+#
+################################################################################
+
+runifint <- function(n=1, min_int=0, max_int=1)
+{
+  r <- runif(n, min=0, max=1)
+  int <- min_int + floor(r * (max_int + 1 - min_int))
+  int <- pmin(int, max_int)
+  return(int)
+}

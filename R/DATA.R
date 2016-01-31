@@ -538,6 +538,22 @@ NULL
 #'
 NULL
 
+
+#' @title A dataset that contains four test items
+#'
+#' @description A dataset with four test items used in SPSS to to compute Cronbach's alpha.
+#'
+#' \itemize{
+#' \item q1:q4 Numeric itens of a scale.
+#' }
+#' @docType data
+#' @keywords datasets
+#' @name alpha
+#' @usage data(alpha)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::alpha)} variables and \Sexpr{nrow(SciencesPo::alpha)} observations.
+#'
+NULL
+
 #' # setwd("~/SciencesPo/data")
 #' # system("cp Bush.txt Bush-cp.txt")
 #' # system("rm Bush-cp.txt.gz")

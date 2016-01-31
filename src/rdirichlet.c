@@ -2,7 +2,7 @@
  *
  * ddirichlet_log_vector ... RNG with a vector of alphas
  * ddirichlet_log_matrix ... RNG with a matrix of alphas
- * 
+ *
  * y ........ dirichlet-distributed matrix
  * alpha .... vector or matrix of alpha-values
  * rc ....... vector of number of rows and columns
@@ -11,9 +11,9 @@
 
 
 
-#include <R.h>
-#include <Rinternals.h>
-#include <Rmath.h>
+#include<R.h>
+#include<Rinternals.h>
+#include<Rmath.h>
 
 
 
@@ -22,19 +22,19 @@
 SEXP rdirichlet_vector(SEXP n, SEXP alpha){
   // helpers
   int v_n = asInteger(n);
-  
+
   int dims = length(alpha);
   double norming_constant;
-  
+
   // pointers
   SEXP real_alpha = PROTECT(coerceVector(alpha, REALSXP));
   double *p_alpha = REAL(real_alpha);
-  
+
   // check alphas ...
   for(int i = 0; i < dims; ++i){
     if(p_alpha[i] <= 0.0) error("alphas must be > 0");
   }
-  
+
   // output vector and pointer
   SEXP result = PROTECT(allocMatrix(REALSXP, v_n, dims));
   double *p_result = REAL(result);
@@ -57,9 +57,9 @@ SEXP rdirichlet_vector(SEXP n, SEXP alpha){
 
   // unprotect output vector and return
   UNPROTECT(2);
-  
+
   return result;
-  
+
 }
 
 
@@ -69,27 +69,27 @@ SEXP rdirichlet_vector(SEXP n, SEXP alpha){
 SEXP rdirichlet_matrix(SEXP n, SEXP alpha, SEXP alpha_rc){
   // helpers
   int v_n = asInteger(n);
-  
+
   SEXP int_alpha_rc = PROTECT(coerceVector(alpha_rc, INTSXP));
   int dims = INTEGER(int_alpha_rc)[1];
-  
+
   // pointers
   SEXP real_alpha = PROTECT(coerceVector(alpha, REALSXP));
   double *p_alpha = REAL(real_alpha);
-  
+
   // check alphas ...
   if(v_n != INTEGER(alpha_rc)[0]) error("n and alpha do not match");
   for(int i = 0; i < length(real_alpha); ++i){
     if(p_alpha[i] <= 0.0) error("alphas must be > 0");
   }
-  
+
   // output vector and pointer
   SEXP result = PROTECT(allocMatrix(REALSXP, v_n, dims));
   double *p_result = REAL(result);
 
   double norming_constant[v_n];
   for(int i = 0; i < v_n; ++i) norming_constant[i] = 0;
-  
+
   GetRNGstate();
 
   R_CheckUserInterrupt();
@@ -106,9 +106,9 @@ SEXP rdirichlet_matrix(SEXP n, SEXP alpha, SEXP alpha_rc){
       p_result[row + col * v_n] = p_result[row + col * v_n] / norming_constant[row];
     }
   }
-  
+
   // unprotect output vector and return
   UNPROTECT(3);
   return result;
-  
+
 }

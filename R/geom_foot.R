@@ -29,7 +29,8 @@
 #' theme_fte() +
 #' annotate("text",x=90,y=12,label="Demand") +
 #' annotate("text",x=80,y=23,label="Supply")
-#' geom_foot("danielmarcelino.github.io", color = "#77ab43", rotn = -90, just ="right" )
+#' geom_foot("danielmarcelino.github.io", color = "#77ab43",
+#'  rotn = -90, just ="right" )
 #'
 #' @keywords Graphs
 #'
@@ -38,7 +39,7 @@
 #' @export
 #'
 `geom_foot` <-
-  function(text=NULL, fontsize=10, color=NULL, rotn = 0, just = c("right", "bottom")) {
+  function(text=NULL, fontsize=NULL, color=NULL, rotn = 0, just = c("right", "bottom")) {
     if(!is.null(text)){
       text = paste(text)
     } else{
@@ -46,7 +47,7 @@
                    format(Sys.time(), "%d %b %Y"), sep = " " )
     }
     if(is.null(fontsize)){
-      fontsize = .75
+      fontsize = 7.5
     }
     if(is.null(color)){
       color = grDevices::grey(.65)

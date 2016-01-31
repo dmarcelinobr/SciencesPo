@@ -1,6 +1,6 @@
 #' @encoding UTF-8
 #' @title An S4 Class to Average Absolute Deviation
-#'
+#' @description An S4 Class to Average Absolute Deviation
 #' @slot estimate Estimated value.
 #'
 #' @export

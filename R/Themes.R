@@ -92,6 +92,21 @@ NULL
 
 
 
+theme_darkside = function(base_size = 12, font_family="serif") {
+  theme_bw(base_size) +
+    theme(text = element_text(family = font_family, color = "#ffffff"),
+          rect = element_rect(fill = "#000000", color = "#000000"),
+          plot.background = element_rect(fill = "#000000", color = "#000000"),
+          panel.background = element_rect(fill = "#000000", color = "#000000"),
+          plot.title = element_text(family = "sans"),
+          panel.grid = element_blank(),
+          panel.border = element_blank(),
+          axis.text = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank())
+}
+
+
 #' @title Themes for ggplot2 Graphs
 #'
 #' @description  Theme for plotting  with ggplot2.
@@ -100,6 +115,7 @@ NULL
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 13.
 #' @param colors Default colors used in the plot in the following order: background, lines, text, and title.
+#' @param margins The plot margins as top, right, bottom, left.
 #' @return The theme.
 #'
 #' @examples
@@ -107,29 +123,37 @@ NULL
 #'
 #' @export
 #' @aliases theme_538
-`theme_fte` <- function(legend = 'none', font_size = 12, font_family = 'sans', colors=c('#F0F0F0', '#D0D0D0', '#535353', '#3C3C3C') ){
-theme_grey(base_size = font_size, base_family = font_family) %+replace%
-    theme(
+`theme_fte` <- function(legend = 'none',
+                        font_size = 11,
+                        font_family = 'sans',
+                        colors=c('#F0F0F0', '#D9D9D9', '#737373', '#525252'),
+                        margins=c(0.2, 0.2, 0.3, 0.2) ){
+theme_bw(base_size = font_size, base_family = font_family) %+replace%
+theme(
       # Base elements which are not used directly but inherited by others
-
-      line = element_line(color = colors[2], size = 0.75,
+      line = element_line(color = colors[2], size = 0.50,
                           linetype = 1, lineend = "butt"),
       rect = element_rect(fill = colors[1], color = colors[1],
                           size = 0.5, linetype = 1),
       text = element_text(family = font_family, face = 'bold',
                           color = colors[3], size = font_size,
                           hjust = 0.5, vjust = 0.5, angle = 0,
-                          lineheight = 1, margin = ggplot2::margin(1,1,1,1), debug = FALSE),
+                          lineheight = 1,
+                          margin = ggplot2::margin(1,1,1,1),
+                          debug = FALSE),
       # Modified inheritance structure of text element
 plot.title = element_text(size = rel(1.5), family = '' ,
                                 face = 'bold', hjust = -0.05,
-                                vjust = 1.5, color = colors[4],
-                          margin = ggplot2::margin(), debug = FALSE),
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
+                                vjust = 1.25, color = colors[4],
+                          margin = ggplot2::margin(1,1,10,1),
+                          debug = FALSE),
+      axis.title.x = element_text(color = colors[4], vjust=0),
+      axis.title.y = element_text(angle=90, color = colors[4],
+                                  vjust=1.25),
       axis.text = element_text(),
       # Modified inheritance structure of line element
       axis.ticks =  element_line(),
+      panel.border=element_blank(),
       panel.grid.major =  element_line(),
       panel.grid.minor =  element_blank(),
       # Modified inheritance structure of rect element
@@ -140,26 +164,27 @@ plot.title = element_text(size = rel(1.5), family = '' ,
       legend.margin = grid::unit(font_size * 1.1, "points"),
       legend.key = element_rect(linetype = 0),
       legend.key.size = grid::unit(1.1, "lines"),
-legend.key.height = NULL,
+      legend.key.height = NULL,
       legend.key.width = NULL,
-legend.text = element_text(size = rel(1.1)),
+      legend.text = element_text(font_size *.95),
       legend.text.align = NULL,
-legend.title = element_text(size = rel(1), hjust = 0),
+      legend.title = element_text(size = font_size *.85),
       legend.title.align = NULL,
       legend.position = legend,
       legend.direction = NULL,
       legend.box = "vertical",
       legend.justification = "center",
-      #legend.key =  element_rect(color = '#D0D0D0'),
+      # legend.key =  element_rect(color = '#D0D0D0'),
       # Modifiying legend.position
-      complete = TRUE
-    )
+      complete = TRUE,
+plot.margin = grid::unit(c(0.2, 0.2, 0.3, 0.2), "cm"))
 }
 NULL
 
 #' @export
 #' @rdname theme_fte
 theme_538 <- theme_fte
+
 
 
 #' Create a Completely Empty Theme
@@ -258,71 +283,81 @@ x$pub$colors <-
     rgb(65, 68, 81, max = 255),
     rgb(143, 135, 130, max = 255),
     rgb(207, 207, 207, max = 255)),
-  trafficlight=c("#B10318",
-                   "#DBA13A",
-                   "#309343",
-                   "#D82526",
-                   "#FFC156",
-                   "#69B764",
-                   "#F26C64",
-                   "#FFDD71",
-                   "#9FCD99"),
-  bluered12=c("#2C69B0",
-      "#B5C8E2",
-      "#F02720",
-      "#FFB6B0",
-      "#AC613C",
-      "#E9C39B",
-      "#6BA3D6",
-      "#B5DFFD",
-      "#AC8763",
-      "#DDC9B4",
-      "#BD0A36",
-      "#F4737A"),
-  purplegray12=c("#7B66D2",
-      "#A699E8",
-      "#DC5FBD",
-      "#FFC0DA",
-      "#5F5A41",
-      "#B4B19B",
-      "#995688",
-      "#D898BA",
-      "#AB6AD5",
-      "#D098EE",
-      "#8B7C6E",
-      "#DBD4C5"),
-  greenorange12=c("#32A251",
-      "#ACD98D",
-      "#FF7F0F",
-      "#FFB977",
-      "#3CB7CC",
-      "#98D9E4",
-      "#B85A0D",
-      "#FFD94A",
-      "#39737C",
-      "#86B4A9",
-      "#82853B",
-      "#CCC94D"),
-  cyclic=c("#1F83B4",
-      "#1696AC",
-      "#18A188",
-      "#29A03C",
-      "#54A338",
-      "#82A93F",
-      "#ADB828",
-      "#D8BD35",
-      "#FFBD4C",
-      "#FFB022",
-      "#FF9C0E",
-      "#FF810E",
-      "#E75727",
-      "#D23E4E",
-      "#C94D8C",
-      "#C04AA7",
-      "#B446B3",
-      "#9658B1",
-      "#8061B4",
-      "#6F63BB"),
+  trafficlight=c(
+    rgb(177,3,24, max = 255),
+    rgb(219,161,58, max = 255),
+    rgb(48,147,67, max = 255),
+    rgb(216,37,38, max = 255),
+    rgb(255,193,86, max = 255),
+    rgb(105,183,100, max = 255),
+    rgb(242,108,100, max = 255),
+    rgb(255,221,113, max = 255),
+    rgb(159,205,153, max = 255)
+  ),
+  bluered12=c(
+    rgb(44,105,176, max = 255),
+    rgb(181,200,226, max = 255),
+    rgb(240,39,32, max = 255),
+    rgb(255,182,176, max = 255),
+    rgb(172,97,60, max = 255),
+    rgb(233,195,155, max = 255),
+    rgb(107,163,214, max = 255),
+    rgb(181,223,253, max = 255),
+    rgb(172,135,99, max = 255),
+    rgb(221,201,180, max = 255),
+    rgb(189,10,54, max = 255),
+    rgb(244,115,122, max = 255)
+    ),
+  purplegray12=c(
+    rgb(123,102,210, max = 255),
+    rgb(166,153,232, max = 255),
+    rgb(220,95,189, max = 255),
+    rgb(255,192,218, max = 255),
+    rgb(95, 90, 65, max = 255),
+    rgb(220,95,189, max = 255),
+    rgb(180,177,155, max = 255),
+    rgb(153,86,136, max = 255),
+    rgb(216,152,186, max = 255),
+    rgb(171,106,213, max = 255),
+     rgb(208,152,238, max = 255),
+     rgb(139,124,110, max = 255)
+  ),
+greenorange12=c(
+  rgb(50,162,81, max = 255),
+  rgb(172,217,141, max = 255),
+  rgb(255,127,15, max = 255),
+  rgb(255,185,119, max = 255),
+  rgb(60,183,204, max = 255),
+  rgb(152,217,228, max = 255),
+  rgb(184,90,13, max = 255),
+  rgb(255,217,74, max = 255),
+  rgb(57,115,124, max = 255),
+  rgb(134,180,169, max = 255),
+  rgb(130,133,59, max = 255),
+  rgb(204,201,77, max = 255)
+  ),
+  cyclic=c(
+    rgb(31,131,180, max = 255),
+    rgb(22,150,172, max = 255),
+    rgb(24,161,136, max = 255),
+    rgb(41,160,60, max = 255),
+    rgb(84,163,56, max = 255),
+    rgb(130,169,63, max = 255),
+    rgb(173,184,40, max = 255),
+    rgb(216,189,53, max = 255),
+    rgb(255,189,76, max = 255),
+    rgb(255,176,3, max = 255),
+    rgb(255,156,14, max = 255),
+    rgb(255,129,14, max = 255),
+    rgb(231,87,39, max = 255),
+    rgb(210,62,78, max = 255),
+    rgb(201,77,140, max = 255),
+    rgb(192,74,167, max = 255),
+    rgb(180,70,179, max = 255),
+    rgb(150,88,177, max = 255),
+    rgb(128,97,180, max = 255),
+    rgb(111,99,187, max = 255)
+    ),
   colorblind=c(
     rgb(0, 107, 164, max = 255),
     rgb(255, 128, 14, max = 255),
@@ -334,8 +369,52 @@ x$pub$colors <-
     rgb(162, 200, 236, max = 255),
     rgb(255, 188, 121, max = 255),
     rgb(207, 207, 207, max = 255)
-    )
+    ),
+bivariate1=c(
+  rgb(100, 172,190, max = 255),
+  rgb(98, 127,140, max = 255),
+  rgb(87, 66,73, max = 255),
+  rgb(176, 213,223, max = 255),
+  rgb(173, 158,165, max = 255),
+  rgb(152, 83,86, max = 255),
+  rgb(232, 232,232, max = 255),
+  rgb(228, 172,172, max = 255),
+  rgb(200, 90,90, max = 255)
+  ),
+bivariate2=c(
+  rgb(190, 100, 172, max = 255),
+  rgb(140, 98, 170, max = 255),
+  rgb(59, 73, 148, max = 255),
+  rgb(223, 176, 214, max = 255),
+  rgb(165, 173, 211, max = 255),
+  rgb(86, 152, 185, max = 255),
+  rgb(232, 232, 232, max = 255),
+  rgb(172, 228, 228, max = 255),
+  rgb(90, 200, 200, max = 255)
+  ),
+bivariate3=c(
+  rgb(115,174,128, max = 255),
+  rgb(90,145,120, max = 255),
+  rgb(42,90,91, max = 255),
+  rgb(184,214,190, max = 255),
+  rgb(144,178,179, max = 255),
+  rgb(86,121,148, max = 255),
+  rgb(232,232,232, max = 255),
+  rgb(181,192,218, max = 255),
+  rgb(108,131,181, max = 255)
+),
+bivariate4=c(
+  rgb(153,114,175, max = 255),
+  rgb(151,107,130, max = 255),
+  rgb(128,77,54, max = 255),
+  rgb(203,184,215, max = 255),
+  rgb(200,173,160, max = 255),
+  rgb(175,142,83, max = 255),
+  rgb(232,232,232, max = 255),
+  rgb(228,217,172, max = 255),
+  rgb(200,179,90, max = 255)
   )
+)
 
 x$parties <- list()
 
@@ -420,11 +499,15 @@ NULL
 #' show_col(pub_color_pal("tableau10")(10))
 #' show_col(pub_color_pal("tableau10medium")(10))
 #' show_col(pub_color_pal("tableau10light")(10))
+#' show_col(pub_color_pal("trafficlight")(9))
 #' show_col(pub_color_pal("cyclic")(20))
 #' show_col(pub_color_pal("purplegray12")(12))
 #' show_col(pub_color_pal("greenorange12")(12))
 #' show_col(pub_color_pal("bluered12")(12))
-#' show_col(pub_color_pal("trafficlight")(9))
+#' show_col(pub_color_pal("bivariate1")(9))
+#' show_col(pub_color_pal("bivariate2")(9))
+#' show_col(pub_color_pal("bivariate3")(9))
+#' show_col(pub_color_pal("bivariate4")(9))
 #'
 #' @export
 #'
@@ -594,6 +677,10 @@ NULL
 scale_color_parties <- scale_colour_parties
 
 
+# http://www.joshuastevens.net/cartography/make-a-bivariate-choropleth-map/
+# http://www.personal.psu.edu/cab38/ColorSch/SchHTMLs/CBColorSeqSeq.html
+# http://www.personal.psu.edu/cab38/ColorSch/Schemes.html
+# http://andywoodruff.com/blog/value-by-alpha-maps/
 # http://color.adobe.com/
 # http://www.farb-tabelle.de/en/rgb2hex.htm?
 # "#9b59b6", "#3498db", "#95a5a6", "#e74c3c", "#34495e", "#2ecc71" "FF7E0D"

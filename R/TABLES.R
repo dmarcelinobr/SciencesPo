@@ -54,7 +54,7 @@
       stop("'x' must be a vector")
 
     if (inherits(x, "table")) {
-      tab <- x
+      TABLE <- x
 
     } else {
       if (is.numeric(x)) {
@@ -68,7 +68,7 @@
           )
       }
 
-      tab <- base::table(x, useNA = useNA)
+      TABLE <- table(x, useNA = useNA)
     }
 
     # how should the table be sorted, by name, level or frq? (NULL means "desc")
@@ -82,26 +82,26 @@
       }
       ,
       name   = {
-        tab <- tab[rownames(tab)]
+        TABLE <- TABLE[rownames(TABLE)]
       }
       ,
       asc    = {
-        tab <- sort(tab)
+        TABLE <- sort(TABLE)
       }
       ,
       desc   = {
-        tab <- -sort(-tab)
+        TABLE <- -sort(-TABLE)
       }
     )
 
-    ptab <- base::prop.table(tab)
-    names(tab)[is.na(names(tab))] <- "<NA>"
+    ptab <- base::prop.table(TABLE)
+    names(TABLE)[is.na(names(TABLE))] <- "<NA>"
     out <- data.frame(
-      class = names(tab),
-      Freq = as.vector(tab[]),
+      class = names(TABLE),
+      Freq = as.vector(TABLE[]),
       Prop = round(as.vector(ptab[]), digits)
     )
-    #cumfreq = cumsum(tab[]), cumperc = round(cumsum(ptab[]),digits))
+    #cumfreq = cumsum(TABLE[]), cumperc = round(cumsum(ptab[]),digits))
     rownames(out) <- NULL # enumerate from 1:nrow(z)
     class(out) <- c("SciencesPo", "freq", "data.frame")
     return(out)

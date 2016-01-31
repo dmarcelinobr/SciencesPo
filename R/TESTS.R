@@ -1408,38 +1408,48 @@ NULL
 
 
 
-#' @title Cronbach's Alpha for a matrix or data frame
-#' @name cronbach
-#' @description This function calculates the Cronbach's alpha
-#'  value of a data frame or matrix.
+#' @title Cronbach's Alpha
+#' @name cronbach.alpha
+#' @description Computes the Cronbach's alpha--a measure of internal consistency ("reliability") for a data frame or matrix.
 #'
+#' @param .data \code{data.frame} or matrix with more than 2 columns.
+#' @return The Cronbach's alpha value for \code{.data}.
+#' @details Rows with \code{NA} values will be ommitted.
 #'
+#' @references
+#' Cronbach, L. J. (1951). Coefficient alpha and the internal structure of tests. Psychometrika. 16, 297-334.
 #'
-#' @param df \code{data.frame} or matrix with more than 2 columns.
-#' @return The Cronbach's alpha value for \code{df}.
+#' Tavakol, M., & Dennick, R. (2011). Making sense of Cronbach's alpha. International Journal of Medical Education, 2, 53-55.
 #'
 #' @importFrom stats na.omit var
+#' @note A reliability coefficient of .70 or higher is considered "acceptable" in most social science research situations.
+#'
+#' @examples
+#' data(alpha)
+#' cronbach.alpha(alpha)
+#'
+#' # The alpha coefficient for the four items is .839,
+#' # suggesting that the items have relatively high internal
+#' # consistency.
+#'
 #' @export
-`cronbach` <- function(df) {
-  df <- stats::na.omit(df)
+`cronbach.alpha` <- function(.data) {
+  df <- stats::na.omit(.data)
   if (is.null(ncol(df)) || ncol(df) < 2) {
     warning("Too less columns in this factor to calculate alpha value!",
             call. = F)
     return(NULL)
   }
-  return(dim(df)[2] / (dim(df)[2] - 1) * (1 - sum(apply(df, 2, var)) / stats::var(rowSums(df))))
+  alpha = dim(df)[2] / (dim(df)[2] - 1) * (1 - sum(apply(df, 2, var)) / stats::var(rowSums(df)))
+  return(alpha)
 }
 NULL
 
 
 
-
-
-
-
-#' Returns significance level.
+#' @title Returns significance level.
 #'
-#' Returns the significance level as stars, or NA if a non-numeric value is
+#' @description Returns the significance level as stars, or NA if a non-numeric value is
 #' passed in.
 #'
 #' @param x p-value.

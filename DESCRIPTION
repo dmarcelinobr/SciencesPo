@@ -22,7 +22,6 @@ Imports:
     data.table (>= 1.9.4),
     grid (>= 3.0.0),
     gridExtra,
-    magrittr,
     stringr,
     shiny,
     lazyeval,

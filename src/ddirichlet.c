@@ -18,7 +18,6 @@
 
 
 
-
 SEXP ddirichlet_log_vector(SEXP y, SEXP alpha, SEXP rc){
   // helpers
   double a_sum = 0.0, aux = 0.0, norm_const;

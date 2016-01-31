@@ -1,7 +1,7 @@
 #' @encoding UTF-8
-#' @title Plot a barplot with ggplot2
+#' @title Barplot with ggplot2
 #'
-#' @description Plot a barplot with ggplot2.
+#' @description Plots a barplot with ggplot2.
 #'
 #' @param data The data frame.
 #' @param x.var The name of column containing x variable. Default value is NULL.
@@ -93,6 +93,23 @@ bar.plot <- function(data,
 }
 
 
+
+
+
+library(ggplot2)
+
+library(scales)
+
+perbar=function(xx, stat=c("bin", "count")){
+  stat = match.arg(stat)
+  p=ggplot2::ggplot(data=data.frame(xx),aes(x=xx))+
+    ggplot2::geom_bar(aes(y = (..count..)),fill="orange")+
+    ggplot2::geom_text(aes(y = (..count..),label =ifelse((..count..)==0,"",scales::percent((..count..)/sum(..count..)))), size=8, stat=stat,colour="black")
+
+  p
+}
+
+perbar(mtcars$cyl, "count")+theme_grey()+coord_flip()
 
 
 
