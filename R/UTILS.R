@@ -48,9 +48,6 @@ NULL
 
 
 
-
-
-
 #' @title To Make Anonymous a Data Frame
 #'
 #' @description Replaces factor and character variables by a
@@ -59,6 +56,10 @@ NULL
 #' @param col.names A string for column names.
 #' @param row.names A string for rown names, default is empty.
 #' @return An object of the same type as \code{.data}.
+#'
+#' @details Strings will is replaced by an algorithm with 52/102 chance of
+#' choosing a letter and 50/102 chance of choosing a number; then it joins
+#' everything in a 5-digits long character string.
 #'
 #' @examples
 #' dt <- data.frame(
@@ -80,12 +81,14 @@ NULL
 `anonymize.default` <- function(.data, col.names = "V", row.names = "") {
   .tweak <- function(x) {
     if(is.factor(x)) {
-      levels(x) <- sample(LETTERS, length(levels(x)))
+      levels(x) <- sample(LETTERS, length(levels(x)), replace=TRUE)
     }
     else if(is.numeric(x)) {
       x <- x/mean(x, na.rm=T)
     } else {
-      x <- x/mean(x, na.rm=T)
+      x <- replicate(length(x),
+                     paste(sample(c(rep(0:9,each=5),LETTERS,letters), 5,
+                                  replace=TRUE), collapse=""))
     }
     return(x)
   }
