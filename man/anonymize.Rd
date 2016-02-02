@@ -23,6 +23,11 @@ An object of the same type as \code{.data}.
 Replaces factor and character variables by a
 combination of letters and numbers. Numeric columns are also transformed, see details.
 }
+\details{
+Strings will is replaced by an algorithm with 52/102 chance of
+choosing a letter and 50/102 chance of choosing a number; then it joins
+everything in a 5-digits long character string.
+}
 \examples{
 dt <- data.frame(
 Z = sample(LETTERS,10),
