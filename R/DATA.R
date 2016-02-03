@@ -654,34 +654,6 @@ NULL
 
 
 
-#' @title Milgram experiment
-#'
-#' @description Attitudes towards ethics of a famous Milgram experiment. Milgram's
-#' subjects were askedto monitor the answers of a "learner" and to push a button
-#' to deliver shocks whenever the learner gave a wrong answer. The more wrong
-#' answers, the more powerful the shock. Even Milgram himself was surprised by
-#' the results: Every one of his subjects ended up delivering what they
-#' thought was a dangerous 300-volt shock to a slow "learner" as punishment for
-#' repeated wrong answers.
-#'
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Milgram)} variables and \Sexpr{nrow(SciencesPo::Milgram)} observations.
-#' \itemize{
-#' \item Results Treatment group: \code{Actual}, \code{Complied}, or \code{Refused}.
-#' \item Score Ethical score from 1 (not at all ethical) to 9 (completely ethical).
-#' }
-#'  @source
-#'  \emph{An experimental study of attitudes toward deception} by Mary Ann DiMatteo.
-#'  Unpublished manuscript, Dep. of Psychology and Social Relations, Harvard University (1972).
-#'
-#' @docType data
-#' @keywords datasets
-#' @name Milgram
-#' @usage data(Milgram)
-#'
-NULL
-
-
-
 #' @title Measurement System Units
 #'
 #' @description A dataset with measurement system units.

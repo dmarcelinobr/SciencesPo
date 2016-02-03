@@ -4,20 +4,20 @@
 \alias{hash}
 \title{Create useless hashes}
 \usage{
-hash(j = 50, i = 4)
+hash(cols = 50, rows = 2)
 }
 \arguments{
-\item{j}{How many columns of hashes}
+\item{cols}{How many columns of hashes}
 
-\item{i}{How many rows of hashes}
+\item{rows}{How many rows of hashes}
 }
 \description{
-A function to create useless hashes (####) for ease of commenting
+A function to create useless hashes (####) for ease of commenting.
 }
 \examples{
-hash(j=100, i=11)
+hash(cols=50, rows=1)
 }
 \author{
-Dustin Fife
+Daniel Marcelino
 }
 

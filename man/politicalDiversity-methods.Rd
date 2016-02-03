@@ -52,7 +52,7 @@ C <- c(.55,.45);
 politicalDiversity(A)
 politicalDiversity(B)
 
-# Using Grigorii Golosov method gives:
+# Using the method proposed by Golosov gives:
 politicalDiversity(B, index="golosov")
 politicalDiversity(C, index="golosov")
 
@@ -62,17 +62,6 @@ US1980 <- c("Democratic"=0.410, "Republican"=0.507,
 "Others"=0.003)
 
 politicalDiversity(US1980)
-
-politicalDiversity(US1980, index= "herfindahl")
-
-politicalDiversity(US1980, index = "H") # will match Herfindahl
-
-# The 1999 Finland election:
-votes_1999 <- c(612963, 600592, 563835,
-291675, 194846, 137330, 111835, 28084, 26440, 28549, 20442,
-10378, 10104, 5451, 5194, 4481, 3903, 3455, 21734)
-
-seats_1999 <- c(51, 48, 46, 20, 11, 11, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 # 2010 Brazilian legislative election
 
