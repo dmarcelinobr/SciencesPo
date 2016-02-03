@@ -25,14 +25,15 @@
 #' w <-sample(4,10, TRUE)
 #' x <- sample(10, 1000, replace=TRUE, prob=w)
 #' skewness(x, type = 1)
+#' skewness(x, type = 2)
 #' skewness(x)
-#' skewness(x, type = 3)
+#'
 #'
 #' @export
 #' @importFrom stats sd
 #'
 `skewness` <-
-  function (x, na.rm = TRUE, type = 2)
+  function (x, na.rm = TRUE, type = 3)
   {
     if (length(dim(x)) == 0) {
       if (na.rm) {
@@ -113,14 +114,15 @@ NULL
 #' w<-sample(4,10, TRUE)
 #' x <- sample(10, 1000, replace=TRUE, prob=w)
 #'
+#' kurtosis(x, type=1)
 #' kurtosis(x, type=2)
+#' kurtosis(x)
 #'
-#' kurtosis(x, type=3)
 #'
 #'
 #' @export
 `kurtosis` <-
-  function (x, na.rm = FALSE, type = 2)
+  function (x, na.rm = FALSE, type = 3)
   {
     if (any(i.na <- is.na(x))) {
       if (na.rm)

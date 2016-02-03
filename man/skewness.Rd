@@ -5,7 +5,7 @@
 \alias{skewness}
 \title{Compute the Skewness}
 \usage{
-skewness(x, na.rm = TRUE, type = 2)
+skewness(x, na.rm = TRUE, type = 3)
 }
 \arguments{
 \item{x}{a numeric vector containing the values whose skewness is to be computed.}
@@ -32,8 +32,9 @@ The skewness is a measure of symmetry distribution. Intuitively, negative skewne
 w <-sample(4,10, TRUE)
 x <- sample(10, 1000, replace=TRUE, prob=w)
 skewness(x, type = 1)
+skewness(x, type = 2)
 skewness(x)
-skewness(x, type = 3)
+
 
 }
 \author{

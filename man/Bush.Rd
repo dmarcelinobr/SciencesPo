@@ -18,5 +18,12 @@ data(Bush)
 \description{
 Approval ratings for George W. Bush.
 }
+\details{
+A data set of approval ratings of George Bush over the time of
+ his presidency, as reported by several agencies. Most polls were
+ of size approximately 1,000 so the margin of error is about 3 percentage points.
+ @source
+ \url{http://www.pollingreport.com/BushJob.htm}
+}
 \keyword{datasets}
 

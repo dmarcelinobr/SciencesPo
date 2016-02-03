@@ -511,10 +511,172 @@ NULL
 #' \item disapprove. Percent which disapprove of the president.
 #' \item undecided. Percent undecided about the president.
 #' }
+#' @details A data set of approval ratings of George Bush over the time of
+#'  his presidency, as reported by several agencies. Most polls were
+#'  of size approximately 1,000 so the margin of error is about 3 percentage points.
+#'  @source
+#'  \url{http://www.pollingreport.com/BushJob.htm}
+#'
 #' @docType data
 #' @keywords datasets
 #' @name Bush
 #' @usage data(Bush)
+#'
+NULL
+
+
+
+#' @title Polls for 2008 U.S. presidential election
+#'
+#' @description Polls for 2008 U.S. presidential election. hese data include
+#' all presidential polls reported on the internet site pollster.com
+#' that were taken between August 29th, when John Mc-Cain announced
+#' that Sarah Palin would be his running mate as the Republican nominee for vice
+#' president, and the end of September.
+#'
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Pollster08)} variables and \Sexpr{nrow(SciencesPo::Pollster08)} observations.
+#' \itemize{
+#' \item PollTaker Polling organization.
+#' \item PollDates Dates the poll data were collected.
+#' \item MidDate Midpoint of the polling period.
+#' \item Days Number of days after August 28th (end of Democratic convention).
+#' \item n Sample size for the poll.
+#' \item Pop \code{A}=all, \code{LV}=likely voters, \code{RV}=registered voters.
+#' \item McCain Percent supporting John McCain.
+#' \item Obama Percent supporting Barak Obama.
+#' \item Margin Obama percent minus McCain percent.
+#' \item Charlie Indicator for polls after Charlie Gibson interview with VP candidate Sarah Palin (9/11).
+#' \item Meltdown Indicator for polls after Lehman Brothers bankruptcy (9/15).
+#' }
+#'  @source
+#'  \url{http://www.pollster.com}
+#'
+#' @docType data
+#' @keywords datasets
+#' @name Pollster08
+#' @usage data(Pollster08)
+#'
+NULL
+
+
+
+
+#' @title 2008 U.S. presidential election
+#'
+#' @description State-by-state information from the 2008 U.S. presidential election.
+#'
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Election08)} variables and \Sexpr{nrow(SciencesPo::Election08)} observations.
+#' \itemize{
+#' \item State Name of the state.
+#' \item Abr Abbreviation for the state.
+#' \item Income Per capita income in the state as of 2007 (in dollars).
+#' \item HS Percentage of adults with at least a high school education.
+#' \item BA Percentage of adults with at least a college education.
+#' \item Dem.Rep Difference in \%Democrat-\%Republican (according to 2008 Gallup survey).
+#' \item ObamaWin \code{1}= Obama (Democrat) wins state in 2008 or \code{0}=McCain (Republican wins).
+#' }
+#'  @source
+#' State income data from: Census Bureau Table 659. Personal Income Per Capita (in 2007).
+#' High school data from: U.S. Census Bureau, 1990 Census of Population,
+#' {http://nces.ed.gov/programs/digest/d08/tables/dt08_011.asp}.
+#' College data from: Census Bureau Table 225. Educational Attainment by State (in 2007)
+#'  Democrat and Republican:
+#'  \url{http://www.gallup.com/poll/114016/state-states-political-party-affiliation.aspx}
+#' @docType data
+#' @keywords datasets
+#' @name Election08
+#' @usage data(Election08)
+#'
+NULL
+
+
+
+#' @title Data on religiosity of countries
+#'
+#' @description Data from the 2007 Spring Survey conducted through the Pew Global Attitudes Project.
+#'
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::ReligionGDP)} variables and \Sexpr{nrow(SciencesPo::ReligionGDP)} observations.
+#' \itemize{
+#' \item Country Name of country.
+#' \item Religiosity A measure of degree of religiosity for residents of the country.
+#' \item GDP Per capita Gross Domestic Product in the country.
+#' \item Africa Indicator for countries in Africa.
+#' \item EastEurope Indicator for countries in Eastern Europe.
+#' \item MiddleEast Indicator for countries in the Middle East.
+#' \item Asia Indicator for countries in Asia.
+#' \item WestEurope Indicator for countries in Western Europe.
+#' \item Americas Indicator for countries in North/South America.
+#' }
+#'  @source
+#'  The Pew Research Center's Global Attitudes Project surveyed
+#'  people around the world and asked (among many other questions) whether they agreed that "belief
+#'  in God is necessary for morality," whether religion is very important in their lives, and
+#'  whether the at least once per day. The variable Religiosity is the sum of the percentage
+#'  of positive responses on these three items, measured in each of 44 countries. The dataset also
+#'   includes the per capita GDP for each country and indicator variables that record the part of the world the country is in.
+#'  \url{http://www.pewglobal.org}
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ReligionGDP
+#' @usage data(ReligionGDP)
+NULL
+
+
+
+#' @title Poll attitudes towards British trade unions
+#'
+#' @description The British polling company Ipsos MORI conducted several
+#' opinion polls in the UK between 1975 and 1995 in which they asked whether
+#' people agree or disagree with the statement "Trade unions have too much
+#' power in Britain today".
+#'
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Unions)} variables and \Sexpr{nrow(SciencesPo::Unions)} observations.
+#' \itemize{
+#' \item Date Month of the poll \code{Aug-77} to \code{Sep-79}.
+#' \item AgreePct Percent who agree (unions have too much power).
+#' \item DisagreePct Percent who disagree.
+#' \item NetSupport DisagreePct-AgreePct.
+#' \item Months Months since August 1975.
+#' \item Late \code{1}=after 1986 or \code{0}=before 1986.
+#' \item Unemployment Unemployment rate.
+#' }
+#'  @source
+#'  \url{http://www.ipsos-mori.com/researchpublications/researcharchive/poll.aspx?oItemID=94}
+#'
+#' @docType data
+#' @keywords datasets
+#' @name Unions
+#' @usage data(Unions)
+#'
+NULL
+
+
+
+
+#' @title Milgram experiment
+#'
+#' @description Attitudes towards ethics of a famous Milgram experiment. Milgram's
+#' subjects were askedto monitor the answers of a "learner" and to push a button
+#' to deliver shocks whenever the learner gave a wrong answer. The more wrong
+#' answers, the more powerful the shock. Even Milgram himself was surprised by
+#' the results: Every one of his subjects ended up delivering what they
+#' thought was a dangerous 300-volt shock to a slow "learner" as punishment for
+#' repeated wrong answers.
+#'
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Milgram)} variables and \Sexpr{nrow(SciencesPo::Milgram)} observations.
+#' \itemize{
+#' \item Results Treatment group: \code{Actual}, \code{Complied}, or \code{Refused}.
+#' \item Score Ethical score from 1 (not at all ethical) to 9 (completely ethical).
+#' }
+#'  @source
+#'  \emph{An experimental study of attitudes toward deception} by Mary Ann DiMatteo.
+#'  Unpublished manuscript, Dep. of Psychology and Social Relations, Harvard University (1972).
+#'
+#' @docType data
+#' @keywords datasets
+#' @name Milgram
+#' @usage data(Milgram)
 #'
 NULL
 
@@ -539,6 +701,8 @@ NULL
 NULL
 
 
+
+
 #' @title A dataset that contains four test items
 #'
 #' @description A dataset with four test items used in SPSS to to compute Cronbach's alpha.
@@ -559,3 +723,4 @@ NULL
 #' # system("rm Bush-cp.txt.gz")
 #' # system("gzip Bush.txt")
 #' # system("rm Bush-cp.txt")
+

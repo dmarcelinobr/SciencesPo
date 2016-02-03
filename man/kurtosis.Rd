@@ -5,7 +5,7 @@
 \alias{kurtosis}
 \title{Compute the Kurtosis}
 \usage{
-kurtosis(x, na.rm = FALSE, type = 2)
+kurtosis(x, na.rm = FALSE, type = 3)
 }
 \arguments{
 \item{x}{a numeric vector}
@@ -31,9 +31,10 @@ In a similar way of skewness, kurtosis measures the peakedness of a data distrib
 w<-sample(4,10, TRUE)
 x <- sample(10, 1000, replace=TRUE, prob=w)
 
+kurtosis(x, type=1)
 kurtosis(x, type=2)
+kurtosis(x)
 
-kurtosis(x, type=3)
 
 
 }
