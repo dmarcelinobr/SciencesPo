@@ -29,6 +29,7 @@ Imports:
 Suggests:
     testthat,
     scales,
+    extrafont,
     knitr
 VignetteBuilder: knitr
 LazyData: yes

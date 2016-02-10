@@ -9,14 +9,14 @@ farina(v, s, ...)
 farina(v, s, ...)
 }
 \arguments{
-\item{v}{A numeric vector of data values for votes each political party obtained.}
+\item{v}{A numeric vector with the percentage share of votes obtained by each party.}
 
-\item{s}{A numeric vector of data values for seats each political party obtained, the election outcome as seats.}
+\item{s}{A numeric vector with the percentage share of seats obtained by each party.}
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
 \value{
-A single score given the votes each party received and seats obtained.
+A single score.
 }
 \description{
 Calculates the Farina index also referred to as the cosine proportionality score based on a vector of votes and a vector for the electoral outcome.
@@ -37,6 +37,6 @@ Daniel Marcelino \email{dmarcelino@live.com}
 Koppel, M., and A. Diskin. (2009) Measuring disproportionality, volatility and malapportionment: axiomatization and solutions. Social Choice and Welfare 33, no. 2: 281-286.
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+\code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 }
 

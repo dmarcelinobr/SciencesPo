@@ -82,6 +82,15 @@ naathenb <- function(a, b) {
 
 "%^^%" <- naathenb
 
+# Exponential movin average weights
+emaweights<-function(m)
+{
+  alpha<-2/(m+1)
+  i<-1:m
+  sm<-sum((alpha*(1-alpha)^(1-i)))
+  return(((alpha*(1-alpha)^(1-i)))/sm)
+}
+
 
 
 # Adds extra habilities to the base match.arg function:

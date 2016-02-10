@@ -5,22 +5,19 @@
 \alias{theme_pub}
 \title{The Default Theme}
 \usage{
-theme_pub(legend = "bottom", font_family = "sans", font_size = 13,
-  line_width = 0.5, axis.line.x = element_line(),
-  axis.line.y = element_blank())
+theme_pub(legend = "bottom", base_size = 13, base_family = "",
+  line_width = 0.5, axis.line = element_line())
 }
 \arguments{
 \item{legend}{Enables to set legend position, default is "bottom".}
 
-\item{font_family}{Default font family.}
+\item{base_size}{Overall font size. Default is 14.}
 
-\item{font_size}{Overall font size. Default is 14.}
+\item{base_family}{Default font family.}
 
 \item{line_width}{Default line size.}
 
-\item{axis.line.x}{Enables to set x axis line.}
-
-\item{axis.line.y}{Enables to set y axis line.}
+\item{axis.line}{Enables to set x and y axis lines.}
 }
 \value{
 The theme.
@@ -31,8 +28,12 @@ set to default for all subsequent graphs made with ggplot2.
 }
 \examples{
 ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
-geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_width=1)
+geom_freqpoly(stat="count",size=2) + theme_pub(line_width=2.5)
 
+ggplot(diamonds,aes(cut, group=1)) +
+geom_bar()+
+geom_freqpoly(stat="count",size=2) +
+theme_pub(base_family='serif')
 dat <- data.frame()
 for(i in 1:4)
 dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))

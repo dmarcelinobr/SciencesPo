@@ -22,5 +22,7 @@ The theme created by this function shows nothing but the plot panel.
 qplot(1:10, (1:10)^2) + theme_blank()
 # remaining padding removed
 qplot(1:10, (1:10)^2) + theme_blank() + labs(x = NULL, y = NULL)
+# Check that it is a complete theme
+attr(theme_blank(), "complete")
 }
 

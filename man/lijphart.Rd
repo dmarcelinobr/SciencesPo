@@ -9,14 +9,14 @@ lijphart(v, s, ...)
 lijphart(v, s, ...)
 }
 \arguments{
-\item{v}{A numeric vector of data values for votes each political party obtained.}
+\item{v}{A numeric vector with the percentage share of votes obtained by each party.}
 
-\item{s}{A numeric vector of data values for seats each political party obtained, the election outcome as seats.}
+\item{s}{A numeric vector with the percentage share of seats obtained by each party.}
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
 \value{
-A single score given the votes each party received and seats obtained.
+A single score.
 }
 \description{
 Calculates the Lijphart index of proportionality based on a vector of votes and a vector for the electoral outcome.
@@ -33,6 +33,6 @@ lijphart(pvotes, pseats)
 Daniel Marcelino \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+\code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 

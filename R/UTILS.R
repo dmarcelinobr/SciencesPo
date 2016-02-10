@@ -422,6 +422,8 @@ orderedAxis<-function(data, axis, column)
 NULL
 
 
+
+
 ##' Generate a sequence of column labels to match Excel's naming
 ##'
 ##' Excel columns are labeled with letters (e.g., A, B, C, ... AA, AB, AC, etc). Given an integer

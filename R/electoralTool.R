@@ -24,7 +24,7 @@
 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{grofman}}, \code{\link{gallagher}}, \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{rae}},  \code{\link{rose}}, \code{\link{farina}}, \code{\link{grofman}}, \code{\link{gallagher}}, \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
 #'
@@ -118,20 +118,143 @@ NULL
 
 
 
+#' @title Rose Index of Proportionality
+#'
+#' @description Calculates the Rose index of proportionality to show the relationship of votes to seats. The Rose index is a standardized version of the Loosemore-Hanby index.
+#'
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
+#' @param \dots Additional arguements (currently ignored)
+#' @details The score is calculated  as the difference between a party's
+#'  percentage share of the vote and its percentage share of the total seats
+#'  in Parliament, summed, divided by two and subtracted from 100. Theoretically it can range from 0 to 100.
+#' @return A single score.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @seealso  \code{\link{loosemore.hanby}}, \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#'
+#' @references
+#' Rose, Richard, Neil Munro and Tom Mackie (1998) \emph{ Elections in Central and Eastern Europe Since 1990.} Glasgow: Centre for the Study of Public Policy, University of Strathclyde.
+#'
+#'  @examples
+#' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' rose(pvotes, pseats)
+#'
+#' @export
+#' @rdname rose
+`rose`<- function(v, s, ...) UseMethod("rose")
+#' @export
+#' @rdname rose
+`rose` <-function(v, s, ...){
+  idx <- 100-(sum(abs(v-s))/2)
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- rose function
+NULL
+
+
+
+
+
+
+
+
+#' @title Rae Index of Disproportionality
+#'
+#' @description Calculates the Rae index of disproportionality.
+#'
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
+#' @param \dots Additional arguements (currently ignored)
+#'
+#' @details The score is calculated as the sum of the absolute differences \code{|v-s|} divided by the number of parties.
+#' @return A single score (The Rae's index or Rae's index of disproportionality).
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @seealso  \code{\link{rae.inv}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#'
+#' @references
+#' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
+#'
+#'  @examples
+#' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' rae(pvotes, pseats)
+#'
+#' @export
+#' @rdname rae
+`rae`<- function(v, s, ...) UseMethod("rae")
+
+#' @export
+#' @rdname rae
+`rae` <-function(v, s, ...){
+  idx=(sum(abs(v-s))/length(v))
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- rae function
+NULL
+
+
+
+
+
+#' @title The Inverse Rae index
+#'
+#' @description Calculates the inverse of the Rae index.
+#'
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
+#' @param \dots Additional arguements (currently ignored)
+#'
+#' @details The score is calculated as 1 minus the sum of the absolute differences \code{|Z-R|} divided by the number of parties.
+#' @return A single score.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @seealso  \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#'
+#' @references
+#' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
+#'
+#'  @examples
+#' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' rae.inv(pvotes, pseats)
+#'
+#' @export
+#' @rdname rae.inv
+`rae.inv`<- function(v, s, ...) UseMethod("rae.iv")
+
+#' @export
+#' @rdname rae.inv
+`rae.inv` <-function(v, s, ...){
+  idx=1-(sum(abs(v-s))/length(v))
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- rae.inv function
+NULL
+
+
+
 #' @title Gallagher Index
 #'
 #' @description Calculates the Gallagher index of LSq index.
 #'
-#' @param v A numeric vector of data values for votes each political party obtained.
-#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
 #' @param \dots Additional arguements (currently ignored)
 #'
-#' @details The representation score is calculated as: sqrt(sum((Z-R)^2)/2).
-#' @return A single score (The Gallagher's Representation Score.) given the votes each party received and seats obtained.
-#'
+#' @details The score is calculated as: sqrt(sum((v_{i}-s{i})^2)/2).
+#' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
@@ -159,19 +282,58 @@ NULL
 
 
 
+#' @title Inverse of Gallagher Index
+#'
+#' @description Calculates the inverted Gallagher index or 1 - the Gallagher index.
+#'
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
+#' @param \dots Additional arguements (currently ignored)
+
+#' @details The score is calculated as: 1 - sqrt(sum((v_{i}-s{i})^2)/2).
+#' @return A single score.
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @examples
+#'
+#' # 2012 Queensland state elecion:
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' gallagher.inv(pvotes, pseats)
+#'
+#' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#'
+#' @export
+#' @rdname gallagher.inv
+`gallagher.inv` <-function(v, s, ...) UseMethod("gallagher.inv")
+
+
+#' @export
+#' @rdname gallagher.inv
+`gallagher.inv` <-function(v, s, ...){
+  V <- mean(v)
+  S <- mean(s)
+  idx <- sum((v-V) * (s-S))/sum((s-S)^2)
+  idx <- (1 - idx)
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- gallagher.inv function
+NULL
+
+
+
 #' @title Lijphart Index of Proportionality
 #'
 #' @description Calculates the Lijphart index of proportionality based on a vector of votes and a vector for the electoral outcome.
 #'
-#' @param v A numeric vector of data values for votes each political party obtained.
-#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
 #' @param \dots Additional arguements (currently ignored)
 #'
-#' @return A single score given the votes each party received and seats obtained.
-#'
+#' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @examples
 
@@ -201,16 +363,15 @@ NULL
 #'
 #' @description Calculates the Grofman index of proportionality based on a vector of votes and a vector for the electoral outcome.
 #'
-#' @param v A numeric vector of data values for votes each political party obtained.
-#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
 #' @param \dots Additional arguements (currently ignored)
 #'
-#' @return A single score given the votes each party received and seats obtained.
-#'
+#' @return A single score.
 #'  @references
 #' Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
@@ -239,13 +400,12 @@ NULL
 #' @title Farina Index
 #'
 #' @description Calculates the Farina index also referred to as the cosine proportionality score based on a vector of votes and a vector for the electoral outcome.
-#' @param v A numeric vector of data values for votes each political party obtained.
-#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
 #' @param \dots Additional arguements (currently ignored)
 #'
-#' @return A single score given the votes each party received and seats obtained.
-#'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @return A single score.
+#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @references
@@ -281,16 +441,16 @@ NULL
 #'  proportionalitybased on a vector of votes and a vector for
 #'  the electoral outcome. This measure is also referred to as the regression index.
 #'
-#' @param v A numeric vector of data values for votes each political party obtained.
-#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
 #' @param \dots Additional arguements (currently ignored)
 
 #'
-#' @return A single score given the votes each party received and seats obtained.
+#' @return A single score.
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{inv.cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{cox.shugart.inv}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @examples
 #' if (interactive()) {
@@ -329,13 +489,11 @@ NULL
 #'  proportionality based on votes and seats,
 #'  the electoral outcome.
 #'
-#' @param v A numeric vector of data values for votes each political party obtained.
-#' @param s A numeric vector of data values for seats each political party obtained, the election outcome as seats.
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
 #' @param \dots Additional arguements (currently ignored)
-
 #'
-#' @return A single score given the votes each party received and seats obtained.
-#'
+#' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
 #' @examples
@@ -344,29 +502,29 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' inv.cox.shugart(pvotes, pseats)
+#' cox.shugart.inv(pvotes, pseats)
 #'
 #' # 2012 Quebec provincial election:
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
-#' inv.cox.shugart(pvotes, pseats)
+#' cox.shugart.inv(pvotes, pseats)
 #'
 #' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @export
-#' @rdname inv.cox.shugart
-`inv.cox.shugart` <-function(v, s, ...) UseMethod("inv.cox.shugart")
+#' @rdname cox.shugart.inv
+`cox.shugart.inv` <-function(v, s, ...) UseMethod("cox.shugart.inv")
 
 
 #' @export
-#' @rdname inv.cox.shugart
-`inv.cox.shugart` <-function(v, s, ...){
+#' @rdname cox.shugart.inv
+`cox.shugart.inv` <-function(v, s, ...){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
   print(idx, digits = max(3, getOption("digits") - 3))
-}### end -- inv.cox.shugart function
+}### end -- cox.shugart.inv function
 NULL
 
 

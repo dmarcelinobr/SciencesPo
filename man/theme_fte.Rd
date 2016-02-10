@@ -5,20 +5,20 @@
 \alias{theme_fte}
 \title{Themes for ggplot2 Graphs}
 \usage{
-theme_fte(legend = "none", font_size = 11, font_family = "sans",
-  colors = c("#F0F0F0", "#D9D9D9", "#737373", "#525252"), margins = c(0.2,
-  0.2, 0.3, 0.2))
+theme_fte(legend = "none", base_size = 13, base_family = "",
+  colors = c("#F0F0F0", "#D9D9D9", "#737373", "#525252"),
+  axis.line = element_line())
 
-theme_538(legend = "none", font_size = 11, font_family = "sans",
-  colors = c("#F0F0F0", "#D9D9D9", "#737373", "#525252"), margins = c(0.2,
-  0.2, 0.3, 0.2))
+theme_538(legend = "none", base_size = 13, base_family = "",
+  colors = c("#F0F0F0", "#D9D9D9", "#737373", "#525252"),
+  axis.line = element_line())
 }
 \arguments{
 \item{legend}{Enables to set legend position, default is "none".}
 
-\item{font_size}{Overall font size. Default is 13.}
+\item{base_size}{Overall font size. Default is 13.}
 
-\item{font_family}{Default font family.}
+\item{base_family}{Default font family.}
 
 \item{colors}{Default colors used in the plot in the following order: background, lines, text, and title.}
 
@@ -32,6 +32,9 @@ Theme for plotting  with ggplot2.
 }
 \examples{
 qplot(1:10, (1:10)^3) + theme_fte()
+
+# Check that it is a complete theme
+attr(theme_fte(), "complete")
 
 }
 

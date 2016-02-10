@@ -9,20 +9,20 @@ gallagher(v, s, ...)
 gallagher(v, s, ...)
 }
 \arguments{
-\item{v}{A numeric vector of data values for votes each political party obtained.}
+\item{v}{A numeric vector with the percentage share of votes obtained by each party.}
 
-\item{s}{A numeric vector of data values for seats each political party obtained, the election outcome as seats.}
+\item{s}{A numeric vector with the percentage share of seats obtained by each party.}
 
 \item{\dots}{Additional arguements (currently ignored)}
 }
 \value{
-A single score (The Gallagher's Representation Score.) given the votes each party received and seats obtained.
+A single score.
 }
 \description{
 Calculates the Gallagher index of LSq index.
 }
 \details{
-The representation score is calculated as: sqrt(sum((Z-R)^2)/2).
+The score is calculated as: sqrt(sum((v_{i}-s{i})^2)/2).
 }
 \author{
 Daniel Marcelino \email{dmarcelino@live.com}
@@ -38,6 +38,6 @@ pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 gallagher(pvotes, pseats)
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{inv.cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+\code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 
