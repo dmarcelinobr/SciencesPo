@@ -36,7 +36,7 @@
 #'
 #' Taagepera, Rein and Matthew S. Shugart (1989) \emph{Seats and Votes: The Effects and Determinants of Electoral Systems.} New Haven: Yale University Press.
 #'
-#' @keywords Diversity, Basics, Elections
+#' @keywords Exploratory, Electoral
 #' @examples
 #' # Here are some examples, help yourself:
 #' # The wikipedia examples
@@ -79,15 +79,13 @@
 #' politicalDiversity(seats_2010, index= "golosov")
 #'
 #' @export politicalDiversity
-#' @docType methods
-#' @rdname politicalDiversity-methods
-#' @aliases politicalDiversity,numeric,character,integer,numeric,ANY-method
-`politicalDiversity`<- setClass("politicalDiversity", representation(x = "numeric",index="character", margin="integer", base="numeric"))
-setGeneric("politicalDiversity", def=function(x, index = "laakso/taagepera", margin=1, base = exp(1)){
-standardGeneric("politicalDiversity")})
+#' @rdname politicalDiversity
+#' @aliases politicalFragmentation
+`politicalDiversity`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1))
+  UseMethod("politicalDiversity")
 
-#' @rdname politicalDiversity-methods
-setMethod(f="politicalDiversity", definition=function(x, index = "laakso/taagepera", margin = 1, base = exp(1)){
+#' @rdname politicalDiversity
+`politicalDiversity`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1)){
       x <- drop(as.matrix(x))
       index <- .Match(arg = index, choices = c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon") )
       if (length(dim(x)) > 1) {
@@ -110,10 +108,151 @@ setMethod(f="politicalDiversity", definition=function(x, index = "laakso/taagepe
       else if (index == "laakso/taagepera" || index == "invsimpson"||  index == "enc" || index == "enp")
         idx <- 1/idx
       return(round(idx, 3))
-})### end -- politicalDiversity function
+}### end -- politicalDiversity function
 NULL
 
 
+
+
+
+#' @title Indexes of Proportionality
+#'
+#' @description Calculates several indexes of proportionality to show the relationship of votes to seats.
+#'
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
+#' @param index The desired type of index, see details below.
+#' @param \dots Additional arguements (currently ignored)
+#' @return A single score.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#' @details The following measures are available:
+#' \itemize{
+#' \item {"cox.shugart"}{Cox-Shugart Measure of Proportionality}
+#' \item {"inv.cox.shugart"}{The Inverse of the Cox-Shugart Index}
+#' \item {"farina"}{Farina Index of Proportionality}
+#' \item {"gallagher"}{Gallagher Index of Disproportionality}
+#' \item {"inv.gallagher"}{The Inverse of the Gallagher Index}
+#' \item {"grofman"}{Grofman Index of Proportionality}
+#' \item {"lijphart"}{Lijphart Index of Proportionality}
+#' \item {"loosemore.hanby"}{Loosemore-Hanby Index of Disproportionality}
+#' \item {"rae"}{Rae Index of Disproportionality}
+#' \item {"inv.rae"}{The Inverse of the Rae Index}
+#' \item {"rose"}{Rose Index of Disproportionality}
+#' \item {"inv.rose"}{The Inverse of the Rose Index}
+#' }
+#'
+#' @seealso \code{\link{politicalDiversity}}, \code{\link{largestRemainders}}, \code{\link{highestAverages}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+
+#' @references
+#' Duncan, O. and Duncan, B. (1955) A methodological analysis of segregation indexes. \emph{American Sociological Review} 20:210-7.
+#'
+#' Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
+#'
+#' Loosemore, J. and Hanby, V. (1971) The theoretical limits of maximum distortion: Som analytical expressions for electoral systems. \emph{British Journal of Political Science} 1:467-77.
+#'
+#' Koppel, M., and A. Diskin. (2009) Measuring disproportionality, volatility and malapportionment: axiomatization and solutions. Social Choice and Welfare 33, no. 2: 281-286.
+#'
+#' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
+#'
+#' Rose, Richard, Neil Munro and Tom Mackie (1998) \emph{ Elections in Central and Eastern Europe Since 1990.} Glasgow: Centre for the Study of Public Policy, University of Strathclyde.
+#'
+#' Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
+#'
+#'
+#' @examples
+#' #' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' proportionality(pvotes, pseats) # default is gallagher
+#'
+#' # 2012 Quebec provincial election:
+#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
+#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
+#'
+#' proportionality(pvotes, pseats, index="rae")
+#'
+#' @export
+#' @docType methods
+#' @rdname proportionality
+#' @aliases disproportionality
+`proportionality`<- function(v, s, index = "gallagher", ...) UseMethod("proportionality")
+
+#' @rdname proportionality
+`proportionality` <- function(v, s, index = "gallagher", ...){
+  v <- drop(as.matrix(v))
+  s <- drop(as.matrix(s))
+  index <- .Match(arg = index, choices = c("cox.shugart","inv.cox.shugart","farina","gallagher","inv.gallagher", "grofman", "lijphart", "loosemore.hanby", "rose", "inv.rose", "rae","inv.rae") )
+  if (length(dim(v)) > 1) {
+    total_v <- apply(v, margin, sum)
+    v <- sweep(v, margin, total_v, "/")
+    total_s <- apply(s, margin, sum)
+    s <- sweep(s, margin, total_s, "/")
+  }
+  else {
+    v <- v/sum(v);
+    s <- v/sum(s);
+  }
+  if (index=="gallagher")
+    idx <- sqrt(sum((v-s)^2)/2)
+  else if (index == "rose")
+    idx <- 1-(sum(abs(v-s))/2)
+  else if (index=="rae")
+    idx <- (sum(abs(v - s))/length(v))
+  else if (index=="inv.rae")
+    idx <- (sum(abs(v - s))/length(v))
+  else if (index=="loosemore.hanby")
+    idx <- (sum(abs(v-s))/2)
+  else
+    warning("Not a valid index name")
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- proportionality function
+NULL
+
+
+
+
+
+
+#' @title Loosemore-Hanby Index of Disproportionality
+#'
+#' @description Calculates the Loosemore-Hanby index of disproportionality.
+#'
+#' @param v A numeric vector with the percentage share of votes obtained by each party.
+#' @param s A numeric vector with the percentage share of seats obtained by each party.
+#' @param \dots Additional arguements (currently ignored)
+#'
+#' @details The score is calculated as the sum of the absolute differences \code{|v-s|} divided by two. This index is also known as the Pedersen index, with common usage in studies of volatility.
+#' @return A single score.
+#'
+#' @author Daniel Marcelino \email{dmarcelino@@live.com}
+#'
+#' @seealso  \code{\link{rose}}, \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#'
+#' @references
+#' Duncan, O. and Duncan, B. (1955) A methodological analysis of segregation indexes. \emph{American Sociological Review} 20:210-7.
+#'
+#' Loosemore, J. and wHanby, V. (1971) The theoretical limits of maximum distortion: Som analytical expressions for electoral systems. \emph{British Journal of Political Science} 1:467-77.
+#'
+#'  @examples
+#' # 2012 Queensland state elecion
+#' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
+#' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
+#'
+#' loosemore.hanby(pvotes, pseats)
+#'
+#' @export
+#' @rdname loosemore.hanby
+`loosemore.hanby`<- function(v, s, ...) UseMethod("loosemore.hanby")
+
+#' @export
+#' @rdname loosemore.hanby
+`loosemore.hanby` <-function(v, s, ...){
+  idx=(sum(abs(v-s))/2)
+  print(idx, digits = max(3, getOption("digits") - 3))
+}### end -- loosemore.hanby function
+NULL
 
 
 
@@ -144,13 +283,27 @@ NULL
 #'
 #' rose(pvotes, pseats)
 #'
+#' pvotes= c(.4965, .2666, .115, .0753, .0316, .0147)
+#' pseats = c(.8764, .0787, .0225, 0.00, .0225, 0.00)
+#'
 #' @export
 #' @rdname rose
 `rose`<- function(v, s, ...) UseMethod("rose")
+
 #' @export
 #' @rdname rose
 `rose` <-function(v, s, ...){
-  idx <- 100-(sum(abs(v-s))/2)
+
+  if (sum(v)!=1 && sum(s)!=1 || sum(v)!=100 && sum(s)!=100){
+    cat("Values in", v, " or ", s, "do not sum either to 1 or 100", "\n", sep = "")
+  }
+  if (isTRUE(round(sum(v),0)<=1) && isTRUE(round(sum(s),0)<=1)){
+    v = v*100; s = s*100;
+    idx <- 100-(sum(abs(v-s))/2)
+    }
+  else{
+    idx <- 100-(sum(abs(v-s))/2)
+  }
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- rose function
 NULL
@@ -175,7 +328,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{rae.inv}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso  \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}}, \code{\link{lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
@@ -216,7 +369,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso  \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
@@ -226,25 +379,25 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' rae.inv(pvotes, pseats)
+#' inv.rae(pvotes, pseats)
 #'
 #' @export
-#' @rdname rae.inv
-`rae.inv`<- function(v, s, ...) UseMethod("rae.iv")
+#' @rdname inv.rae
+`inv.rae`<- function(v, s, ...) UseMethod("rae.iv")
 
 #' @export
-#' @rdname rae.inv
-`rae.inv` <-function(v, s, ...){
+#' @rdname inv.rae
+`inv.rae` <-function(v, s, ...){
   idx=1-(sum(abs(v-s))/length(v))
   print(idx, digits = max(3, getOption("digits") - 3))
-}### end -- rae.inv function
+}### end -- inverse rae function
 NULL
 
 
 
 #' @title Gallagher Index
 #'
-#' @description Calculates the Gallagher index of LSq index.
+#' @description Calculates the Gallagher index (LSq index).
 #'
 #' @param v A numeric vector with the percentage share of votes obtained by each party.
 #' @param s A numeric vector with the percentage share of seats obtained by each party.
@@ -254,7 +407,7 @@ NULL
 #' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
@@ -300,24 +453,24 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' gallagher.inv(pvotes, pseats)
+#' inv.gallagher(pvotes, pseats)
 #'
 #' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @export
-#' @rdname gallagher.inv
-`gallagher.inv` <-function(v, s, ...) UseMethod("gallagher.inv")
+#' @rdname inv.gallagher
+`inv.gallagher` <-function(v, s, ...) UseMethod("gallagher.inv")
 
 
 #' @export
-#' @rdname gallagher.inv
-`gallagher.inv` <-function(v, s, ...){
+#' @rdname inv.gallagher
+`inv.gallagher` <-function(v, s, ...){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
   idx <- (1 - idx)
   print(idx, digits = max(3, getOption("digits") - 3))
-}### end -- gallagher.inv function
+}### end -- inv.gallagher function
 NULL
 
 
@@ -333,7 +486,7 @@ NULL
 #' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @examples
 
@@ -371,7 +524,7 @@ NULL
 #'  @references
 #' Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
@@ -405,7 +558,7 @@ NULL
 #' @param \dots Additional arguements (currently ignored)
 #'
 #' @return A single score.
-#' @seealso \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @references
@@ -450,19 +603,13 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart.inv}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @examples
 #' if (interactive()) {
 #' # 2012 Queensland state elecion:
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
-#'
-#' cox.shugart(pvotes, pseats)
-#'
-#' # 2012 Quebec provincial election:
-#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
-#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
 #' cox.shugart(pvotes, pseats)
 #' }
@@ -502,29 +649,23 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' cox.shugart.inv(pvotes, pseats)
-#'
-#' # 2012 Quebec provincial election:
-#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
-#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
-#'
-#' cox.shugart.inv(pvotes, pseats)
+#' inv.cox.shugart(pvotes, pseats)
 #'
 #' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @export
-#' @rdname cox.shugart.inv
-`cox.shugart.inv` <-function(v, s, ...) UseMethod("cox.shugart.inv")
+#' @rdname inv.cox.shugart
+`inv.cox.shugart` <-function(v, s, ...) UseMethod("inv.cox.shugart")
 
 
 #' @export
-#' @rdname cox.shugart.inv
-`cox.shugart.inv` <-function(v, s, ...){
+#' @rdname inv.cox.shugart
+`inv.cox.shugart` <-function(v, s, ...){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
   print(idx, digits = max(3, getOption("digits") - 3))
-}### end -- cox.shugart.inv function
+}### end -- inv.cox.shugart function
 NULL
 
 
