@@ -30,12 +30,6 @@ pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 
 cox.shugart(pvotes, pseats)
-
-# 2012 Quebec provincial election:
-pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
-pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
-
-cox.shugart(pvotes, pseats)
 }
 
 }
@@ -43,6 +37,6 @@ cox.shugart(pvotes, pseats)
 Daniel Marcelino \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{cox.shugart.inv}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+\code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 }
 

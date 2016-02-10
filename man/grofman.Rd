@@ -36,6 +36,6 @@ grofman(pvotes, pseats)
 Daniel Marcelino \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+\code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 

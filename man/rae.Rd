@@ -38,6 +38,6 @@ pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 rae(pvotes, pseats)
 }
 \seealso{
-\code{\link{rae.inv}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+\code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}}, \code{\link{lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 

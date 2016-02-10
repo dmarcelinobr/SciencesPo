@@ -19,7 +19,7 @@ gallagher(v, s, ...)
 A single score.
 }
 \description{
-Calculates the Gallagher index of LSq index.
+Calculates the Gallagher index (LSq index).
 }
 \details{
 The score is calculated as: sqrt(sum((v_{i}-s{i})^2)/2).
@@ -38,6 +38,6 @@ pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 gallagher(pvotes, pseats)
 }
 \seealso{
-\code{\link{cox.shugart}}, \code{\link{cox.shugart.inv}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+\code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 

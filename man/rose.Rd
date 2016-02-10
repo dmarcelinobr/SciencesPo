@@ -38,6 +38,9 @@ pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 
 rose(pvotes, pseats)
+
+pvotes= c(.4965, .2666, .115, .0753, .0316, .0147)
+pseats = c(.8764, .0787, .0225, 0.00, .0225, 0.00)
 }
 \seealso{
 \code{\link{loosemore.hanby}}, \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
