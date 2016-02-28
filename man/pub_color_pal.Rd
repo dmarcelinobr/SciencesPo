@@ -25,7 +25,7 @@ The following palettes are available:
 \examples{
 library(scales)
 show_col(pub_color_pal("pub12")(12))
-show_col(pub_color_pal("gray5")(6))
+show_col(pub_color_pal("gray5")(6), labels = FALSE)
 show_col(pub_color_pal("colorblind")(10))
 show_col(pub_color_pal("tableau20")(20))
 show_col(pub_color_pal("tableau10")(10))

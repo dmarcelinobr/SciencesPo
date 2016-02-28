@@ -1,0 +1,180 @@
+# The SciencesPo demo
+# Press <Enter> to advance through the demo,
+# Ctrl-C (Linux) or Esc (Windows and Mac) to exit
+
+par(ask=TRUE)
+x <- rnorm(100)
+y <- x + rnorm(100)
+plot(x, y, col=c("steelblue", "indianred"), pch=20)
+legendPlotMinimalist("topright", legend=c("Foo", "Bar"), pch=20,
+                     col=c("steelblue", "indianred"),
+                     horiz=TRUE, bty='n', cex=0.8)
+
+
+pause()
+# Example: 2014 Brazilian election for the lower house. Results from Ceara state:
+votes <- c(490205, 1151547, 2449440, 48274, 54403, 173151)
+#' # Coalitions leading by the following parties:
+parties <- c("DEM","PMDB","PRB","PSB", "PSTU","PTC")
+n.seats <-19
+dHondt(parties, votes, seats=n.seats)
+
+
+pause()
+# Political Diversity
+US2004p <- c(Democratic=0.481, Republican=0.509, Independent=0.0038, Libertarian=0.0032, Constitution=0.0012, Green=0.00096, Others=0.00084)
+## concentration indexes
+politicalDiversity(US2004p, index= "herfindahl")
+
+pause()
+gini.simpson(US2004p)
+
+pause()
+politicalDiversity(US2004p, index= "shannon")
+
+
+pause()
+# The Effective Number of Parties
+politicalDiversity(US2004p, index= "laakso/taagepera")
+
+pause()
+
+# 2010 Brazilian election outcome (votes):
+BR2010v = c(PT=13813587, PMDB=11692384, PSDB=9421347, DEM=6932420, PR=7050274, PP=5987670, PSB=6553345,PDT=4478736, PTB=3808646, PSC=2981714,PV=2886633, PCdoB=2545279, PPS=2376475, PRB=1659973, PMN=1026220,PTdoB=605768, PSOL=968475, PHS=719611, PRTB=283047, PRP=232530, PSL=457490, PTC=563145)
+
+politicalDiversity(BR2010v, index= "laakso/taagepera")
+
+
+pause()
+# 2010 Brazilian election outcome (seats):
+BR2010s = c(PT=88, PMDB=79, PSDB=53, DEM=43, PR=41, PP=41, PSB=34,PDT=28, PTB=21, PSC=17,PV=15, PCdoB=15, PPS=12, PRB=8, PMN=4,PTdoB=3, PSOL=3, PHS=2, PRTB=2, PRP=2, PSL=1, PTC=1)
+
+politicalDiversity(BR2010s, index= "laakso/taagepera")
+
+# Using the Golosov index:
+politicalDiversity(BR2010s, index= "golosov")
+
+#' # 2010 Election outcome as proportion of seats
+
+pause()
+
+# 2014 Brazilian election outcome (seats):
+BR2014s = c(70, 66, 55, 37, 38, 34, 34, 26, 22, 20, 19, 15, 12, 11, 10, 9, 8, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)
+
+politicalDiversity(BR2010s, index= "laakso/taagepera")
+
+
+pause()
+# Tests of Normality
+
+# Anscombe-Glynn:
+set.seed(1234)
+x = rnorm(1000)
+kurtosis(x)
+anscombe.glynn(x)
+
+anscombe.glynn(200:500)
+
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+anscombe.glynn(y)
+
+
+# D'Agostino
+skewness(x, type = 2)
+agostino(x)
+
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+agostino(y)
+
+# Bonett-Seier
+bonett.seier(x)
+
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+bonett.seier(y)
+
+# Geary
+kurtosis(x)+3 # The kurtosis functions omits the 3 as default.
+geary(x)
+
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+geary(y)
+
+# Jarque-Bera
+jarque.bera(x)
+
+jarque.bera(200:500)
+
+# A fairly small sample
+y = c(0.269, 0.357, 0.2, 0.221, 0.275, 0.277, 0.253, 0.127, 0.246)
+qqnorm(y)
+jarque.bera(y)
+
+
+# Descriptive
+pause()
+## Simulating the FREQ procedure of SPSS.
+data(ssex)
+
+freq(ssex, Favor)
+
+pause()
+## Cross-Tabulation: two-way
+
+tab(titanic, SEX, AGE)
+
+pause()
+## Cross-Tabulation: three-way
+titanic %>% tab(SEX, AGE, SURVIVED)
+
+pause()
+
+ \dontrun{
+ library(raster);
+ library(ggplot2);
+
+ brazil<- getData("GADM", country = "Brazil", level = 2)
+ map <- fortify(brazil)
+  ### Draw a map
+ ggplot() +
+  geom_map(data = map, map = map, aes(x = long, y = lat,
+  map_id = id, group = group)) + theme_map()
+ }
+
+
+pause()
+
+ \dontrun{
+ library(raster);
+ library(rgdal);
+ library(rgeos);
+ library(ggplot2);
+ library(dplyr);
+ ### Get data
+ brazil <- getData("GADM", country = "Brazil", level = 1)
+ ### SPDF to DF
+ map <- fortify(brazil)
+ map$id <- as.integer(map$id)
+ dat <- data.frame(id = 1:(length(brazil@data$NAME_1)),
+ state = brazil@data$NAME_1)
+ map_df <- inner_join(map, dat, by = "id")
+
+ # Find a center point for each province
+ centers <- data.frame(gCentroid(brazil, byid = TRUE))
+ centers$state <- dat$state
+ ggplot() +
+ geom_map(data = map_df, map = map_df,
+ aes(map_id = id, x = long, y = lat, group = group),
+ color = "#ffffff", fill = "#bbbbbb", size = 0.25) +
+ geom_text(data = centers, aes(label = state, x = x, y = y),
+ size = 3) +
+ coord_map() +
+ labs(x = "", y = "", title = "Brazil' States") +
+ theme_map() }

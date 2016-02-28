@@ -6,7 +6,7 @@
 \title{The Default Theme}
 \usage{
 theme_pub(legend = "bottom", base_size = 13, base_family = "",
-  line_width = 0.5, axis.line = element_line())
+  line_width = 0.5, axis_line = FALSE)
 }
 \arguments{
 \item{legend}{Enables to set legend position, default is "bottom".}
@@ -17,7 +17,7 @@ theme_pub(legend = "bottom", base_size = 13, base_family = "",
 
 \item{line_width}{Default line size.}
 
-\item{axis.line}{Enables to set x and y axis lines.}
+\item{axis_line}{Enables to set x and y axes.}
 }
 \value{
 The theme.

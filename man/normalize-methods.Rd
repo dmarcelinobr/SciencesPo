@@ -24,7 +24,9 @@ Normalized values in an object of the same class as \code{x}.
 Normalizes as feature scaling \code{min - max}, or unity-based normalization typically used to bring the values into the range [0,1].
 }
 \details{
-This approach may also be generalized to restrict the range of values to any arbitrary values \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})}}.
+This approach may also be generalized to restrict the range of
+ values to any arbitrary values \code{a}  and  \code{b}, using:
+ \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})}}.
 }
 \examples{
 
@@ -33,6 +35,18 @@ normalize(x)
 
 # equivalently to
 (x-min(x))/(max(x)-min(x))
+
+# look at what happens to the correlation of two independent variables and their "interaction"
+# With non-centered interactions:
+a = rnorm(10000,20,2)
+b = rnorm(10000,10,2)
+cor(a,b)
+cor(a,a*b)
+
+# With centered interactions:
+c = a - 20
+d = b - 10
+cor(c,c*d)
 
 }
 \author{

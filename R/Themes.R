@@ -8,7 +8,7 @@
 #' @param base_family Default font family.
 #' @param base_size Overall font size. Default is 14.
 #' @param line_width Default line size.
-#' @param axis.line Enables to set x and y axis lines.
+#' @param axis_line Enables to set x and y axes.
 #' @return The theme.
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
@@ -32,7 +32,7 @@ theme_pub <- function(legend = 'bottom',
                       base_size = 13,
                       base_family = "",
                       line_width = .5,
-                      axis.line = element_line()) {
+                      axis_line = FALSE) {
   half_line <- base_size / 2
   theme(
     # Elements in this first block aren't used directly, but are inherited
@@ -42,30 +42,29 @@ theme_pub <- function(legend = 'bottom',
       size = line_width, linetype = 1,
       lineend = "butt"
     ),
-    rect =               element_rect(
+    rect = element_rect(
       fill = "transparent",
       colour = NA,
       size = 0.5, linetype = 1
     ),
-    text =               element_text(
+    text =  element_text(
       family = base_family, face = "plain",
       colour = "black", size = base_size,
       lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
       margin = ggplot2::margin(), debug = FALSE
     ),
 
-    axis.line =          element_blank(),
-    axis.text =          element_text(size = rel(0.8), colour = "grey15"),
+    axis.line =          if(axis_line){element_line()} else{element_blank()},
+    axis.text =          element_text(size = rel(0.8), face = "bold", colour = "grey15"),
     axis.text.x =        element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.y =        element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
-    axis.ticks =          element_line(),
+    axis.ticks =         element_line(color="#F0F0F0"),
     axis.ticks.length =  grid::unit(half_line / 2, "pt"),
+    axis.title =          element_text(size = rel(0.8), face = "bold", colour = "grey15"),
     axis.title.x =       element_text(margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2
     )),
-    axis.title.y =       element_text(
-      angle = 90,
-      margin = ggplot2::margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)
+    axis.title.y =       element_text(angle = 90, margin = ggplot2::margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)
     ),
 
     legend.background =  element_rect(colour = NA),
@@ -86,17 +85,16 @@ theme_pub <- function(legend = 'bottom',
     panel.background =   element_blank(),
     panel.border =       element_blank(),
     panel.grid.major =   element_line(color="#F0F0F0"),
-    panel.grid.minor =   element_line(color="#F0F0F0"),
+    panel.grid.minor =   element_blank(),
     panel.margin =       grid::unit(half_line, "pt"),
     panel.margin.x =     NULL,
     panel.margin.y =     NULL,
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = NA),
-    strip.text =         element_text(colour = "grey15",face="bold", size = rel(0.8)),
+    strip.text =         element_text(size = rel(0.8), face = "bold", colour = "grey15"),
     strip.text.x =       element_text(margin = ggplot2::margin(t = half_line, b = half_line)),
-    strip.text.y =       element_text(
-      angle = -90, margin = ggplot2::margin(l = half_line, r = half_line)
+    strip.text.y =       element_text(angle = -90, margin = ggplot2::margin(l = half_line, r = half_line)
     ),
     strip.switch.pad.grid = grid::unit(0.1, "cm"),
     strip.switch.pad.wrap = grid::unit(0.1, "cm"),
@@ -119,25 +117,42 @@ NULL
 #' @description  Theme for plotting  with ggplot2.
 #'
 #' @param legend Enables to set legend position, default is "none".
+#' @param legend_title Will the legend have a title?, Default is \code{FALSE}.
 #' @param base_family Default font family.
 #' @param base_size Overall font size. Default is 13.
 #' @param colors Default colors used in the plot in the following order: background, lines, text, and title.
-#' @param margins The plot margins as top, right, bottom, left.
 #' @return The theme.
 #'
 #' @examples
 #' qplot(1:10, (1:10)^3) + theme_fte()
 #'
+#' # Easy to set different theme colors:
+#' mycolors = c("#A84A44", "#E47D04", "#D8A19E", "#D8A19E")
+#' qplot(1:10, (1:10)^3) +
+#'  theme_fte(colors=mycolors)
+#'
+#' mycolors = c("#F2F1E8",  "#D2D2D2",  "#6E6E6E", "#6E6E6E")
+#' qplot(1:10, (1:10)^3) +
+#'  theme_fte(colors=mycolors) #ae8b38
+#'
+#' mycolors = c("wheat",  "#C2AF8D",  "#8F6D2F", "darkred")
+#' qplot(1:10, (1:10)^3) +
+#'  theme_fte(colors=mycolors)
+#'
+#' mycolors = c("LawnGreen",  "gray80",  "black", "black")
+#' qplot(1:10, (1:10)^3) +
+#'  theme_fte(colors=mycolors)
+#'
 #' # Check that it is a complete theme
 #' attr(theme_fte(), "complete")
-#'
 #' @export
 #' @aliases theme_538
 `theme_fte` <- function(legend = 'none',
+                       legend_title = FALSE,
                        base_size = 13,
                        base_family = '',
-                       colors = c('#F0F0F0', '#D9D9D9', '#737373', '#525252'),
-                       axis.line = element_line()) {
+                       colors = c('#F0F0F0', '#D9D9D9', '#737373', '#525252')
+                      ) {
   half_line <- base_size / 2
   theme(
     # Elements in this first block aren't used directly, but are inherited
@@ -165,10 +180,10 @@ NULL
     axis.text.y =        element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
     axis.ticks =         element_line(),
     axis.ticks.length =  grid::unit(half_line / 2, "pt"),
-    axis.title.x =       element_text(color = colors[4], vjust = 0, margin = ggplot2::margin(
+    axis.title =          element_text(size = rel(0.8), face = "bold", color = colors[4]),
+    axis.title.x =       element_text(vjust = 0, margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2)),
-    axis.title.y =       element_text(angle = 90,color = colors[4], vjust = 1.25,
-                                      margin = ggplot2::margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)
+    axis.title.y =       element_text(angle = 90, vjust = 1.25, margin = ggplot2::margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)
     ),
 
     legend.background =  element_rect(linetype = 0),
@@ -179,7 +194,7 @@ NULL
     legend.key.width =   NULL,
     legend.text =        element_text(size = rel(0.85)),
     legend.text.align =  NULL,
-    legend.title =       element_text(size = rel(0.8), hjust = 0),
+    legend.title =       if(legend_title){element_text(size = rel(0.8), hjust = 0)} else {element_blank()},
     legend.title.align = NULL,
     legend.position =    legend,
     legend.direction =   NULL,
@@ -189,7 +204,7 @@ NULL
     panel.background =   element_rect(),
     panel.border =       element_blank(),
     panel.grid.major =   element_line(),
-    panel.grid.minor =   element_line(),
+    panel.grid.minor =   element_blank(),
     panel.margin =       grid::unit(half_line, "pt"),
     panel.margin.x =     NULL,
     panel.margin.y =     NULL,
@@ -489,13 +504,20 @@ themes_data <- {
   x$pub$shapes <-
     list(gender = c(
         -0x2640L, # f
-        -0x2642L # m
+        -0x2642L  # m
         ),
     default = c(
+        -16L,
+        -15L,
+        -18L,
         -0x25B3L, # up-pointing triangle
         -0x25BDL, # down-pointing triangle
         -0x25B7L, # right-pointing triangle
-        -0x25C1L # left-pointing triangle
+        -0x25C1L, # left-pointing triangle
+        -0x25B2L, # up-pointing triangle
+        -0x25BCL, # down-pointing triangle
+        -0x25B6L, # right-pointing triangle
+        -0x25C0L # left-pointing triangle
       ),
  proportions = c(
         -0x25CBL, # White circle
@@ -509,48 +531,71 @@ themes_data <- {
   x$parties <- list()
 
   x$parties$BRA <- c(
-    PT = rgb(255,39,0, max = 255),
-    PMDB = rgb(255,153,0, max = 255),
-    PSDB = rgb(0,143,213, max = 255),
-    PSB = rgb(213,94,0, max = 255),
-    PV = rgb(119,171,67, max = 255),
-    PTB = rgb(65, 68, 81, max = 255),
-    PDT = rgb(65, 68, 81, max = 255),
     DEM = rgb(0,0,255, max = 255),
-    PFL = rgb(0,0,255, max = 255),
-    PCdoB = rgb(65, 68, 81, max = 255),
-    PTC = rgb(65, 68, 81, max = 255),
-    PSC = rgb(65, 68, 81, max = 255),
-
-    PP = rgb(65, 68, 81, max = 255),
-
+    PCdoB = rgb(255, 48, 48, max = 255),
+    PCB = rgb(205, 38, 38, max = 255),
+    PCO = rgb(139, 0, 0, max = 255),
+    PDT = rgb(16, 78, 139, max = 255),
+    PEN = rgb(34, 139, 34, max = 255),
     PHS = rgb(30,31,123, max = 255),
-    PMN = rgb(255,0,0, max = 255),
-    PPS = rgb(255,0,0, max = 255),
-    PTdoB = rgb(0,255,0, max = 255),
-    PRP = rgb(0,91,171, max = 255),
-    PSD = rgb(2, 63, 136, max = 255),
-    PPL = rgb(0,99,47, max = 255),
-    PTN = rgb(255,255,0, max = 255),
-    SD = rgb(255,165,0, max = 255),
-    Rede = rgb(14,163,188, max = 255),
+    PMDB = rgb(255,255,0, max = 255),
     PMB = rgb(205,0,12, max = 255),
-    PRTB = rgb(44,181,63, max = 255),
-
-    PSTU = rgb(65, 68, 81, max = 255),
-    PCB = rgb(65, 68, 81, max = 255),
-    PSDC = rgb(65, 68, 81, max = 255),
-    PCO = rgb(65, 68, 81, max = 255),
-
+    PMN = rgb(255,0,0, max = 255),
+    NOVO = rgb(255, 140, 0, max = 255),
+    PP = rgb(65, 105, 225, max = 255),
+    PPL = rgb(0,99,47, max = 255),
+    PPS = rgb(255,0,0, max = 255),
+    PR = rgb(25, 25, 112, max = 255),
+    PRB = rgb(34, 139, 34, max = 255),
+    PROS = rgb(255, 165, 0, max = 255),
+    PRP = rgb(0,91,171, max = 255),
+    PRTB = rgb(44,171,63, max = 255),
+    PSB = rgb(255,44,44, max = 255),
+    PSC = rgb(44,190,63, max = 255),
+    PSD = rgb(2, 63, 136, max = 255),
+    PSDB = rgb(0,143,213, max = 255),
+    PSDC = rgb(30,31,123, max = 255),
     PSL = rgb(65, 68, 81, max = 255),
-    PRB = rgb(65, 68, 81, max = 255),
-    PSOL = rgb(65, 68, 81, max = 255),
-    PR = rgb(65, 68, 81, max = 255),
+    PSOL = rgb(238, 0, 0, max = 255),
+    PSTU = rgb(205, 0, 0, max = 255),
+    PT = rgb(255,39,0, max = 255),
+    PTB = rgb(10, 10,10, max = 255),
+    PTC = rgb(72, 118, 255, max = 255),
+    PTdoB = rgb(0,255,0, max = 255),
+    PTN = rgb(255,255,0, max = 255),
+    PV = rgb(119,171,67, max = 255),
+    REDE = rgb(0,191,255, max = 255),
 
-    NOVO = rgb(65, 68, 81, max = 255),
-    PEN = rgb(65, 68, 81, max = 255),
-    PROS = rgb(65, 68, 81, max = 255),
-    SDD = rgb(65, 68, 81, max = 255)
+    SD = rgb(255,165,0, max = 255),
+    SDD = rgb(65, 68, 81, max = 255),
+    PFL = rgb(0,0,255, max = 255)
+  )
+  x$parties$ARG <- c(
+    PJ = rgb(0,191,255, max = 255),
+    UCR = rgb(255, 0, 0, max = 255),
+    FG = rgb(238,0,0, max = 255),
+    PS = rgb(205,0,0, max = 255),
+    PRO = rgb(255, 215, 0, max = 255),
+    UCeDe = rgb(72,118,255, max = 255),
+    PI = rgb(15,15,15, max = 255),
+    ARI = rgb(0, 104, 139, max = 255),
+    PDC = rgb(25,25,112, max = 255),
+    PO = rgb(139,0,0, max = 255),
+    PCR = rgb(238, 44, 44, max = 255)
+  )
+
+  x$parties$CAN <- c(
+    Lib = rgb(255,0,0, max = 255),
+    Con = rgb(65,105,225, max = 255),
+    NPD = rgb(255, 140, 0, max = 255),
+    Bloc = rgb(0,191,255, max = 255),
+    Green = rgb(0,255,0, max = 255)
+    )
+
+  x$parties$USA <- c(
+    Republican = rgb(255, 39, 0, max = 255),
+    Democratic = rgb(0, 143, 213, max = 255),
+    Independent = rgb(119, 171, 67, max = 255)
   )
 
   x$continents <- c(
@@ -565,7 +610,10 @@ themes_data <- {
     red = rgb(255, 39, 0, max = 255),
     blue = rgb(0, 143, 213, max = 255),
     green = rgb(119, 171, 67, max = 255),
-    orange = rgb(230, 159, 0, max = 255)
+    orange = rgb(230, 159, 0, max = 255),
+    dkgray= rgb(60, 60, 60, max = 255),
+    medgray= rgb(210, 210, 210, max = 255),
+    ltgray= rgb(240, 240, 240, max = 255)
   )
   x$development <- c(
     autumn = rgb(16, 78, 139, max = 255),
@@ -602,7 +650,7 @@ NULL
 #' @examples
 #' library(scales)
 #' show_col(pub_color_pal("pub12")(12))
-#' show_col(pub_color_pal("gray5")(6))
+#' show_col(pub_color_pal("gray5")(6), labels = FALSE)
 #' show_col(pub_color_pal("colorblind")(10))
 #' show_col(pub_color_pal("tableau20")(20))
 #' show_col(pub_color_pal("tableau10")(10))
@@ -735,7 +783,16 @@ NULL
 #' @family colour parties
 #' @examples
 #' library(scales)
-#' show_col(parties_color_pal()(10))
+#' show_col(parties_color_pal("BRA")(30))
+#'
+#' # Argentine
+#' show_col(parties_color_pal("ARG")(10))
+#'
+#' # US
+#' show_col(parties_color_pal("USA")(10))
+#'
+#' # Canada
+#' show_col(parties_color_pal("CAN")(10))
 #' @export
 #'
 `parties_color_pal` <- function(palette = "BRA") {

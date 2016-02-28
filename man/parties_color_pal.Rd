@@ -14,7 +14,16 @@ Color palettes for political organizations.
 }
 \examples{
 library(scales)
-show_col(parties_color_pal()(10))
+show_col(parties_color_pal("BRA")(30))
+
+# Argentine
+show_col(parties_color_pal("ARG")(10))
+
+# US
+show_col(parties_color_pal("USA")(10))
+
+# Canada
+show_col(parties_color_pal("CAN")(10))
 }
 \seealso{
 Other colour parties: \code{\link{scale_colour_parties}}

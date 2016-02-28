@@ -133,6 +133,10 @@ NULL
 #' \item {"farina"}{Farina Index of Proportionality}
 #' \item {"gallagher"}{Gallagher Index of Disproportionality}
 #' \item {"inv.gallagher"}{The Inverse of Gallagher Index}
+#' \item {"inv.cox.shugart"}{The Inverse of the Cox-Shugart Index}
+#' \item {"farina"}{Farina Index of Proportionality}
+#' \item {"gallagher"}{Gallagher Index of Disproportionality}
+#' \item {"inv.gallagher"}{The Inverse of the Gallagher Index}
 #' \item {"grofman"}{Grofman Index of Proportionality}
 #' \item {"lijphart"}{Lijphart Index of Proportionality}
 #' \item {"loosemore.hanby"}{Loosemore-Hanby Index of Disproportionality}
@@ -170,6 +174,12 @@ NULL
 #' proportionality(pvotes, pseats, index="rae")
 #'
 #' proportionality(pvotes, pseats, index="cox.shugart")
+#'
+#' # 2012 Quebec provincial election:
+#' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
+#' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
+#'
+#' proportionality(pvotes, pseats, index="rae")
 #'
 #' @export
 #' @docType methods
@@ -226,6 +236,10 @@ NULL
     idx <- (sum(abs(v - s))/length(v))
     idx <- (1 - idx)
   }
+  else if (index=="loosemore.hanby")
+    idx <- (sum(abs(v-s))/2)
+  else if (index=="inv.rae")
+    idx <- (sum(abs(v - s))/length(v))
   else if (index=="loosemore.hanby")
     idx <- (sum(abs(v-s))/2)
   else

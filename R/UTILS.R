@@ -16,9 +16,9 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
 #' @examples
-#' asTitleCase("THIS SHOULDN'T BE ALL CAPITAL LETTERS")
+#' titleCase("THIS SHOULDN'T BE ALL CAPITAL LETTERS")
 #'
-`asTitleCase` <- function(x) {
+`titleCase` <- function(x) {
   return (gsub("\\b([A-Z])([A-Z]+)", "\\U\\1\\L\\2" , x, perl=TRUE))
 }
 NULL

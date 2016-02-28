@@ -7,7 +7,9 @@
 #' @param method A string for the method used for normalization. Default is \code{method = "range"}, which brings the values into the range [0,1]. See details for other implemented methods.
 #'
 #' @return Normalized values in an object of the same class as \code{x}.
-#' @details This approach may also be generalized to restrict the range of values to any arbitrary values \code{a}  and  \code{b}, using: \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})}}.
+#' @details This approach may also be generalized to restrict the range of
+#'  values to any arbitrary values \code{a}  and  \code{b}, using:
+#'  \deqn{X' = a + \frac{(x - x_{min})(b - a)}{(x_{max} - x_{min})}}.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @seealso  \code{\link{svTransform}}, \code{\link{scale}}.
@@ -19,6 +21,18 @@
 #'
 #' # equivalently to
 #' (x-min(x))/(max(x)-min(x))
+#'
+#' # look at what happens to the correlation of two independent variables and their "interaction"
+#' # With non-centered interactions:
+#' a = rnorm(10000,20,2)
+#' b = rnorm(10000,10,2)
+#' cor(a,b)
+#' cor(a,a*b)
+#'
+#' # With centered interactions:
+#' c = a - 20
+#' d = b - 10
+#' cor(c,c*d)
 #'
 #' @keywords Rescaling
 #' @keywords Transformation
@@ -62,12 +76,6 @@ NULL
 #apply(scaled.dat, 2, sd)
 
 
-#`normalize.factor` <- function(x, range, domain=range(1:nlevels(x)), ...) {
-#  width <- diff(range)
-#  n <- length(levels(x)) - 1
-#  range[1]  - 1/n + width * as.numeric(x) / n
-#}
-
 
 
 ##' @title Generic function for obtaining scaled coefficients
@@ -81,7 +89,7 @@ NULL
 ##' @export
 ##' @author Daniel Marcelino
 ##' @examples
-##' 		#### create random data with different means and variances
+##'	# create random data with different means and variances
 ##' d = data.frame(matrix(rnorm(5*50, c(10,5,14,100, 33), c(3,5,4,3,5)), nrow=50, byrow=TRUE))
 ##' names(d) = LETTERS[1:5]
 ##' g = lm(C~B + A + D + E, data=d)
