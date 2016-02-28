@@ -770,7 +770,7 @@ NULL
 #'
 #' # expand it:
 #' # GSS <- gss[rep(1:nrow(gss), gss[["count"]]),]
-#' GSS = untable(gss, freq = "count")
+#'  GSS = untable(gss, freq = "count")
 #'
 #' calc.LR(GSS$party, GSS$sex)
 #'
@@ -1466,3 +1466,7 @@ star <- function(x) {
   }
 }
 NULL
+
+
+
+

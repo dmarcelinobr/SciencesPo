@@ -203,6 +203,79 @@ NULL
 
 
 
+#' @title Split Data into Test and Train Sets
+#' @description Split data given a vector \code{x} into two sets using a predefined ratio while preserving relative ratios of different labels in \code{x}. It is often used to split data for classification models into train and test subsets.
+#' @param x Vector of data labels.
+#' @param ratio The spliting ratio. Note that: if (0<=ratio<1), then \code{ratio} fraction of points from \code{x} will be set to \code{TRUE}. if (ratio==1) then one random point from \code{x} will be set to \code{TRUE}. if (ratio>1) then \code{ratio} number of points from \code{x} will be set to \code{TRUE}.
+#' @param group Optional vector/list used when multiple copies of each sample are present.
+#'
+#' @examples
+#' data(titanic)
+#' y = titanic[,4] # extract labels from the data
+#' set.seed(88)
+#' survived = data.split(y, ratio=3/5)
+#' table(y,survived)
+#'
+#' t=sum( survived)  # n of elements in one class
+#' f=sum( !survived) # n of elements in the other class
+#' stopifnot( round((t+f)*3/5) == t) # test ratios
+#'
+#' # use results of data.split to subset data into train and test sets
+#' train = subset(titanic, survived == TRUE)
+#' test  = subset(titanic, survived == FALSE)
+#'
+#' @export
+`data.split` <- function (x, ratio = 2/3, group = NULL)
+{
+  N = length(x)
+  n = length(group)
+  if (n > 0 && n != N)
+    stop("Error in data.split: Vectors 'x' and 'group' have to have the same length")
+  BinOne = logical(N)
+  ratio = abs(ratio)
+  if (ratio >= N)
+    stop("Error in data.split: 'ratio' parameter has to be i [0, 1] range or [1, length(.data)] range")
+  U = unique(x)
+  nU = length(U)
+  if (2 * nU > N | nU == 1) {
+    nh = if (ratio >= 1)
+      ratio
+    else ratio * N
+    rnd = runif(N)
+    if (n)
+      split(rnd, group) <- lapply(split(rnd, group), mean)
+    ord = order(rnd)
+    BinOne[ord[1:nh]] = TRUE
+  }
+  else {
+    rat = if (ratio >= 1)
+      ratio/N
+    else ratio
+    for (iU in 1:nU) {
+      idx = which(x == U[iU])
+      nh = round(length(idx) * rat)
+      rnd = runif(length(idx))
+      if (n) {
+        grp = group[idx]
+        split(rnd, grp) <- lapply(split(rnd, grp), mean)
+      }
+      ord = order(rnd)
+      BinOne[idx[ord[1:nh]]] = TRUE
+    }
+  }
+  if (ratio >= 1) {
+    nh = sum(BinOne) - ratio
+    if (nh > 0)
+      BinOne[sample(which(BinOne), nh)] = FALSE
+    else if (n < 0)
+      BinOne[sample(which(!BinOne), -nh)] = TRUE
+  }
+  return(BinOne)
+}
+NULL
+
+
+
 
 
 #' @title Clear Memory of All Objects
@@ -262,6 +335,58 @@ hash = function(cols=50, rows=2){
     cat("\n")
   }
 }
+NULL
+
+
+
+
+#' @title Odds Ratio for 2 x 2 Contingency Tables
+#'
+#' @description This function calculates the odds ratio for a 2 x 2 contingency table and a confidence interval (default conf.level is 95 percent) for the each estimate. x should be a matrix, data frame or table.
+#'
+#' @param x A 2 X 2 matrix, data frame or table of counts.
+#' @param pad.zeros A logical. If \code{pad.zeros=TRUE}, zeros will be added to the matrix.
+#' @param conf.level The confidence level of the interval.
+#' @param \dots Additional arguements (currently ignored).
+#'
+#' @examples
+#' tea <- matrix(c(3, 1, 1, 3), nrow = 2)
+#' rownames(tea) <- c("milk", "tea")
+#' colnames(tea) <- c("milk", "tea")
+#' tea
+#' odds.ratio(tea)
+#'
+#' mat <- matrix(c(18515, 18496, 1427, 1438), nrow = 2)
+#' rownames(mat) <- c("Placebo", "Aspirin")
+#' colnames(mat) <- c("No", "Yes")
+#' mat
+#' odds.ratio(mat)
+#'
+#' data(titanic)
+#' tab = table(titanic$CLASS, titanic$SURVIVED)
+#' tab
+#' odds.ratio(tab)
+#'
+#' @rdname odds.ratio
+#' @export
+`odds.ratio` <- function(x, pad.zeros=FALSE, conf.level=0.95, ...) UseMethod("odds.ratio")
+
+#' @rdname odds.ratio
+#' @export
+`odds.ratio` <-
+  function(x, pad.zeros=FALSE, conf.level=0.95, ...) {
+    if (pad.zeros) {
+      if (any(x==0)) x <- x + 0.5
+    }
+    theta <- x[1,1] * x[2,2] / ( x[2,1] * x[1,2] )
+    ASE <- sqrt(sum(1/x))
+    CI <- exp(log(theta)
+              + c(-1,1) * qnorm(0.5*(1+conf.level)) *ASE )
+    list(estimator=theta,
+         ASE=ASE,
+         conf.interval=CI,
+         conf.level=conf.level)
+  }
 NULL
 
 
@@ -395,7 +520,6 @@ orderedAxis<-function(data, axis, column)
 {
   # for interactivity with ggplot2
   arguments <- as.list(match.call())
-
   #if tidy information with more than 1 column
   #if(length(names(data))>2)
   #{
@@ -497,38 +621,43 @@ NULL
 
 
 
-##' Return only one row per ID
+#' @title  Return only one row per ID
+#'
+#' @description If an individual has multiple observations in the dataset, \code{last.entry} will
+#' loop through the entire dataset and return only one observation per individual, giving the
+#' first (or last) draw for a person.
+#'
+#' @param ID The name of the unique identifier, expressed as a string (e.g., "Match.Group")
+#' @param sort.var The variable to be sorted on in order to take the first (or last) sample, expressed as a string.
+#' @param decreasing How should the sort.var variable be sorted? Defaults to TRUE.
+#' @param data The dataset with multiple rows per individual
+#' @param FUN What should be done with the multiple samples? This function can be used to extract the last
+#' (or first) sample using the decreasing/sort.var options, or a function can be performed (such as the mean)
+#' on one or more columns. See examples.
+#' @param If FUN is not \code{NULL}, the variable (or a vector of variables), expressed as strings to have the function
+#' applied to.
+#' @return a new dataframe containing one row per ID
+#' @author Daniel Marcelino
+#'
+#' @export
+#' @examples
+##' # take only group 2 values
+##' last.entry(ID="ID", sort.var="group", data=sleep)
 ##'
-##' Often times, an individual has multiple observations in the dataset. \code{last.sample} will
-##' loop through the entire dataset and return only one observation per individual, giving the
-##' first (or last) draw for a person, or performing some function on the variable of interest.
+##' # take only group 1 values
+##' last.entry(ID="ID", sort.var="group", decreasing=FALSE,data=sleep)
 ##'
-##' @param ID The name of the unique identifier, expressed as a string (e.g., "Match.Group")
-##' @param sort.var The variable to be sorted on in order to take the first (or last) sample, expressed as a string.
-##' @param decreasing How should the sort.var variable be sorted? Defaults to T.
-##' @param data The dataset with multiple rows per individual
-##' @param FUN What should be done with the multiple samples? This function can be used to extract the last
-##' (or first) sample using the decreasing/sort.var options, or a function can be performed (such as the mean)
-##' on one or more columns. See examples.
-##' @param If FUN if not null, the variable (or a vector of variables), expressed as strings to have the function
-##' applied to.
-##' @aliases lastsample lastSample one.row last.row
-##' @return a new dataframe containing one row per ID
-##' @author Dustin Fife
-##' @export
-##' @examples
-##' #### take only group 2 values
-##' last.sample(ID="ID", sort.var="group", data=sleep)
-##' #### take only group 1 values
-##' last.sample(ID="ID", sort.var="group", decreasing=FALSE,data=sleep)
-##' #### average group 1 and 2 values
-##' last.sample(ID="ID", data=sleep, FUN=mean, fun.var="extra")
-##' #### take the maximum extra value
-##' last.sample(ID="ID", data=sleep, FUN=max, fun.var="extra")
-##' #### take the mean of two columns extra value
+##' # average group 1 and 2 values
+##' last.entry(ID="ID", data=sleep, FUN=mean, fun.var="extra")
+##'
+##' # take the maximum extra value
+##' last.entry(ID="ID", data=sleep, FUN=max, fun.var="extra")
+##'
+##' # take the mean of two columns extra value
 ##' sleep$group = as.numeric(as.character(sleep$group))
-##' last.sample(ID="ID", data=sleep, FUN=mean, fun.var=c("group","extra"))
-last.sample = function(ID, sort.var=NULL, decreasing=TRUE, data, FUN=NULL, fun.var=NULL,...){
+##' last.entry(ID="ID", data=sleep, FUN=mean, fun.var=c("group","extra"))
+##'
+`last.entry` = function(ID, sort.var=NULL, decreasing=TRUE, data, FUN=NULL, fun.var=NULL,...){
 
   #### if they gave a function but not a variable (or vice versa), bark
   if (is.null(FUN) & !is.null(fun.var) | !is.null(FUN) & is.null(fun.var)){
@@ -540,19 +669,19 @@ last.sample = function(ID, sort.var=NULL, decreasing=TRUE, data, FUN=NULL, fun.v
     data = data[order(data[,ID],data[,sort.var], decreasing=decreasing),]
   }
 
-  #### extract unique IDs
+  # extract unique IDs
   IDs = unique(data[,ID])
 
-  #### preallocate
+  # preallocate
   new.dat = data[1:length(IDs),]
 
-  #### loop
+  # loop
   for (i in 1:nrow(new.dat)){
     k = data[data[,ID]==IDs[i],]
 
     new.dat[i,] = k[1,]
 
-    ### if they specified a FUN, use it on the variable specified
+    # if they specified a FUN, use it on the variable specified
     if (is.null(fun.var)){
       new.dat[i,fun.var] = k[1,]
     } else if (length(fun.var)==1){
@@ -565,6 +694,8 @@ last.sample = function(ID, sort.var=NULL, decreasing=TRUE, data, FUN=NULL, fun.v
   return(new.dat)
 }
 NULL
+
+
 
 
 
@@ -662,3 +793,48 @@ sci.notation <- function(x, digits = 1) {
 
 }
 NULL
+
+
+
+"procfreq" <-
+  function(x, ...) {UseMethod("procfreq")}
+
+"procfreq.default" <-
+  function(x, digits=4) {
+    total <- sum(x)
+    rowsum <- apply(x,1,sum)
+    colsum <- apply(x,2,sum)
+    prop <- x/total
+    rowprop <- sweep(x,1,rowsum,"/")
+    colprop <- sweep(x,2,colsum,"/")
+    expected <- (matrix(rowsum) %*% t(matrix(colsum))) / total
+    dimnames(expected) <- dimnames(x)
+    resid <- (x-expected)/sqrt(expected)
+    adj.resid <-
+      resid/sqrt((1-matrix(rowsum)/total) %*% t(1-matrix(colsum)/total))
+    df <- prod(dim(x)-1)
+    X2 <- sum(resid^2)
+    attr(X2,"P-value") <- 1-pchisq(X2,df)
+    ## Must be careful about zero freqencies.  Want 0*log(0) = 0.
+    tmp <- x*log(x/expected)
+    tmp[x==0] <- 0
+    G2 <- 2 * sum(tmp)
+    attr(G2,"P-value") <- 1-pchisq(G2,df)
+    list(sample.size=total,
+         row.totals=rowsum,
+         col.totals=colsum,
+         overall.proportions=prop,
+         row.proportions=rowprop,
+         col.proportions=colprop,
+         expected.freqs=expected,
+         residuals=resid,
+         adjusted.residuals=adj.resid,
+         chi.square=X2,
+         likelihood.ratio.stat=G2,
+         df=df)
+  }
+
+adj.residuals <-
+  function(fit, ...) {
+    residuals(fit, ...) / sqrt(1 - lm.influence(fit)$hat)
+  }

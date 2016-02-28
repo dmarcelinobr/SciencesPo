@@ -5,6 +5,7 @@
 #'
 #' @param x is a vector to be normalized.
 #' @param method A string for the method used for normalization. Default is \code{method = "range"}, which brings the values into the range [0,1]. See details for other implemented methods.
+#' @param \dots Additional arguements (currently ignored).
 #'
 #' @return Normalized values in an object of the same class as \code{x}.
 #' @details This approach may also be generalized to restrict the range of
@@ -38,15 +39,11 @@
 #' @keywords Transformation
 #'
 #' @export normalize
-#' @docType methods
-#' @rdname normalize-methods
-#' @aliases normalise
-`normalize`<-setClass("normalize", representation(x = "numeric", method="character"))
-setGeneric("normalize", def=function(x, method = "range"){
-  standardGeneric("normalize")
-})
-#' @rdname normalize-methods
-setMethod(f="normalize", definition=function(x, method = "range"){
+#' @rdname normalize
+`normalize` <- function(x, method = "range", ...) UseMethod("normalize")
+
+#' @rdname normalize
+normalize <- function(x, method = "range", ...){
   method = .Match(arg = method, choices = c("range", "center", "Z-score", "z-score", "scale"))
   mat <- as.matrix(x)
   if(method=="range"){
@@ -65,10 +62,8 @@ setMethod(f="normalize", definition=function(x, method = "range"){
   else if (!is.numeric(resul <- x))
     warning("Data not numeric, normalization not applicable")
   else stop("Unknown input method")
-})
+}
 NULL
-
-
 
 
 # check that we get mean of 0 and sd of 1
@@ -76,36 +71,26 @@ NULL
 #apply(scaled.dat, 2, sd)
 
 
-
-
-##' @title Generic function for obtaining scaled coefficients
-##'
-##' @description Given an object of class lm, glm, or lda, this function will first standardize the variables, then run the model again. The resulting
-##' coefficients will be standardized betas.
-##' @title Standardize coefficients
-##' @param object an object resulting from glm, lm, or lda
-##' @param scale.response should the response variable be scaled as well? (Usually not for glm or lda).
-##' @return an object of the same class as the one outputted
-##' @export
-##' @author Daniel Marcelino
-##' @examples
-##'	# create random data with different means and variances
-##' d = data.frame(matrix(rnorm(5*50, c(10,5,14,100, 33), c(3,5,4,3,5)), nrow=50, byrow=TRUE))
-##' names(d) = LETTERS[1:5]
-##' g = lm(C~B + A + D + E, data=d)
-##' scaleB(g, TRUE)
-`scaleB` = function(object, scale.response=F){
-  vars = row.names(attr(terms(object), "factors"))
-  if (scale.response){
-    part1 = paste("scale(", vars[1], ")~", sep="")
-  } else {
-    part1 = paste("(", vars[1], ")~", sep="")
-  }
-  new.form = formula(paste(part1,paste("scale(", vars[-1], ")", collapse="+", sep=""), sep=""))
-  n.object = update(object, new.form, evaluate=FALSE)
-  n.object = eval.parent(n.object)
-  return(n.object)
-}
+#' @encoding UTF-8
+#' @title Transform dependent variable
+#' @description Simple function to transform a dependent variable that in [0,1] rather than (0, 1) to beta regression. Suggested by Smithson & Verkuilen (2006).
+#'
+#' @param y the dependent variable in [0, 1] interval.
+#' @references
+#' Smithson M, Verkuilen J (2006) A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. \emph{Psychological Methods}, 11(1), 54-71.
+#'
+#' @seealso  \code{\link{normalize}}.
+#' @examples
+#'  x <- sample(10); x;
+#'  y <- normalize(x); y;
+#'  svTransform(y)
+#' @export
+`svTransform` <- function(y)
+{
+  n <- length(y)
+  trans <- (y * (n-1) + 0.5)/n
+  return(trans)
+}### end -- svTransform function
 NULL
 
 
