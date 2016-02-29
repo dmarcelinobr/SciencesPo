@@ -28,4 +28,5 @@ Insert line breaks in long character strings. Useful for wrapping labels / title
 textwrap(c("A very long string", "And another even longer string!"), 10)
 
 }
+\keyword{internal}
 

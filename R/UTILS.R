@@ -2,7 +2,7 @@
 #' @description Chain operator.
 #' @name %>%
 #' @export %>%
-#' @keywords manipulation
+#' @keywords  internal
 #' @rdname chain
 #' @usage x %>% f(y) is translated into f(x, y).
 `%>%` <- magrittr::`%>%`
@@ -14,6 +14,7 @@
 #' @description Simply replaces all caps strings into proper case strings.
 #' @param x is a character vector.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @keywords internal
 #' @export
 #' @examples
 #' titleCase("THIS SHOULDN'T BE ALL CAPITAL LETTERS")
@@ -123,6 +124,7 @@ NULL
 #'          could be \code{"<br>"}.
 #' @return New label(s) with line breaks inserted at every \code{wrap}'s position.
 #'
+#' @keywords internal
 #' @examples
 #' textwrap(c("A very long string", "And another even longer string!"), 10)
 #'
@@ -187,6 +189,7 @@ NULL
 #'
 #' @param .data The name of the \code{data.frame}
 #' @seealso \code{\link{read.table}}, \code{\link{destring}}.
+#' @keywords internal
 #' @examples
 #'  str(iris)
 #' iris_2 = safe.chars(iris)
@@ -208,6 +211,7 @@ NULL
 #' @param x Vector of data labels.
 #' @param ratio The spliting ratio. Note that: if (0<=ratio<1), then \code{ratio} fraction of points from \code{x} will be set to \code{TRUE}. if (ratio==1) then one random point from \code{x} will be set to \code{TRUE}. if (ratio>1) then \code{ratio} number of points from \code{x} will be set to \code{TRUE}.
 #' @param group Optional vector/list used when multiple copies of each sample are present.
+#' @keywords manipulation
 #'
 #' @examples
 #' data(titanic)
@@ -319,6 +323,7 @@ NULL
 #' @param cols How many columns of hashes
 #' @param rows How many rows of hashes
 #' @author Daniel Marcelino
+#' @keywords internal
 #' @export
 #' @examples
 #' hash(cols=50, rows=1)
@@ -634,29 +639,32 @@ NULL
 #' @param FUN What should be done with the multiple samples? This function can be used to extract the last
 #' (or first) sample using the decreasing/sort.var options, or a function can be performed (such as the mean)
 #' on one or more columns. See examples.
-#' @param If FUN is not \code{NULL}, the variable (or a vector of variables), expressed as strings to have the function
+#' @param fun.var IF not \code{NULL}, the variable (or a vector of variables), expressed as strings to have the function
 #' applied to.
+#' @param \dots Additional arguements (currently ignored).
+#'
+#'
 #' @return a new dataframe containing one row per ID
 #' @author Daniel Marcelino
 #'
 #' @export
 #' @examples
-##' # take only group 2 values
-##' last.entry(ID="ID", sort.var="group", data=sleep)
-##'
-##' # take only group 1 values
-##' last.entry(ID="ID", sort.var="group", decreasing=FALSE,data=sleep)
-##'
-##' # average group 1 and 2 values
-##' last.entry(ID="ID", data=sleep, FUN=mean, fun.var="extra")
-##'
-##' # take the maximum extra value
-##' last.entry(ID="ID", data=sleep, FUN=max, fun.var="extra")
-##'
-##' # take the mean of two columns extra value
-##' sleep$group = as.numeric(as.character(sleep$group))
-##' last.entry(ID="ID", data=sleep, FUN=mean, fun.var=c("group","extra"))
-##'
+#' # take only group 2 values
+#' last.entry(ID="ID", sort.var="group", data=sleep)
+#'
+#' # take only group 1 values
+#' last.entry(ID="ID", sort.var="group", decreasing=FALSE,data=sleep)
+#'
+#' # average group 1 and 2 values
+#' last.entry(ID="ID", data=sleep, FUN=mean, fun.var="extra")
+#'
+#' # take the maximum extra value
+#' last.entry(ID="ID", data=sleep, FUN=max, fun.var="extra")
+#'
+#' # take the mean of two columns extra value
+#' sleep$group = as.numeric(as.character(sleep$group))
+#' last.entry(ID="ID", data=sleep, FUN=mean, fun.var=c("group","extra"))
+#'
 `last.entry` = function(ID, sort.var=NULL, decreasing=TRUE, data, FUN=NULL, fun.var=NULL,...){
 
   #### if they gave a function but not a variable (or vice versa), bark
@@ -690,7 +698,6 @@ NULL
       new.dat[i,fun.var] = apply(k[,fun.var], 2, FUN=FUN,...)
     }
   }
-
   return(new.dat)
 }
 NULL
@@ -833,6 +840,8 @@ NULL
          likelihood.ratio.stat=G2,
          df=df)
   }
+
+
 
 adj.residuals <-
   function(fit, ...) {

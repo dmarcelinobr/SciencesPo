@@ -20,4 +20,5 @@ titleCase("THIS SHOULDN'T BE ALL CAPITAL LETTERS")
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
+\keyword{internal}
 

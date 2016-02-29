@@ -9,5 +9,5 @@ x %>% f(y) is translated into f(x, y).
 \description{
 Chain operator.
 }
-\keyword{manipulation}
+\keyword{internal}
 

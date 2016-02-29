@@ -32,4 +32,5 @@ train = subset(titanic, survived == TRUE)
 test  = subset(titanic, survived == FALSE)
 
 }
+\keyword{manipulation}
 
