@@ -8,22 +8,21 @@
 `%>%` <- magrittr::`%>%`
 
 
-
 #' @encoding UTF-8
-#' @title Make Proper Case
-#' @description Simply replaces all caps strings into proper case strings.
-#' @param x is a character vector.
+#' @title Odds Ratio Calculation
+#' @description The orcalc can be used to obtain odds ratios. Simply provide the two probabilities to be used (the probability of success for group 1 is given first, then the probability of success for group 2)
+#' @param p1 is a probability for group 1.
+#' @param p2 is another probability, for group 2.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @keywords internal
 #' @export
 #' @examples
-#' titleCase("THIS SHOULDN'T BE ALL CAPITAL LETTERS")
+#' orcalc(.3, .4)
 #'
-`titleCase` <- function(x) {
-  return (gsub("\\b([A-Z])([A-Z]+)", "\\U\\1\\L\\2" , x, perl=TRUE))
+`orcalc` <- function(p1, p2){
+or = (p2 / (1 - p2)) / (p1 / (1 - p1))
+return(round(or,3))
 }
 NULL
-
 
 
 
@@ -110,8 +109,8 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Insert line breaks in long strings
-#' @name textwrap
+#' @title Insert Line Breaks in Long Strings
+#' @name textWrap
 #'
 #' @description Insert line breaks in long character strings. Useful for wrapping labels / titles for plots and tables.
 #'
@@ -126,10 +125,10 @@ NULL
 #'
 #' @keywords internal
 #' @examples
-#' textwrap(c("A very long string", "And another even longer string!"), 10)
+#' textWrap(c("A very long string", "And another even longer string!"), 10)
 #'
 #' @export
-textwrap <- function(labels, wrap, linesep = NULL) {
+textWrap <- function(labels, wrap, linesep = NULL) {
   # check for valid value
   if (is.null(labels) || length(labels) == 0)
     return(NULL)
@@ -172,7 +171,7 @@ textwrap <- function(labels, wrap, linesep = NULL) {
     }
   }
   return(labels)
-}### end -- textwrap function
+}### end -- TextWrap function
 NULL
 
 
@@ -188,15 +187,15 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
 #' @param .data The name of the \code{data.frame}
-#' @seealso \code{\link{read.table}}, \code{\link{destring}}.
+#' @seealso \code{\link{read.table}}, \code{\link{Destring}}.
 #' @keywords internal
 #' @examples
 #'  str(iris)
-#' iris_2 = safe.chars(iris)
+#' iris_2 = safeChars(iris)
 #' str(iris_2)
 #'
 #' @export
-safe.chars <- function(.data) {
+safeChars <- function(.data) {
   .data[sapply(.data, is.factor)] <-
     lapply(.data[sapply(.data, is.factor)], as.character)
   .data
@@ -396,6 +395,7 @@ NULL
 
 
 
+
 #' @encoding UTF-8
 #' @title Untable an Aggregated data.frame
 #'
@@ -505,6 +505,63 @@ NULL
         return(res)
   }### end -- untable function
 NULL
+
+
+
+
+
+#' Text-based File Interface
+#'
+#' Text-based file interface.
+#'
+#' @param root the root directory to look in
+#' @param multiple logical. enable multiple files?
+#' @source
+#'  \url{http://stackoverflow.com/questions/9122600/r-command-line-file-dialog-similar-to-file-choose}
+#'
+#' @export
+#' @examples
+#' if (interactive()) {
+#' file.browser()
+#' 	}
+#'
+file.browser <- function (root = getwd(), multiple = FALSE) {
+  # .. and list.files(root)
+  x <- c(dirname(normalizePath(root)), list.files(root,full.names = TRUE) )
+  isdir <- file.info(x)$isdir
+  obj <- sort(isdir,index.return = TRUE, decreasing = TRUE)
+  isdir <- obj$x
+  x <- x[obj$ix]
+  lbls <- sprintf('%s%s',basename(x),ifelse(isdir,'/',''))
+  lbls[1] <- sprintf('../ (%s)', basename(x[1]))
+
+  files <- c()
+  sel = -1
+  while (TRUE) {
+    txt <- sprintf('Select file(s) (0 to quit) in folder %s:', root)
+    sel <- menu(lbls, title = txt)
+    if (sel == 0)
+      break
+    if (isdir[sel]) {
+      # directory, browse further
+      files <- c(files, file.browser( x[sel], multiple ))
+      break
+    } else {
+      # file, add to list
+      files <- c(files, x[sel])
+      if (!multiple)
+        break
+      # remove selected file from choices
+      lbls <- lbls[-sel]
+      x <- x[-sel]
+      isdir <- isdir[-sel]
+    }
+  }
+  return(files)
+}
+NULL
+
+
 
 
 
@@ -626,6 +683,341 @@ NULL
 
 
 
+#' Compute the fractional part of a numeric
+#'
+#' Takes a numeric vector and returns a vector of the numbers after the decimal
+#' place
+#'
+#' @param x A numeric vector of any length
+#' @return A vector of the same length as the input vec containing only the decimal component.
+#' @export
+#' @examples
+#' x <- runif(100)
+#' fpart(x)
+fpart = function(x) {
+  ret = x - as.integer(x)
+  ret
+}
+NULL
+
+
+
+
+
+#' Return the odd and even values from a vector
+#'
+#' Takes an integer vector and returns every odd or even element
+#'
+#'@aliases evens odds
+#'@param x Integer vector
+#'@return Returns an integer vector consisting of only the odd/even elements.
+#'@export which.evens
+#'@export which.odds
+#'@examples
+#'
+#' x <- as.integer(c(1,2,3,4,5,6,7,8,9))
+#' which.evens(x)
+#'  which.odds(x)
+#'
+which.evens=function(x) {
+  stopifnot(class(x)=="integer")
+  ret = x[fpart(x/2)==0]
+  ret
+}
+which.odds=function(x) {
+  stopifnot(class(x)=="integer")
+  ret = x[fpart(x/2)!=0]
+  ret
+}
+NULL
+
+
+
+
+#' @title Computes Weighted Mean
+#' @description Computes a weighted mean of data.
+#' @param x A numeric vector.
+#' @param weights A numeric vector of weights of \code{x}.
+#' @param normwt Ignored.
+#' @param na.rm A logical, if \code{TRUE}, missing data will be dropped.  If \code{na.rm = FALSE}, missing data will return an error.
+#' @export
+#' @examples
+#' x <- sample(10,10)
+#' w <- sample(5,10, replace=TRUE)
+#'
+#' scpo.wtd.mean(x, w)
+`scpo.wtd.mean` <- function (x, weights = NULL, normwt = "ignored", na.rm = TRUE)
+{
+  if (!length(weights))
+    return(mean(x, na.rm = na.rm))
+  if (na.rm) {
+    s <- !is.na(x + weights)
+    x <- x[s]
+    weights <- weights[s]
+  }
+  sum(weights * x)/sum(weights)
+}
+NULL
+
+
+
+#' @title Weighted Frequency Table
+#'
+#' @description Computes a weighted frequency table, only one stratification variable is supported.
+#'
+#' @param x A numeric vector, may be a character or category or factor vector.
+#' @param weights A numeric vector of weights.
+#' @param type The default type is "list", meaning that the function is to return a list containing two vectors: x is the sorted unique values of x and sum.of.weights is the sum of weights for that x. This is the default so that you don't have to convert the names attribute of the result that can be obtained with type="table" to a numeric variable when x was originally numeric. type="table" for wtd.table results in an object that is the same structure as those returned from table.
+#'
+#' @param normwt specify normwt=TRUE to make weights sum to length(x) after deletion of NAs. If weights are frequency weights, then normwt should be FALSE, and if weights are normalization (aka reliability) weights, then normwt should be TRUE. In the case of the former, no check is made that weights are valid frequencies.
+#' @param na.rm A logical, if \code{TRUE}, missing data will be dropped.  If \code{na.rm = FALSE}, missing data will return an error.
+#'
+#' @examples
+#'  x <- sample(5,25, replace=TRUE)
+#'  w <- sample(3,25, replace=TRUE)
+#'
+#' scpo.wtd.table(x, w)
+#'
+#' @export
+`scpo.wtd.table` <- function (x, weights = NULL, type = c("list", "table"), normwt = FALSE, na.rm = TRUE)
+{
+  type <- match.arg(type)
+  if (!length(weights))
+    weights <- rep(1, length(x))
+  isdate <- scpo.isDate(x)
+  ax <- attributes(x)
+  ax$names <- NULL
+  if (is.character(x))
+    x <- as.factor(x)
+  lev <- levels(x)
+  x <- unclass(x)
+  if (na.rm) {
+    s <- !is.na(x + weights)
+    x <- x[s, drop = FALSE]
+    weights <- weights[s]
+  }
+  n <- length(x)
+  if (normwt)
+    weights <- weights * length(x)/sum(weights)
+  i <- order(x)
+  x <- x[i]
+  weights <- weights[i]
+  if (anyDuplicated(x)) {
+    weights <- tapply(weights, x, sum)
+    if (length(lev)) {
+      levused <- lev[sort(unique(x))]
+      if ((length(weights) > length(levused)) && any(is.na(weights)))
+        weights <- weights[!is.na(weights)]
+      if (length(weights) != length(levused))
+        stop("program logic error")
+      names(weights) <- levused
+    }
+    if (!length(names(weights)))
+      stop("program logic error")
+    if (type == "table")
+      return(weights)
+    x <- scpo.AllIsNumeric(names(weights), "vector")
+    if (isdate)
+      attributes(x) <- c(attributes(x), ax)
+    names(weights) <- NULL
+    return(list(x = x, sum.of.weights = weights))
+  }
+  xx <- x
+  if (isdate)
+    attributes(xx) <- c(attributes(xx), ax)
+  if (type == "list")
+    list(x = if (length(lev)) lev[x] else xx, sum.of.weights = weights)
+  else {
+    names(weights) <- if (length(lev))
+      lev[x]
+    else xx
+    weights
+  }
+}
+NULL
+
+
+
+
+
+
+#' @title Computes Weighted Proportions
+#' @description Computes a weighted proportions table of data in each category for any variable.
+#' @param x A vector for which a set of proportions is desired.
+#' @param weights A vector of weights to be used to determining the weighted proportion in each category of \code{x}.
+#' @param na.rm A logical, if \code{TRUE}, missing data will be dropped.  If \code{na.rm = FALSE}, missing data will return an error.
+#'
+#' @examples
+#' x <- sample(10,10)
+#' w <- sample(5,10, replace=TRUE)
+#'
+#' scpo.wtd.prop(x, w)
+#'
+#' @export
+`scpo.wtd.prop` <- function(x, weights=NULL, na.rm=TRUE){
+  if(is.null(weights)){
+    weights <- rep(1, length(x))
+  }
+  y <- scpo.wtd.table(x, weights, na.rm=na.rm)$sum.of.weights/sum(scpo.wtd.table(x, weights, na.rm=na.rm)$sum.of.weights)
+  z <- as.vector(y)
+  names(z) <- names(y)
+  if(is.logical(x))
+    z <- rev(z)
+  z
+}
+NULL
+
+
+
+
+
+#' @title Weighted Variance
+#'
+#' @description Weighted Variance Formula
+#'
+#' @param x the variable.
+#' @param w the variance.
+#' @param na.rm A logical if NA should be disregarded.
+#' @keywords Stats
+#' @export
+#' @examples
+#' wt=c(1.23, 2.12, 1.23, 0.32, 1.53, 0.59, 0.94, 0.94, 0.84, 0.73)
+#' x = c(5, 5, 4, 4, 3, 4, 3, 2, 2, 1)
+#' scpo.wtd.var(x, wt)
+`scpo.wtd.var` <- function(x, w, na.rm = FALSE) {
+  if (na.rm) {
+    w <- w[i <- !is.na(x)]
+    x <- x[i]
+  }
+  sum.w <- sum(w)
+  sum.w2 <- sum(w^2)
+  mean.w <- sum(x * w) / sum(w)
+  (sum.w / (sum.w^2 - sum.w2)) * sum(w * (x - mean.w)^2, na.rm = na.rm)
+}
+NULL
+
+
+
+
+
+#' @title Computes Weighted Standardized Values
+#' @description Computes weighted standardized values of data in each category for any variable.
+#' @param x A vector for which a set of standardized values is desired.
+#' @param weights A vector of weights to be used to determining the weighted values of \code{x}.
+#'
+#' @examples
+#'  x <- sample(10,10)
+#'  w <- sample(5,10, replace=TRUE)
+#'
+#' scpo.wtd.stdz(x, w)
+#' @export
+`scpo.wtd.stdz` <- function(x, weights=NULL){
+  if(is.null(weights)){
+    weights <- rep(1, length(x))
+  }
+  x <- x-scpo.wtd.mean(x, weights, na.rm=TRUE)
+  x <- x/sqrt(scpo.wtd.var(x, weights, na.rm=TRUE))
+  x
+}
+NULL
+
+
+
+
+#' @title Computes Weighted Correlations
+#' @description Computes weighted correlations.
+#' @useDynLib SciencesPo
+#' @export
+#' @param x A matrix or vector to correlate with \code{y}.
+#' @param y A matrix or vector to correlate with \code{x}. If \code{y} is NULL, \code{x} will be used instead.
+#' @param weights An optional vector of weights to be used to determining the weighted mean and variance for calculation of the correlations.
+#'
+#' @examples
+#'  x <- sample(10,10)
+#'  y <- sample(10,10)
+#'  w <- sample(5,10, replace=TRUE)
+#'
+#' scpo.wtd.corr(x, y, w)
+#'
+`scpo.wtd.corr` <- function(x, y=NULL, weights=NULL){
+  if(is.null(y)){
+    y <- x
+  }
+  q <- as.matrix(x)
+  r <- as.matrix(y)
+  if(is.null(weights)){
+    weights <- rep(1, dim(q)[1])
+  }
+  x <- q[!is.na(weights),]
+  y <- r[!is.na(weights),]
+  weights <- weights[!is.na(weights)]
+  out <- .Call("wcorr", as.matrix(x), as.matrix(y), as.double(weights), NAOK=TRUE, PACKAGE="SciencesPo")
+  ## C code for this package was contributed by Marcus Schwemmle
+  if(!is.null(colnames(x)))
+    rownames(out) <- colnames(x)
+  if(!is.null(colnames(y)))
+    colnames(out) <- colnames(y)
+  out
+}
+NULL
+
+
+
+
+
+
+
+#' Summarize Missingness Across a data frame
+#'
+#' This function calculates the number and percent missing for every variable in .data.
+#'
+#' @param .data The dataset or vector.
+#' @param order A logical, should results be ordered by degree of missingness? Default is \code{order=TRUE}.
+#' @examples
+#'
+#' foo <- data.frame(X1 = rnorm(100),
+#'                   X2 = sample(c(NA, 'A', 'B', 'C'), 100, TRUE),
+#'                   X3 = sample(c('A', NA, 'C', NA), 100, TRUE))
+#'
+#' prop.miss(foo)
+#'
+#' @export
+#'
+`prop.miss` <- function(.data, order = TRUE) {
+  # total no. of obs.
+  n <- nrow(.data)
+  # no. that are missing
+  nmiss <- apply(.data, MARGIN = 2, FUN = function(x){
+    # we include both NAs and blanks as missing values
+    return(sum(is.na(x) | x == ''))
+  })
+  # variable names
+  vars <- names(nmiss)
+  # number formatting
+  format <- function(x){
+    return(prettyNum(x, big.mark = ',', scientific = FALSE))
+  }
+  # output table
+  out <- data.frame(
+    variable = vars,
+    missfrac = paste0(format(nmiss), '/', format(n)),
+    missperc = paste0(round(nmiss/n * 100, 2), '%')
+  )
+  rownames(out) <- NULL
+  colnames(out) <- c('var', 'missing/total', 'missing')
+  if(order){
+    return(out[order(nmiss, decreasing = TRUE),])
+  } else {
+    return(out)
+  }
+}
+NULL
+
+
+
+
+
+
 #' @title  Return only one row per ID
 #'
 #' @description If an individual has multiple observations in the dataset, \code{last.entry} will
@@ -702,6 +1094,31 @@ NULL
 }
 NULL
 
+
+
+#' @title Replace Character
+#' @description  Replaces characters in a given string.
+#' @param str The target string.
+#' @param char The replacing character.
+#' @param newchar The new character.
+#'
+#' x <- "replace_strings"
+#'
+#' replace.char(x, char = "_", newchar = ".")
+#'
+#' @export
+`replace.char` <- function(str, char = "_", newchar = ".")
+{  ## tjoelker@redwood.rt.cs.boeing.com (Rod Tjoelker 865-3197)
+  under <- grep(char, str)
+  for(i in under) {
+    nc <- nchar(str[i])
+    ch <- substring(str[i], 1:nc, 1:nc)
+    ch <- ifelse(ch == char, newchar, ch)
+    str[i] <- paste(ch, collapse = "")
+  }
+  return(str)
+}
+NULL
 
 
 

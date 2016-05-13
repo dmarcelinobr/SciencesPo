@@ -24,7 +24,7 @@ NULL
   options(n.cat = 0)
   options(quiet = FALSE)
   options(brief = FALSE)
-  ggplot2::theme_set(theme_pub())
+ # ggplot2::theme_set(theme_pub())
 }
 NULL
 
@@ -43,6 +43,7 @@ say.yo <- function() {
     assign(as.character(substitute(x)), y, envir = parent.frame())
   }
 
+
 `shorten` <- function(x, n)
   cat("Divisors:", x[1:n], "...", "\n")
 
@@ -60,14 +61,9 @@ is.valid.name <- function(x) {
 }
 
 
-noathenb <- function(a, b) {
-  if (length(a) > 0)
-    a
-  else
-    b
+"%||%" <- function(a, b) {
+  if (!is.null(a)) a else b
 }
-
-"%||%" <- noathenb
 
 naathenb <- function(a, b) {
   if (length(a) > 0) {
@@ -91,6 +87,24 @@ emaweights<-function(m)
   return(((alpha*(1-alpha)^(1-i)))/sm)
 }
 
+
+
+#' @title Not in (Find Matching or Non-Matching Elements)
+#'
+#' @description "%nin%" is a binary operator, which returns a
+#'  logical vector indicating if there is a match or not for its left
+#'   operand. A true vector element indicates no match in left operand,
+#'    false indicates a match.
+#'
+#' @param x A vector of numeric, character, or factor values.
+#' @param table	A vector (numeric, character, factor), matching the mode of x
+#'
+#' @examples
+#' c('a','b','c') %nin% c('a','b')
+#' @rdname nin
+#' @export
+"%nin%" <- function(x, table){
+  match(x, table, nomatch = 0) == 0}
 
 
 # Adds extra habilities to the base match.arg function:
@@ -649,6 +663,8 @@ NULL
 }
 NULL
 
+
+
 # from rstudio/dygraphs https://github.com/rstudio/dygraphs
 
 asISO8601Time <- function(x) {
@@ -666,6 +682,11 @@ asISO8601Time <- function(x) {
 }
 
 
+midpoints <- function(x, dp=2){
+  lower <- as.numeric(gsub(",.*","",gsub("\\(|\\[|\\)|\\]","", x)))
+  upper <- as.numeric(gsub(".*,","",gsub("\\(|\\[|\\)|\\]","", x)))
+  return(round(lower+(upper-lower)/2, dp))
+}
 
 
 regroup <- function(.data, ..., wt = NULL) {
@@ -681,3 +702,40 @@ regroup <- function(.data, ..., wt = NULL) {
     eval(call)
   }
 }
+
+
+
+
+`scpo.isDate` <- function (x, what = c("either", "both", "timeVaries"))
+{
+  what <- match.arg(what)
+  cl <- class(x)
+  if (!length(cl))
+    return(FALSE)
+  dc <- c("Date", "POSIXt", "POSIXct", "dates", "times", "chron")
+  dtc <- c("POSIXt", "POSIXct", "chron")
+  switch(what, either = any(cl %in% dc), both = any(cl %in%
+                                                      dtc), timeVaries = {
+if ("chron" %in% cl || "Date" %in% cl) {
+  y <- as.numeric(x)
+ length(unique(round(y - floor(y), 13))) > 1
+} else length(unique(format(x, "%H%M%S"))) > 1})
+}
+NULL
+
+
+
+`scpo.AllIsNumeric` <- function (x, what = c("test", "vector"), extras = c(".", "NA"))
+{
+  what <- match.arg(what)
+  x <- sub("[[:space:]]+$", "", x)
+  x <- sub("^[[:space:]]+", "", x)
+  xs <- x[x %nin% c("", extras)]
+  isnum <- suppressWarnings(!any(is.na(as.numeric(xs))))
+  if (what == "test")
+    isnum
+  else if (isnum)
+    as.numeric(x)
+  else x
+}
+NULL

@@ -20,8 +20,10 @@ last.entry(ID, sort.var = NULL, decreasing = TRUE, data, FUN = NULL,
 (or first) sample using the decreasing/sort.var options, or a function can be performed (such as the mean)
 on one or more columns. See examples.}
 
-\item{If}{FUN is not \code{NULL}, the variable (or a vector of variables), expressed as strings to have the function
+\item{fun.var}{IF not \code{NULL}, the variable (or a vector of variables), expressed as strings to have the function
 applied to.}
+
+\item{\dots}{Additional arguements (currently ignored).}
 }
 \value{
 a new dataframe containing one row per ID

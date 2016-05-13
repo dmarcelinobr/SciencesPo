@@ -13,12 +13,15 @@
 #'
 #' unclass(myvar) # testing order
 #'
-#' destring(myvar)
+#' Destring(myvar)
 #'
 #' @keywords Manipulation
 #'
 #' @export
-`destring` <- function(x) {
+`Destring` <- function(x) UseMethod("Destring")
+NULL
+#' @export
+`Destring.default` <- function(x) {
   ## convert factor to strings
   if (is.character(x)) {
     as.numeric(x)

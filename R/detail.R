@@ -4,11 +4,11 @@
 #' @return A data.frame of descriptive statistics
 #' @export
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-detail <- function(data...)
+Detail <- function(data...)
   UseMethod("detail")
 
 
-print.detail <- function(data, ...) {
+print.Detail <- function(data, ...) {
   cat("detail: ")
   print(data$call)
 }
@@ -42,10 +42,10 @@ NULL
 #' data(marriage)
 #'
 #' # To apply the function
-#' detail(marriage, trim = 0.5, k = 3)
+#' Detail(marriage, trim = 0.5, k = 3)
 #'
 #' @export
-detail <-
+Detail <-
   function(.data,
            by = NULL,
            basic = FALSE,
@@ -70,11 +70,11 @@ detail <-
       stats[1, 2] <- mean(.data, na.rm = na.rm)
       stats[1, 3] <- stats::sd(.data, na.rm = na.rm)
       stats[1, 4] <- stats::var(.data, na.rm = na.rm)
-      stats[1, 5] <- se(.data, na.rm = na.rm)
+      stats[1, 5] <- SE(.data, na.rm = na.rm)
       stats[1, 6] <- stats::median(.data, na.rm = na.rm)
       stats[1, 7] <- stats::mad(.data, na.rm = na.rm)
       stats[1, 8] <- mean(.data, na.rm = na.rm, trim = trim)
-      stats[1, 9] <- winsorize(.data, k = k, na.rm = na.rm)
+      stats[1, 9] <- WinsorizedMean(.data, k = k, na.rm = na.rm)
       stats[1, 10] <- min(.data, na.rm = na.rm)
       stats[1, 11] <- max(.data, na.rm = na.rm)
       stats[1, 12] <- skewness(.data, na.rm = na.rm, type = type)
@@ -114,7 +114,7 @@ detail <-
       }
       stats[, 3] <- sapply(.data, FUN = stats::sd, na.rm = na.rm)
       stats[, 4] <- sapply(.data, FUN = stats::var, na.rm = na.rm)
-      stats[, 5] <- sapply(.data, FUN = se, na.rm = na.rm)
+      stats[, 5] <- sapply(.data, FUN = SE, na.rm = na.rm)
       stats[, 6] <- sapply(.data, FUN = stats::median, na.rm = na.rm)
       stats[, 7] <- sapply(.data, FUN = stats::mad, na.rm = na.rm)
       stats[, 8] <-
@@ -123,7 +123,7 @@ detail <-
                na.rm = na.rm,
                trim = trim)
       stats[, 9] <- sapply(.data,
-                           FUN = winsorize,
+                           FUN = WinsorizedMean,
                            k = k,
                            na.rm = na.rm)
       stats[, 10] <- sapply(.data, FUN = min, na.rm = na.rm)

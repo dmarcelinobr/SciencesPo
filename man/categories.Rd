@@ -37,6 +37,6 @@ categories(x=traindata,p=c(2,1,3))
 Authors: Michel Ballings, and Dirk Van den Poel, Maintainer: \email{Michel.Ballings@GMail.com}
 }
 \seealso{
-\code{\link{dummy}}
+\code{\link{Dummy}}
 }
 

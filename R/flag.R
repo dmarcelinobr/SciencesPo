@@ -15,16 +15,16 @@
 #'                  B = c(1, 1, 1, 1, 1), values = 1:5);
 #' df
 #'
-#' flag(df, c("A", "B"))
+#' scpo.flag(df, c("A", "B"))
 #'
 #' df <- data.frame(A = c("a", "a", "a", "b", "b"),
 #'                    B = c(1, 2, 1, 1, 2), values = 1:5)
 #' df
-#' flag(df, 1:2)
+#' scpo.flag(df, 1:2)
 #'
 #' @importFrom data.table := is.data.table as.data.table
 #' @export
-`flag` <- function(.data, id.vars = NULL) {
+`scpo.flag` <- function(.data, id.vars = NULL) {
   if (!is.data.table(.data)) .data <- as.data.table(.data)
   else .data <- copy(.data)
 

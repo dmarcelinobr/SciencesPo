@@ -39,10 +39,10 @@
 #' @examples
 #' x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
 #'
-#' ci(x, level=.90)
+#' calc.CI(x, level=.90)
 #' @export
 #'
-`ci` <- function(x,
+`calc.CI` <- function(x,
                  level = 0.95,
                  alpha = 1 - level,
                  na.rm = FALSE,
@@ -71,12 +71,12 @@ NULL
 
 setMethod(
   "show",
-  signature(object = "ci"),
+  signature(object = "calc.CI"),
   definition = function(object) {
     retval <- c(
-      "CI Lower" = object@lower,
+      "Lower" = object@lower,
       "Est. Mean" = object@mean,
-      "CI Upper" = object@upper,
+      "Upper" = object@upper,
       "Std. Error" = object@stderr
     )
     print(retval, digits = max(3, getOption("digits") - 3))

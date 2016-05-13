@@ -19,13 +19,32 @@
 #' geom_bar()+
 #' geom_freqpoly(stat="count",size=2) +
 #' theme_pub(base_family='serif')
+#'
 #' dat <- data.frame()
 #' for(i in 1:4)
 #' dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 #'
 #' ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
-#' fill="orange", shape=21) + geom_smooth(method="lm", fill=NA,
-#' fullrange=TRUE) + facet_wrap(~set, ncol=2)
+#' fill="orange", shape=21) +
+#' geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
+#' facet_wrap(~set, ncol=2) +
+#' theme_pub(base_family='serif')
+#'
+#'
+#' ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
+#' fill="orange", shape=21) +
+#' geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
+#' facet_wrap(~set, ncol=2) +
+#' theme_bw() +
+#' theme(plot.background=element_rect(fill="#f7f7f7")) +
+#' theme(panel.background=element_rect(fill="#f7f7f7")) +
+#' theme(panel.grid.minor=element_blank()) +
+#' # theme(panel.grid.major.y=element_blank()) +
+#' theme(panel.grid.major.x=element_line()) +
+#' theme(axis.ticks=element_blank()) +
+#' theme(panel.border=element_blank()) +
+#' theme(legend.position="top")
+
 #'
 #' @export
 theme_pub <- function(legend = 'bottom',
@@ -60,7 +79,7 @@ theme_pub <- function(legend = 'bottom',
     axis.text.y =        element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
     axis.ticks =         element_line(color="#F0F0F0"),
     axis.ticks.length =  grid::unit(half_line / 2, "pt"),
-    axis.title =          element_text(size = rel(0.8), face = "bold", colour = "grey15"),
+    axis.title =          element_text(size = rel(0.8), face = "plain", colour = "grey15"),
     axis.title.x =       element_text(margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2
     )),
@@ -149,9 +168,10 @@ NULL
 #' @aliases theme_538
 `theme_fte` <- function(legend = 'none',
                        legend_title = FALSE,
-                       base_size = 13,
+                       base_size = 12,
+                       horizontal = TRUE,
                        base_family = '',
-                       colors = c('#F0F0F0', '#D9D9D9', '#737373', '#525252')
+                       colors = c('#F0F0F0', '#D9D9D9', '#60636A', '#525252')
                       ) {
   half_line <- base_size / 2
   theme(
@@ -159,7 +179,7 @@ NULL
     # by others
     line = element_line(
       colour = colors[2],
-      size = 0.75, linetype = 1,
+      size = 0.5, linetype = 1,
       lineend = "butt"
     ),
     rect = element_rect(
@@ -176,11 +196,12 @@ NULL
 
     axis.line =          element_blank(),
     axis.text =          element_text(size = rel(1)),
-    axis.text.x =        element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1),
-    axis.text.y =        element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
-    axis.ticks =         element_line(),
+    axis.text.x =        element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1, size = rel(0.9)),
+    axis.text.y =        element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1, size = rel(0.9)),
+    axis.ticks.y =        element_blank(),
+    axis.ticks.x =        element_line(color = colors[3]),
     axis.ticks.length =  grid::unit(half_line / 2, "pt"),
-    axis.title =          element_text(size = rel(0.8), face = "bold", color = colors[4]),
+    axis.title =          element_text(size = rel(0.9), face = "bold", color = colors[3]),
     axis.title.x =       element_text(vjust = 0, margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2)),
     axis.title.y =       element_text(angle = 90, vjust = 1.25, margin = ggplot2::margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)
@@ -211,7 +232,7 @@ NULL
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(),
-    strip.text =         element_text(colour = "grey15",face="bold", size = rel(0.8)),
+    strip.text =         element_text(colour = "grey15",face="plain", size = rel(0.8)),
     strip.text.x =       element_text(margin = ggplot2::margin(t = half_line, b = half_line)),
     strip.text.y =       element_text(
   angle = -90, margin = ggplot2::margin(l = half_line, r = half_line)
@@ -337,7 +358,9 @@ themes_data <- {
         rgb(188, 189, 34, max = 255),
         rgb(219, 219, 141, max = 255),
         rgb(23, 190, 207, max = 255),
-        rgb(158, 218, 229, max = 255)
+        rgb(158, 218, 229, max = 255),
+        rgb(172, 135, 99, max = 255), 
+        rgb(221, 201, 180, max = 255)
       ),
       tableau10medium = c(
         rgb(114, 158, 206, max = 255),
@@ -502,7 +525,8 @@ themes_data <- {
       )
     )
   x$pub$shapes <-
-    list(gender = c(
+    list(
+      gender = c(
         -0x2640L, # f
         -0x2642L  # m
         ),
@@ -724,7 +748,6 @@ scale_color_pub <- scale_colour_pub
 
 
 
-
 #' Extended fivethirtyeight.com color palette
 #'
 #' The standard fivethirtyeight.com palette for line plots is blue, red, green.
@@ -814,6 +837,18 @@ NULL
 NULL
 
 
+
+#' List Political Parties
+#'
+#' @note Warning: the list can be huge!\cr
+#' @family parties aeshetics
+#' @export
+list_parties <- function() {
+  sort(names(parties))
+}
+NULL
+
+
 #' @title Political Parties Color Scales
 #'
 #' @description Scale color for political parties.
@@ -879,6 +914,8 @@ NULL
   discrete_scale("shape", "pub", pub_shape_pal(palette), ...)
 }
 NULL
+
+
 
 
 

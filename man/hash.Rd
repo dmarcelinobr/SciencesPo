@@ -20,4 +20,5 @@ hash(cols=50, rows=1)
 \author{
 Daniel Marcelino
 }
+\keyword{internal}
 
