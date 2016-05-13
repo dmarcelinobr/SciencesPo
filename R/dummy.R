@@ -14,12 +14,13 @@
 #' @keywords Models
 #'
 #' @examples
-#' df <- data.frame(y = rnorm(25), x = runif(25,0,1), sex = sample(1:2, 25, rep=TRUE))
+#' df <- data.frame(y = rnorm(10), x = runif(10,0,1), sex = sample(1:2, 10, rep=TRUE))
 #'
-#' dummy(df$sex)
+#' Dummy(df$sex) ;
 #'
+#' cbind(df, Dummy(df$sex));
 #' @export
-`dummy` <-
+`Dummy` <-
   function (x, data = NULL, drop = TRUE)
   {
     if (is.null(data)) {
@@ -78,7 +79,7 @@ NULL
 #' categories(x=traindata,p="all")
 #' categories(x=traindata,p=2)
 #' categories(x=traindata,p=c(2,1,3))
-#' @seealso \code{\link{dummy}}
+#' @seealso \code{\link{Dummy}}
 #' @return  A list containing the variable names and the categories
 #' @author Authors: Michel Ballings, and Dirk Van den Poel, Maintainer: \email{Michel.Ballings@@GMail.com}
 #' @export

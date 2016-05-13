@@ -24,7 +24,7 @@
 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{rae}},  \code{\link{rose}}, \code{\link{farina}}, \code{\link{grofman}}, \code{\link{gallagher}}, \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{CoxShugart}}, \code{\link{Rae}},  \code{\link{rose}}, \code{\link{farina}}, \code{\link{Grofman}}, \code{\link{Gallagher}}, \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
 #'
@@ -46,19 +46,19 @@
 #' C <- c(.55,.45);
 #'
 #' # The index by "laakso/taagepera" is the default
-#' politicalDiversity(A)
-#' politicalDiversity(B)
+#' PoliticalDiversity(A)
+#' PoliticalDiversity(B)
 #'
 #' # Using the method proposed by Golosov gives:
-#' politicalDiversity(B, index="golosov")
-#' politicalDiversity(C, index="golosov")
+#' PoliticalDiversity(B, index="golosov")
+#' PoliticalDiversity(C, index="golosov")
 #'
 #' # The 1980 presidential election in the US (vote share):
 #' US1980 <- c("Democratic"=0.410, "Republican"=0.507,
 #' "Independent"=0.066, "Libertarian"=0.011, "Citizens"=0.003,
 #' "Others"=0.003)
 #'
-#' politicalDiversity(US1980)
+#' PoliticalDiversity(US1980)
 #'
 #' # 2010 Brazilian legislative election
 #'
@@ -74,18 +74,18 @@
 #' "PV"=15, "PC do B"=15, "PPS"=12, "PRB"=8, "PMN"=4, "PT do B"=3,
 #'  "PSOL"=3, "PHS"=2, "PRTB"=2, "PRP"=2, "PSL"=1,"PTC"=1)
 #'
-#' politicalDiversity(seats_2010)
+#' PoliticalDiversity(seats_2010)
 #'
-#' politicalDiversity(seats_2010, index= "golosov")
+#' PoliticalDiversity(seats_2010, index= "golosov")
 #'
-#' @export politicalDiversity
-#' @rdname politicalDiversity
-#' @aliases politicalFragmentation
-`politicalDiversity`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1))
-  UseMethod("politicalDiversity")
+#' @export PoliticalDiversity
+#' @rdname PoliticalDiversity
+#' @aliases PoliticalFragmentation
+`PoliticalDiversity`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1))
+  UseMethod("PoliticalDiversity")
 
-#' @rdname politicalDiversity
-`politicalDiversity`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1)){
+#' @rdname PoliticalDiversity
+`PoliticalDiversity`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1)){
       x <- drop(as.matrix(x))
       index <- .Match(arg = index, choices = c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon") )
       if (length(dim(x)) > 1) {
@@ -128,25 +128,22 @@ NULL
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @details The following measures are available:
 #' \itemize{
-#' \item {"cox.shugart"}{Cox-Shugart Measure of Proportionality}
-#' \item {"inv.cox.shugart"}{The Inverse of Cox-Shugart Index}
-#' \item {"farina"}{Farina Index of Proportionality}
-#' \item {"gallagher"}{Gallagher Index of Disproportionality}
-#' \item {"inv.gallagher"}{The Inverse of Gallagher Index}
-#' \item {"inv.cox.shugart"}{The Inverse of the Cox-Shugart Index}
-#' \item {"farina"}{Farina Index of Proportionality}
-#' \item {"gallagher"}{Gallagher Index of Disproportionality}
-#' \item {"inv.gallagher"}{The Inverse of the Gallagher Index}
-#' \item {"grofman"}{Grofman Index of Proportionality}
-#' \item {"lijphart"}{Lijphart Index of Proportionality}
-#' \item {"loosemore.hanby"}{Loosemore-Hanby Index of Disproportionality}
-#' \item {"rae"}{Rae Index of Disproportionality}
-#' \item {"inv.rae"}{The Inverse of the Rae Index}
-#' \item {"rose"}{Rose Index of Disproportionality}
-#' \item {"inv.rose"}{The Inverse of the Rose Index}
+#' \item {"Cox-Shugart"}{Cox-Shugart Measure of Proportionality}
+#' \item {"inv.Cox-Shugart"}{The Inverse of Cox-Shugart Index}
+#' \item {"Farina"}{Farina Index of Proportionality}
+#' \item {"Gallagher"}{Gallagher Index of Disproportionality}
+#' \item {"inv.Gallagher"}{The Inverse of Gallagher Index}
+#' \item {"Farina"}{Farina Index of Proportionality}
+#' \item {"Grofman"}{Grofman Index of Proportionality}
+#' \item {"Lijphart"}{Lijphart Index of Proportionality}
+#' \item {"Loosemore-Hanby"}{Loosemore-Hanby Index of Disproportionality}
+#' \item {"Rae"}{Rae Index of Disproportionality}
+#' \item {"inv.Rae"}{The Inverse of the Rae Index}
+#' \item {"Rose"}{Rose Index of Disproportionality}
+#' \item {"inv.Rose"}{The Inverse of the Rose Index}
 #' }
 #'
-#' @seealso \code{\link{politicalDiversity}}, \code{\link{largestRemainders}}, \code{\link{highestAverages}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{PoliticalDiversity}}, \code{\link{LargestRemainders}}, \code{\link{HighestAverages}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 
 #' @references
 #' Duncan, O. and Duncan, B. (1955) A methodological analysis of segregation indexes. \emph{American Sociological Review} 20:210-7.
@@ -169,29 +166,30 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' proportionality(pvotes, pseats) # default is gallagher
+#' # Proportionality(pvotes, pseats) # default is Gallagher
 #'
-#' proportionality(pvotes, pseats, index="rae")
+#' # Proportionality(pvotes, pseats, index="Rae")
 #'
-#' proportionality(pvotes, pseats, index="cox.shugart")
+#' # Proportionality(pvotes, pseats, index="Cox-Shugart")
 #'
 #' # 2012 Quebec provincial election:
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
-#' proportionality(pvotes, pseats, index="rae")
+#' # Proportionality(pvotes, pseats, index="Rae")
 #'
 #' @export
 #' @docType methods
-#' @rdname proportionality
-#' @aliases disproportionality
-`proportionality`<- function(v, s, index = "gallagher", ...) UseMethod("proportionality")
+#' @rdname Proportionality
+#' @aliases Disproportionality
+`Proportionality`<- function(v, s, index = "Gallagher", ...) UseMethod("Proportionality")
 
-#' @rdname proportionality
-`proportionality` <- function(v, s, index = "gallagher", ...){
+#' @rdname Proportionality
+#' @export
+`Proportionality.default` <- function(v, s, index = "Gallagher", ...){
   v <- drop(as.matrix(v))
   s <- drop(as.matrix(s))
-  index <- .Match(arg = index, choices = c("cox.shugart","inv.cox.shugart","farina","gallagher","inv.gallagher", "grofman", "lijphart", "loosemore.hanby", "rose", "inv.rose", "rae","inv.rae") )
+  index <- .Match(arg = index, choices = c("Cox-Shugart","inv.Cox-Shugart","Farina","Gallagher","inv.Gallagher", "Grofman", "Lijphart", "Loosemore-Hanby", "Rose", "inv.Rose", "Rae","inv.Rae") )
   if (length(dim(v)) > 1) {
     total_v <- apply(v, margin, sum)
     v <- sweep(v, margin, total_v, "/")
@@ -202,45 +200,45 @@ NULL
     v <- v/sum(v);
     s <- v/sum(s);
   }
-  if (index=="gallagher")
+  if (index=="Gallagher")
     idx <- sqrt(sum((v-s)^2)/2)
-  else if (index=="inv.gallagher"){
+  else if (index=="inv.Gallagher"){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
   idx <- (1 - idx)
   }
-  else if (index=="cox.shugart"){
+  else if (index=="Cox-Shugart"){
   S <- mean(s)
   V <- mean(v)
   idx <- sum((s-S) * (v-V))/sum((v-V)^2)
   }
-  else if (index=="inv.cox.shugart"){
+  else if (index=="inv.Cox-Shugart"){
     V <- mean(v)
     S <- mean(s)
     idx <- sum((v-V) * (s-S))/sum((s-S)^2)
   }
-  else if (index == "grofman"){
+  else if (index == "Grofman"){
   N <- (1/sum((s/sum(s))^2) )
   idx=(1/N) * sum(abs(v-s))/2
   }
-  else if (index == "farina")
+  else if (index == "Farina")
     idx= acos(sum(v*s)/(sum(v^2)*sum(s^2))^.5)
-  else if (index == "lijphart")
+  else if (index == "Lijphart")
     idx=max(s-v)
-  else if (index == "rose")
+  else if (index == "Rose")
     idx <- 1-(sum(abs(v-s))/2)
-  else if (index=="rae")
+  else if (index=="Rae")
     idx <- (sum(abs(v - s))/length(v))
-  else if (index=="inv.rae"){
+  else if (index=="inv.Rae"){
     idx <- (sum(abs(v - s))/length(v))
     idx <- (1 - idx)
   }
-  else if (index=="loosemore.hanby")
+  else if (index=="Loosemore-Hanby")
     idx <- (sum(abs(v-s))/2)
-  else if (index=="inv.rae")
+  else if (index=="inv.Rae")
     idx <- (sum(abs(v - s))/length(v))
-  else if (index=="loosemore.hanby")
+  else if (index=="Loosemore-Hanby")
     idx <- (sum(abs(v-s))/2)
   else
     warning(paste(index), " is not a valid index name. See `details` in the function documentation.")
@@ -266,7 +264,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{rose}}, \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso  \code{\link{Rose}}, \code{\link{Rae}}, \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Farina}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #' Duncan, O. and Duncan, B. (1955) A methodological analysis of segregation indexes. \emph{American Sociological Review} 20:210-7.
@@ -278,15 +276,15 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' loosemore.hanby(pvotes, pseats)
+#' LoosemoreHanby(pvotes, pseats)
 #'
 #' @export
-#' @rdname loosemore.hanby
-`loosemore.hanby`<- function(v, s, ...) UseMethod("loosemore.hanby")
+#' @rdname LoosemoreHanby
+`LoosemoreHanby`<- function(v, s, ...) UseMethod("LoosemoreHanby")
 
 #' @export
-#' @rdname loosemore.hanby
-`loosemore.hanby` <-function(v, s, ...){
+#' @rdname LoosemoreHanby
+`LoosemoreHanby` <-function(v, s, ...){
   idx=(sum(abs(v-s))/2)
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- loosemore.hanby function
@@ -309,7 +307,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{loosemore.hanby}}, \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso  \code{\link{LoosemoreHanby}}, \code{\link{Rae}}, \code{\link{CoxShugart}}, \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Farina}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #' Rose, Richard, Neil Munro and Tom Mackie (1998) \emph{ Elections in Central and Eastern Europe Since 1990.} Glasgow: Centre for the Study of Public Policy, University of Strathclyde.
@@ -319,18 +317,18 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' rose(pvotes, pseats)
+#' Rose(pvotes, pseats)
 #'
 #' pvotes= c(.4965, .2666, .115, .0753, .0316, .0147)
 #' pseats = c(.8764, .0787, .0225, 0.00, .0225, 0.00)
 #'
 #' @export
-#' @rdname rose
-`rose`<- function(v, s, ...) UseMethod("rose")
+#' @rdname Rose
+`Rose`<- function(v, s, ...) UseMethod("Rose")
 
 #' @export
-#' @rdname rose
-`rose` <-function(v, s, ...){
+#' @rdname Rose
+`Rose` <-function(v, s, ...){
 
   if (sum(v)!=1 && sum(s)!=1 || sum(v)!=100 && sum(s)!=100){
     cat("Values in", v, " or ", s, "do not sum either to 1 or 100", "\n", sep = "")
@@ -366,7 +364,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}}, \code{\link{lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso  \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{farina}}, \code{\link{lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
@@ -376,15 +374,15 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' rae(pvotes, pseats)
+#' Rae(pvotes, pseats)
 #'
 #' @export
-#' @rdname rae
-`rae`<- function(v, s, ...) UseMethod("rae")
+#' @rdname Rae
+`Rae`<- function(v, s, ...) UseMethod("Rae")
 
 #' @export
-#' @rdname rae
-`rae` <-function(v, s, ...){
+#' @rdname Rae
+`Rae` <-function(v, s, ...){
   idx=(sum(abs(v-s))/length(v))
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- rae function
@@ -407,7 +405,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{rae}}, \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso  \code{\link{Rae}}, \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Farina}},  \code{\link{Lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
@@ -417,15 +415,15 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' inv.rae(pvotes, pseats)
+#' inv.Rae(pvotes, pseats)
 #'
 #' @export
-#' @rdname inv.rae
-`inv.rae`<- function(v, s, ...) UseMethod("rae.iv")
+#' @rdname inv.Rae
+`inv.Rae`<- function(v, s, ...) UseMethod("inv.Rae")
 
 #' @export
-#' @rdname inv.rae
-`inv.rae` <-function(v, s, ...){
+#' @rdname inv.Rae
+`inv.Rae` <-function(v, s, ...){
   idx=1-(sum(abs(v-s))/length(v))
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- inverse rae function
@@ -445,7 +443,7 @@ NULL
 #' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
@@ -455,15 +453,15 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' gallagher(pvotes, pseats)
+#' Gallagher(pvotes, pseats)
 
 #' @export
-#' @rdname gallagher
-`gallagher`<- function(v, s, ...) UseMethod("gallagher")
+#' @rdname Gallagher
+`Gallagher`<- function(v, s, ...) UseMethod("Gallagher")
 
 #' @export
-#' @rdname gallagher
-`gallagher` <-function(v, s, ...){
+#' @rdname Gallagher
+`Gallagher` <-function(v, s, ...){
   idx=sqrt(sum((v-s)^2)/2)
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- gallagher function
@@ -491,18 +489,18 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' inv.gallagher(pvotes, pseats)
+#' inv.Gallagher(pvotes, pseats)
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{CoxShugart}}, \code{\link{Farina}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Gallagher}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @export
-#' @rdname inv.gallagher
-`inv.gallagher` <-function(v, s, ...) UseMethod("gallagher.inv")
+#' @rdname inv.Gallagher
+`inv.Gallagher` <-function(v, s, ...) UseMethod("inv.Gallagher")
 
 
 #' @export
-#' @rdname inv.gallagher
-`inv.gallagher` <-function(v, s, ...){
+#' @rdname inv.Gallagher
+`inv.Gallagher` <-function(v, s, ...){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
@@ -524,7 +522,7 @@ NULL
 #' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Gallagher}},  \code{\link{Farina}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @examples
 
@@ -532,16 +530,16 @@ NULL
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
-#' lijphart(pvotes, pseats)
+#' Lijphart(pvotes, pseats)
 #'
-#' @rdname lijphart
+#' @rdname Lijphart
 #' @export
-`lijphart`<- function(v, s, ...) UseMethod("lijphart")
+`Lijphart`<- function(v, s, ...) UseMethod("Lijphart")
 
 
 #' @export
-#' @rdname lijphart
-`lijphart` <-function(v, s, ...){
+#' @rdname Lijphart
+`Lijphart` <-function(v, s, ...){
   idx=max(s-v)
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- lijphart function
@@ -562,7 +560,7 @@ NULL
 #'  @references
 #' Taagepera, R., and B. Grofman. Mapping the indices of seats-votes disproportionality and inter-election volatility. Party Politics 9, no. 6 (2003): 659-77.
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{farina}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Farina}}, \code{\link{Gallagher}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @examples
@@ -571,16 +569,16 @@ NULL
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05,QS=6.03,Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
-#' grofman(pvotes, pseats)
+#' Grofman(pvotes, pseats)
 #'
 #' @export
-#' @rdname grofman
-`grofman`<- function(v, s, ...) UseMethod("grofman")
+#' @rdname Grofman
+`Grofman`<- function(v, s, ...) UseMethod("Grofman")
 
-#' @rdname grofman
+#' @rdname Grofman
 #' @export
-`grofman` <- function(v, s, ...){
-  N <- politicalDiversity(s, index = "laakso/taagepera")
+`Grofman` <- function(v, s, ...){
+  N <- PoliticalDiversity(s, index = "laakso/taagepera")
   idx=(1/N) * sum(abs(v-s))/2
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- grofman function
@@ -596,7 +594,7 @@ NULL
 #' @param \dots Additional arguements (currently ignored)
 #'
 #' @return A single score.
-#' @seealso \code{\link{cox.shugart}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Gallagher}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #' @references
@@ -608,15 +606,15 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' farina(pvotes, pseats)
+#' Farina(pvotes, pseats)
 #'
-#' @export farina
-#' @rdname farina
-`farina`<- function(v, s, ...) UseMethod("farina")
+#' @export Farina
+#' @rdname Farina
+`Farina`<- function(v, s, ...) UseMethod("Farina")
 
 #' @export
-#' @rdname farina
-`farina` <- function(v, s, ...){
+#' @rdname Farina
+`Farina` <- function(v, s, ...){
   idx= acos(sum(v*s)/(sum(v^2)*sum(s^2))^.5)
   print(idx, digits = max(3, getOption("digits") - 3))
 }### end -- farina function
@@ -641,7 +639,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{Farina}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Gallagher}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @examples
 #' if (interactive()) {
@@ -649,21 +647,21 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' cox.shugart(pvotes, pseats)
+#' CoxShugart(pvotes, pseats)
 #' }
 #'
 #' @export
-#' @rdname cox.shugart
-`cox.shugart` <- function(v, s, ...) UseMethod("cox.shugart")
+#' @rdname CoxShugart
+`CoxShugart` <- function(v, s, ...) UseMethod("CoxShugart")
 
 
-#' @rdname cox.shugart
-`cox.shugart` <- function(v, s, ...){
+#' @rdname CoxShugart
+`CoxShugart` <- function(v, s, ...){
   S <- mean(s)
   V <- mean(v)
   idx <- sum((s-S) * (v-V))/sum((v-V)^2)
   print(idx, digits = max(3, getOption("digits") - 3))
-}### end -- cox.shugart function
+}### end -- CoxShugart function
 NULL
 
 
@@ -687,18 +685,18 @@ NULL
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' inv.cox.shugart(pvotes, pseats)
+#' inv.CoxShugart(pvotes, pseats)
 #'
-#' @seealso \code{\link{cox.shugart}}, \code{\link{farina}}, \code{\link{politicalDiversity}}, \code{\link{grofman}}, \code{\link{gallagher}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{CoxShugart}}, \code{\link{Farina}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Gallagher}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @export
-#' @rdname inv.cox.shugart
-`inv.cox.shugart` <-function(v, s, ...) UseMethod("inv.cox.shugart")
+#' @rdname inv.CoxShugart
+`inv.CoxShugart` <-function(v, s, ...) UseMethod("inv.CoxShugart")
 
 
 #' @export
-#' @rdname inv.cox.shugart
-`inv.cox.shugart` <-function(v, s, ...){
+#' @rdname inv.CoxShugart
+`inv.CoxShugart` <-function(v, s, ...){
   V <- mean(v)
   S <- mean(s)
   idx <- sum((v-V) * (s-S))/sum((s-S)^2)
@@ -724,23 +722,23 @@ NULL
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
-#' @seealso \code{\link{herfindahl}}, \code{\link{rosenbluth}},  \code{\link{gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{Herfindahl}}, \code{\link{Rosenbluth}},  \code{\link{Gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #' @examples
 #' if (interactive()) {
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #'
 #' # compute Atkinson coefficient with parameter=0.5
-#' atkinson(x, parameter=0.5)
+#' Atkinson(x, parameter=0.5)
 #'}
 #' @export
-#' @rdname atkinson
-`atkinson` <-function(x, n = rep(1, length(x)), parameter=0.5, na.rm=FALSE, ...) UseMethod("atkinson")
+#' @rdname Atkinson
+`Atkinson` <-function(x, n = rep(1, length(x)), parameter=0.5, na.rm=FALSE, ...) UseMethod("Atkinson")
 NULL
 
 #' @export
-#' @rdname atkinson
-`atkinson` <- function(x, n = rep(1, length(x)), parameter = 0.5, na.rm = FALSE, ...){
+#' @rdname Atkinson
+`Atkinson` <- function(x, n = rep(1, length(x)), parameter = 0.5, na.rm = FALSE, ...){
   x <- rep(x, n)    # same handling as Lc and Gini
   if(na.rm) x <- na.omit(x)
   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
@@ -754,7 +752,7 @@ NULL
     idx <- 1 - mean(x)^(1/(1-parameter))
   }
   print(idx, digits = max(3, getOption("digits") - 3))
-}### end -- atkinson function
+}### end -- Atkinson function
 NULL
 
 
@@ -776,23 +774,23 @@ NULL
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
-#' @seealso \code{\link{atkinson}}, \code{\link{herfindahl}},  \code{\link{gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{Atkinson}}, \code{\link{Herfindahl}},  \code{\link{Gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #'
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #'
 #' # compute Rosenbluth coefficient
-#' rosenbluth(x)
+#' Rosenbluth(x)
 #'
 #' @export
-#' @rdname rosenbluth
-`rosenbluth` <-function(x, n = rep(1, length(x)), na.rm=FALSE, ...)  UseMethod("rosenbluth")
+#' @rdname Rosenbluth
+`Rosenbluth` <-function(x, n = rep(1, length(x)), na.rm=FALSE, ...)  UseMethod("Rosenbluth")
 NULL
 
 #' @export
-#' @rdname rosenbluth
-`rosenbluth` <-function(x, n = rep(1, length(x)), na.rm = FALSE, ...){
+#' @rdname Rosenbluth
+`Rosenbluth` <-function(x, n = rep(1, length(x)), na.rm = FALSE, ...){
   x <- rep(x, n)
   if(na.rm) x <- na.omit(x)
   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
@@ -802,7 +800,7 @@ NULL
   idx <- 2*sum(idx/sum(x))
   idx <- 1/(idx-1)
   print(idx, digits = max(3, getOption("digits") - 3))
-}### end -- rosenbluth function
+}### end -- Rosenbluth function
 NULL
 
 
@@ -831,23 +829,23 @@ NULL
 #'
 #' Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 #'
-#' @seealso \code{\link{atkinson}}, \code{\link{rosenbluth}}, \code{\link{politicalDiversity}}, \code{\link{gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{Atkinson}}, \code{\link{Rosenbluth}}, \code{\link{PoliticalDiversity}}, \code{\link{Gini}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #'
 #' # compute the Herfindahl coefficient with parameter=1
-#' herfindahl(x, parameter=1)
+#' Herfindahl(x, parameter=1)
 #'
 #'
 #' @export
-#' @rdname herfindahl
-`herfindahl` <- function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE, ...) UseMethod("herfindahl")
+#' @rdname Herfindahl
+`Herfindahl` <- function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE, ...) UseMethod("Herfindahl")
 
 
 #' @export
-#' @rdname herfindahl
-`herfindahl` <- function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE, ...){
+#' @rdname Herfindahl
+`Herfindahl` <- function(x, n = rep(1, length(x)), parameter = 1, na.rm = FALSE, ...){
   x <- rep(x, n)
   if(na.rm) x <- na.omit(x)
   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
@@ -890,26 +888,27 @@ NULL
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{dHondt}}, \code{\link{highestAverages}}, \code{\link{largestRemainders}}, \code{\link{politicalDiversity}}.
+#' @seealso \code{\link{dHondt}}, \code{\link{HighestAverages}}, \code{\link{LargestRemainders}}, \code{\link{PoliticalDiversity}}.
 #'
 #' @importFrom utils head
 #' @examples
 #' votes <- sample(1:10000, 5)
 #' parties <- sample(LETTERS, 5)
-#' hamilton(parties, votes, seats = 4)
+#' Hamilton(parties, votes, seats = 4)
 #'
 #' @export
-#' @rdname hamilton
-`hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...) UseMethod("hamilton")
+#' @rdname Hamilton
+`Hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...) UseMethod("Hamilton")
 
 
 #' @export
-#' @rdname hamilton
-`hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...){
+#' @rdname Hamilton
+`Hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...){
   # Modified :
   # v0.0 2011-10-25
   # v0.1 2012-07-10
   # v0.2 2016-01-05
+  # v0.2 2016-05-15
   .temp <- data.frame(
     parties = parties,
     scores = votes / sum(votes) * seats,
@@ -945,7 +944,7 @@ NULL
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{highestAverages}}, \code{\link{largestRemainders}},  \code{\link{hamilton}}, \code{\link{politicalDiversity}}.
+#' @seealso \code{\link{HighestAverages}}, \code{\link{LargestRemainders}},  \code{\link{Hamilton}}, \code{\link{PoliticalDiversity}}.
 #'
 #' @note Adapted from Carlos Bellosta's replies in the R-list.
 #'
@@ -1033,7 +1032,7 @@ NULL
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{largestRemainders}}, \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
+#' @seealso \code{\link{LargestRemainders}}, \code{\link{dHondt}}, \code{\link{Hamilton}}, \code{\link{PoliticalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 #'
 #' @examples
 #' # Results for the state legislative house of Ceara (2014):
@@ -1041,7 +1040,7 @@ NULL
 #'
 #' parties <- c("PCdoB", "PDT", "PEN", "PMDB", "PRB", "PSB", "PSC", "PSTU", "PTdoB", "PTC", "PTN")
 #'
-#' highestAverages(parties, votes, seats = 42, method = "dh")
+#' HighestAverages(parties, votes, seats = 42, method = "dh")
 #'
 #' # Let's create a data.frame with typical election results
 #' # with the following parties and votes to return 10 seats:
@@ -1050,14 +1049,14 @@ NULL
 #' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
 #' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
 #'
-#' highestAverages(my_election$party,
+#' HighestAverages(my_election$party,
 #' my_election$votes,
 #' seats = 10,
 #' method="dh")
 #'
 #' # How this compares to the Sainte-Lague Method
 #'
-#'(dat= highestAverages(my_election$party,
+#'(dat= HighestAverages(my_election$party,
 #' my_election$votes,
 #' seats = 10,
 #' method="sl"))
@@ -1066,19 +1065,20 @@ NULL
 #' bar.plot(data=dat, "Party", "Seats") +
 #' theme_fte()
 #'
-#' @rdname highestAverages
+#' @rdname HighestAverages
 #' @export
-`highestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("highestAverages")
+`HighestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("HighestAverages")
 
 
 
 #' @export
-#' @rdname highestAverages
-`highestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
+#' @rdname HighestAverages
+`HighestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
   # Modified :
+  # v0.0 2012-07-12
   # v0.0 2013-11-21
-  # v0.1 2014-10-02
-  # v0.2 2016-01-13
+  # v0.2 2014-10-02
+  # v0.3 2016-01-13
   # local vars for using later
   .ratio <- votes/sum(votes)
   .votes <- ifelse(.ratio < threshold, 0, votes)
@@ -1199,7 +1199,7 @@ NULL
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso  \code{\link{highestAverages}}, \code{\link{dHondt}}, \code{\link{hamilton}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
+#' @seealso  \code{\link{HighestAverages}}, \code{\link{dHondt}}, \code{\link{Hamilton}}, \code{\link{PoliticalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 #'
 #' @examples
 #' # Let's create a data.frame with typical election results
@@ -1209,18 +1209,18 @@ NULL
 #' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
 #' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
 #'
-#' largestRemainders(my_election$party,
+#' LargestRemainders(my_election$party,
 #' my_election$votes, seats = 10,  method="droop")
 #'
-#' @rdname largestRemainders
+#' @rdname LargestRemainders
 #' @export
-`largestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("largestRemainders")
+`LargestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("LargestRemainders")
 
 
 
 #' @export
-#' @rdname largestRemainders
-`largestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
+#' @rdname LargestRemainders
+`LargestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02

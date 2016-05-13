@@ -1470,3 +1470,64 @@ NULL
 
 
 
+#' Wald Test for Model Coefficients
+#' 
+#' Computes a Wald chi-squared test for 1 or more coefficients, given their variance-covariance matrix.
+#' 
+#' Sigma	A var-cov matrix, usually extracted from one of the fitting functions (e.g., lm, glm, ...).
+#' 
+#' b A vector of coefficients with var-cov matrix Sigma. These coefficients are usually extracted from one of the fitting functions available in R (e.g., lm, glm,...).
+#' 
+#' Terms	An optional integer vector specifying which coefficients should be jointly tested, using a Wald chi-squared or F test. Its elements correspond to the columns or rows of the var-cov matrix given in Sigma. Default is NULL.
+#' L	An optional matrix conformable to b, such as its product with b i.e., L %*% b gives the linear combinations of the coefficients to be tested. Default is NULL.
+#' H0	A numeric vector giving the null hypothesis for the test. It must be as long as Terms or must have the same number of columns as L. Default to 0 for all the coefficients to be tested.
+#' df	A numeric vector giving the degrees of freedom to be used in an F test, i.e. the degrees of freedom of the residuals of the model from which b and Sigma were fitted. Default to NULL, for no F test. See the section Details for more information.
+#' verbose	A logical scalar controlling the amount of output information. The default is FALSE, providing minimum output.
+#' x Object of class "wald.test"
+#' digits	
+#' Number of decimal places for displaying test results. Default to 2.
+#' ... Additional arguments to print.
+
+wald.test <-
+  function (sigma, b, terms = NULL, L = NULL, H0 = NULL, df = NULL, 
+            verbose = FALSE) 
+  {
+    if (is.null(Terms) & is.null(L)) 
+      stop("One of the arguments Terms or L must be used.")
+    if (!is.null(Terms) & !is.null(L)) 
+      stop("Only one of the arguments Terms or L must be used.")
+    if (is.null(Terms)) {
+      w <- nrow(L)
+      Terms <- seq(length(b))[colSums(L) > 0]
+    }
+    else w <- length(Terms)
+    if (is.null(H0)) 
+      H0 <- rep(0, w)
+    if (w != length(H0)) 
+      stop("Vectors of tested coefficients and of null hypothesis have different lengths\n")
+    if (is.null(L)) {
+      L <- matrix(rep(0, length(b) * w), ncol = length(b))
+      for (i in 1:w) L[i, Terms[i]] <- 1
+    }
+    dimnames(L) <- list(paste("L", as.character(seq(NROW(L))), 
+                              sep = ""), names(b))
+    f <- L %*% b
+    V <- Sigma
+    mat <- qr.solve(L %*% V %*% t(L))
+    stat <- t(f - H0) %*% mat %*% (f - H0)
+    p <- 1 - pchisq(stat, df = w)
+    if (is.null(df)) 
+      res <- list(chi2 = c(chi2 = stat, df = w, P = p))
+    else {
+      fstat <- stat/nrow(L)
+      df1 <- nrow(L)
+      df2 <- df
+      res <- list(chi2 = c(chi2 = stat, df = w, P = p), Ftest = c(Fstat = fstat, 
+                                                                  df1 = df1, df2 = df2, P = 1 - pf(fstat, df1, df2)))
+    }
+    structure(list(Sigma = Sigma, b = b, Terms = Terms, H0 = H0, 
+                   L = L, result = res, verbose = verbose, df = df), class = "wald.test")
+  }
+NULL
+
+

@@ -26,6 +26,7 @@ Density function and random number generation for the Dirichlet distribution
 mat <- cbind(1:10, 5, 10:1);
 mat;
 x <- rdirichlet(10, mat);
+
 ddirichlet(x, mat);
 
 }

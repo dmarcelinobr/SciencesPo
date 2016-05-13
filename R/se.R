@@ -12,27 +12,27 @@
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @seealso \code{\link{CI}}, \code{\link{CV}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{outliers}}
 #' @examples
 #' x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
 #' myse <- sd(x)/sqrt(length(x))
 #' myse
 #' # With the 'se' function:
-#' se(x)
+#' SE(x)
 #' @export
-#' @rdname se
-`se` <- function(x, na.rm = TRUE, ...) UseMethod("se")
+#' @rdname SE
+`SE` <- function(x, na.rm = TRUE, ...) UseMethod("SE")
 
-#' @rdname se
+#' @rdname SE
 #' @export
-`se.default` <- function(x, na.rm = TRUE, ...) {
+`SE.default` <- function(x, na.rm = TRUE, ...) {
   if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
   if (na.rm) x <- x[!is.na(x)] else if(any(is.na(x))) return(x[FALSE][NA])
   ans <- sqrt(var(x)/length(x))
   return(ans)
 }
 
-#' @rdname se
+#' @rdname SE
 #' @export
-`se.data.frame` <- function(x, na.rm = TRUE, ...) sapply(x, se)
-
+`SE.data.frame` <- function(x, na.rm = TRUE, ...) sapply(x, SE)
 NULL

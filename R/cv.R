@@ -12,21 +12,21 @@
 #' @return The coefficient of variation.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{se}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{outliers}}
+#' @seealso \code{\link{SE}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{Outliers}}
 #'
 #' @keywords Exploratory
 #' @examples
 #'  x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
-#' cv(x)
+#' CV(x)
 #'
-#' @rdname cv
+#' @rdname CV
 #' @export
-`cv` <- function(x, na.rm = TRUE, ...)
-  UseMethod("cv")
+`CV` <- function(x, na.rm = TRUE, ...)
+  UseMethod("CV")
 
-#' @rdname cv
+#' @rdname CV
 #' @export
-`cv.default` <- function(x, na.rm = TRUE, ...) {
+`CV.default` <- function(x, na.rm = TRUE, ...) {
   sd <- sd(x, na.rm = na.rm)
   mean <- mean(x, na.rm = na.rm)
   ans = (sd / mean)

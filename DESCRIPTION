@@ -25,7 +25,8 @@ Imports:
     stringr,
     shiny,
     lazyeval,
-    dplyr
+    dplyr,
+    plyr
 Suggests:
     testthat,
     scales,

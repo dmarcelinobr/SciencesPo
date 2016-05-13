@@ -12,9 +12,9 @@
 #' @importFrom data.table := setDT dcast.data.table
 #' @export
 #' @examples
-#' \dontrun{ voronoi(p=2, n=20, dim=1000) }
+#' \dontrun{ Voronoi(p=2, n=20, dim=1000) }
 #'
-`voronoi` <- function(p, n=100, dim=1000, plot=TRUE){
+`Voronoi` <- function(p, n=100, dim=1000, plot=TRUE){
   s1 <- Sys.time()
   dim.image <- dim
   colors <- grDevices::rainbow(n)

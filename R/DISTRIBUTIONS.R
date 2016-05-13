@@ -151,11 +151,11 @@ NULL
   if (!.vec & !.mat) {
     stop("alpha must be a vector or a matrix")
   } else if (.vec & !.mat) {
-    X <- .Call("rdirichlet_vector", n, alpha)
+    X <- .Call("rdirichlet_vector", n, alpha, NAOK=TRUE, PACKAGE="SciencesPo")
   } else {
     if (n != nrow(alpha))
       stop("when alpha is a matrix, the number of its rows must be equal to n")
-    X <- .Call("rdirichlet_matrix", n, alpha, dim(alpha))
+    X <- .Call("rdirichlet_matrix", n, alpha, dim(alpha), NAOK=TRUE, PACKAGE="SciencesPo")
   }
   return(X)
 }
@@ -178,6 +178,8 @@ NULL
 NULL
 
 
+
+
 #' @encoding UTF-8
 #' @title Dirichlet distribution
 #' @description Density function and random number generation for the Dirichlet distribution
@@ -192,6 +194,7 @@ NULL
 #' mat <- cbind(1:10, 5, 10:1);
 #' mat;
 #' x <- rdirichlet(10, mat);
+#'
 #' ddirichlet(x, mat);
 #'
 #' @useDynLib SciencesPo
@@ -204,11 +207,11 @@ NULL
     stop('all values in alpha must be > 0.')
 
   res <- if (is.vector(alpha)) {
-    .Call("ddirichlet_log_vector", x, alpha, dim(x))
+    .Call("ddirichlet_log_vector", x, alpha, dim(x), AOK=TRUE, PACKAGE="SciencesPo")
   } else {
     if (any(dim(alpha) != dim(x)))
       stop("check if x and alpha are correctly specified")
-    .Call("ddirichlet_log_matrix", x, alpha, dim(x), dim(alpha))
+    .Call("ddirichlet_log_matrix", x, alpha, dim(x), dim(alpha), AOK=TRUE, PACKAGE="SciencesPo")
   }
 
   if (sum) {
@@ -225,38 +228,6 @@ NULL
 }
 NULL
 
-
-
-`dDirichlet` <- function(x, alpha, log = FALSE, sum = FALSE) {
-  if (is.null(dim(x)))
-    stop("x must be a matrix")
-  if (is.vector(alpha)) {
-    if (ncol(x) != length(alpha))
-      stop("alpha must be a vector/matrix fitting to the data in x")
-    alpha <- matrix(rep(alpha, nrow(x)), nrow(x), byrow = T)
-  }
-  if (any(dim(alpha) != dim(x)))
-    stop("check if x and alpha are correctly specified")
-  if (any(alpha <= 0))
-    stop('all values in alpha must be > 0.')
-
-  res <-
-    lgamma(rowSums(alpha)) - rowSums(lgamma(alpha)) + rowSums((alpha - 1) *
-                                                                log(x))
-
-  if (sum) {
-    if (log)
-      return(sum(res))
-    else
-      return(exp(sum(res)))
-  } else {
-    if (log)
-      return(res)
-    else
-      return(exp(res))
-  }
-}
-NULL
 
 
 

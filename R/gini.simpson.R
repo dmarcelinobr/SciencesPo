@@ -12,20 +12,20 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #' @keywords Diversity, Concentration, Inequality
 #' @importFrom stats na.omit
-#' @seealso \code{\link{politicalDiversity}}.
+#' @seealso \code{\link{PoliticalDiversity}}.
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- as.table(c(69,50,40,22))
 #' rownames(x) <- c("AB","C","D","E")
-#' gini.simpson(x)
+#' GiniSimpson(x)
 #'
-#' @rdname gini.simpson
+#' @rdname GiniSimpson
 #' @export
-`gini.simpson` <- function(x, na.rm=TRUE, ...) UseMethod("gini.simpson")
+`GiniSimpson` <- function(x, na.rm=TRUE, ...) UseMethod("GiniSimpson")
 
-#' @rdname gini.simpson
+#' @rdname GiniSimpson
 #' @export
-`gini.simpson` <- function(x, na.rm = TRUE){
+`GiniSimpson` <- function(x, na.rm = TRUE){
   # reference: Sachs, Angewandte Statistik, S. 57
   if(na.rm) x <- na.omit(x)
   x <- as.table(x)
@@ -50,23 +50,23 @@ NULL
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' .
 #' @keywords Diversity, Concentration
-#' @seealso \code{\link{gini.simpson}}.
+#' @seealso \code{\link{GiniSimpson}}.
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #' # compute Gini index
-#' gini(x)
+#' Gini(x)
 #'
-#' gini(c(100,0,0,0))
+#' Gini(c(100,0,0,0))
 #'
-#' @rdname gini
+#' @rdname Gini
 #' @export
-`gini` <- function(x, weights, ...) UseMethod("gini")
+`Gini` <- function(x, weights, ...) UseMethod("Gini")
 
 
 #' @export
-#' @rdname gini
-`gini` <- function(x, weights = rep(1, length = length(x)), ...){
+#' @rdname Gini
+`Gini.default` <- function(x, weights = rep(1, length = length(x)), ...){
   # TODO : add unbiased estiamtes see: gini(c(100,0,0,0))
   ox <- order(x)
   x <- x[ox]
@@ -156,24 +156,25 @@ NULL
 #' @details The Gini coefficient ranges from a minimum value of zero, when all individuals are equal, to a theoretical maximum of one in an infinite population in which every individual except one has a size of zero. It has been shown that the sample Gini coefficients originally defined need to be multiplied by n/(n-1) in order to become unbiased estimators for the population coefficients.
 #'
 #' @keywords Diversity, Concentration
-#' @seealso \code{\link{gini}}, \code{\link{gini.simpson}}.
+#' @seealso \code{\link{Gini}}, \code{\link{GiniSimpson}}.
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 #' # compute Lorenz values
-#' lorenz(x)
+#' Lorenz(x)
 #' # generate some weights:
 #' wgt <- runif(n=length(x))
 #' # compute the lorenz with especific weights
-#' lorenz(x, wgt)
+#' Lorenz(x, wgt)
 #'
-#' @rdname lorenz
+#' @rdname Lorenz
 #' @export
-`lorenz` <- function(x, n = rep(1, length(x)), plot = FALSE, ...) UseMethod("lorenz")
+`Lorenz` <- function(x, n = rep(1, length(x)), plot = FALSE, ...)
+  UseMethod("Lorenz")
 
 #' @export
-#' @rdname lorenz
-`lorenz` <- function(x, n = rep(1, length(x)), plot = FALSE, ...)
+#' @rdname Lorenz
+`Lorenz.default` <- function(x, n = rep(1, length(x)), plot = FALSE, ...)
 {
   ina <- !is.na(x)
   n <- n[ina]

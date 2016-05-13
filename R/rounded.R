@@ -11,9 +11,9 @@
 #' @export
 #' @examples
 #'  x = seq(0, 1, by=.1)
-#' rounded(x)
+#' scpo.rounded(x)
 #'
-`rounded` <- function(x, digits=2, add=FALSE, max=(digits+2)){
+`scpo.rounded` <- function(x, digits=2, add=FALSE, max=(digits+2)){
   y <- round(x, digits=digits)
   yk <- format(y, nsmall=digits)
   nzero <- sum(unlist(y)==0)

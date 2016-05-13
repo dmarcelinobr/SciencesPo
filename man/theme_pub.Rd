@@ -34,13 +34,31 @@ ggplot(diamonds,aes(cut, group=1)) +
 geom_bar()+
 geom_freqpoly(stat="count",size=2) +
 theme_pub(base_family='serif')
+
 dat <- data.frame()
 for(i in 1:4)
 dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 
 ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
-fill="orange", shape=21) + geom_smooth(method="lm", fill=NA,
-fullrange=TRUE) + facet_wrap(~set, ncol=2)
+fill="orange", shape=21) +
+geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
+facet_wrap(~set, ncol=2) +
+theme_pub(base_family='serif')
+
+
+ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
+fill="orange", shape=21) +
+geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
+facet_wrap(~set, ncol=2) +
+theme_bw() +
+theme(plot.background=element_rect(fill="#f7f7f7")) +
+theme(panel.background=element_rect(fill="#f7f7f7")) +
+theme(panel.grid.minor=element_blank()) +
+# theme(panel.grid.major.y=element_blank()) +
+theme(panel.grid.major.x=element_line()) +
+theme(axis.ticks=element_blank()) +
+theme(panel.border=element_blank()) +
+theme(legend.position="top")
 
 }
 \seealso{
