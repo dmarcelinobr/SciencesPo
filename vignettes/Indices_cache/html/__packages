@@ -1,5 +1,11 @@
 base
 ggplot2
+<<<<<<< HEAD
 scales
 SciencesPo
 knitr
+=======
+SciencesPo
+knitr
+scales
+>>>>>>> 6ed3a017772826c3db1ae904c6b601a390c5961b

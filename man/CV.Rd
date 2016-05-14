@@ -35,7 +35,7 @@ CV(x)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{SE}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{Outliers}}
+\code{\link{SE}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{WinsorizedMean}}, \code{\link{Outliers}}
 }
 \keyword{Exploratory}
 

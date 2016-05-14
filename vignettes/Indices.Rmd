@@ -64,8 +64,9 @@ Named after its founder, the pure Sainte-Laguë formula, also known as Schepers 
 
 ```{r highestAverages2, echo=TRUE, message=FALSE, comment=NA}
 # The Sainte-Laguë will give the same results as the Webster's method (wb)
+
 HighestAverages(parties=names(lijphart),
-                votes=lijphart,
+            votes=lijphart,
                 seats = 6,
                 method = "sl") 
 ```
@@ -267,6 +268,7 @@ library(knitr)
 kable(mytable, align=c("l","c","c"), caption="Outcome under d'Hondt")
 ```
 
+
 If you rather prefer to visualize the data using graphs, that's fine. I've chosen a plot resembling a *Cleveland* dot plot (something between a bar and dot plot), with the line showing the size of the caucus and colors alluding to the colors of the Brazilian parties. The graph is made with the **ggplot2** library along with the **SciencesPo** theme `theme_fte`.
 
 ```{r highestAverages12, echo=TRUE, message=FALSE, comment=NA, fig.width=5, fig.height=4.5, fig.align="center"}
@@ -363,6 +365,7 @@ PoliticalDiversity(US2004, index= "golosov");
 PoliticalDiversity(US2004, index= "herfindahl");
 ```
 
+
 Considers the following `data.frame` with electoral results for the 1999 election in Helsinki, the seats were allocated using both Saint-Laguë and D'Hondt methods so we can compare the effect of the allocation formulas on the effective number of parties.  
 
 ```{r Helsinki-election, echo=TRUE, message=FALSE}
@@ -380,7 +383,8 @@ Helsinki <- data.frame(
 
 
 ```{r politicalDiversity5, echo=TRUE, message=FALSE, comment=NA}
-# PoliticalDiversity(Helsinki$votes); #ENEP Votes
+
+PoliticalDiversity(Helsinki$votes); #ENEP Votes
 
 PoliticalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
 
@@ -424,10 +428,12 @@ with(Quebec, Gallagher(pvotes, pseats))
 # The same as above
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Gallagher") )
+
 ```
 
 
 ## The Lijphart's Index of Proportionality
+
 
 ```{r eval=FALSE, proportionality2, echo=TRUE, message=FALSE, comment=NA}
 with(Queensland, Lijphart(pvotes, pseats))
@@ -441,6 +447,7 @@ with(Queensland, Proportionality(pvotes, pseats,
 
 
 ## The Grofman Index
+
 
 ```{r eval=FALSE, proportionality3, echo=TRUE, message=FALSE, comment=NA}
 with(Queensland, Grofman(pvotes, pseats))
@@ -482,6 +489,7 @@ with(Queensland, Proportionality(pvotes, pseats,
 ## The inverse Cox-Shugart measure of proportionality
 
 ```{r proportionality6, echo=TRUE, message=FALSE, comment=NA}
+
 with(Queensland, inv.CoxShugart(pvotes, pseats))
 
 with(Quebec, inv.CoxShugart(pvotes, pseats))

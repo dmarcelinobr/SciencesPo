@@ -12,7 +12,8 @@
 #' @return The coefficient of variation.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{SE}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{Outliers}}
+
+#' @seealso \code{\link{SE}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{WinsorizedMean}}, \code{\link{Outliers}}
 #'
 #' @keywords Exploratory
 #' @examples
