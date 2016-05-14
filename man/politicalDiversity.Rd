@@ -95,7 +95,7 @@ Nicolau, Jairo (2008) \emph{Sistemas Eleitorais.} Rio de Janeiro, FGV.
 Taagepera, Rein and Matthew S. Shugart (1989) \emph{Seats and Votes: The Effects and Determinants of Electoral Systems.} New Haven: Yale University Press.
 }
 \seealso{
-\code{\link{CoxShugart}}, \code{\link{Rae}},  \code{\link{rose}}, \code{\link{farina}}, \code{\link{Grofman}}, \code{\link{Gallagher}}, \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+\code{\link{CoxShugart}}, \code{\link{Rae}},  \code{\link{Rose}}, \code{\link{Farina}}, \code{\link{Grofman}}, \code{\link{Gallagher}}, \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 \keyword{Electoral}
 \keyword{Exploratory,}

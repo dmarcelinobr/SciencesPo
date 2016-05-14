@@ -38,6 +38,6 @@ pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 Gallagher(pvotes, pseats)
 }
 \seealso{
-\code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+\code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Farina}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 }
 

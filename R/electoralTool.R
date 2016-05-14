@@ -24,7 +24,7 @@
 
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{CoxShugart}}, \code{\link{Rae}},  \code{\link{rose}}, \code{\link{farina}}, \code{\link{Grofman}}, \code{\link{Gallagher}}, \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{CoxShugart}}, \code{\link{Rae}},  \code{\link{Rose}}, \code{\link{Farina}}, \code{\link{Grofman}}, \code{\link{Gallagher}}, \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references Gallagher, Michael and Paul Mitchell (2005) \emph{The Politics of Electoral Systems.} Oxford University Press.
 #'
@@ -364,7 +364,7 @@ NULL
 #'
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso  \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{farina}}, \code{\link{lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso  \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Farina}}, \code{\link{Lijphart}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #' Rae, D. (1967) \emph{The Political Consequences of Electoral Laws.} London: Yale University Press.
@@ -443,7 +443,7 @@ NULL
 #' @return A single score.
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}
 #'
-#' @seealso \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{farina}},  \code{\link{lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
+#' @seealso \code{\link{CoxShugart}}, \code{\link{PoliticalDiversity}}, \code{\link{Grofman}}, \code{\link{Farina}},  \code{\link{Lijphart}}. For more details see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}
 #'
 #' @references
 #'  Gallagher, M. (1991) Proportionality, disproportionality and electoral systems. Electoral Studies 10(1):33-51.
@@ -927,6 +927,8 @@ NULL
 
 
 
+
+
 #' @encoding UTF-8
 #' @title The D'Hondt Method of Allocating Seats Proportionally
 #'
@@ -1079,6 +1081,7 @@ NULL
   # v0.0 2013-11-21
   # v0.2 2014-10-02
   # v0.3 2016-01-13
+  # v0.3 2016-05-15
   # local vars for using later
   .ratio <- votes/sum(votes)
   .votes <- ifelse(.ratio < threshold, 0, votes)
@@ -1171,6 +1174,7 @@ NULL
 
 
 
+
 #' @encoding latin1
 #' @title Largest Remainders Methods of Allocating Seats Proportionally
 #'
@@ -1187,8 +1191,9 @@ NULL
 #'
 #' @details The following methods are available:
 #' \itemize{
-#' \item {"dh"}{d'Hondt method}
-#' \item {"sl"}{Sainte-Lague method}
+#' \item {"droop"}{Droop quota method}
+#' \item {"hare"}{Hare method}
+#' \item {"imperiali-quota"}{Imperiali quota}
 #' }
 #'
 #' @references
@@ -1212,19 +1217,23 @@ NULL
 #' LargestRemainders(my_election$party,
 #' my_election$votes, seats = 10,  method="droop")
 #'
+#' LargestRemainders(my_election$party,
+#' my_election$votes, seats = 10,  method="hare")
+#'
 #' @rdname LargestRemainders
 #' @export
-`LargestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("LargestRemainders")
+`LargestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "imperiali-quota"), threshold=0, ...) UseMethod("LargestRemainders")
 
 
 
 #' @export
 #' @rdname LargestRemainders
-`LargestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
+`LargestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "imperiali-quota"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02
   # v0.2 2016-01-13
+  # v0.2 2016-05-15
   # local vars for using later
   .ratio <- votes/sum(votes)
   .votes <- ifelse(.ratio < threshold, 0, votes)
@@ -1237,8 +1246,28 @@ NULL
   }
 
   # Define Quotient
+  switch(method,
+         hare = { # Hare
+           divisor.vec <- (sum(votes)/seats)
+           method.name <- c("Hare")
+         },
+         droop = { #Droop
+           divisor.vec <- (1 + (sum(votes)/(seats+1)))
+           method.name <- c("Droop")
+         },
+         imperiali = { #Imperiali-Quota
+           divisor.vec <- (sum(votes)/(seats + 2))
+           method.name <- c("Imperiali-quota")
+})
+
+  base.seat <- votes%/%divisor.vec
+  remain <- seats - sum(base.seat)
+
+  .temp <- data.frame(
+    parties = rep(parties, each = seats ),
+    scores = as.vector(sapply(.votes, function(x) x /
+                                divisor.vec ))
+  );
 
 }
 NULL
-
-

@@ -7,12 +7,11 @@
 \title{Largest Remainders Methods of Allocating Seats Proportionally}
 \usage{
 LargestRemainders(parties = NULL, votes = NULL, seats = NULL,
-  method = c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb",
-  "jef", "ad", "hb"), threshold = 0, ...)
+  method = c("hare", "droop", "imperiali-quota"), threshold = 0, ...)
 
 \method{LargestRemainders}{default}(parties = NULL, votes = NULL,
-  seats = NULL, method = c("dh", "sl", "msl", "danish", "hsl", "hh",
-  "imperiali", "wb", "jef", "ad", "hb"), threshold = 0, ...)
+  seats = NULL, method = c("hare", "droop", "imperiali-quota"),
+  threshold = 0, ...)
 }
 \arguments{
 \item{parties}{A character vector for parties labels or candidates in the order as \code{votes}. If \code{NULL}, a random combination of letters will be assigned.}
@@ -36,8 +35,9 @@ Computes the largest remainders method for a variety of formulas of allocating s
 \details{
 The following methods are available:
 \itemize{
-\item {"dh"}{d'Hondt method}
-\item {"sl"}{Sainte-Lague method}
+\item {"droop"}{Droop quota method}
+\item {"hare"}{Hare method}
+\item {"imperiali-quota"}{Imperiali quota}
 }
 }
 \examples{
@@ -50,6 +50,9 @@ votes=c(47000, 16000,	15900,	12000,	6000,	3100))
 
 LargestRemainders(my_election$party,
 my_election$votes, seats = 10,  method="droop")
+
+LargestRemainders(my_election$party,
+my_election$votes, seats = 10,  method="hare")
 
 }
 \author{
