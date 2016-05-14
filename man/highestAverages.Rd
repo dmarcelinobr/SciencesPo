@@ -41,7 +41,7 @@ The following methods are available:
 \item {"msl"}{Modified Sainte-Lague method}
 \item {"danish"}{Danish modified Sainte-Lague method}
 \item {"hsl"}{Hungarian modified Sainte-Lague method}
-\item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
+\item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali Quota, which is a Largest remainder method)}
 \item {"hh"}{Huntington-Hill method}
 \item {"wb"}{Webster's method}
 \item {"jef"}{Jefferson's method}

@@ -1018,7 +1018,7 @@ NULL
 #' \item {"msl"}{Modified Sainte-Lague method}
 #' \item {"danish"}{Danish modified Sainte-Lague method}
 #' \item {"hsl"}{Hungarian modified Sainte-Lague method}
-#' \item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali quota which is a Largest remainder method)}
+#' \item {"imperiali"}{The Italian Imperiali (not to be confused with the Imperiali Quota, which is a Largest remainder method)}
 #' \item {"hh"}{Huntington-Hill method}
 #' \item {"wb"}{Webster's method}
 #' \item {"jef"}{Jefferson's method}
@@ -1193,7 +1193,7 @@ NULL
 #' \itemize{
 #' \item {"droop"}{Droop quota method}
 #' \item {"hare"}{Hare method}
-#' \item {"imperiali-quota"}{Imperiali quota}
+#' \item {"imperiali"}{Quota Imperiali (do not confuse with the Italian Imperiali, which is a highest averages method)}
 #' }
 #'
 #' @references
@@ -1222,13 +1222,13 @@ NULL
 #'
 #' @rdname LargestRemainders
 #' @export
-`LargestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "imperiali-quota"), threshold=0, ...) UseMethod("LargestRemainders")
+`LargestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "imperiali"), threshold=0, ...) UseMethod("LargestRemainders")
 
 
 
 #' @export
 #' @rdname LargestRemainders
-`LargestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "imperiali-quota"), threshold=0, ...){
+`LargestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "imperiali"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02
@@ -1245,7 +1245,7 @@ NULL
                                       replace=TRUE), collapse=""))
   }
 
-  # Define Quotient
+ # Define Quotient
   switch(method,
          hare = { # Hare
            divisor.vec <- (sum(votes)/seats)
@@ -1255,19 +1255,45 @@ NULL
            divisor.vec <- (1 + (sum(votes)/(seats+1)))
            method.name <- c("Droop")
          },
-         imperiali = { #Imperiali-Quota
+        imperiali = { #Quota-Imperiali
            divisor.vec <- (sum(votes)/(seats + 2))
-           method.name <- c("Imperiali-quota")
+           method.name <- c("Quota-Imperiali")
 })
 
-  base.seat <- votes%/%divisor.vec
-  remain <- seats - sum(base.seat)
-
-  .temp <- data.frame(
-    parties = rep(parties, each = seats ),
+  seat.distribution <- votes%/%divisor.vec
+  remain <- seats - sum(seat.distribution)
+.temp <- data.frame(
+    party = rep(parties, each = 1),
     scores = as.vector(sapply(.votes, function(x) x /
-                                divisor.vec ))
+                                divisor.vec ) - seat.distribution)
   );
 
+.temp <- .temp[order(as.double(.temp$scores), decreasing = TRUE),]
+
+rownames(.temp) <- c(1:nrow(.temp))
+.temp <- .temp[1:remain,]
+
+out <- data.frame(party = rep(parties, each = 1), seat = seat.distribution)
+
+  if(as.integer(remain) == 0){
+  }else if(as.integer(remain) == 1){
+   out[as.integer(.temp[1,]$party), 2] <- out[as.integer(.temp[1,]$party), 2] + 1
+}else{
+    for(i in 1:remain){
+      out[as.integer(.temp[i,]$party), 2] <- out[as.integer(.temp[i,]$party), 2] + 1
+    }
+}
+out <- freq(out, digits = 3);
+names(out) <-c("Party", "Seats", "\u0025Seats");
+# Political diversity indices
+ENP.votes <- 1/sum(.ratio^2)
+ENP.seats <- 1/sum((out$Seats/sum(out$Seats))^2)
+LSq.index <- sqrt(0.5*sum((((votes/sum(votes))*100) - ((out$Seats/sum(out$Seats))*100))^2))
+
+cat("Method:", method.name, "\n")
+shorten(round(divisor.vec, 2), 4)
+cat(paste("ENP:",round(ENP.votes,2),"(After):",round(ENP.seats,2)),"\n")
+cat(paste("Gallagher Index: ", round(LSq.index, 2)), "\n \n")
+return(out)
 }
 NULL
