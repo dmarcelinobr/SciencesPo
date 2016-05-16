@@ -8,6 +8,108 @@
 `%>%` <- magrittr::`%>%`
 
 
+
+
+#' @encoding UTF-8
+#' @title Arithmetic and Statistiscal Functions but Dealing with Missing Data
+#'
+#' @description Arithmetic and statistiscal functions but dealing with missing data by default.
+#' @param x a numeric vector.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @examples
+#' x <- c(NA,1,2,3,2,1,NA)
+#'
+#' Mean(x)
+#'
+#' Sum(x)
+#'
+#' Mode(x)
+#'
+#' sd(x, na.rm=TRUE)/sqrt(length(x))
+#'
+#' SE(x)
+#' @name Operations
+NULL
+
+
+#' @rdname Operations
+#' @export
+`Mean` <- function(x) as.numeric(mean(x, na.rm=TRUE))
+
+#' @rdname Operations
+#' @export
+`SD` <- function(x) as.numeric(sd(x, na.rm=TRUE))
+
+
+#' @rdname Operations
+#' @export
+`SE` <- function(x) {
+  if (!is.numeric(x) && !is.complex(x) && !is.logical(x) && !is.vector(x)) stop ("The argument should be a numeric vector.")
+  NAout <- x[!is.na(x)]
+  ans <- sqrt(var(NAout)/length(NAout))
+  return(ans)
+}
+NULL
+
+#' @rdname Operations
+#' @export
+`Sum` <- function(x) sum(x, na.rm=TRUE)
+
+
+#' @rdname Operations
+#' @export
+`Sums` <- function(x) {
+
+  if (sum(is.na(x))==length(x)) {
+    y <- NA
+  }
+
+  else {y <- sum(x, na.rm=TRUE)}
+
+  return(as.numeric(y))
+}
+NULL
+
+
+#' @rdname Operations
+#' @export
+`Max`  <- function(x) {
+  if (class(x) == "integer") {
+    ifelse(all(is.na(x)), as.integer(NA) , max(x, na.rm = TRUE))
+  }
+  else {
+    ifelse(all(is.na(x)), as.numeric(NA) , max(x, na.rm = TRUE))
+  }
+}
+NULL
+
+#' @rdname Operations
+#' @export
+`Min`  <- function(x) {
+  if (class(x) == "integer") {
+    ifelse(all(is.na(x)), as.integer(NA) , min(x, na.rm = TRUE))
+  }
+  else {
+    ifelse(all(is.na(x)), as.numeric(NA) , min(x, na.rm = TRUE))
+  }
+}
+NULL
+
+
+#' @rdname Operations
+#' @export
+`Mode` <- function(x) {
+   x = subset(x,!is.na(x))
+   y <- as.factor(x)
+  freqs <- summary(y)
+  ans <- names(freqs)[freqs[names(freqs)] == max(freqs)]
+  return(as.numeric(ans))
+}
+NULL
+
+
+
+
 #' @encoding UTF-8
 #' @title Odds Ratio Calculation
 #' @description The orcalc can be used to obtain odds ratios. Simply provide the two probabilities to be used (the probability of success for group 1 is given first, then the probability of success for group 2)
