@@ -20,6 +20,8 @@ theme_538(legend = "none", legend_title = FALSE, base_size = 12,
 
 \item{base_size}{Overall font size. Default is 13.}
 
+\item{horizontal}{Logical. Horizontal axis lines?}
+
 \item{base_family}{Default font family.}
 
 \item{colors}{Default colors used in the plot in the following order: background, lines, text, and title.}

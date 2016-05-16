@@ -1,4 +1,3 @@
-#' @encoding UTF-8
 #' @title Detect Outliers
 #'
 #' @description Perform an exploaratory test to detect \emph{outliers}. The quantity for \emph{min} reveals the minimum deviation from the mean, the integer in \emph{closest}, highlights the position of that element. The quantity for \emph{max} is the maximum deviation from the mean, and the \code{farthest} integer is the position of that value.

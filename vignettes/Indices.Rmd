@@ -196,9 +196,9 @@ Next, the methods that divide the votes by a mathematically derived quota, such 
 Highest averages methods allocate seats proportionally to the number of votes by dividing the number of votes required for each party by a quota. The quota may vary because it is the result of dividing the number of unspoiled votes ($v$) by some whole number close to the number of seats that would next be assigned ($s$). In what follows are llustrative examples of the operation of some largest remainders formulas in an eight member district with the same four parties of the previous examples.
 
 ### Hare quota
-The Droop quota is obtained by quota = $\frac{v}{(s)}$.
+The Hare quota is obtained by quota = $\frac{v}{(s)}$.
 
-```{r largestRemainders1, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r largestRemainders1, echo=TRUE, message=FALSE, comment=NA}
 LargestRemainders(parties=names(lijphart),
                   votes=lijphart, 
                   seats = 8, method = "hare") 
@@ -207,7 +207,7 @@ LargestRemainders(parties=names(lijphart),
 ### Droop quota
 The Droop quota is obtained by quota = $\frac{v}{(s + 1)}+1$.
 
-```{r largestRemainders2, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r largestRemainders2, echo=TRUE, message=FALSE, comment=NA}
 LargestRemainders(parties=names(lijphart), 
                   votes=lijphart, 
                   seats = 8, method = "droop") 
@@ -241,8 +241,16 @@ Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
 ```{r largestRemainders4, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
 with(Italy, LargestRemainders(parties=party,
                               votes=votes, seats = 556,
-                              method = "imperiali.q") )
+                              method = "imperiali") )
 ```
+
+
+```{r largestRemainders5, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+with(Italy, LargestRemainders(parties=party,
+                              votes=votes, seats = 556,
+                              method = "imperiali.adj") )
+```
+
 
 
 ## Suitable output for recycling within RMarkdown documents 
@@ -280,7 +288,7 @@ gg <-  gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 25))
 gg <- gg + scale_color_parties("BRA") + scale_fill_parties("BRA")
 gg <- gg + coord_flip()
 gg <-  gg + labs(list(x = "", y = "Number of seats obtained",
-            title="The 2014 Brazilian elections in Ceará, \n Seats won by party"))
+            title="The 2014 elections in the state of Ceará, \n seats won by party"))
 gg <-  gg + theme_fte(horizontal = FALSE)
 gg <-  gg + theme(panel.grid.major.y=element_blank()) 
 gg <-  gg + theme(legend.position = "none") 
@@ -291,7 +299,7 @@ gg
 
 Next, I use the same example to make a plot comparing three highest-averages formulas. The plot is decorated with the **SciencesPo** theme `theme_fte` and color its scale colors.  
 
-```{r largestRemainders5, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=3.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
+```{r largestRemainders6, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=3.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
 
 out1 = HighestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh")
@@ -302,7 +310,7 @@ out3 = HighestAverages(parties=names(Ceara), votes=Ceara,
 
 # add the method:
 out1$Method = "d'Hondt"
-out2$Method = "imperiali"
+out2$Method = "Imperiali"
 out3$Method = "Saint-Laguë"
 
 
@@ -316,7 +324,7 @@ p + scale_fill_fte() +
 ```
 
 
-```{r largestRemainders6, eval=FALSE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
+```{r largestRemainders7, eval=FALSE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
 
 #2014 Federal elections, 30 seats to be returned in the state of Parana, Brazil.
 
@@ -328,13 +336,12 @@ PR=c("PSDB/DEM/PR/PSC/PTdoB/PP/SD/PSD/PPS"=2601709,
 
 
 
-```{r largestRemainders7, eval=FALSE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
+```{r largestRemainders8, eval=FALSE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
 
 2014 Federal elections, 70 seats to be returned in the state of Sao Paulo, Brazil.
 SP=c("PSDB/DEM/PPS"=5537630, "PT/PCdoB"=3170003,
      "PMDB/PROS/PP/PSD"=2384740, "PSOL/PSTU"=462992,
      "PSL/PTN/PMN/PTC/PTdoB"=350186, "PHS/PRP"=252205)
-
 
 ```
 
@@ -483,6 +490,7 @@ with(Quebec, CoxShugart(pvotes, pseats))
 # The same as above
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Cox-Shugart") )
+
 ```
 
 

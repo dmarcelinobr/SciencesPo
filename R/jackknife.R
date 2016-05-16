@@ -17,15 +17,15 @@
 #' @examples
 #' x = runif(10, 0, 1)
 #' mean(x)
-#' jackknife(x,'mean')
+#' Jackknife(x,'mean')
 #'
 #' @export
-jackknife <-function (x,p)
+Jackknife <-function (x,p)
 {
 	n=length(x)
 	jk=rep(NA,n)
 	est = match.fun(p)(x)
-	
+
 	for (i in 1:n)
 	{
 		jk[i]=match.fun(p)(x[-i])

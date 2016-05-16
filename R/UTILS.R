@@ -179,27 +179,27 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title  Convert All Factor Columns to Character Columns
+#' @title Convert All Factor Columns to Character Columns of a Data Frame
 #'
 #' @description By default, R converts character columns to factors.
 #' Instead of re-reading the data using \code{stringsAsFactors}, the
-#' \code{\link{safe.chars}} function will identify which columns are currently factors, and convert them all to characters.
+#' \code{\link{Safechars}} function will identify which columns are currently factors, and convert them all to characters.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @param .data The name of the \code{data.frame}
+#' @param .data a \code{data.frame}.
 #' @seealso \code{\link{read.table}}, \code{\link{Destring}}.
 #' @keywords internal
 #' @examples
 #'  str(iris)
-#' iris_2 = safeChars(iris)
+#' iris_2 = Safechars(iris)
 #' str(iris_2)
 #'
 #' @export
-safeChars <- function(.data) {
+Safechars <- function(.data) {
   .data[sapply(.data, is.factor)] <-
     lapply(.data[sapply(.data, is.factor)], as.character)
   .data
-}### end -- safe.chars function
+}### end -- Safechars function
 NULL
 
 
@@ -676,58 +676,6 @@ excelMatch = function(..., n=NULL, names=NULL){
   } else {
     return(findit)
   }
-}
-NULL
-
-
-
-
-
-#' Compute the fractional part of a numeric
-#'
-#' Takes a numeric vector and returns a vector of the numbers after the decimal
-#' place
-#'
-#' @param x A numeric vector of any length
-#' @return A vector of the same length as the input vec containing only the decimal component.
-#' @export
-#' @examples
-#' x <- runif(100)
-#' fpart(x)
-fpart = function(x) {
-  ret = x - as.integer(x)
-  ret
-}
-NULL
-
-
-
-
-
-#' Return the odd and even values from a vector
-#'
-#' Takes an integer vector and returns every odd or even element
-#'
-#'@aliases evens odds
-#'@param x Integer vector
-#'@return Returns an integer vector consisting of only the odd/even elements.
-#'@export which.evens
-#'@export which.odds
-#'@examples
-#'
-#' x <- as.integer(c(1,2,3,4,5,6,7,8,9))
-#' which.evens(x)
-#'  which.odds(x)
-#'
-which.evens=function(x) {
-  stopifnot(class(x)=="integer")
-  ret = x[fpart(x/2)==0]
-  ret
-}
-which.odds=function(x) {
-  stopifnot(class(x)=="integer")
-  ret = x[fpart(x/2)!=0]
-  ret
 }
 NULL
 

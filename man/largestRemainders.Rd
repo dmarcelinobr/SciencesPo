@@ -7,11 +7,12 @@
 \title{Largest Remainders Methods of Allocating Seats Proportionally}
 \usage{
 LargestRemainders(parties = NULL, votes = NULL, seats = NULL,
-  method = c("hare", "droop", "imperiali"), threshold = 0, ...)
+  method = c("hare", "droop", "hagb", "imperiali", "imperiali.adj"),
+  threshold = 0, ...)
 
 \method{LargestRemainders}{default}(parties = NULL, votes = NULL,
-  seats = NULL, method = c("hare", "droop", "imperiali"), threshold = 0,
-  ...)
+  seats = NULL, method = c("hare", "droop", "hagb", "imperiali",
+  "imperiali.adj"), threshold = 0, ...)
 }
 \arguments{
 \item{parties}{A character vector for parties labels or candidates in the order as \code{votes}. If \code{NULL}, a random combination of letters will be assigned.}
@@ -37,7 +38,9 @@ The following methods are available:
 \itemize{
 \item {"droop"}{Droop quota method}
 \item {"hare"}{Hare method}
-\item {"imperiali"}{Quota Imperiali (do not confuse with the Italian Imperiali, which is a highest averages method)}
+\item {"hagb"}{Hagenbach-Bischoff}
+\item {"imperiali"}{Imperiali quota (do not confuse with the Italian Imperiali, which is a highest averages method)}
+\item {"imperiali.adj"}{Reinforced or adjusted Imperiali quota}
 }
 }
 \examples{

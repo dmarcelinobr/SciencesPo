@@ -39,6 +39,6 @@ SE(x)
 Daniel Marcelino, \email{dmarcelino@live.com}
 }
 \seealso{
-\code{\link{CI}}, \code{\link{CV}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{outliers}}
+\code{\link{CI}}, \code{\link{CV}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{WinsorizedMean}}, \code{\link{Outliers}}
 }
 

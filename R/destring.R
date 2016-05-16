@@ -5,7 +5,7 @@
 #'
 #' @param x A factor whose levels will be converted.
 #'
-#' @seealso \code{\link{safe.chars}}.
+#' @seealso \code{\link{Safechars}}.
 #' @examples
 #' mylevels <- c('Strongly Disagree', 'Disagree', 'Neither', 'Agree', 'Strongly Agree')
 #'

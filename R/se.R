@@ -12,7 +12,7 @@
 #' @details The standard error of the mean (SEM) (\emph{assuming statistical independence of the values in the sample}) is estimated by taking the standard deviation of the population sample, divided by the square root of the sample size: \deqn{se = \frac{{s}}{{\sqrt{n}}}}
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @seealso \code{\link{CI}}, \code{\link{CV}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{winsorize}}, \code{\link{outliers}}
+#' @seealso \code{\link{CI}}, \code{\link{CV}}, \code{\link{skewness}}, \code{\link{kurtosis}}, \code{\link{WinsorizedMean}}, \code{\link{Outliers}}
 #' @examples
 #' x <- c(1, 2.3, 2, 3, 4, 8, 12, 43, -1,-4)
 #' myse <- sd(x)/sqrt(length(x))

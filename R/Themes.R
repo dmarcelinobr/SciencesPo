@@ -7,6 +7,7 @@
 #' @param legend Enables to set legend position, default is "bottom".
 #' @param base_family Default font family.
 #' @param base_size Overall font size. Default is 14.
+#' @param horizontal Logical. Horizontal axis lines?
 #' @param line_width Default line size.
 #' @param axis_line Enables to set x and y axes.
 #' @return The theme.
@@ -50,6 +51,7 @@
 theme_pub <- function(legend = 'bottom',
                       base_size = 13,
                       base_family = "",
+                      horizontal = FALSE,
                       line_width = .5,
                       axis_line = FALSE) {
   half_line <- base_size / 2
@@ -139,6 +141,7 @@ NULL
 #' @param legend_title Will the legend have a title?, Default is \code{FALSE}.
 #' @param base_family Default font family.
 #' @param base_size Overall font size. Default is 13.
+#' @param horizontal Logical. Horizontal axis lines?
 #' @param colors Default colors used in the plot in the following order: background, lines, text, and title.
 #' @return The theme.
 #'
@@ -359,7 +362,7 @@ themes_data <- {
         rgb(219, 219, 141, max = 255),
         rgb(23, 190, 207, max = 255),
         rgb(158, 218, 229, max = 255),
-        rgb(172, 135, 99, max = 255), 
+        rgb(172, 135, 99, max = 255),
         rgb(221, 201, 180, max = 255)
       ),
       tableau10medium = c(

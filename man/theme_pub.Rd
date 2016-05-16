@@ -6,7 +6,7 @@
 \title{The Default Theme}
 \usage{
 theme_pub(legend = "bottom", base_size = 13, base_family = "",
-  line_width = 0.5, axis_line = FALSE)
+  horizontal = FALSE, line_width = 0.5, axis_line = FALSE)
 }
 \arguments{
 \item{legend}{Enables to set legend position, default is "bottom".}
@@ -14,6 +14,8 @@ theme_pub(legend = "bottom", base_size = 13, base_family = "",
 \item{base_size}{Overall font size. Default is 14.}
 
 \item{base_family}{Default font family.}
+
+\item{horizontal}{Logical. Horizontal axis lines?}
 
 \item{line_width}{Default line size.}
 
