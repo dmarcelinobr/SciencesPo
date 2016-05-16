@@ -1,6 +1,6 @@
-#' Detect Outliers
-#'
-#' @description Perform an exploaratory test to detect \emph{outliers}. The quantity for \emph{min} reveals the minimum deviation from the mean, the integer in \emph{closest}, highlights the position of that element. The quantity for \emph{max} is the maximum deviation from the mean, and the \code{farthest} integer is the position of that value.
+#' @encoding UTF-8
+#' @title Detect Outliers
+#' @description Perform exploratory test to detect \emph{outliers}. The quantity for \emph{min} reveals the minimum deviation from the mean, the integer value in the \emph{closest} indicates the position of that element. The quantity in \emph{max} is the maximum deviation from the mean, and the \code{farthest} integer value indicates the position of that value.
 #'
 #' @param x A numeric object, a vector.
 #' @param index A numeric value to be considered in the computations.
@@ -12,7 +12,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #'
-#' @seealso \link{WinsorizedMean} for diminishing the impact of outliers.
+#' @seealso \link{WinsorizedMean} for reduce the impact of outliers.
 #' @keywords Exploratory
 #' @examples
 #' Outliers(x <- rnorm(20))

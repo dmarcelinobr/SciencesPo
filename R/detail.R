@@ -70,7 +70,7 @@ Detail <-
       stats[1, 2] <- mean(.data, na.rm = na.rm)
       stats[1, 3] <- stats::sd(.data, na.rm = na.rm)
       stats[1, 4] <- stats::var(.data, na.rm = na.rm)
-      stats[1, 5] <- SE(.data, na.rm = na.rm)
+      stats[1, 5] <- SE(.data)
       stats[1, 6] <- stats::median(.data, na.rm = na.rm)
       stats[1, 7] <- stats::mad(.data, na.rm = na.rm)
       stats[1, 8] <- mean(.data, na.rm = na.rm, trim = trim)
@@ -114,7 +114,7 @@ Detail <-
       }
       stats[, 3] <- sapply(.data, FUN = stats::sd, na.rm = na.rm)
       stats[, 4] <- sapply(.data, FUN = stats::var, na.rm = na.rm)
-      stats[, 5] <- sapply(.data, FUN = SE, na.rm = na.rm)
+      stats[, 5] <- sapply(.data, FUN = SE)
       stats[, 6] <- sapply(.data, FUN = stats::median, na.rm = na.rm)
       stats[, 7] <- sapply(.data, FUN = stats::mad, na.rm = na.rm)
       stats[, 8] <-
