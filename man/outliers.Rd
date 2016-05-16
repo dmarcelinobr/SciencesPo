@@ -10,11 +10,11 @@ Outliers(x, index = NULL, ...)
 \method{Outliers}{default}(x, index = NULL, ...)
 }
 \arguments{
-\item{x}{A numeric object}
+\item{x}{A numeric object, a vector.}
 
-\item{index}{A numeric value to be considered in the computations}
+\item{index}{A numeric value to be considered in the computations.}
 
-\item{...}{Parameters which are typically ignored}
+\item{...}{Parameters which are typically ignored.}
 }
 \value{
 Returns the minimum and maximum values, respectively preceded by their positions in the \code{vector}, \code{matrix} or \code{data.frame}.

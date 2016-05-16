@@ -509,6 +509,81 @@ NULL
 
 
 
+#' @title Look for Variables in a Data Frame Using Regular Expressions
+#' @description The function look for variable names in a \code{data.frame}.
+#' @param .data a data.frame object.
+#' @param varnames a character or vector with regular expressions of variables names.
+#' @return Returns the variables names of the variables found.
+#' @examples
+#' LookVariable(titanic, "clas")
+#'
+LookVariable  <- function(.data, varnames) {
+  n  <- names(.data)
+  nn  <- list()
+  for (i in 1:length(varnames)) {
+    nn[[i]]  <- grep(varnames[i],n, ignore.case = TRUE)
+  }
+
+  nn  <- unlist(nn)
+
+  if ( length(nn) >0 )
+  {
+    r  <- n[nn]
+    return(r)
+  }
+  else
+  { return("No variables found")}
+}
+NULL
+
+
+
+
+
+#' @title Count missing data.
+#' @description Function to count missing data.
+#' @param .data The \code{data.frame}.
+#' @param vars a vector with name of variables.
+#' @param share logical. If \code{TRUE}, it will show the share of missing data by variable.
+#' @param exclude.complete logical. Exclude complete variables from the output.
+#' @export
+#' @examples
+#' library(data.table)
+#'
+#' a <- c(NA,2,3,4, NA)
+#' b <- c(2,3,4,NA, 3)
+#' c <- c(1,2,3,1, 1)
+#' data <- data.table(a,b,c)
+#' CountMissing(data, share = TRUE)
+#'
+CountMissing  <- function(.data, vars = NULL, share = FALSE, exclude.complete = TRUE) {
+
+  if (is.null(vars)) {
+    vars <- names(.data)
+  }
+
+  mis <- sort( sapply(.data[, vars, with = FALSE], function(x) sum(is.na(x))), decreasing = TRUE)
+
+  if (exclude.complete == TRUE) {
+    mis <- mis[ mis > 0]
+  }
+
+  if (share == FALSE)
+  { return(mis) }
+
+  else if ( share == TRUE )
+  { return( round(mis / nrow(.data), 3)) }
+
+  return(mis)
+
+}
+NULL
+
+
+
+
+
+
 
 #' Text-based File Interface
 #'

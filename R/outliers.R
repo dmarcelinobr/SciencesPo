@@ -1,10 +1,10 @@
-#' @title Detect Outliers
+#' Detect Outliers
 #'
 #' @description Perform an exploaratory test to detect \emph{outliers}. The quantity for \emph{min} reveals the minimum deviation from the mean, the integer in \emph{closest}, highlights the position of that element. The quantity for \emph{max} is the maximum deviation from the mean, and the \code{farthest} integer is the position of that value.
 #'
-#' @param x A numeric object
-#' @param index A numeric value to be considered in the computations
-#' @param ... Parameters which are typically ignored
+#' @param x A numeric object, a vector.
+#' @param index A numeric value to be considered in the computations.
+#' @param ... Parameters which are typically ignored.
 #'
 #' @return Returns the minimum and maximum values, respectively preceded by their positions in the \code{vector}, \code{matrix} or \code{data.frame}.
 #'
@@ -27,8 +27,7 @@
 #'
 #' @rdname Outliers
 #' @export
-`Outliers.default` <-
-  function(x, index = NULL, ...) {
+`Outliers.default` <- function(x, index = NULL, ...) {
     if (is.data.frame(x)) {
       as.data.frame(sapply(x, Outliers, index))
     } else if (is.matrix(x)) {
