@@ -514,6 +514,7 @@ NULL
 #' @param .data a data.frame object.
 #' @param varnames a character or vector with regular expressions of variables names.
 #' @return Returns the variables names of the variables found.
+#' @export
 #' @examples
 #' LookVariable(titanic, "clas")
 #'
