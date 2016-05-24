@@ -54,6 +54,7 @@
 #' abline(v=mn, col='red', lwd=3, lty=3);
 
 #' @useDynLib SciencesPo
+#' @aliases Dirichlet
 #' @export
 `rdirichlet` <- function(n,
                          alpha) {

@@ -1,3 +1,6 @@
 Ideas for further development
 =============================
 
+  - I'd like to have a color pallete for political parties in each country. Where I could  simply use `... + party_color_pal("BRA")` to color a graph with each party traditional color.
+  - Following the same rationally, I'd like to have a pallete to color each country/continent accordingly. This too could include some intuitive color for levels of (under)development.
+  - The `Normalize` function could include several other methods of normalization.

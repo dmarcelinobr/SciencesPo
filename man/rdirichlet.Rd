@@ -2,6 +2,7 @@
 % Please edit documentation in R/Dirichlet.R
 \encoding{UTF-8}
 \name{rdirichlet}
+\alias{Dirichlet}
 \alias{rdirichlet}
 \title{Dirichlet Distribution}
 \usage{

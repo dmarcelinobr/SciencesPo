@@ -17,13 +17,13 @@
 #'  \itemize{
 #'      \item{svTransform: \code{\link{Normalize}}}
 #'      \item{untable: \code{\link{Untable}}}
-#'      \item{detail: \code{\link{Summary}}}
 #'      \item{politicalDiversity: \code{\link{PoliticalDiversity}}}
 #'      \item{winsorize: \code{\link{Winsorize}}}
 #'      \item{recode: \code{\link{Recode}}}
 #'      \item{dummy: \code{\link{Dummify}}}
 #'      \item{gini: \code{\link{Gini}}}
 #'      \item{clear: \code{\link{Clear}}}
+#'      \item{detail: \code{\link{Destring}}}
 #'      \item{destring: \code{\link{Destring}}}
 #'      \item{outliers: \code{\link{Outlier}}}
 #'      \item{voronoi: \code{\link{Voronoi}}}
@@ -52,6 +52,53 @@ NULL
 #' @export
 `untable`<- function(x, ...){
   .Deprecated(Untable, package="SciencesPo", "The `untable` method has been renamed with capital letter `Untable`. Please, use `Untable(...)` instead.")
+}
+
+#' @rdname SciencesPo-deprecated
+#' @export
+`detail`<- function(x, ...){
+  .Deprecated(Describe, package="SciencesPo", "The `detail` method has been changed to `Describe`. Please, use `Describe(...)` instead.")
+}
+
+
+#' @rdname SciencesPo-deprecated
+#' @export
+`dummy`<- function(x, ...){
+  .Deprecated(Dummy, package="SciencesPo", "The `dummy` method has been renamed with capital letter `Dummy`. Please, use `Dummy(...)` instead.")
+}
+
+
+#' @rdname SciencesPo-deprecated
+#' @export
+`voronoi`<- function(x, ...){
+  .Deprecated(Voronoi, package="SciencesPo", "The `voronoi` method has been renamed with capital letter `Voronoi`. Please, use `Voronoi(...)` instead.")
+}
+
+#' @rdname SciencesPo-deprecated
+#' @export
+`normalize`<- function(x, ...){
+  .Deprecated(Normalize, package="SciencesPo", "The `Normalize` method has been renamed with capital letter `Normalize`. Please, use `Normalize(...)` instead.")
+}
+
+
+#' @rdname SciencesPo-deprecated
+#' @export
+`outliers`<- function(x, ...){
+  .Deprecated(Outliers, package="SciencesPo", "The `outliers` method has been renamed with capital letter `Outlier`, and without `s`. Please, use `Outlier(...)` instead.")
+}
+
+
+#' @rdname SciencesPo-deprecated
+#' @export
+`destring`<- function(x, ...){
+  .Deprecated(Destring, package="SciencesPo", "The `destring` method has been renamed with capital letter `Destring`. Please, use `Destring(...)` instead.")
+}
+
+
+#' @rdname SciencesPo-deprecated
+#' @export
+`winsorize`<- function(x, ...){
+  .Deprecated(Winsorize, package="SciencesPo", "The `winsorize` method has been renamed with capital letter `Winsorize`. Please, use `Winsorize(...)` instead.")
 }
 
 # `svTransform <- function()

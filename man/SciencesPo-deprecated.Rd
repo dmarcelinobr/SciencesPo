@@ -3,9 +3,16 @@
 \encoding{UTF-8}
 \name{SciencesPo-deprecated}
 \alias{SciencesPo-deprecated}
+\alias{destring}
+\alias{detail}
+\alias{dummy}
+\alias{normalize}
+\alias{outliers}
 \alias{politicalDiversity}
 \alias{svTransform}
 \alias{untable}
+\alias{voronoi}
+\alias{winsorize}
 \title{Deprecated functions in package \sQuote{SciencesPo}}
 \usage{
 svTransform(y)
@@ -14,6 +21,20 @@ politicalDiversity(x, index = "laakso/taagepera", margin = 1,
   base = exp(1))
 
 untable(x, ...)
+
+detail(x, ...)
+
+dummy(x, ...)
+
+voronoi(x, ...)
+
+normalize(x, ...)
+
+outliers(x, ...)
+
+destring(x, ...)
+
+winsorize(x, ...)
 }
 \arguments{
 \item{y}{the dependent variable.}
@@ -38,13 +59,13 @@ The following functions are deprecated and will be made defunct; use
  \itemize{
      \item{svTransform: \code{\link{Normalize}}}
      \item{untable: \code{\link{Untable}}}
-     \item{detail: \code{\link{Summary}}}
      \item{politicalDiversity: \code{\link{PoliticalDiversity}}}
      \item{winsorize: \code{\link{Winsorize}}}
      \item{recode: \code{\link{Recode}}}
      \item{dummy: \code{\link{Dummify}}}
      \item{gini: \code{\link{Gini}}}
      \item{clear: \code{\link{Clear}}}
+     \item{detail: \code{\link{Destring}}}
      \item{destring: \code{\link{Destring}}}
      \item{outliers: \code{\link{Outlier}}}
      \item{voronoi: \code{\link{Voronoi}}}
