@@ -307,11 +307,12 @@ Palettes <- {
     Europe = rgb(39,100,25, max = 255), # 30
     Oceania = rgb(49,54,149, max = 255) # 2
   )
-  x$development <- c(
-    autumn = rgb(16, 78, 139, max = 255),
-    spring = rgb(110, 139, 61, max = 255),
-    summer = rgb(154, 50, 205, max = 255),
-    winter = rgb(255, 193, 37, max = 255)
+  x$regions <- c(
+    NO = rgb(16, 78, 139, max = 255),
+    NE = rgb(110, 139, 61, max = 255),
+    CO = rgb(154, 50, 205, max = 255),
+    SE = rgb(255, 193, 37, max = 255),
+    SU = rgb(255, 193, 37, max = 255)
   )
   x$countries <- c()
   ## return
