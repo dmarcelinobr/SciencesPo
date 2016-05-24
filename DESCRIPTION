@@ -21,13 +21,11 @@ Depends:
     methods
 Imports:
     pander (>= 0.6.0),
-    RSQLite (>= 1.0.0),
     data.table (>= 1.9.4),
     grid (>= 3.0.0),
     rstudioapi,
     htmltools,
     xtable,
-    gridExtra,
     stringr,
     shiny,
     lazyeval,

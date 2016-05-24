@@ -22,9 +22,9 @@
 #' @seealso \code{\link{Frequency}}, \code{\link{crosstable}}.
 #'
 #' @examples
-#' data(presidents)
+#' data(presheights)
 #'
-#' freq(presidents$winner.party)
+#' freq(presheights$winner.party)
 #'
 #'
 #' @rdname freq

@@ -2,10 +2,10 @@
 % Please edit documentation in R/DATA.R
 \docType{data}
 \encoding{UTF-8}
-\name{presidents}
-\alias{presidents}
+\name{presheights}
+\alias{presheights}
 \title{The Measure of US Presidents}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::presidents)} variables and \Sexpr{nrow(SciencesPo::presidents)} observations.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::presheights)} variables and \Sexpr{nrow(SciencesPo::presheights)} observations.}
 \source{
 US Presidents: \url{http://www.lingerandlook.com/Names/Presidents.php}
 Inside Gov. \url{http://www.us-presidents.insidegov.com}.
@@ -13,7 +13,7 @@ Wikipedia: \url{http://www.en.wikipedia.org/wiki/United_States_presidential_elec
 Wikipedia:\url{http://www.en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
 }
 \usage{
-data(presidents)
+data(presheights)
 }
 \description{
 The US presidents and their main opponents' heights (cm). This dataset contains the following columns:

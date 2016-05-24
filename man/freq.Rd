@@ -42,9 +42,9 @@ number giving the number of cells for the histogram; 4) a character string
 Creates a frequency table or data frame.
 }
 \examples{
-data(presidents)
+data(presheights)
 
-freq(presidents$winner.party)
+freq(presheights$winner.party)
 
 
 }
