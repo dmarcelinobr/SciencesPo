@@ -503,6 +503,9 @@ NULL
 #' @export
 #' @param palette Palette name.
 #' @family shape pub
+#' @examples
+#' pub_shape_pal("proportions")(2)
+#'
 `pub_shape_pal` <- function(palette = "proportions") {
   manual_pal(unname(Palletes$pub$shapes[[palette]]))
 }
@@ -533,6 +536,8 @@ NULL
 
 
 
+#' show_shapes(shape_pal()(3), labels=TRUE)
+#'
 
 
 # http://www.joshuastevens.net/cartography/make-a-bivariate-choropleth-map/

@@ -12,6 +12,10 @@ pub_shape_pal(palette = "proportions")
 \description{
 Discrete shape scales for theme_pub.
 }
+\examples{
+pub_shape_pal("proportions")(2)
+
+}
 \seealso{
 Other shape pub: \code{\link{scale_shape_pub}}
 }

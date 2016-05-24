@@ -1,3 +1,7 @@
+#' @include SciencesPo.R
+#' @include Palletes.R
+NULL
+
 #' @encoding UTF-8
 #' @title The Default Theme
 #'

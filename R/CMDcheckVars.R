@@ -1,4 +1,4 @@
-globalVariables("Palletes")
+
 globalVariables(c(".data",".id", ".ID", ".variable", ".value", ".count", ".total", ".odds"))
 
 globalVariables(c("copy","..count..", "p.level", ".N", ".valid", "layer"))
