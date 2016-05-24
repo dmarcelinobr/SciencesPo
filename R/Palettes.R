@@ -4,7 +4,7 @@
 #'
 #' @format A \code{list}.
 #'
-Palletes <- {
+Palettes <- {
   x <- list()
   x$pub <- list()
   x$pub$colors <-
@@ -356,7 +356,7 @@ NULL
 #'
 #' @export
 `pub_color_pal` <- function(palette = "pub12") {
-  pal.list <- Palletes$pub$colors
+  pal.list <- Palettes$pub$colors
   if (!palette %in% c(
     names(pal.list), "pub12", "gray5", "tableau10", "tableau20", "tableau10medium", "tableau10light", "colorblind", "fte", "greenorange12", "cyclic", "purplegray12", "bluered12", "bivariate1", "bivariate2", "bivariate3", "bivariate4" )) {
     stop(sprintf("%s is not a valid palette name", palette))
@@ -439,7 +439,7 @@ NULL
 #' @export
 #'
 `party_color_pal` <- function(palette = "BRA", label=FALSE) {
-  pal.list <- Palletes$party
+  pal.list <- Palettes$party
   if (!palette %in% c(names(pal.list), "BRA", "ARG", "CAN", "USA")) {
     stop(sprintf("%s is not a valid palette name", palette))
   }
@@ -508,7 +508,7 @@ NULL
 #' pub_shape_pal("proportions")(2)
 #'
 `pub_shape_pal` <- function(palette = "proportions") {
-  manual_pal(unname(Palletes$pub$shapes[[palette]]))
+  manual_pal(unname(Palettes$pub$shapes[[palette]]))
 }
 NULL
 

@@ -1,5 +1,5 @@
 #' @include SciencesPo.R
-#' @include Palletes.R
+#' @include Palettes.R
 NULL
 
 #' @encoding UTF-8

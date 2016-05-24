@@ -69,7 +69,7 @@ Collate:
     'Normalize.R'
     'Operators.R'
     'Outlier.R'
-    'Palletes.R'
+    'Palettes.R'
     'PoliticalDiversity.R'
     'Proportionality.R'
     'Recode.R'

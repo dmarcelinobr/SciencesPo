@@ -13,4 +13,4 @@
 #' @import grDevices
 NULL
 
-globalVariables("Palletes")
+globalVariables("Palettes")
