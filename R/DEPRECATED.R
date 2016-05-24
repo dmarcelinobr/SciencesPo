@@ -64,7 +64,7 @@ NULL
 #' @rdname SciencesPo-deprecated
 #' @export
 `dummy`<- function(x, ...){
-  .Deprecated(Dummy, package="SciencesPo", "The `dummy` method has been renamed with capital letter `Dummy`. Please, use `Dummy(...)` instead.")
+  .Deprecated(Dummify, package="SciencesPo", "The `dummy` method has been renamed as `Dummify` with capital letter. Please, use `Dummify(...)` instead.")
 }
 
 
@@ -84,7 +84,7 @@ NULL
 #' @rdname SciencesPo-deprecated
 #' @export
 `outliers`<- function(x, ...){
-  .Deprecated(Outliers, package="SciencesPo", "The `outliers` method has been renamed with capital letter `Outlier`, and without `s`. Please, use `Outlier(...)` instead.")
+  .Deprecated(Outlier, package="SciencesPo", "The `outliers` method has been renamed with capital letter `Outlier`, and without `s`. Please, use `Outlier(...)` instead.")
 }
 
 
