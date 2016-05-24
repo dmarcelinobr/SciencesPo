@@ -504,6 +504,7 @@ NULL
 #' @param palette Palette name.
 #' @family shape pub
 #' @examples
+#' library(scales)
 #' pub_shape_pal("proportions")(2)
 #'
 `pub_shape_pal` <- function(palette = "proportions") {

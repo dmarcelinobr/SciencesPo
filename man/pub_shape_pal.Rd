@@ -13,6 +13,7 @@ pub_shape_pal(palette = "proportions")
 Discrete shape scales for theme_pub.
 }
 \examples{
+library(scales)
 pub_shape_pal("proportions")(2)
 
 }
