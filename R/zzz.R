@@ -1,17 +1,15 @@
 .onAttach <- function(...) {
   # Send message
-  msg <- function() {
+  msg <- function(){
     #message("")
     packageStartupMessage("initializing ...", appendLF = FALSE)
     Sys.sleep(1)
     packageStartupMessage(" done")
-  }
-  packageStartupMessage(msg())
-  #suppressMessages(msg())
-# options(scipen=999)
- # options(n.cat = 0)
- # options(quiet = FALSE)
- # options(brief = FALSE)
+}
+packageStartupMessage(msg())
+# suppressMessages(msg())
+options(scipen=999)
+# options(quiet = FALSE)
 # ggplot2::theme_set(theme_pub())
 }
 NULL
@@ -23,36 +21,40 @@ NULL
   function(x, y) {
     assign(as.character(substitute(x)), y, envir = parent.frame())
   }
+NULL
 
 `charopts` <- function(x) {
   paste(sprintf("\\code{\"%s\"}", x), collapse = ", ")
 }
-
+NULL
 
 say <- function() {
   print(sample(c("Hello World!", "Yo world!", "Yo, you lookin' at twenty", "Bitch, you ain't givin' me any"),1))
 }
-
+NULL
 
 # useful for avoinding extra space between columns
 is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {
   abs(x - round(x)) < tol
 }
+NULL
 
 is.valid.name <- function(x) {
   length(x) == 1 && is.character(x) && x == make.names(x)
 }
+NULL
 
 is.empty <- function(df) {
   is.null(df) || nrow(df) == 0 || ncol(df) == 0
 }
+NULL
 
 is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
+NULL
 
-is.formula <- function(x)
-  inherits(x, "formula")
+is.formula <- function(x) inherits(x, "formula")
 
 # This function takes a string referring to existing data and parses it
 # to get information on the data structure.
@@ -60,25 +62,20 @@ is.formula <- function(x)
 # info returned: df.name, var.name, col.names, rows.subset, col.index, data.struct
 
 `.parse.arg` <- function(arg.str) {
-
   # Check if arg.str is a string
   if(!is.character(arg.str))
     stop("arg.str must be a string")
-
   # Initialise output list
   output <- list()
   output$arg.str <- arg.str
-
   # Recuperate the object designated by arg.str
   x <- try(eval(parse(text=arg.str)),silent = TRUE)
   if(inherits(x, "try-error")) {
     return(output)
   }
-
   if(!is.data.frame(x) && !is.atomic(x)) {
     return(output)
   }
-
   # Trim the string removing leading/trailing blanks
   arg.str <- gsub("^\\s+|\\s+$", "",
                   gsub( sprintf("\\s+[%s]\\s+|\\s+[%s]|[%s]\\s+",
@@ -289,13 +286,14 @@ NULL
 # circle2 <- Circlize(c(10,10),15,npoints = 100)
 # circle3 <- Circlize(c(10,10),10,npoints = 100)
 
-`Circlize` <- function(center = c(0,0),diameter = 1, npoints = 100){
+`Circlize` <- function(center = c(0,0), diameter = 1, npoints = 100){
   r = diameter / 2
   tt <- seq(0,2*pi,length.out = npoints)
   xx <- center[1] + r * cos(tt)
   yy <- center[2] + r * sin(tt)
   return(data.frame(x = xx, y = yy))
 }
+NULL
 
 
 # df <- data.frame(strategy=5:10, offering=c(5,7,9,8,6,9),labelz=c("PSDB","PSB","PMDB","PTB","PP","PT"))
@@ -314,4 +312,3 @@ NULL
 #  geom_text(aes(label=labelz), nudge_y = maxi) +
 #  coord_cartesian(xlim=c(0,10),ylim=c(0,10)) +
 #  theme_bw()
-
