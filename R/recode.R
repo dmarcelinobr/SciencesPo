@@ -26,12 +26,13 @@ NULL
 #' @rdname Recode
 #' @export
 `Recode.default` <- function(x, old, into, warn = TRUE) {
-  if (length(old) != length(into)) {
-    stop("`old` and `into` vectors are not the same length.")
-  }
-  if (!is.atomic(x)) {
-    stop("`x` must be an atomic vector.")
-  }
+    if (base::missing(x))
+      stop("No variable provided.") 
+  if (length(old) != length(into))
+    stop("`old` and `into` values are not the same length.")
+  
+  if (!is.atomic(x) && is.null(x) && !is.null(dim(x)))
+   stop('`x` must be an atomic vector or a variable.')
 
   if (is.factor(x)) {
     # If x is a factor, call self but operate on the levels

@@ -229,6 +229,8 @@ NULL
 
 
 
+
+
 #' @encoding UTF-8
 #' @title Mishkin's (1992) Data
 #'
@@ -255,6 +257,9 @@ NULL
 #' @usage data(mishkin92)
 #' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::mishkin92)} variables and \Sexpr{nrow(SciencesPo::mishkin92)} observations.
 NULL
+
+
+
 
 
 
@@ -290,6 +295,9 @@ NULL
 
 
 
+
+
+
 #' @encoding UTF-8
 #' @title Titanic
 
@@ -314,6 +322,8 @@ NULL
 #' @usage data(titanic)
 #' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::titanic)} variables and \Sexpr{nrow(SciencesPo::titanic)} observations.
 NULL
+
+
 
 
 
@@ -352,7 +362,7 @@ NULL
 #' \item v8 percent casting votes for U.S. Representatives, 1990.
 #' \item v9 population without a high school degree, of those 25 years or older, 1990.
 #' \item v10 population 25 years or older, 1990.
-#' \item v11 South =1; all others =0.
+#' \item v11 South = 1; all others = 0.
 #'  }
 #'
 #' @source U.S. Bureau of the Census, Statistical Abstract of the United States, 1994.
@@ -363,6 +373,8 @@ NULL
 #' @usage data(turnout)
 #' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::turnout)} variables and \Sexpr{nrow(SciencesPo::turnout)} observations.
 NULL
+
+
 
 
 
@@ -383,6 +395,9 @@ NULL
 #' @usage data(paired)
 #' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::paired)} variables and \Sexpr{nrow(SciencesPo::paired)} observations.
 NULL
+
+
+
 
 
 
@@ -416,6 +431,8 @@ NULL
 
 
 
+
+
 #' @encoding UTF-8
 #' @title Cathedrals
 #'
@@ -439,8 +456,10 @@ NULL
 
 
 
+
+
 #' @encoding UTF-8
-#' @title Burt's twin data
+#' @title Burt's Twin Data
 #'
 #' @description The given data are IQ scores from identical twins; one raised in a foster home, and the other raised by birth parents.
 #' This dataset contains the following columns:
@@ -467,6 +486,8 @@ NULL
 
 
 
+
+
 #' @encoding UTF-8
 #' @title The Measure of US Presidents
 #'
@@ -485,25 +506,33 @@ NULL
 #' \item turnout The electorate turnout in percentages.
 #' \item winner.bmi The winner Body Mass Index (BMI) estimate \code{(BMI = weight in kg/(height in meter)**2)}
 #'  }
+#'  @references
+#' Murray, G. R. (2014) Evolutionary preferences for physical formidability in leaders. \emph{Politics and the Life Science}, 33(1), 33-53.
+#'
 #' @source
-#' US Presidents: \url{http://www.jimwegryn.com/Names/Presidents.php}
+#' US Presidents: \url{http://www.lingerandlook.com/Names/Presidents.php}
 #' Inside Gov. \url{http://www.us-presidents.insidegov.com}.
-#' Wikipedia: \url{http://en.wikipedia.org/wiki/United_States_presidential_election,_2012}.
-#' Wikipedia:\url{http://en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
+#' Wikipedia: \url{http://www.en.wikipedia.org/wiki/United_States_presidential_election,_2012}.
+#' Wikipedia:\url{http://www.en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Presidents
-#' @usage data(Presidents)
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Presidents)} variables and \Sexpr{nrow(SciencesPo::Presidents)} observations.
+#' @name presidents
+#' @usage data(presidents)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::presidents)} variables and \Sexpr{nrow(SciencesPo::presidents)} observations.
 NULL
 
 
+
+
+
+
+#' @encoding UTF-8
 #' @title Approval Ratings for President George W. Bush
 #'
 #' @description Approval ratings for George W. Bush.
 #'
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Bush)} variables and \Sexpr{nrow(SciencesPo::Bush)} observations.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::bush)} variables and \Sexpr{nrow(SciencesPo::bush)} observations.
 #' \itemize{
 #' \item start.date. Start date of the survey.
 #' \item end.date. End date of the survey.
@@ -519,22 +548,26 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Bush
-#' @usage data(Bush)
+#' @name bush
+#' @usage data(bush)
 #'
 NULL
 
 
 
+
+
+#' @encoding UTF-8
 #' @title Polls for 2008 U.S. presidential election
 #'
-#' @description Polls for 2008 U.S. presidential election. hese data include
-#' all presidential polls reported on the internet site pollster.com
-#' that were taken between August 29th, when John Mc-Cain announced
-#' that Sarah Palin would be his running mate as the Republican nominee for vice
-#' president, and the end of September.
+#' @description Polls for the 2008 U.S. presidential election.
+#' The data includes all presidential polls reported on the
+#' internet site \url{http://www.elections.huffingtonpost.com/pollster} that were taken
+#' between August 29th, when John Mc-Cain announced
+#' that Sarah Palin would be his running mate as the Republican
+#' nominee for vice president, and the end of September.
 #'
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Pollster08)} variables and \Sexpr{nrow(SciencesPo::Pollster08)} observations.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::pollster2008)} variables and \Sexpr{nrow(SciencesPo::pollster2008)} observations.
 #' \itemize{
 #' \item PollTaker Polling organization.
 #' \item PollDates Dates the poll data were collected.
@@ -549,23 +582,25 @@ NULL
 #' \item Meltdown Indicator for polls after Lehman Brothers bankruptcy (9/15).
 #' }
 #'  @source
-#'  \url{http://www.pollster.com}
+#'  \url{http://www.elections.huffingtonpost.com/pollster}
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Pollster08
-#' @usage data(Pollster08)
+#' @name pollster2008
+#' @usage data(pollster2008)
 #'
 NULL
 
 
 
 
+
+#' @encoding UTF-8
 #' @title 2008 U.S. presidential election
 #'
 #' @description State-by-state information from the 2008 U.S. presidential election.
 #'
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Election08)} variables and \Sexpr{nrow(SciencesPo::Election08)} observations.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::election2008)} variables and \Sexpr{nrow(SciencesPo::election2008)} observations.
 #' \itemize{
 #' \item State Name of the state.
 #' \item Abr Abbreviation for the state.
@@ -578,24 +613,26 @@ NULL
 #'  @source
 #' State income data from: Census Bureau Table 659. Personal Income Per Capita (in 2007).
 #' High school data from: U.S. Census Bureau, 1990 Census of Population,
-#' {http://nces.ed.gov/programs/digest/d08/tables/dt08_011.asp}.
+#' \url{http://www.nces.ed.gov/programs/digest/d08/tables/dt08_011.asp}.
 #' College data from: Census Bureau Table 225. Educational Attainment by State (in 2007)
-#'  Democrat and Republican:
-#'  \url{http://www.gallup.com/poll/114016/state-states-political-party-affiliation.aspx}
+#'  Democrat and Republican data from:
+#' \url{http://www.gallup.com/poll/114016/state-states-political-party-affiliation.aspx}
 #' @docType data
 #' @keywords datasets
-#' @name Election08
-#' @usage data(Election08)
+#' @name election2008
+#' @usage data(election2008)
 #'
 NULL
 
 
 
+
+#' @encoding UTF-8
 #' @title Data on religiosity of countries
 #'
 #' @description Data from the 2007 Spring Survey conducted through the Pew Global Attitudes Project.
 #'
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::ReligionGDP)} variables and \Sexpr{nrow(SciencesPo::ReligionGDP)} observations.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::religiosity)} variables and \Sexpr{nrow(SciencesPo::religiosity)} observations.
 #' \itemize{
 #' \item Country Name of country.
 #' \item Religiosity A measure of degree of religiosity for residents of the country.
@@ -618,12 +655,15 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name ReligionGDP
-#' @usage data(ReligionGDP)
+#' @name religiosity
+#' @usage data(religiosity)
 NULL
 
 
 
+
+
+#' @encoding UTF-8
 #' @title Poll attitudes towards British trade unions
 #'
 #' @description The British polling company Ipsos MORI conducted several
@@ -631,7 +671,7 @@ NULL
 #' people agree or disagree with the statement "Trade unions have too much
 #' power in Britain today".
 #'
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Unions)} variables and \Sexpr{nrow(SciencesPo::Unions)} observations.
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::unions)} variables and \Sexpr{nrow(SciencesPo::unions)} observations.
 #' \itemize{
 #' \item Date Month of the poll \code{Aug-77} to \code{Sep-79}.
 #' \item AgreePct Percent who agree (unions have too much power).
@@ -646,17 +686,18 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Unions
-#' @usage data(Unions)
+#' @name unions
+#' @usage data(unions)
 #'
 NULL
 
 
 
 
+#' @encoding UTF-8
 #' @title Measurement System Units
 #'
-#' @description A dataset with measurement system units.
+#' @description An internal dataset with measurement system units to be used by a converter function.
 #'
 #' \itemize{
 #' \item from A character defining the original unit.
@@ -666,21 +707,22 @@ NULL
 #' }
 #' @docType data
 #' @keywords datasets
-#' @name Units
-#' @usage data(Units)
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Units)} variables and \Sexpr{nrow(SciencesPo::Units)} observations.
+#' @name units
+#' @usage data(units)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::units)} variables and \Sexpr{nrow(SciencesPo::units)} observations.
 #'
 NULL
 
 
 
 
+#' @encoding UTF-8
 #' @title A dataset that contains four test items
 #'
 #' @description A dataset with four test items used in SPSS to to compute Cronbach's alpha.
 #'
 #' \itemize{
-#' \item q1:q4 Numeric itens of a scale.
+#' \item q1:q4 Numeric items of a scale.
 #' }
 #' @docType data
 #' @keywords datasets
@@ -690,9 +732,59 @@ NULL
 #'
 NULL
 
+
+#' @encoding UTF-8
+#' @title Bradley Efron and Carl Morris ("Stein's Paradox in Statistics)
+#'
+#' @description A dataset used in Efron and Morris's 1977 paper, "Stein's Paradox in Statistics".
+#'
+#' \itemize{
+#' \item {name}{First and last name of selected player}.
+#' \item {atBats}{number of times at bats}.
+#' \item {hits}{number of hits after 45 at bats}.
+#' \item {avg45}{is the average after 45 at bats}.
+#' \item {remainingAtBats}{remaining number at bats}.
+#' \item {remainingAvg}{is the remaining average to the end of the season}.
+#' \item {seasonAtBats}{is the number of times at bats in the end of the season}.
+#' \item {seasonHits}{is the number of hits in the end of the season}.
+#' \item {avgSeason}{is the end of the season average}.
+#' }
+#' @docType data
+#' @keywords datasets
+#' @name baseball
+#' @usage data(baseball)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::baseball)} variables and \Sexpr{nrow(SciencesPo::baseball)} observations.
+#'
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Smoking and Lung Cancer in China
+#'
+#' @description The Chinese smoking and lung cancer data (Agresti,  Table 5.12, p. 60).
+#' \itemize{
+#' \item {City}{city name}.
+#' \item {Smoker}{if smoker or not}.
+#' \item {Cancer}{if detected cancer or not}.
+#' \item {Count}{the frequencies}.
+#' }
+#'  @references
+#' Agresti, A. \emph{An introduction to categorical Data Analysis}, (2nd ed.). Wiley.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name chismoke
+#' @usage data(chismoke)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::chismoke)} variables and \Sexpr{nrow(SciencesPo::chismoke)} observations.
+#'
+NULL
+
+
+
 #' # setwd("~/SciencesPo/data")
-#' # system("cp Bush.txt Bush-cp.txt")
-#' # system("rm Bush-cp.txt.gz")
-#' # system("gzip Bush.txt")
-#' # system("rm Bush-cp.txt")
+#' # system("cp chismoke.txt chismoke-cp.txt")
+#' # system("rm chismoke.txt.gz")
+#' # system("gzip chismoke.txt")
+#' # system("rm chismoke-cp.txt")
 

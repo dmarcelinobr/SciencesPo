@@ -3,29 +3,38 @@
 \encoding{UTF-8}
 \name{GiniSimpson}
 \alias{GiniSimpson}
+\alias{GiniSimpson.default}
 \title{Gini-Simpson Index}
 \usage{
-GiniSimpson(x, na.rm = TRUE)
+GiniSimpson(x, na.rm = TRUE, ...)
 
-GiniSimpson(x, na.rm = TRUE)
+\method{GiniSimpson}{default}(x, na.rm = TRUE, ...)
 }
 \arguments{
-\item{x}{A data.frame, a matrix-like, or a vector.}
+\item{x}{a data.frame, a matrix-like, or a vector.}
 
-\item{na.rm}{A logical value to deal with NAs.}
+\item{na.rm}{a logical value to deal with NAs.}
 
-\item{\dots}{Additional arguements (currently ignored)}
+\item{\dots}{additional arguements (currently ignored).}
 }
 \description{
 Computes the Gini/Simpson coefficient. \code{NA}s from the data are omitted.
 }
 \details{
-The Gini-Simpson quadratic index is a classic measure of diversity, widely used by social scientists and ecologists. The Gini-Simpson is also known as Gibbs-Martin index in sociology, psychology and management studies, which in turn is also known as the Blau index. The Gini-Simpson index is computed as \eqn{1 - \lambda = 1 - \sum_{i=1}^R p_i^2 = 1 - 1/{}^2D}.
+The Gini-Simpson quadratic index is a classic measure of
+diversity, widely used by social scientists and ecologists.
+The Gini-Simpson is also known as Gibbs-Martin index in sociology,
+ psychology and management studies, which in turn is also known as
+ the Blau index. The Gini-Simpson index is computed as
+ \eqn{1 - \lambda = 1 - \sum_{i=1}^R p_i^2 = 1 - 1/{}^2D}.
 }
 \examples{
 # generate a vector (of incomes)
 x <- as.table(c(69,50,40,22))
+# let's say AB coalesced
 rownames(x) <- c("AB","C","D","E")
+print(x)
+
 GiniSimpson(x)
 
 }
@@ -33,7 +42,7 @@ GiniSimpson(x)
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \seealso{
-\code{\link{PoliticalDiversity}}.
+\code{\link{Gini}}.
 }
 \keyword{Concentration,}
 \keyword{Diversity,}

@@ -3,7 +3,7 @@ Type: Package
 Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
 Version: 1.4.0
-Date: 2016-02-02
+Date: 2016-05-20
 Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: Provide functions for analyzing political behavior data, including measures of political fragmentation, seat apportionment, and options for small data visualization.
@@ -18,9 +18,13 @@ Depends:
     grDevices,
     methods
 Imports:
+    pander (>= 0.6.0),
     RSQLite (>= 1.0.0),
     data.table (>= 1.9.4),
     grid (>= 3.0.0),
+    rstudioapi,
+    htmltools,
+    xtable,
     gridExtra,
     stringr,
     shiny,

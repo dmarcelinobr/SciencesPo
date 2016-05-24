@@ -8,10 +8,6 @@
 theme_fte(legend = "none", legend_title = FALSE, base_size = 12,
   horizontal = TRUE, base_family = "", colors = c("#F0F0F0", "#D9D9D9",
   "#60636A", "#525252"))
-
-theme_538(legend = "none", legend_title = FALSE, base_size = 12,
-  horizontal = TRUE, base_family = "", colors = c("#F0F0F0", "#D9D9D9",
-  "#60636A", "#525252"))
 }
 \arguments{
 \item{legend}{Enables to set legend position, default is "none".}

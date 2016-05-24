@@ -56,7 +56,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
 The dumbbell geom is used to create dumbbell charts.
-Dumbbell dot plots — dot plots with two or more series of data — are an
+Dumbbell dot plots--dot plots with two or more series of data--are an
 alternative to the clustered bar chart or slope graph.
 }
 \section{Aesthetics}{

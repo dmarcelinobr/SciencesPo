@@ -44,7 +44,7 @@ populations in poverty and populations with no high school degree are also given
 \item v8 percent casting votes for U.S. Representatives, 1990.
 \item v9 population without a high school degree, of those 25 years or older, 1990.
 \item v10 population 25 years or older, 1990.
-\item v11 South =1; all others =0.
+\item v11 South = 1; all others = 0.
  }
 }
 \keyword{datasets}

@@ -4,12 +4,14 @@
 \alias{theme_darkside}
 \title{The Dark Side Theme}
 \usage{
-theme_darkside(font_size = 12, font_family = "serif")
+theme_darkside(font_size = 12, font_family = "serif", legend = "none")
 }
 \arguments{
 \item{font_size}{Overall font size. Default is 12.}
 
 \item{font_family}{Default font family.}
+
+\item{legend}{the position of the legend if any.}
 }
 \value{
 The theme.

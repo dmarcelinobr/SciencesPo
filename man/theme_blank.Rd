@@ -4,12 +4,14 @@
 \alias{theme_blank}
 \title{Create a Completely Empty Theme}
 \usage{
-theme_blank(font_size = 12, font_family = "")
+theme_blank(font_size = 12, font_family = "serif", legend = "none")
 }
 \arguments{
 \item{font_size}{Overall font size. Default is 12.}
 
 \item{font_family}{Default font family.}
+
+\item{legend}{the legend position.}
 }
 \value{
 The theme.

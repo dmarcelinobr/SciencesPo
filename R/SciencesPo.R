@@ -7,6 +7,10 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @import parallel
 #' @import methods
+#' @import stats
+#' @import utils
+#' @import graphics
+#' @import grDevices
 NULL
 
-globalVariables("themes_data")
+

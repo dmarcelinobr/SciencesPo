@@ -4,7 +4,7 @@
 \encoding{UTF-8}
 \name{twins}
 \alias{twins}
-\title{Burt's twin data}
+\title{Burt's Twin Data}
 \format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::twins)} variables and \Sexpr{nrow(SciencesPo::twins)} observations.}
 \source{
 Burt, C. (1966). The genetic estimation of differences in intelligence:

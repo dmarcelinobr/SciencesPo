@@ -1,16 +1,3 @@
-# compatibility for data.table functions
-## Look for existing generic functions also in imported namespaces.
-## This will affect whether setGenericS3() creates a generic function
-## or not.
-options("R.methodsS3:checkImports:setGenericS3" = TRUE)
-
-.datatable.aware <- TRUE
-setnames <- `names<-`
-setclass <- `class<-`
-
-NULL
-
-
 .onAttach <- function(...) {
   # Send message
   msg <- function() {
@@ -21,21 +8,15 @@ NULL
   }
   packageStartupMessage(msg())
   #suppressMessages(msg())
-  options(n.cat = 0)
-  options(quiet = FALSE)
-  options(brief = FALSE)
- # ggplot2::theme_set(theme_pub())
+# options(scipen=999)
+ # options(n.cat = 0)
+ # options(quiet = FALSE)
+ # options(brief = FALSE)
+# ggplot2::theme_set(theme_pub())
 }
 NULL
 
 
-say.hello <- function() {
-  print("Hello World!")
-}
-
-say.yo <- function() {
-  print("Yo world!")
-}
 
 
 "%=%" <-
@@ -43,13 +24,15 @@ say.yo <- function() {
     assign(as.character(substitute(x)), y, envir = parent.frame())
   }
 
-
-`shorten` <- function(x, n)
-  cat("Divisors:", x[1:n], "...", "\n")
-
 `charopts` <- function(x) {
   paste(sprintf("\\code{\"%s\"}", x), collapse = ", ")
 }
+
+
+say <- function() {
+  print(sample(c("Hello World!", "Yo world!", "Yo, you lookin' at twenty", "Bitch, you ain't givin' me any"),1))
+}
+
 
 # useful for avoinding extra space between columns
 is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {
@@ -60,51 +43,204 @@ is.valid.name <- function(x) {
   length(x) == 1 && is.character(x) && x == make.names(x)
 }
 
-
-"%||%" <- function(a, b) {
-  if (!is.null(a)) a else b
+is.empty <- function(df) {
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0
 }
 
-naathenb <- function(a, b) {
-  if (length(a) > 0) {
-    if (!is.na(a))
-      a
-    else
-      b
-  } else {
-    b
+is.discrete <- function(x) {
+  is.factor(x) || is.character(x) || is.logical(x)
+}
+
+is.formula <- function(x)
+  inherits(x, "formula")
+
+# This function takes a string referring to existing data and parses it
+# to get information on the data structure.
+#
+# info returned: df.name, var.name, col.names, rows.subset, col.index, data.struct
+
+`.parse.arg` <- function(arg.str) {
+
+  # Check if arg.str is a string
+  if(!is.character(arg.str))
+    stop("arg.str must be a string")
+
+  # Initialise output list
+  output <- list()
+  output$arg.str <- arg.str
+
+  # Recuperate the object designated by arg.str
+  x <- try(eval(parse(text=arg.str)),silent = TRUE)
+  if(inherits(x, "try-error")) {
+    return(output)
   }
+
+  if(!is.data.frame(x) && !is.atomic(x)) {
+    return(output)
+  }
+
+  # Trim the string removing leading/trailing blanks
+  arg.str <- gsub("^\\s+|\\s+$", "",
+                  gsub( sprintf("\\s+[%s]\\s+|\\s+[%s]|[%s]\\s+",
+            " ", " ", " "), " ", arg.str))
+
+  # Get rid of spaces next to brackets and next to comma in indexing brackets.
+  # Note: that way assures us to not remove any spaces in quoted structures
+  # such as ['var name']
+  arg.str <- gsub("\\s*\\[\\s*","[", arg.str, perl=TRUE) # remove blanks near [
+  arg.str <- gsub("\\s*\\]\\s*","]", arg.str, perl=TRUE) # remove blanks near ]
+
+  # remove blanks around comma
+  arg.str <- gsub("^(.*)(\\[\\d+:\\d+)?\\s?,\\s?(.+)$", "\\1\\2,\\3", arg.str, perl=TRUE)
+
+  # Change [[]] to [] for the last pair of brackets; this simplifies the work
+  arg.str <- sub("\\[{2}(.*)\\]{2}$", "[\\1]", arg.str, perl=TRUE)
+
+  # Change references to data with ['name'] or [['name']] into $name, also to simplify matters
+  re.brack <- '\\[{1,2}[\'\"]'
+  if(grepl(re.brack, arg.str)) {
+    arg.str <- gsub('\\[{1,2}[\'\"]', "$", arg.str, perl=TRUE)
+    arg.str <- gsub('[\'\"]\\]{1,2}', "", arg.str, perl=TRUE)
+  }
+
+  # Isolate indexing in the last brackets
+  re.index <- "(.*?)\\[(.*?)\\]$"
+
+  if(grepl(re.index, arg.str)) {
+    indexes <- sub(re.index, "\\2", arg.str, perl=TRUE)
+
+    # Further decompose the indexes
+    # indexing having 2 elements (rows, columns), will be identified by this regex
+    # [1:10,] or [,"Species] will also match
+    re.split.index <- "^(.+)?,+(c\\(.*\\)|\\d+|\\d+:\\d+|'.*'|\".+\")$"
+    if(grepl(re.split.index, indexes, perl = TRUE)) {
+      output$rows.subset <- sub(re.split.index, "\\1", indexes, perl=TRUE)
+      output$col.index <- sub(re.split.index, "\\2", indexes, perl=TRUE)
+
+      # Remove any empty string
+      if(nchar(output$rows.subset) == 0)
+        output$rows.subset <- NULL
+      if(nchar(output$col.index) == 0)
+        output$col.index <- NULL
+    }
+
+    # When previous regex does not match, it means the index has only 1 element,
+    # either row or column.
+    # When indexing starts with a comma:
+    else if(substring(indexes, 1, 1) == ",")
+      output$col.indexes <- sub("^,", "", indexes, perl = TRUE)
+    # When indexing ends with a comma:
+    else if(substring(indexes, nchar(indexes), nchar(indexes)) == ",")
+      output$rows.subset <- sub(",$", "", indexes, perl = TRUE)
+
+    # When there is no comma, we'll check if x is a dataframe or not.
+    # If it is, the index refers to columns, and otherwise, to rows
+    else {
+      # first we need to reevaluate the arg.str
+      x.tmp <- eval(parse(text = arg.str))
+      if(is.data.frame(x.tmp))
+        output$col.index <- indexes
+      else
+        output$rows.subset <- indexes
+    }
+
+    # Update the string to remove what's already accounted for
+    arg.str <- sub(re.index, "\\1", arg.str, perl=TRUE)
+  }
+
+  # Split arg.str by "$" to identify structures
+  output$data.struct <- strsplit(arg.str, "$", fixed = TRUE)[[1]]
+
+  if(is.data.frame(x)) {
+    # If x is a dataframe, we can set the col.names
+    output$col.names <- colnames(x)
+
+    # normally the last element in the data structures
+    # should be the df name; unless it's nested in a list and referred to by [[n]]
+    output$df.name <- utils::tail(output$data.struct,1)
+  }
+
+  # Otherwise, depending on the situation, we'll try to get at the df name and its colnames
+  else {
+    # If vector is referred to via column indexing, recup the column's name
+    # by an evaluation of the form df[col.index]
+    if("col.index" %in% names(output)) {
+      output$var.name <- eval(parse(text=paste("colnames(",arg.str,"[",output$col.index,"])")))
+      #output$col.names <- eval(parse(text=paste("colnames(",arg.str,"[",output$col.index,"])")))
+      output$df.name <- utils::tail(output$data.struct,1)
+    }
+
+    # If there is no column indexing, it means the vector's name is in the
+    # data.struc list, along with the df name one level higher, unless the vector
+    # was "standalone"
+    else {
+      output$var.name <- utils::tail(output$data.struct,1)
+      if(length(output$data.struct)>1)
+        output$df.name <- output$data.struct[length(output$data.struct)-1]
+    }
+  }
+
+  # remove last item from data.struct when it's the same as var.name to avoid redundancy
+  output$data.struct <- setdiff(output$data.struct, output$var.name)
+
+  # same with df.name and data.struct
+  output$data.struct <- setdiff(output$data.struct, output$df.name)
+
+  # cleanup
+  if(length(output$data.struct)==0)
+    output$data.struct <- NULL
+
+  # Further validate the items to return;
+  if(isTRUE(grepl('[\\(\\[]', output$df.name)))
+    output$df.name <- NULL
+
+  if(isTRUE(grepl('[\\(\\[]', output$var.name)))
+    output$var.name <- NULL
+
+  return(output)
 }
+NULL
 
-"%^^%" <- naathenb
 
-# Exponential movin average weights
-emaweights<-function(m)
-{
-  alpha<-2/(m+1)
-  i<-1:m
-  sm<-sum((alpha*(1-alpha)^(1-i)))
-  return(((alpha*(1-alpha)^(1-i)))/sm)
+
+`.Capitalise` <- function (x) {
+  stopifnot(is.character(x))
+  s <- strsplit(x, "", "")
+  sapply(s, function(x) {
+    paste(toupper(x[1]), paste(x[2:length(x)], collapse = ""),
+          collapse = "", sep = "")
+  })
 }
+NULL
 
 
 
-#' @title Not in (Find Matching or Non-Matching Elements)
-#'
-#' @description "%nin%" is a binary operator, which returns a
-#'  logical vector indicating if there is a match or not for its left
-#'   operand. A true vector element indicates no match in left operand,
-#'    false indicates a match.
-#'
-#' @param x A vector of numeric, character, or factor values.
-#' @param table	A vector (numeric, character, factor), matching the mode of x
-#'
-#' @examples
-#' c('a','b','c') %nin% c('a','b')
-#' @rdname nin
-#' @export
-"%nin%" <- function(x, table){
-  match(x, table, nomatch = 0) == 0}
+
+
+# Round Numbers Without Leading Zeros
+`.Rounded` <- function(x, digits=2, add=FALSE, max=(digits+2)){
+  y <- round(x, digits=digits)
+  yk <- format(y, nsmall=digits)
+  nzero <- sum(unlist(y)==0)
+  if(add==TRUE){
+    while(nzero>0){
+      zeros <- y==0
+      digits <- digits+1
+      y[zeros] <- round(x, digits=digits)[zeros]
+      yk[zeros] <- format(y[zeros], nsmall=digits)
+      nzero <- sum(y==0)
+      if(digits>(max-1))
+        nzero <- 0
+    }
+  }##--end of add zeros
+  z <- sub("^([-]?)0[.]","\\1.", gsub(" +", "", yk))
+  return(noquote(z))
+}##--end of rounded
+NULL
+
+
+
+
 
 
 # Adds extra habilities to the base match.arg function:
@@ -147,595 +283,35 @@ emaweights<-function(m)
 NULL
 
 
-formatBRL <- function(x, digits = 2, nsmall = 2) {
-  paste(
-    "\u0052\u0024",
-    format(
-      x,
-      digits = digits,
-      nsmall = nsmall,
-      big.mark = ".",
-      decimal.mark = ","
-    )
-  )
-}
+# gplot() + geom_rect(aes(xmin=-1,ymin=-1,xmax=1,ymax=1), fill=NA) + coord_polar()
 
-formatEUR <- function(x, digits = 2, nsmall = 2) {
-  paste("\u20ac", format(x, digits = digits, nsmall = nsmall))
-}
+# circle1 <- Circlize(c(10,10),20,npoints = 100)
+# circle2 <- Circlize(c(10,10),15,npoints = 100)
+# circle3 <- Circlize(c(10,10),10,npoints = 100)
 
-formatUSD <- function(x, digits = 2, nsmall = 2) {
-  paste("\u0024", format(x, digits = digits, nsmall = nsmall))
-}
-
-formatPercent <- function(x,
-                          digits = 2,
-                          nsmall = 2,
-                          decimal.mark = ",") {
-  paste("\u0025",
-        format(
-          x,
-          digits = digits,
-          nsmall = nsmall,
-          decimal.mark =  decimal.mark
-        ))
-}
-
-`user.prompt` <- function (msg = NULL) {
-  if (is.null(msg))
-    msg <- "Press <return> to continue: "
-  msg <- paste("\n", msg, sep = "")
-  invisible(readline(msg))
-}
-NULL
-
-
-empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0
-}
-
-is.discrete <- function(x) {
-  is.factor(x) || is.character(x) || is.logical(x)
-}
-
-is.formula <- function(x)
-  inherits(x, "formula")
-
-
-`quotize` <- function(vec) {
-  sapply(vec, function(x)
-    paste("'", x, "'", sep = ''))
-}
-NULL
-
-
-`hour2min` <- function(hhmm) {
-  hhmm <- as.numeric(hhmm)
-  trunc(hhmm / 100) * 60 + hhmm %% 100
-}
-
-`min2hour` <- function(min) {
-  min <- as.numeric(min)
-  trunc(min / 60) * 100 + min %% 60
+`Circlize` <- function(center = c(0,0),diameter = 1, npoints = 100){
+  r = diameter / 2
+  tt <- seq(0,2*pi,length.out = npoints)
+  xx <- center[1] + r * cos(tt)
+  yy <- center[2] + r * sin(tt)
+  return(data.frame(x = xx, y = yy))
 }
 
 
-.max.dd <- function(x) {
-  n.dec <- function(xn) {
-    xc <- format(xn)  # as.character(51.45-48.98) does not work
-    nchar(xc)
-    ipos <- 0
-    for (i in 1:nchar(xc))
-      if (substr(xc, i, i) == ".")
-        ipos <- i
-    n.dec <- ifelse (ipos > 0, nchar(xc) - ipos, 0)
-    return(n.dec)
-  }
+# df <- data.frame(strategy=5:10, offering=c(5,7,9,8,6,9),labelz=c("PSDB","PSB","PMDB","PTB","PP","PT"))
+
+# maxi <- max(df$offering)/30
+
+# library(ggplot2)
+# library(digest)
+
+# ggplot(data=df, aes(x=strategy, y=offering)) +
+#  geom_polygon(data=circle1, aes(x,y), fill = "#99CCFF") +
+#  geom_polygon(data=circle2, aes(x,y), fill = "#6699CC") +
+#  geom_polygon(data=circle3, aes(x,y), fill = "#336699") +
+#  geom_point(aes(size=offering*strategy),color = "white") +
+#  geom_point(aes(size=1)) +
+#  geom_text(aes(label=labelz), nudge_y = maxi) +
+#  coord_cartesian(xlim=c(0,10),ylim=c(0,10)) +
+#  theme_bw()
 
-  max.dd <- 0
-  for (i in 1:length(x))
-    if (!is.na(x[i]))
-      if (n.dec(x[i]) > max.dd)
-        max.dd <- n.dec(x[i])
-
-  return(max.dd)
-}
-
-
-
-# change class call to class character
-.fun.call.deparse <- function(fun.call) {
-  fc.d <- deparse(fun.call)
-  if (length(fc.d) > 1) {
-    # multiple lines
-    fc <- fc.d[1]
-    for (i in 2:length(fc.d))
-      fc <- paste(fc, fc.d[i], sep = "")
-  }
-  else
-    fc <- fc.d
-
-  fc <- sub("     ", " ", fc, fixed = TRUE)
-  fc <- sub("    ", " ", fc, fixed = TRUE)
-  fc <- sub("  ", " ", fc, fixed = TRUE)
-
-  return(fc)
-
-}
-
-
-.specifyDecimals <- function(x, k)
-  format(round(x, k), nsmall = k)
-
-.getdigits <- function(x, min.digits) {
-  digits.d <- .max.dd(x) + 1
-  if (digits.d < min.digits)
-    digits.d <- min.digits
-  return(digits.d)
-}
-
-
-.dash <- function(ndash, cc, newline = TRUE) {
-  if (missing(cc))
-    cc <- "-"
-  for (i in 1:(ndash))
-    cat(cc)
-  if (newline)
-    cat("\n")
-}
-
-.dash2 <- function(ndash, cc = "-") {
-  tx <- ""
-  if (!is.null(cc))
-    for (i in 1:(ndash))
-      tx <- paste(tx, cc, sep = "")
-    return(tx)
-}
-
-
-
-.fmt <- function(k,
-                 d = getOption("digits.d"),
-                 w = 0) {
-  format(
-    sprintf("%.*f", d, k),
-    width = w,
-    justify = "right",
-    scientific = FALSE
-  )
-}
-
-.fmti <- function(k, w = 0) {
-  format(sprintf("%i", k), width = w, justify = "right")
-}
-
-.fmtc <- function(k, w = 0, j = "right") {
-  format(sprintf("%s", k), width = w, justify = j)
-}
-
-.fmtNS <- function(k) {
-  format(k, scientific = FALSE)
-}
-
-
-
-.xstatus <- function(var.name, dname, quiet = FALSE) {
-  # see if analysis from data is based on a formula
-  is.frml <- ifelse (grepl("~", var.name), TRUE, FALSE)
-
-  # see if analysis is from descriptive stats or from data
-  from.data <- ifelse (var.name == "NULL", FALSE, TRUE)
-
-  # see if the variable exists in the Global Environment
-  in.global <- FALSE
-  if (nchar(var.name) > 0)
-    if (exists(var.name, where = .GlobalEnv)) {
-      if (!is.function(var.name)) {
-        # a global "var" could be a function call
-        in.global <- TRUE
-        if (!quiet)
-          cat(
-            ">>> Note: ",
-            var.name,
-            "exists in the workspace, outside of",
-            "a data frame (table)\n"
-          )
-      }
-    }
-
-  # see if "variable" is really an expression
-  if (grepl("(", var.name, fixed = TRUE) ||
-      grepl("[", var.name, fixed = TRUE))  {
-    txtA <-
-      paste("A referenced variable in a lessR function can only be\n",
-            "a variable name.\n\n",
-            sep = "")
-    txtB <-
-      "For example, this does not work:\n  > Histogram(rnorm(50))\n\n"
-    txtC <- "Instead do this:\n  > Y <- rnorm(50)\n  > Histogram(Y)"
-    cat("\n")
-    stop(call. = FALSE, "\n", "------\n",
-         txtA, txtB, txtC, "\n")
-  }
-
-  if (!in.global && from.data)
-    .nodf(dname)
-
-  return(list(ifr = is.frml, fd = from.data, ig = in.global))
-}
-
-
-.nodf <- function(dname) {
-  # see if the data frame exists (mydata default), if x from data, not in Global Env
-  if (!exists(dname, where = .GlobalEnv)) {
-    if (dname == "mydata")
-      txtA <- ", the default data table name, "
-    else
-      txtA <- " "
-    txtB1 <-
-      "So either create the data table with the Read function, or\n"
-    txtB2 <-
-      "  specify the actual data table with the parameter: data\n"
-    txtB <- paste(txtB1, txtB2, sep = "")
-    cat("\n")
-    stop(
-      call. = FALSE,
-      "\n",
-      "------\n",
-      "Data frame (table) ",
-      dname,
-      txtA,
-      "does not exist\n\n",
-      txtB,
-      "\n"
-    )
-  }
-
-}
-
-
-.xcheck <- function(var.name, dname, data) {
-  if ((!grepl(":", var.name) &&
-       !grepl(",", var.name))) {
-    # x not var list
-
-    # see if variable exists in the data frame
-    if (!exists(var.name, where = data)) {
-      if (dname == "mydata") {
-        txt1 <- ", the default name \n\n"
-        txt2 <-
-          "Either make sure to use the correct variable name, or\n"
-        txt3 <-
-          "specify the actual data frame with the parameter: data\n"
-        txt <- paste(txt1, txt2, txt3, sep = "")
-      }
-      else
-        txt <- "\n"
-      cat("\n")
-      stop(
-        call. = FALSE,
-        "\n",
-        "------\n",
-        "Variable ",
-        var.name,
-        " does not exist either by itself ",
-        "(in the user's workspace),\n",
-        "or in the data frame with the name of ",
-        dname,
-        txt,
-        "\n",
-        "To view the existing variable names enter: > names(",
-        dname,
-        ")\n\n"
-      )
-    }
-  }
-}
-
-
-# see if cor matrix exists as stand-alone or embedded in list structure
-.cor.exists <- function(cor.nm) {
-  if (!grepl("$cors", cor.nm, fixed = TRUE))
-    # no $cors in name
-    is.there <- exists(cor.nm, where = .GlobalEnv)
-
-  else {
-    nm <- sub("$cors", "", cor.nm, fixed = TRUE)  # remove $cors from name
-    if (!exists(nm, where = .GlobalEnv))
-      # root list exists?
-      is.there <- FALSE
-    else
-      is.there  <-
-        exists("cors", where = eval(parse(text = nm)))  #  cors inside?
-  }
-  if (!is.there) {
-    cat("\n")
-    stop(
-      call. = FALSE,
-      "\n",
-      "------\n",
-      "No correlation matrix entered.\n\n",
-      "No object called ",
-      cor.nm,
-      " exists.\n\n",
-      "Either enter the correct name, or calculate with: Correlation\n",
-      "Or read the correlation matrix with: corRead\n\n",
-      sep = ""
-    )
-  }
-
-}
-
-
-.getlabels <- function(xlab, ylab, main) {
-  # get variable labels if they exist
-
-  x.name <- getOption("xname")
-  y.name <- getOption("yname")
-  x.lbl <- NULL
-  y.lbl <- NULL
-
-  dname <- getOption("dname")  # not set for dependent option on tt
-  if (!is.null(dname)) {
-    if (exists(dname, where = .GlobalEnv))
-      mylabels <-
-        attr(get(dname, pos = .GlobalEnv), which = "variable.labels")
-    else
-      mylabels <- NULL
-  }
-  else
-    mylabels <- NULL
-
-  if (!is.null(mylabels)) {
-    x.lbl <- mylabels[which(names(mylabels) == x.name)]
-    if (length(x.lbl) == 0)
-      x.lbl <- NULL
-    y.lbl <- mylabels[which(names(mylabels) == y.name)]
-    if (length(y.lbl) == 0)
-      y.lbl <- NULL
-  }
-
-  # axis and legend labels
-  if (!missing(xlab)) {
-    if (!is.null(xlab))
-      x.lab <- xlab
-    else if (is.null(x.lbl))
-      x.lab <- x.name
-    else
-      x.lab <- x.lbl
-    if (length(x.lab) == 1)
-      if (nchar(x.lab) > 45)
-        # power.ttest: len > 1
-        x.lab <- paste(substr(x.lab, 1, 45), "...")
-  }
-  else
-    x.lab <- NULL
-
-  if (!missing(ylab)) {
-    if (!is.null(ylab))
-      y.lab <- ylab
-    else if (is.null(y.lbl))
-      y.lab <- y.name
-    else
-      y.lab <- y.lbl
-    if (nchar(y.lab) > 50)
-      y.lab <- paste(substr(y.lab, 1, 50), "...")
-  }
-  else
-    y.lab <- NULL
-
-  if (!missing(main)) {
-    if (!is.null(main))
-      main.lab <- main
-    else
-      main.lab <- ""
-  }
-  else
-    main.lab <- NULL
-
-  return(list(
-    xn = x.name,
-    xl = x.lbl,
-    xb = x.lab,
-    yn = y.name,
-    yl = y.lbl,
-    yb = y.lab,
-    mb = main.lab
-  ))
-}
-
-
-
-
-
-.ncat <- function(analysis, x.name, nu, n.cat) {
-  cat(
-    "\n>>>",
-    x.name,
-    "is numeric,",
-    "but only has",
-    nu,
-    "<= n.cat =",
-    n.cat,
-    "levels,",
-    "so treat as categorical.\n\n",
-    "   If categorical, can make this variable a",
-    "factor with R function: factor\n\n",
-    "   If numerical, to obtain the",
-    tolower(analysis),
-    "decrease  n.cat ",
-    "to specify\n",
-    "   a lower number of unique values.\n"
-  )
-
-}
-
-
-# get the value for a specified function argument
-.get.arg <- function(argm, fc) {
-  loc <- regexec(argm, fc)
-  strt1 <- loc[[1]]  # beginning of argument
-  if (strt1 > 0) {
-    j <- strt1
-    while (substr(fc, start = j, stop = j) != "\"")
-      j <- j + 1
-    strt <- j
-    j <- j + 1  # first " after ,
-    while (substr(fc, start = j, stop = j) != "\"")
-      j <- j + 1
-    stp <- j  # second " after ,
-    value <- substr(fc, start = strt, stop = stp)
-  }
-  else
-    value <- ""
-
-  return(value)
-}
-
-
-
-
-#' @title Progress Bar
-#' @param style An integer for style.
-#' @param active A logical value.
-#' @export
-#'
-.progress <- function(style = 3, active = TRUE, ...) {
-  ntasks <- 0
-  txt <- NULL
-  max <- 0
-
-  if (active) {
-    list(
-      init = function(x) {
-        txt <<- utils::txtProgressBar(max = x, style = style, ...)
-        utils::setTxtProgressBar(txt, 0)
-        max <<- x
-      },
-      step = function() {
-        ntasks <<- ntasks + 1
-        utils::setTxtProgressBar(txt, ntasks)
-        if (ntasks == max)
-          cat("\n")
-      },
-      term = function()
-        close(txt)
-    )
-  } else {
-    list(
-      init = function(x)
-        NULL,
-      step = function()
-        NULL,
-      term = function()
-        NULL
-    )
-  }
-} # end progress bar
-
-
-
-
-
-
-
-#' @encoding UTF-8
-#' @title Replace commas by dots
-#'
-#' @description Replace commas by dots in that order.
-#'
-#' @param x A vector whose elements contain commas or commas and dots.
-#'
-#' @details This function works for numeric vectors, typically currency variables stored in non-english format.
-#'
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#'
-#' @keywords Data Manipulation
-#'
-#' @examples
-#' x <- c('500,00', '0,001', '25.000', '10,100.10', 'him, you, and I.')
-#'
-#' dotfy(x)
-#'
-#' @export
-`dotfy` <- function(x) {
-  round(as.numeric(gsub(",", ".", gsub("\\.", "", x))), 2)
-}
-NULL
-
-
-
-# from rstudio/dygraphs https://github.com/rstudio/dygraphs
-
-asISO8601Time <- function(x) {
-  if (!inherits(x, "POSIXct"))
-    x <- try({
-      as.POSIXct(x, tz = "GMT")
-    })
-  # if posix conversion worked
-  if (inherits(x, "POSIXct")) {
-    format(x, format = "%04Y-%m-%dT%H:%M:%SZ", tz = 'GMT')
-  } else {
-    # if not just return x and keep pluggin away
-    x
-  }
-}
-
-
-midpoints <- function(x, dp=2){
-  lower <- as.numeric(gsub(",.*","",gsub("\\(|\\[|\\)|\\]","", x)))
-  upper <- as.numeric(gsub(".*,","",gsub("\\(|\\[|\\)|\\]","", x)))
-  return(round(lower+(upper-lower)/2, dp))
-}
-
-
-regroup <- function(.data, ..., wt = NULL) {
-  vars <- lazyeval::lazy_dots(...)
-  wt <- substitute(wt)
-  n <- NULL
-  grouped <- dplyr::group_by_(.data, .dots = vars)
-  if (is.null(wt)) {
-    dplyr::summarise(grouped, n = n())
-  } else {
-    call <-
-      substitute(dplyr::summarise(grouped, n = sum(wt)), list(wt = wt))
-    eval(call)
-  }
-}
-
-
-
-
-`scpo.isDate` <- function (x, what = c("either", "both", "timeVaries"))
-{
-  what <- match.arg(what)
-  cl <- class(x)
-  if (!length(cl))
-    return(FALSE)
-  dc <- c("Date", "POSIXt", "POSIXct", "dates", "times", "chron")
-  dtc <- c("POSIXt", "POSIXct", "chron")
-  switch(what, either = any(cl %in% dc), both = any(cl %in%
-                                                      dtc), timeVaries = {
-if ("chron" %in% cl || "Date" %in% cl) {
-  y <- as.numeric(x)
- length(unique(round(y - floor(y), 13))) > 1
-} else length(unique(format(x, "%H%M%S"))) > 1})
-}
-NULL
-
-
-
-`scpo.AllIsNumeric` <- function (x, what = c("test", "vector"), extras = c(".", "NA"))
-{
-  what <- match.arg(what)
-  x <- sub("[[:space:]]+$", "", x)
-  x <- sub("^[[:space:]]+", "", x)
-  xs <- x[x %nin% c("", extras)]
-  isnum <- suppressWarnings(!any(is.na(as.numeric(xs))))
-  if (what == "test")
-    isnum
-  else if (isnum)
-    as.numeric(x)
-  else x
-}
-NULL

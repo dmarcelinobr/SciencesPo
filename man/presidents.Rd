@@ -2,18 +2,18 @@
 % Please edit documentation in R/DATA.R
 \docType{data}
 \encoding{UTF-8}
-\name{Presidents}
-\alias{Presidents}
+\name{presidents}
+\alias{presidents}
 \title{The Measure of US Presidents}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::Presidents)} variables and \Sexpr{nrow(SciencesPo::Presidents)} observations.}
+\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::presidents)} variables and \Sexpr{nrow(SciencesPo::presidents)} observations.}
 \source{
-US Presidents: \url{http://www.jimwegryn.com/Names/Presidents.php}
+US Presidents: \url{http://www.lingerandlook.com/Names/Presidents.php}
 Inside Gov. \url{http://www.us-presidents.insidegov.com}.
-Wikipedia: \url{http://en.wikipedia.org/wiki/United_States_presidential_election,_2012}.
-Wikipedia:\url{http://en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
+Wikipedia: \url{http://www.en.wikipedia.org/wiki/United_States_presidential_election,_2012}.
+Wikipedia:\url{http://www.en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
 }
 \usage{
-data(Presidents)
+data(presidents)
 }
 \description{
 The US presidents and their main opponents' heights (cm). This dataset contains the following columns:
@@ -31,6 +31,8 @@ The US presidents and their main opponents' heights (cm). This dataset contains 
 \item turnout The electorate turnout in percentages.
 \item winner.bmi The winner Body Mass Index (BMI) estimate \code{(BMI = weight in kg/(height in meter)**2)}
  }
+ @references
+Murray, G. R. (2014) Evolutionary preferences for physical formidability in leaders. \emph{Politics and the Life Science}, 33(1), 33-53.
 }
 \keyword{datasets}
 

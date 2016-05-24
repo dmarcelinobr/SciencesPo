@@ -6,9 +6,8 @@
 \title{Lollipop charts}
 \usage{
 geom_lollipop(mapping = NULL, data = NULL, ..., horizontal = FALSE,
-  point.colour = NULL, point.size = NULL, stalk.colour = NULL,
-  stalk.size = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  point.colour = NULL, point.size = NULL, stem.colour = NULL,
+  stem.size = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -46,9 +45,9 @@ the need for \code{coord_flip()}.}
 
 \item{point.size}{the size of the point}
 
-\item{stalk.colour}{the colour of the stem}
+\item{stem.colour}{the colour of the stem}
 
-\item{stalk.size}{the size of the stem}
+\item{stem.size}{the size of the stem}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning. If \code{TRUE} silently removes missing values.}

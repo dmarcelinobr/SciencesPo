@@ -1,3 +1,4 @@
+globalVariables("layer")
 #' @encoding UTF-8
 #' @title Lollipop charts
 #'
@@ -29,8 +30,8 @@
 #'
 #' @param point.size the size of the point
 #' @param point.colour the colour of the point
-#' @param stalk.size the size of the stem
-#' @param stalk.colour the colour of the stem
+#' @param stem.size the size of the stem
+#' @param stem.colour the colour of the stem
 #' @inheritParams ggplot2::layer
 #' @export
 #' @examples
@@ -44,7 +45,7 @@
 `geom_lollipop` <- function(mapping = NULL, data = NULL, ...,
                           horizontal = FALSE,
                           point.colour = NULL, point.size = NULL,
-                          stalk.colour = NULL, stalk.size = NULL,
+                          stem.colour = NULL, stem.size = NULL,
                           na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
 
   layer(
@@ -60,8 +61,8 @@
       horizontal = horizontal,
       point.colour = point.colour,
       point.size = point.size,
-      stalk.colour = stalk.colour,
-      stalk.size = stalk.size,
+      stem.colour = stem.colour,
+      stem.size = stem.size,
       ...
     )
   )
@@ -75,7 +76,7 @@
 #' @export
 `GeomLollipop` <- ggproto("GeomLollipop", Geom,
                         required_aes = c("x", "y"),
-                        non_missing_aes = c("size", "shape", "point.colour", "point.size", "stalk.colour", "stalk.size", "horizontal"),
+                        non_missing_aes = c("size", "shape", "point.colour", "point.size", "stem.colour", "stem.size", "horizontal"),
                         default_aes = aes(
                           shape = 19, colour = "black", size = 0.5, fill = NA,
                           alpha = NA, stroke = 0.5
@@ -91,17 +92,17 @@
 
 draw_group = function(data, panel_scales, coord,
 point.colour = NULL, point.size = NULL,
-stalk.colour = NULL, stalk.size = NULL,
+stem.colour = NULL, stem.size = NULL,
 horizontal = FALSE) {
 points <- data
 points$colour <- point.colour %||% data$colour
 points$size <- point.size %||% (data$size * 2.5)
-stalk <- data
-stalk$colour <- stalk.colour %||% data$colour
-stalk$size <- stalk.size %||% (data$size * .75)
+stem <- data
+stem$colour <- stem.colour %||% data$colour
+stem$size <- stem.size %||% (data$size * .75)
 
 grid::gList(
-ggplot2::GeomSegment$draw_panel(stalk, panel_scales, coord),
+ggplot2::GeomSegment$draw_panel(stem, panel_scales, coord),
 ggplot2::GeomPoint$draw_panel(points, panel_scales, coord)
 )
 
@@ -119,7 +120,7 @@ NULL
 #' @title Dumbell charts
 #'
 #' @description The dumbbell geom is used to create dumbbell charts.
-#' Dumbbell dot plots — dot plots with two or more series of data — are an
+#' Dumbbell dot plots--dot plots with two or more series of data--are an
 #' alternative to the clustered bar chart or slope graph.
 #'
 #' @section Aesthetics:

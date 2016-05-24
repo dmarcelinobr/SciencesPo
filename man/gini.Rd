@@ -4,37 +4,51 @@
 \name{Gini}
 \alias{Gini}
 \alias{Gini.default}
-\title{Weighted Gini Index}
+\title{Gini Coefficient G}
 \usage{
 Gini(x, weights, ...)
 
 \method{Gini}{default}(x, weights = rep(1, length = length(x)), ...)
 }
 \arguments{
-\item{x}{A data.frame, a matrix-like, or a vector.}
+\item{x}{a data.frame, a matrix-like, or a vector.}
 
-\item{weights}{A vector containing weights for \code{x}.}
+\item{weights}{a vector containing weights for \code{x}.}
 
-\item{\dots}{Additional arguements (currently ignored)}
+\item{\dots}{additional arguements (currently ignored)}
 }
 \description{
 Computes the unweighted and weighted Gini index of a distribution.
 }
+\details{
+One might say the Gini is oversensitive to changes in the middle,
+while undersensitive at the extremes. The G coefficient doesn't capture very
+explicitly changes in the top 10% -- which has become the focus of much
+inequality research in the past 10 years -- or the bottom 40%, where
+most poverty lies. The alternative Palma ratio does.
+}
 \examples{
 # generate a vector (of incomes)
 x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
-# compute Gini index
+# compute Gini coefficient
 Gini(x)
 
-Gini(c(100,0,0,0))
+# For Gini index: Gini(x)*100
+
+Gini(c(100,0,0,0), c(1,33,33,33))
+
+# Considers this
+A <- c(20000, 30000, 40000, 50000, 60000)
+B <-  c(9000, 40000, 48000, 48000, 55000)
+
+ Gini(A); Gini(B);
 
 }
 \author{
-Daniel Marcelino, \email{dmarcelino@live.com}
-.
+Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \seealso{
-\code{\link{GiniSimpson}}.
+\code{\link{GiniSimpson}}, \code{\link{Lorenz}}, \code{\link{Herfindahl}}, \code{\link{Rosenbluth}}, \code{\link{Atkinson}}..
 }
 \keyword{Concentration}
 \keyword{Diversity,}
