@@ -48,7 +48,7 @@
   ## replace the variable names
   colnames(.data) <- paste(col.names, seq_len(ncol(.data)), sep = "")
   ## fudge any factor levels
-  df <- data.frame(lapply(.data,  .tweak))
+  df <- data.frame(lapply(.data, .tweak))
   ## replace rownames
   rownames(df) <- paste(row.names, seq_len(nrow(df)), sep = "")
   return(df)
