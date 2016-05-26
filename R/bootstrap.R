@@ -34,3 +34,4 @@ NULL
 `Bootstrap.model` <- function (x, ...)
   list(alpha = NULL,
        beta = coef(x))
+

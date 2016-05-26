@@ -70,6 +70,13 @@ Palettes <- {
         rgb(210, 210, 210, max = 255),
         rgb(240, 240, 240, max = 255)
       ),
+  carnival = c(
+      rgb(142,255,0, max = 255),
+      rgb(0,215,249, max = 255),
+      rgb(241,0,255, max = 255),
+      rgb(249,55,0, max = 255),
+      rgb(255,170,20, max = 255)
+    ),
     trafficlight = c(
         rgb(177,3,24, max = 255),
         rgb(219,161,58, max = 255),
@@ -307,6 +314,7 @@ Palettes <- {
     Europe = rgb(39,100,25, max = 255), # 30
     Oceania = rgb(49,54,149, max = 255) # 2
   )
+
   x$regions <- c(
     NO = rgb(16, 78, 139, max = 255),
     NE = rgb(110, 139, 61, max = 255),
@@ -324,39 +332,37 @@ NULL
 #' @title Color Palettes for Publication (discrete)
 #'
 #' @description Color palettes for publication-quality graphs. See details.
-#' @param palette the palette name.
+#' @inheritParams ggplot2::scale_colour_hue
+#' @param palette the palette name, a character string.
+#' @param \dots extra parameters ignored.
 #'
 #' @details The following palettes are available:
 #' \itemize{
-#' \item {"pub12"}{Default colors of theme_pub}
+#' \item {"pub12"}{A 12-color colorblind safe qualitative discrete palette.}
+#' \item{"gray5"}{5-tons of gray.}
+#' \item {"carnival"}{A 5-color palette inspired in the Brazilian samba schools.}
 #' \item {"tableau20"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #' \item {"tableau10"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #' \item {"colorblind"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #'  \item {"tableau10light"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+#' \item {"tableau10medium"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #'  \item {"fte"}{fivethirtyeight.com color scales}
 #' }
 #' @examples
 #' library(scales)
 #' show_col(pub_color_pal("pub12")(12))
 #' show_col(pub_color_pal("gray5")(6), labels = FALSE)
-#' show_col(pub_color_pal("fte")(4))
+#' show_col(pub_color_pal("carnival")(4))
 #' show_col(pub_color_pal("colorblind")(10))
 #' show_col(pub_color_pal("tableau20")(20))
 #' show_col(pub_color_pal("tableau10")(10))
 #' show_col(pub_color_pal("tableau10medium")(10))
 #' show_col(pub_color_pal("tableau10light")(10))
-#' show_col(pub_color_pal("trafficlight")(9))
 #' show_col(pub_color_pal("cyclic")(20))
-#' show_col(pub_color_pal("purplegray12")(12))
-#' show_col(pub_color_pal("greenorange12")(12))
-#' show_col(pub_color_pal("bluered12")(12))
 #' show_col(pub_color_pal("bivariate1")(9))
-#' show_col(pub_color_pal("bivariate2")(9))
-#' show_col(pub_color_pal("bivariate3")(9))
-#' show_col(pub_color_pal("bivariate4")(9))
 #'
 #' @export
-`pub_color_pal` <- function(palette = "pub12") {
+`pub_color_pal` <- function(palette = "pub12", ...) {
   pal.list <- Palettes$pub$colors
   if (!palette %in% c(
     names(pal.list), "pub12", "gray5", "tableau10", "tableau20", "tableau10medium", "tableau10light", "colorblind", "fte", "greenorange12", "cyclic", "purplegray12", "bluered12", "bivariate1", "bivariate2", "bivariate3", "bivariate4" )) {
@@ -379,7 +385,7 @@ NULL
     unname(types)[seq_len(n)]
   }
 }
-NULL
+
 
 
 #' @title Publication color scales.
@@ -387,16 +393,17 @@ NULL
 #' @description See \code{\link{pub_color_pal}} for details.
 #'
 #' @inheritParams ggplot2::scale_colour_hue
+#' @param palette the palette name, a character string.
+#' @param \dots extra parameters ignored.
 #' @inheritParams pub_color_pal
-#' @family colour publication
-#' @rdname scale_color_pub
+#' @family color publication
+#' @rdname color_pub
 #' @export
 #' @seealso \code{\link{pub_color_pal}} for references.
 #'
 scale_color_pub <- function(palette = "pub12", ...) {
-  discrete_scale("colour", "pub", pub_color_pal(palette), ...)
+  discrete_scale("color", "pub", pub_color_pal(palette), ...)
 }
-NULL
 
 
 
@@ -404,25 +411,22 @@ NULL
 #'
 #' @description See \code{\link{pub_color_pal}} for details.
 #'
-#' @inheritParams ggplot2::scale_colour_hue
 #' @inheritParams pub_color_pal
-#' @family colour publication
-#' @rdname scale_fill_pub
+#' @param palette the palette name, a character string.
+#' @param \dots extra parameters ignored.
+#' @family color publication
+#' @rdname fill_pub
 #' @export
-scale_fill_pub <- function(palette = "pub12", ...) {
+`scale_fill_pub` <- function(palette = "pub12", ...) {
   discrete_scale("fill", "pub", pub_color_pal(palette), ...)
 }
 NULL
 
 
 
-
-#' @title Color Palettes for Political Organizations (discrete)
-#'
-#' @description Color palettes for political organizations.
-#'
-#' @param palette the palette name.
-#' @param label if \code{TRUE}, the party label associated with the color is returned instead.
+#' @title Political Parties Color Palette (Discrete) and Scales
+#' @description An N-color discrete palette for political parties.
+#' @inheritParams ggplot2::scale_colour_hue
 #' @family color party
 #' @examples
 #' library(scales)
@@ -439,7 +443,7 @@ NULL
 #'
 #' @export
 #'
-`party_color_pal` <- function(palette = "BRA", label=FALSE) {
+`party_color_pal` <- function(palette = "BRA", ...) {
   pal.list <- Palettes$party
   if (!palette %in% c(names(pal.list), "BRA", "ARG", "CAN", "USA")) {
     stop(sprintf("%s is not a valid palette name", palette))
@@ -458,38 +462,31 @@ NULL
 NULL
 
 
-
-#' @title List Political Parties
-#' @description Returns a list of available political parties associated with a color.
-#' @note Warning: the list can be huge!\cr
-#' @family party aeshetics
-#' @export
-list_parties <- function() {
-  sort(names(party))
-}
-NULL
-
-
-#' @title Political Parties Color Scales
+#' @title Political Parties Color Palette (Discrete) and Scales
+#' @description An N-color discrete palette for political parties.
 #'
-#' @description Scale color for political parties.
-#'
-#' @inheritParams ggplot2::scale_colour_hue
 #' @inheritParams party_color_pal
 #' @family color party
-#' @rdname scale_color_party
+#' @param palette the palette name, a character string.
+#' @param \dots extra parameters ignored.
+#' @seealso \code{\link{party_color_pal}} for details and references.
 #' @export
-#' @seealso \code{\link{party_color_pal}} for references.
-#'
-scale_color_party <- function(palette = "BRA", ...) {
-  discrete_scale("colour", "party", party_color_pal(palette), ...)
+#' @rdname color_party
+`scale_color_party` <- function(palette = "BRA", ...) {
+  discrete_scale("color", "party", party_color_pal(palette), ...)
 }
 NULL
 
 
+#' @title Political Parties Color Palette (Discrete) and Scales
+#' @description An N-color discrete palette for political parties.
+#' @inheritParams party_color_pal
+#' @param palette the palette name, a character string.
+#' @param \dots extra parameters ignored.
+#' @seealso \code{\link{party_color_pal}} for details and references.
 #' @export
-#' @rdname scale_color_party
-scale_fill_party <- function(palette = "BRA", ...) {
+#' @rdname fill_party
+`scale_fill_party` <- function(palette = "BRA", ...) {
   discrete_scale("fill", "party", party_color_pal(palette), ...)
 }
 NULL
@@ -499,16 +496,19 @@ NULL
 
 #' @title Shape scales for theme_pub (discrete)
 #'
-#' @description Discrete shape scales for theme_pub.
-#'
-#' @export
-#' @param palette Palette name.
+#' @description Discrete shape scales for \code{theme_pub()}.
+#' @inheritParams ggplot2::scale_discrete
+#' @param palette the palette name, a character string.
+#' @param \dots extra parameters ignored.
 #' @family shape pub
+#' @export
 #' @examples
 #' library(scales)
-#' pub_shape_pal("proportions")(2)
+#' pub_shape_pal("default")(6)
+#' pub_shape_pal("proportions")(4)
+#' pub_shape_pal("gender")(2)
 #'
-`pub_shape_pal` <- function(palette = "proportions") {
+`pub_shape_pal` <- function(palette = "default", ...) {
   manual_pal(unname(Palettes$pub$shapes[[palette]]))
 }
 NULL
@@ -519,9 +519,9 @@ NULL
 #'
 #' @description See \code{\link{pub_shape_pal}} for details.
 #'
-#' @export
 #' @inheritParams pub_shape_pal
-#' @inheritParams ggplot2::scale_x_discrete
+#' @param palette the palette name, a character string.
+#' @param \dots extra parameters ignored.
 #' @family shape pub
 #' @examples
 #' library("ggplot2")
@@ -531,6 +531,8 @@ NULL
 #'      facet_wrap(~am)
 #' p + scale_shape_pub()
 #'
+#' @export
+#' @rdname shape_pub
 `scale_shape_pub` <- function(palette = "default", ...) {
   discrete_scale("shape", "pub", pub_shape_pal(palette), ...)
 }
@@ -538,10 +540,8 @@ NULL
 
 
 
-#' show_shapes(shape_pal()(3), labels=TRUE)
-#'
 
-
+# http://www.colorhexa.com/
 # http://www.joshuastevens.net/cartography/make-a-bivariate-choropleth-map/
 # http://www.personal.psu.edu/cab38/ColorSch/SchHTMLs/CBColorSeqSeq.html
 # http://www.personal.psu.edu/cab38/ColorSch/Schemes.html

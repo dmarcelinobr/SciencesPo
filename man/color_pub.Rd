@@ -7,10 +7,12 @@
 scale_color_pub(palette = "pub12", ...)
 }
 \arguments{
-\item{palette}{the palette name.}
+\item{palette}{the palette name, a character string.}
 
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
 to control name, limits, breaks, labels and so forth.}
+
+\item{\dots}{extra parameters ignored.}
 }
 \description{
 See \code{\link{pub_color_pal}} for details.
@@ -18,6 +20,6 @@ See \code{\link{pub_color_pal}} for details.
 \seealso{
 \code{\link{pub_color_pal}} for references.
 
-Other colour publication: \code{\link{scale_fill_pub}}
+Other color.publication: \code{\link{scale_fill_pub}}
 }
 

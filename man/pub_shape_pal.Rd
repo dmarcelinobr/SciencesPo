@@ -4,20 +4,24 @@
 \alias{pub_shape_pal}
 \title{Shape scales for theme_pub (discrete)}
 \usage{
-pub_shape_pal(palette = "proportions")
+pub_shape_pal(palette = "default", ...)
 }
 \arguments{
-\item{palette}{Palette name.}
+\item{palette}{the palette name, a character string.}
+
+\item{\dots}{extra parameters ignored.}
 }
 \description{
-Discrete shape scales for theme_pub.
+Discrete shape scales for \code{theme_pub()}.
 }
 \examples{
 library(scales)
-pub_shape_pal("proportions")(2)
+pub_shape_pal("default")(6)
+pub_shape_pal("proportions")(4)
+pub_shape_pal("gender")(2)
 
 }
 \seealso{
-Other shape pub: \code{\link{scale_shape_pub}}
+Other shape.pub: \code{\link{scale_shape_pub}}
 }
 

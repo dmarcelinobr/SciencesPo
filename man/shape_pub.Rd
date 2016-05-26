@@ -7,11 +7,11 @@
 scale_shape_pub(palette = "default", ...)
 }
 \arguments{
-\item{palette}{Palette name.}
+\item{palette}{the palette name, a character string.}
 
-\item{...}{common discrete scale parameters: \code{name}, \code{breaks},
-\code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
-\code{\link{discrete_scale}} for more details}
+\item{...}{extra parameters ignored.}
+
+\item{\dots}{extra parameters ignored.}
 }
 \description{
 See \code{\link{pub_shape_pal}} for details.
@@ -26,6 +26,6 @@ p + scale_shape_pub()
 
 }
 \seealso{
-Other shape pub: \code{\link{pub_shape_pal}}
+Other shape.pub: \code{\link{pub_shape_pal}}
 }
 

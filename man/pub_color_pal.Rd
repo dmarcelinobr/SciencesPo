@@ -4,10 +4,15 @@
 \alias{pub_color_pal}
 \title{Color Palettes for Publication (discrete)}
 \usage{
-pub_color_pal(palette = "pub12")
+pub_color_pal(palette = "pub12", ...)
 }
 \arguments{
-\item{palette}{the palette name.}
+\item{palette}{the palette name, a character string.}
+
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
+
+\item{\dots}{extra parameters ignored.}
 }
 \description{
 Color palettes for publication-quality graphs. See details.
@@ -15,11 +20,14 @@ Color palettes for publication-quality graphs. See details.
 \details{
 The following palettes are available:
 \itemize{
-\item {"pub12"}{Default colors of theme_pub}
+\item {"pub12"}{A 12-color colorblind safe qualitative discrete palette.}
+\item{"gray5"}{5-tons of gray.}
+\item {"carnival"}{A 5-color palette inspired in the Brazilian samba schools.}
 \item {"tableau20"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 \item {"tableau10"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 \item {"colorblind"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
  \item {"tableau10light"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
+\item {"tableau10medium"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
  \item {"fte"}{fivethirtyeight.com color scales}
 }
 }
@@ -27,21 +35,14 @@ The following palettes are available:
 library(scales)
 show_col(pub_color_pal("pub12")(12))
 show_col(pub_color_pal("gray5")(6), labels = FALSE)
-show_col(pub_color_pal("fte")(4))
+show_col(pub_color_pal("carnival")(4))
 show_col(pub_color_pal("colorblind")(10))
 show_col(pub_color_pal("tableau20")(20))
 show_col(pub_color_pal("tableau10")(10))
 show_col(pub_color_pal("tableau10medium")(10))
 show_col(pub_color_pal("tableau10light")(10))
-show_col(pub_color_pal("trafficlight")(9))
 show_col(pub_color_pal("cyclic")(20))
-show_col(pub_color_pal("purplegray12")(12))
-show_col(pub_color_pal("greenorange12")(12))
-show_col(pub_color_pal("bluered12")(12))
 show_col(pub_color_pal("bivariate1")(9))
-show_col(pub_color_pal("bivariate2")(9))
-show_col(pub_color_pal("bivariate3")(9))
-show_col(pub_color_pal("bivariate4")(9))
 
 }
 
