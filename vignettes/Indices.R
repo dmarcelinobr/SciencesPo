@@ -101,6 +101,7 @@ LargestRemainders(parties=names(lijphart),
 #                    votes=lijphart,
 #                    seats = 8, method = "hagb")
 
+<<<<<<< HEAD
 ## ----data-Italy, echo=TRUE, message=FALSE, comment=NA--------------------
 # The 1946 Italian Constituent Assembly election results: parties and unspoiled votes
 
@@ -110,6 +111,17 @@ Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
                    votes=c(8101004, 4758129, 4356686, 1560638,	1211956,
                            1003007, 637328, 334748, 171201, 102393,
                            97690, 78554, 71021, 51088, 40633, 21853))
+=======
+## ----data-Italy, eval=FALSE, echo=TRUE, message=FALSE--------------------
+#  # The 1946 Italian Constituent Assembly election results: parties and unspoilt votes
+#  
+#  Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
+#                              "BNL", "PdA", "MIS", "PCd'I", "CDR",
+#                             "PSd'Az", "MUI", "PCS", "PDL", "FDPR"),
+#                     votes=c(8101004, 4758129, 4356686, 1560638,	1211956,
+#                             1003007, 637328, 334748, 171201, 102393,
+#                             97690, 78554, 71021, 51088, 40633, 21853))
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 
 ## ----largestRemainders4, eval=FALSE, echo=TRUE, message=FALSE, comment=NA----
 #  with(Italy, LargestRemainders(parties=party,
@@ -121,7 +133,11 @@ Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
 #                                votes=votes, seats = 556,
 #                                method = "imperiali.adj") )
 
+<<<<<<< HEAD
 ## ----Ceara-election, echo=TRUE, cache=TRUE, message=FALSE, comment=NA----
+=======
+## ----Ceara-election, echo=TRUE, cache=TRUE-------------------------------
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 # Results for the state legislative house of Ceará (2014):
 Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
            "PRB"=2043217,"PSB"=15061, "PSC"=103679, "PSTU"=109830,
@@ -136,6 +152,7 @@ library(knitr)
 
 kable(mytable, align=c("l","c","c"), caption="Outcome under d'Hondt")
 
+<<<<<<< HEAD
 ## ----highestAverages12, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center"----
 
 gg <- ggplot()
@@ -152,6 +169,25 @@ gg
 
 
 ## ----largestRemainders6, eval=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
+=======
+## ----eval=FALSE, highestAverages12, echo=TRUE, message=FALSE, comment=NA, fig.width=5, fig.height=4.5, fig.align="center"----
+#  
+#  gg <- ggplot()
+#  gg <- gg +  geom_lollipop(data=mytable, aes(x = reorder(Party, Seats), y = Seats, color = Party), point.size = 3)
+#  gg <- gg + geom_label(data=mytable, aes(x = reorder(Party, Seats), y = Seats + .5, label = Seats), hjust = 0)
+#  gg <-  gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 25))
+#  gg <- gg + scale_color_party("BRA") + scale_fill_party("BRA")
+#  gg <- gg + coord_flip()
+#  gg <-  gg + labs(list(x = "", y = "Number of seats obtained",
+#              title="The 2014 elections in the state of Ceará, \n seats won by party"))
+#  gg <-  gg + theme_fte(horizontal = FALSE)
+#  gg <-  gg + theme(panel.grid.major.y=element_blank())
+#  gg <-  gg + theme(legend.position = "none")
+#  gg
+#  
+
+## ----largestRemainders6, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=3.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 
 out1 = HighestAverages(
   parties = names(Ceara),
@@ -187,6 +223,7 @@ out1 = HighestAverages(
   x = reorder(Party, -Seats),
   y = Seats,
   fill = Method
+<<<<<<< HEAD
   ), 
   stat = "identity",
   position = position_dodge()
@@ -215,6 +252,20 @@ out1 = HighestAverages(
 ## ----largestRemainders7, eval=FALSE, echo=FALSE, message=FALSE, comment=NA----
 #  
 #  # 2014 Federal elections, 30 seats to be returned in the state of Parana, Brazil.
+=======
+  ),
+  stat = "identity",
+  position = position_dodge()
+  )
+  p <- p + labs(x = "", y = "Seats")
+  p <- p  + scale_fill_pub("fte")
+  p <- p + theme_fte(legend = "top", base_size = 10)
+  p
+
+## ----largestRemainders7, eval=FALSE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"----
+#  
+#  #2014 Federal elections, 30 seats to be returned in the state of Parana, Brazil.
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 #  
 #  PR = c(
 #    "PSDB/DEM/PR/PSC/PTdoB/PP/SD/PSD/PPS" = 2601709,
@@ -223,10 +274,16 @@ out1 = HighestAverages(
 #    "PV/PPL" = 280767
 #    )
 
+<<<<<<< HEAD
 ## ----largestRemainders8, eval=FALSE, echo=FALSE, message=FALSE, comment=NA----
 #  
 #  # 2014 Federal elections, 70 seats to be returned in the state of Sao Paulo, Brazil.
 #  
+=======
+## ----largestRemainders8, eval=FALSE, echo=TRUE, message=FALSE, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"----
+#  
+#  2014 Federal elections, 70 seats to be returned in the state of Sao Paulo, Brazil.
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 #  SP = c(
 #    "PSDB/DEM/PPS" = 5537630,
 #    "PT/PCdoB" = 3170003,
@@ -237,7 +294,11 @@ out1 = HighestAverages(
 #    )
 #  
 
+<<<<<<< HEAD
 ## ----politicalDiversity1, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
+=======
+## ----politicalDiversity1, echo=TRUE, message=FALSE, comment=NA-----------
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 # The 2004 presidential election in the US (vote share):
 
 US2004 <- c(
@@ -261,8 +322,14 @@ PoliticalDiversity(US2004, index= "golosov");
 ## ----politicalDiversity4, echo=TRUE, message=FALSE, comment=NA-----------
 PoliticalDiversity(US2004, index= "herfindahl");
 
+<<<<<<< HEAD
 ## ----Helsinki-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
 # Helsinki's 1999:
+=======
+## ----Helsinki-election, echo=TRUE, message=FALSE-------------------------
+# Helsinki's 1999
+
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 Helsinki <- 
   data.frame(
   votes = c(68885, 18343, 86448, 21982, 51587,
@@ -273,6 +340,7 @@ Helsinki <-
   seats.dH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
              0, 0, 0, 0, 0))
 
+<<<<<<< HEAD
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 # Helsinki's 1999 election:
 Helsinki
@@ -287,6 +355,17 @@ PoliticalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
 PoliticalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
 
 ## ----Queensland-Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
+=======
+## ----politicalDiversity5, echo=TRUE, message=FALSE, comment=NA-----------
+
+PoliticalDiversity(Helsinki$votes); #ENEP Votes
+
+PoliticalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
+
+PoliticalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
+
+## ----Queensland-election, echo=TRUE, cache=TRUE--------------------------
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 # 2012 Queensland state elecion:
 Queensland <-
 data.frame(
@@ -297,6 +376,7 @@ seats = c(78, 7, 2, 0, 2, 0),
 pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 )
 
+<<<<<<< HEAD
 
 # 2012 Quebec provincial election:
 Quebec <-
@@ -315,6 +395,19 @@ Queensland
 
 ## ----Quebec-election, echo=TRUE, message=FALSE, comment=NA---------------
 # 2012 Quebec provincial election:
+=======
+Queensland
+
+## ----Quebec-election, echo=TRUE, cache=TRUE------------------------------
+# 2012 Quebec provincial election:
+Quebec <-
+  data.frame(
+  party = c("PQ", "Lib", "CAQ", "QS", "Option", "Other"),
+  pvotes = c(31.95, 31.20, 27.05, 6.03, 1.89, 1.88),
+  pseats = c(54, 50, 19, 2, 0, 0)
+  )
+
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 Quebec
 
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
@@ -432,6 +525,11 @@ with(Queensland, Proportionality(pvotes, pseats,
 with(Quebec, Proportionality(pvotes, pseats, 
                      index = "DHondt") )
 
+<<<<<<< HEAD
 ## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
 sessionInfo()
+=======
+## ----eval=FALSE, echo=FALSE, message=FALSE, comment=NA-------------------
+#  sessionInfo()
+>>>>>>> 9acaee4e2482fdb13abb9f7c519a8844ef399fae
 
