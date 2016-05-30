@@ -20,7 +20,6 @@ The following palettes are available:
 \item {"carnival"}{A 5-color palette inspired in the Brazilian samba schools.}
 \item {"tableau20"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 \item {"tableau10"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
-\item {"colorblind"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
  \item {"tableau10light"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 \item {"tableau10medium"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
  \item {"fte"}{fivethirtyeight.com color scales}
@@ -33,7 +32,7 @@ library(ggplot2)
 show_col(pub_color_pal("pub12")(12))
 show_col(pub_color_pal("gray5")(6), labels = FALSE)
 show_col(pub_color_pal("carnival")(4))
-show_col(pub_color_pal("colorblind")(10))
+show_col(pub_color_pal("gdocs")(18))
 show_col(pub_color_pal("tableau20")(20))
 show_col(pub_color_pal("tableau10")(10))
 show_col(pub_color_pal("tableau10medium")(10))

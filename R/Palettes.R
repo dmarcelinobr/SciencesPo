@@ -9,6 +9,27 @@ Palettes <- {
   x$pub <- list()
   x$pub$colors <-
     list(
+      pub12 = c(
+        rgb(0, 107, 164, max = 255),
+        rgb(255, 128, 14, max = 255),
+        rgb(171, 171, 171, max = 255),
+        rgb(89, 89, 89, max = 255),
+        rgb(95, 158, 209, max = 255),
+        rgb(200, 82, 0, max = 255),
+        rgb(137, 137, 137, max = 255),
+        rgb(162, 200, 236, max = 255),
+        rgb(255, 188, 121, max = 255),
+        rgb(207, 207, 207, max = 255),
+        rgb(48, 147, 67, max = 255),
+        rgb(105, 183, 100, max = 255)
+      ),
+      gray5 = c(
+        rgb(96, 99, 106, max = 255),
+        rgb(165, 172, 175, max = 255),
+        rgb(65, 68, 81, max = 255),
+        rgb(143, 135, 130, max = 255),
+        rgb(207, 207, 207, max = 255)
+      ),
       tableau20 = c(
         rgb(31, 119, 180, max = 255),
         rgb(174, 199, 232, max = 255),
@@ -43,24 +64,6 @@ Palettes <- {
         rgb(162, 162, 162, max = 255),
         rgb(205, 204, 93, max = 255),
         rgb(109, 204, 218, max = 255)
-      ),
-      pub12 = c(
-        rgb(56, 108, 176, max = 255),
-        rgb(253, 180, 98, max = 255),
-        rgb(127, 201, 127, max = 255),
-        rgb(239, 59, 44, max = 255),
-        rgb(102, 37, 6, max = 255),
-        rgb(166, 206, 227, max = 255),
-        rgb(251, 154, 153, max = 255),
-        rgb(152, 78, 163, max = 255),
-        rgb(255, 255, 51, max = 255)
-      ),
-      gray5 = c(
-        rgb(96, 99, 106, max = 255),
-        rgb(165, 172, 175, max = 255),
-        rgb(65, 68, 81, max = 255),
-        rgb(143, 135, 130, max = 255),
-        rgb(207, 207, 207, max = 255)
       ),
     fte = c(
         rgb(255, 39, 0, max = 255),
@@ -100,7 +103,25 @@ Palettes <- {
       rgb(59, 62, 172, max = 255)
       ),
   manyeyes = c(
-    rgb(177,3,24, max = 255)
+    rgb(156, 158, 222, max = 255),
+    rgb(115, 117, 181, max = 255),
+    rgb(74, 85, 132, max = 255),
+    rgb(206, 219, 156, max = 255),
+    rgb(181, 207, 107,max = 255),
+    rgb(140, 162, 82, max = 255),
+    rgb(99, 121, 57,max = 255),
+    rgb(231, 203, 148, max = 255),
+    rgb(231, 186, 82, max = 255),
+    rgb(189, 158, 57, max = 255),
+    rgb(140, 109, 49, max = 255),
+    rgb(231, 150, 156, max = 255),
+    rgb(214, 97, 107, max = 255),
+    rgb(173, 73, 74, max = 255),
+    rgb(132, 60, 57, max = 255),
+    rgb(222, 158, 214, max = 255),
+    rgb(206, 109, 189, max = 255),
+    rgb(165, 81, 148, max = 255),
+    rgb(123, 65, 115, max = 255)
   ),
     trafficlight = c(
         rgb(177,3,24, max = 255),
@@ -176,18 +197,6 @@ Palettes <- {
         rgb(150,88,177, max = 255),
         rgb(128,97,180, max = 255),
         rgb(111,99,187, max = 255)
-      ),
-      colorblind = c(
-        rgb(0, 107, 164, max = 255),
-        rgb(255, 128, 14, max = 255),
-        rgb(171, 171, 171, max = 255),
-        rgb(89, 89, 89, max = 255),
-        rgb(95, 158, 209, max = 255),
-        rgb(200, 82, 0, max = 255),
-        rgb(137, 137, 137, max = 255),
-        rgb(162, 200, 236, max = 255),
-        rgb(255, 188, 121, max = 255),
-        rgb(207, 207, 207, max = 255)
       ),
       bivariate1 = c(
         rgb(100, 172,190, max = 255),
@@ -337,11 +346,11 @@ Palettes <- {
   )
 
   x$party$CAN <- c(
-    Lib = rgb(255,0,0, max = 255),
-    Con = rgb(65,105,225, max = 255),
-    NPD = rgb(255, 140, 0, max = 255),
-    Bloc = rgb(0,191,255, max = 255),
-    Green = rgb(0,255,0, max = 255)
+    `Lib` = rgb(255,0,0, max = 255),
+    `Con` = rgb(65,105,225, max = 255),
+    `NPD` = rgb(255, 140, 0, max = 255),
+    `Bloc` = rgb(0,191,255, max = 255),
+    `Green` = rgb(0,255,0, max = 255)
   )
 
   x$party$USA <- c(
@@ -385,7 +394,6 @@ NULL
 #' \item {"carnival"}{A 5-color palette inspired in the Brazilian samba schools.}
 #' \item {"tableau20"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #' \item {"tableau10"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
-#' \item {"colorblind"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #'  \item {"tableau10light"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #' \item {"tableau10medium"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #'  \item {"fte"}{fivethirtyeight.com color scales}
@@ -397,7 +405,7 @@ NULL
 #' show_col(pub_color_pal("pub12")(12))
 #' show_col(pub_color_pal("gray5")(6), labels = FALSE)
 #' show_col(pub_color_pal("carnival")(4))
-#' show_col(pub_color_pal("colorblind")(10))
+#' show_col(pub_color_pal("gdocs")(18))
 #' show_col(pub_color_pal("tableau20")(20))
 #' show_col(pub_color_pal("tableau10")(10))
 #' show_col(pub_color_pal("tableau10medium")(10))
@@ -409,7 +417,7 @@ NULL
 `pub_color_pal` <- function(palette = "pub12") {
   pal.list <- Palettes$pub$colors
   if (!palette %in% c(
-    names(pal.list), "pub12", "gray5", "tableau10", "tableau20", "tableau10medium", "tableau10light", "colorblind", "fte", "greenorange12", "cyclic", "purplegray12", "bluered12", "bivariate1", "bivariate2", "bivariate3", "bivariate4" )) {
+    names(pal.list), "pub12", "gray5", "tableau10", "tableau20", "tableau10medium", "tableau10light", "manyeyes", "fte", "greenorange12", "cyclic", "purplegray12", "bluered12", "bivariate1", "bivariate2", "bivariate3", "bivariate4" )) {
     stop(sprintf("%s is not a valid palette name", palette))
   }
   if (palette == "pub12") {
@@ -420,8 +428,8 @@ NULL
     types <- pal.list[["tableau20"]][seq(1, 20, by = 2)]
   } else if (palette == "tableau10light") {
     types <- pal.list[["tableau20"]][seq(2, 20, by = 2)]
-  } else if (palette == "colorblind") {
-    types <- pal.list[["colorblind"]][seq(1, 10, by = 1)]
+  } else if (palette == "manyeyes") {
+    types <- pal.list[["manyeyes"]][seq(1, 19, by = 1)]
   } else {
     types <- pal.list[[palette]]
   }
@@ -585,12 +593,6 @@ NULL
 NULL
 
 
-
-# manyeyes <-
-#  c("#9c9ede", "#7375b5", "#4a5584", "#cedb9c", "#b5cf6b",
-#    "#8ca252", "#637939", "#e7cb94", "#e7ba52", "#bd9e39",
-#    "#8c6d31", "#e7969c", "#d6616b", "#ad494a", "#843c39",
-#    "#de9ed6", "#ce6dbd", "#a55194", "#7b4173")
 
 # http://www.colorhexa.com/
 # http://www.joshuastevens.net/cartography/make-a-bivariate-choropleth-map/

@@ -15,7 +15,7 @@ vignette: >
      \usepackage[utf8]{inputenc}
 ---
   
- The popularity of R is rapidly increasing in scientific research. R has several advantages over other programming languages: it is free, it is fairly powerful, there is an excellent user community, and it was designed with the statistical analysis of data in mind.
+The popularity of R is rapidly increasing in scientific research. R has several advantages over other programming languages: it is free, it is fairly powerful, there is an excellent user community, and it was designed with the statistical analysis of data in mind.
 
 # Overview
 The **SciencesPo** package is meant to provide functions and algorithms for analyzing political behavior data, including measures of political fragmentation and seat allocation methods. It is also intended to offer built-in functions for descriptive statistics, tests, cross-tables, and pre set publication-quality plots that will require only a minimum amount of fiddling with sizes and labels, etc. Thus, giving user an easy way of making the most of their data--usually small datasets. Although this package is available for the general public, it meets my personal needs and tastes. Yours may be different.
@@ -81,6 +81,7 @@ To describe an entire data.frame, one can simply call the `Describe` function, w
 
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
+data("titanic")
 Describe(titanic) 
 ```
 
@@ -822,8 +823,10 @@ ggdraw() +
 The functions `lm2eqn()` and `geom_foot()` can be of handy value for adding extra text information to a `ggplot2` object. To demonstrate its use, we need first to draw a plot: 
 
 ```{r echo=FALSE, message=FALSE, comment=NA, fig.height=3.5, fig.width=5, cache=TRUE}
+
 theme_set(theme_pub())
 
+data(presheights)
 # Generating a ratio winner/opponent measure 
 presheights = transform(presheights, 
                        height_ratio = winner.height/opponent.height) 
@@ -901,11 +904,6 @@ show_col(pub_color_pal("carnival")(5))
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
 show_col(pub_color_pal("fte")(5))
-```
-
-
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("colorblind")(10))
 ```
 
 
