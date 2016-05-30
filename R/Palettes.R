@@ -77,6 +77,31 @@ Palettes <- {
       rgb(249,55,0, max = 255),
       rgb(255,170,20, max = 255)
     ),
+  gdocs = c(
+      rgb(51, 102, 204, max = 255),
+      rgb(220, 57, 18, max = 255),
+      rgb(255, 153, 0, max = 255),
+      rgb(16, 150, 24, max = 255),
+      rgb(153, 0, 153, max = 255),
+      rgb(0, 153, 198, max = 255),
+      rgb(221, 68, 119, max = 255),
+      rgb(102, 170, 0, max = 255),
+      rgb(184, 46, 46, max = 255),
+      rgb(49, 99, 149, max = 255),
+      rgb(153, 68, 153, max = 255),
+      rgb(34, 170, 153, max = 255),
+      rgb(170, 170, 17, max = 255),
+      rgb(102, 51, 204, max = 255),
+      rgb(230, 115, 0, max = 255),
+      rgb(139, 7, 7, max = 255),
+      rgb(101, 16, 103, max = 255),
+      rgb(50, 146, 98, max = 255),
+      rgb(85, 116, 166, max = 255),
+      rgb(59, 62, 172, max = 255)
+      ),
+  manyeyes = c(
+    rgb(177,3,24, max = 255)
+  ),
     trafficlight = c(
         rgb(177,3,24, max = 255),
         rgb(219,161,58, max = 255),
@@ -216,26 +241,44 @@ Palettes <- {
         -0x2640L, # f
         -0x2642L  # m
       ),
-      default = c(
-        -16L,
-        -15L,
-        -18L,
-        -0x25B3L, # up-pointing triangle
-        -0x25BDL, # down-pointing triangle
-        -0x25B7L, # right-pointing triangle
-        -0x25C1L, # left-pointing triangle
-        -0x25B2L, # up-pointing triangle
-        -0x25BCL, # down-pointing triangle
-        -0x25B6L, # right-pointing triangle
-        -0x25C0L # left-pointing triangle
-      ),
+      pub = c(
+        16L, # filled circle
+        15L, # filled square
+        18L, # filled diamond
+        1L, # circle
+        0L, # square
+        5L, # diamond
+          -0x25bc, # black down-pointing triangle
+          -0x25b2, # black up-pointing triangle
+          -0x25b6, # black right-pointing triangle
+          -0x25c0, # black left-pointing triangle
+          -0x29d3, # black bowtie
+          -0x29d7, # black hourglass
+          19L, # circle
+         -0x2726, # black four pointed star
+          4L, # x (0xd7)
+          3L, # plus (0x2b)
+          -0x2217, # asterisk operator
+          -0x2796, # heavy minus sign
+          -0x2759 # medium vertical bar
+        ),
       proportions = c(
         -0x25CBL, # White circle
         -0x25DL, # with upper right quadrant black
         -0x25D1L, # with right half black
         -0x25D5L, # # with upper left quadrant black
         -0x25CFL # Black circle
-      )
+      ),
+      arrows = c(
+        -0x2193L, # downwards
+        -0x2198L, # southeast
+        -0x2192L, # rightwards
+        -0x2197L, # northeast
+        -0x2191L, # upwards
+        -0x2196L, # north west
+        -0x2190L, # leftwards
+        -0x2199L # south west
+    )
     )
 
   x$party <- list()
@@ -334,7 +377,6 @@ NULL
 #' @description Color palettes for publication-quality graphs. See details.
 #' @inheritParams ggplot2::scale_colour_hue
 #' @param palette the palette name, a character string.
-#' @param \dots extra parameters ignored.
 #'
 #' @details The following palettes are available:
 #' \itemize{
@@ -350,6 +392,8 @@ NULL
 #' }
 #' @examples
 #' library(scales)
+#' library(ggplot2)
+#'
 #' show_col(pub_color_pal("pub12")(12))
 #' show_col(pub_color_pal("gray5")(6), labels = FALSE)
 #' show_col(pub_color_pal("carnival")(4))
@@ -362,7 +406,7 @@ NULL
 #' show_col(pub_color_pal("bivariate1")(9))
 #'
 #' @export
-`pub_color_pal` <- function(palette = "pub12", ...) {
+`pub_color_pal` <- function(palette = "pub12") {
   pal.list <- Palettes$pub$colors
   if (!palette %in% c(
     names(pal.list), "pub12", "gray5", "tableau10", "tableau20", "tableau10medium", "tableau10light", "colorblind", "fte", "greenorange12", "cyclic", "purplegray12", "bluered12", "bivariate1", "bivariate2", "bivariate3", "bivariate4" )) {
@@ -393,9 +437,8 @@ NULL
 #' @description See \code{\link{pub_color_pal}} for details.
 #'
 #' @inheritParams ggplot2::scale_colour_hue
-#' @param palette the palette name, a character string.
-#' @param \dots extra parameters ignored.
 #' @inheritParams pub_color_pal
+#' @param palette the palette name, a character string.
 #' @family color publication
 #' @rdname color_pub
 #' @export
@@ -410,10 +453,9 @@ scale_color_pub <- function(palette = "pub12", ...) {
 #' @title Publication color scales.
 #'
 #' @description See \code{\link{pub_color_pal}} for details.
-#'
+#' @inheritParams ggplot2::scale_fill_hue
 #' @inheritParams pub_color_pal
 #' @param palette the palette name, a character string.
-#' @param \dots extra parameters ignored.
 #' @family color publication
 #' @rdname fill_pub
 #' @export
@@ -427,9 +469,12 @@ NULL
 #' @title Political Parties Color Palette (Discrete) and Scales
 #' @description An N-color discrete palette for political parties.
 #' @inheritParams ggplot2::scale_colour_hue
+#' @param palette the palette name, a character string.
 #' @family color party
 #' @examples
 #' library(scales)
+#' library(ggplot2)
+#'
 #' show_col(party_color_pal("BRA")(20))
 #'
 #' # Argentine
@@ -443,7 +488,7 @@ NULL
 #'
 #' @export
 #'
-`party_color_pal` <- function(palette = "BRA", ...) {
+`party_color_pal` <- function(palette = "BRA") {
   pal.list <- Palettes$party
   if (!palette %in% c(names(pal.list), "BRA", "ARG", "CAN", "USA")) {
     stop(sprintf("%s is not a valid palette name", palette))
@@ -464,11 +509,10 @@ NULL
 
 #' @title Political Parties Color Palette (Discrete) and Scales
 #' @description An N-color discrete palette for political parties.
-#'
+#' @inheritParams ggplot2::scale_colour_hue
 #' @inheritParams party_color_pal
 #' @family color party
 #' @param palette the palette name, a character string.
-#' @param \dots extra parameters ignored.
 #' @seealso \code{\link{party_color_pal}} for details and references.
 #' @export
 #' @rdname color_party
@@ -478,11 +522,13 @@ NULL
 NULL
 
 
+
+
 #' @title Political Parties Color Palette (Discrete) and Scales
 #' @description An N-color discrete palette for political parties.
+#' @inheritParams ggplot2::scale_fill_hue
 #' @inheritParams party_color_pal
 #' @param palette the palette name, a character string.
-#' @param \dots extra parameters ignored.
 #' @seealso \code{\link{party_color_pal}} for details and references.
 #' @export
 #' @rdname fill_party
@@ -497,19 +543,18 @@ NULL
 #' @title Shape scales for theme_pub (discrete)
 #'
 #' @description Discrete shape scales for \code{theme_pub()}.
-#' @inheritParams ggplot2::scale_discrete
 #' @param palette the palette name, a character string.
-#' @param \dots extra parameters ignored.
 #' @family shape pub
 #' @export
 #' @examples
 #' library(scales)
+#'
 #' pub_shape_pal("default")(6)
 #' pub_shape_pal("proportions")(4)
 #' pub_shape_pal("gender")(2)
 #'
-`pub_shape_pal` <- function(palette = "default", ...) {
-  manual_pal(unname(Palettes$pub$shapes[[palette]]))
+`pub_shape_pal` <- function(palette = "pub") {
+  scales::manual_pal(unname(Palettes$pub$shapes[[palette]]))
 }
 NULL
 
@@ -519,13 +564,14 @@ NULL
 #'
 #' @description See \code{\link{pub_shape_pal}} for details.
 #'
+#' @inheritParams ggplot2::scale_x_discrete
 #' @inheritParams pub_shape_pal
 #' @param palette the palette name, a character string.
-#' @param \dots extra parameters ignored.
 #' @family shape pub
 #' @examples
 #' library("ggplot2")
 #' library("scales")
+#'
 #' p <- ggplot(mtcars) +
 #'      geom_point(aes(x = wt, y = mpg, shape = factor(gear))) +
 #'      facet_wrap(~am)
@@ -533,13 +579,18 @@ NULL
 #'
 #' @export
 #' @rdname shape_pub
-`scale_shape_pub` <- function(palette = "default", ...) {
+`scale_shape_pub` <- function(palette = "pub", ...) {
   discrete_scale("shape", "pub", pub_shape_pal(palette), ...)
 }
 NULL
 
 
 
+# manyeyes <-
+#  c("#9c9ede", "#7375b5", "#4a5584", "#cedb9c", "#b5cf6b",
+#    "#8ca252", "#637939", "#e7cb94", "#e7ba52", "#bd9e39",
+#    "#8c6d31", "#e7969c", "#d6616b", "#ad494a", "#843c39",
+#    "#de9ed6", "#ce6dbd", "#a55194", "#7b4173")
 
 # http://www.colorhexa.com/
 # http://www.joshuastevens.net/cartography/make-a-bivariate-choropleth-map/

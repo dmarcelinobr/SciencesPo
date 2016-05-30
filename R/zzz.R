@@ -18,6 +18,7 @@ NULL
 
 
 
+
 `%=%` <- function(x, y) {
   assign(as.character(substitute(x)), y, envir = parent.frame())
 }
@@ -27,6 +28,17 @@ NULL
   paste(sprintf("\\code{\"%s\"}", x), collapse = ", ")
 }
 NULL
+
+# copied from ggplot2
+"%||%" <- function(a, b) {
+  if (!is.null(a)) a else b
+}
+
+# copied from ggplot2
+ggname <- function(prefix, grob) {
+  grob$name <- grid::grobName(grob, prefix)
+  grob
+}
 
 `say` <- function(){
   print(sample(c("Hello World!", "Yo world!", "Yo, you lookin' at twenty", "Bitch, you ain't givin' me any"),1))

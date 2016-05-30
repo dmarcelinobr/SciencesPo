@@ -17,7 +17,7 @@
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @export
 #' @examples
-#' MeanFromRange(5,8,12,10)
+#' MeanFromRange(low=5, med=8, high=12, n=10)
 #'
 `MeanFromRange` <-function(low, med, high, n) {
   mn<-(low+2*med+high)/4+(low-2*med+high)/(4*n)

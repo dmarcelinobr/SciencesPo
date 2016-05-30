@@ -11,8 +11,6 @@ scale_color_party(palette = "BRA", ...)
 
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
 to control name, limits, breaks, labels and so forth.}
-
-\item{\dots}{extra parameters ignored.}
 }
 \description{
 An N-color discrete palette for political parties.
@@ -20,6 +18,6 @@ An N-color discrete palette for political parties.
 \seealso{
 \code{\link{party_color_pal}} for details and references.
 
-Other color.party: \code{\link{party_color_pal}}
+Other color party: \code{\link{party_color_pal}}
 }
 

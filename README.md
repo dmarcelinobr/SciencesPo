@@ -1,4 +1,4 @@
-<img src="/inst/doc/SciencesPo_logo.png" alt="SciencesPo" />
+<img src="/inst/doc/ScPo-logo.png" alt="SciencesPo" />
 
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo)

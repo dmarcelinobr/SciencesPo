@@ -14,6 +14,7 @@ NULL
 #' @param horizontal Logical. Horizontal axis lines?
 #' @param line_width Default line size.
 #' @param axis_line Enables to set x and y axes.
+#' @family themes pub
 #' @return The theme.
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
@@ -147,6 +148,7 @@ NULL
 #' @param base_size Overall font size. Default is 13.
 #' @param horizontal Logical. Horizontal axis lines?
 #' @param colors Default colors used in the plot in the following order: background, lines, text, and title.
+#' @family themes 538
 #' @return The theme.
 #'
 #' @examples
@@ -255,28 +257,35 @@ NULL
     complete = TRUE
   )
 }
-NULL
+
+#' @export
+`theme_538` <- theme_fte
 
 
 
-
-#' Create a Completely Empty Theme
+#' @title Create a Completely Empty Theme
 #'
-#' The theme created by this function shows nothing but the plot panel.
+#' @description The theme created by this function shows nothing but the plot panel.
+#' @inheritParams ggplot2::theme_grey
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 12.
 #' @param legend the legend position.
+#' @family themes blank
 #' @return The theme.
+#'
 #' @examples
 #' # plot with small amount of remaining padding
 #' qplot(1:10, (1:10)^2) + theme_blank()
+#'
 #' # remaining padding removed
 #' qplot(1:10, (1:10)^2) + theme_blank() + labs(x = NULL, y = NULL)
+#'
 #' # Check that it is a complete theme
 #' attr(theme_blank(), "complete")
+#'
 #' @export
 `theme_blank` <- function(font_size = 12, font_family = "serif", legend="none") {
-  theme_grey(base_size = font_size, base_family = font_family) %+replace%
+ret <- (theme_grey(base_size = font_size, base_family = font_family) +
     theme(
       rect              = element_rect(
         fill = "transparent", colour = NA, color = NA, size = 0, linetype = 0
@@ -291,7 +300,8 @@ NULL
       legend.position   = legend,
       panel.margin      = grid::unit(c(0, 0, 0, 0), "cm"),
       plot.margin       = grid::unit(c(0, 0, 0, 0), "cm")
-    )
+    ))
+ret
 }
 NULL
 
@@ -299,17 +309,20 @@ NULL
 
 #' @title The Dark Side Theme
 #' @description The dark side of the things.
+#' @inheritParams ggplot2::theme_bw
 #' @param font_family Default font family.
 #' @param font_size Overall font size. Default is 12.
 #' @param legend the position of the legend if any.
+#' @family themes darkside
 #' @return The theme.
 #' # plot with small amount of remaining padding
 #' qplot(1:10, (1:10)^2, color="green") + theme_darkside()
 #' # Check that it is a complete theme
 #' attr(theme_darkside(), "complete")
+#'
 #' @export
 theme_darkside = function(font_size = 12, font_family = "serif", legend="none") {
-  theme_bw(base_size = font_size) +
+ret  <- (theme_bw(base_size = font_size) +
     theme(
       text = element_text(family = font_family, color = "grey80"),
       rect = element_rect(fill = "#000000", color = "#000000"),
@@ -325,7 +338,8 @@ theme_darkside = function(font_size = 12, font_family = "serif", legend="none") 
       axis.text = element_text(),
       axis.title = element_blank(),
       axis.ticks = element_blank()
-    )
+    ))
+ret
 }
 NULL
 

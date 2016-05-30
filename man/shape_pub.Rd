@@ -4,14 +4,14 @@
 \alias{scale_shape_pub}
 \title{Shape scales for theme_pub (discrete)}
 \usage{
-scale_shape_pub(palette = "default", ...)
+scale_shape_pub(palette = "pub", ...)
 }
 \arguments{
 \item{palette}{the palette name, a character string.}
 
-\item{...}{extra parameters ignored.}
-
-\item{\dots}{extra parameters ignored.}
+\item{...}{common discrete scale parameters: \code{name}, \code{breaks},
+\code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
+\code{\link{discrete_scale}} for more details}
 }
 \description{
 See \code{\link{pub_shape_pal}} for details.
@@ -19,6 +19,7 @@ See \code{\link{pub_shape_pal}} for details.
 \examples{
 library("ggplot2")
 library("scales")
+
 p <- ggplot(mtcars) +
      geom_point(aes(x = wt, y = mpg, shape = factor(gear))) +
      facet_wrap(~am)
@@ -26,6 +27,6 @@ p + scale_shape_pub()
 
 }
 \seealso{
-Other shape.pub: \code{\link{pub_shape_pal}}
+Other shape pub: \code{\link{pub_shape_pal}}
 }
 

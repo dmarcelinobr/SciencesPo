@@ -120,8 +120,8 @@
   output <- freq(out, digits = 3, perc=TRUE);
   # Political diversity indices
   ENP_votes <- 1/sum(.ratio^2)
-  ENP_seats <- 1/sum((output$Seats/sum(output$Seats))^2)
-  LSq_index <- sqrt(0.5*sum((((votes/sum(votes))*100) - ((output$Seats/sum(output$Seats))*100))^2))
+  ENP_seats <- 1/sum((output$Freq/sum(output$Freq))^2)
+  LSq_index <- sqrt(0.5*sum((((votes/sum(votes))*100) - ((output$Freq/sum(output$Freq))*100))^2))
 
 .shorten <- function(x, n)
     cat("Divisors:", x[1:n], "...", "\n")

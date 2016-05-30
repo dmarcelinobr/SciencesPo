@@ -70,108 +70,196 @@
 #'
 #' @rdname HighestAverages
 #' @export
-`HighestAverages` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...) UseMethod("HighestAverages")
+`HighestAverages` <-
+  function(parties = NULL,
+           votes = NULL,
+           seats = NULL,
+           method = c("dh",
+                      "sl",
+                      "msl",
+                      "danish",
+                      "hsl",
+                      "hh",
+                      "imperiali",
+                      "wb",
+                      "jef",
+                      "ad",
+                      "hb"),
+           threshold = 0,
+           ...)
+UseMethod("HighestAverages")
 
 
 
 #' @export
 #' @rdname HighestAverages
-`HighestAverages.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("dh", "sl", "msl", "danish", "hsl", "hh", "imperiali", "wb", "jef", "ad", "hb"), threshold=0, ...){
-  # Modified :
-  # v0.0 2012-07-12
-  # v0.0 2013-11-21
-  # v0.2 2014-10-02
-  # v0.3 2016-01-13
-  # v0.3 2016-05-15
-  # local vars for using later
-  .ratio <- votes/sum(votes)
-  .votes <- ifelse(.ratio < threshold, 0, votes)
+`HighestAverages.default` <-
+  function(parties = NULL,
+           votes = NULL,
+           seats = NULL,
+           method = c("dh",
+                      "sl",
+                      "msl",
+                      "danish",
+                      "hsl",
+                      "hh",
+                      "imperiali",
+                      "wb",
+                      "jef",
+                      "ad",
+                      "hb"),
+           threshold = 0,
+           ...) {
+    # Modified :
+    # v0.0 2012-07-12
+    # v0.0 2013-11-21
+    # v0.2 2014-10-02
+    # v0.3 2016-01-13
+    # v0.3 2016-05-15
+    # local vars for using later
+    .ratio <- votes / sum(votes)
+    .votes <- ifelse(.ratio < threshold, 0, votes)
 
-  # To deal with  NULL party labels
-  if (is.null(parties)){
-    parties <- replicate(length(votes),
-                         paste(sample(LETTERS, 3,
-                                      replace=TRUE), collapse=""))
-  }
+    # To deal with  NULL party labels
+    if (is.null(parties)) {
+      parties <- replicate(length(votes),
+                           paste(sample(LETTERS, 3,
+                                        replace = TRUE), collapse = ""))
+    }
 
-  # Define Quotient
-  switch(method,
-         dh = { #d'Hondt
-           divisor.vec <- seq(from = 1, by = 1, length.out = seats)
-           method.name <- c("d'Hondt")
-         },
-         sl = { #Sainte-Lague
-           divisor.vec <- seq(from = 1, by = 2, length.out = seats)
-           method.name <- c("Sainte-Lagu\u00EB")
-         },
-         msl = { #Modified Sainte-Lague
-           divisor.vec <- c(1.4, seq(from = 3, by = 2, length.out = seats-1))
-           method.name <- c("Modified Sainte-Lagu\u00EB")
-         },
-         danish = { #Danish
-           divisor.vec <- c(1, seq(from = 4, by = 3, length.out = seats-1))
-           method.name <- c("Danish Sainte-Lagu\u00EB")
-         },
-         hsl = { #Hungarian
-           divisor.vec <- c(1.5, seq(from = 3, by = 2, length.out = seats-1))
-           method.name <- c("Hungarian Sainte-Lagu\u00EB")
-         },
-         imperiali = { #Imperiali
-           divisor.vec <- c(1, seq(from = 1.5, by = .5, length.out = seats-1))
-           method.name <- c("Imperiali")
-         },
-         hh = { #Huntington-Hill Equal Proportions Method
-           divisor.vec0 <- seq(from = 1, by = 1, length.out = seats)
-           divisor.vec <- sqrt(divisor.vec0 * (divisor.vec0 - 1))
-           method.name <- c("Hungtinton-Hill")
-         },
-         wb = { #Webster Major Fractions Method
-           divisor.vec0 <- seq(from = 1, by = 2, length.out = seats)
-           divisor.vec <- (divisor.vec0+(divisor.vec0 - 1))/2
-           method.name <- c("Webster")
-         },
-         jef = { #Jefferson Greatest Divisors or Hagenbach-Bischoff Method
-           divisor.vec <- seq(from = 1, by = 1, length.out = seats)
-           method.name <- c("Jefferson")
-         },
-         ad = { #Adam's Method Smallest Devisors
-           divisor.vec <- c(0, seq(from = 1, by = 1, length.out = seats-1))
-           method.name <- c("Adam's Method")
-         },
-         hb = { #Hagenbach-Bischoff Method
-           divisor.vec <- seq(from = 1, by = 1, length.out = seats)
-           method.name <- c("Hagenbach-Bischoff")
-         }
-  )
+    # Define Quotient
+    switch(
+      method,
+      dh = {
+        #d'Hondt
+        divisor.vec <- seq(from = 1,
+                           by = 1,
+                           length.out = seats)
+        method.name <- c("d'Hondt")
+      },
+      sl = {
+        #Sainte-Lague
+        divisor.vec <- seq(from = 1,
+                           by = 2,
+                           length.out = seats)
+        method.name <- c("Sainte-Lagu\u00EB")
+      },
+      msl = {
+        #Modified Sainte-Lague
+        divisor.vec <-
+          c(1.4, seq(
+            from = 3,
+            by = 2,
+            length.out = seats - 1
+          ))
+        method.name <- c("Modified Sainte-Lagu\u00EB")
+      },
+      danish = {
+        #Danish
+        divisor.vec <-
+          c(1, seq(
+            from = 4,
+            by = 3,
+            length.out = seats - 1
+          ))
+        method.name <- c("Danish Sainte-Lagu\u00EB")
+      },
+      hsl = {
+        #Hungarian
+        divisor.vec <-
+          c(1.5, seq(
+            from = 3,
+            by = 2,
+            length.out = seats - 1
+          ))
+        method.name <- c("Hungarian Sainte-Lagu\u00EB")
+      },
+      imperiali = {
+        #Imperiali
+        divisor.vec <-
+          c(1, seq(
+            from = 1.5,
+            by = .5,
+            length.out = seats - 1
+          ))
+        method.name <- c("Imperiali")
+      },
+      hh = {
+        #Huntington-Hill Equal Proportions Method
+        divisor.vec0 <- seq(from = 1,
+                            by = 1,
+                            length.out = seats)
+        divisor.vec <- sqrt(divisor.vec0 * (divisor.vec0 - 1))
+        method.name <- c("Hungtinton-Hill")
+      },
+      wb = {
+        #Webster Major Fractions Method
+        divisor.vec0 <- seq(from = 1,
+                            by = 2,
+                            length.out = seats)
+        divisor.vec <- (divisor.vec0 + (divisor.vec0 - 1)) / 2
+        method.name <- c("Webster")
+      },
+      jef = {
+        #Jefferson Greatest Divisors or Hagenbach-Bischoff Method
+        divisor.vec <- seq(from = 1,
+                           by = 1,
+                           length.out = seats)
+        method.name <- c("Jefferson")
+      },
+      ad = {
+        #Adam's Method Smallest Devisors
+        divisor.vec <-
+          c(0, seq(
+            from = 1,
+            by = 1,
+            length.out = seats - 1
+          ))
+        method.name <- c("Adam's Method")
+      },
+      hb = {
+        #Hagenbach-Bischoff Method
+        divisor.vec <- seq(from = 1,
+                           by = 1,
+                           length.out = seats)
+        method.name <- c("Hagenbach-Bischoff")
+      }
+    )
 
-  # ratio = as.vector(sapply(votes, function(x) x /
-  # sum(votes)))
-  .temp <- data.frame(
-    parties = rep(parties, each = seats ),
-    scores = as.vector(sapply(.votes, function(x) x /
-                                divisor.vec ))
-  );
+    # ratio = as.vector(sapply(votes, function(x) x /
+    # sum(votes)))
+    .temp <- data.frame(parties = rep(parties, each = seats),
+                        scores = as.vector(sapply(.votes, function(x)
+                          x /
+                            divisor.vec)))
 
-  out <- with(.temp, (parties[order(-scores)][1:seats]))
 
-  output <- freq(out, digits = 3, perc=TRUE);
-  # Political diversity indices
-  ENP_votes <- 1/sum(.ratio^2)
-  ENP_seats <- 1/sum((output$Seats/sum(output$Seats))^2)
-  LSq_index <- sqrt(0.5*sum((((votes/sum(votes))*100) - ((output$Seats/sum(output$Seats))*100))^2))
+    out <- with(.temp, (parties[order(-scores)][1:seats]))
 
-  .shorten <- function(x, n)
-    cat("Divisors:", x[1:n], "...", "\n")
+    output <- freq(out, digits = 3, perc = TRUE)
 
-  cat("Method:", method.name, "\n")
-  .shorten(round(divisor.vec, 2), 4)
-  cat(paste("ENP:",round(ENP_votes,2),"(After):",round(ENP_seats,2)),"\n")
-  cat(paste("Gallagher Index: ", round(LSq_index, 2)), "\n \n")
-  # names(output) <-c("Party", "Seats", "Seats(\u0025)");
-  names(output) <-c("Party", "Seats", "\u0025 Seats");
-  # output <- output[ order(output[,2], decreasing = TRUE),]
-  class(output) <- c("SciencesPo", class(output))
-  attr(output, "scpo.type") <- "Standard"
-  return(output)
+    # Political diversity indices
+    ENP_votes <- 1 / sum(.ratio ^ 2)
+    ENP_seats <- 1 / sum((output$Freq / sum(output$Freq)) ^ 2)
+    LSq_index <-
+      sqrt(0.5 * sum((((
+        votes / sum(votes)
+      ) * 100) - ((output$Freq / sum(output$Freq)) * 100
+      )) ^ 2))
+
+    .shorten <- function(x, n)
+      cat("Divisors:", x[1:n], "...", "\n")
+
+    cat("Method:", method.name, "\n")
+    .shorten(round(divisor.vec, 2), 4)
+    cat(paste("ENP:", round(ENP_votes, 2), "(After):", round(ENP_seats, 2)), "\n")
+    cat(paste("Gallagher Index: ", round(LSq_index, 2)), "\n \n")
+    # names(output) <-c("Party", "Seats", "Seats(\u0025)");
+    names(output) <- c("Party", "Seats", "\u0025 Seats")
+
+    # output <- output[ order(output[,2], decreasing = TRUE),]
+    class(output) <- c("SciencesPo", class(output))
+    attr(output, "scpo.type") <- "Standard"
+    return(output)
   }
 NULL

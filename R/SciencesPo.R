@@ -11,6 +11,8 @@
 #' @import utils
 #' @import graphics
 #' @import grDevices
+#' @import ggplot2
 NULL
 
 globalVariables("Palettes")
+

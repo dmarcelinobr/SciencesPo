@@ -23,7 +23,7 @@ When conductig a meta-analysis study, it is not always possible to
  median/range values into mean and variance estimates.
 }
 \examples{
-MeanFromRange(5,8,12,10)
+MeanFromRange(low=5, med=8, high=12, n=10)
 
 }
 \author{

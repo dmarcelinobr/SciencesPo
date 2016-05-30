@@ -4,15 +4,10 @@
 \alias{pub_color_pal}
 \title{Color Palettes for Publication (discrete)}
 \usage{
-pub_color_pal(palette = "pub12", ...)
+pub_color_pal(palette = "pub12")
 }
 \arguments{
 \item{palette}{the palette name, a character string.}
-
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
-to control name, limits, breaks, labels and so forth.}
-
-\item{\dots}{extra parameters ignored.}
 }
 \description{
 Color palettes for publication-quality graphs. See details.
@@ -33,6 +28,8 @@ The following palettes are available:
 }
 \examples{
 library(scales)
+library(ggplot2)
+
 show_col(pub_color_pal("pub12")(12))
 show_col(pub_color_pal("gray5")(6), labels = FALSE)
 show_col(pub_color_pal("carnival")(4))

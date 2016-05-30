@@ -106,35 +106,61 @@
 #'
 #' @export
 #' @rdname PoliticalDiversity
-`PoliticalDiversity`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1))
-  UseMethod("PoliticalDiversity")
+`PoliticalDiversity` <-
+  function(x,
+           index = "laakso/taagepera",
+           margin = 1,
+           base = exp(1))
+    UseMethod("PoliticalDiversity")
 
 #' @export
 #' @rdname PoliticalDiversity
-`PoliticalDiversity.default`<- function(x, index = "laakso/taagepera", margin=1, base = exp(1)){
-  x <- drop(as.matrix(x))
-  index <- .Match(arg = index, choices = c("laakso/taagepera", "golosov", "lsq", "enc",  "enp", "herfindahl", "gini", "simpson", "invsimpson","shannon") )
-  if (length(dim(x)) > 1) {
-    total <- apply(x, margin, sum)
-    x <- sweep(x, margin, total, "/")
-  }
-  else {
-    x <- x/sum(x)
-  }
-  if (index == "shannon")
-    x <- -x * log(x, base)
-  else if (index=="golosov")
-    x <- sum((x)/((x)+((x[1])^2)-((x)^2)))
-  else x <- x * x
-  if (length(dim(x)) > 1)
-    idx <- apply(x, margin, sum, na.rm = TRUE)
-  else idx <- sum(x, na.rm = TRUE)
-  if (index == "simpson"||index == "herfindahl")
-    idx <- 1 - idx
-  else if (index == "laakso/taagepera" || index == "invsimpson"||  index == "enc" || index == "enp")
-    idx <- 1/idx
-  return(round(idx, 3))
-}### end -- politicalDiversity function
+`PoliticalDiversity.default` <-
+  function(x,
+           index = "laakso/taagepera",
+           margin = 1,
+           base = exp(1)) {
+    x <- drop(as.matrix(x))
+    index <-
+      .Match(
+        arg = index,
+        choices = c(
+          "laakso/taagepera",
+          "golosov",
+          "lsq",
+          "enc",
+          "enp",
+          "herfindahl",
+          "gini",
+          "simpson",
+          "invsimpson",
+          "shannon"
+        )
+      )
+    if (length(dim(x)) > 1) {
+      total <- apply(x, margin, sum)
+      x <- sweep(x, margin, total, "/")
+    }
+    else {
+      x <- x / sum(x)
+    }
+    if (index == "shannon")
+      x <- -x * log(x, base)
+    else if (index == "golosov")
+      x <- sum((x) / ((x) + ((x[1]) ^ 2) - ((x) ^ 2)))
+    else
+      x <- x * x
+    if (length(dim(x)) > 1)
+      idx <- apply(x, margin, sum, na.rm = TRUE)
+    else
+      idx <- sum(x, na.rm = TRUE)
+    if (index == "simpson" || index == "herfindahl")
+      idx <- 1 - idx
+    else if (index == "laakso/taagepera" ||
+             index == "invsimpson" ||  index == "enc" || index == "enp")
+      idx <- 1 / idx
+    return(round(idx, 3))
+  }### end -- politicalDiversity function
 NULL
 
 
@@ -173,12 +199,20 @@ NULL
 #'
 #' @export
 #' @rdname Hamilton
-`Hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...) UseMethod("Hamilton")
+`Hamilton` <-
+  function(parties = NULL,
+           votes = NULL,
+           seats = NULL,
+           ...)
+    UseMethod("Hamilton")
 
 
 #' @export
 #' @rdname Hamilton
-`Hamilton` <-function(parties=NULL, votes=NULL, seats=NULL,...){
+`Hamilton` <- function(parties = NULL,
+                       votes = NULL,
+                       seats = NULL,
+                       ...) {
   # Modified :
   # v0.0 2011-10-25
   # v0.1 2012-07-10
@@ -187,16 +221,26 @@ NULL
   output <- data.frame(
     parties = parties,
     scores = votes / sum(votes) * seats,
-    perc = round(votes / sum(votes),3));
-  integer <- with(output, floor(scores));
-  fraction <- with(output, scores - integer);
-  remainder <- seats - sum(integer);
-  output[,2] <- integer;
-  extra <- utils::head(order(fraction, decreasing=TRUE), remainder);
-  output$scores[extra] <- (output$scores[extra] + 1);
-  if(sum(output$scores) != seats)
-    stop("Allocation error.");
-  names(output) <-c("Party", "Seats", "\u0025 Seats");
+    perc = round(votes / sum(votes), 3)
+  )
+
+  integer <- with(output, floor(scores))
+
+  fraction <- with(output, scores - integer)
+
+  remainder <- seats - sum(integer)
+
+  output[, 2] <- integer
+
+  extra <- utils::head(order(fraction, decreasing = TRUE), remainder)
+
+  output$scores[extra] <- (output$scores[extra] + 1)
+
+  if (sum(output$scores) != seats)
+    stop("Allocation error.")
+
+  names(output) <- c("Party", "Seats", "\u0025 Seats")
+
   class(output) <- c("SciencesPo", class(output))
   attr(output, "scpo.type") <- "Standard"
   return(output)
@@ -251,30 +295,37 @@ NULL
 #' @importFrom utils head
 #' @rdname dHondt
 #' @export
-`dHondt` <- function(parties=NULL, votes=NULL, seats=NULL, ...) UseMethod("dHondt")
+`dHondt` <-
+  function(parties = NULL,
+           votes = NULL,
+           seats = NULL,
+           ...)
+    UseMethod("dHondt")
 
 #' @rdname dHondt
 #' @export
-`dHondt` <-function(parties=NULL, votes=NULL, seats=NULL, ...){
+`dHondt` <- function(parties = NULL,
+                     votes = NULL,
+                     seats = NULL,
+                     ...) {
   # Modified :
   # v0.0 2011-10-25
   # v0.1 2012-07-10
   # v0.2 2016-01-05
   # creates a party score object
-  .temp <- data.frame(
-    parties = rep(parties, each = seats ),
-    scores = as.vector(sapply( votes, function(x) x /
-                                 1:seats ))
-  );
+  .temp <- data.frame(parties = rep(parties, each = seats),
+                      scores = as.vector(sapply(votes, function(x)
+                        x /
+                          1:seats)))
+
   output <- with(.temp, (parties[order(-scores)][1:seats]))
-  output <- freq(output, digits = 3);
-  names(output) <-c("Party", "Seats", "\u0025 Seats");
+  output <- freq(output, digits = 3)
+
+  names(output) <- c("Party", "Seats", "\u0025 Seats")
+
   # output <- output[ order(output[,2], decreasing = TRUE),]
   class(output) <- c("SciencesPo", class(output))
   attr(output, "scpo.type") <- "Standard"
   return(output)
 }
 NULL
-
-
-

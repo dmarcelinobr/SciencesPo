@@ -1,6 +1,6 @@
 #' @title Atkinson Index of Inequality
 #'
-#' @description Calculates the Atkinson index A. This inequality measure is espcially good at determining which end of the distribution is contributing most to the observed inequality.
+#' @description Calculates the Atkinson index A. This inequality measure is especially good at determining which end of the distribution is contributing most to the observed inequality.
 #'
 #' @param x a vector of data values of non-negative elements.
 #' @param n a vector of frequencies of the same length as \code{x}.

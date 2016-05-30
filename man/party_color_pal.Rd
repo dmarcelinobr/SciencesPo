@@ -4,17 +4,18 @@
 \alias{party_color_pal}
 \title{Political Parties Color Palette (Discrete) and Scales}
 \usage{
-party_color_pal(palette = "BRA", ...)
+party_color_pal(palette = "BRA")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
-to control name, limits, breaks, labels and so forth.}
+\item{palette}{the palette name, a character string.}
 }
 \description{
 An N-color discrete palette for political parties.
 }
 \examples{
 library(scales)
+library(ggplot2)
+
 show_col(party_color_pal("BRA")(20))
 
 # Argentine
@@ -28,6 +29,6 @@ show_col(party_color_pal("CAN")(10))
 
 }
 \seealso{
-Other color.party: \code{\link{scale_color_party}}
+Other color party: \code{\link{scale_color_party}}
 }
 

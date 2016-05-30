@@ -32,18 +32,23 @@ Calculates several indexes of (dis)-proportionality, which are for the most part
 \details{
 The following measures are available:
 \itemize{
-\item {"Cox-Shugart"}{Cox-Shugart Measure of Proportionality}
-\item {"Inv.Cox-Shugart"}{The Inverse of Cox-Shugart Index}
-\item {"Farina"}{Farina Index of Proportionality}
-\item {"Gallagher"}{Gallagher Index of Disproportionality}
-\item {"Inv.Gallagher"}{The Inverse of Gallagher Index}
-\item {"Grofman"}{Grofman Index of Proportionality}
-\item {"Lijphart"}{Lijphart Index of Proportionality}
-\item {"Loosemore-Hanby"}{Loosemore-Hanby Index of Disproportionality}
-\item {"Rae"}{Rae Index of Disproportionality}
-\item {"Inv.Rae"}{The Inverse of the Rae Index}
-\item {"Rose"}{Rose Index of Disproportionality}
-\item {"Inv.Rose"}{The Inverse of the Rose Index}
+\item {"Loosemore-Hanby"}{(Percent) Loosemore-Hanby Index of disproportionality}
+\item {"Rae"}{(Percent) Rae Index of disproportionality}
+\item {"Cox-Shugart"}{Cox-Shugart Index of proportionality}
+\item {"Inv.Cox-Shugart"}{The inverted Cox-Shugart index}
+\item {"Farina"}{Farina index of proportionality, aka cosine proportionality score}
+\item {"Gallagher"}{(Percent) Gallagher index of disproportionality}
+\item {"Inv.Gallagher"}{The inverse of Gallagher index}
+\item {"Grofman"}{Grofman index of proportionality}
+\item {"Inv.Grofman"}{Grofman index of proportionality}
+\item {"Lijphart"}{Lijphart index of proportionality}
+\item {"Inv.Rae"}{The inverse of Rae index}
+\item {"Rose"}{Rose index of disproportionality}
+\item {"Inv.Rose"}{The inverse of Rose index}
+\item {Sainte-Lague}{Sainte-Lague index of disproportionality}
+\item {DHondt}{D'Hondt index of proportionality}
+\item {Gini}{Gini index of disproportionality}
+\item {Monroe}{Monroe index of inequity}
 }
 }
 \examples{
@@ -51,9 +56,9 @@ The following measures are available:
 pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 
-# Proportionality(pvotes, pseats) # default is Gallagher
+Proportionality(pvotes, pseats) # default is Gallagher
 
-# Proportionality(pvotes, pseats, index="Rae")
+Proportionality(pvotes, pseats, index="Rae")
 
 # Proportionality(pvotes, pseats, index="Cox-Shugart")
 
@@ -61,7 +66,7 @@ pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
 pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 
-# Proportionality(pvotes, pseats, index="Rae")
+Proportionality(pvotes, pseats, index="Rae")
 
 }
 \author{
