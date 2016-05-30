@@ -466,7 +466,7 @@ What is electoral disproportionality? A perfectly proportional election is one t
 
 How do we measure (dis)proportionality in practice? Let's consider the following two real-data examples taken from Wikipedia. These two sets of data refer to subnational elections, one from Queensland (Australia) and the other from Quebec (Canada).  
 
-```{r Queensland-Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+```{r Queensland-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
 # 2012 Queensland state elecion:
 Queensland <-
 data.frame(
@@ -476,8 +476,9 @@ pvotes = c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47),
 seats = c(78, 7, 2, 0, 2, 0),
 pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 )
+```
 
-
+```{r Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
 # 2012 Quebec provincial election:
 Quebec <-
   data.frame(
@@ -490,13 +491,13 @@ Quebec <-
 
 ```
 
-```{r Queensland-election, echo=TRUE, message=FALSE, comment=NA}
+```{r Queensland, echo=TRUE, message=FALSE, comment=NA}
 # 2012 Queensland state elecion:
 Queensland
 ```
 
 
-```{r Quebec-election, echo=TRUE, message=FALSE, comment=NA}
+```{r Quebec, echo=TRUE, message=FALSE, comment=NA}
 # 2012 Quebec provincial election:
 Quebec
 ```
