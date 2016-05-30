@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Daniel Marcelino" />
+
+<meta name="date" content="2016-05-29" />
+
+<title>Measures of Political Behavior</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="fluid-row" id="header">
+
+
+<h1 class="title">Measures of Political Behavior</h1>
+<h4 class="author"><em>Daniel Marcelino</em></h4>
+<h4 class="date"><em>2016-05-29</em></h4>
+<div class="abstract">
+<p class="abstract">Abstract</p>
+This tutorial describes some of the indices on political behavior that are most visible in scholarly literature, along with measures of political diversity, methods of seats allocation, and methods for graphically displaying results. The framework is provided by the R package <strong>SciencesPo</strong>–version 1.4.0–, but other packages are used to help with various tasks.
+</div>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#seat-apportionment-methods"><span class="toc-section-number">2</span> Seat Apportionment Methods</a><ul>
+<li><a href="#highest-averages-methods-of-allocating-seats-proportionally"><span class="toc-section-number">2.1</span> Highest Averages Methods of Allocating Seats Proportionally</a></li>
+<li><a href="#largest-remainder-methods-of-allocating-seats-proportionally"><span class="toc-section-number">2.2</span> Largest Remainder Methods of Allocating Seats Proportionally</a></li>
+<li><a href="#suitable-output-for-recycling-within-rmarkdown-documents"><span class="toc-section-number">2.3</span> Suitable output for recycling within RMarkdown documents</a></li>
+</ul></li>
+<li><a href="#measures-of-political-diversity"><span class="toc-section-number">3</span> Measures of Political Diversity</a></li>
+<li><a href="#measures-of-proportionality"><span class="toc-section-number">4</span> Measures of Proportionality</a><ul>
+<li><a href="#raes-proportionality-index"><span class="toc-section-number">4.1</span> Rae’s Proportionality Index</a></li>
+<li><a href="#loosemore-hanbys-proportionality-index"><span class="toc-section-number">4.2</span> Loosemore-Hanby’s Proportionality Index</a></li>
+<li><a href="#gallaghers-proportionality-index-least-squares-index"><span class="toc-section-number">4.3</span> Gallagher’s Proportionality Index (Least Squares Index)</a></li>
+<li><a href="#modified-gallagher-proportionality-index"><span class="toc-section-number">4.4</span> Modified Gallagher Proportionality Index</a></li>
+<li><a href="#roses-proportionality-index"><span class="toc-section-number">4.5</span> Rose’s Proportionality Index</a></li>
+<li><a href="#grofmans-proportionality-index"><span class="toc-section-number">4.6</span> Grofman’s Proportionality Index</a></li>
+<li><a href="#modified-grofmans-proportionality-index"><span class="toc-section-number">4.7</span> Modified Grofman’s Proportionality Index</a></li>
+<li><a href="#lijpharts-proportionality-index"><span class="toc-section-number">4.8</span> Lijphart’s Proportionality Index</a></li>
+<li><a href="#farinas-proportionality-index"><span class="toc-section-number">4.9</span> Farina’s Proportionality Index</a></li>
+<li><a href="#cox-shugarts-proportionality-measure"><span class="toc-section-number">4.10</span> Cox-Shugart’s Proportionality Measure</a></li>
+<li><a href="#sainte-lague-index"><span class="toc-section-number">4.11</span> Sainte-Laguë Index</a></li>
+<li><a href="#dhondt-jefferson-index"><span class="toc-section-number">4.12</span> D’Hondt (Jefferson) Index</a></li>
+<li><a href="#hamilton-index"><span class="toc-section-number">4.13</span> Hamilton Index</a></li>
+<li><a href="#gini-disproportionality-index"><span class="toc-section-number">4.14</span> Gini Disproportionality Index</a></li>
+<li><a href="#monroes-inequity-index"><span class="toc-section-number">4.15</span> Monroe’s Inequity Index</a></li>
+</ul></li>
+<li><a href="#measures-of-inequality-and-concentration"><span class="toc-section-number">5</span> Measures of Inequality and Concentration</a></li>
+<li><a href="#references"><span class="toc-section-number">6</span> References</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>This vignette describes a number of applications available in the R library <strong>SciencesPo</strong> for computing some of the most visible indices in the scholarship. These indices are important political abstractions because they provide grounding for categorizing units; therefore, making the way for causal comparision. Examples at the core of the discipline include measures of political concentration/fragmentation, political competition, and apportionment methods used to translate votes into seats.</p>
+<p>This document is structured as follows. Section 2 gives a technical overview of the function, formulas, and examples of seat apportionment methods. Section 3 illustrates the use of political diversity methods to obtain empirical statistics of a political system environment, such as the effective number of parties, the nationalization of political parties, and political competition. Section 4 provides examples of computing proportionality measures. Section 5 ends with inequality measures.</p>
+</div>
+<div id="seat-apportionment-methods" class="section level1">
+<h1><span class="header-section-number">2</span> Seat Apportionment Methods</h1>
+<p>Most democratic countries use apportionment methods to transform election results into whole numbers, which in turn indicate the number of seats that each party earns in a legislative body, administrative council, or committee. Which apportionment method does this best is not a trivial topic for mathematicians as well as for political scientists. Actually, several formulas have been proposed since the early time of representative assemblies. The following sections briefly present some of these allotment methods.</p>
+<div id="highest-averages-methods-of-allocating-seats-proportionally" class="section level2">
+<h2><span class="header-section-number">2.1</span> Highest Averages Methods of Allocating Seats Proportionally</h2>
+<p>Highest averages methods allocate seats proportionally to the number of votes by assigning seats in a way that assures the highest quotient by seat for each party. Other methods divide the votes by a mathematically derived quota, such as Droop and Hare quotas. In what follows are illustrative examples taken from Lijphart (1994) of the operation of some highest averages formulas in a six member district with four parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Table A.l</span>
+lijphart &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>=<span class="dv">41000</span>, <span class="st">&quot;B&quot;</span>=<span class="dv">29000</span>,<span class="st">&quot;C&quot;</span>=<span class="dv">17000</span>, <span class="st">&quot;D&quot;</span>=<span class="dv">13000</span>)</code></pre></div>
+<p>The basic imputs for this class of functions are: 1) a list of parties, 2) a list of positive votes, and 3) a constant value for the number of seats to be returned. A numeric value (0~1) for the threshold is optional.</p>
+<p>By default, the function prints the apportionment method being used, a snippet of the divisors used, the effective number of parties (or candidates) index for both before and after the seat allocation method takes place, and the least squares index–or Gallager index. The effective number of parties measured the before seat allocation is a measure of the party system fragmentation, once it deals with the effective number of parties at the electoral level, while the index computed after the seat allocation, the effective number of parliamentary parties. The Gallager index is an indication of the disproportionality and runs from 0 to 100. The higher the value, the higher the disproportionality of the election outcome.</p>
+<div id="dhondt" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> d’Hondt</h3>
+<p>Under the D’Hondt formula, seats are allocated using divisors of 1, 2, 3, 4, etc. Thus, suggesting that the divisors are simply one more than the number of seats that party already has.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;SciencesPo&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># The d'Hondt will give the same results as Jefferson's method</span>
+<span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                <span class="dt">votes=</span>lijphart,
+                <span class="dt">seats =</span> <span class="dv">6</span>, 
+                <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
+<pre><code>Method: d'Hondt 
+Divisors: 1 2 3 4 ... 
+ENP: 3.36 (After): 2.57 
+Gallagher Index:  11.6 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       3       50    
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       0        0    
+-------------------------</code></pre>
+<p>The d’Hondt is only one way of allocating seats in party list systems. Other methods include the Saint-Laguë, the modified Saint-Laguë, the Danish version, Imperiali (do not to confuse with the Imperiali quota, which is a Largest remainder method), Hungtinton-Hill, Webster, etc.</p>
+</div>
+<div id="saint-lague" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Saint-Laguë</h3>
+<p>Named after its founder, the pure Sainte-Laguë formula, also known as Schepers method, uses the odd-integer divisor series (1, 3, 5, 7, …) to elect candidates from political parties in approximate proportion as the proportion of votes won by the party. The outcome would be the same as the outcome produced by the Webster’s divisors method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The Sainte-Laguë will give the same results as the Webster's method (wb)</span>
+
+<span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+            <span class="dt">votes=</span>lijphart,
+                <span class="dt">seats =</span> <span class="dv">6</span>,
+                <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>) </code></pre></div>
+<pre><code>Method: Sainte-Laguë 
+Divisors: 1 3 5 7 ... 
+ENP: 3.36 (After): 3.6 
+Gallagher Index:  6.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       2      33.3   
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       1      16.7   
+-------------------------</code></pre>
+</div>
+<div id="modified-saint-lague" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Modified Saint-Laguë</h3>
+<p>The modified Sainte-Laguë use divisors of 1.4, 3, 5, 7, etc. How does the d’Hondt divisor compare to the Modified Sainte-Laguë one? Which divisor method tend to favor larger parties and which one smaller parties?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>,
+                <span class="dt">method =</span> <span class="st">&quot;msl&quot;</span>) </code></pre></div>
+<pre><code>Method: Modified Sainte-Laguë 
+Divisors: 1.4 3 5 7 ... 
+ENP: 3.36 (After): 3.6 
+Gallagher Index:  6.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       2      33.3   
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       1      16.7   
+-------------------------</code></pre>
+</div>
+<div id="danish" class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Danish</h3>
+<p>The Danish divisors (1, 4, 7, 10, …) increase so fast that large parties are quickly cut down, acting much to the benefit of smaller parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), 
+                <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, 
+                <span class="dt">method =</span> <span class="st">&quot;danish&quot;</span>) </code></pre></div>
+<pre><code>Method: Danish Sainte-Laguë 
+Divisors: 1 4 7 10 ... 
+ENP: 3.36 (After): 3.6 
+Gallagher Index:  6.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       2      33.3   
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       1      16.7   
+-------------------------</code></pre>
+</div>
+<div id="hungarian" class="section level3">
+<h3><span class="header-section-number">2.1.5</span> Hungarian</h3>
+<p>The Hungarian version of Sainte-Laguë uses divisors of (1.5, 3, 5, 7, 9, …) increase so fast that large parties are quickly cut down, acting much to the benefit of smaller parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, 
+                <span class="dt">method =</span> <span class="st">&quot;hsl&quot;</span>) </code></pre></div>
+<pre><code>Method: Hungarian Sainte-Laguë 
+Divisors: 1.5 3 5 7 ... 
+ENP: 3.36 (After): 3.6 
+Gallagher Index:  6.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       2      33.3   
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       1      16.7   
+-------------------------</code></pre>
+</div>
+<div id="webster" class="section level3">
+<h3><span class="header-section-number">2.1.6</span> Webster</h3>
+<p>This approach does not use a standard divisor either. It uses instead a different divisor and modified quota such that rounding with cut-off point at <em>algebraic</em> mean of lower and upper quotas: wb = <span class="math inline">\(\frac{L + (L + 1)}{2}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, 
+                <span class="dt">method =</span> <span class="st">&quot;wb&quot;</span>) </code></pre></div>
+<pre><code>Method: Webster 
+Divisors: 0.5 2.5 4.5 6.5 ... 
+ENP: 3.36 (After): 3.6 
+Gallagher Index:  6.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       2      33.3   
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       1      16.7   
+-------------------------</code></pre>
+</div>
+<div id="imperiali" class="section level3">
+<h3><span class="header-section-number">2.1.7</span> Imperiali</h3>
+<p>The Italian Imperiali divisor system has a slowly-increasing sequence (1, 1.5, 2, 2.5, 3, …), with 0.5 difference between consecutive divisors. This is tighter than the d’Hondt divisors for which this difference is 1. Like d’Hondt, the Imperiali system is designed to encourage coalitions and secure majority governments under a PR system, but the Imperiali will be the most favourable to large parties as they will gain many seats before their quotients are reduced below those of the smaller parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, 
+                <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>) </code></pre></div>
+<pre><code>Method: Imperiali 
+Divisors: 1 1.5 2 2.5 ... 
+ENP: 3.36 (After): 2.57 
+Gallagher Index:  11.6 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       3       50    
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       0        0    
+-------------------------</code></pre>
+<p>The Belgian municipal councils were elected by the Imperiali highest averages method. The following example comes from the 2006 election in Bruges, where 47 seats were upon.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Bruges=<span class="kw">c</span>(<span class="st">&quot;CD&amp;V/N-VA&quot;</span>=<span class="dv">32092</span>, <span class="st">&quot;SP.A/Spirit&quot;</span>=<span class="dv">20028</span>, 
+         <span class="st">&quot;Flemish Interest&quot;</span>=<span class="dv">13408</span>, <span class="st">&quot;Open VLD/Vivant&quot;</span>=<span class="dv">9520</span>,
+         <span class="st">&quot;Green!&quot;</span>=<span class="dv">5328</span>, <span class="st">&quot;Other&quot;</span>=<span class="dv">2207</span>)
+
+<span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Bruges),
+                <span class="dt">votes=</span>Bruges, 
+                <span class="dt">seats =</span> <span class="dv">47</span>,
+                <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>) </code></pre></div>
+<pre><code>Method: Imperiali 
+Divisors: 1 1.5 2 2.5 ... 
+ENP: 3.93 (After): 3.47 
+Gallagher Index:  3.78 
+ </code></pre>
+<pre><code>
+----------------------------------
+     Party        Seats   % Seats 
+---------------- ------- ---------
+   CD&amp;V/N-VA       20      42.6   
+
+  SP.A/Spirit      12      25.5   
+
+Flemish Interest    8       17    
+
+Open VLD/Vivant     5      10.6   
+
+     Green!         2       4.3   
+
+     Other          0        0    
+----------------------------------</code></pre>
+</div>
+<div id="hungtinton-hill" class="section level3">
+<h3><span class="header-section-number">2.1.8</span> Hungtinton-Hill</h3>
+<p>The method proposed by Joseph Hill and Edward Huntington does not use a standard divisor, but a different one and also a modified quota such that rounding with cut-off point at <em>geometric</em> mean: hh = <span class="math inline">\(\sqrt{L(L + 1)}\)</span>. This method makes sense only if every party is guaranteed at least one seat. It has been used for allotting seats in the US House of Representatives to the states.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                <span class="dt">votes=</span>lijphart, 
+                <span class="dt">seats =</span> <span class="dv">6</span>, <span class="dt">method =</span> <span class="st">&quot;hh&quot;</span>) </code></pre></div>
+<pre><code>Method: Hungtinton-Hill 
+Divisors: 0 1.41 2.45 3.46 ... 
+ENP: 3.36 (After): 3.6 
+Gallagher Index:  6.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   A       2      33.3   
+
+   B       2      33.3   
+
+   C       1      16.7   
+
+   D       1      16.7   
+-------------------------</code></pre>
+</div>
+<div id="using-thresholds" class="section level3">
+<h3><span class="header-section-number">2.1.9</span> Using Thresholds</h3>
+<p>Let’s assume that we have an election with 1,000 total voters in which five parties (A, B, C, D, and E) have gained 100 (10%), 150 (15%), 300 (30%), 400 (40%), and 50 (5%) votes, respectively. In this electoral constituency, there are 3 seats up for election, and all votes cast are valid. The electoral system has a 7% vote threshold, meaning that parties must get at least 7% of the total unspoiled votes cast in order to participate in the distribution of seats. Party <em>E</em> would then be elimiated from competition at the outset.</p>
+<p>If the d’Hondt method of seat allocation were employed in this hypothetical election, then party <em>C</em> would get 1 seat (or 33% of the number of seats), and party <em>D</em> 2 seats (or 67% of the seats).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">const &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>=<span class="dv">100</span>, <span class="st">&quot;B&quot;</span>=<span class="dv">150</span>,<span class="st">&quot;C&quot;</span>=<span class="dv">300</span>, <span class="st">&quot;D&quot;</span>=<span class="dv">400</span>, <span class="st">&quot;E&quot;</span>=<span class="dv">50</span>)
+
+<span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(const),
+                <span class="dt">votes=</span>const,
+                <span class="dt">seats =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>,
+                <span class="dt">threshold =</span> <span class="dv">7</span>/<span class="dv">100</span>) </code></pre></div>
+<pre><code>Method: d'Hondt 
+Divisors: 1 2 3 NA ... 
+ENP: 3.51 (After): 1.8 
+Gallagher Index:  55.1 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+   D       2      66.7   
+
+   C       1      33.3   
+
+   A       0        0    
+
+   B       0        0    
+
+   E       0        0    
+-------------------------</code></pre>
+<p>The following example is taken from the 2015 general elections in Spain. The region of Valencia returned 15 seats allocated using the D’Hondt method in a closed list PR system. Only lists that poll at least 3% of the total vote (which includes expoiled votes “en blanco”) can be considered.</p>
+<pre><code>     PP Podemos    PSOE     C's      IU   PACMA  Others 
+ 442005  395729  275680  221299   68759   14445   35943 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Valencia returned 15 members</span>
+<span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Valencia),
+                <span class="dt">votes=</span>Valencia, 
+                <span class="dt">seats=</span><span class="dv">15</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>,
+                <span class="dt">threshold =</span> <span class="dv">3</span>/<span class="dv">100</span>)</code></pre></div>
+<pre><code>Method: d'Hondt 
+Divisors: 1 2 3 4 ... 
+ENP: 4.37 (After): 3.57 
+Gallagher Index:  6.33 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+  PP       5      33.3   
+
+Podemos    5      33.3   
+
+ PSOE      3       20    
+
+  C's      2      13.3   
+
+  IU       0        0    
+
+Others     0        0    
+
+ PACMA     0        0    
+-------------------------</code></pre>
+<p>Next, the methods that divide the votes by a mathematically derived quota, such as the Droop quota, the Hare quota (or Hamilton/Vinton), and the Imperiali quota.</p>
+</div>
+</div>
+<div id="largest-remainder-methods-of-allocating-seats-proportionally" class="section level2">
+<h2><span class="header-section-number">2.2</span> Largest Remainder Methods of Allocating Seats Proportionally</h2>
+<p>Highest averages methods allocate seats proportionally to the number of votes by dividing the number of votes required for each party by a quota. The quota may vary because it is the result of dividing the number of unspoiled votes (<span class="math inline">\(v\)</span>) by some whole number close to the number of seats that would next be assigned (<span class="math inline">\(s\)</span>). In what follows are llustrative examples of the operation of some largest remainders formulas in an eight member district with the same four parties of the previous examples.</p>
+<div id="hare-quota" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Hare quota</h3>
+<p>The Hare quota is obtained by quota = <span class="math inline">\(\frac{v}{s}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">LargestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                  <span class="dt">votes=</span>lijphart, 
+                  <span class="dt">seats =</span> <span class="dv">8</span>, <span class="dt">method =</span> <span class="st">&quot;hare&quot;</span>) </code></pre></div>
+<pre><code>Warning in is.na(names(TABLE)): is.na() applied to non-(list or vector) of
+type 'NULL'</code></pre>
+<pre><code>Method: Hare 
+Divisors: 12500 NA NA NA ... 
+ENP: 3.36 (After): 4 
+Gallagher Index:  56.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+  NA       1       25    
+
+  NA       1       25    
+
+  NA       1       25    
+
+  NA       1       25    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+-------------------------</code></pre>
+</div>
+<div id="droop-quota" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Droop quota</h3>
+<p>The Droop quota is obtained by quota = <span class="math inline">\(\frac{v}{(s + 1)}+1\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">LargestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart), 
+                  <span class="dt">votes=</span>lijphart, 
+                  <span class="dt">seats =</span> <span class="dv">8</span>, <span class="dt">method =</span> <span class="st">&quot;droop&quot;</span>) </code></pre></div>
+<pre><code>Warning in is.na(names(TABLE)): is.na() applied to non-(list or vector) of
+type 'NULL'</code></pre>
+<pre><code>Method: Droop 
+Divisors: 11112.11 NA NA NA ... 
+ENP: 3.36 (After): 4 
+Gallagher Index:  56.75 
+ </code></pre>
+<pre><code>
+-------------------------
+ Party   Seats   % Seats 
+------- ------- ---------
+  NA       1       25    
+
+  NA       1       25    
+
+  NA       1       25    
+
+  NA       1       25    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+
+  NA       0        0    
+-------------------------</code></pre>
+</div>
+<div id="hagenbach-bischoff" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Hagenbach-Bischoff</h3>
+<p>The Hagenbach-Bischoff quota is obtained by <span class="math inline">\(\frac{v}{(s + 1)}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">LargestRemainders</span>(<span class="dt">parties=</span><span class="kw">names</span>(lijphart),
+                  <span class="dt">votes=</span>lijphart, 
+                  <span class="dt">seats =</span> <span class="dv">8</span>, <span class="dt">method =</span> <span class="st">&quot;hagb&quot;</span>) </code></pre></div>
+</div>
+<div id="imperiali-quota" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Imperiali quota</h3>
+<p>The Imperiali quota is obtained by <span class="math inline">\(\frac{v}{(s + 2)}\)</span>. For Italian elections during the 1950s, the quota used was a reinforced version of the quota: <span class="math inline">\(\frac{v}{(s + 3)}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The 1946 Italian Constituent Assembly election results: parties and unspoilt votes</span>
+
+Italy =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">party=</span><span class="kw">c</span>(<span class="st">&quot;DC&quot;</span>, <span class="st">&quot;PSIUP&quot;</span>, <span class="st">&quot;PCI&quot;</span>, <span class="st">&quot;UDN&quot;</span>, <span class="st">&quot;UQ&quot;</span>, <span class="st">&quot;PRI&quot;</span>,
+                            <span class="st">&quot;BNL&quot;</span>, <span class="st">&quot;PdA&quot;</span>, <span class="st">&quot;MIS&quot;</span>, <span class="st">&quot;PCd'I&quot;</span>, <span class="st">&quot;CDR&quot;</span>,
+                           <span class="st">&quot;PSd'Az&quot;</span>, <span class="st">&quot;MUI&quot;</span>, <span class="st">&quot;PCS&quot;</span>, <span class="st">&quot;PDL&quot;</span>, <span class="st">&quot;FDPR&quot;</span>),
+                   <span class="dt">votes=</span><span class="kw">c</span>(<span class="dv">8101004</span>, <span class="dv">4758129</span>, <span class="dv">4356686</span>, <span class="dv">1560638</span>,  <span class="dv">1211956</span>,
+                           <span class="dv">1003007</span>, <span class="dv">637328</span>, <span class="dv">334748</span>, <span class="dv">171201</span>, <span class="dv">102393</span>,
+                           <span class="dv">97690</span>, <span class="dv">78554</span>, <span class="dv">71021</span>, <span class="dv">51088</span>, <span class="dv">40633</span>, <span class="dv">21853</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Italy, <span class="kw">LargestRemainders</span>(<span class="dt">parties=</span>party,
+                              <span class="dt">votes=</span>votes, <span class="dt">seats =</span> <span class="dv">556</span>,
+                              <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>) )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Italy, <span class="kw">LargestRemainders</span>(<span class="dt">parties=</span>party,
+                              <span class="dt">votes=</span>votes, <span class="dt">seats =</span> <span class="dv">556</span>,
+                              <span class="dt">method =</span> <span class="st">&quot;imperiali.adj&quot;</span>) )</code></pre></div>
+</div>
+</div>
+<div id="suitable-output-for-recycling-within-rmarkdown-documents" class="section level2">
+<h2><span class="header-section-number">2.3</span> Suitable output for recycling within RMarkdown documents</h2>
+<p>The output produced by <code>HighestAverages()</code> and <code>LargestRemainders()</code> functions is of class <code>data.frame</code>, which R users are already familiar with and makes the process of using with other aplications very straightforward too. Let’s take the data from 2014 Brazilian legislative elections. I will look especifically at one electoral district–the state of Ceará–to compare how that caucus would look like if different apportionment methods were used with voters’ preference kept constant.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results for the state legislative house of Ceará (2014):</span>
+Ceara &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;PCdoB&quot;</span>=<span class="dv">187906</span>, <span class="st">&quot;PDT&quot;</span>=<span class="dv">326841</span>,<span class="st">&quot;PEN&quot;</span>=<span class="dv">132531</span>, <span class="st">&quot;PMDB&quot;</span>=<span class="dv">981096</span>,
+           <span class="st">&quot;PRB&quot;</span>=<span class="dv">2043217</span>,<span class="st">&quot;PSB&quot;</span>=<span class="dv">15061</span>, <span class="st">&quot;PSC&quot;</span>=<span class="dv">103679</span>, <span class="st">&quot;PSTU&quot;</span>=<span class="dv">109830</span>,
+           <span class="st">&quot;PTdoB&quot;</span>=<span class="dv">213988</span>, <span class="st">&quot;PTC&quot;</span>=<span class="dv">67145</span>, <span class="st">&quot;PTN&quot;</span>=<span class="dv">278267</span>)</code></pre></div>
+<p>Once the data is loaded, producing a table with seat apportionment results is effortless with packages like <strong>knitr</strong>, <strong>pander</strong>, <strong>gtable</strong>, <strong>xtable</strong>, etc. In the following, I demonstrate this using the <code>kable()</code> function from the <strong>knitr</strong> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mytable =<span class="st"> </span><span class="kw">HighestAverages</span>(<span class="dt">parties=</span><span class="kw">names</span>(Ceara), 
+                          <span class="dt">votes=</span>Ceara,
+                          <span class="dt">seats =</span> <span class="dv">42</span>, <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>) </code></pre></div>
+<pre><code>Method: d'Hondt 
+Divisors: 1 2 3 4 ... 
+ENP: 3.65 (After): 3.14 
+Gallagher Index:  47.01 
+ </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+
+<span class="kw">kable</span>(mytable, <span class="dt">align=</span><span class="kw">c</span>(<span class="st">&quot;l&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;c&quot;</span>), <span class="dt">caption=</span><span class="st">&quot;Outcome under d'Hondt&quot;</span>)</code></pre></div>
+<table>
+<caption>Outcome under d’Hondt</caption>
+<thead>
+<tr class="header">
+<th align="left">Party</th>
+<th align="center">Seats</th>
+<th align="center">% Seats</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PRB</td>
+<td align="center">21</td>
+<td align="center">50.0</td>
+</tr>
+<tr class="even">
+<td align="left">PMDB</td>
+<td align="center">10</td>
+<td align="center">23.8</td>
+</tr>
+<tr class="odd">
+<td align="left">PDT</td>
+<td align="center">3</td>
+<td align="center">7.1</td>
+</tr>
+<tr class="even">
+<td align="left">PTN</td>
+<td align="center">2</td>
+<td align="center">4.8</td>
+</tr>
+<tr class="odd">
+<td align="left">PTdoB</td>
+<td align="center">2</td>
+<td align="center">4.8</td>
+</tr>
+<tr class="even">
+<td align="left">PCdoB</td>
+<td align="center">1</td>
+<td align="center">2.4</td>
+</tr>
+<tr class="odd">
+<td align="left">PEN</td>
+<td align="center">1</td>
+<td align="center">2.4</td>
+</tr>
+<tr class="even">
+<td align="left">PSC</td>
+<td align="center">1</td>
+<td align="center">2.4</td>
+</tr>
+<tr class="odd">
+<td align="left">PSTU</td>
+<td align="center">1</td>
+<td align="center">2.4</td>
+</tr>
+<tr class="even">
+<td align="left">PSB</td>
+<td align="center">0</td>
+<td align="center">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">PTC</td>
+<td align="center">0</td>
+<td align="center">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>If you rather prefer to visualize the data using graphs, that’s fine. I’ve chosen a plot resembling a <em>Cleveland</em> dot plot (something between a bar and dot plot), with the line showing the size of the caucus and colors alluding to the colors of the Brazilian parties. The graph is made with the <strong>ggplot2</strong> library along with the <strong>SciencesPo</strong> theme <code>theme_fte</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg &lt;-<span class="st"> </span><span class="kw">ggplot</span>()
+gg &lt;-<span class="st"> </span>gg +<span class="st">  </span><span class="kw">geom_lollipop</span>(<span class="dt">data=</span>mytable, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(Party, Seats), <span class="dt">y =</span> Seats, <span class="dt">color =</span> Party), <span class="dt">point.size =</span> <span class="dv">3</span>)
+gg &lt;-<span class="st"> </span>gg +<span class="st"> </span><span class="kw">geom_label</span>(<span class="dt">data=</span>mytable, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(Party, Seats), <span class="dt">y =</span> Seats +<span class="st"> </span>.<span class="dv">5</span>, <span class="dt">label =</span> Seats), <span class="dt">hjust =</span> <span class="dv">0</span>) 
+gg &lt;-<span class="st">  </span>gg +<span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">25</span>))
+gg &lt;-<span class="st"> </span>gg +<span class="st"> </span><span class="kw">scale_color_party</span>(<span class="st">&quot;BRA&quot;</span>) +<span class="st"> </span><span class="kw">scale_fill_party</span>(<span class="st">&quot;BRA&quot;</span>)
+gg &lt;-<span class="st"> </span>gg +<span class="st"> </span><span class="kw">coord_flip</span>()
+gg &lt;-<span class="st">  </span>gg +<span class="st"> </span><span class="kw">labs</span>(<span class="kw">list</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Number of seats obtained&quot;</span>,
+            <span class="dt">title=</span><span class="st">&quot;The 2014 elections in the state of Ceará, </span><span class="ch">\n</span><span class="st"> seats won by party&quot;</span>))
+gg &lt;-<span class="st">  </span>gg +<span class="st"> </span><span class="kw">theme_fte</span>(<span class="dt">horizontal =</span> <span class="ot">FALSE</span>)
+gg &lt;-<span class="st">  </span>gg +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">panel.grid.major.y=</span><span class="kw">element_blank</span>()) 
+gg &lt;-<span class="st">  </span>gg +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) 
+gg</code></pre></div>
+<p>Next, I use the same example to make a plot comparing three highest-averages formulas. The plot is decorated with the <strong>SciencesPo</strong> theme <code>theme_fte</code> and color its scale colors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out1 =<span class="st"> </span><span class="kw">HighestAverages</span>(
+  <span class="dt">parties =</span> <span class="kw">names</span>(Ceara),
+  <span class="dt">votes =</span> Ceara,
+  <span class="dt">seats =</span> <span class="dv">42</span>,
+  <span class="dt">method =</span> <span class="st">&quot;dh&quot;</span>
+  )</code></pre></div>
+<pre><code>## Method: d'Hondt 
+## Divisors: 1 2 3 4 ... 
+## ENP: 3.65 (After): 3.14 
+## Gallagher Index:  47.01 
+## </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  out2 =<span class="st"> </span><span class="kw">HighestAverages</span>(
+  <span class="dt">parties =</span> <span class="kw">names</span>(Ceara),
+  <span class="dt">votes =</span> Ceara,
+  <span class="dt">seats =</span> <span class="dv">42</span>,
+  <span class="dt">method =</span> <span class="st">&quot;imperiali&quot;</span>
+  )</code></pre></div>
+<pre><code>## Method: Imperiali 
+## Divisors: 1 1.5 2 2.5 ... 
+## ENP: 3.65 (After): 2.48 
+## Gallagher Index:  52.15 
+## </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  out3 =<span class="st"> </span><span class="kw">HighestAverages</span>(
+  <span class="dt">parties =</span> <span class="kw">names</span>(Ceara),
+  <span class="dt">votes =</span> Ceara,
+  <span class="dt">seats =</span> <span class="dv">42</span>,
+  <span class="dt">method =</span> <span class="st">&quot;sl&quot;</span>
+  )</code></pre></div>
+<pre><code>## Method: Sainte-Laguë 
+## Divisors: 1 3 5 7 ... 
+## ENP: 3.65 (After): 3.74 
+## Gallagher Index:  43.99 
+## </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># add the method:</span>
+  out1$Method =<span class="st"> &quot;d'Hondt&quot;</span>
+  out2$Method =<span class="st"> &quot;Imperiali&quot;</span>
+  out3$Method =<span class="st"> &quot;Saint-Laguë&quot;</span>
+  
+  
+  data &lt;-<span class="st"> </span><span class="kw">rbind</span>(out1, out2, out3)
+  
+  p &lt;-<span class="st"> </span><span class="kw">ggplot</span>()
+  p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_bar</span>(
+  <span class="dt">data =</span> data,
+  <span class="kw">aes</span>(
+  <span class="dt">x =</span> <span class="kw">reorder</span>(Party, -Seats),
+  <span class="dt">y =</span> Seats,
+  <span class="dt">fill =</span> Method
+  ),
+  <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>,
+  <span class="dt">position =</span> <span class="kw">position_dodge</span>()
+  )
+  p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Seats&quot;</span>)
+  p &lt;-<span class="st"> </span>p  +<span class="st"> </span><span class="kw">scale_fill_pub</span>(<span class="st">&quot;fte&quot;</span>)
+  p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">theme_fte</span>(<span class="dt">legend =</span> <span class="st">&quot;top&quot;</span>, <span class="dt">base_size =</span> <span class="dv">10</span>)
+  p</code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="data:image/png;base64,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" alt="2014 Legislative Election in Ceará (M=42)" />
+<p class="caption">
+2014 Legislative Election in Ceará (M=42)
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#2014 Federal elections, 30 seats to be returned in the state of Parana, Brazil.</span>
+
+PR =<span class="st"> </span><span class="kw">c</span>(
+  <span class="st">&quot;PSDB/DEM/PR/PSC/PTdoB/PP/SD/PSD/PPS&quot;</span> =<span class="st"> </span><span class="dv">2601709</span>,
+  <span class="st">&quot;PT/PDT/PRB/PTN/PCdoB&quot;</span> =<span class="st"> </span><span class="dv">1109905</span>,
+  <span class="st">&quot;PSDC/PEN/PTB/PHS/PMN/PROS&quot;</span> =<span class="st"> </span><span class="dv">501148</span>,
+  <span class="st">&quot;PV/PPL&quot;</span> =<span class="st"> </span><span class="dv">280767</span>
+  )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2014</span> Federal elections, <span class="dv">70</span> seats to be returned in the state of Sao Paulo, Brazil.
+SP =<span class="st"> </span><span class="kw">c</span>(
+  <span class="st">&quot;PSDB/DEM/PPS&quot;</span> =<span class="st"> </span><span class="dv">5537630</span>,
+  <span class="st">&quot;PT/PCdoB&quot;</span> =<span class="st"> </span><span class="dv">3170003</span>,
+  <span class="st">&quot;PMDB/PROS/PP/PSD&quot;</span> =<span class="st"> </span><span class="dv">2384740</span>,
+  <span class="st">&quot;PSOL/PSTU&quot;</span> =<span class="st"> </span><span class="dv">462992</span>,
+  <span class="st">&quot;PSL/PTN/PMN/PTC/PTdoB&quot;</span> =<span class="st"> </span><span class="dv">350186</span>,
+  <span class="st">&quot;PHS/PRP&quot;</span> =<span class="st"> </span><span class="dv">252205</span>
+  )</code></pre></div>
+</div>
+</div>
+<div id="measures-of-political-diversity" class="section level1">
+<h1><span class="header-section-number">3</span> Measures of Political Diversity</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The 2004 presidential election in the US (vote share):</span>
+
+US2004 &lt;-<span class="st"> </span><span class="kw">c</span>(
+  <span class="st">&quot;Democratic&quot;</span> =<span class="st"> </span><span class="fl">0.481</span>,
+  <span class="st">&quot;Republican&quot;</span> =<span class="st"> </span><span class="fl">0.509</span>,
+  <span class="st">&quot;Independent&quot;</span> =<span class="st"> </span><span class="fl">0.0038</span>,
+  <span class="st">&quot;Libertarian&quot;</span> =<span class="st"> </span><span class="fl">0.0032</span>,
+  <span class="st">&quot;Constitution&quot;</span> =<span class="st"> </span><span class="fl">0.0012</span>,
+  <span class="st">&quot;Green&quot;</span> =<span class="st"> </span><span class="fl">0.00096</span>,
+  <span class="st">&quot;Others&quot;</span> =<span class="st"> </span><span class="fl">0.00084</span>
+  )
+
+<span class="kw">print</span>(US2004)</code></pre></div>
+<pre><code>  Democratic   Republican  Independent  Libertarian Constitution 
+     0.48100      0.50900      0.00380      0.00320      0.00120 
+       Green       Others 
+     0.00096      0.00084 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">PoliticalDiversity</span>(US2004); <span class="co"># ENEP (laakso/taagepera) method </span></code></pre></div>
+<pre><code>[1] 2.039</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">PoliticalDiversity</span>(US2004, <span class="dt">index=</span> <span class="st">&quot;golosov&quot;</span>);</code></pre></div>
+<pre><code>[1] 2.1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">PoliticalDiversity</span>(US2004, <span class="dt">index=</span> <span class="st">&quot;herfindahl&quot;</span>);</code></pre></div>
+<pre><code>[1] 0.51</code></pre>
+<p>Considers the following <code>data.frame</code> with electoral results for the 1999 election in Helsinki, the seats were allocated using both Saint-Laguë and D’Hondt methods so we can compare the effect of the allocation formulas on the effective number of parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Helsinki's 1999</span>
+
+Helsinki &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data.frame</span>(
+  <span class="dt">votes =</span> <span class="kw">c</span>(<span class="dv">68885</span>, <span class="dv">18343</span>, <span class="dv">86448</span>, <span class="dv">21982</span>, <span class="dv">51587</span>,
+            <span class="dv">27227</span>, <span class="dv">8482</span>, <span class="dv">7250</span>, <span class="dv">365</span>, <span class="dv">2734</span>, <span class="dv">1925</span>,
+            <span class="dv">475</span>, <span class="dv">1693</span>, <span class="dv">693</span>, <span class="dv">308</span>, <span class="dv">980</span>, <span class="dv">560</span>, <span class="dv">590</span>, <span class="dv">185</span>),
+  <span class="dt">seats.SL=</span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
+             <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),
+  <span class="dt">seats.dH=</span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
+             <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">PoliticalDiversity</span>(Helsinki$votes); <span class="co">#ENEP Votes</span></code></pre></div>
+<pre><code>[1] 5.453</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">PoliticalDiversity</span>(Helsinki$seats.SL); <span class="co">#ENP for Saint-Lague</span></code></pre></div>
+<pre><code>[1] 4.762</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">PoliticalDiversity</span>(Helsinki$seats.dH); <span class="co">#ENP for D'Hondt</span></code></pre></div>
+<pre><code>[1] 4.167</code></pre>
+</div>
+<div id="measures-of-proportionality" class="section level1">
+<h1><span class="header-section-number">4</span> Measures of Proportionality</h1>
+<p>What is electoral disproportionality? A perfectly proportional election is one that every party wins seats in exact proportion to its share of votes. That is, a party with 25% of the votes wins 25% of the seats, a party with 5% of the votes wins 5% of the seats, and so on. This condition hardily holds in reality. To measure and compare the level of disproportionality from this ideal there are quite a few mehtods one can use. However, which one measures it best is far from clear. One should consider, why larger party deviations should be potentiated while smaller ones attenuated, or vice-versa.</p>
+<p>How do we measure (dis)proportionality in practice? Let’s consider the following two real-data examples taken from the Wikipedia. These two sets of data refer to subnational elections, one from Queensland (Australia) and the other from Quebec (Canada).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 2012 Queensland state elecion:</span>
+Queensland &lt;-
+<span class="kw">data.frame</span>(
+<span class="dt">party =</span> <span class="kw">c</span>(<span class="st">&quot;LNP&quot;</span>, <span class="st">&quot;ALP&quot;</span>, <span class="st">&quot;Katter&quot;</span>, <span class="st">&quot;Greens&quot;</span>, <span class="st">&quot;Ind&quot;</span>, <span class="st">&quot;Others&quot;</span>),
+<span class="dt">votes =</span> <span class="kw">c</span>(<span class="dv">1214553</span>, <span class="dv">652092</span>, <span class="dv">282098</span>, <span class="dv">184147</span>, <span class="dv">77282</span>, <span class="dv">35794</span>),
+<span class="dt">pvotes =</span> <span class="kw">c</span>(<span class="fl">49.65</span>, <span class="fl">26.66</span>, <span class="fl">11.5</span>, <span class="fl">7.53</span>, <span class="fl">3.16</span>, <span class="fl">1.47</span>),
+<span class="dt">seats =</span> <span class="kw">c</span>(<span class="dv">78</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>),
+<span class="dt">pseats =</span> <span class="kw">c</span>(<span class="fl">87.64</span>, <span class="fl">7.87</span>, <span class="fl">2.25</span>, <span class="fl">0.00</span>, <span class="fl">2.25</span>, <span class="fl">0.00</span>)
+)
+
+Queensland</code></pre></div>
+<pre><code>##    party   votes pvotes seats pseats
+## 1    LNP 1214553  49.65    78  87.64
+## 2    ALP  652092  26.66     7   7.87
+## 3 Katter  282098  11.50     2   2.25
+## 4 Greens  184147   7.53     0   0.00
+## 5    Ind   77282   3.16     2   2.25
+## 6 Others   35794   1.47     0   0.00</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 2012 Quebec provincial election:</span>
+Quebec &lt;-
+<span class="st">  </span><span class="kw">data.frame</span>(
+  <span class="dt">party =</span> <span class="kw">c</span>(<span class="st">&quot;PQ&quot;</span>, <span class="st">&quot;Lib&quot;</span>, <span class="st">&quot;CAQ&quot;</span>, <span class="st">&quot;QS&quot;</span>, <span class="st">&quot;Option&quot;</span>, <span class="st">&quot;Other&quot;</span>),
+  <span class="dt">pvotes =</span> <span class="kw">c</span>(<span class="fl">31.95</span>, <span class="fl">31.20</span>, <span class="fl">27.05</span>, <span class="fl">6.03</span>, <span class="fl">1.89</span>, <span class="fl">1.88</span>),
+  <span class="dt">pseats =</span> <span class="kw">c</span>(<span class="dv">54</span>, <span class="dv">50</span>, <span class="dv">19</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>)
+  )
+
+Quebec</code></pre></div>
+<pre><code>##    party pvotes pseats
+## 1     PQ  31.95     54
+## 2    Lib  31.20     50
+## 3    CAQ  27.05     19
+## 4     QS   6.03      2
+## 5 Option   1.89      0
+## 6  Other   1.88      0</code></pre>
+<p>In recent years, most of the methods presented below were encompassed in a single function <code>Proportionality()</code>, and the original standalone function deprecated. Therefore, the way we can also compute proportionality measures became rather clean and easy.</p>
+<div id="raes-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.1</span> Rae’s Proportionality Index</h2>
+<p>The Rae’s proportionality score also known as RID (Rae index of disproportionality) is calculated as: the sum of the absolute differences |V - S| divided by the number of parties <span class="math inline">\((V_p &gt; 0.5 percent)\)</span>. It measures the average deviation per party.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Rae&quot;</span>) )</code></pre></div>
+<pre><code>
+Rae's Index :  0.127 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Rae&quot;</span>) )</code></pre></div>
+<pre><code>
+Rae's Index :  0.067 </code></pre>
+</div>
+<div id="loosemore-hanbys-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.2</span> Loosemore-Hanby’s Proportionality Index</h2>
+<p>The Loosemore-Hanby’s score (LHI) is calculated as: the half of the sum of the absolute differences |V - S|. It measures the (half) total deviation, and function as a measure of party total over-representation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Loosemore-Hanby&quot;</span>) )</code></pre></div>
+<pre><code>
+Loosemore-Hanby's Index :  0.38 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Loosemore-Hanby&quot;</span>) )</code></pre></div>
+<pre><code>
+Loosemore-Hanby's Index :  0.2 </code></pre>
+</div>
+<div id="gallaghers-proportionality-index-least-squares-index" class="section level2">
+<h2><span class="header-section-number">4.3</span> Gallagher’s Proportionality Index (Least Squares Index)</h2>
+<p>The Gallagher’s Index also known as the “Least Squares Index” is calculated as: sqrt(sum((V-S)^2)/2). It’s considered as a hybrid index between Rae’s and Loosemore-Hanby’s indices. It’s also used the inverted version this index, calculated as 1 - (sqrt(sum((V - S)^2)/2)).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Gallagher&quot;</span>) )</code></pre></div>
+<pre><code>
+Gallagher's Index :  0.311 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Gallagher&quot;</span>) )</code></pre></div>
+<pre><code>
+Gallagher's Index :  0.136 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## The inverted version
+<span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;inv.Gallagher&quot;</span>) )</code></pre></div>
+<pre><code>
+Gallagher's Index (inverted) :  0.864 </code></pre>
+</div>
+<div id="modified-gallagher-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.4</span> Modified Gallagher Proportionality Index</h2>
+<p>Koppel and Diskin (2009) set forth a modified version of the Gallagher score computed as: sqrt(sum((V* - S*)^{2})/2), where <span class="math inline">\(V*\)</span> is V/sum({V_i}<sup>2)</sup>{1/2}, and <span class="math inline">\(S*\)</span> is S/sum({S_i}<sup>{2})</sup>{1/2}.</p>
+<p>The inverted version can be obtained by subtracting 1 from the computed score.</p>
+</div>
+<div id="roses-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.5</span> Rose’s Proportionality Index</h2>
+<p>Rose’s proportionality index (RPI) is computed by the sum the absolute differences between the fraction of votes the parties received and their fraction of seats. A division by 2 is used to standardize values between 0 and 1, and a subtraction from 1 is used so that higher values correspond to smaller differences. The Rose’s Index is essentially the inverted version of the Loosemore-Hanby’s Index; thus, 1 - LHI = RPI.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Rose&quot;</span>) )</code></pre></div>
+<pre><code>
+Rose's Index :  0.62 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Rose&quot;</span>) )</code></pre></div>
+<pre><code>
+Rose's Index :  0.8 </code></pre>
+</div>
+<div id="grofmans-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.6</span> Grofman’s Proportionality Index</h2>
+<p>The Grofman index calculated as the sum the absolute differences between the fraction of the votes and seats for each political group. Then, a division by the effective number of parties is applied to make the measure less sensitive to peripherical parties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Grofman&quot;</span>) )</code></pre></div>
+<pre><code>
+Grofman's Index :  0.294 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Grofman&quot;</span>) )</code></pre></div>
+<pre><code>
+Grofman's Index :  0.074 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## The inverted version:
+<span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;inv.Grofman&quot;</span>) )</code></pre></div>
+<pre><code>
+Grofman's Index (inverted) :  0.074 </code></pre>
+</div>
+<div id="modified-grofmans-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.7</span> Modified Grofman’s Proportionality Index</h2>
+<p>I will write soon…</p>
+</div>
+<div id="lijpharts-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.8</span> Lijphart’s Proportionality Index</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Lijphart&quot;</span>) )</code></pre></div>
+<pre><code>
+Lijphart's Index :  0.38 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Lijphart&quot;</span>) )</code></pre></div>
+<pre><code>
+Lijphart's Index :  0.112 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## The inverted version:
+<span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;invlijphart&quot;</span>) )</code></pre></div>
+<pre><code>
+Lijphart's Index :  0.888 </code></pre>
+</div>
+<div id="farinas-proportionality-index" class="section level2">
+<h2><span class="header-section-number">4.9</span> Farina’s Proportionality Index</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Farina&quot;</span>) )</code></pre></div>
+<pre><code>
+Farina's Index :  0.456 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Farina&quot;</span>) )</code></pre></div>
+<pre><code>
+Farina's Index :  0.309 </code></pre>
+</div>
+<div id="cox-shugarts-proportionality-measure" class="section level2">
+<h2><span class="header-section-number">4.10</span> Cox-Shugart’s Proportionality Measure</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Cox-Shugart&quot;</span>) )</code></pre></div>
+<pre><code>
+Cox-Shugart Index :  -0.71 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Cox-Shugart&quot;</span>) )</code></pre></div>
+<pre><code>
+Cox-Shugart Index :  -0.254 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## The inverted version:
+<span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;inv.Cox-Shugart&quot;</span>) )</code></pre></div>
+<pre><code>
+Cox-Shugart Index (inverse) :  0.544 </code></pre>
+</div>
+<div id="sainte-lague-index" class="section level2">
+<h2><span class="header-section-number">4.11</span> Sainte-Laguë Index</h2>
+<p>Because Sainte-Laguë (Webster) is considered the least biased Divisor method, and immune to paradox, Gallagher (1991) recomends using Sainte-Laguë as the standard measure of disproportionality. This is measured as sum((V - S)^2/S), and the inverted version measured as sum((S - V)^2/V).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Sainte-Lague&quot;</span>) )</code></pre></div>
+<pre><code>
+Sainte-Lague's Index :  Inf </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;Sainte-Lague&quot;</span>) )</code></pre></div>
+<pre><code>
+Sainte-Lague's Index :  Inf </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;inv.Sainte-Lague&quot;</span>) )</code></pre></div>
+<pre><code>
+Sainte-Lague's Index (inverted) :  0.187 </code></pre>
+</div>
+<div id="dhondt-jefferson-index" class="section level2">
+<h2><span class="header-section-number">4.12</span> D’Hondt (Jefferson) Index</h2>
+<p>Another option of measuring party proportionality is to compute a D’Hondt score of proportionality to compare proportionality deviation from this standard measure.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Queensland, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;DHondt&quot;</span>) )</code></pre></div>
+<pre><code>
+D'Hondt Index :  1.764 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(Quebec, <span class="kw">Proportionality</span>(pvotes, pseats, 
+                     <span class="dt">index =</span> <span class="st">&quot;DHondt&quot;</span>) )</code></pre></div>
+<pre><code>
+D'Hondt Index :  1.352 </code></pre>
+</div>
+<div id="hamilton-index" class="section level2">
+<h2><span class="header-section-number">4.13</span> Hamilton Index</h2>
+<p>I will write soon…</p>
+</div>
+<div id="gini-disproportionality-index" class="section level2">
+<h2><span class="header-section-number">4.14</span> Gini Disproportionality Index</h2>
+<p>I will write soon…</p>
+</div>
+<div id="monroes-inequity-index" class="section level2">
+<h2><span class="header-section-number">4.15</span> Monroe’s Inequity Index</h2>
+<p>I will write soon…</p>
+</div>
+</div>
+<div id="measures-of-inequality-and-concentration" class="section level1">
+<h1><span class="header-section-number">5</span> Measures of Inequality and Concentration</h1>
+<p>I will write soon…</p>
+</div>
+<div id="references" class="section level1">
+<h1><span class="header-section-number">6</span> References</h1>
+<p>Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon, F. (Eds): <em>Handbook of Income Distribution.</em> Amsterdam.</p>
+<p>Benoit, Kenneth. (2000) <em>Which Electoral Formula is the Most Proportional? A New Look with New Evidence.</em> Political Analysis 8(4): 381-388.</p>
+<p>Blais, A., and L. Massicotte (1997) <em>Electoral Formulas: A Macroscopic Perspective</em>, European Journal of Political Research, 32, 107–129.</p>
+<p>Gallagher, Michael and Paul Mitchell (2005) <em>The Politics of Electoral Systems.</em> Oxford University Press.</p>
+<p>Gallagher, Michael (1992) <em>Comparing Proportional Representation Electoral Systems: Quotas, Thresholds, Paradoxes and Majorities.</em> British Journal of Political Science, 22, 4, 469-496.</p>
+<p>Gallagher, M. (1991) <em>Proportionality, disproportionality and electoral systems.</em> Electoral Studies 10(1):33-51.</p>
+<p>Golosov, Grigorii (2010) <em>The Effective Number of Parties: A New Approach.</em> Party Politics, 16: 171-192.</p>
+<p>Laakso, Markku and Rein Taagepera (1979) <em>Effective Number of Parties: A Measure with Application to West Europe.</em> Comparative Political Studies, 12: 3-27.</p>
+<p>Lijphart, Arend (1994) <em>Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990.</em> Oxford University Press.</p>
+<p>Koppel, M. and Diskin, A. (2009) <em>Measuring disproportionality, volatility and malapportionment: axiomatization and solutions.</em> Social Choice and Welfare 33(2):281-6.</p>
+<p>Mackie, T. T. and Rose, R. (1991) <em>The International Almanac of Electoral History</em>. Macmillan, Basingstoke.</p>
+<p>Monroe, B. L. (1994) <em>Disproportionality and Malapportionment: Measuring Electoral Inequity.</em> Electoral Studies 13, 132–49.</p>
+<p>Nicolau, Jairo (2008) <em>Sistemas Eleitorais.</em> Rio de Janeiro, FGV.</p>
+<p>Norris, Pippa (1997) <em>Choosing electoral systems: proportional, majoritarian and mixed systems.</em></p>
+<p>Rae, D. (1967) <em>The Political Consequences of Electoral Laws.</em> London: Yale University Press.</p>
+<p>Taagepera, R., and B. Grofman (2003) <em>Mapping the indices of seats-votes disproportionality and inter-election volatility.</em> Party Politics 9, 6: 659-77.</p>
+<p>Taagepera, Rein and Matthew S. Shugart (1989) <em>Seats and Votes: The Effects and Determinants of Electoral Systems.</em> New Haven: Yale University Press.</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

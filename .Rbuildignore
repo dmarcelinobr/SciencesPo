@@ -7,6 +7,7 @@ tests/old
 ^\.Rprofile$
 ^\.png$
 ^\.travis\.yml$
+^\.texpadtmp$
 cran-comments.md
 Rlogo.png
 SciencesPo_logo.png
@@ -16,6 +17,9 @@ hist.kdnc.png
 sample.power.png
 stream.plot.png
 voronoi.png
+ScPo-logo.png
+ScPo-logo.xcf
+SciencesPo.pdf
 Cross-Tabulation.Rmd
 Designs.Rmd
 Normality.Rmd

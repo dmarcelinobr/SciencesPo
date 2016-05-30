@@ -22,7 +22,7 @@ Atkinson(x, n = rep(1, length(x)), base = NULL, na.rm = FALSE, ...)
 \item{\dots}{additional arguements (currently ignored)}
 }
 \description{
-Calculates the Atkinson index A. This inequality measure is espcially good at determining which end of the distribution is contributing most to the observed inequality.
+Calculates the Atkinson index A. This inequality measure is especially good at determining which end of the distribution is contributing most to the observed inequality.
 }
 \examples{
 if (interactive()) {

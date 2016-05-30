@@ -71,8 +71,8 @@
   n <- length(x)
   mat <- as.matrix(x)
   if(method=="range"){
-  min_attr <- apply(mat, 2, min)
-  max_attr <- apply(mat, 2, max)
+  min_attr <- apply(mat, 2, Min)
+  max_attr <- apply(mat, 2, Max)
   mat <- sweep(mat, 2, min_attr, FUN="-")
   ans <- sweep(mat, 2,  max_attr-min_attr, "/")
   attr(ans, 'normalized:min') = min_attr

@@ -307,6 +307,7 @@ NULL
 #' qplot(1:10, (1:10)^2, color="green") + theme_darkside()
 #' # Check that it is a complete theme
 #' attr(theme_darkside(), "complete")
+#'
 #' @export
 theme_darkside = function(font_size = 12, font_family = "serif", legend="none") {
   theme_bw(base_size = font_size) +
