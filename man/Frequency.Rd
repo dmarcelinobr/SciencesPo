@@ -7,11 +7,11 @@
 \alias{Frequency.default}
 \title{Frequency Table}
 \usage{
-Frequency(.data, x, verbose = TRUE, ...)
+Frequency(.data, x = NULL, verbose = TRUE, ...)
 
-\method{Frequency}{default}(.data, x, verbose = TRUE, ...)
+\method{Frequency}{default}(.data, x = NULL, verbose = TRUE, ...)
 
-Freq(.data, x, verbose = TRUE, ...)
+Freq(.data, x = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{.data}{The data.frame.}
@@ -35,6 +35,6 @@ cathedrals \%>\% Frequency(Height)
 
 }
 \seealso{
-\code{\link{freq}}, \code{\link{crosstable}}.
+\code{\link{freq}}, \code{\link{Crosstable}}.
 }
 

@@ -23,8 +23,8 @@ freq(x, weighs = NULL, breaks = graphics::hist(x, plot = FALSE)$breaks,
 \item{breaks}{one of: 1) a vector giving the breakpoints between histogram
 cells; 2) a function to compute the vector of breakpoints; 3) a single
 number giving the number of cells for the histogram; 4) a character string
- naming an algorithm to compute the number of cells (see 'Details'); 5) a
-  function to compute the number of cells.}
+naming an algorithm to compute the number of cells (see 'Details'); 5) a
+function to compute the number of cells.}
 
 \item{digits}{The number of significant digits required.}
 
@@ -52,6 +52,6 @@ freq(presheights$winner.party)
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \seealso{
-\code{\link{Frequency}}, \code{\link{crosstable}}.
+\code{\link{Frequency}}, \code{\link{Crosstable}}.
 }
 

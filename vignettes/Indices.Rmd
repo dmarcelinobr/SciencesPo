@@ -295,6 +295,16 @@ title = "The 2014 elections in the state of Ceará, seats won by party"))
 gg <-  gg + theme_fte(base_size = 10)
 gg
 
+# gg <- gg + geom_segment(aes(x=week_start, xend=week_start, y=0, yend=outbreaks, color=flock_total), size=0.5)
+# gg <- gg + geom_point(aes(size=flock_total, fill=flock_total), shape=21)
+
+# library(waffle)
+# sum(x)
+#waffle(x/5, rows=5)
+# charts that represent percentage plots.
+#x1 <- (100*x)/sum(x)
+#x1
+#waffle(x1, rows=5)
 ```
 
 
@@ -420,11 +430,18 @@ PoliticalDiversity(US2004); # ENEP (laakso/taagepera) method
 ```
 
 ```{r politicalDiversity3, echo=TRUE, message=FALSE, comment=NA}
+
 PoliticalDiversity(US2004, index= "golosov");
 ```
 
+The Herfindahl-Hirschman Index (HDI) is a well established tool to assess the degree of competition in a market (or, the closeness to a monopolistic market structure), with low values indicating a high degree of competition and, conversely, higher values betraying closeness to a monopoly. In this sense, it has been used by  political scientists as a mesure of political competition. In fact, the more common version is the inverted HDI (or 1 - HDI).  
+
 ```{r politicalDiversity4, echo=TRUE, message=FALSE, comment=NA}
-PoliticalDiversity(US2004, index= "herfindahl");
+
+PoliticalDiversity(US2004, index= "inv.herfindahl");
+
+# Compares to:
+Herfindahl(US2004)
 ```
 
 
@@ -677,8 +694,8 @@ with(Quebec, Proportionality(pvotes, pseats,
 
 ## Sainte-Laguë Index
 
-Because Sainte-Laguë (Webster) is considered the least biased Divisor method, and immune to paradox, Gallagher (1991) recommends using Sainte-Laguë as the standard measure of disproportionality.
-This is measured as sum((V - S)^2/S), and the inverted version measured as sum((S - V)^2/V).
+The Sainte-Laguë index is a measure of disproportionality that is minimized by Sainte-Laguë (Webster). The index is smiply the sum of, over all parties (or other distinct groups), $((V_i - S_i)^{2} / V_i)$, where $V_i$ is the share of votes for party (or group) $i$, and $S_i$ is its share of seats. If there were as many seats as voters, then $V_i - S_i$ would be 0 and $0/x$ is 0 for any $x != 0$, so in the case of perfect proportionality, this index is 0.
+Because Sainte-Laguë (Webster) is considered the least biased Divisor method, and immune to paradox, Gallagher (1991) recommends using Sainte-Laguë as the standard measure of disproportionality. The inverted version of this index is also very common $((S_i - V_i)^{2}/V_i)$.
 
 $$SL - Index =\sum_{i=1}^{n}\, \frac{1}{v_i}\,(v_i - s_i)^{2} = \sum_{i=1}^{n}\,{v_i}(1 - \frac{s_i}{v_i})^{2}$$
 
@@ -721,15 +738,22 @@ I will write soon...
 I will write soon... 
 
 
-$$Index = \sqrt{ \frac{\sum(v_i - s_i)^{2}}{1 + \sum(v_i/100)^{2}} }$$
+$$Index = \sqrt{ \frac{\sum(v_i - s_i)^{2}}{1 +\sum(v_i/100)^{2}} }$$
 
 
 # Measures of Inequality and Concentration
+
 
 ## Gini Index
 
 I will write soon... 
 
+
+## Atkinson's Index
+
+$$Index = 1 - \bigg[ \frac{1}{N}\sum_{i=1}^{N}\:\bigg(\frac{y_i}{y}\bigg)^{1-e}\:\bigg]^\frac{1}{(1-e)}$$, for $\epsilon \neq 1$
+
+$$Index = {\displaystyle 1 - \frac{\prod_{i=1}^{N}\big(y_i^{(1/N)}\big)}{\bar{y}} }$$, for $\epsilon = 1$
 
 # R Session Details  
 ```{r echo=FALSE, message=FALSE, comment=NA}

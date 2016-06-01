@@ -33,16 +33,19 @@ This section introduces the basics of **SciencesPo** for conducting customary an
 install.packages("SciencesPo", dependencies = c("Depends", "Suggests"))
 ```
 
-## Loading and Unloading *SciencesPo*
+## Loading and unloading *SciencesPo*
+
 ```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
-library("SciencesPo")
+library('SciencesPo') 
 
 ## Do things ... 
 
-unloadNamespace("SciencesPo")
+detach('package:SciencesPo', unload = TRUE)
 ```
 
-Whenever you load the package, it will setup its own environment, including plotting themes, summary table styles, etc. Hence, some objects may be printed or plotted differently as you would have seen before loading **SciencesPo**. The package is also operator (`%>%`) friendly, so many functions will work as expected in a chain like.
+If you load it via `loadNamespace('SciencesPo')`, you can call `unloadNamespace('SciencesPo')`.
+
+Whenever you load the package, it will setup its own environment, including plotting themes, summary table styles, etc. Thus, some objects may be printed or plotted differently as you would have seen before loading **SciencesPo**. Also, the package is also operator (`%>%`) friendly, so much of the functions will work as expected in a chain like.
 
 ## Vignette and dataset lists
 To see a list of existing vignettes, type: 
@@ -53,6 +56,7 @@ vignette(package = "SciencesPo")
 ```
 
 To see the collection of data included in the package, type:
+
 ```{r echo=TRUE, message=FALSE, comment=NA}
 data(package = "SciencesPo")
 ```
@@ -69,15 +73,16 @@ The next example searches inside all R related sites for that "string", and open
 ```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
 RSiteSearch("D'Hondt") 
 ```
-
                                    
-# Exploratory data functions
-In this section, a samll selection of functions for conducting exploratory analysis is presented.
+
+s# Exploratory data functions
+
+In this section, a samll selection of functions for conducting exploratory data analysis (EDA) is presented.
 
 ## Frequency tables and cross-tables
 There is a specific document covering one-way, two-way, and multiway cross-tabulations with accompanying independent tests, so the following examples will only introduce the topic. 
 
-To describe an entire data.frame, one can simply call the `Describe` function, which will produce a summary description table with the following features: variable names, labels, factor levels, and frequencies or summary statistics. For small datasets, the output can be used as the "table one" descriptive statistics in a data analysis publication report.
+To describe an entire data.frame, there is the `Describe` function, which will produce a summary description table with the following features: variable names, labels, factor levels, and frequencies or summary statistics. For small datasets, the output can be used as the "table one" descriptive statistics in a data analysis publication report.
 
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
@@ -985,5 +990,6 @@ show_col(pub_color_pal("bivariate4")(9))
 
 # Session Info
 ```{r, echo=FALSE, message=FALSE, comment=NA}
-print(sessionInfo())
+print(sessionInfo(), locale=FALSE)
+# library(help='SciencesPo')
 ```

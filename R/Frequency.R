@@ -6,10 +6,10 @@
 #' @param x A vector of values for which the frequency is desired.
 #' @param weighs A vector of weights.
 #' @param breaks one of: 1) a vector giving the breakpoints between histogram
-#'  cells; 2) a function to compute the vector of breakpoints; 3) a single
-#'  number giving the number of cells for the histogram; 4) a character string
-#'   naming an algorithm to compute the number of cells (see 'Details'); 5) a
-#'    function to compute the number of cells.
+#' cells; 2) a function to compute the vector of breakpoints; 3) a single
+#' number giving the number of cells for the histogram; 4) a character string
+#' naming an algorithm to compute the number of cells (see 'Details'); 5) a
+#' function to compute the number of cells.
 #' @param digits The number of significant digits required.
 #' @param include.lowest Logical; if \code{TRUE}, an x[i] equal to the breaks value will be included in the first (or last) category or bin.
 #' @param order The order method.
@@ -19,7 +19,7 @@
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{Frequency}}, \code{\link{crosstable}}.
+#' @seealso \code{\link{Frequency}}, \code{\link{Crosstable}}.
 #'
 #' @examples
 #' data(presheights)
@@ -128,7 +128,7 @@ NULL
 #' @param verbose A logical value, if \code{TRUE}, extra statistics are also provided.
 #' @param \dots Additional arguements (currently ignored)
 #'
-#' @seealso \code{\link{freq}}, \code{\link{crosstable}}.
+#' @seealso \code{\link{freq}}, \code{\link{Crosstable}}.
 #'
 #' @examples
 #' data(cathedrals)
@@ -143,13 +143,13 @@ NULL
 #' @aliases Freq
 #' @export
 `Frequency` <-
-  function(.data, x, verbose = TRUE, ...)
+  function(.data, x=NULL, verbose = TRUE, ...)
     UseMethod("Frequency")
 
 
 #' @rdname Frequency
 #' @export
-`Frequency.default` <- function(.data, x, verbose = TRUE, ...) {
+`Frequency.default` <- function(.data, x=NULL, verbose = TRUE, ...) {
   vec <- eval(substitute(x), .data, parent.frame())
   nmiss = sum(is.na(vec))
   fsum = summary(factor(vec))
@@ -214,6 +214,7 @@ NULL
   cat("\n")
 }#--end of Freq
 NULL
+
 
 #' @export
 #' @rdname Frequency

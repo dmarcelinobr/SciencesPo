@@ -11,7 +11,7 @@
 
 <meta name="author" content="Daniel Marcelino" />
 
-<meta name="date" content="2016-05-30" />
+<meta name="date" content="2016-06-01" />
 
 <title>Introduction to the SciencesPo Package</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title">Introduction to the SciencesPo Package</h1>
 <h4 class="author"><em>Daniel Marcelino</em></h4>
-<h4 class="date"><em>2016-05-30</em></h4>
+<h4 class="date"><em>2016-06-01</em></h4>
 
 </div>
 
@@ -138,9 +138,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;SciencesPo&quot;</span>, <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">&quot;Depends&quot;</span>, <span class="st">&quot;Suggests&quot;</span>))</code></pre></div>
 <div id="loading-and-unloading-sciencespo" class="section level2">
 <h2><span class="header-section-number">2.1</span> Loading and Unloading <em>SciencesPo</em></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;SciencesPo&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">'SciencesPo'</span>) 
 
+<span class="co"># or you call </span>
+<span class="kw">loadNamespace</span>(<span class="st">&quot;SciencesPo&quot;</span>)
+
+ If you attached the package via <span class="kw">library</span>(<span class="st">'SciencesPo'</span>) before, or <span class="kw">unloadNamespace</span>(<span class="st">'SciencesPo'</span>) if you loaded it via <span class="kw">loadNamespace</span>(<span class="st">'SciencesPo'</span>).
+ 
+ 
 ## Do things ... 
+
+<span class="kw">detach</span>(<span class="st">'package:printr'</span>, <span class="dt">unload =</span> <span class="ot">TRUE</span>)
 
 <span class="kw">unloadNamespace</span>(<span class="st">&quot;SciencesPo&quot;</span>)</code></pre></div>
 <p>Whenever you load the package, it will setup its own environment, including plotting themes, summary table styles, etc. Hence, some objects may be printed or plotted differently as you would have seen before loading <strong>SciencesPo</strong>. The package is also operator (<code>%&gt;%</code>) friendly, so many functions will work as expected in a chain like.</p>
@@ -1062,9 +1070,6 @@ p +<span class="st"> </span><span class="kw">annotate</span>(<span class="dt">ge
 Platform: x86_64-apple-darwin14.5.0 (64-bit)
 Running under: OS X 10.10.5 (Yosemite)
 
-locale:
-[1] C/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
@@ -1078,10 +1083,9 @@ loaded via a namespace (and not attached):
 [13] yaml_2.1.13      parallel_3.2.4   withr_1.0.1      stringr_1.0.0   
 [17] dplyr_0.4.3.9000 roxygen2_5.0.1   devtools_1.10.0  grid_3.2.4      
 [21] data.table_1.9.6 R6_2.1.2         rmarkdown_0.9.5  pander_0.6.0    
-[25] magrittr_1.5     codetools_0.2-14 htmltools_0.3.5  assertthat_0.1  
-[29] mime_0.4         xtable_1.8-2     colorspace_1.2-6 httpuv_1.3.3    
-[33] labeling_0.3     stringi_1.0-1    lazyeval_0.1.10  munsell_0.4.3   
-[37] chron_2.3-47    </code></pre>
+[25] magrittr_1.5     htmltools_0.3.5  assertthat_0.1   mime_0.4        
+[29] xtable_1.8-2     colorspace_1.2-6 httpuv_1.3.3     labeling_0.3    
+[33] stringi_1.0-1    lazyeval_0.1.10  munsell_0.4.3    chron_2.3-47    </code></pre>
 </div>
 
 

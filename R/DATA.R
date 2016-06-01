@@ -694,24 +694,6 @@ NULL
 
 
 
-#' @encoding UTF-8
-#' @title Measurement System Units
-#'
-#' @description An internal dataset with measurement system units to be used by a converter function.
-#'
-#' \itemize{
-#' \item from A character defining the original unit.
-#' \item to A character defining the target unit.
-#' \item factor The factor to be applied in conversion.
-#' \item description Some details about the measure.
-#' }
-#' @docType data
-#' @keywords datasets
-#' @name units
-#' @usage data(units)
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::units)} variables and \Sexpr{nrow(SciencesPo::units)} observations.
-#'
-NULL
 
 
 

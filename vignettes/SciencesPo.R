@@ -2,9 +2,17 @@
 #  install.packages("SciencesPo", dependencies = c("Depends", "Suggests"))
 
 ## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
-#  library("SciencesPo")
+#  library('SciencesPo')
+#  
+#  # or you call
+#  loadNamespace("SciencesPo")
+#  
+#   If you attached the package via library('SciencesPo') before, or unloadNamespace('SciencesPo') if you loaded it via loadNamespace('SciencesPo').
+#  
 #  
 #  ## Do things ...
+#  
+#  detach('package:printr', unload = TRUE)
 #  
 #  unloadNamespace("SciencesPo")
 
@@ -513,24 +521,6 @@ mytheme2$text
 #    draw_plot(plot.iris, 0, .7, .7, .35 ) +
 #    draw_plot(plot.iris, .45, .0, .6, .3 )
 
-## ----echo=FALSE, message=FALSE, comment=NA, fig.height=3.5, fig.width=5, cache=TRUE----
-
-theme_set(theme_pub())
-
-data(presheights)
-# Generating a ratio winner/opponent measure 
-presheights = transform(presheights, 
-                       height_ratio = winner.height/opponent.height) 
-
-
-p <- ggplot(presheights, aes(x=height_ratio, y=winner.vote)) +
-      geom_smooth(method=lm, colour="red", fill="gold")+
-      geom_point(size = 5, alpha = .7) +
-      xlim(0.85,1.2) + ylim(25, 70) +
-      xlab("Winner/Opponent Height Ratio") + 
-      ylab("Relative Support for the Winner")
-p
-
 ## ----eval=FALSE, echo=TRUE, fig.height=3.5, fig.width=5,  message=FALSE, comment=NA----
 #  theme_set(theme_pub())
 #  # Avoiding missing data:
@@ -606,5 +596,6 @@ show_col(pub_color_pal("bivariate3")(9))
 show_col(pub_color_pal("bivariate4")(9))
 
 ## ---- echo=FALSE, message=FALSE, comment=NA------------------------------
-print(sessionInfo())
+print(sessionInfo(), locale=FALSE)
+# library(help='SciencesPo')
 

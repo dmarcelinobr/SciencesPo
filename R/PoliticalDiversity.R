@@ -130,7 +130,7 @@
           "lsq",
           "enc",
           "enp",
-          "herfindahl",
+          "inv.herfindahl",
           "gini",
           "simpson",
           "invsimpson",
@@ -154,7 +154,7 @@
       idx <- apply(x, margin, sum, na.rm = TRUE)
     else
       idx <- sum(x, na.rm = TRUE)
-    if (index == "simpson" || index == "herfindahl")
+    if (index == "simpson" || index == "inv.herfindahl")
       idx <- 1 - idx
     else if (index == "laakso/taagepera" ||
              index == "invsimpson" ||  index == "enc" || index == "enp")
