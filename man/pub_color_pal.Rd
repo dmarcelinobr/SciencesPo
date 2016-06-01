@@ -4,10 +4,12 @@
 \alias{pub_color_pal}
 \title{Color Palettes for Publication (discrete)}
 \usage{
-pub_color_pal(palette = "pub12")
+pub_color_pal(palette = "pub12", hex = TRUE)
 }
 \arguments{
 \item{palette}{the palette name, a character string.}
+
+\item{hex}{logical, if \code{TRUE}, the hex code is returned.}
 }
 \description{
 Color palettes for publication-quality graphs. See details.
@@ -26,19 +28,17 @@ The following palettes are available:
 }
 }
 \examples{
-library(scales)
-library(ggplot2)
 
-show_col(pub_color_pal("pub12")(12))
-show_col(pub_color_pal("gray5")(6), labels = FALSE)
-show_col(pub_color_pal("carnival")(4))
-show_col(pub_color_pal("gdocs")(18))
-show_col(pub_color_pal("tableau20")(20))
-show_col(pub_color_pal("tableau10")(10))
-show_col(pub_color_pal("tableau10medium")(10))
-show_col(pub_color_pal("tableau10light")(10))
-show_col(pub_color_pal("cyclic")(20))
-show_col(pub_color_pal("bivariate1")(9))
+pub_color_pal("pub12")
+pub_color_pal("gray5", hex=FALSE)
+pub_color_pal("carnival")
+pub_color_pal("gdocs")
+pub_color_pal("tableau20")
+pub_color_pal("tableau10")
+pub_color_pal("tableau10medium")
+pub_color_pal("tableau10light")
+pub_color_pal("cyclic")
+pub_color_pal("bivariate1")
 
 }
 

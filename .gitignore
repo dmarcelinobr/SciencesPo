@@ -7,5 +7,6 @@ tests/old
 .DS_Store
 .Rprofile
 .Rapp.history
+.lintr
 packrat/src/
 

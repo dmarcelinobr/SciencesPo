@@ -44,13 +44,13 @@ from their root mean square.}
 \examples{
 
 x <- sample(10)
-Normalize(x)
+(y = Normalize(x) )
 
 # equivalently to
 (x-min(x))/(max(x)-min(x))
 
 # Smithson and Verkuilen approach
-Normalize(x, method="SV")
+(y = Normalize(x, method="SV") )
 
 # look at what happens to the correlation of two independent variables and their "interaction"
 # With non-centered interactions:

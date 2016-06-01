@@ -26,10 +26,7 @@ Imports:
     rstudioapi,
     htmltools,
     xtable,
-    stringr,
     shiny,
-    lazyeval,
-    dplyr,
     plyr
 Suggests:
     testthat,

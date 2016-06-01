@@ -21,12 +21,6 @@
 #'
 #' @seealso \code{\link{Frequency}}, \code{\link{Crosstable}}.
 #'
-#' @examples
-#' data(presheights)
-#'
-#' freq(presheights$winner.party)
-#'
-#'
 #' @rdname freq
 #' @export
 `freq` <-

@@ -41,13 +41,6 @@ function to compute the number of cells.}
 \description{
 Creates a frequency table or data frame.
 }
-\examples{
-data(presheights)
-
-freq(presheights$winner.party)
-
-
-}
 \author{
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }

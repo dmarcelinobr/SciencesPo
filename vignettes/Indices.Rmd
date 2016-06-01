@@ -281,7 +281,7 @@ kable(mytable, align=c("l","c","c"), caption="Outcome under d'Hondt")
 
 If you rather prefer to visualize data using graphs, that's fine. I've chosen a bar plot with colors alluding to the parties' identification colors. The graph is made with **ggplot2** library along with the **SciencesPo** theme `theme_fte`, which mimics the colors used in the <http://fivethirtyeight.com>.
 
-```{r  highestAverages12, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center"}
+```{r  highestAverages12, eval=FALSE, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center"}
 
 gg <- ggplot()
 gg <- gg +  geom_bar( data = mytable, aes(x = reorder(Party, -Seats), y = Seats, fill = Party), stat = "identity", alpha=.9)
@@ -310,7 +310,7 @@ gg
 
 Next, I use the same example above to make a plot comparing three highest-averages formulas, D'Hondt, Imperiali, and Saint-Laguë. I've chosen a plot resembling a *Cleveland* dot plot (something between a bar and dot plot), and the **SciencesPo** theme.  
 
-```{r largestRemainders6, eval=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
+```{r largestRemainders6, eval=FALSE, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
 
 out1 = HighestAverages(
   parties = names(Ceara),
@@ -754,6 +754,11 @@ I will write soon...
 $$Index = 1 - \bigg[ \frac{1}{N}\sum_{i=1}^{N}\:\bigg(\frac{y_i}{y}\bigg)^{1-e}\:\bigg]^\frac{1}{(1-e)}$$, for $\epsilon \neq 1$
 
 $$Index = {\displaystyle 1 - \frac{\prod_{i=1}^{N}\big(y_i^{(1/N)}\big)}{\bar{y}} }$$, for $\epsilon = 1$
+
+## Herfindahl's Index
+
+
+## Rosenbluth's Index
 
 # R Session Details  
 ```{r echo=FALSE, message=FALSE, comment=NA}

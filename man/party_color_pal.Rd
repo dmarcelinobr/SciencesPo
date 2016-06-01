@@ -4,28 +4,27 @@
 \alias{party_color_pal}
 \title{Political Parties Color Palette (Discrete) and Scales}
 \usage{
-party_color_pal(palette = "BRA")
+party_color_pal(palette = "BRA", hex = FALSE)
 }
 \arguments{
 \item{palette}{the palette name, a character string.}
+
+\item{hex}{logical, if \code{FALSE}, the associated color name (label) is returned.}
 }
 \description{
 An N-color discrete palette for political parties.
 }
 \examples{
-library(scales)
-library(ggplot2)
-
-show_col(party_color_pal("BRA")(20))
+party_color_pal("BRA")
 
 # Argentine
-show_col(party_color_pal("ARG")(10))
+party_color_pal("ARG")
 
 # US
-show_col(party_color_pal("USA")(4))
+party_color_pal("USA")
 
 # Canada
-show_col(party_color_pal("CAN")(10))
+party_color_pal("CAN")
 
 }
 \seealso{

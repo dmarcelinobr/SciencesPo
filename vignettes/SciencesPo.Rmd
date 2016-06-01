@@ -84,7 +84,8 @@ s# Exploratory data functions
 In this section, a samll selection of functions for conducting exploratory data analysis (EDA) is presented.
 
 ## Frequency tables and cross-tables
-There is a specific document covering one-way, two-way, and multiway cross-tabulations with accompanying independent tests, so the following examples will only introduce the topic. 
+There is a specific  [document](cran.r-project.org/web/packages/SciencesPo/vignettes/)
+ covering one-way, two-way, and multiway cross-tabulations with accompanying independent tests, so the following examples will only introduce the topic. 
 
 To describe an entire data.frame, there is the `Describe` function, which will produce a summary description table with the following features: variable names, labels, factor levels, and frequencies or summary statistics. For small datasets, the output can be used as the "table one" descriptive statistics in a data analysis publication report.
 
@@ -145,12 +146,11 @@ To demonstrate the output of these functions, below are the US presidents and th
 require("SciencesPo")
 
 data(stature)
-
-attach(stature)
 ```
 
 
-```{r eval=FALSE, echo=TRUE, message=FALSE, cache=TRUE}
+```{r echo=TRUE, message=FALSE, cache=TRUE, comment=NA}
+attach(stature)
 
 CI(winner.height, level=.95) # confidence interval
 
@@ -165,8 +165,8 @@ SE(winner.height) # std. error
 ## Computing Skewness and Kurtosis of Data
 These functions perform three types of skewness and kurtosis assessment to conform with the **e1071** package:
 
-```{r eval=FALSE, echo=TRUE, message=FALSE}
-require("SciencesPo")
+```{r echo=TRUE, message=FALSE, comment=NA}
+attach(stature)
 
 # Type 1:
 Skewness(winner.height, type = 1)
@@ -186,14 +186,18 @@ Kurtosis(winner.height)
 
 ## Computing the Average Absolute Deviation
 
-```{r eval=FALSE, echo=TRUE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA}
+attach(stature)
+
 AAD(winner.height) 
 
 ```
 
 ## Computing Winsorized Means
 
-```{r echo=TRUE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA}
+attach(stature)
+
 Winsorize(winner.height)
 
 # replacing 35 outlier elements we get same stature values: 
@@ -232,9 +236,28 @@ prcomp(alpha)
 
 # Data Manipulation
 
+## Unity-based normalization
+
+```{r echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+x <- sample(10)
+
+# won't print normalized values by default, only to an object 
+(y = Normalize(x) )
+
+# equivalently to:
+ (x-min(x))/(max(x)-min(x))
+```
+
+
+```{r echo=FALSE, message=FALSE, comment=NA}
+# Smithson and Verkuilen approach
+(y = Normalize(x, method="SV"))
+```
+
+
 ## Anonymize data containing identifiable information
 
-```{r echo=FALSE, message=FALSE}
+```{r echo=FALSE, message=FALSE, comment=NA}
 
  dt <- data.frame(
  Z = sample(LETTERS,5),
@@ -334,8 +357,7 @@ alphas <- cbind(1:4, 1, 4:1);
 rdirichlet(4, alphas );
 ```
 
-Consider the following pratical example of its usage:
-A Brazilian face-to-face poll by Datafolha conducted on Oct 03-04 (2014) with 18,116 insterviews asking for their vote preference among  presidential candidates.
+Consider the following example of usage: A Brazilian face-to-face poll conducted by Datafolha on Oct 03-04 (2014) with 18,116 insterviews, asked voters for their vote preference among presidential candidates.
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 # draw a sample from the posterior
@@ -343,26 +365,33 @@ set.seed(1234);
 n <- 18116;
 poll <- c(40,24,22,5,5,4) / 100 * n; # The data
 mcmc <- 10000;
-sim <- rdirichlet(mcmc, alpha = poll + 1);
+sims <- rdirichlet(mcmc, alpha = poll + 1);
 ```
 
-After obtained 10,000 simulated values, we look at the margins of Aecio over Marina in the very last days of the campaign:
+Let's see a descriptive summary of the simulated data:
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+Describe(sims)
+```
+
+After obtained 10,000 simulated values, we look at the margins as of Aecio over Marina in the very last days of the campaign:
+
 ```{r echo=TRUE, message=FALSE, comment=NA}
 # compute the margins: Aecio minus Marina
-margins <- sim[,2] - sim[,3];
+margins <- sims[,2] - sims[,3];
 
 # What is the mean of the margins
 # posterior mean estimate:
-mean(margins); 
+Mean(margins); 
 
 # posterior standard deviation:
-sd(margins); 
+SD(margins); 
 
 # 90% credible interval:
 quantile(margins, probs = c(0.025, 0.975)); 
 
 # posterior probability of a positive margin (Aécio over Marina):
-mean(margins > 0); 
+Mean(margins > 0); 
 
 ```
 
@@ -428,26 +457,35 @@ binomcdf(n = trials, p = prob, x = success)
 
 # Political Behavior Measures
 
+There is a specific vignette for [Indices](cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html), covering in great detail many of the political behaviour indices. 
+
 ## Measures of Political Diversity
 
-```{r politicalDiversity1, echo=TRUE, message=FALSE}
-library("SciencesPo")
+Let's consider the 1980's US presidential election (vote share) to compute the effective number of electoral parties (ENEP).
 
-# The 1980 presidential election in the US (vote share):
+```{r US-election, echo=FALSE, message=FALSE, comment=NA}
 
-(US1980 <- c("Democratic"=0.410, "Republican"=0.507,
+US1980 <- c("Democratic"=0.410, "Republican"=0.507,
               "Independent"=0.066, "Libertarian"=0.011,
-              "Citizens"=0.003, "Others"=0.003));
+              "Citizens"=0.003, "Others"=0.003);
+```
 
-PoliticalDiversity(US1980); # ENEP (laakso/taagepera) method 
 
-PoliticalDiversity(US1980, index= "golosov");
+```{r echo=FALSE, message=FALSE, comment=NA}
+US1980
+```
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+
+PoliticalDiversity(US1980, index = "laakso/taagepera");
+
+PoliticalDiversity(US1980, index = "golosov");
 
 ```
 
-Considers the following `data.frame` with electoral results for the 1999 election in Helsinki, the seats were allocated using both the Saint-Laguë and the D'Hondt methods: 
+Considers the following `data.frame` with electoral results for the 1999 election in Helsinki, the seats were allocated using both Saint-Laguë and  D'Hondt methods: 
 
-```{r Helsinki-election, echo=TRUE, message=FALSE}
+```{r Helsinki-election, echo=FALSE, message=FALSE, comment=NA}
 # Helsinki's 1999
 
 Helsinki <- data.frame(
@@ -458,16 +496,62 @@ Helsinki <- data.frame(
             0, 0, 0, 0, 0),
  seats.dH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
            0, 0, 0, 0, 0))
+
+print(Helsinki)
 ```
 
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
-# politicalDiversity(Helsinki$votes); #ENEP Votes
+# ENEP defaults (laakso/taagepera) method 
 
-PoliticalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague
+with(Helsinki, PoliticalDiversity(votes)); #ENEP Votes
 
-PoliticalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
+with(Helsinki, PoliticalDiversity(seats.SL)); #ENP for Saint-Lague
+
+with(Helsinki, PoliticalDiversity(seats.dH)); #ENP for D'Hondt
 ```
+
+
+## Proportionality Measures
+
+Let's use the 2012 Quebec provincial election:
+
+```{r Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+# 2012 Quebec provincial election:
+Quebec <-
+  data.frame(
+  party = c("PQ", "Lib", "CAQ", "QS", "Option", "Green", "Others"),
+  votes = c(1393703, 1360968, 1180235, 263111, 82539, 43394, 38738),
+  pvotes = c(31.95, 31.20, 27.05, 6.03, 1.89, 0.99, 0.89),
+  seats = c(54, 50, 19, 2, 0, 0, 0),
+  pseats =  c(43.2, 40, 15.2, 1.6, 0, 0, 0)
+  )
+
+Quebec
+```
+
+### Rae's proportionality index 
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+
+with(Quebec, Proportionality(pvotes, pseats, 
+                     index = "Rae") )
+```
+
+### Loosemore-Hanby's Proportionality Index
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+with(Quebec, Proportionality(pvotes, pseats, 
+                     index = "Loosemore-Hanby") )
+```                    
+
+### Gallagher's proportionality index 
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+
+with(Quebec, Proportionality(pvotes, pseats, 
+                     index = "Gallagher") )
+```                    
 
 ## Highest Averages Methods of Allocating Seats Proportionally
 
@@ -542,33 +626,55 @@ kable(mytable, align=c("l","c","c"))
 
 
 
-```{r echo=TRUE, message=FALSE, fig.width=4.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
+```{r echo=TRUE, message=FALSE, fig.width=3.5, fig.height=4, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"}
 
 mytable = HighestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 
 p <- ggplot(mytable, aes(x=reorder(Party, Seats), y=Seats)) + 
-  geom_bar(position="dodge", stat = "identity") +
-  coord_flip() + labs(x="", y="# Seats")
-p + theme_grey() 
+  geom_lollipop() + coord_flip() + labs(x="", y="# Seats")
+p + theme_538() + theme(panel.grid.major.y = element_blank())
 ```
 
-## Proportionality Measures
 
-### Rae's proportionality index 
+## Measures of inequality and concentration
 
-### 's proportionality index 
+### Lorenz curve
 
-### Grofman's proportionality index 
+```{r echo=FALSE, message=FALSE, comment=NA}
+x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 
-### Cox-Shugart's proportionality measure 
+# compute weight values
+wgt <- runif(n=length(x))
 
-### 
+# compute the lorenz with especific weights
+Lorenz(x, wgt)
+```
+
+
+### Gini Index
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
+
+wgt <- runif(n=length(x))
+
+Gini(x, wgt)
+```
+
+
+### Atkinson's Index
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
+
+Atkinson(x, epsilon = 0.5)
+```
 
 
 # Plot Themes & Colors
 
-**SciencesPo** brings in few themes and color palettes to enhance  **ggplot2** graphs or visualize the output of statistical models, but there are specialized packages like **ggthemes**, **cowplot**, and **** that can make graph decoration a lot easier.
+The **SciencesPo** brings in few themes and color palettes to enhance  **ggplot2** graphs, but there are specialized packages like **ggthemes**, **cowplot**, and **** that can make graph decoration a lot easier.
 
 The default **ggplot2** design has its charm, in my opinion. But, very often I don't like the gray background grid, particularly when I'm preparing academic papers because I feel it distracts from the data. For example, see this **ggplot2** visualization of the following plot:
 
@@ -730,7 +836,6 @@ grid.draw(legend_mod)
 ```
 
 
-
 I rather prefer a clean layout for publication. Starting with simple layouts is better because we can add things as we need rather than taking them away. Thus, by default, the `theme_pub` prints a plot without background and minor grid lines. Also, if a legend is needed, it will appear underneath of the plot rather than on the right side.
 
 ```{r eval=TRUE}
@@ -770,7 +875,6 @@ prefs <- theme(axis.text = element_text(size=14, colour=NULL))
 
 qplot(1:3, 1:3) + prefs
 ```
-
 
 
 ```{r echo=FALSE, message=FALSE}
@@ -832,24 +936,11 @@ ggdraw() +
 ```
 
 
-The functions `background_grid()` and `panel_border()` are convenience functions defined by **SciencesPo** to save some typing when manipulating the background grid and panel border. 
-
-```{r eval=FALSE, echo=FALSE, message=FALSE, fig.width=7, fig.height=5}
-# Of course, we can also go crazy:
-ggdraw() +
-  #geom_rect(data = boxes, aes(xmin = x, xmax = x + .15, ymin = y, ymax = y + .15),
-  #          colour = "gray60", fill = "red", alpha=.03) +
-  geom_path(data = spiral, aes(x = x, y = y, colour = t), size = 6, alpha = .4) +
-  draw_plot(plot.mpg, .3, .3, .4, .4) +
-  draw_plot(plot.iris, 0, .7, .7, .35 ) +
-  draw_plot(plot.iris, .45, .0, .6, .3 )
-```
-
 ### Annotations underneath plots
 
 The functions `lm2eqn()` and `geom_foot()` can be of handy value for adding extra text information to a `ggplot2` object. To demonstrate its use, we need first to draw a plot: 
 
-```{r echo=FALSE, message=FALSE, comment=NA, fig.height=3.5, fig.width=5, cache=TRUE}
+```{r echo=TRUE, message=FALSE, comment=NA, ache=TRUE}
 
 theme_set(theme_pub())
 
@@ -857,7 +948,6 @@ data(stature)
 # Generating a ratio winner/opponent measure 
 heights = transform(stature, 
                        height_ratio = winner.height/opponent.height) 
-
 
 p <- ggplot(heights, aes(x=height_ratio, y=winner.vote)) +
       geom_smooth(method=lm, colour="red", fill="gold")+
@@ -870,7 +960,7 @@ p
 
 Next, we add the linear equation results and source or credits as footnote. Did you notice them?
 
-```{r eval=FALSE, echo=TRUE, fig.height=4, fig.width=5.5,  message=FALSE, comment=NA,}
+```{r eval=FALSE, echo=TRUE, fig.align="center", fig.height=5, fig.width=7,  message=FALSE, comment=NA}
 theme_set(theme_pub())
 # Avoiding missing data:
 heights <- subset(heights, !is.na(height_ratio))
@@ -915,71 +1005,71 @@ The following scales help passing manual values to scale colors for ggplot2 obje
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
 library("scales", quietly = TRUE)
 
-show_col(pub_color_pal("pub12")(12))
+pub_color_pal("pub12")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
-show_col(pub_color_pal("gray5")(6))
+pub_color_pal("gray5")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("carnival")(5))
+pub_color_pal("carnival")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("fte")(5))
+pub_color_pal("fte")
 ```
 
 
 ```{r echo=TRUE, fig.width=5.5, fig.height=4.5}
-show_col(pub_color_pal("manyeyes")(20))
+pub_color_pal("manyeyes")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("tableau20")(5))
+pub_color_pal("tableau20")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("tableau10")(10))
+pub_color_pal("tableau10")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("tableau10medium")(10))
+pub_color_pal("tableau10medium")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("tableau10light")(10))
+pub_color_pal("tableau10light")
 ```
 
 
 ```{r echo=TRUE, fig.width=5.5, fig.height=4.5}
-show_col(pub_color_pal("cyclic")(20))
+pub_color_pal("cyclic")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("purplegray12")(12))
+pub_color_pal("purplegray12")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("greenorange12")(12))
+pub_color_pal("greenorange12")
 ```
 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("bluered12")(12))
+pub_color_pal("bluered12")
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r eval=FALSE, echo=TRUE, fig.width=4.5, fig.height=4.5}
 show_col(party_color_pal("BRA")(10))
 ```
 
@@ -990,23 +1080,23 @@ show_col(party_color_pal("BRA")(10))
 ### Bivariate scales 
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
-show_col(pub_color_pal("trafficlight")(9))
+pub_color_pal("trafficlight")
 ```
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
-show_col(pub_color_pal("bivariate1")(9))
+pub_color_pal("bivariate1")
 ```
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
-show_col(pub_color_pal("bivariate2")(9))
+pub_color_pal("bivariate2")
 ```
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
-show_col(pub_color_pal("bivariate3")(9))
+pub_color_pal("bivariate3")
 ```
 
 ```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
-show_col(pub_color_pal("bivariate4")(9))
+pub_color_pal("bivariate4")
 ```
 
 
