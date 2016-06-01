@@ -517,9 +517,9 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name presheights
-#' @usage data(presheights)
-#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::presheights)} variables and \Sexpr{nrow(SciencesPo::presheights)} observations.
+#' @name stature
+#' @usage data(stature)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::stature)} variables and \Sexpr{nrow(SciencesPo::stature)} observations.
 NULL
 
 
