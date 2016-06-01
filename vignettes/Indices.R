@@ -145,51 +145,51 @@ kable(mytable, align=c("l","c","c"), caption="Outcome under d'Hondt")
 #  #x1
 #  #waffle(x1, rows=5)
 
-## ----largestRemainders6, eval=FALSE, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
-#  
-#  out1 = HighestAverages(
-#    parties = names(Ceara),
-#    votes = Ceara,
-#    seats = 42,
-#    method = "dh"
-#    )
-#    out2 = HighestAverages(
-#    parties = names(Ceara),
-#    votes = Ceara,
-#    seats = 42,
-#    method = "imperiali"
-#    )
-#    out3 = HighestAverages(
-#    parties = names(Ceara),
-#    votes = Ceara,
-#    seats = 42,
-#    method = "sl"
-#    )
-#  
-#    # add the method:
-#    out1$Method = "d'Hondt"
-#    out2$Method = "Imperiali"
-#    out3$Method = "Saint-Laguë"
-#  
-#  
-#    data <- rbind(out1, out2, out3)
-#  
-#    p <- ggplot()
-#    p <- p + geom_bar(
-#    data = data,
-#    aes(
-#    x = reorder(Party, -Seats),
-#    y = Seats,
-#    fill = Method
-#    ),
-#    stat = "identity",
-#    position = position_dodge()
-#    )
-#    p <- p + labs(x = "", y = "# Seats obtained")
-#    p <- p  + scale_fill_pub("fte")
-#    p <- p + theme_fte(legend = "top", base_size = 10)
-#    p
-#  
+## ----largestRemainders6, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
+
+out1 = HighestAverages(
+  parties = names(Ceara),
+  votes = Ceara,
+  seats = 42,
+  method = "dh"
+  )
+  out2 = HighestAverages(
+  parties = names(Ceara),
+  votes = Ceara,
+  seats = 42,
+  method = "imperiali"
+  )
+  out3 = HighestAverages(
+  parties = names(Ceara),
+  votes = Ceara,
+  seats = 42,
+  method = "sl"
+  )
+  
+  # add the method:
+  out1$Method = "d'Hondt"
+  out2$Method = "Imperiali"
+  out3$Method = "Saint-Laguë"
+  
+  
+  data <- rbind(out1, out2, out3)
+  
+  p <- ggplot()
+  p <- p + geom_bar(
+  data = data,
+  aes(
+  x = reorder(Party, -Seats),
+  y = Seats,
+  fill = Method
+  ), 
+  stat = "identity",
+  position = position_dodge()
+  )
+  p <- p + labs(x = "", y = "# Seats obtained")
+  p <- p  + scale_fill_pub("fte")
+  p <- p + theme_fte(legend = "top", base_size = 10)
+  p
+  
 
 ## ----eval=FALSE, echo=FALSE, message=FALSE, comment=NA, fig.width=6, fig.height=3.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
 #  

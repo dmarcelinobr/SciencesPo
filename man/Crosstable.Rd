@@ -14,13 +14,15 @@ Crosstable(..., digits = 2, chisq = FALSE, fisher = FALSE,
   deparse.level = 2)
 }
 \arguments{
-\item{digits}{the number of digits required, default is 2.}
+\item{digits}{number of digits after the decimal point.}
 
-\item{chisq}{logical, if \code{TRUE}, chisq test details is returned.}
+\item{chisq}{if \code{TRUE}, the results of a chi-square test will be shown below the table.}
 
-\item{fisher}{logical, if \code{TRUE}, fisher test details is returned.}
+\item{fisher}{if \code{TRUE}, the results of a Fisher Exact test will be shown below the table.}
 
-\item{latex}{if the output is to be printed as latex.}
+\item{mcnemar}{if \code{TRUE}, the results of a McNemar test will be shown below the table.}
+
+\item{latex}{if the output is to be printed in latex format.}
 
 \item{alt}{the alternative hypothesis and must be one of "two.sided",
 "greater" or "less". Only used in the 2 by 2 case.}
@@ -64,6 +66,8 @@ with(data, Crosstable(poured, guess, fisher=TRUE, alt="greater")) # fisher=TRUE
 \seealso{
 \code{\link[stats]{xtabs}}, \code{\link{Frequency}},
 \code{\link[base]{table}}, \code{\link[base]{prop.table}}
+
+Other Crosstables: \code{\link{summary.Crosstable}}
 }
 \keyword{Exploratory}
 

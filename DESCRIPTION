@@ -79,6 +79,7 @@ Collate:
     'Untable.R'
     'Voronoi.R'
     'Winsorize.R'
+    'flag.R'
     'print.SciencesPo.R'
     'zTree.R'
     'zzz.R'

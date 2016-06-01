@@ -47,22 +47,6 @@ with(titanic, Crosstable(SEX, SURVIVED, fisher=TRUE) )
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 with(titanic, Crosstable(SEX, CLASS, SURVIVED, chisq = TRUE))
 
-## ----echo=TRUE, message=FALSE, cache=TRUE--------------------------------
-require("SciencesPo")
-
-data(stature)
-
-## ----echo=TRUE, message=FALSE, cache=TRUE, comment=NA--------------------
-attach(stature)
-
-CI(winner.height, level=.95) # confidence interval
-
-CI(winner.height, level=.95)@mean # get only the mean 
-
-CI(opponent.height, level=.95, na.rm = TRUE) # confidence interval
-
-SE(winner.height) # std. error
-
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 attach(stature)
 
@@ -616,61 +600,63 @@ p
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
 library("scales", quietly = TRUE)
 
-pub_color_pal("pub12")
+show_col(pub_color_pal("pub12")(12))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
-pub_color_pal("gray5")
+show_col(pub_color_pal("gray5")(6), labels = FALSE)
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("carnival")
+show_col(pub_color_pal("carnival")(4))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("fte")
+show_col(pub_color_pal("fte")(4))
 
 ## ----echo=TRUE, fig.width=5.5, fig.height=4.5----------------------------
-pub_color_pal("manyeyes")
+show_col(pub_color_pal("manyeyes")(20))
+
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("tableau20")
+show_col(pub_color_pal("tableau20")(20))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("tableau10")
+show_col(pub_color_pal("tableau10")(10))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("tableau10medium")
+show_col(pub_color_pal("tableau10medium")(10))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("tableau10light")
+ show_col(pub_color_pal("tableau10light")(10))
 
 ## ----echo=TRUE, fig.width=5.5, fig.height=4.5----------------------------
-pub_color_pal("cyclic")
+show_col(pub_color_pal("cyclic")(20))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("purplegray12")
+show_col(pub_color_pal("purplegray12")(12))
+
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("greenorange12")
+show_col(pub_color_pal("greenorange12")(12))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=4.5----------------------------
-pub_color_pal("bluered12")
+show_col(pub_color_pal("bluered12")(12))
 
 ## ----eval=FALSE, echo=TRUE, fig.width=4.5, fig.height=4.5----------------
-#  show_col(party_color_pal("BRA")(10))
+#  party_color_pal("BRA")
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
-pub_color_pal("trafficlight")
+show_col(pub_color_pal("trafficlight")(9))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
-pub_color_pal("bivariate1")
+show_col(pub_color_pal("bivariate1")(9))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
-pub_color_pal("bivariate2")
+show_col(pub_color_pal("bivariate2")(9))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
-pub_color_pal("bivariate3")
+show_col(pub_color_pal("bivariate3")(9))
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
-pub_color_pal("bivariate4")
+show_col(pub_color_pal("bivariate4")(9))
 
 ## ---- echo=FALSE, message=FALSE, comment=NA------------------------------
 print(sessionInfo(), locale=FALSE)

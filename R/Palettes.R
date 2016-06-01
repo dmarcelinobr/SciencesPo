@@ -346,11 +346,11 @@ Palettes <- {
   )
 
   x$party$CAN <- c(
-    `Lib` = rgb(255,0,0, max = 255),
-    `Con` = rgb(65,105,225, max = 255),
-    `NPD` = rgb(255, 140, 0, max = 255),
-    `Bloc` = rgb(0,191,255, max = 255),
-    `Green` = rgb(0,255,0, max = 255)
+    Lib = rgb(255,0,0, max = 255),
+    Con = rgb(65,105,225, max = 255),
+    NPD = rgb(255, 140, 0, max = 255),
+    Bloc = rgb(0,191,255, max = 255),
+    Green = rgb(0,255,0, max = 255)
   )
 
   x$party$USA <- c(
@@ -386,7 +386,6 @@ NULL
 #' @description Color palettes for publication-quality graphs. See details.
 #' @inheritParams ggplot2::scale_colour_hue
 #' @param palette the palette name, a character string.
-#' @param hex logical, if \code{TRUE}, the hex code is returned.
 #'
 #' @details The following palettes are available:
 #' \itemize{
@@ -400,20 +399,22 @@ NULL
 #'  \item {"fte"}{fivethirtyeight.com color scales}
 #' }
 #' @examples
+#' library(scales)
+#' library(ggplot2)
 #'
-#' pub_color_pal("pub12")
-#' pub_color_pal("gray5", hex=FALSE)
-#' pub_color_pal("carnival")
-#' pub_color_pal("gdocs")
-#' pub_color_pal("tableau20")
-#' pub_color_pal("tableau10")
-#' pub_color_pal("tableau10medium")
-#' pub_color_pal("tableau10light")
-#' pub_color_pal("cyclic")
-#' pub_color_pal("bivariate1")
+#' show_col(pub_color_pal("pub12")(12))
+#' show_col(pub_color_pal("gray5")(6), labels = FALSE)
+#' show_col(pub_color_pal("carnival")(4))
+#' show_col(pub_color_pal("gdocs")(18))
+#' show_col(pub_color_pal("tableau20")(20))
+#' show_col(pub_color_pal("tableau10")(10))
+#' show_col(pub_color_pal("tableau10medium")(10))
+#' show_col(pub_color_pal("tableau10light")(10))
+#' show_col(pub_color_pal("cyclic")(20))
+#' show_col(pub_color_pal("bivariate1")(9))
 #'
 #' @export
-`pub_color_pal` <- function(palette = "pub12", hex=TRUE) {
+`pub_color_pal` <- function(palette = "pub12") {
   pal.list <- Palettes$pub$colors
   if (!palette %in% c(
     names(pal.list), "pub12", "gray5", "tableau10", "tableau20", "tableau10medium", "tableau10light", "manyeyes", "fte", "greenorange12", "cyclic", "purplegray12", "bluered12", "bivariate1", "bivariate2", "bivariate3", "bivariate4" )) {
@@ -432,30 +433,8 @@ NULL
   } else {
     types <- pal.list[[palette]]
   }
-  # hexs
-  colors <- unname(types)[seq_len(length(types))]
-  # names
-  color_names <- names(types)[seq_len(length(types))]
-
-  ## functions internal to scales::show_col()
-  n <- length(colors)
-  ncol <- ceiling(sqrt(n))
-  nrow <- ceiling(n/ncol)
-  colors <- c(colors, rep(NA, nrow * ncol - length(colors)))
-  colors <- matrix(colors, ncol = ncol, byrow = TRUE)
-  old <- par(pty = "s", mar = c(0, 0, 0, 0))
-  on.exit(par(old))
-  size <- max(dim(colors))
-  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "",
-       axes = FALSE)
-  rect(col(colors) - 1, -row(colors) + 1, col(colors), -row(colors),
-       col = colors)
-
-  # add conditional display of hex codes or names
-  if (hex) {
-    text(col(colors) - 0.5, -row(colors) + 0.5, colors)
-  } else {
-    text(col(colors) - 0.5, -row(colors) + 0.5, color_names)
+  function(n) {
+   unname(types)[seq_len(n)]
   }
 }
 
@@ -499,35 +478,42 @@ NULL
 #' @description An N-color discrete palette for political parties.
 #' @inheritParams ggplot2::scale_colour_hue
 #' @param palette the palette name, a character string.
+#' @param plot logical, if \code{TRUE} a plot is returned.
 #' @param hex logical, if \code{FALSE}, the associated color name (label) is returned.
 #' @family color party
 #' @examples
-#' party_color_pal("BRA")
+#' library(scales)
+#'
+#' # Brazil
+#' show_col(party_color_pal("BRA")(20))
 #'
 #' # Argentine
-#' party_color_pal("ARG")
+#' show_col(party_color_pal("ARG")(12))
 #'
 #' # US
-#' party_color_pal("USA")
+#' show_col(party_color_pal("USA")(6))
 #'
 #' # Canada
-#' party_color_pal("CAN")
+#' show_col(party_color_pal("CAN")(10))
+#'
+#' party_color_pal("CAN", plot=TRUE, hex=FALSE)
 #'
 #' @export
 #'
-`party_color_pal` <- function(palette = "BRA", hex=FALSE) {
+`party_color_pal` <- function(palette = "BRA", plot=FALSE, hex=FALSE) {
   pal.list <- Palettes$party
   if (!palette %in% c(names(pal.list), "BRA", "ARG", "CAN", "USA")) {
     stop(sprintf("%s is not a valid palette name", palette))
   }
-  if (palette == "BRA") {
+  if (palette=="BRA") {
     types <- pal.list[["BRA"]][seq(1, 30, by = 1)]
-  } else if (palette == "ARG") {
+  } else if (palette=="ARG") {
     types <- pal.list[["ARG"]][seq(1, 20, by = 1)]
   } else {
     types <- pal.list[[palette]]
   }
 
+  if (plot){
   # hexs
   colors <- unname(types)[seq_len(length(types))]
   # names
@@ -538,20 +524,24 @@ NULL
   ncol <- ceiling(sqrt(n))
   nrow <- ceiling(n/ncol)
   colors <- c(colors, rep(NA, nrow * ncol - length(colors)))
-  colors <- matrix(colors, ncol = ncol, byrow = TRUE)
+  colors <- matrix(colors, ncol = ncol, byrow = FALSE)
   old <- par(pty = "s", mar = c(0, 0, 0, 0))
   on.exit(par(old))
   size <- max(dim(colors))
-  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "",
+  graphics::plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "",
        axes = FALSE)
-  rect(col(colors) - 1, -row(colors) + 1, col(colors), -row(colors),
-       col = colors)
-
+  graphics::rect(col(colors) - 1, -row(colors) + 1, col(colors), -row(colors), col = colors)
   # add conditional display of hex codes or names
   if (hex) {
     text(col(colors) - 0.5, -row(colors) + 0.5, colors)
   } else {
     text(col(colors) - 0.5, -row(colors) + 0.5, color_names)
+  }
+}
+  else {
+    function(n) {
+    unname(types)[seq_len(n)]
+      }
   }
 }
 NULL

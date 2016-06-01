@@ -12,9 +12,25 @@
 \arguments{
 \item{object}{The table object.}
 
+\item{digits}{number of digits after the decimal point.}
+
+\item{chisq}{if \code{TRUE}, the results of a chi-square test will be shown below the table.}
+
+\item{fisher}{if \code{TRUE}, the results of a Fisher Exact test will be shown below the table.}
+
+\item{mcnemar}{if \code{TRUE}, the results of a McNemar test will be shown below the table.}
+
+\item{alt}{the alternative hypothesis and must be one of "two.sided",
+"greater" or "less". Only used in the 2 by 2 case.}
+
+\item{latex}{if the output is to be printed in latex format.}
+
 \item{\dots}{extra parameters.}
 }
 \description{
 Print Crosstable style
+}
+\seealso{
+Other Crosstables: \code{\link{Crosstable}}
 }
 

@@ -1,7 +1,15 @@
 #' @title Print Crosstable style
 #' @description Print Crosstable style
 #' @encoding UTF-8
+#' @family Crosstables
 #' @param object The table object.
+#' @param digits number of digits after the decimal point.
+#' @param chisq if \code{TRUE}, the results of a chi-square test will be shown below the table.
+#' @param fisher if \code{TRUE}, the results of a Fisher Exact test will be shown below the table.
+#' @param mcnemar if \code{TRUE}, the results of a McNemar test will be shown below the table.
+#' @param alt the alternative hypothesis and must be one of "two.sided",
+#'  "greater" or "less". Only used in the 2 by 2 case.
+#' @param latex if the output is to be printed in latex format.
 #' @param \dots extra parameters.
 #'
 #' @export
@@ -272,13 +280,16 @@ NULL
 #' @encoding UTF-8
 #' @title Cross-tabulation
 #' @description \code{Crosstable} produces all possible two-way and three-way tabulations of variables.
+#'
+#' @family Crosstables
 #' @param \dots the variables for the cross tabulation.
-#' @param digits the number of digits required, default is 2.
-#' @param chisq logical, if \code{TRUE}, chisq test details is returned.
-#' @param fisher logical, if \code{TRUE}, fisher test details is returned.
+#' @param digits number of digits after the decimal point.
+#' @param chisq if \code{TRUE}, the results of a chi-square test will be shown below the table.
+#' @param fisher if \code{TRUE}, the results of a Fisher Exact test will be shown below the table.
+#' @param mcnemar if \code{TRUE}, the results of a McNemar test will be shown below the table.
 #' @param alt the alternative hypothesis and must be one of "two.sided",
 #'  "greater" or "less". Only used in the 2 by 2 case.
-#' @param latex if the output is to be printed as latex.
+#' @param latex if the output is to be printed in latex format.
 #' @param deparse.level an integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).
 #'
 #' @seealso \code{\link[stats]{xtabs}}, \code{\link{Frequency}},
@@ -350,21 +361,22 @@ NULL
     )
   )
 }
-
+NULL
 
 
 
 
 #' Cross Tabulation
 #'
-#' \code{Crosstab} is a modified version of \code{\link[gmodels]{CrossTable}} (\pkg{gmodels}).
-#' \code{Crosstab} will print a summary table with cell counts and column proportions (similar to STATA's
+#' \code{TwoWay} is a modified version of \code{\link[gmodels]{CrossTable}} (\pkg{gmodels}).
+#' \code{TwoWay} will print a summary table with cell counts and column proportions (similar to STATA's
 #' \code{tabulate}.
 #'
 #' @param x,y the variables for the cross tabulation.
 #' @param digits number of digits for rounding proportions.
 #'
-`Crosstab` <- function(x, y, digits = 3){
+#'
+`TwoWay` <- function(x, y, digits = 3){
 
   dig <- digits
   xName <- deparse(substitute(x))
@@ -396,7 +408,7 @@ NULL
   outer.Column <- formatC(dim1, width = maxR, format = "s")
 
 printTheTable <- function() {
-    xyNames <- abbreviate(c(xName,yName), min = 5, dot = T)
+    xyNames <- abbreviate(c(xName,yName), minlength = 5, dot = T)
     cat(rep(Rspaces, ncol(tab)), "[Y]", xyNames[2], collapse = "\n")
     cat("[X]", xyNames[1], collapse = "\n")
     cat(Rspaces,
