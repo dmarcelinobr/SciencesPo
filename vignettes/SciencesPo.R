@@ -641,7 +641,7 @@ show_col(pub_color_pal("greenorange12")(12))
 show_col(pub_color_pal("bluered12")(12))
 
 ## ----eval=FALSE, echo=TRUE, fig.width=4.5, fig.height=4.5----------------
-#  party_color_pal("BRA")
+#  party_color_pal("BRA", plot=TRUE)
 
 ## ----echo=TRUE, fig.width=4.5, fig.height=3.5----------------------------
 show_col(pub_color_pal("trafficlight")(9))

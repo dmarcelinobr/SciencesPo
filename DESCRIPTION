@@ -81,5 +81,6 @@ Collate:
     'Winsorize.R'
     'flag.R'
     'print.SciencesPo.R'
+    'runExample.R'
     'zTree.R'
     'zzz.R'

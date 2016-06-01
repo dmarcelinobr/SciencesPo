@@ -120,30 +120,18 @@ library(knitr)
 
 kable(mytable, align=c("l","c","c"), caption="Outcome under d'Hondt")
 
-## ----highestAverages12, eval=FALSE, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center"----
-#  
-#  gg <- ggplot()
-#  gg <- gg +  geom_bar( data = mytable, aes(x = reorder(Party, -Seats), y = Seats, fill = Party), stat = "identity", alpha=.9)
-#  gg <- gg + geom_label(data = mytable,
-#  aes(x = reorder(Party, -Seats), y= Seats + 1, label = Seats), hjust = .5)
-#  gg <- gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 25))
-#  gg <- gg + scale_color_party("BRA")
-#  gg <- gg + scale_fill_party("BRA")
-#  gg <-  gg + labs(list(x = "", y = "# Seats obtained",
-#  title = "The 2014 elections in the state of Ceará, seats won by party"))
-#  gg <-  gg + theme_fte(base_size = 10)
-#  gg
-#  
-#  # gg <- gg + geom_segment(aes(x=week_start, xend=week_start, y=0, yend=outbreaks, color=flock_total), size=0.5)
-#  # gg <- gg + geom_point(aes(size=flock_total, fill=flock_total), shape=21)
-#  
-#  # library(waffle)
-#  # sum(x)
-#  #waffle(x/5, rows=5)
-#  # charts that represent percentage plots.
-#  #x1 <- (100*x)/sum(x)
-#  #x1
-#  #waffle(x1, rows=5)
+## ----highestAverages12, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center"----
+
+gg <- ggplot()
+gg <- gg +  geom_bar( data = mytable, aes(x = reorder(Party, -Seats), y = Seats, fill = Party), stat = "identity", alpha=.9)
+gg <- gg + geom_label(data = mytable,
+aes(x = reorder(Party, -Seats), y= Seats + 1, label = Seats), hjust = .5)
+gg <- gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 25))
+gg <- gg + scale_fill_party("BRA")
+gg <- gg + labs(list(x = "", y = "# Seats obtained",
+title = "The 2014 elections in the state of Ceará, seats won by party"))
+gg <-  gg + theme_fte(base_size = 10)
+gg
 
 ## ----largestRemainders6, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
 
@@ -171,8 +159,9 @@ out1 = HighestAverages(
   out2$Method = "Imperiali"
   out3$Method = "Saint-Laguë"
   
-  
-  data <- rbind(out1, out2, out3)
+ data <- rbind(out1, out2, out3)
+
+## ----echo=FALSE, message=FALSE, comment=NA, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
   
   p <- ggplot()
   p <- p + geom_bar(
@@ -185,26 +174,11 @@ out1 = HighestAverages(
   stat = "identity",
   position = position_dodge()
   )
-  p <- p + labs(x = "", y = "# Seats obtained")
+  p <- p + labs(x = "", y = "# Seats obtained", title="The 2014 elections in the state of Ceará seats won by party")
   p <- p  + scale_fill_pub("fte")
   p <- p + theme_fte(legend = "top", base_size = 10)
-  p
-  
+  p  + theme(panel.grid.major.x=element_blank()) 
 
-## ----eval=FALSE, echo=FALSE, message=FALSE, comment=NA, fig.width=6, fig.height=3.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
-#  
-#  gg <- ggplot()
-#  gg <- gg +  geom_lollipop(data=data, aes(x = reorder(Party, Seats), y = Seats, color = Method), point.size = 3)
-#  # gg <- gg + geom_label(data=data, aes(x = reorder(Party, Seats), y = Seats + .5, label = Seats), hjust = 0)
-#  gg <-  gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 27))
-#  gg <- gg + scale_color_pub("tableau10")
-#  # gg <- gg + coord_flip()
-#  gg <-  gg + labs(list(x = "", y = "# Seats obtained",
-#              title="The 2014 elections in the state of Ceará, \n seats won by party"))
-#  gg <-  gg + theme_fte(horizontal = FALSE, legend = "top", base_size = 10)
-#  gg <-  gg + theme(panel.grid.major.x=element_blank())
-#  gg
-#  
 
 ## ----largestRemainders7, eval=FALSE, echo=FALSE, message=FALSE, comment=NA----
 #  
