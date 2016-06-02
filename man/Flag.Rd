@@ -13,7 +13,7 @@ Flag(.data, id.vars = NULL)
 \item{id.vars}{The variables that should be treated as ID variables. Defaults to \code{NULL}, at which point all variables are used to create the new ID variable.}
 }
 \value{
-The input dataset (as a \code{data.table}) if ID variables are unique, or the input dataset with a new column named "\code{.id}".
+The input dataset (as a \code{data.table}) if ID variables are unique, or the input dataset with a new column named "\code{.ID}".
 }
 \description{
 Many functions will not work properly if there are duplicated ID variables
@@ -26,12 +26,12 @@ df <- data.frame(A = c("a", "a", "a", "b", "b"),
                  B = c(1, 1, 1, 1, 1), values = 1:5);
 df
 
-Flag(df, c("A", "B"))
+df = Flag(df, c("A", "B"))
 
 df <- data.frame(A = c("a", "a", "a", "b", "b"),
                    B = c(1, 2, 1, 1, 2), values = 1:5)
 df
-Flag(df, 1:2)
+(df <- Flag(df, 1:2) )
 
 }
 

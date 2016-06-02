@@ -250,6 +250,22 @@ NULL
 
 
 
+#' A replication of MatLab pause function.
+#' x is optional. If x>0 a call is made to \code{\link{Sys.sleep}}. Else, execution pauses until a key is entered.
+#' @export
+`.Pause` <-
+  function (x=0) {
+    if(x > 0){
+      Sys.sleep(x)
+    }else{
+      cat("Hit <enter> to continue...","green")
+      readline()
+      invisible()
+    }
+  }
+NULL
+
+
 
 
 # Adds extra habilities to the base match.arg function:

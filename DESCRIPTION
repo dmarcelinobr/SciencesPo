@@ -26,8 +26,7 @@ Imports:
     rstudioapi,
     htmltools,
     xtable,
-    shiny,
-    plyr
+    shiny
 Suggests:
     testthat,
     scales,
@@ -39,48 +38,3 @@ Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo/issues
 ByteCompile: TRUE
 RoxygenNote: 5.0.1
-Collate:
-    'Anonymize.R'
-    'Atkinson.R'
-    'Bootstrap.R'
-    'CI.R'
-    'CMDcheckVars.R'
-    'Clear.R'
-    'Crosstable.R'
-    'DATA.R'
-    'DEPRECATED.R'
-    'Describe.R'
-    'Destring.R'
-    'Dirichlet.R'
-    'Dummy.R'
-    'Frequency.R'
-    'Geoms.R'
-    'Gini.R'
-    'Herfindahl.R'
-    'HighestAverages.R'
-    'Jackknife.R'
-    'Label.R'
-    'LargestRemainders.R'
-    'Lorenz.R'
-    'MOMENTS.R'
-    'MeanFromRange.R'
-    'Normalize.R'
-    'Operators.R'
-    'Outlier.R'
-    'Palettes.R'
-    'PoliticalDiversity.R'
-    'Proportionality.R'
-    'Recode.R'
-    'Rosenbluth.R'
-    'SciencesPo.R'
-    'TESTS.R'
-    'Themes.R'
-    'UTILS.R'
-    'Untable.R'
-    'Voronoi.R'
-    'Winsorize.R'
-    'flag.R'
-    'print.SciencesPo.R'
-    'runExample.R'
-    'zTree.R'
-    'zzz.R'
