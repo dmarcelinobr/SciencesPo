@@ -15,16 +15,13 @@ vignette: >
      \usepackage[utf8]{inputenc}
 ---
   
-  
-The popularity of R is rapidly increasing in scientific research. R has several advantages over other programming languages: it is free, it is fairly powerful, there is an excellent user community, and it was designed with the statistical analysis of data in mind.
-
-The  **corrplot** package is a graphical display of a correlation matrix, confidence interval. 
-It also contains some algorithms to do matrix reordering.  In addition, corrplot is good at details, including choosing color, text labels, color labels, layout, etc.
 
 # Overview
-The purpose of this vignette is to introduce the **SciencesPo** package to familiarize the reader with basic functions and how these can be used in data analysis workflows and reporting results. The package is meant to provide primarily functions and algorithms for analyzing political behavior data, including measures of political fragmentation and seat allocation methods. However, it also supplies some functions to do descriptive statistics, tests, cross-tables, and rendering pre set publication-quality plots that will require only a minimum amount of fiddling details. Although this package is available for the general public, it meets my personal needs and tastes. Yours may be different.
+R is rapidly increasing popularity in scientific research; it has several advantages over other programming languages: it is free, it is fairly powerful, there is an excellent user community, and it was designed with the statistical analysis of data in mind. The purpose of this vignette is to introduce some of the function in the **SciencesPo** package, and how these can be used in data analysis workflows and reporting results. 
 
-The development of this package began in July of 2011. I found myself spending a great deal of my time manipulating several datasets with a basket of functions, but only a very little time actually analyzing data. So, I thought in a more efficient way of doing recurrent tasks. Since then, I have diligently labored to maintain this R package for social data analysis and plotting. The **SciencesPo** is currently hosted by the R-CRAN Foundation and distributed over the internet. You can find the package source on [Github](https://github.com/danielmarcelino/SciencesPo), and you are welcome to contribute code via pull requests, or bug reports.
+The **SciencesPo** package is meant to provide primarily functions and algorithms for analyzing political behavior data, including measures of political fragmentation and seat allocation methods. In addition, it also equip the environment with some functions to do descriptive statistics,  cross-tabulation, tests, and to render pre set publication-quality plots that will require only a minimum amount of fiddling details. Although this package is available for the general public, it meets my personal needs and tastes. Yours may be different.
+
+The development of this package began in July of 2011. I found myself spending a great deal of time manipulating several datasets with a basket of standalone functions, but a very little time actually analyzing data. So, I thought this package could help researchers with interests alike.  Since then, I have diligently labored to maintain this R library updated. The **SciencesPo** is currently hosted by the **[The R Foundation](https://www.r-project.org/foundation/)**, and distributed over the internet via [CRAN](https://cran.r-project.org/web/packages/SciencesPo/index.html). You can find the package source code on [Github](https://github.com/danielmarcelino/SciencesPo), and you are welcome to contribute code via pull requests, or bug reports.
 
 This document is organized as follows. In the next section, I addressed the basic aspects of setting up the package. Following, I discuss some of the basic data manipulation functions. Next, I show some of the basic functions for creating tables and cross-tabulations. Then, I present basic functions for computing distributions. Next, I address the basic functions for computing measures of political behavior. I end by introducing several plotting functions, including themes and color palettes available. Throughout the paper, I try to keep the commentary to a minimum so the user can easily breeze through this without having to digest my witty banter.
 
@@ -138,7 +135,11 @@ with(titanic, Crosstable(SEX, SURVIVED, fisher=TRUE) )
 with(titanic, Crosstable(SEX, CLASS, SURVIVED, chisq = TRUE))
 ```
 
-## Computing Standard Error and Confidence Intervals
+## Sampling and Stratify Data
+
+
+
+## Computing Exploratory Statistics 
 
 To demonstrate the output of these functions, below are the US presidents and their main opponents' heights (cm). There is claim that height matters in American presidential elections.
 
@@ -148,6 +149,47 @@ require("SciencesPo")
 data(stature)
 ```
 
+
+### Computing Method of Moments 
+
+These functions perform three types of skewness and kurtosis assessment to conform with the **e1071** package:
+
+#### Skewness of Data
+```{r echo=TRUE, message=FALSE, comment=NA}
+attach(stature)
+
+# Type 1:
+Skewness(winner.height, type = 1)
+# Type 2 
+Skewness(winner.height, type = 2)
+# Type 3, the default
+Skewness(winner.height)
+```
+
+#### Kurtosis of Data
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+attach(stature)
+
+# Type 1:
+Kurtosis(winner.height, type = 1)
+# Type 1:
+Kurtosis(winner.height, type = 2)
+# Type 3, the default
+Kurtosis(winner.height)
+```
+
+### Most Repeating Observations (Mode)
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+
+x <- sample (10, replace = TRUE)
+
+Mode(x)
+```
+
+
+### Standard Error and Confidence Intervals
 
 ```{r echo=TRUE, message=FALSE, cache=TRUE, comment=NA}
 attach(stature)
@@ -162,38 +204,7 @@ SE(winner.height) # std. error
 ```
 
 
-## Computing Skewness and Kurtosis of Data
-These functions perform three types of skewness and kurtosis assessment to conform with the **e1071** package:
-
-```{r echo=TRUE, message=FALSE, comment=NA}
-attach(stature)
-
-# Type 1:
-Skewness(winner.height, type = 1)
-
-Kurtosis(winner.height, type = 1)
-
-# Type 2 
-Skewness(winner.height, type = 2)
-
-Kurtosis(winner.height, type = 2)
-
-# Type 3 is the default
-Skewness(winner.height)
-
-Kurtosis(winner.height)
-```
-
-## Computing the Average Absolute Deviation
-
-```{r echo=TRUE, message=FALSE, comment=NA}
-attach(stature)
-
-AAD(winner.height) 
-
-```
-
-## Computing Winsorized Means
+### Computing Winsorized Means
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 attach(stature)
@@ -207,31 +218,12 @@ Winsorize(opponent.height, k=35)
 ```
 
 
-## Measures of data internal reliability
-```{r eval=FALSE, echo=TRUE, message=FALSE}
-data(alpha)
+### Computing Average Absolute Deviation
 
-str(alpha)
+```{r echo=TRUE, message=FALSE, comment=NA}
+attach(stature)
 
-# Note that a coefficient of .70 or higher is considered "acceptable" in most social science research situations.
-
-cronbach.alpha(alpha)
-
-```
-
-The alpha coefficient for the four items is .839, suggesting that the items have relatively high internal consistency. 
-In addition to computing the alpha coefficient of reliability, we might also want to investigate the dimensionality of the scale. We can use the factor command to do this:
-
-
-```{r eval=FALSE, echo=TRUE, message=FALSE}
-
-cor(alpha) # correlation 
-
-factanal(alpha, factors = 1, 
-         rotation="none") # varimax is the default
-
-scores="regression"
-prcomp(alpha) 
+AAD(winner.height) 
 ```
 
 # Data Manipulation
@@ -270,11 +262,25 @@ dt %>% Anonymize()
 ```
 
 
+## Recode
+Used to recode values of a vector into new values.
+
+```{r echo=FALSE, message=FALSE, comment=NA}
+require(SciencesPo)
+
+table(iris$Species)
+
+iris$Species <- Recode(iris$Species, "setosa", 1)
+
+table(iris$Species)
+```
+
+
 ## Safechars
 
 By default, R converts character columns to factors. Instead of re-reading the data using \code{stringsAsFactors=FALSE}, the \code{\link{Safechars}} function identifies which columns are currently factors, and convert them all to characters parsing the levels as strings.
 
-```{r echo=FALSE, message=FALSE}
+```{r echo=FALSE, message=FALSE, comment=NA}
 require(SciencesPo)
 str(iris)
 
@@ -286,7 +292,7 @@ str(iris_2)
 
 ## Destring
 This function converts factor variables to numeric, much like the way Stata does.
-```{r echo=TRUE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA }
 require(SciencesPo)
 
 mylevels <- c('Strongly Disagree', 
@@ -295,21 +301,19 @@ mylevels <- c('Strongly Disagree',
               'Agree', 
               'Strongly Agree')
 
+# attibute some oredered factors 
 myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
-```
 
-
-As we can see, this vector is un(ordered) in a "strange" way so to reflect the meaning of the levels I've attributed:
-```{r echo=TRUE, message=FALSE}
 unclass(myvar) # testing the order
 ```
 
-By `destring` this, we should get a numeric result with the same (un)order:
+As we can see, this vector is un(ordered) in a "strange" way so to reflect the meaning of the levels that I've attributed. By `Destring` this, we should get a numeric result with the same (un)order:
+
 ```{r echo=TRUE, message=FALSE}
 Destring(myvar) 
 ```
 
-## `Formatted`
+## Formatted
 Simple but useful. The `Formatted` function rounds numbers to text and drops leading zeros in the process. 
 
 ```{r echo=TRUE, message=FALSE}
@@ -352,14 +356,14 @@ invnormal(area=0.35, mu=0, sigma=1)
 ## Dirichlet Distribution
 The \code{rdirichlet} function will return a matrix with \code{n} rows, each containing a single random number according to the supplied alpha vector or matrix. 
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r echo=TRUE, cache=TRUE, message=FALSE, comment=NA}
 alphas <- cbind(1:4, 1, 4:1);
 rdirichlet(4, alphas );
 ```
 
 Consider the following example of usage: A Brazilian face-to-face poll conducted by Datafolha on Oct 03-04 (2014) with 18,116 insterviews, asked voters for their vote preference among presidential candidates.
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r echo=TRUE, cache=TRUE, message=FALSE, comment=NA}
 # draw a sample from the posterior
 set.seed(1234);
 n <- 18116;
@@ -398,6 +402,7 @@ Mean(margins > 0);
 
 ```{r eval=FALSE, echo=TRUE, fig.width=4.5, fig.height=3.5, message=FALSE, comment=NA}
 library(ggplot2)
+
 g <- ggplot(data=data.frame(means=adj_means), aes(x=means))
 g <- g + ggtitle("Central Limit Theorem: Samples from Exponential Distribution")
 g <- g + xlab("Means from 1000 Samples (n=40)") + ylab("Density")
@@ -436,24 +441,6 @@ g
 ```
 
 
-## Binomial Probability Density Function
-
-```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
-trials = 10
-prob = c(.2,.25,.3,.35)
-success = 4
-binompdf(n = trials, p = prob, x = success)
-```
-
-## Binomial Cumulative Distribution Function
-
-```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
-trials = 10
-prob = c(.2,.25,.3,.35)
-success = 4
-binomcdf(n = trials, p = prob, x = success)
-```
-
 
 # Political Behavior Measures
 
@@ -474,6 +461,7 @@ US1980 <- c("Democratic"=0.410, "Republican"=0.507,
 ```{r echo=FALSE, message=FALSE, comment=NA}
 US1980
 ```
+
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 
@@ -674,40 +662,104 @@ Atkinson(x, epsilon = 0.5)
 
 # Plot Themes & Colors
 
-The **SciencesPo** brings in few themes and color palettes to enhance  **ggplot2** graphs, but there are specialized packages like **ggthemes**, **cowplot**, and **** that can make graph decoration a lot easier.
+The **SciencesPo** brings in few themes and color palettes to enhance  [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html) graphs, but there are specialized packages like [ggthemes](https://cran.r-project.org/web/packages/ggthemes/index.html), [cowplot](https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html), [ggalt](https://cran.r-project.org/web/packages/ggalt/index.html), [GGally](https://cran.r-project.org/web/packages/GGally/index.html), and [sjPlot](https://cran.r-project.org/web/packages/sjPlot/index.html) that can make graph decoration a lot easier.
 
-The default **ggplot2** design has its charm, in my opinion. But, very often I don't like the gray background grid, particularly when I'm preparing academic papers because I feel it distracts from the data. For example, see this **ggplot2** visualization of the following plot:
+There's a complete discussion of plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
 
-```{r eval=TRUE}
-detach("package:SciencesPo")
+## Themes
 
-ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) + geom_point(alpha=0.7) + labs(title="Bubble Plot") + scale_size_continuous(range = c(3,10))
+The default **ggplot2** design has its charm, in my opinion. But, very often I don't like the gray background grid, particularly when I'm preparing academic papers; I feel it distracts from the data. For example, see the following **ggplot2** graph with default settings.
 
-qplot(1:3, 1:3)
+```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5 }
+# detach("package:SciencesPo", unload = TRUE)
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg 
+
+```
+
+Next, 
+
+ - `theme_blank()` Produces a consistent theme for ggplot2 graphs with no background, axis texts, or grid lines.
+  
+```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
+library(SciencesPo)
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg <- gg + theme_blank()
+gg
 ```
 
 
-```{r eval=FALSE}
+ - `theme_pub()` Produces a consistent theme for ggplot2 graphs with a white background and fewer grid lines.
+ 
+```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
+library(SciencesPo)
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg <- gg + theme_pub()
+gg
+```
+
+
+- `theme_fte()` Produces a consistent theme for ggplot2 graphs, similar to the plots used in the <http://fivethirtyeight.com/>.
+    
+```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
+library(SciencesPo)
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg <- gg + theme_538()
+gg
+```
+
+
+ - `theme_darkside()` Produces a consistent theme for ggplot2 graphs with a dark background and fewer grid lines.
+
+```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
+library(SciencesPo)
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg <- gg + theme_darkside()
+gg
+```
+
+https://github.com/brendan-r/brocks/blob/ec27d829f72eb38c01dad875fff9f7a5979f994d/R/munge.R
+https://rpubs.com/chrisbrunsdon/99675
+https://github.com/search?l=r&p=4&q=add+footnote+ggplot&type=Code&utf8=✓
+
+
+```{r echo=FALSE, message=FALSE, comment=NA, fig.align="center", fig.width=6, fig.height=4}
+
 set.seed(1)
 test <- data.frame(
-  org = rep(c("Mammals", "Cats", "Tigers", "Lions", "Cheetahs"), 3),
-  level = rep(c("Animals", "Family", rep("Species", 3)), 3),
-  group = rep("Cats",15),
-  round = rep(c("Round1", "Round2", "Round3"),5),
+  org = rep(c("Coalition", "Opposition", "Right", "Center", "Left"), 3),
+  level = rep(c("Government", "Opposition", rep("Parties", 3)), 3),
+  group = rep("Opposition",15),
+  election = rep(c("2006", "2010", "2014"),5),
   obsAvg = runif(15, 1, 4)
 )
 
-ggplot(test, aes(x = reorder(org, -as.numeric(level)), y = obsAvg, fill = level)) + 
-  geom_bar(aes(alpha=round), stat = "identity", position = "dodge") +
-  scale_fill_manual(values = c("#E69F00", "#56B4E9", "#009E73")) +
-  scale_alpha_manual(values = c(.5, .75, 1), guide = FALSE) + 
-  labs(title = "Average Observation Score by by Round", y = "", x = "", fill = "Group") +
-  theme_538() +
-  geom_text(aes(label = round(obsAvg,1), group=round), vjust = -.5, size = 4, fontface="bold", position = position_dodge(width = .9)) +
-  scale_y_continuous(limits = c(0,4), expand = c(0,0)) +
-  theme(legend.position="bottom")
-
+gg <- ggplot(test, aes(x = reorder(org, -as.numeric(level)), y = obsAvg, fill = level))
+gg <- gg + geom_bar(aes(alpha=election), stat = "identity", position = "dodge")
+gg <- gg + scale_fill_manual(values = c("#E69F00", "#56B4E9", "#009E73"))
+gg <- gg + scale_alpha_manual(values = c(.5, .75, 1), guide = FALSE)
+gg <- gg + labs(title = "Average Score by Election", y = "", x = "", fill = "Group")
+gg <- gg + geom_text(aes(label = round(obsAvg,1), group=election), vjust = -.3, size = 4, fontface="bold", position = position_dodge(width = .9))
+gg <- gg + scale_y_continuous(limits = c(0,5), expand = c(0,0))
+gg <- gg + theme_538(legend="bottom", base_size = 12)
+gg
 ```
+
 
 
 
@@ -836,127 +888,112 @@ grid.draw(legend_mod)
 ```
 
 
-I rather prefer a clean layout for publication. Starting with simple layouts is better because we can add things as we need rather than taking them away. Thus, by default, the `theme_pub` prints a plot without background and minor grid lines. Also, if a legend is needed, it will appear underneath of the plot rather than on the right side.
-
-```{r eval=TRUE}
-require(SciencesPo)
-qplot(1:3, 1:3)
-```
-
-There's a complete discussion of plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
-
 ## Changing defaults 
-If you want to change the theme for an entire session you can use `theme_set()` as in `theme_set(theme_gray())` to switch to default **ggplot2** theme for all subsequent plots. Otherwise, you may also apply themes without changing the default setup as of `plot + theme_gray()`. 
+
+If you want to change the theme for an entire session you can use `theme_set()` as in `theme_set(theme_gray())` to switch to default **[ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html)** theme for all subsequent plots. Otherwise, you may also apply themes without changing the defaults as of `plot + theme_pub()`. 
 
 To modify general aspects of the `theme_pub()` as fontsize, font family etc:
 
-```{r echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA, warning=FALSE}
 require(SciencesPo)
 
-theme_set(theme_pub(base_size=12)) # default fontsize doesn't work well for online viewing
-qplot(1:3, 1:3)
+# default fontsize doesn't work well for online viewing
+theme_set(theme_pub(base_size=20)) 
+```
+
+
+```{r echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE}
+require(SciencesPo)
+
+# default fontsize doesn't work well for online viewing
+theme_set(theme_pub(base_size=20)) 
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg <- gg + theme_pub(legend = "none", base_size=20)
+gg 
 ```
 
 
 The default fontfamily used in the theme is "Helvetica", but it is easy to chane to another style:
 
-```{r eval=FALSE, echo=FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE, comment=NA, warning=FALSE}
 require(SciencesPo)
+
 # "Verdana", "serif" and "sans" are also high-readability fonts
-theme_set(theme_pub(base_size=12, font_family = "Consolas")) 
-
-qplot(1:3, 1:3)
-```
-
-Modify it with theme()
-```{r echo=FALSE, message=FALSE}
-
-prefs <- theme(axis.text = element_text(size=14, colour=NULL))
-
-qplot(1:3, 1:3) + prefs
+theme_set(theme_pub(base_size=20, base_family = "sans")) 
 ```
 
 
-```{r echo=FALSE, message=FALSE}
-# Modifying a theme function
-themeMod <- theme_gray() +
-  theme(text = element_text(family = "Times", colour = "blue", size = 14))
+```{r echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE}
+require(SciencesPo)
 
-ggplot(mpg, aes(x = cty, y = hwy, colour = factor(cyl))) + 
-   geom_point(size = 2.5)
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg <- gg + theme_pub(legend = "none", base_size=20, base_family = "sans") 
+gg
 ```
 
 
-You might be able to put the legend inside the plot area, using:
-  
-line_plot + theme(legend.justification=c(1,0), legend.position=c(1,0))
 
-This positions the legend inside the plot area, at the bottom-right. You can also put the legend at the top or bottom of the plot using, e.g.:
-  
-line_plot + theme(legend.position="bottom")
+Modify it with `theme()` itself. You might be able to modify text sizes, colors etc, and place the legend where you want in the plot area:
 
+```{r echo=TRUE, message=FALSE, comment=NA, warning=FALSE}
 
-```{r echo=FALSE, message=FALSE}
-# Only change the 'colour' property of theme element 'text'
+prefs <- theme(axis.text = element_text(size=20, 
+                                        colour="red"),
+               legend.justification=c(1,0),
+               legend.position=c(1,0), 
+               legend.position="bottom")
 
-mytheme1 <- theme_grey() + theme(text = element_text(colour="red"))
-mytheme1$text
 ```
 
 
-```{r echo=FALSE, message=FALSE}
-# Replace the 'text' element entirely
-mytheme2 <- theme_grey() %+replace% theme(text = element_text(colour="red"))
-mytheme2$text
+
+```{r echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE}
+
+prefs <- theme(axis.text = element_text(size=20, 
+                                        colour="red"),
+               legend.justification=c(1,0),
+               legend.position=c(1,0), 
+               legend.position="bottom")
+
+gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
+gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
+gg <- gg +scale_size_continuous(range = c(3,8)) 
+gg <- gg + theme_pub(legend = "none")
+gg <- gg + prefs
+gg
 ```
 
-By default, **SciencesPo** disables grid lines on the plot. In many cases, this is the cleanest and most elegant way to display the data. However, sometimes gridlines may be useful, and thus **SciencesPo** provides a simple way of adding gridlines, via the function `background_grid()`:
-
-```{r eval=FALSE, message=FALSE}
-plot.mpg + background_grid(major = "xy", minor = "none")
-```
-
-While the same result could be obtained using the function `theme()`, the function `background_grid()` makes the most commonly used option easily accessible. See the reference documentation for details.
 
 ## Generic plot annotations
-
-Finally, the `draw_plot()` function also allows us to place graphs at arbitrary locations and at arbitrary sizes onto the canvas. This is useful for combining subplots into a layout that is not a simple grid, e.g. with one sub-plot spanning the entire width of the figure and two other figures using up half of the figure width:
-
-```{r eval=FALSE, message=FALSE, fig.width=7, fig.height=5}
-
-plot.iris <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) + 
-  geom_point() + facet_grid(. ~ Species) + stat_smooth(method = "lm") +
-  background_grid(major = 'y', minor = "none") + # add thin horizontal lines 
-  panel_border() # and a border around each panel
-# plot.mpg and plot.diamonds were defined earlier
-ggdraw() +
-  draw_plot(plot.iris, 0, .5, 1, .5) +
-  draw_plot(plot.mpg, 0, 0, .5, .5) +
-  draw_plot_label(c("A", "B", "C"), c(0, 0, 0.5), c(1, 0.5, 0.5), size = 15)
-```
-
-
-### Annotations underneath plots
 
 The functions `lm2eqn()` and `geom_foot()` can be of handy value for adding extra text information to a `ggplot2` object. To demonstrate its use, we need first to draw a plot: 
 
 ```{r echo=TRUE, message=FALSE, comment=NA, ache=TRUE}
 
-theme_set(theme_pub())
+theme_set(theme_pub(base_size = 12, base_family = "serif"))
 
 data(stature)
 # Generating a ratio winner/opponent measure 
 heights = transform(stature, 
                        height_ratio = winner.height/opponent.height) 
 
-p <- ggplot(heights, aes(x=height_ratio, y=winner.vote)) +
+gg <- ggplot(heights, aes(x=height_ratio, y=winner.vote)) +
       geom_smooth(method=lm, colour="red", fill="gold")+
       geom_point(size = 5, alpha = .7) +
       xlim(0.85,1.2) + ylim(25, 70) +
       xlab("Winner/Opponent Height Ratio") + 
       ylab("Relative Support for the Winner")
-p
+gg
+
+
 ```
+
 
 Next, we add the linear equation results and source or credits as footnote. Did you notice them?
 
@@ -976,22 +1013,10 @@ geom_foot("danielmarcelino.github.io", color = fade("brown1"),
           rotn = -90, just ="right" )
 ```
 
-
-## Themes 
-
-There are two basic themes in the package:
-
- - `theme_pub()` Produces a consistent theme for ggplot2 graphs with a white background and fewer grid lines.
- 
- - `theme_fte()` Produces a consistent theme for ggplot2 graphs, similar to the plots used in the <http://fivethirtyeight.com/>.
-    
- - `theme_darkside()` Produces a consistent theme for ggplot2 graphs with a dark background and fewer grid lines.
- 
- - `theme_blank()` Produces a consistent theme for ggplot2 graphs with no background, axis texts, or grid lines.
   
 ## Color palettes
 
-The following scales help passing manual values to scale colors for ggplot2 objects. Also, these scales allow for consistency with the themes whitin the package described earlier.
+The following scales help passing manual values to scale colors for ggplot2 objects. In many ways, I think these scales are consistent with the themes whitin the **SciencesPo** package described earlier.
 
   - `scale_color_pub()`
   - `scale_fill_pub()`
@@ -1001,76 +1026,75 @@ The following scales help passing manual values to scale colors for ggplot2 obje
 
 ## Discrete palletes
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
 library("scales", quietly = TRUE)
 
 show_col(pub_color_pal("pub12")(12))
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
+```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("gray5")(6), labels = FALSE)
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
-show_col(pub_color_pal("carnival")(4))
+```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
+show_col(pub_color_pal("carnival")(6))
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("fte")(4))
 ```
 
 
-```{r echo=TRUE, fig.width=5.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("manyeyes")(20))
-
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("tableau20")(20))
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
 show_col(pub_color_pal("tableau10")(10))
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
 show_col(pub_color_pal("tableau10medium")(10))
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
  show_col(pub_color_pal("tableau10light")(10))
 ```
 
 
-```{r echo=TRUE, fig.width=5.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("cyclic")(20))
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
 show_col(pub_color_pal("purplegray12")(12))
 
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
 show_col(pub_color_pal("greenorange12")(12))
 ```
 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
 show_col(pub_color_pal("bluered12")(12))
 ```
 
 
-```{r eval=FALSE, echo=TRUE, fig.width=4.5, fig.height=4.5}
+```{r echo=TRUE, fig.align="center", fig.width=6, fig.height=5, comment=NA, warning=FALSE}
 party_color_pal("BRA", plot=TRUE)
 ```
 
@@ -1080,23 +1104,23 @@ party_color_pal("BRA", plot=TRUE)
 
 ### Bivariate scales 
 
-```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("trafficlight")(9))
 ```
 
-```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("bivariate1")(9))
 ```
 
-```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("bivariate2")(9))
 ```
 
-```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("bivariate3")(9))
 ```
 
-```{r echo=TRUE, fig.width=4.5, fig.height=3.5}
+```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("bivariate4")(9))
 ```
 
@@ -1106,3 +1130,61 @@ show_col(pub_color_pal("bivariate4")(9))
 print(sessionInfo(), locale=FALSE)
 # library(help='SciencesPo')
 ```
+
+# References
+
+@Book{,
+    author = {Hadley Wickham},
+    title = {ggplot2: Elegant Graphics for Data Analysis},
+    publisher = {Springer-Verlag New York},
+    year = {2009},
+    isbn = {978-0-387-98140-6},
+    url = {http://ggplot2.org},
+  }
+  
+  
+@Manual{,
+    title = {ggalt: Extra Coordinate Systems, Geoms and Statistical Transformations
+for 'ggplot2'},
+    author = {Bob Rudis},
+    year = {2016},
+    note = {R package version 0.1.1},
+    url = {https://CRAN.R-project.org/package=ggalt},
+  }
+  
+@Manual{,
+    title = {ggthemes: Extra Themes, Scales and Geoms for 'ggplot2'},
+    author = {Jeffrey B. Arnold},
+    year = {2016},
+    note = {R package version 3.0.2},
+    url = {https://CRAN.R-project.org/package=ggthemes},
+  } 
+
+@Manual{,
+    title = {sjPlot: Data Visualization for Statistics in Social Science},
+    author = {Daniel Lüdecke},
+    year = {2016},
+    note = {R package version 1.9.4},
+    url = {http://CRAN.R-project.org/package=sjPlot},
+  }
+
+
+@Manual{,
+    title = {GGally: Extension to ggplot2},
+    author = {Barret Schloerke and Jason Crowley and Di Cook and Francois Briatte and Moritz Marbach and Edwin Thoen and Amos Elberg},
+    year = {2016},
+    note = {R package version 1.0.1},
+    url = {https://CRAN.R-project.org/package=GGally},
+  }
+  
+  
+@Manual{,
+    title = {cowplot: Streamlined Plot Theme and Plot Annotations for 'ggplot2'},
+    author = {Claus O. Wilke},
+    year = {2016},
+    note = {R package version 0.6.1},
+    url = {https://CRAN.R-project.org/package=cowplot},
+  }
+  
+Yihui Xie (2016). knitr: A General-Purpose Package for Dynamic
+  Report Generation in R. R package version 1.12.3.

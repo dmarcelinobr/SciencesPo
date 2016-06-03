@@ -24,9 +24,9 @@
 #' apply( test, 2, var );
 #' alphas * ( alpha.0 - alphas ) / ( alpha.0^2 * ( alpha.0 + 1 ) );
 #'
-#' # 2) A pratical example of usage:
+#' # 2) A practical example of usage:
 #' # A Brazilian face-to-face poll by Datafolha conducted on Oct 03-04
-#' # with 18,116 insterviews asking for their vote preferences among the
+#' # with 18,116 interviews asking for their vote preferences among the
 #' # presidential candidates.
 #'
 #' ## First, draw a sample from the posterior
@@ -36,7 +36,7 @@
 #' mcmc <- 100000;
 #' sim <- rdirichlet(mcmc, alpha = poll + 1);
 #'
-#' ## Second, look at the margins of Aecio over Marina in the very last minute of the campaign:
+#' ## Second, look at the margins of Aecio over Marina in the very last moment of the campaign:
 #' margin <- sim[,2] - sim[,3];
 #' mn <- mean(margin); # Bayes estimate
 #' mn;
@@ -80,7 +80,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Dirichlet distribution
+#' @title Dirichlet Distribution
 #' @description Density function and random number generation for the Dirichlet distribution
 #' @param x a matrix containing observations.
 #' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.

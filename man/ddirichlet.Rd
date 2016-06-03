@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{ddirichlet}
 \alias{ddirichlet}
-\title{Dirichlet distribution}
+\title{Dirichlet Distribution}
 \usage{
 ddirichlet(x, alpha, log = FALSE, sum = FALSE)
 }
