@@ -3,12 +3,9 @@
 \encoding{UTF-8}
 \name{Normalize}
 \alias{Normalize}
-\alias{Normalize.default}
 \title{Unity-based normalization}
 \usage{
 Normalize(x, method = "range", ...)
-
-\method{Normalize}{default}(x, method = "range", ...)
 }
 \arguments{
 \item{x}{is a vector to be normalized.}

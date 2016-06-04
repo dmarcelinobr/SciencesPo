@@ -26,6 +26,12 @@ help.search("D'Hondt", package = 'SciencesPo')
 data("titanic")
 Describe(titanic) 
 
+## ----eval=FALSE, echo=FALSE, message=FALSE, comment=NA-------------------
+#  #' The function mcnemar.test can conduct McNemar’s test for matched pairs. For ex- ample, for Table 11.1,
+#  ratings <- matrix(c(175, 16, 54, 188), ncol=2, byrow=TRUE,
+#                    dimnames = list("2004 Election" = c("Democrat", "Republican"), "2008 Election" = c("Democrat", "Republican")))
+#  mcnemar.test(ratings, correct=FALSE)
+
 ## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
 #  with(titanic, Crosstable(SURVIVED))
 
@@ -104,40 +110,24 @@ attach(stature)
 
 AAD(winner.height) 
 
-## ----echo=FALSE, cache=TRUE, message=FALSE, comment=NA-------------------
-x <- sample(10)
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+data(religiosity)
 
-# won't print normalized values by default, only to an object 
-(y = Normalize(x) )
-
-# equivalently to:
- (x-min(x))/(max(x)-min(x))
-
-## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
-# Smithson and Verkuilen approach
-(y = Normalize(x, method="SV"))
+Label(religiosity$Religiosity) <- "Religiosity index"
 
 ## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
 
- dt <- data.frame(
- Z = sample(LETTERS,5),
- X = sample(1:5),
- Y = sample(c("yes", "no"), 5, replace = TRUE) )
-dt;
 
-dt %>% Anonymize()
-
-
-## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 require(SciencesPo)
 
 table(iris$Species)
 
-iris$Species <- Recode(iris$Species, "setosa", 1)
+iris$Species <- Recode(iris$Species, "versicolor", 2)
 
 table(iris$Species)
 
-## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 require(SciencesPo)
 str(iris)
 
@@ -159,8 +149,21 @@ myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
 
 unclass(myvar) # testing the order
 
-## ----echo=TRUE, message=FALSE--------------------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 Destring(myvar) 
+
+## ----echo=FALSE, cache=TRUE, message=FALSE, comment=NA-------------------
+x <- sample(10)
+
+# won't print normalized values by default, only to an object 
+(y = Normalize(x) )
+
+# equivalently to:
+ (x-min(x))/(max(x)-min(x))
+
+## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
+# Smithson and Verkuilen approach
+(y = Normalize(x, method="SV"))
 
 ## ----echo=TRUE, message=FALSE--------------------------------------------
 x <- as.double(c(0.1, 1, 10, 100, 1000, 10000))
@@ -174,6 +177,19 @@ p = c(0.25, 25, 50)
 Formatted(p, "Perc", flag="+")
 
 Formatted(p, "Perc", decimal.mark=",")
+
+## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
+
+ dt <- data.frame(
+ Z = sample(LETTERS,5),
+ X = sample(1:5),
+ Y = sample(c("yes", "no"), 5, replace = TRUE) )
+
+dt;
+
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+dt %>% Anonymize()
+
 
 ## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
 #  normalpdf(x=1.2, mu=0, sigma=1)
@@ -216,45 +232,6 @@ quantile(margins, probs = c(0.025, 0.975));
 # posterior probability of a positive margin (Aécio over Marina):
 Mean(margins > 0); 
 
-
-## ----eval=FALSE, echo=TRUE, fig.width=4.5, fig.height=3.5, message=FALSE, comment=NA----
-#  library(ggplot2)
-#  
-#  g <- ggplot(data=data.frame(means=adj_means), aes(x=means))
-#  g <- g + ggtitle("Central Limit Theorem: Samples from Exponential Distribution")
-#  g <- g + xlab("Means from 1000 Samples (n=40)") + ylab("Density")
-#  g <- g + geom_histogram(
-#      aes(y=..density..), fill="#400040", colour="#FFFFFF", binwidth=0.1
-#  )
-#  g <- g + geom_vline(
-#      aes(xintercept=mean(means), colour="Actual Mean"), size=1,
-#      show.legend=TRUE
-#  )
-#  g <- g + geom_vline(
-#      aes(xintercept=1/lambda, colour="Expected Mean"), size=1,
-#      show.legend=TRUE
-#  )
-#  g <- g + stat_function(fun=dnorm, args=list(mean=1/lambda),
-#      aes(linetype="Normal Distribution"), colour="#D0D000", size=1,
-#      show.legend=FALSE
-#  )
-#  g <- g + scale_colour_manual("Means", values=c(
-#      "Expected Mean" = "#8080FF",
-#      "Actual Mean" = "#FF8080",
-#      "Normal Distribution" = NA
-#  ))
-#  g <- g + scale_linetype_manual("Functions", values=c(
-#      "Expected Mean" = "blank",
-#      "Actual Mean" = "blank",
-#      "Normal Distribution" = "solid"
-#  ))
-#  g <- g + guides(
-#      linetype = guide_legend(
-#          override.aes = list(colour="#D0D000")
-#      )
-#  )
-#  g
-#  
 
 ## ----US-election, echo=FALSE, message=FALSE, comment=NA------------------
 
@@ -356,13 +333,13 @@ library(knitr)
 
 kable(mytable, align=c("l","c","c"))
 
-## ----echo=TRUE, message=FALSE, fig.width=3.5, fig.height=4, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"----
+## ----echo=TRUE, message=FALSE, fig.width=4.5, fig.height=4, fig.align="center", fig.cap= "2014 Legislative Election in Ceara (M=42)"----
 
 mytable = HighestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 
 p <- ggplot(mytable, aes(x=reorder(Party, Seats), y=Seats)) + 
-  geom_lollipop() + coord_flip() + labs(x="", y="# Seats")
+  geom_lollipop() + coord_flip() + labs(x=NULL, y="# Seats")
 p + theme_538() + theme(panel.grid.major.y = element_blank())
 
 ## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
@@ -452,152 +429,91 @@ gg <- gg + scale_y_continuous(limits = c(0,5), expand = c(0,0))
 gg <- gg + theme_538(legend="bottom", base_size = 12)
 gg
 
-## ----eval=FALSE----------------------------------------------------------
-#  municipality.plot <- ggplot(y, aes(x=as.factor(year), y=seats, fill=party, color=party)) +
-#        geom_bar(bandwidth=1, stat="identity", group="party", position="fill") +
-#        labs(x="year", y="% of seats for municipality")
+## ----eval=FALSE, echo=FALSE, message=FALSE,  comment=NA, warning=FALSE----
 #  
-#    year district.id                                                         party seats ideology
-#  1  2012         127                  Stranka Pravde I Razvoja Bosne I Hercegovine     1        p
-#  2  2012         127                                Savez Za Bolju Buducnost (SBB)     3        p
-#  3  2008         127                              Stranka Demokratske Akcije (SDA)    13        p
-#  4  2004         127                              Stranka Demokratske Akcije (SDA)    14        p
-#  5  2008         127                          Hrvatska Demokratska Zajednica (HDZ)     1        c
-#  6  2008         127                  Stranka Pravde I Razvoja Bosne I Hercegovine     1        p
-#  7  2012         127                        Stranka Za Bosnu I Hercegovinu (SzBiH)     4        p
-#  8  2000         127                              Socijaldemokratska Partija (SDP)     8        m
-#  9  2012         127                     Narodna Stranka Radom Za Boljitak (NSRzB)     2        m
-#  10 2012         127                            Socijaldemokratska Unija Bih (SDU)     1        p
-#  11 2000         127                                         Koalicija - SDA, SBiH    15        p
-#  12 2008         127                              Socijaldemokratska Partija (SDP)     5        m
-#  13 2008         127                     Narodna Stranka Radom Za Boljitak (NSRzB)     1        m
-#  14 2008         127                                          Koalicija - LDS, SDU     2        m
-#  15 2000         127 Lgk-liberalno-gradanska Koalicija Bih (liberali Bih, Gds Bih)     1        m
-#  16 2000         127                               Nova Hrvatska Inicijativa (NHI)     1        c
-#  17 1997         127                              Socijaldemokratska Partija (SDP)     3        m
-#  18 2012         127                              Socijaldemokratska Partija (SDP)     6        m
-#  19 2004         127                        Stranka Za Bosnu I Hercegovinu (SzBiH)     5        p
-#  20 1997         127                 Bosanskohercegovacka Patriotska Stranka (BPS)     9        p
-#  21 2000         127                 Bosanskohercegovacka Patriotska Stranka (BPS)     3        p
-#  22 2008         127                        Stranka Za Bosnu I Hercegovinu (SzBiH)     4        p
-#  23 1997         127                          Hrvatska Demokratska Zajednica (HDZ)     5        c
-#  24 2000         127                          Hrvatska Demokratska Zajednica (HDZ)     2        c
-#  25 2012         127                              Stranka Demokratske Akcije (SDA)    10        p
-#  26 2004         127                              Socijaldemokratska Partija (SDP)     6        m
-#  27 1997         127                          Koalicija - SDA, SBiH, Liberali, GDS    13        p
+#  library(scales)
+#  library(grid)
+#  library(ggplot2)
+#  library(plyr)
 #  
+#  df <- read.table(text = "year, district.id, party, seats, ideology
+#  2012, 127, Stranka Pravde I Razvoja Bosne I Hercegovine, 1, p
+#  2012, 127, SBB, 3, p
+#  2008, 127, SDA, 13, p
+#  2004, 127, SDA, 14, p
+#  2008, 127, HDZ, 1, c
+#  2008, 127, Stranka Pravde I Razvoja Bosne I Hercegovine, 1, p
+#  2012, 127, SzBiH, 4, p
+#  2000, 127, SDP, 8, m
+#  2012, 127, NSRzB, 2, m
+#  2012, 127, SDU, 1, p
+#  2000, 127, SDA-SBiH, 15, p
+#  2008, 127, SDP, 5, m
+#  2008, 127, NSRzB, 1, m
+#  2008, 127, LDS-SDU, 2, m
+#  2000, 127, liberali-Bih-Gds-Bih, 1, m
+#  2000, 127, NHI, 1, c
+#  1997, 127, SDP, 3, m
+#  2012, 127, SDP, 6, m
+#  2004, 127, SzBiH, 5, p
+#  1997, 127, BPS, 9, p
+#  2000, 127, BPS, 3, p
+#  2008, 127, SzBiH, 4, p
+#  1997, 127, HDZ, 5, c
+#  2000, 127, HDZ, 2, c
+#  2012, 127, SDA, 10, p
+#  2004, 127, SDP, 6, m
+#  1997, 127, SDA-SBiH-Liberali-GDS, 13, p", sep=",", header = TRUE)
 #  
-#  
-#  #####################################3
-#  # alt 2. Plot with separate legends for each ideology
-#  
-#  
-#  # create separate plots for each ideology to get legends
+#  df <- arrange(df, year, ideology, party)
 #  
 #  # conservative parties blue
-#  cons <- ggplot(data = df2[df2$ideology == "c", ],
+#  cons <- ggplot(data = df[df$ideology == "c", ],
 #                 aes(x = as.factor(year),
 #                     y = seats,
 #                     fill = party)) +
 #    geom_bar(stat = "identity", position = "fill") +
 #    scale_fill_manual(values = blue, name = "Conservative parties" )
 #  
-#  
-#  # extract 'cons' legend
-#  tmp <- ggplot_gtable(ggplot_build(cons))
-#  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-#  legend_cons <- tmp$grobs[[leg]]
-#  
-#  
 #  # progressive parties green
-#  prog <- ggplot(data = df2[df2$ideology == "p", ],
+#  prog <- ggplot(data = df[df$ideology == "p", ],
 #                 aes(x = as.factor(year),
 #                     y = seats,
 #                     fill = party)) +
 #    geom_bar(stat = "identity", position = "fill") +
 #    scale_fill_manual(values = green, name = "Progressive parties" )
 #  
-#  # extract 'prog' legend
-#  tmp <- ggplot_gtable(ggplot_build(prog))
-#  leg <- which(sapply(tmp$grobs, function(x) x$name) ==  "guide-box")
-#  legend_prog <- tmp$grobs[[leg]]
-#  
-#  
 #  # moderate parties red
-#  mod <- ggplot(data = df2[df2$ideology == "m", ],
+#  mod <- ggplot(data = df[df$ideology == "m", ],
 #                aes(x = as.factor(year),
 #                    y = seats,
 #                    fill = party)) +
 #    geom_bar(stat = "identity", position = "fill") +
 #    scale_fill_manual(values = red, name = "Moderate parties" )
-#  
-#  
-#  # extract 'mod' legend
-#  tmp <- ggplot_gtable(ggplot_build(mod))
-#  leg <- which(sapply(tmp$grobs, function(x) x$name) ==  "guide-box")
-#  legend_mod <- tmp$grobs[[leg]]
-#  
-#  #######################################
-#  
-#  
-#  # arrange plot and legends
-#  
-#  # define plotting regions (viewports) for plot and legends
-#  vp_plot <- viewport(x = 0.25, y = 0.5,
-#                      width = 0.5, height = 1)
-#  
-#  vp_legend_cons <- viewport(x = 0.66, y = 0.87,
-#                             width = 0.5, height = 0.15)
-#  
-#  vp_legend_prog <- viewport(x = 0.7, y = 0.55,
-#                             width = 0.5, height = 0.60)
-#  
-#  vp_legend_mod <- viewport(x = 0.75, y = 0.2,
-#                            width = 0.5, height = 0.30)
-#  
-#  # clear current device
-#  grid.newpage()
-#  
-#  # add objects to the viewports
-#  # plot without legend
-#  print(g1 + theme(legend.position = "none"), vp = vp_plot)
-#  upViewport(0)
-#  
-#  # legends
-#  pushViewport(vp_legend_cons)
-#  grid.draw(legend_cons)
-#  upViewport(0)
-#  
-#  pushViewport(vp_legend_prog)
-#  grid.draw(legend_prog)
-#  upViewport(0)
-#  
-#  pushViewport(vp_legend_mod)
-#  grid.draw(legend_mod)
 
 ## ----echo=TRUE, message=FALSE, comment=NA, warning=FALSE-----------------
 require(SciencesPo)
 
 # default fontsize doesn't work well for online viewing
-theme_set(theme_pub(base_size=20)) 
+theme_set(theme_pub(base_size=18)) 
 
 ## ----echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
 require(SciencesPo)
 
 # default fontsize doesn't work well for online viewing
-theme_set(theme_pub(base_size=20)) 
+theme_set(theme_pub(base_size=18)) 
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
 gg <- gg +scale_size_continuous(range = c(3,8)) 
-gg <- gg + theme_pub(legend = "none", base_size=20)
+gg <- gg + theme_pub(legend = "none", base_size=18)
 gg 
 
 ## ----echo=TRUE, message=FALSE, comment=NA, warning=FALSE-----------------
 require(SciencesPo)
 
 # "Verdana", "serif" and "sans" are also high-readability fonts
-theme_set(theme_pub(base_size=20, base_family = "sans")) 
+theme_set(theme_pub(base_size=18, base_family = "serif")) 
 
 ## ----echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
 require(SciencesPo)
@@ -606,12 +522,13 @@ require(SciencesPo)
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
 gg <- gg +scale_size_continuous(range = c(3,8)) 
-gg <- gg + theme_pub(legend = "none", base_size=20, base_family = "sans") 
+gg <- gg + theme_pub(legend = "none", base_size=18, base_family = "serif") 
 gg
 
 ## ----echo=TRUE, message=FALSE, comment=NA, warning=FALSE-----------------
 
-prefs <- theme(axis.text = element_text(size=20, 
+prefs <- theme(axis.text = element_text(size=18, 
+                                        family = "serif", 
                                         colour="red"),
                legend.justification=c(1,0),
                legend.position=c(1,0), 
@@ -620,7 +537,8 @@ prefs <- theme(axis.text = element_text(size=20,
 
 ## ----echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
 
-prefs <- theme(axis.text = element_text(size=20, 
+prefs <- theme(axis.text = element_text(size=18, 
+                                        family = "serif",
                                         colour="red"),
                legend.justification=c(1,0),
                legend.position=c(1,0), 
@@ -633,39 +551,97 @@ gg <- gg + theme_pub(legend = "none")
 gg <- gg + prefs
 gg
 
-## ----echo=TRUE, message=FALSE, comment=NA, ache=TRUE---------------------
+## ----echo=FALSE, cache=TRUE, message=FALSE, comment=NA, warning=FALSE----
 
-theme_set(theme_pub(base_size = 12, base_family = "serif"))
+height_ratio <- c(0.924324324, 1.081871345, 1, 0.971098266, 1.029761905,
+                  0.935135135, 0.994252874, 0.908163265, 1.045714286, 1.18404908,
+                  1.115606936, 0.971910112, 0.97752809, 0.978609626, 1,
+                  0.933333333, 1.071428571, 0.944444444, 0.944444444, 1.017142857,
+                  1.011111111, 1.011235955, 1.011235955, 1.089285714, 0.988888889,
+                  1.011111111, 1.032967033, 1.044444444, 1, 1.086705202,
+                  1.011560694, 1.005617978, 1.005617978, 1.005494505, 1.072222222,
+                  1.011111111, 0.983783784, 0.967213115, 1.04519774, 1.027777778,
+                  1.086705202, 1, 1.005347594, 0.983783784, 0.943005181, 1.057142857)
 
-data(stature)
-# Generating a ratio winner/opponent measure 
-heights = transform(stature, 
-                       height_ratio = winner.height/opponent.height) 
+vote_support <- c(0.427780852, 0.56148981, 0.597141922, 0.581254292, 0.530344067,
+              0.507425996, 0.526679292, 0.536690951, 0.577825976, 0.573225387,
+              0.550410082, 0.559380032, 0.484823958, 0.500466176, 0.502934212,
+              0.49569636, 0.516904414, 0.522050547, 0.531494442, 0.60014892, 
+              0.545079801, 0.604274986, 0.51635906, 0.63850958, 0.652184407, 
+              0.587920412, 0.5914898, 0.624614752, 0.550040193, 0.537771958, 
+              0.523673642, 0.554517134, 0.577511576, 0.500856251, 0.613444534, 
+              0.504063153, 0.617883695, 0.51049949, 0.553073235, 0.59166415, 
+              0.538982024, 0.53455133, 0.547304058, 0.497350649, 0.512424242, 
+              0.536914796)
 
-gg <- ggplot(heights, aes(x=height_ratio, y=winner.vote)) +
-      geom_smooth(method=lm, colour="red", fill="gold")+
-      geom_point(size = 5, alpha = .7) +
-      xlim(0.85,1.2) + ylim(25, 70) +
-      xlab("Winner/Opponent Height Ratio") + 
-      ylab("Relative Support for the Winner")
-gg
+Presidents = data.frame(cbind(height_ratio, vote_support))             
 
+## ----echo=TRUE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
+theme_set(theme_pub(base_size=16))
 
+gg <- ggplot(Presidents, aes(x=height_ratio, y=vote_support)) 
+gg <- gg + geom_smooth(method=lm, colour="red", fill="gold")
+gg <- gg + geom_point(size = 5, alpha = .7) 
+gg <- gg +  xlim(0.9,1.2) + ylim(.40, .70)
+gg <- gg + labs(x="Winner/Opponent height ratio", y="Winner vote share", title="Does height matter in presidential politics?")
+gg <- gg + theme_pub()
 
-## ----eval=FALSE, echo=TRUE, fig.align="center", fig.height=5, fig.width=7,  message=FALSE, comment=NA----
-#  theme_set(theme_pub())
-#  # Avoiding missing data:
-#  heights <- subset(heights, !is.na(height_ratio))
+# Commence adding layers here
+Render(gg) + Footnote(note="danielmarcelino.github.io")
+
+## ----eval=FALSE, echo=FALSE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA----
 #  
-#  fit=lm(winner.vote~height_ratio,data=heights)
+#  library(ggplot2)
+#  theme_set(theme_grey())
 #  
-#  mylabel=lm2eqn("Presidents","height_ratio","winner.vote")
+#  set.seed(43121)
 #  
-#  p + annotate(geom = 'text', x = 1.1, y = 70, size = 5,
-#                 label = mylabel, fontface = 'italic')
+#  means <- NULL
+#  adj_means <- NULL
+#  lambda <- 0.2
+#  n <- 40
+#  for(i in 1:1000){
+#      vals <- rexp(n, rate=lambda)
+#      means <- c(means, mean(vals))
+#      adj_means <- c(adj_means, (1/lambda)+((mean(vals)-1/lambda)/sqrt(var(vals)/n)))
+#  }
 #  
-#  geom_foot("danielmarcelino.github.io", color = fade("brown1"),
-#            rotn = -90, just ="right" )
+#  
+#  g <- ggplot(data=data.frame(means=adj_means), aes(x=means))
+#  g <- g + ggtitle("Central Limit Theorem: Samples from Exponential Distribution")
+#  g <- g + xlab("Means from 1000 Samples (n=40)") + ylab("Density")
+#  g <- g + geom_histogram(
+#      aes(y=..density..), fill="#400040", colour="#FFFFFF", binwidth=0.1
+#  )
+#  g <- g + geom_vline(
+#      aes(xintercept=mean(means), colour="Actual Mean"), size=1,
+#      show.legend=TRUE
+#  )
+#  g <- g + geom_vline(
+#      aes(xintercept=1/lambda, colour="Expected Mean"), size=1,
+#      show.legend=TRUE
+#  )
+#  g <- g + stat_function(fun=dnorm, args=list(mean=1/lambda),
+#      aes(linetype="Normal Distribution"), colour="#D0D000", size=1,
+#      show.legend=FALSE
+#  )
+#  g <- g + scale_colour_manual("Means", values=c(
+#      "Expected Mean" = "#8080FF",
+#      "Actual Mean" = "#FF8080",
+#      "Normal Distribution" = NA
+#  ))
+#  g <- g + scale_linetype_manual("Functions", values=c(
+#      "Expected Mean" = "blank",
+#      "Actual Mean" = "blank",
+#      "Normal Distribution" = "solid"
+#  ))
+#  g <- g + guides(
+#      linetype = guide_legend(
+#          override.aes = list(colour="#D0D000")
+#      )
+#  )
+#  g
+#  
 
 ## ----echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE----
 library("scales", quietly = TRUE)

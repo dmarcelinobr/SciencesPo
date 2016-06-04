@@ -65,7 +65,7 @@ theme_pub <- function(legend = 'bottom',
     # by others
     line = element_line(
       colour = "#525252",
-      size = line_width, linetype = 1,
+      size = 0.5, linetype = 1,
       lineend = "butt"
     ),
     rect = element_rect(
@@ -84,9 +84,9 @@ theme_pub <- function(legend = 'bottom',
     axis.text =          element_text(size = rel(0.8), face = "bold", colour = "grey15"),
     axis.text.x =        element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.y =        element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
-    axis.ticks =         element_line(color="#F0F0F0"),
+    axis.ticks =         element_line(),
     axis.ticks.length =  grid::unit(half_line / 2, "pt"),
-    axis.title =          element_text(size = rel(0.8), face = "plain", colour = "grey15"),
+    axis.title =          element_text(size = rel(0.8), face = "bold"),
     axis.title.x =       element_text(margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2
     )),
@@ -110,7 +110,7 @@ theme_pub <- function(legend = 'bottom',
 
     panel.background =   element_blank(),
     panel.border =       element_blank(),
-    panel.grid.major =   element_line(color="#F0F0F0"),
+    panel.grid.major =   element_blank(),
     panel.grid.minor =   element_blank(),
     panel.margin =       grid::unit(half_line, "pt"),
     panel.margin.x =     NULL,
@@ -207,10 +207,10 @@ NULL
     axis.text =          element_text(size = rel(1)),
     axis.text.x =        element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1, size = rel(0.9)),
     axis.text.y =        element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1, size = rel(0.9)),
-    axis.ticks.y =        element_blank(),
-    axis.ticks.x =        element_line(color = colors[3]),
+    axis.ticks.y =        element_line(color = colors[2]),
+    axis.ticks.x =        element_line(color = colors[2]),
     axis.ticks.length =  grid::unit(half_line / 2, "pt"),
-    axis.title =          element_text(size = rel(0.9), face = "bold", color = colors[3]),
+    axis.title =          element_text(size = rel(0.8), face = "plain", color = colors[3]),
     axis.title.x =       element_text(vjust = 0, margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2)),
     axis.title.y =       element_text(angle = 90, vjust = 1.25, margin = ggplot2::margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)

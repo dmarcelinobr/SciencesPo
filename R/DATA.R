@@ -519,6 +519,7 @@ NULL
 #' @keywords datasets
 #' @name stature
 #' @usage data(stature)
+#' # t.test(stature$winner.height, stature$opponent.height, var.equal=TRUE)
 #' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::stature)} variables and \Sexpr{nrow(SciencesPo::stature)} observations.
 NULL
 
@@ -763,10 +764,81 @@ NULL
 NULL
 
 
+#' @encoding UTF-8
+#' @title Bollen Data on Industrialization and Political Democracy
+#'
+#' @description The data were reported in Bollen
+#' (1989, p. 428, Table 9.4) This set includes data from
+#' 75 developing countries each assessed on four measures
+#' of democracy measured twice (1960 and 1965), and three
+#' measures of industrialization measured once (1960).
+#' \itemize{
+#'\item{y1}{Freedom of the press, 1960}
+#'\item{y2}{Freedom of political opposition, 1960}
+#'\item{y3}{Fairness of elections, 1960}
+#'\item{y4}{Effectiveness of elected legislature, 1960}
+#'\item{y5}{Freedom of the press, 1965}
+#'\item{y6}{Freedom of political opposition, 1965}
+#'\item{y7}{Fairness of elections, 1965}
+#'\item{y8}{Effectiveness of elected legislature, 1965}
+#'\item{x1}{GNP per capita, 1960}
+#'\item{x2}{Energy consumption per capita, 1960}
+#'\item{x3}{Percentage of labor force in industry, 1960}
+#'}
+
+#'  @references
+#'  Bollen, K. A. (1979). Political democracy and the timing of
+#'  development. \emph{American Sociological Review}, 44, 572-587.
+#'
+#'  Bollen, K. A. (1980). Issues in the comparative measurement of
+#' political democracy. \emph{American Sociological Review}, 45, 370-390.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name bollen
+#' @usage data(bollen)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::bollen)} variables and \Sexpr{nrow(SciencesPo::bollen)} observations.
+#'
+NULL
+
+
+#' @encoding UTF-8
+#' @title Big 5 dataset
+#'
+#' @description This is a dataset of the Big 5 personality traits. It is a measurement of the Dutch translation of the NEO-PI-R on 500 first year psychology students (Dolan, Oort, Stoel, Wicherts, 2009). The test consists of fifty items that you must rate on how true they are about you on a five point scale where 1=Disagree, 3=Neutral and 5=Agree. It takes most people 3-8 minutes to complete.
+#'
+#' \itemize{
+#'\item{Neuroticism}{The level of neuroticism}
+#'\item{Extraversion}{The level of extraversion}
+#'\item{Openness}{The level of openness}
+#'\item{Agreeableness}{The level of agreeableness}
+#'\item{Conscientiousness}{The level of conscientiousness}
+#'}
+
+#' @references
+#' Hoekstra, H. A., Ormel, J., & De Fruyt, F. (2003). NEO-PI-R/NEO-FFI:
+#' Big 5 persoonlijkheidsvragenlijst. Handleiding \emph{Manual of the
+#' Dutch version of the NEO-PI-R/NEO-FFI}. Lisse, The Netherlands:
+#' Swets and Zeitlinger.
+#'
+#' Dolan, C. V., Oort, F. J., Stoel, R. D., & Wicherts, J. M. (2009).
+#' Testing measurement invariance in the target rotates multigroup
+#' exploratory factor model. \emph{Structural Equation Modeling},
+#' 16, 295<96>314.
+
+#' @docType data
+#' @keywords datasets
+#' @name big5
+#' @usage data(big5)
+#' @format A \code{data.frame} object with \Sexpr{ncol(SciencesPo::big5)} variables and \Sexpr{nrow(SciencesPo::big5)} observations.
+#'
+NULL
+
+
 
 #' # setwd("~/SciencesPo/data")
-#' # system("cp chismoke.txt chismoke-cp.txt")
-#' # system("rm chismoke.txt.gz")
-#' # system("gzip chismoke.txt")
-#' # system("rm chismoke-cp.txt")
+#' # system("cp big5.txt big5-cp.txt")
+#' # system("rm big5.txt.gz")
+#' # system("gzip big5.txt")
+#' # system("rm big5-cp.txt")
 

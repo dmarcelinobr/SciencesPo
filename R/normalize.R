@@ -61,10 +61,8 @@
 #' @keywords Modelling
 #'
 #' @export
-#' @rdname Normalize
 `Normalize` <- function(x, method = "range", ...) UseMethod("Normalize")
 
-#' @rdname Normalize
 #' @export
 `Normalize.default` <- function(x, method = "range", ...){
   method = .Match(arg = method, choices = c("range","scale","center","z-score","SV"))

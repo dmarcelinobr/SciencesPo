@@ -14,6 +14,7 @@ Wikipedia:\url{http://www.en.wikipedia.org/wiki/Heights_of_presidents_and_presid
 }
 \usage{
 data(stature)
+# t.test(stature$winner.height, stature$opponent.height, var.equal=TRUE)
 }
 \description{
 The US presidents and their main opponents' heights (cm). This dataset contains the following columns:
