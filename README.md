@@ -3,9 +3,9 @@
 
 
 
-| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](http://cran.rstudio.com/package=SciencesPo) | [Zenodo](https://zenodo.org/) |
+| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](https://cran.rstudio.com/web/packages/SciencesPo/index.html) | [Zenodo](https://zenodo.org/) |
 | :---- | :----: | :----: | :----: | :----: | 
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) |  [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo) |  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28053.svg)](http://dx.doi.org/10.5281/zenodo.28053) | 
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) |  [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](https://cran.rstudio.com/web/packages/SciencesPo/index.html) |  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28053.svg)](http://dx.doi.org/10.5281/zenodo.28053) | 
 | *License* | *Latest CRAN version* | *Build status*  | *CRAN Downloads* | *Independently-hosted Archive* |
 
 
