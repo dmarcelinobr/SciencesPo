@@ -367,7 +367,3 @@ ret  <- (theme_bw(base_size = font_size) +
 ret
 }
 NULL
-
-
-
-
