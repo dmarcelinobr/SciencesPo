@@ -5,7 +5,7 @@
 \name{titanic}
 \alias{titanic}
 \title{Titanic}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::titanic)} variables and \Sexpr{nrow(SciencesPo::titanic)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::titanic)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::titanic)} observations.}
 \source{
 British Board of Trade Inquiry Report (1990). \emph{Report on the Loss of the `Titanic' (S.S.)"}, Gloucester, UK: Allan Sutton Publishing.
 }

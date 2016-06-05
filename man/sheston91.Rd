@@ -5,7 +5,7 @@
 \name{sheston91}
 \alias{sheston91}
 \title{The Penn World Table}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::sheston91)} variables and \Sexpr{nrow(SciencesPo::sheston91)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::sheston91)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::sheston91)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }

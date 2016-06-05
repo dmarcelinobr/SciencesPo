@@ -5,7 +5,7 @@
 \name{alpha}
 \alias{alpha}
 \title{A dataset that contains four test items}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::alpha)} variables and \Sexpr{nrow(SciencesPo::alpha)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::alpha)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::alpha)} observations.}
 \usage{
 data(alpha)
 }

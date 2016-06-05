@@ -5,7 +5,7 @@
 \name{marriage}
 \alias{marriage}
 \title{Same Sex Marriage Public Opinion Data}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::marriage)} variables and \Sexpr{nrow(SciencesPo::marriage)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::marriage)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::marriage)} observations.}
 \usage{
 data(marriage)
 }

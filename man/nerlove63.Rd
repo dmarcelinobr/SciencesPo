@@ -5,7 +5,7 @@
 \name{nerlove63}
 \alias{nerlove63}
 \title{Marc Nerlove's (1963) data}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::nerlove63)} variables and \Sexpr{nrow(SciencesPo::nerlove63)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::nerlove63)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::nerlove63)} observations.}
 \usage{
 data(nerlove63)
 }

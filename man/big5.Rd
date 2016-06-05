@@ -5,7 +5,7 @@
 \name{big5}
 \alias{big5}
 \title{Big 5 dataset}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::big5)} variables and \Sexpr{nrow(SciencesPo::big5)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::big5)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::big5)} observations.}
 \usage{
 data(big5)
 }

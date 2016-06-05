@@ -5,7 +5,7 @@
 \name{turnout}
 \alias{turnout}
 \title{Turnout Data}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::turnout)} variables and \Sexpr{nrow(SciencesPo::turnout)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::turnout)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::turnout)} observations.}
 \source{
 U.S. Bureau of the Census, Statistical Abstract of the United States, 1994.
 }

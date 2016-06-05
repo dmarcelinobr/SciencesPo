@@ -5,7 +5,7 @@
 \name{pollster2008}
 \alias{pollster2008}
 \title{Polls for 2008 U.S. presidential election}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::pollster2008)} variables and \Sexpr{nrow(SciencesPo::pollster2008)} observations.
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::pollster2008)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::pollster2008)} observations.
 \itemize{
 \item PollTaker Polling organization.
 \item PollDates Dates the poll data were collected.

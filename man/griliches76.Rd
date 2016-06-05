@@ -5,7 +5,7 @@
 \name{griliches76}
 \alias{griliches76}
 \title{Griliches's (1976) Data}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::griliches76)} variables and \Sexpr{nrow(SciencesPo::griliches76)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::griliches76)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::griliches76)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }

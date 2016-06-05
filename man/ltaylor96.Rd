@@ -5,7 +5,7 @@
 \name{ltaylor96}
 \alias{ltaylor96}
 \title{Lothian's and Taylor's (1996) Data Set}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::ltaylor96)} variables and \Sexpr{nrow(SciencesPo::ltaylor96)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::ltaylor96)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::ltaylor96)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }

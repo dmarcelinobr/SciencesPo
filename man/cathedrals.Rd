@@ -5,7 +5,7 @@
 \name{cathedrals}
 \alias{cathedrals}
 \title{Cathedrals}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::cathedrals)} variables and \Sexpr{nrow(SciencesPo::cathedrals)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::cathedrals)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::cathedrals)} observations.}
 \usage{
 data(cathedrals)
 }

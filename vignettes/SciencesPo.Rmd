@@ -21,7 +21,7 @@ R is rapidly increasing popularity in scientific research; it has several advant
 
 The **SciencesPo** package is meant to provide primarily functions and algorithms for analyzing political behavior data, including measures of political fragmentation and seat allocation methods. In addition, it also equip the environment with some functions to do descriptive statistics,  cross-tabulation, tests, and to render pre set publication-quality plots that will require only a minimum amount of fiddling details. Although this package is available for the general public, it meets my personal needs and tastes. Yours may be different.
 
-The development of this package began in July of 2011. I found myself spending a great deal of time manipulating several datasets with a basket of standalone functions, but a very little time actually analyzing data. So, I thought this package could help researchers with interests alike.  Since then, I have diligently labored to maintain this R library updated. The **SciencesPo** is currently hosted by the **[The R Foundation](https://www.r-project.org/foundation/)**, and distributed over the internet via [CRAN](https://cran.r-project.org/web/packages/SciencesPo/index.html). You can find the package source code on [Github](https://github.com/danielmarcelino/SciencesPo), and you are welcome to contribute code via pull requests, or bug reports.
+The development of this package began in July of 2011. I found myself spending a great deal of time manipulating several datasets with a basket of standalone functions, but a very little time actually analyzing data. So, I thought this package could help researchers with interests alike.  Since then, I have diligently labored to maintain this R library updated. The **SciencesPo** is currently hosted by the **[The R Foundation](https://www.r-project.org/foundation/)**, and distributed over the internet via [CRAN](https://cran.r-project.org/package=SciencesPo). You can find the package source code on [Github](https://github.com/danielmarcelino/SciencesPo), and you are welcome to contribute code via pull requests, or bug reports.
 
 This document is organized as follows. In the next section, I addressed the basic aspects of setting up the package. Following, I discuss some of the basic data manipulation functions. Next, I show some of the basic functions for creating tables and cross-tabulations. Then, I present basic functions for computing distributions. Next, I address the basic functions for computing measures of political behavior. I end by introducing several plotting functions, including themes and color palettes available. Throughout the paper, I try to keep the commentary to a minimum so the user can easily breeze through this without having to digest my witty banter.
 
@@ -81,9 +81,8 @@ RSiteSearch("D'Hondt")
 In this section, a samll selection of functions for conducting exploratory data analysis (EDA) is presented.
 
 ## Frequency tables and cross-tables
-There is a specific  [document](cran.r-project.org/web/packages/SciencesPo/vignettes/)
- covering one-way, two-way, and multiway cross-tabulations with accompanying independent tests, so the following examples will only introduce the topic. 
-
+There is a specific  [document](https://cran.r-project.org/package=SciencesPo/vignettes)
+ covering one-way, two-way, and multiway cross-tabulations with accompanying independent tests, so the following examples will only introduce this topic. 
 To describe an entire data.frame, there is the `Describe` function, which will produce a summary description table with the following features: variable names, labels, factor levels, and frequencies or summary statistics. For small datasets, the output can be used as the "table one" descriptive statistics in a data analysis publication report.
 
 
@@ -425,7 +424,7 @@ Mean(margins > 0);
 
 # Political Behavior Measures
 
-There is a specific vignette for [Indices](cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html), covering in great detail many of the political behaviour indices. 
+There is a specific vignette for [Indices](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html), covering in great detail many of the political behaviour indices. 
 
 ## Measures of Political Diversity
 
@@ -643,13 +642,14 @@ Atkinson(x, epsilon = 0.5)
 
 # Plot Themes & Colors
 
-The **SciencesPo** brings in few themes and color palettes to enhance  [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html) graphs, but there are specialized packages like [ggthemes](https://cran.r-project.org/web/packages/ggthemes/index.html), [cowplot](https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html), [ggalt](https://cran.r-project.org/web/packages/ggalt/index.html), [GGally](https://cran.r-project.org/web/packages/GGally/index.html), and [sjPlot](https://cran.r-project.org/web/packages/sjPlot/index.html) that can make graph decoration a lot easier.
+The **SciencesPo** brings in few themes and color palettes to enhance  [ggplot2](https://cran.r-project.org/package=ggplot2) graphs, but there are specialized packages like [ggthemes](https://cran.r-project.org/package=ggthemes),
+[ggthemr](https://github.com/cttobin/ggthemr), [cowplot](https://cran.r-project.org/package=cowplot), [ggalt](https://cran.r-project.org/package=ggalt), [GGally](https://cran.r-project.org/package=GGally), and [sjPlot](https://cran.r-project.org/package=sjPlot) that can make graph decoration a lot easier.
 
-There's a complete discussion of plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
+The layers in [ggplot2](https://cran.r-project.org/package=ggplot2) are also called ‘geoms’. Once the base setup is done, you can append the geoms one on top of the other. There's a complete discussion of plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
 
 ## Themes
 
-The default **ggplot2** design has its charm, in my opinion. But, very often I don't like the gray background grid, particularly when I'm preparing academic papers; I feel it distracts from the data. For example, see the following **ggplot2** graph with default settings.
+The default **ggplot2** design has its charm, in my opinion. But, very often I don't like the gray background grid. I feel it distracts from the data. For example, see the following **ggplot2** graph with default settings on.
 
 ```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5 }
 # detach("package:SciencesPo", unload = TRUE)
@@ -936,6 +936,11 @@ Render(gg) + Footnote(note="danielmarcelino.github.io")
 
 
 ```{r eval=FALSE, echo=FALSE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA}
+library(SciencesPo)
+library(extrafont)
+# font_import()
+exp_text <- "italic(y == frac(1, sqrt(2 * pi)) * e ^ {-frac(x^2, 2)} )"
+
 
 library(ggplot2)
 theme_set(theme_grey())

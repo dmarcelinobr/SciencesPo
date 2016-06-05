@@ -11,7 +11,7 @@
 
 
 
-**SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](https://cran.rstudio.com/web/packages/SciencesPo/index.html), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
+**SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)]((https://cran.r-project.org/package=SciencesPo), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
 
 1 - From the CRAN repository (stable version):
 
@@ -37,7 +37,7 @@ R CMD build SciencesPo
 R CMD INSTALL SciencesPo_*.tar.gz
 ```
 
-Please note that the package contains some C code and thus you need a development environment to build the package. If you're running R on Windows, you need to install [Rtools](http://cran.stat.ucla.edu/bin/windows/Rtools/ ). Once you have installed `Rtools`, issue following command in command prompt:
+Please note that the package contains some C code and thus you need a development environment to build the package. If you're running R on Windows, you need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/ ). Once you have installed `Rtools`, issue following command in command prompt:
 
 ```
 R CMD build --binary <path to .tar.gz file>
@@ -65,9 +65,9 @@ help(package=SciencesPo)
 ```
 
 ## Examples
-* [Concepts and Basics of SciencesPo](http://cran.r-project.org/web/packages/SciencesPo/vignettes/SciencesPo.html)
+* [Concepts and Basics of SciencesPo](https://cran.r-project.org/web/packages/SciencesPo/vignettes/SciencesPo.html)
 * [Descriptive Stats]
 * [Are My Data Normal?]
-* [Measures of Political Behavior](http://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
+* [Measures of Political Behavior](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
 * [The Viz: Plotting Features in SciencesPo]
 * [Block-Randomized Designs]

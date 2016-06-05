@@ -5,7 +5,7 @@
 \name{chismoke}
 \alias{chismoke}
 \title{Smoking and Lung Cancer in China}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::chismoke)} variables and \Sexpr{nrow(SciencesPo::chismoke)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::chismoke)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::chismoke)} observations.}
 \usage{
 data(chismoke)
 }

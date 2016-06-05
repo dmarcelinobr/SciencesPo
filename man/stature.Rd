@@ -5,12 +5,10 @@
 \name{stature}
 \alias{stature}
 \title{The Measure of US Presidents}
-\format{A \code{data.frame} object with \Sexpr{ncol(SciencesPo::stature)} variables and \Sexpr{nrow(SciencesPo::stature)} observations.}
+\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::stature)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::stature)} observations.}
 \source{
 US Presidents: \url{http://www.lingerandlook.com/Names/Presidents.php}
 Inside Gov. \url{http://www.us-presidents.insidegov.com}.
-Wikipedia: \url{http://www.en.wikipedia.org/wiki/United_States_presidential_election,_2012}.
-Wikipedia:\url{http://www.en.wikipedia.org/wiki/Heights_of_presidents_and_presidential_candidates_of_the_United_States}.
 }
 \usage{
 data(stature)
