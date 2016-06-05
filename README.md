@@ -7,12 +7,10 @@
 
 
 
-| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/) | [Build Status](https://travis-ci.org) | [Rate](http://cranlogs.r-pkg.org/) | [Zenodo](https://zenodo.org/) |
+| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](http://cran.rstudio.com/package=SciencesPo) | [Zenodo](https://zenodo.org/) |
 | :---- | :----: | :----: | :----: | :----: | 
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | 
-[![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) | 
-[![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo) |  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28053.svg)](http://dx.doi.org/10.5281/zenodo.28053) | 
-|  *License* | *Latest CRAN version* | *Build status*  | *CRAN Downloads* | *Independently-hosted Archive* |
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) |  [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo) |  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28053.svg)](http://dx.doi.org/10.5281/zenodo.28053) | 
+| *License* | *Latest CRAN version* | *Build status*  | *CRAN Downloads* | *Independently-hosted Archive* |
 
 
 **SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](https://cran.rstudio.com/web/packages/SciencesPo/index.html), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
