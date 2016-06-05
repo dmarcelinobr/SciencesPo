@@ -16,7 +16,7 @@ PreviewTheme <- function () {
   ggplot(blank_data, aes_string(x = 'x', y = 'y')) +
     geom_blank() +
     scale_y_continuous(
-      label = function(x)
+      labels = function(x)
         format(x, scientific = FALSE, trim = TRUE)
     ) +
     labs(x = 'x-axis title', y = 'y-axis title', title = 'Plot Title')
@@ -187,11 +187,8 @@ theme_pub <- function(legend = 'bottom',
 
   #  plot.subtitle = element_text(size = rel(0.85), hjust = 0, margin = margin(b = half_line * 0.9)),
 
-    plot.caption = element_text(
-      size = rel(0.9),
-      hjust = 1,
-      margin = margin(b = half_line * 0.9)
-    ),
+  #  plot.caption = element_text(size = rel(0.9), hjust = 1, margin = margin(b = half_line * 0.9)),
+
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
@@ -342,11 +339,8 @@ NULL
       margin = ggplot2::margin(b = half_line * 1.2)
     ),
     #  plot.subtitle = element_text(size = rel(0.85), hjust = 0, margin = margin(b = half_line * 0.9)),
-    plot.caption = element_text(
-      size = rel(0.9),
-      hjust = 1,
-      margin = margin(b = half_line * 0.9)
-    ),
+ # plot.caption = element_text(size = rel(0.9), hjust = 1, margin = margin(b = half_line * 0.9)),
+
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
