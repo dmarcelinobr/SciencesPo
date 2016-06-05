@@ -7,10 +7,7 @@
 
 
 
-| [CRAN](http://cran.rstudio.com/) |
-[License](http://www.gnu.org/licenses/gpl-2.0.html) | 
-[Version](http://www.r-pkg.org/badges/version/SciencesPo) |
-[Rate](http://cranlogs.r-pkg.org/) | [Zenodo](https://zenodo.org/search?ln=en&p=sciencespo) | 
+| [CRAN](http://cran.rstudio.com/) | [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Rate](http://cranlogs.r-pkg.org/) | [Zenodo](https://zenodo.org/search?ln=en&p=sciencespo) | 
 | :---- | :----: | :----: | :----: | :----: | 
 | [Latest](http://cran.r-project.org/package=REDCapR) |
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) |
