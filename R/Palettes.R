@@ -30,6 +30,15 @@ Palettes <- {
         rgb(143, 135, 130, max = 255),
         rgb(207, 207, 207, max = 255)
       ),
+      chalk = c(
+        rgb(255, 255, 255, max = 255),
+        rgb(194, 197, 190, max = 255),
+        rgb(212, 218, 218, max = 255),
+        rgb(17, 17, 17, max = 255),
+        rgb(109, 136, 117, max = 255),
+        rgb(234, 234, 234, max = 255),
+        rgb(144, 138, 120, max = 255)
+      ),
       tableau20 = c(
         rgb(31, 119, 180, max = 255),
         rgb(174, 199, 232, max = 255),
@@ -404,6 +413,7 @@ NULL
 #'
 #' show_col(pub_color_pal("pub12")(12))
 #' show_col(pub_color_pal("gray5")(6), labels = FALSE)
+#' show_col(pub_color_pal("chalk")(8))
 #' show_col(pub_color_pal("carnival")(4))
 #' show_col(pub_color_pal("gdocs")(18))
 #' show_col(pub_color_pal("tableau20")(20))

@@ -146,7 +146,7 @@ gg <- gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 25))
 gg <- gg + scale_fill_party("BRA")
 gg <- gg + labs(list(x = "", y = "# Seats obtained",
 title = "The 2014 elections in the state of Ceará, seats won by party"))
-gg <-  gg + theme_fte(base_size = 10)
+gg <-  gg + theme_fte(base_size = 10, base_family = "Tahoma")
 gg
 
 ## ----largestRemainders6, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
@@ -192,7 +192,7 @@ out1 = HighestAverages(
   )
   p <- p + labs(x = "", y = "# Seats obtained", title="The 2014 elections in the state of Ceará seats won by party")
   p <- p  + scale_fill_pub("fte")
-  p <- p + theme_fte(legend = "top", base_size = 10)
+  p <- p + theme_fte(legend = "top", base_size = 10, base_family = "Tahoma")
   p  + theme(panel.grid.major.x=element_blank()) 
 
 

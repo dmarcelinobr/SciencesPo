@@ -32,19 +32,11 @@ Theme for plotting  with ggplot2.
 qplot(1:10, (1:10)^3) + theme_fte()
 
 # Easy to set different theme colors:
-mycolors = c("#A84A44", "#E47D04", "#D8A19E", "#D8A19E")
-qplot(1:10, (1:10)^3) +
- theme_fte(colors=mycolors)
-
 mycolors = c("#F2F1E8",  "#D2D2D2",  "#6E6E6E", "#6E6E6E")
 qplot(1:10, (1:10)^3) +
  theme_fte(colors=mycolors) #ae8b38
 
 mycolors = c("wheat",  "#C2AF8D",  "#8F6D2F", "darkred")
-qplot(1:10, (1:10)^3) +
- theme_fte(colors=mycolors)
-
-mycolors = c("LawnGreen",  "gray80",  "black", "black")
 qplot(1:10, (1:10)^3) +
  theme_fte(colors=mycolors)
 

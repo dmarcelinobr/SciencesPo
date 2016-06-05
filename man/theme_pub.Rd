@@ -29,6 +29,8 @@ After loading the SciencesPo package, this theme will be
 set to default for all subsequent graphs made with ggplot2.
 }
 \examples{
+PreviewTheme()+theme_pub()
+
 ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
 geom_freqpoly(stat="count",size=2) + theme_pub(line_width=2.5)
 

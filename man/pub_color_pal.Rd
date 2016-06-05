@@ -31,6 +31,7 @@ library(ggplot2)
 
 show_col(pub_color_pal("pub12")(12))
 show_col(pub_color_pal("gray5")(6), labels = FALSE)
+show_col(pub_color_pal("chalk")(8))
 show_col(pub_color_pal("carnival")(4))
 show_col(pub_color_pal("gdocs")(18))
 show_col(pub_color_pal("tableau20")(20))

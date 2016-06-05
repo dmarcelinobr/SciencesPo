@@ -3,6 +3,27 @@
 NULL
 
 #' @encoding UTF-8
+#' @title Preview ggplot2 themes
+#' @description Used to preview ggplot2 themes.
+#' @export
+PreviewTheme <- function () {
+  x_values <- c('A', 'B', 'C')
+  blank_data <- data.frame(
+    x = factor(x_values, x_values),
+    y = seq(10, 30, 10),
+    check.names = FALSE
+  )
+  ggplot(blank_data, aes_string(x = 'x', y = 'y')) +
+    geom_blank() +
+    scale_y_continuous(
+      label = function(x)
+        format(x, scientific = FALSE, trim = TRUE)
+    ) +
+    labs(x = 'x-axis title', y = 'y-axis title', title = 'Plot Title')
+}
+
+
+#' @encoding UTF-8
 #' @title The Default Theme
 #'
 #' @description After loading the SciencesPo package, this theme will be
@@ -18,6 +39,8 @@ NULL
 #' @return The theme.
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
+#' PreviewTheme()+theme_pub()
+#'
 #' ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
 #' geom_freqpoly(stat="count",size=2) + theme_pub(line_width=2.5)
 #'
@@ -126,8 +149,13 @@ theme_pub <- function(legend = 'bottom',
     strip.switch.pad.wrap = grid::unit(0.1, "cm"),
 
     plot.background =    element_rect(colour = "transparent"),
-    plot.title =         element_text(size = rel(1.2),
+    plot.title =         element_text(
+                                      size = rel(1.1), hjust = 0,
                                       margin = ggplot2::margin(b = half_line * 1.2)),
+    plot.subtitle = element_text(size = rel(0.85),
+                                 hjust = 0, margin = margin(b = half_line * 0.9)),
+    plot.caption = element_text(size = rel(0.9), hjust = 1,
+                                margin = margin(b = half_line * 0.9)),
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
@@ -155,19 +183,11 @@ NULL
 #' qplot(1:10, (1:10)^3) + theme_fte()
 #'
 #' # Easy to set different theme colors:
-#' mycolors = c("#A84A44", "#E47D04", "#D8A19E", "#D8A19E")
-#' qplot(1:10, (1:10)^3) +
-#'  theme_fte(colors=mycolors)
-#'
 #' mycolors = c("#F2F1E8",  "#D2D2D2",  "#6E6E6E", "#6E6E6E")
 #' qplot(1:10, (1:10)^3) +
 #'  theme_fte(colors=mycolors) #ae8b38
 #'
 #' mycolors = c("wheat",  "#C2AF8D",  "#8F6D2F", "darkred")
-#' qplot(1:10, (1:10)^3) +
-#'  theme_fte(colors=mycolors)
-#'
-#' mycolors = c("LawnGreen",  "gray80",  "black", "black")
 #' qplot(1:10, (1:10)^3) +
 #'  theme_fte(colors=mycolors)
 #'
@@ -210,7 +230,7 @@ NULL
     axis.ticks.y =        element_line(color = colors[2]),
     axis.ticks.x =        element_line(color = colors[2]),
     axis.ticks.length =  grid::unit(half_line / 2, "pt"),
-    axis.title =          element_text(size = rel(0.8), face = "plain", color = colors[3]),
+    axis.title =          element_text(size = rel(0.8), color = colors[3]),
     axis.title.x =       element_text(vjust = 0, margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2)),
     axis.title.y =       element_text(angle = 90, vjust = 1.25, margin = ggplot2::margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)
@@ -250,14 +270,18 @@ NULL
     strip.switch.pad.wrap = grid::unit(0.1, "cm"),
 
     plot.background =    element_rect(),
-    plot.title =         element_text(size = rel(1.2),
+    plot.title =         element_text(family = "sans",
+                                      size = rel(1.1), hjust = 0,
                                       margin = ggplot2::margin(b = half_line * 1.2)),
+  plot.subtitle = element_text(size = rel(0.85),
+                               hjust = 0, margin = margin(b = half_line * 0.9)),
+  plot.caption = element_text(size = rel(0.9), hjust = 1,
+                              margin = margin(b = half_line * 0.9)),
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
   )
 }
-
 
 #' @export
 `theme_538` <- theme_fte
@@ -343,7 +367,6 @@ ret  <- (theme_bw(base_size = font_size) +
 ret
 }
 NULL
-
 
 
 
