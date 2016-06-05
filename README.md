@@ -6,7 +6,16 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo)
 
 
-**SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](http://cran.r-project.org/package=SciencesPo/), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
+
+| [CRAN](http://cran.rstudio.com/) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) |
+| [License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat) | [License](http://www.gnu.org/licenses/gpl-2.0.html) |
+[Rate](http://cranlogs.r-pkg.org/) | [Zenodo](https://zenodo.org/search?ln=en&p=redcapr) | 
+|  :---- | :----: | :----: | :----: | :----: |
+| [Latest](http://cran.r-project.org/package=REDCapR) | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/REDCapR)](http://cran.r-project.org/package=REDCapR) | ![CRANPace](http://cranlogs.r-pkg.org/badges/REDCapR) | [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28053.svg)](http://dx.doi.org/10.5281/zenodo.28053) |
+|  | *License* | *Latest CRAN version* | *CRAN Downloads* | *Independently-hosted Archive* |
+
+
+**SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing random and nonrandom data. The package lives on the R Foundation repository [(CRAN)](https://cran.rstudio.com/web/packages/SciencesPo/index.html), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
 
 1 - From the CRAN repository (stable version):
 
@@ -40,7 +49,9 @@ R CMD INSTALL <path to .zip file>
 ```
 
 ## Helping Out
-**SciencesPo** is intended to be a useful project for the social  sciences community. Contributions are welcomed.
+**SciencesPo** is intended to be a useful project for the social sciences community. Contributions are welcome.
+
+If you're familar with GitHub and R packages, feel free to submit a [pull request](https://github.com/danielmarcelino/SciencesPo/pulls). If you'd like to report a bug or make a suggestion, please create a GitHub [issue](https://github.com/danielmarcelino/SciencesPo/issues); issues are a usually a good place to ask public questions too.
 
 ## Usage
 
