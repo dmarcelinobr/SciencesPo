@@ -7,11 +7,16 @@
 
 
 
-| [CRAN](http://cran.rstudio.com/) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) |
-| [License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat) | [License](http://www.gnu.org/licenses/gpl-2.0.html) |
-[Rate](http://cranlogs.r-pkg.org/) | [Zenodo](https://zenodo.org/search?ln=en&p=redcapr) | 
+| [CRAN](http://cran.rstudio.com/) |
+[License](http://www.gnu.org/licenses/gpl-2.0.html) | 
+[Version](http://www.r-pkg.org/badges/version/SciencesPo) |
+[Rate](http://cranlogs.r-pkg.org/) | [Zenodo](https://zenodo.org/search?ln=en&p=sciencespo) | 
 |  :---- | :----: | :----: | :----: | :----: |
-| [Latest](http://cran.r-project.org/package=REDCapR) | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/REDCapR)](http://cran.r-project.org/package=REDCapR) | ![CRANPace](http://cranlogs.r-pkg.org/badges/REDCapR) | [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28053.svg)](http://dx.doi.org/10.5281/zenodo.28053) |
+
+| [Latest](http://cran.r-project.org/package=REDCapR) |
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) |
+[![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) |
+[![Rate](http://cranlogs.r-pkg.org/badges/SciencesPo)](http://cran.rstudio.com/package=SciencesPo) | [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28053.svg)](http://dx.doi.org/10.5281/zenodo.28053) |
 |  | *License* | *Latest CRAN version* | *CRAN Downloads* | *Independently-hosted Archive* |
 
 
