@@ -54,8 +54,8 @@ votes=c(47000, 16000,	15900,	12000,	6000,	3100))
 LargestRemainders(my_election_data$party,
 my_election_data$votes, seats = 10,  method="droop")
 
-LargestRemainders(my_election_data$party,
-my_election_data$votes, seats = 10,  method="hare")
+with(my_election_data, LargestRemainders(party,
+votes, seats = 10,  method="hare"))
 
 }
 \author{

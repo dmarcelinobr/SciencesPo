@@ -5,7 +5,7 @@
 \name{baseball}
 \alias{baseball}
 \title{Bradley Efron and Carl Morris ("Stein's Paradox in Statistics)}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::baseball)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::baseball)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::baseball)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::baseball)} observations.}
 \usage{
 data(baseball)
 }

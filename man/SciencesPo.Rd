@@ -5,12 +5,12 @@
 \name{SciencesPo}
 \alias{SciencesPo}
 \alias{SciencesPo-package}
-\title{A Tool Set For Analyzing Political Behavior Data}
+\title{\Sexpr[stage=build,results=rd]{tools:::Rd_package_title("SciencesPo")}}
 \description{
-Provide functions for analyzing political behavior data, including measures of political fragmentation, seat apportionment, and options for small data visualization.
+\Sexpr[stage=build,results=rd]{tools:::Rd_package_description("SciencesPo")}
 }
 \author{
-Daniel Marcelino, \email{dmarcelino@live.com}
+\Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 }
 \references{
 Marcelino, Daniel (2013). \emph{SciencesPo: A Tool Set for Analyzing Political Behaviour Data}. Available at SSRN: \url{http://dx.doi.org/10.2139/ssrn.2320547}

@@ -32,23 +32,23 @@ Calculates several indexes of (dis)-proportionality, which are for the most part
 \details{
 The following measures are available:
 \itemize{
-\item {"Loosemore-Hanby"}{(Percent) Loosemore-Hanby Index of disproportionality}
-\item {"Rae"}{(Percent) Rae Index of disproportionality}
-\item {"Cox-Shugart"}{Cox-Shugart Index of proportionality}
-\item {"Inv.Cox-Shugart"}{The inverted Cox-Shugart index}
-\item {"Farina"}{Farina index of proportionality, aka cosine proportionality score}
-\item {"Gallagher"}{(Percent) Gallagher index of disproportionality}
-\item {"Inv.Gallagher"}{The inverse of Gallagher index}
-\item {"Grofman"}{Grofman index of proportionality}
-\item {"Inv.Grofman"}{Grofman index of proportionality}
-\item {"Lijphart"}{Lijphart index of proportionality}
-\item {"Inv.Rae"}{The inverse of Rae index}
-\item {"Rose"}{Rose index of disproportionality}
-\item {"Inv.Rose"}{The inverse of Rose index}
-\item {Sainte-Lague}{Sainte-Lague index of disproportionality}
-\item {DHondt}{D'Hondt index of proportionality}
-\item {Gini}{Gini index of disproportionality}
-\item {Monroe}{Monroe index of inequity}
+\item {Loosemore-Hanby} {(Percent) Loosemore-Hanby Index of disproportionality}
+\item {Rae} {(Percent) Rae Index of disproportionality}
+\item {Cox-Shugart} { Cox-Shugart Index of proportionality}
+\item {Inv.Cox-Shugart} { The inverted Cox-Shugart index}
+\item {Farina} { Farina index of proportionality, aka cosine proportionality score}
+\item {"Gallagher" } { (Percent) Gallagher index of disproportionality}
+\item {"Inv.Gallagher" } { The inverse of Gallagher index}
+\item {"Grofman" } { Grofman index of proportionality}
+\item {"Inv.Grofman" } { Grofman index of proportionality}
+\item {"Lijphart" } { Lijphart index of proportionality}
+\item {"Inv.Rae" } { The inverse of Rae index}
+\item {"Rose" } { Rose index of disproportionality}
+\item {"Inv.Rose" } { The inverse of Rose index}
+\item {"Sainte-Lague" } { Sainte-Lague index of disproportionality}
+\item {"DHondt" } { D'Hondt index of proportionality}
+\item {"Gini" } { Gini index of disproportionality}
+\item {"Monroe" } { Monroe index of inequity}
 }
 }
 \examples{

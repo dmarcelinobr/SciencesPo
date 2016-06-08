@@ -1,10 +1,13 @@
 #' @encoding UTF-8
-#' @title A Tool Set For Analyzing Political Behavior Data
-#' @description Provide functions for analyzing political behavior data, including measures of political fragmentation, seat apportionment, and options for small data visualization.
+#' @title
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_title("SciencesPo")}
+#' @description
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_description("SciencesPo")}
 #' @references Marcelino, Daniel (2013). \emph{SciencesPo: A Tool Set for Analyzing Political Behaviour Data}. Available at SSRN: \url{http://dx.doi.org/10.2139/ssrn.2320547}
 #' @name SciencesPo
 #' @docType package
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @import parallel
 #' @import methods
 #' @import stats

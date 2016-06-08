@@ -5,7 +5,7 @@
 \name{bush}
 \alias{bush}
 \title{Approval Ratings for President George W. Bush}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::bush)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::bush)} observations.
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::bush)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::bush)} observations.
 \itemize{
 \item start.date. Start date of the survey.
 \item end.date. End date of the survey.

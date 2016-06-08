@@ -5,7 +5,7 @@
 \name{election2008}
 \alias{election2008}
 \title{2008 U.S. presidential election}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::election2008)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::election2008)} observations.
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::election2008)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::election2008)} observations.
 \itemize{
 \item State Name of the state.
 \item Abr Abbreviation for the state.

@@ -5,7 +5,7 @@
 \name{paired}
 \alias{paired}
 \title{Paired Data}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::paired)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::paired)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::paired)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::paired)} observations.}
 \usage{
 data(paired)
 }

@@ -5,7 +5,7 @@
 \name{twins}
 \alias{twins}
 \title{Burt's Twin Data}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::twins)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::twins)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::twins)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::twins)} observations.}
 \source{
 Burt, C. (1966). The genetic estimation of differences in intelligence:
  A study of monozygotic twins reared together and apart. Br. J. Psych., 57, 147-153.

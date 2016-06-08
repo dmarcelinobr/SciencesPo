@@ -5,7 +5,7 @@
 \name{galton}
 \alias{galton}
 \title{Galton's Family Data on Human Stature.}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::galton)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::galton)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::galton)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::galton)} observations.}
 \usage{
 data(galton)
 }

@@ -5,7 +5,7 @@
 \name{words}
 \alias{words}
 \title{Word frequencies from Mosteller and Wallace}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::words)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::words)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::words)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::words)} observations.}
 \source{
 Mosteller, F. and Wallace, D. (1964). Inference and Disputed Authorship: The Federalist. Reading, MA: Addison-Wesley.
 }

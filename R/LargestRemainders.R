@@ -43,8 +43,8 @@
 #' LargestRemainders(my_election_data$party,
 #' my_election_data$votes, seats = 10,  method="droop")
 #'
-#' LargestRemainders(my_election_data$party,
-#' my_election_data$votes, seats = 10,  method="hare")
+#' with(my_election_data, LargestRemainders(party,
+#' votes, seats = 10,  method="hare"))
 #'
 #' @rdname LargestRemainders
 #' @export
@@ -95,7 +95,7 @@
          })
 
   seat.distribution <- .votes%/%divisor.vec
-  remain <- seats - sum(seat.distribution)
+  remainder <- seats - sum(seat.distribution)
   .temp <- data.frame(
     party = rep(parties, each = 1),
     scores = as.vector(sapply(.votes, function(x) x /
@@ -104,20 +104,22 @@
 
   .temp <- .temp[order(as.double(.temp$scores), decreasing = TRUE),]
 
-  #rownames(.temp) <- c(1:nrow(.temp))
-  .temp <- .temp[1:remain,]
+  rownames(.temp) <- c(1:nrow(.temp))
+  .temp <- .temp[1:remainder,]
 
-  out <- data.frame(party = rep(parties, each = 1), seat = seat.distribution)
+  out <- data.frame(party = rep(parties, each = 1),
+                    seat = seat.distribution)
 
-  if(as.integer(remain) == 0){
-  }else if(as.integer(remain) == 1){
+  if(as.integer(remainder) == 0){
+  }else if(as.integer(remainder) == 1){
     out[as.integer(.temp[1,]$party), 2] <- out[as.integer(.temp[1,]$party), 2] + 1
   }else{
-    for(i in 1:remain){
+    for(i in 1:remainder){
       out[as.integer(.temp[i,]$party), 2] <- out[as.integer(.temp[i,]$party), 2] + 1
     }
   }
-  output <- freq(out, digits = 3, perc=TRUE);
+
+  output <- SciencesPo::freq(out, digits = 3, perc=TRUE);
   # Political diversity indices
   ENP_votes <- 1/sum(.ratio^2)
   ENP_seats <- 1/sum((output$Freq/sum(output$Freq))^2)
@@ -132,7 +134,6 @@
   cat(paste("Gallagher Index: ", round(LSq_index, 2)), "\n \n")
   # names(output) <-c("Party", "Seats", "Seats(\u0025)");
   names(output) <-c("Party", "Seats", "\u0025 Seats");
-  # output <- output[ order(output[,2], decreasing = TRUE),]
   class(output) <- c("SciencesPo", class(output))
   attr(output, "scpo.type") <- "Standard"
   return(output)

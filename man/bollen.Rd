@@ -5,7 +5,7 @@
 \name{bollen}
 \alias{bollen}
 \title{Bollen Data on Industrialization and Political Democracy}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::bollen)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::bollen)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::bollen)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::bollen)} observations.}
 \usage{
 data(bollen)
 }

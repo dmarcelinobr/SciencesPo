@@ -5,7 +5,7 @@
 \name{stature}
 \alias{stature}
 \title{The Measure of US Presidents}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::stature)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::stature)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::stature)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::stature)} observations.}
 \source{
 US Presidents: \url{http://www.lingerandlook.com/Names/Presidents.php}
 Inside Gov. \url{http://www.us-presidents.insidegov.com}.

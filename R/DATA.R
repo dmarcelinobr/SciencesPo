@@ -17,9 +17,9 @@
 #' @keywords datasets
 #' @name galton
 #' @usage data(galton)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::galton)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::galton)} observations.
+#' @format
+#' A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::galton)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::galton)} observations.
 NULL
-
 
 
 
@@ -41,7 +41,7 @@ NULL
 #' @keywords datasets
 #' @name marriage
 #' @usage data(marriage)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::marriage)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::marriage)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::marriage)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::marriage)} observations.
 NULL
 
 
@@ -71,7 +71,7 @@ NULL
 #' @keywords datasets
 #' @name sheston91
 #' @usage data(sheston91)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::sheston91)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::sheston91)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::sheston91)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::sheston91)} observations.
 NULL
 
 
@@ -113,7 +113,7 @@ NULL
 #' @keywords datasets
 #' @name griliches76
 #' @usage data(griliches76)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::griliches76)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::griliches76)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::griliches76)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::griliches76)} observations.
 NULL
 
 
@@ -140,7 +140,7 @@ NULL
 #' @keywords datasets
 #' @name nerlove63
 #' @usage data(nerlove63)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::nerlove63)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::nerlove63)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::nerlove63)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::nerlove63)} observations.
 NULL
 
 
@@ -166,7 +166,7 @@ NULL
 #' @keywords datasets
 #' @name swatson93
 #' @usage data(swatson93)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::swatson93)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::swatson93)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::swatson93)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::swatson93)} observations.
 NULL
 
 
@@ -193,7 +193,7 @@ NULL
 #' @keywords datasets
 #' @name ltaylor96
 #' @usage data(ltaylor96)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::ltaylor96)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::ltaylor96)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::ltaylor96)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::ltaylor96)} observations.
 NULL
 
 
@@ -223,7 +223,7 @@ NULL
 #' @keywords datasets
 #' @name cgreene76
 #' @usage data(cgreene76)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::cgreene76)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::cgreene76)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::cgreene76)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::cgreene76)} observations.
 NULL
 
 
@@ -255,7 +255,7 @@ NULL
 #' @keywords datasets
 #' @name mishkin92
 #' @usage data(mishkin92)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::mishkin92)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::mishkin92)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::mishkin92)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::mishkin92)} observations.
 NULL
 
 
@@ -290,7 +290,7 @@ NULL
 #' @keywords datasets
 #' @name bhodrick93
 #' @usage data(bhodrick93)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::bhodrick93)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::bhodrick93)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::bhodrick93)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::bhodrick93)} observations.
 NULL
 
 
@@ -320,7 +320,7 @@ NULL
 #' @keywords datasets
 #' @name titanic
 #' @usage data(titanic)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::titanic)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::titanic)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::titanic)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::titanic)} observations.
 NULL
 
 
@@ -371,7 +371,7 @@ NULL
 #' @keywords datasets
 #' @name turnout
 #' @usage data(turnout)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::turnout)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::turnout)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::turnout)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::turnout)} observations.
 NULL
 
 
@@ -393,7 +393,7 @@ NULL
 #' @keywords datasets
 #' @name paired
 #' @usage data(paired)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::paired)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::paired)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::paired)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::paired)} observations.
 NULL
 
 
@@ -425,7 +425,7 @@ NULL
 #' @keywords datasets
 #' @name words
 #' @usage data(words)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::words)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::words)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::words)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::words)} observations.
 NULL
 
 
@@ -451,7 +451,7 @@ NULL
 #' @keywords datasets
 #' @name cathedrals
 #' @usage data(cathedrals)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::cathedrals)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::cathedrals)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::cathedrals)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::cathedrals)} observations.
 NULL
 
 
@@ -480,7 +480,7 @@ NULL
 #' @keywords datasets
 #' @name twins
 #' @usage data(twins)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::twins)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::twins)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::twins)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::twins)} observations.
 NULL
 
 
@@ -518,7 +518,7 @@ NULL
 #' @name stature
 #' @usage data(stature)
 #' # t.test(stature$winner.height, stature$opponent.height, var.equal=TRUE)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::stature)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::stature)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::stature)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::stature)} observations.
 NULL
 
 
@@ -531,7 +531,7 @@ NULL
 #'
 #' @description Approval ratings for George W. Bush.
 #'
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::bush)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::bush)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::bush)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::bush)} observations.
 #' \itemize{
 #' \item start.date. Start date of the survey.
 #' \item end.date. End date of the survey.
@@ -566,7 +566,7 @@ NULL
 #' that Sarah Palin would be his running mate as the Republican
 #' nominee for vice president, and the end of September.
 #'
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::pollster2008)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::pollster2008)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::pollster2008)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::pollster2008)} observations.
 #' \itemize{
 #' \item PollTaker Polling organization.
 #' \item PollDates Dates the poll data were collected.
@@ -599,7 +599,7 @@ NULL
 #'
 #' @description State-by-state information from the 2008 U.S. presidential election.
 #'
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::election2008)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::election2008)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::election2008)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::election2008)} observations.
 #' \itemize{
 #' \item State Name of the state.
 #' \item Abr Abbreviation for the state.
@@ -631,7 +631,7 @@ NULL
 #'
 #' @description Data from the 2007 Spring Survey conducted through the Pew Global Attitudes Project.
 #'
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::religiosity)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::religiosity)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::religiosity)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::religiosity)} observations.
 #' \itemize{
 #' \item Country Name of country.
 #' \item Religiosity A measure of degree of religiosity for residents of the country.
@@ -670,7 +670,7 @@ NULL
 #' people agree or disagree with the statement "Trade unions have too much
 #' power in Britain today".
 #'
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::unions)} variables and \Sexpr{nrow(SciencesPo::unions)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::unions)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::unions)} observations.
 #' \itemize{
 #' \item Date Month of the poll \code{Aug-77} to \code{Sep-79}.
 #' \item AgreePct Percent who agree (unions have too much power).
@@ -709,7 +709,7 @@ NULL
 #' @keywords datasets
 #' @name alpha
 #' @usage data(alpha)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::alpha)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::alpha)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::alpha)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::alpha)} observations.
 #'
 NULL
 
@@ -734,7 +734,7 @@ NULL
 #' @keywords datasets
 #' @name baseball
 #' @usage data(baseball)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::baseball)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::baseball)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::baseball)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::baseball)} observations.
 #'
 NULL
 
@@ -757,7 +757,7 @@ NULL
 #' @keywords datasets
 #' @name chismoke
 #' @usage data(chismoke)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::chismoke)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::chismoke)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::chismoke)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::chismoke)} observations.
 #'
 NULL
 
@@ -795,7 +795,7 @@ NULL
 #' @keywords datasets
 #' @name bollen
 #' @usage data(bollen)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::bollen)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::bollen)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::bollen)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::bollen)} observations.
 #'
 NULL
 
@@ -828,7 +828,7 @@ NULL
 #' @keywords datasets
 #' @name big5
 #' @usage data(big5)
-#' @format A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::big5)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::big5)} observations.
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::big5)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::big5)} observations.
 #'
 NULL
 

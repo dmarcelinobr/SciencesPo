@@ -5,7 +5,7 @@
 \name{unions}
 \alias{unions}
 \title{Poll attitudes towards British trade unions}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::unions)} variables and \Sexpr{nrow(SciencesPo::unions)} observations.
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::unions)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::unions)} observations.
 \itemize{
 \item Date Month of the poll \code{Aug-77} to \code{Sep-79}.
 \item AgreePct Percent who agree (unions have too much power).

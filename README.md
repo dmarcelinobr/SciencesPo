@@ -3,9 +3,9 @@
 
 
 
-| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](https://cran.rstudio.com/web/packages/SciencesPo/index.html) | [Zenodo](https://zenodo.org/) |
+| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](https://cran.r-project.org/package=SciencesPo) | [Zenodo](https://zenodo.org/) |
 | :---- | :----: | :----: | :----: | :----: | 
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) |  [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)](https://cran.rstudio.com/web/packages/SciencesPo/index.html) |  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.54876.svg)](http://dx.doi.org/10.5281/zenodo.54876) | 
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) |  [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)]( https://cran.r-project.org/package=SciencesPo) |  [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.54876.svg)](http://dx.doi.org/10.5281/zenodo.54876) | 
 | *License* | *Latest CRAN version* | *Build status*  | *CRAN Downloads* | *Independently-hosted Archive* |
 
 
@@ -64,10 +64,14 @@ To see what functions are implemented in **SciencesPo**, run:
 help(package=SciencesPo)
 ```
 
-## Examples
+## 
+
+
+
+## Vignettes
 * [Concepts and Basics of SciencesPo](https://cran.r-project.org/web/packages/SciencesPo/vignettes/SciencesPo.html)
 * [Descriptive Stats]
+* [Cross-Tabulation]
 * [Are My Data Normal?]
 * [Measures of Political Behavior](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
-* [The Viz: Plotting Features in SciencesPo]
-* [Block-Randomized Designs]
+* [The Viz: Plotting Features]

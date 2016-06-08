@@ -643,13 +643,19 @@ Atkinson(x, epsilon = 0.5)
 # Plot Themes & Colors
 
 The **SciencesPo** brings in few themes and color palettes to enhance  [ggplot2](https://cran.r-project.org/package=ggplot2) graphs, but there are specialized packages like [ggthemes](https://cran.r-project.org/package=ggthemes),
-[ggthemr](https://github.com/cttobin/ggthemr), [cowplot](https://cran.r-project.org/package=cowplot), [ggalt](https://cran.r-project.org/package=ggalt), [GGally](https://cran.r-project.org/package=GGally), and [sjPlot](https://cran.r-project.org/package=sjPlot) that can make graph decoration a lot easier.
+[ggthemr](https://github.com/cttobin/ggthemr), [cowplot](https://cran.r-project.org/package=cowplot), [ggalt](https://cran.r-project.org/package=ggalt), [GGally](https://cran.r-project.org/package=GGally), and [sjPlot](https://cran.r-project.org/package=sjPlot) that can make graph decoration a lot easier. There's also an interesting discussion on plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
 
-The layers in [ggplot2](https://cran.r-project.org/package=ggplot2) are also called ‘geoms’. Once the base setup is done, you can append the geoms one on top of the other. There's a complete discussion of plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
+With **SciencesPo**, one can "preview" ggplot themes by simply invoking the `PreviewTheme()` function. This will draw a predefined plot that we can combine with themes, for instance.
+
+```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
+
+PreviewTheme() + theme_grey()
+```
+
 
 ## Themes
 
-The default **ggplot2** design has its charm, in my opinion. But, very often I don't like the gray background grid. I feel it distracts from the data. For example, see the following **ggplot2** graph with default settings on.
+In my point of view, the default **ggplot2** design has its charm, but, very often I don't like the gray background grid. I feel it distracts from the data. For example, see the following **ggplot2** graph with default settings on.
 
 ```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5 }
 # detach("package:SciencesPo", unload = TRUE)
@@ -660,8 +666,6 @@ gg <- gg +scale_size_continuous(range = c(3,8))
 gg 
 
 ```
-
-Next, 
 
  - `theme_blank()` Produces a consistent theme for ggplot2 graphs with no background, axis texts, or grid lines.
   
@@ -806,7 +810,7 @@ mod <- ggplot(data = df[df$ideology == "m", ],
 
 ## Changing defaults 
 
-If you want to change the theme for an entire session you can use `theme_set()` as in `theme_set(theme_gray())` to switch to default **[ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html)** theme for all subsequent plots. Otherwise, you may also apply themes without changing the defaults as of `plot + theme_pub()`. 
+If you want to change the theme for an entire session you can use `theme_set()` as in `theme_set(theme_gray())` to switch to default **[ggplot2](https://cran.r-project.org/package=ggplot2)** theme for all subsequent plots. Otherwise, you may also apply themes without changing the defaults as of `plot + theme_pub()`. 
 
 To modify general aspects of the `theme_pub()` as fontsize, font family etc:
 
@@ -994,6 +998,19 @@ g <- g + guides(
 g
 
 ```
+
+
+## Enhanced geoms
+```{r eval=FALSE, echo=FALSE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA}
+
+d <- data.frame(x=c(1,1,2),y=c(1,2,2)*100)
+
+gg <- ggplot(d,aes(x,y))
+gg <- gg + scale_x_continuous(expand=c(0.5,1))
+gg <- gg + scale_y_continuous(expand=c(0.5,1))
+gg + geom_spotlight(s_shape=1, expand=0) + geom_point(color="red")
+```
+
 
 ## Color palettes
 

@@ -5,7 +5,7 @@
 \name{bhodrick93}
 \alias{bhodrick93}
 \title{Bekaert's and Hodrick's (1993) Data}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::bhodrick93)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::bhodrick93)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::bhodrick93)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::bhodrick93)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }

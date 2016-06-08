@@ -70,7 +70,7 @@ globalVariables("layer")
 
 
 #' Geom Proto
-#' @rdname SciencesPo-ggproto
+#' @rdname geom_lollipop
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -99,7 +99,7 @@ points$colour <- point.colour %||% data$colour
 points$size <- point.size %||% (data$size * 2.5)
 stem <- data
 stem$colour <- stem.colour %||% data$colour
-stem$size <- stem.size %||% (data$size * .75)
+stem$size <- stem.size %||% (data$size * 1)
 
 grid::gList(
 ggplot2::GeomSegment$draw_panel(stem, panel_scales, coord),
@@ -147,7 +147,7 @@ NULL
 #'
 #' ggplot(df, aes(y=trt, x=l, xend=r)) +
 #' geom_dumbbell(color="#a3c4dc", size=0.75, point.colour.l="#0e668b")
-
+#'
 `geom_dumbbell` <- function(mapping = NULL, data = NULL, ...,
                           point.colour.l = NULL, point.size.l = NULL,
                           point.colour.r = NULL, point.size.r = NULL,
@@ -173,7 +173,7 @@ NULL
 }
 
 
-#' @rdname SciencesPo-ggproto
+#' @rdname geom_dumbbell
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -221,7 +221,7 @@ NULL
 
 
 #' @encoding UTF-8
-#' @rdname SciencesPo-ggproto
+#' @rdname geom_spotlight
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -372,11 +372,10 @@ if (FALSE) {
 #' @param stat  stat
 #' @param position position
 #' @param na.rm na.rm
-#' @param show.legend  show.legend
+#' @param show.legend show.legend
 #' @param inherit.aes inherit.aes
 #' @param ...  dots
 #' @return adds a circle around the specified points
-#' @author Ben Bolker
 #' @export
 #' @examples
 #' d <- data.frame(x=c(1,1,2),y=c(1,2,2)*100)
@@ -395,9 +394,9 @@ if (FALSE) {
 #' gg <- ggplot(mpg, aes(displ, hwy))
 #' gg + geom_spotlight(data=subset(mpg, hwy>40)) + geom_point()
 #'
-#' ss <- subset(mpg,hwy>31 & displ<2)
+#' ss <- subset(mpg,hwy>30 & displ<3)
 #'
-#' gg + geom_spotlight(data=ss, colour="blue", s_shape=0.9, expand=0.07) +
+#' gg + geom_spotlight(data=ss, colour="blue", s_shape=.7, expand=0.07) +
 #'   geom_point() + geom_point(data=ss, colour="blue")
 #'
 `geom_spotlight` <- function(mapping = NULL, data = NULL, stat = "identity",
@@ -410,4 +409,3 @@ if (FALSE) {
   )
 }
 NULL
-

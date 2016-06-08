@@ -5,7 +5,7 @@
 \name{cgreene76}
 \alias{cgreene76}
 \title{Christensen's and Greene's (1976) Data}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::cgreene76)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::cgreene76)} observations.}
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::cgreene76)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::cgreene76)} observations.}
 \source{
 Hayashi, F. (2000). \emph{Econometrics.} Princeton. New Jersey, USA: Princeton University. \url{http://fmwww.bc.edu/ec-p/data/Hayashi/}
 }

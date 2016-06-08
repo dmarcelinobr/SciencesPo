@@ -5,7 +5,7 @@
 \name{religiosity}
 \alias{religiosity}
 \title{Data on religiosity of countries}
-\format{A \code{data.frame} object with \Sexpr[eval=TRUE,echo=FALSE,results=text]{ncol(SciencesPo::religiosity)} variables and \Sexpr[eval=TRUE,echo=FALSE,results=text]{nrow(SciencesPo::religiosity)} observations.
+\format{A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::religiosity)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::religiosity)} observations.
 \itemize{
 \item Country Name of country.
 \item Religiosity A measure of degree of religiosity for residents of the country.
