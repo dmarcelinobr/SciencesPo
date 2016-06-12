@@ -4,19 +4,20 @@
 \alias{theme_darkside}
 \title{The Dark Side Theme}
 \usage{
-theme_darkside(font_size = 12, font_family = "serif", legend = "none")
+theme_darkside(base_size = 12, base_family = "serif", legend = "none")
 }
 \arguments{
-\item{font_size}{Overall font size. Default is 12.}
+\item{base_size}{overall font size. Default is 12.}
 
-\item{font_family}{Default font family.}
+\item{base_family}{the name for default font family.}
 
 \item{legend}{the position of the legend if any.}
 }
 \value{
 The theme.
-# plot with small amount of remaining padding
+# plot with small amount of padding
 qplot(1:10, (1:10)^2, color="green") + theme_darkside()
+
 # Check that it is a complete theme
 attr(theme_darkside(), "complete")
 }

@@ -133,10 +133,18 @@ myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
 
 unclass(myvar) # testing the order
 
-## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
-Destring(myvar) 
+## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
+#  Destring(myvar)
+#  
+#  # Simulate some data (12 respondents x 4 items)
+#  df <- data.frame(replicate(4, sample(1:5, 12, replace=TRUE)))
+#  df <- data.frame(lapply(df, factor, ordered=TRUE,
+#                            levels=1:5,
+#                            labels=c("Strongly disagree","Disagree", "Neutral","Agree","Strongly Agree")))
+#  grp <- gl(2, 12/2, labels=LETTERS[1:2]) # say equal group size for simplicity
+#  
 
-## ----echo=FALSE, message=FALSE, comment=NA-------------------------------
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 # Smithson and Verkuilen approach
 (y = Normalize(x, method="SV"))
 
@@ -308,6 +316,10 @@ x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
 Atkinson(x, epsilon = 0.5)
 
 ## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
+
+PreviewTheme() + theme_grey()
+
+## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
 # detach("package:SciencesPo", unload = TRUE)
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
@@ -315,9 +327,6 @@ gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
 gg <- gg +scale_size_continuous(range = c(3,8)) 
 gg 
 
-
-## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
-PreviewTheme()
 
 ## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
 library(SciencesPo)
@@ -497,31 +506,6 @@ gg <- gg +scale_size_continuous(range = c(3,8))
 gg <- gg + theme_pub(legend = "none")
 gg <- gg + prefs
 gg
-
-## ----echo=FALSE, cache=TRUE, message=FALSE, comment=NA, warning=FALSE----
-
-height_ratio <- c(0.924324324, 1.081871345, 1, 0.971098266, 1.029761905,
-                  0.935135135, 0.994252874, 0.908163265, 1.045714286, 1.18404908,
-                  1.115606936, 0.971910112, 0.97752809, 0.978609626, 1,
-                  0.933333333, 1.071428571, 0.944444444, 0.944444444, 1.017142857,
-                  1.011111111, 1.011235955, 1.011235955, 1.089285714, 0.988888889,
-                  1.011111111, 1.032967033, 1.044444444, 1, 1.086705202,
-                  1.011560694, 1.005617978, 1.005617978, 1.005494505, 1.072222222,
-                  1.011111111, 0.983783784, 0.967213115, 1.04519774, 1.027777778,
-                  1.086705202, 1, 1.005347594, 0.983783784, 0.943005181, 1.057142857)
-
-vote_support <- c(0.427780852, 0.56148981, 0.597141922, 0.581254292, 0.530344067,
-              0.507425996, 0.526679292, 0.536690951, 0.577825976, 0.573225387,
-              0.550410082, 0.559380032, 0.484823958, 0.500466176, 0.502934212,
-              0.49569636, 0.516904414, 0.522050547, 0.531494442, 0.60014892, 
-              0.545079801, 0.604274986, 0.51635906, 0.63850958, 0.652184407, 
-              0.587920412, 0.5914898, 0.624614752, 0.550040193, 0.537771958, 
-              0.523673642, 0.554517134, 0.577511576, 0.500856251, 0.613444534, 
-              0.504063153, 0.617883695, 0.51049949, 0.553073235, 0.59166415, 
-              0.538982024, 0.53455133, 0.547304058, 0.497350649, 0.512424242, 
-              0.536914796)
-
-Presidents = data.frame(cbind(height_ratio, vote_support))             
 
 ## ----echo=TRUE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
 theme_set(theme_pub(base_size=16))

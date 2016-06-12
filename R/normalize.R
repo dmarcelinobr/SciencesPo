@@ -100,3 +100,18 @@ NULL
 #apply(scaled.dat, 2, sd)
 
 
+# Convert data to Normal Scores with the same Mean and SD.  This reshapes data to conform to a Normal Distribution. It is not converting to z-scores (i.e., it is not standardizing data)
+
+#return \value{A numeric with the same Mean and SD as x, but without skew or kurtosis}
+#uniformize <- function (x)
+#{
+#  x <- rank(x,
+#            na.last = "keep",
+#            ties.method = "average")
+#  n <- sum(!is.na(x))
+#  x / (n + 1)
+#}
+
+#return( qnorm(uniformize(x), mean=mean(x, na.rm=TRUE), sd=sd(x, na.rm=TRUE) ) )
+#}
+

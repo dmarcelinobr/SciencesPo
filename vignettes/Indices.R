@@ -1,7 +1,3 @@
-## ----table_A.1, echo=TRUE, cache=TRUE------------------------------------
-# Table A.l
-lijphart <- c("A"=41000, "B"=29000,"C"=17000, "D"=13000)
-
 ## ----highestAverages1, message=FALSE, comment=NA-------------------------
 library("SciencesPo", quietly = TRUE)
 
@@ -73,12 +69,6 @@ HighestAverages(parties=names(const),
                 seats = 3, method = "dh",
                 threshold = 7/100) 
 
-## ----Valencia-election, echo=FALSE, cache=TRUE, comment=NA---------------
-(Valencia <- c("PP"=442005, "Podemos"=395729, "PSOE"=275680,
-              "C's"=221299, "IU"=68759, "PACMA"=14445, "Others"=35943)) 
-blanco=8738
-nulo=11891
-
 ## ----Valencia, echo=TRUE, message=FALSE, comment=NA----------------------
 # Valencia returned 15 members
 HighestAverages(parties=names(Valencia),
@@ -121,12 +111,6 @@ Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
 #                                votes=votes, seats = 556,
 #                                method = "imperiali.adj") )
 
-## ----Ceara-election, echo=TRUE, cache=TRUE, message=FALSE, comment=NA----
-# Results for the state legislative house of Ceará (2014):
-Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
-           "PRB"=2043217,"PSB"=15061, "PSC"=103679, "PSTU"=109830,
-           "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
-
 ## ----highestAverages11, echo=TRUE, message=FALSE, comment=NA-------------
 mytable = HighestAverages(parties=names(Ceara), 
                           votes=Ceara,
@@ -145,7 +129,7 @@ aes(x = reorder(Party, -Seats), y= Seats + 1, label = Seats), hjust = .5)
 gg <- gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 25))
 gg <- gg + scale_fill_party("BRA")
 gg <- gg + labs(list(x = "", y = "# Seats obtained",
-title = "The 2014 elections in the state of Ceará, seats won by party"))
+title = "The 2014 election in the Ceará State (seats won by party)"))
 gg <-  gg + theme_fte(base_size = 10, base_family = "Tahoma")
 gg
 
@@ -190,7 +174,7 @@ out1 = HighestAverages(
   stat = "identity",
   position = position_dodge()
   )
-  p <- p + labs(x = "", y = "# Seats obtained", title="The 2014 elections in the state of Ceará seats won by party")
+  p <- p + labs(x = "", y = "# Seats obtained", title="The 2014 election in the Ceará State (seats won by party)")
   p <- p  + scale_fill_pub("fte")
   p <- p + theme_fte(legend = "top", base_size = 10, base_family = "Tahoma")
   p  + theme(panel.grid.major.x=element_blank()) 
@@ -221,21 +205,6 @@ out1 = HighestAverages(
 #    )
 #  
 
-## ----politicalDiversity1, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
-# The 2004 presidential election in the US (vote share):
-
-US2004 <- c(
-  "Democratic" = 0.481,
-  "Republican" = 0.509,
-  "Independent" = 0.0038,
-  "Libertarian" = 0.0032,
-  "Constitution" = 0.0012,
-  "Green" = 0.00096,
-  "Others" = 0.00084
-  )
-
-print(US2004)
-
 ## ----politicalDiversity2, echo=TRUE, message=FALSE, comment=NA-----------
 PoliticalDiversity(US2004); # ENEP (laakso/taagepera) method 
 
@@ -250,18 +219,6 @@ PoliticalDiversity(US2004, index= "inv.herfindahl");
 # Compares to:
 Herfindahl(US2004)
 
-## ----Helsinki-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
-# Helsinki's 1999:
-Helsinki <- 
-  data.frame(
-  votes = c(68885, 18343, 86448, 21982, 51587,
-            27227, 8482, 7250, 365, 2734, 1925,
-            475, 1693, 693, 308, 980, 560, 590, 185),
-  seats.SL=c(5, 1, 6, 1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0,
-             0, 0, 0, 0, 0),
-  seats.dH=c(5, 1, 7, 1, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
-             0, 0, 0, 0, 0))
-
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 # Helsinki's 1999 election:
 Helsinki
@@ -274,29 +231,6 @@ PoliticalDiversity(Helsinki$votes); #ENP given votes
 PoliticalDiversity(Helsinki$seats.SL); #ENP for Saint-Lague 
 
 PoliticalDiversity(Helsinki$seats.dH); #ENP for D'Hondt
-
-## ----Queensland-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
-# 2012 Queensland state elecion:
-Queensland <-
-data.frame(
-party = c("LNP", "ALP", "Katter", "Greens", "Ind", "Others"),
-votes = c(1214553, 652092, 282098, 184147, 77282, 35794),
-pvotes = c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47),
-seats = c(78, 7, 2, 0, 2, 0),
-pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
-)
-
-## ----Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
-# 2012 Quebec provincial election:
-Quebec <-
-  data.frame(
-  party = c("PQ", "Lib", "CAQ", "QS", "Option", "Green", "Others"),
-  votes = c(1393703, 1360968, 1180235, 263111, 82539, 43394, 38738),
-  pvotes = c(31.95, 31.20, 27.05, 6.03, 1.89, 0.99, 0.89),
-  seats = c(54, 50, 19, 2, 0, 0, 0),
-  pseats =  c(43.2, 40, 15.2, 1.6, 0, 0, 0)
-  )
-
 
 ## ----Queensland, echo=TRUE, message=FALSE, comment=NA--------------------
 # 2012 Queensland state elecion:

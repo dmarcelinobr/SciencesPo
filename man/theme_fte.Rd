@@ -10,17 +10,17 @@ theme_fte(legend = "none", legend_title = FALSE, base_size = 12,
   "#60636A", "#525252"))
 }
 \arguments{
-\item{legend}{Enables to set legend position, default is "none".}
+\item{legend}{enables to set legend position, default is "none".}
 
-\item{legend_title}{Will the legend have a title?, Default is \code{FALSE}.}
+\item{legend_title}{will the legend have a title? Defaults is \code{FALSE}.}
 
-\item{base_size}{Overall font size. Default is 13.}
+\item{base_size}{overall font size. Default is 13.}
 
-\item{horizontal}{Logical. Horizontal axis lines?}
+\item{horizontal}{logical. Horizontal axis lines?}
 
-\item{base_family}{Default font family.}
+\item{base_family}{a nmae for default font family.}
 
-\item{colors}{Default colors used in the plot in the following order: background, lines, text, and title.}
+\item{colors}{default colors used in the plot in the following order: background, lines, text, and title.}
 }
 \value{
 The theme.
@@ -31,10 +31,6 @@ Theme for plotting  with ggplot2.
 \examples{
 qplot(1:10, (1:10)^3) + theme_fte()
 
-# Easy to set different theme colors:
-mycolors = c("#F2F1E8",  "#D2D2D2",  "#6E6E6E", "#6E6E6E")
-qplot(1:10, (1:10)^3) +
- theme_fte(colors=mycolors) #ae8b38
 
 mycolors = c("wheat",  "#C2AF8D",  "#8F6D2F", "darkred")
 qplot(1:10, (1:10)^3) +

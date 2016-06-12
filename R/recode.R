@@ -4,8 +4,8 @@
 #' @description Recodes a value or a vector of values.
 #'
 #' @param x The vector whose values will be recoded.
-#' @param old a vector of old values (numeric/factor/string) to recode.
-#' @param into a vector of replacement values.
+#' @param old the old value or a vector of old values (numeric/factor/string).
+#' @param into the new value or a vector of replacement values (1 to 1 recoding).
 #' @param warn A logical to print a message if any of the
 #'  old values are not actually present in \code{x}.
 #' @keywords Manipulation

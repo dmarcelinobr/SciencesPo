@@ -5,21 +5,21 @@
 \alias{theme_pub}
 \title{The Default Theme}
 \usage{
-theme_pub(legend = "bottom", base_size = 13, base_family = "",
+theme_pub(legend = "bottom", base_size = 12, base_family = "",
   horizontal = FALSE, line_width = 0.5, axis_line = FALSE)
 }
 \arguments{
-\item{legend}{Enables to set legend position, default is "bottom".}
+\item{legend}{enables to set legend position, default is "bottom".}
 
-\item{base_size}{Overall font size. Default is 14.}
+\item{base_size}{overall font size. Default is 14.}
 
-\item{base_family}{Default font family.}
+\item{base_family}{a name for default font family.}
 
-\item{horizontal}{Logical. Horizontal axis lines?}
+\item{horizontal}{logical. Horizontal axis lines?}
 
-\item{line_width}{Default line size.}
+\item{line_width}{default line size.}
 
-\item{axis_line}{Enables to set x and y axes.}
+\item{axis_line}{enables to set x and y axes.}
 }
 \value{
 The theme.
@@ -29,40 +29,20 @@ After loading the SciencesPo package, this theme will be
 set to default for all subsequent graphs made with ggplot2.
 }
 \examples{
-PreviewTheme()+theme_pub()
+PreviewTheme() + theme_pub()
 
-ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
-geom_freqpoly(stat="count",size=2) + theme_pub(line_width=2.5)
-
-ggplot(diamonds,aes(cut, group=1)) +
-geom_bar()+
-geom_freqpoly(stat="count",size=2) +
-theme_pub(base_family='serif')
-
+# Anscombe data
 dat <- data.frame()
 for(i in 1:4)
 dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 
-ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
-fill="orange", shape=21) +
+ggplot(dat, aes(x, y)) +
+geom_point(size=5, color="red", fill="orange", shape=21) +
 geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
 facet_wrap(~set, ncol=2) +
-theme_pub(base_family='serif')
-
-
-ggplot(dat, aes(x, y)) + geom_point(size=5, color="red",
-fill="orange", shape=21) +
-geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
-facet_wrap(~set, ncol=2) +
-theme_bw() +
+theme_pub(base_family='serif') +
 theme(plot.background=element_rect(fill="#f7f7f7")) +
-theme(panel.background=element_rect(fill="#f7f7f7")) +
-theme(panel.grid.minor=element_blank()) +
-# theme(panel.grid.major.y=element_blank()) +
-theme(panel.grid.major.x=element_line()) +
-theme(axis.ticks=element_blank()) +
-theme(panel.border=element_blank()) +
-theme(legend.position="top")
+theme(panel.background=element_rect(fill="#f7f7f7"))
 
 }
 \seealso{

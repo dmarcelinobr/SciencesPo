@@ -833,7 +833,9 @@ NULL
 NULL
 
 
-
+# @docType
+# @format \Sexpr[stage=build,results=rd]{data(galton); SciencesPo:::describe_df(galton)}
+##'
 #' # setwd("~/SciencesPo/data")
 #' # system("cp big5.txt big5-cp.txt")
 #' # system("rm big5.txt.gz")

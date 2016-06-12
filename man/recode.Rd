@@ -13,9 +13,9 @@ Recode(x, old, into, warn = TRUE)
 \arguments{
 \item{x}{The vector whose values will be recoded.}
 
-\item{old}{a vector of old values (numeric/factor/string) to recode.}
+\item{old}{the old value or a vector of old values (numeric/factor/string).}
 
-\item{into}{a vector of replacement values.}
+\item{into}{the new value or a vector of replacement values (1 to 1 recoding).}
 
 \item{warn}{A logical to print a message if any of the
 old values are not actually present in \code{x}.}

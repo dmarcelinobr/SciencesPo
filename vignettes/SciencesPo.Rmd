@@ -293,24 +293,32 @@ unclass(myvar) # testing the order
 
 The vector is un(ordered) in a "strange" way so to reflect the meaning of the levels that I've attributed. By `Destring` it, we should get a numeric result with the same (un)order:
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
 Destring(myvar) 
+
+# Simulate some data (12 respondents x 4 items)
+df <- data.frame(replicate(4, sample(1:5, 12, replace=TRUE)))
+df <- data.frame(lapply(df, factor, ordered=TRUE, 
+                          levels=1:5, 
+                          labels=c("Strongly disagree","Disagree", "Neutral","Agree","Strongly Agree")))
+grp <- gl(2, 12/2, labels=LETTERS[1:2]) # say equal group size for simplicity
+
 ```
 
 ## Unity-based normalization
 
-```{r echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+```{r echo=TRUE, cache=TRUE, message=FALSE, comment=NA}
 x <- sample(10)
 
-# won't print normalized values by default, only to an object 
+# won't print normalized values by default 
 (y = Normalize(x) )
 
-# equivalently to:
- (x-min(x))/(max(x)-min(x))
+# equals to: 
+(x-min(x))/(max(x)-min(x))
 ```
 
 
-```{r echo=FALSE, message=FALSE, comment=NA}
+```{r echo=TRUE, message=FALSE, comment=NA}
 # Smithson and Verkuilen approach
 (y = Normalize(x, method="SV"))
 ```
