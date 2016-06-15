@@ -39,4 +39,7 @@ qplot(1:10, (1:10)^3) +
 # Check that it is a complete theme
 attr(theme_fte(), "complete")
 }
+\author{
+\Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+}
 

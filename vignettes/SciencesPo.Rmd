@@ -120,6 +120,7 @@ with(titanic, Crosstable(SEX, CLASS))
 To delete table entries that are less relevant, switch it to `FALSE` and to `TRUE` otherwise. For instance, to not show column proportions, switch `column` to `FALSE`.
 
 ```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+
 Crosstable(titanic, SEX, CLASS, column = FALSE) 
 ```
 
@@ -160,7 +161,9 @@ data(stature)
 These functions perform three types of skewness and kurtosis assessment to conform with the **e1071** package:
 
 #### Skewness of Data
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r echo=TRUE, cache=TRUE,  message=FALSE, comment=NA}
+data(stature)
+
 attach(stature)
 
 # Type 1:
@@ -174,6 +177,7 @@ Skewness(winner.height)
 #### Kurtosis of Data
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
+data(stature)
 attach(stature)
 
 # Type 1:
@@ -197,6 +201,7 @@ Mode(x)
 ### Standard Error and Confidence Intervals
 
 ```{r echo=TRUE, message=FALSE, cache=TRUE, comment=NA}
+data(stature)
 attach(stature)
 
 CI(winner.height, level=.95) # confidence interval
@@ -212,7 +217,9 @@ SE(winner.height) # std. error
 ### Computing Winsorized Means
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
+data(stature)
 attach(stature)
+
 
 Winsorize(winner.height)
 
@@ -226,6 +233,7 @@ Winsorize(opponent.height, k=35)
 ### Computing Average Absolute Deviation
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
+data(stature)
 attach(stature)
 
 AAD(winner.height) 
@@ -279,29 +287,21 @@ This function converts factor variables to numeric, much like the way Stata does
 ```{r echo=TRUE, message=FALSE, comment=NA }
 require(SciencesPo)
 
-mylevels <- c('Strongly Disagree', 
-              'Disagree', 
-              'Neither', 
-              'Agree', 
-              'Strongly Agree')
+# Simulate some data (12 respondents x 2 items)
+df <- data.frame(replicate(2, sample(1:5, 12, replace=TRUE)))
 
-# attibute some oredered factors 
-myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
-
-unclass(myvar) # testing the order
-```
-
-The vector is un(ordered) in a "strange" way so to reflect the meaning of the levels that I've attributed. By `Destring` it, we should get a numeric result with the same (un)order:
-
-```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
-Destring(myvar) 
-
-# Simulate some data (12 respondents x 4 items)
-df <- data.frame(replicate(4, sample(1:5, 12, replace=TRUE)))
 df <- data.frame(lapply(df, factor, ordered=TRUE, 
                           levels=1:5, 
                           labels=c("Strongly disagree","Disagree", "Neutral","Agree","Strongly Agree")))
-grp <- gl(2, 12/2, labels=LETTERS[1:2]) # say equal group size for simplicity
+
+
+print(df)
+```
+
+By `Destring` it, we should get a numeric result with the same (un)order:
+
+```{r echo=TRUE, message=FALSE, comment=NA}
+Destring(df, "X2") 
 
 ```
 
@@ -324,8 +324,8 @@ x <- sample(10)
 ```
 
 
-
 ## Formatted
+
 Simple but useful. The `Formatted` function rounds numbers to text and drops leading zeros in the process. 
 
 ```{r echo=TRUE, message=FALSE}
@@ -344,6 +344,7 @@ Formatted(p, "Perc", decimal.mark=",")
 
 
 ## Anonymize data containing identifiable information
+
 The following is an example data frame.
 ```{r echo=FALSE, message=FALSE, comment=NA}
 
@@ -384,6 +385,7 @@ invnormal(area=0.35, mu=0, sigma=1)
 ```
 
 ## Dirichlet Distribution
+
 The \code{rdirichlet} function will return a matrix with \code{n} rows, each containing a single random number according to the supplied alpha vector or matrix. 
 
 ```{r echo=TRUE, cache=TRUE, message=FALSE, comment=NA}
@@ -416,16 +418,16 @@ margins <- sims[,2] - sims[,3];
 
 # What is the mean of the margins
 # posterior mean estimate:
-Mean(margins); 
+mean(margins); 
 
 # posterior standard deviation:
-SD(margins); 
+sd(margins); 
 
 # 90% credible interval:
 quantile(margins, probs = c(0.025, 0.975)); 
 
 # posterior probability of a positive margin (Aécio over Marina):
-Mean(margins > 0); 
+mean(margins > 0); 
 
 ```
 
@@ -714,18 +716,6 @@ gg
 ```
 
 
- - `theme_darkside()` Produces a consistent theme for ggplot2 graphs with a dark background and fewer grid lines.
-
-```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
-library(SciencesPo)
-
-gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
-gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
-gg <- gg +scale_size_continuous(range = c(3,8)) 
-gg <- gg + theme_darkside()
-gg
-```
-
 
 ```{r echo=FALSE, message=FALSE, comment=NA, fig.align="center", fig.width=6, fig.height=4}
 
@@ -816,47 +806,36 @@ mod <- ggplot(data = df[df$ideology == "m", ],
 ```
 
 
-## Changing defaults 
+ - `theme_darkside()` Produces a consistent theme for ggplot2 graphs with a dark background and fewer grid lines.
 
-If you want to change the theme for an entire session you can use `theme_set()` as in `theme_set(theme_gray())` to switch to default **[ggplot2](https://cran.r-project.org/package=ggplot2)** theme for all subsequent plots. Otherwise, you may also apply themes without changing the defaults as of `plot + theme_pub()`. 
-
-To modify general aspects of the `theme_pub()` as fontsize, font family etc:
-
-```{r echo=TRUE, message=FALSE, comment=NA, warning=FALSE}
-require(SciencesPo)
-
-# default fontsize doesn't work well for online viewing
-theme_set(theme_pub(base_size=18)) 
-```
-
-
-```{r echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE}
-require(SciencesPo)
-
-# default fontsize doesn't work well for online viewing
-theme_set(theme_pub(base_size=18)) 
+```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
+library(SciencesPo)
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
 gg <- gg +scale_size_continuous(range = c(3,8)) 
-gg <- gg + theme_pub(legend = "none", base_size=18)
-gg 
+gg <- gg + theme_darkside()
+gg
 ```
 
 
-The default fontfamily used in the theme is "Helvetica", but it is easy to chane to another style:
+
+## Changing defaults 
+
+If you want to change the theme for an entire session you can use `theme_set()` as in `theme_set(theme_gray())` to switch to default **[ggplot2](https://cran.r-project.org/package=ggplot2)** theme for all subsequent plots. Otherwise, you may also apply themes without changing the defaults as of `plot + theme_pub()`. 
+
+To modify general aspects of the `theme_pub()` as fontsize, font family, color etc:
 
 ```{r echo=TRUE, message=FALSE, comment=NA, warning=FALSE}
 require(SciencesPo)
 
-# "Verdana", "serif" and "sans" are also high-readability fonts
+# "Verdana", "Tahoma", "Gill Sans" "serif" and "sans" are also high-readability fonts
 theme_set(theme_pub(base_size=18, base_family = "serif")) 
 ```
 
 
 ```{r echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE}
 require(SciencesPo)
-
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
@@ -867,16 +846,13 @@ gg
 
 
 
-Modify it with `theme()` itself. You might be able to modify text sizes, colors etc, and place the legend where you want in the plot area:
+Modify it with `theme()`. You might modify text sizes, colors etc; then add to the plot.
 
 ```{r echo=TRUE, message=FALSE, comment=NA, warning=FALSE}
 
 prefs <- theme(axis.text = element_text(size=18, 
-                                        family = "serif", 
-                                        colour="red"),
-               legend.justification=c(1,0),
-               legend.position=c(1,0), 
-               legend.position="bottom")
+                                        family = "Gill Sans", 
+                                        colour="red"))
 
 ```
 
@@ -886,10 +862,7 @@ prefs <- theme(axis.text = element_text(size=18,
 
 prefs <- theme(axis.text = element_text(size=18, 
                                         family = "serif",
-                                        colour="red"),
-               legend.justification=c(1,0),
-               legend.position=c(1,0), 
-               legend.position="bottom")
+                                        colour="red"))
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
@@ -898,6 +871,39 @@ gg <- gg + theme_pub(legend = "none")
 gg <- gg + prefs
 gg
 ```
+
+
+### Quick plot customization
+
+Alternatively, we can use a set of built in function to quick plot customization:
+
+```{r, echo=TRUE, echo=TRUE, size='\\tiny'}
+PreviewTheme() + 
+  theme_538() + 
+  align_title_right()
+
+```
+
+
+
+```{r, echo=TRUE, echo=TRUE, size='\\tiny'}
+PreviewTheme() + 
+  theme_538() + 
+  no_y_gridlines()
+
+```
+
+
+
+```{r, echo=TRUE, echo=TRUE, size='\\tiny'}
+
+PreviewTheme() + 
+  theme_538() + 
+  no_y_gridlines() +
+  no_x_gridlines()
+
+```
+
 
 
 ## Generic plot annotations
@@ -932,17 +938,28 @@ Presidents = data.frame(cbind(height_ratio, vote_support))
 
 
 ```{r echo=TRUE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE}
-theme_set(theme_pub(base_size=16))
 
 gg <- ggplot(Presidents, aes(x=height_ratio, y=vote_support)) 
 gg <- gg + geom_smooth(method=lm, colour="red", fill="gold")
 gg <- gg + geom_point(size = 5, alpha = .7) 
 gg <- gg +  xlim(0.9,1.2) + ylim(.40, .70)
-gg <- gg + labs(x="Winner/Opponent height ratio", y="Winner vote share", title="Does height matter in presidential politics?")
+gg <- gg + labs(x="Winner/Opponent height ratio", y="Winner vote share", title="Does Height Matter in Presidential Elections?")
 gg <- gg + theme_pub()
 
 # Commence adding layers here
-Render(gg) + Footnote(note="danielmarcelino.github.io")
+Render(gg) + Footnote(note="danielmarcelino.github.io", color="orange")
+```
+
+
+## Generic plots (Data Visualization 101)
+
+```{r, echo=TRUE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA}
+
+with(mtcars, Scatterplot(x = wt, y = mpg,
+main = "Vehicle Weight-Gas Mileage Relationship",
+xlab = "Vehicle Weight",
+ylab = "Miles per Gallon",
+font.family = "serif") )
 ```
 
 

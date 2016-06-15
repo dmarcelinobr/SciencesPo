@@ -6,7 +6,7 @@ globalVariables(c("X","Y"))
 #' @param \dots additional arguments.
 #' @export
 #' @examples
-#' with(mtcars, Scatterplot(x = wt, y = mpg, data=NULL,
+#' with(mtcars, Scatterplot(x = wt, y = mpg,
 #' main = "Vehicle Weight-Gas Mileage Relationship",
 #' xlab = "Vehicle Weight",
 #' ylab = "Miles per Gallon",

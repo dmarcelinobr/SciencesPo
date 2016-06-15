@@ -30,4 +30,7 @@ qplot(1:10, (1:10)^2) + theme_blank() + labs(x = NULL, y = NULL)
 attr(theme_blank(), "complete")
 
 }
+\author{
+\Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+}
 

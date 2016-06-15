@@ -2,11 +2,14 @@
 #' @include Palettes.R
 NULL
 
+
 #' @encoding UTF-8
 #' @title Preview ggplot2 themes
 #' @description Used to preview ggplot2 themes.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
-PreviewTheme <- function () {
+`PreviewTheme` <- function () {
   x_values <- c('A', 'B', 'C')
   blank_data <- data.frame(
     x = factor(x_values, x_values),
@@ -21,6 +24,75 @@ PreviewTheme <- function () {
     ) +
     labs(x = 'x-axis title', y = 'y-axis title', title = 'Plot Title')
 }
+NULL
+
+
+
+
+#' @title Align title left
+#' @description Align ggplot2 title to the left.
+#' @export
+`align_title_left` <- function ()
+  theme(plot.title = element_text(hjust = 0))
+
+
+
+#' @title Align title right
+#' @description Align ggplot2 title to the right.
+#' @export
+`align_title_right` <- function ()
+  theme(plot.title = element_text(hjust = 1))
+
+
+
+#' @title Remove horizontal gridlines.
+#' @description Remove all major and minor horizontal
+#' gridlines from a ggplot2 plot or theme.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @export
+`no_y_gridlines` <- function ()
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())
+
+
+
+#' @title Remove vertical gridlines.
+#' @description Remove all major and minor vertical
+#' gridlines from a ggplot2 plot or theme.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @export
+`no_x_gridlines` <- function ()
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+
+#' @title Remove major x gridlines
+#' @description Do not show major gridlines for x-axis
+#' @export
+`no_major_x_gridlines` <- function ()
+  theme(panel.grid.major.x = element_blank())
+
+#' @title Remove major y gridlines
+#' @description Do not show major gridlines for y-axis
+#' @export
+`no_major_y_gridlines` <- function ()
+  theme(panel.grid.major.y = element_blank())
+
+
+#' @title Remove minor x gridlines
+#' @description Show minor gridlines for x-axis
+#' @export
+`no_minor_x_gridlines` <- function ()
+  theme(panel.grid.minor.x = element_line())
+
+
+#' @title Remove minor y gridlines
+#' @description Do not show minor gridlines for y-axis
+#' @export
+`no_minor_y_gridlines` <- function ()
+  theme(panel.grid.minor.y = element_blank())
 
 
 
@@ -35,9 +107,10 @@ PreviewTheme <- function () {
 #' @param base_family a name for default font family.
 #' @param base_size overall font size. Default is 14.
 #' @param horizontal logical. Horizontal axis lines?
-#' @param line_width default line size.
 #' @param axis_line enables to set x and y axes.
 #' @family themes pub
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @return The theme.
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
@@ -48,20 +121,19 @@ PreviewTheme <- function () {
 #' for(i in 1:4)
 #' dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 #'
-#' ggplot(dat, aes(x, y)) +
-#' geom_point(size=5, color="red", fill="orange", shape=21) +
-#' geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
-#' facet_wrap(~set, ncol=2) +
-#' theme_pub(base_family='serif') +
-#' theme(plot.background=element_rect(fill="#f7f7f7")) +
-#' theme(panel.background=element_rect(fill="#f7f7f7"))
+#'  gg <- ggplot(dat, aes(x, y))
+#' gg <- gg + geom_point(size=5, color="red", fill="orange", shape=21)
+#' gg <- gg + geom_smooth(method="lm", fill=NA, fullrange=TRUE)
+#' gg <- gg + facet_wrap(~set, ncol=2)
+#' gg <- gg + theme_pub(base_family='serif')
+#' gg <- gg + theme(plot.background=element_rect(fill="#f7f7f7"))
+#' gg <- gg + theme(panel.background=element_rect(fill="#f7f7f7"))
 #'
 #' @export
-theme_pub <- function(legend = 'bottom',
+`theme_pub` <- function(legend = 'bottom',
                       base_size = 12,
                       base_family = "",
                       horizontal = FALSE,
-                      line_width = .5,
                       axis_line = FALSE) {
   half_line <- base_size / 2
   theme(
@@ -92,14 +164,13 @@ theme_pub <- function(legend = 'bottom',
       debug = FALSE
     ),
 
-    axis.line =          if (axis_line) {
-      element_line()
+    axis.line =          if (axis_line) {element_line()
     } else{
       element_blank()
     },
     axis.text =          element_text(
-      size = rel(0.75),
-      face = "bold",
+      size = rel(0.95),
+      face = "plain",
       colour = "#1e1e1e"),
     axis.text.x =        element_text(
       margin = ggplot2::margin(t = 0.8 * half_line / 2),
@@ -111,7 +182,7 @@ theme_pub <- function(legend = 'bottom',
     ),
     axis.ticks = element_line(),
     axis.ticks.length =  grid::unit(half_line/2, "pt"),
-    axis.title = element_text(size = rel(0.80), face = "bold"),
+    axis.title = element_text(size = rel(0.90), face = "plain"),
     axis.title.x = element_text(margin = ggplot2::margin(
       t = 0.8 * half_line, b = 0.8 * half_line / 2
     )),
@@ -134,16 +205,16 @@ theme_pub <- function(legend = 'bottom',
     legend.box =         NULL,
     panel.background =   element_blank(),
     panel.border =       element_blank(),
-    panel.grid.major.y =   element_line(),
-    panel.grid.minor.y =   element_line(),
-    panel.grid.major.x =   element_line(),
-    panel.grid.minor.x =   element_line(),
+    panel.grid.major.y =   element_line(colour = "grey90"),
+    panel.grid.major.x =   element_line(colour = "grey90"),
+    panel.grid.minor.y =   element_line(colour = "grey90", size = 0.25),
+    panel.grid.minor.x =   element_line(colour = "grey90", size = 0.25),
     panel.margin =       grid::unit(half_line, "pt"),
     panel.margin.x =     NULL,
     panel.margin.y =     NULL,
     panel.ontop    =     FALSE,
     strip.background =   element_rect(fill = "#DADADA", colour = NA),
-    strip.text = element_text(size = rel(0.80), face = "plain", colour = "#282828"),
+    strip.text = element_text(size = rel(0.80), face = "bold", colour = "#282828"),
     strip.text.x = element_text(margin = ggplot2::margin(t = half_line, b = half_line)),
     strip.text.y = element_text( angle = -90, margin = ggplot2::margin(l = half_line, r = half_line)),
     strip.switch.pad.grid = grid::unit(0.1, "cm"),
@@ -175,6 +246,8 @@ NULL
 #' @param colors default colors used in the plot in the following order: background, lines, text, and title.
 #' @family themes 538
 #' @return The theme.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @examples
 #' qplot(1:10, (1:10)^3) + theme_fte()
 #'
@@ -320,6 +393,8 @@ NULL
 #' @param legend the legend position.
 #' @family themes blank
 #' @return The theme.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #'
 #' @examples
 #' # plot with small amount of remaining padding
@@ -363,6 +438,8 @@ NULL
 #' @param base_size overall font size. Default is 12.
 #' @param legend the position of the legend if any.
 #' @family themes darkside
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @return The theme.
 #' # plot with small amount of padding
 #' qplot(1:10, (1:10)^2, color="green") + theme_darkside()
@@ -371,7 +448,7 @@ NULL
 #' attr(theme_darkside(), "complete")
 #'
 #' @export
-theme_darkside = function(base_size = 12, base_family = "serif", legend="none") {
+`theme_darkside` = function(base_size = 12, base_family = "serif", legend="none") {
 ret  <- (theme_bw(base_size = base_size) +
     theme(
       text = element_text(family = base_family, color = "grey80"),

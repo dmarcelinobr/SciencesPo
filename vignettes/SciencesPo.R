@@ -54,16 +54,7 @@ with(titanic, Crosstable(SEX, SURVIVED, fisher=TRUE) )
 with(titanic, Crosstable(SEX, CLASS, SURVIVED, chisq = TRUE))
 
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
-attach(stature)
-
-# Type 1:
-Skewness(winner.height, type = 1)
-# Type 2 
-Skewness(winner.height, type = 2)
-# Type 3, the default
-Skewness(winner.height)
-
-## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+data(stature)
 attach(stature)
 
 # Type 1:
@@ -80,7 +71,9 @@ x <- sample (10, replace = TRUE)
 Mode(x)
 
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+data(stature)
 attach(stature)
+
 
 Winsorize(winner.height)
 
@@ -90,6 +83,7 @@ Winsorize(winner.height, k=35)
 Winsorize(opponent.height, k=35)
 
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+data(stature)
 attach(stature)
 
 AAD(winner.height) 
@@ -122,27 +116,19 @@ str(iris_2)
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 require(SciencesPo)
 
-mylevels <- c('Strongly Disagree', 
-              'Disagree', 
-              'Neither', 
-              'Agree', 
-              'Strongly Agree')
+# Simulate some data (12 respondents x 2 items)
+df <- data.frame(replicate(2, sample(1:5, 12, replace=TRUE)))
 
-# attibute some oredered factors 
-myvar <- factor(sample(mylevels[1:5], 10, replace=TRUE))
+df <- data.frame(lapply(df, factor, ordered=TRUE, 
+                          levels=1:5, 
+                          labels=c("Strongly disagree","Disagree", "Neutral","Agree","Strongly Agree")))
 
-unclass(myvar) # testing the order
 
-## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
-#  Destring(myvar)
-#  
-#  # Simulate some data (12 respondents x 4 items)
-#  df <- data.frame(replicate(4, sample(1:5, 12, replace=TRUE)))
-#  df <- data.frame(lapply(df, factor, ordered=TRUE,
-#                            levels=1:5,
-#                            labels=c("Strongly disagree","Disagree", "Neutral","Agree","Strongly Agree")))
-#  grp <- gl(2, 12/2, labels=LETTERS[1:2]) # say equal group size for simplicity
-#  
+print(df)
+
+## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
+Destring(df, "X2") 
+
 
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 # Smithson and Verkuilen approach
@@ -192,16 +178,16 @@ margins <- sims[,2] - sims[,3];
 
 # What is the mean of the margins
 # posterior mean estimate:
-Mean(margins); 
+mean(margins); 
 
 # posterior standard deviation:
-SD(margins); 
+sd(margins); 
 
 # 90% credible interval:
 quantile(margins, probs = c(0.025, 0.975)); 
 
 # posterior probability of a positive margin (Aécio over Marina):
-Mean(margins > 0); 
+mean(margins > 0); 
 
 
 ## ----US-election, echo=FALSE, message=FALSE, comment=NA------------------
@@ -355,15 +341,6 @@ gg <- gg +scale_size_continuous(range = c(3,8))
 gg <- gg + theme_538()
 gg
 
-## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
-library(SciencesPo)
-
-gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
-gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
-gg <- gg +scale_size_continuous(range = c(3,8)) 
-gg <- gg + theme_darkside()
-gg
-
 ## ----echo=FALSE, message=FALSE, comment=NA, fig.align="center", fig.width=6, fig.height=4----
 
 set.seed(1)
@@ -447,33 +424,23 @@ gg
 #    geom_bar(stat = "identity", position = "fill") +
 #    scale_fill_manual(values = red, name = "Moderate parties" )
 
-## ----echo=TRUE, message=FALSE, comment=NA, warning=FALSE-----------------
-require(SciencesPo)
-
-# default fontsize doesn't work well for online viewing
-theme_set(theme_pub(base_size=18)) 
-
-## ----echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
-require(SciencesPo)
-
-# default fontsize doesn't work well for online viewing
-theme_set(theme_pub(base_size=18)) 
+## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
+library(SciencesPo)
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
 gg <- gg +scale_size_continuous(range = c(3,8)) 
-gg <- gg + theme_pub(legend = "none", base_size=18)
-gg 
+gg <- gg + theme_darkside()
+gg
 
 ## ----echo=TRUE, message=FALSE, comment=NA, warning=FALSE-----------------
 require(SciencesPo)
 
-# "Verdana", "serif" and "sans" are also high-readability fonts
+# "Verdana", "Tahoma", "Gill Sans" "serif" and "sans" are also high-readability fonts
 theme_set(theme_pub(base_size=18, base_family = "serif")) 
 
 ## ----echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
 require(SciencesPo)
-
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
@@ -484,21 +451,15 @@ gg
 ## ----echo=TRUE, message=FALSE, comment=NA, warning=FALSE-----------------
 
 prefs <- theme(axis.text = element_text(size=18, 
-                                        family = "serif", 
-                                        colour="red"),
-               legend.justification=c(1,0),
-               legend.position=c(1,0), 
-               legend.position="bottom")
+                                        family = "Gill Sans", 
+                                        colour="red"))
 
 
 ## ----echo=FALSE, message=FALSE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
 
 prefs <- theme(axis.text = element_text(size=18, 
                                         family = "serif",
-                                        colour="red"),
-               legend.justification=c(1,0),
-               legend.position=c(1,0), 
-               legend.position="bottom")
+                                        colour="red"))
 
 gg <- ggplot(mtcars, aes(mpg, disp,color=factor(carb),size=hp)) 
 gg <- gg + geom_point(alpha=0.7) + labs(title="Bubble Plot")
@@ -507,18 +468,70 @@ gg <- gg + theme_pub(legend = "none")
 gg <- gg + prefs
 gg
 
+## ---- echo=TRUE, echo=TRUE, size='\\tiny'--------------------------------
+PreviewTheme() + 
+  theme_538() + 
+  align_title_right()
+
+
+## ---- echo=TRUE, echo=TRUE, size='\\tiny'--------------------------------
+PreviewTheme() + 
+  theme_538() + 
+  no_y_gridlines()
+
+
+## ---- echo=TRUE, echo=TRUE, size='\\tiny'--------------------------------
+
+PreviewTheme() + 
+  theme_538() + 
+  no_y_gridlines() +
+  no_x_gridlines()
+
+
+## ----echo=FALSE, cache=TRUE, message=FALSE, comment=NA, warning=FALSE----
+
+height_ratio <- c(0.924324324, 1.081871345, 1, 0.971098266, 1.029761905,
+                  0.935135135, 0.994252874, 0.908163265, 1.045714286, 1.18404908,
+                  1.115606936, 0.971910112, 0.97752809, 0.978609626, 1,
+                  0.933333333, 1.071428571, 0.944444444, 0.944444444, 1.017142857,
+                  1.011111111, 1.011235955, 1.011235955, 1.089285714, 0.988888889,
+                  1.011111111, 1.032967033, 1.044444444, 1, 1.086705202,
+                  1.011560694, 1.005617978, 1.005617978, 1.005494505, 1.072222222,
+                  1.011111111, 0.983783784, 0.967213115, 1.04519774, 1.027777778,
+                  1.086705202, 1, 1.005347594, 0.983783784, 0.943005181, 1.057142857)
+
+vote_support <- c(0.427780852, 0.56148981, 0.597141922, 0.581254292, 0.530344067,
+              0.507425996, 0.526679292, 0.536690951, 0.577825976, 0.573225387,
+              0.550410082, 0.559380032, 0.484823958, 0.500466176, 0.502934212,
+              0.49569636, 0.516904414, 0.522050547, 0.531494442, 0.60014892, 
+              0.545079801, 0.604274986, 0.51635906, 0.63850958, 0.652184407, 
+              0.587920412, 0.5914898, 0.624614752, 0.550040193, 0.537771958, 
+              0.523673642, 0.554517134, 0.577511576, 0.500856251, 0.613444534, 
+              0.504063153, 0.617883695, 0.51049949, 0.553073235, 0.59166415, 
+              0.538982024, 0.53455133, 0.547304058, 0.497350649, 0.512424242, 
+              0.536914796)
+
+Presidents = data.frame(cbind(height_ratio, vote_support))             
+
 ## ----echo=TRUE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
-theme_set(theme_pub(base_size=16))
 
 gg <- ggplot(Presidents, aes(x=height_ratio, y=vote_support)) 
 gg <- gg + geom_smooth(method=lm, colour="red", fill="gold")
 gg <- gg + geom_point(size = 5, alpha = .7) 
 gg <- gg +  xlim(0.9,1.2) + ylim(.40, .70)
-gg <- gg + labs(x="Winner/Opponent height ratio", y="Winner vote share", title="Does height matter in presidential politics?")
+gg <- gg + labs(x="Winner/Opponent height ratio", y="Winner vote share", title="Does Height Matter in Presidential Elections?")
 gg <- gg + theme_pub()
 
 # Commence adding layers here
-Render(gg) + Footnote(note="danielmarcelino.github.io")
+Render(gg) + Footnote(note="danielmarcelino.github.io", color="orange")
+
+## ---- echo=TRUE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA----
+
+with(mtcars, Scatterplot(x = wt, y = mpg,
+main = "Vehicle Weight-Gas Mileage Relationship",
+xlab = "Vehicle Weight",
+ylab = "Miles per Gallon",
+font.family = "serif") )
 
 ## ----eval=FALSE, echo=FALSE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA----
 #  library(SciencesPo)

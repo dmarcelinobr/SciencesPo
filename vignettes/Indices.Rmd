@@ -304,7 +304,7 @@ gg
 
 Next, I use the same example above to make a plot comparing three highest-averages formulas, D'Hondt, Imperiali, and Saint-Laguë. I've chosen a plot resembling a *Cleveland* dot plot (something between a bar and dot plot), and the **SciencesPo** theme.  
 
-```{r largestRemainders6, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
+```{r echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
 
 out1 = HighestAverages(
   parties = names(Ceara),
@@ -677,7 +677,7 @@ with(Quebec, Proportionality(pvotes, pseats,
 The Sainte-Laguë index is a measure of disproportionality that is minimized by Sainte-Laguë (Webster). The index is smiply the sum of, over all parties (or other distinct groups), $((V_i - S_i)^{2} / V_i)$, where $V_i$ is the share of votes for party (or group) $i$, and $S_i$ is its share of seats. If there were as many seats as voters, then $V_i - S_i$ would be 0 and $0/x$ is 0 for any $x != 0$, so in the case of perfect proportionality, this index is 0.
 Because Sainte-Laguë (Webster) is considered the least biased Divisor method, and immune to paradox, Gallagher (1991) recommends using Sainte-Laguë as the standard measure of disproportionality. The inverted version of this index is also very common $((S_i - V_i)^{2}/V_i)$.
 
-$$SL - Index =\sum_{i=1}^{n}\, \frac{1}{v_i}\,(v_i - s_i)^{2} = \sum_{i=1}^{n}\,{v_i}(1 - \frac{s_i}{v_i})^{2}$$
+$$SL - Index = \sum_{i=1}^{n}\, \frac{1}{v_i}\,(v_i - s_i)^{2} = \sum_{i=1}^{n}\,{v_i}(1 - \frac{s_i}{v_i})^{2}$$
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 

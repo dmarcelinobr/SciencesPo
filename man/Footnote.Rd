@@ -6,7 +6,7 @@
 \usage{
 Footnote(note, x = 0.85, y = 0.014, hjust = 0.5, vjust = 0.5,
   newlines = TRUE, fontfamily = "serif", fontface = "plain",
-  colour = "gray85", size = 9, angle = 0, lineheight = 0.9, alpha = 1)
+  color = "gray85", size = 9, angle = 0, lineheight = 0.9, alpha = 1)
 }
 \arguments{
 \item{note}{string or plotmath expression to be drawn.}
@@ -26,7 +26,7 @@ of the string, for spacing?}
 
 \item{fontface}{the font face ("plain", "bold", etc.)}
 
-\item{colour}{text color}
+\item{color}{text color}
 
 \item{size}{point size of text}
 

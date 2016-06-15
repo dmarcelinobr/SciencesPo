@@ -6,7 +6,7 @@
 \title{The Default Theme}
 \usage{
 theme_pub(legend = "bottom", base_size = 12, base_family = "",
-  horizontal = FALSE, line_width = 0.5, axis_line = FALSE)
+  horizontal = FALSE, axis_line = FALSE)
 }
 \arguments{
 \item{legend}{enables to set legend position, default is "bottom".}
@@ -16,8 +16,6 @@ theme_pub(legend = "bottom", base_size = 12, base_family = "",
 \item{base_family}{a name for default font family.}
 
 \item{horizontal}{logical. Horizontal axis lines?}
-
-\item{line_width}{default line size.}
 
 \item{axis_line}{enables to set x and y axes.}
 }
@@ -36,14 +34,17 @@ dat <- data.frame()
 for(i in 1:4)
 dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 
-ggplot(dat, aes(x, y)) +
-geom_point(size=5, color="red", fill="orange", shape=21) +
-geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
-facet_wrap(~set, ncol=2) +
-theme_pub(base_family='serif') +
-theme(plot.background=element_rect(fill="#f7f7f7")) +
-theme(panel.background=element_rect(fill="#f7f7f7"))
+ gg <- ggplot(dat, aes(x, y))
+gg <- gg + geom_point(size=5, color="red", fill="orange", shape=21)
+gg <- gg + geom_smooth(method="lm", fill=NA, fullrange=TRUE)
+gg <- gg + facet_wrap(~set, ncol=2)
+gg <- gg + theme_pub(base_family='serif')
+gg <- gg + theme(plot.background=element_rect(fill="#f7f7f7"))
+gg <- gg + theme(panel.background=element_rect(fill="#f7f7f7"))
 
+}
+\author{
+\Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.

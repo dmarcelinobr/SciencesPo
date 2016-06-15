@@ -16,7 +16,7 @@ Scatterplot(x, y, ...)
 Plots a scatterplot with a custom axis that acts as a quartile plot (quartile-frame). Inspired by The Visual Display of Quantitative Information by Edward R. Tufte.
 }
 \examples{
-with(mtcars, Scatterplot(x = wt, y = mpg, data=NULL,
+with(mtcars, Scatterplot(x = wt, y = mpg,
 main = "Vehicle Weight-Gas Mileage Relationship",
 xlab = "Vehicle Weight",
 ylab = "Miles per Gallon",

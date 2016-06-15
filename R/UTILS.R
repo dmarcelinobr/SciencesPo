@@ -45,32 +45,6 @@ NULL
 
 
 
-#' @encoding UTF-8
-#' @title Convert All Factor Columns to Character Columns of a Data Frame
-#'
-#' @description By default, R converts character columns to factors.
-#' Instead of re-reading the data using \code{stringsAsFactors}, the
-#' \code{\link{Safechars}} function will identify which columns are currently factors, and convert them all to characters.
-#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#'
-#' @param .data a \code{data.frame}.
-#' @seealso \code{\link{read.table}}, \code{\link{Destring}}.
-#' @keywords internal
-#' @examples
-#'  str(iris)
-#' iris_2 = Safechars(iris)
-#' str(iris_2)
-#'
-#' @export
-`Safechars` <- function(.data) {
-  .data[sapply(.data, is.factor)] <-
-    lapply(.data[sapply(.data, is.factor)], as.character)
-  .data
-}### end -- Safechars function
-NULL
-
-
-
 
 #' @encoding UTF-8
 #' @title Some Formats for Nicer Display
@@ -166,7 +140,7 @@ NULL
 #' @param vjust vertical justification
 #' @param fontfamily the font family
 #' @param fontface the font face ("plain", "bold", etc.)
-#' @param colour text color
+#' @param color text color
 #' @param size point size of text
 #' @param angle angle at which text is drawn
 #' @param lineheight line height of text
@@ -184,14 +158,14 @@ NULL
            newlines = TRUE,
            fontfamily = "serif",
            fontface = "plain",
-           colour = "gray85",
+           color = "gray85",
            size = 9,
            angle = 0,
            lineheight = 0.9,
            alpha = 1)
   {
     text_par <- grid::gpar(
-      col = colour,
+      col = color,
       fontsize = size,
       fontfamily = fontfamily,
       fontface = fontface,
