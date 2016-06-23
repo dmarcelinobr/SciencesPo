@@ -962,6 +962,25 @@ ylab = "Miles per Gallon",
 font.family = "serif") )
 ```
 
+```{r eval=FALSE, echo=FALSE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA}
+library(dplyr)
+library(httr)
+library(extrafont)
+font_import() # if first time running extrafont
+
+library(ggthemes)
+# via http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/
+DATA_URL <- 'http://zevross.com/blog/wp-content/uploads/2014/08/chicago-nmmaps.csv'
+dat <- content(GET(DATA_URL), col_names=TRUE, col_types=NULL)
+
+
+gg <- ggplot(dat, aes(o3, temp, color = factor(season))) +
+     geom_point() +
+     labs(x = "Ozone",  y = "Temperature (F)") +
+     scale_color_pub("seasons")
+
+gg + theme_tufte() + ggtitle('Current theme_tufte()')
+```
 
 
 ```{r eval=FALSE, echo=FALSE, fig.width=6, fig.height=4, message=FALSE, warning=FALSE, comment=NA}
@@ -1070,6 +1089,10 @@ show_col(pub_color_pal("carnival")(6))
 show_col(pub_color_pal("fte")(4))
 ```
 
+
+```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
+show_col(pub_color_pal("seasons")(4))
+```
 
 ```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("manyeyes")(20))

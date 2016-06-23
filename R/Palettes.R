@@ -89,6 +89,12 @@ Palettes <- {
       rgb(249,55,0, max = 255),
       rgb(255,170,20, max = 255)
     ),
+  seasons = c(
+  autumn = rgb(153,0,51, max = 255),
+  spring = rgb(54,122,55, max = 255),
+  summer = rgb(204,102,0, max = 255),
+  winter = rgb(51,51,51, max = 255)
+  ),
   gdocs = c(
       rgb(51, 102, 204, max = 255),
       rgb(220, 57, 18, max = 255),

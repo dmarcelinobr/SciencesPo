@@ -3,6 +3,26 @@
 NULL
 
 
+
+#' @encoding UTF-8
+#' @title SciencesPo Base Fonts
+#' @description Used to ascertain required theme fonts.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @export
+`SciencesPoFont` <- function(){
+  if(IsExtrafontInstalled()){
+    loadNamespace("extrafont")
+    themesFont <- extrafont::choose_font(c("Gill Sans MT", "Gill Sans", "GillSans", "Verdana", "serif", "Tahoma"), quiet = FALSE)
+  }else{
+    themesFont <- "Helvetica"
+  }
+  return(themesFont)
+}
+
+
+
+
 #' @encoding UTF-8
 #' @title Preview ggplot2 themes
 #' @description Used to preview ggplot2 themes.
@@ -56,7 +76,6 @@ NULL
         panel.grid.minor.y = element_blank())
 
 
-
 #' @title Remove vertical gridlines.
 #' @description Remove all major and minor vertical
 #' gridlines from a ggplot2 plot or theme.
@@ -96,6 +115,30 @@ NULL
 
 
 
+#' @title Remove minor gridlines
+#' @description Remove all minor
+#' gridlines from a ggplot2 plot or theme.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @export
+`no_minor_gridlines` <- function ()
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
+
+
+
+#' @title Remove gridlines
+#' @description Remove all major and minor
+#' gridlines from a ggplot2 plot or theme.
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @export
+`no_gridlines` <- function ()
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())
+
 
 #' @encoding UTF-8
 #' @title The Default Theme
@@ -125,7 +168,7 @@ NULL
 #' gg <- gg + geom_point(size=5, color="red", fill="orange", shape=21)
 #' gg <- gg + geom_smooth(method="lm", fill=NA, fullrange=TRUE)
 #' gg <- gg + facet_wrap(~set, ncol=2)
-#' gg <- gg + theme_pub(base_family='serif')
+#' gg <- gg + theme_pub(base_family=SciencesPoFont())
 #' gg <- gg + theme(plot.background=element_rect(fill="#f7f7f7"))
 #' gg <- gg + theme(panel.background=element_rect(fill="#f7f7f7"))
 #'

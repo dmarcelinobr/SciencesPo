@@ -133,7 +133,7 @@ title = "The 2014 election in the Ceará State (seats won by party)"))
 gg <-  gg + theme_fte(base_size = 10, base_family = "Tahoma")
 gg
 
-## ----largestRemainders6, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
+## ----echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"----
 
 out1 = HighestAverages(
   parties = names(Ceara),

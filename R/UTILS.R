@@ -203,7 +203,7 @@ NULL
 #' @description Set up a rendering layer on top of a ggplot.
 #' @param plot the plot to use as a starting point, either a ggplot2 or gtable.
 #' @export
-Render <- function(plot = NULL) {
+`Render` <- function(plot = NULL) {
   d <- data.frame(x = 0:1, y = 0:1)  # dummy data
   p <- ggplot(d, aes_string(x = "x", y = "y")) + # empty plot
     scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
@@ -218,3 +218,7 @@ Render <- function(plot = NULL) {
   p
 }
 NULL
+
+
+
+

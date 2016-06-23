@@ -38,7 +38,7 @@ dat <- rbind(dat, data.frame(set=i, x=anscombe[,i], y=anscombe[,i+4]))
 gg <- gg + geom_point(size=5, color="red", fill="orange", shape=21)
 gg <- gg + geom_smooth(method="lm", fill=NA, fullrange=TRUE)
 gg <- gg + facet_wrap(~set, ncol=2)
-gg <- gg + theme_pub(base_family='serif')
+gg <- gg + theme_pub(base_family=SciencesPoFont())
 gg <- gg + theme(plot.background=element_rect(fill="#f7f7f7"))
 gg <- gg + theme(panel.background=element_rect(fill="#f7f7f7"))
 

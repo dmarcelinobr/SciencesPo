@@ -600,3 +600,20 @@ df_format <- function(x) {
                                       ifelse(is.null(comment(x[[i]])), i, comment(x[[i]]))))
   sprintf(template, describe_df(x), paste(items, collapse="\n"))
 }
+
+
+
+`IsExtrafontInstalled` <- function(){
+  if(is.element("extrafont", installed.packages()[,1])){
+    requireNamespace("extrafont")
+    # probably need something here to run font_import()
+    return(T)
+  }else{
+    warning("Library extrafont installed; using system sans/serif libraries as fallback fonts.
+            To enable full font support, run:
+            install.packages('extrafont')
+            font_import()")
+    return(F)
+  }
+}
+NULL
