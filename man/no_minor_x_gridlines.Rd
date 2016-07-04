@@ -9,4 +9,5 @@ no_minor_x_gridlines()
 \description{
 Show minor gridlines for x-axis
 }
+\keyword{ggplot2}
 

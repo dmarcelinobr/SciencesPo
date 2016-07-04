@@ -18,4 +18,5 @@ See \code{\link{pub_color_pal}} for details.
 \seealso{
 Other color publication: \code{\link{scale_color_pub}}
 }
+\keyword{ggplot2}
 

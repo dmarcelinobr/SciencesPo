@@ -20,4 +20,5 @@ See \code{\link{pub_color_pal}} for details.
 
 Other color publication: \code{\link{scale_fill_pub}}
 }
+\keyword{ggplot2}
 

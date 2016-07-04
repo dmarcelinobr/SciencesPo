@@ -401,6 +401,7 @@ NULL
 #' @description Color palettes for publication-quality graphs. See details.
 #' @inheritParams ggplot2::scale_colour_hue
 #' @param palette the palette name, a character string.
+#' @keywords ggplot2
 #'
 #' @details The following palettes are available:
 #' \itemize{
@@ -465,6 +466,7 @@ NULL
 #' @param palette the palette name, a character string.
 #' @family color publication
 #' @rdname color_pub
+#' @keywords ggplot2
 #' @export
 #' @seealso \code{\link{pub_color_pal}} for references.
 #'
@@ -481,6 +483,7 @@ scale_color_pub <- function(palette = "pub12", ...) {
 #' @inheritParams pub_color_pal
 #' @param palette the palette name, a character string.
 #' @family color publication
+#' @keywords ggplot2
 #' @rdname fill_pub
 #' @export
 `scale_fill_pub` <- function(palette = "pub12", ...) {
@@ -497,6 +500,7 @@ NULL
 #' @param plot logical, if \code{TRUE} a plot is returned.
 #' @param hex logical, if \code{FALSE}, the associated color name (label) is returned.
 #' @family color party
+#' @keywords ggplot2
 #' @examples
 #' library(scales)
 #'
@@ -570,6 +574,7 @@ NULL
 #' @family color party
 #' @param palette the palette name, a character string.
 #' @seealso \code{\link{party_color_pal}} for details and references.
+#' @keywords ggplot2
 #' @export
 #' @rdname color_party
 `scale_color_party` <- function(palette = "BRA", ...) {
@@ -586,6 +591,7 @@ NULL
 #' @inheritParams party_color_pal
 #' @param palette the palette name, a character string.
 #' @seealso \code{\link{party_color_pal}} for details and references.
+#' @keywords ggplot2
 #' @export
 #' @rdname fill_party
 `scale_fill_party` <- function(palette = "BRA", ...) {
@@ -601,6 +607,7 @@ NULL
 #' @description Discrete shape scales for \code{theme_pub()}.
 #' @param palette the palette name, a character string.
 #' @family shape pub
+#' @keywords ggplot2
 #' @export
 #' @examples
 #' library(scales)
@@ -623,6 +630,7 @@ NULL
 #' @inheritParams ggplot2::scale_x_discrete
 #' @inheritParams pub_shape_pal
 #' @param palette the palette name, a character string.
+#' @keywords ggplot2
 #' @family shape pub
 #' @examples
 #' library("ggplot2")
@@ -647,6 +655,4 @@ NULL
 # http://www.personal.psu.edu/cab38/ColorSch/SchHTMLs/CBColorSeqSeq.html
 # http://www.personal.psu.edu/cab38/ColorSch/Schemes.html
 # http://andywoodruff.com/blog/value-by-alpha-maps/
-# http://color.adobe.com/
 # http://www.farb-tabelle.de/en/rgb2hex.htm?
-# "#9b59b6", "#3498db", "#95a5a6", "#e74c3c", "#34495e", "#2ecc71" "FF7E0D"

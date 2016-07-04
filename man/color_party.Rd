@@ -20,4 +20,5 @@ An N-color discrete palette for political parties.
 
 Other color party: \code{\link{party_color_pal}}
 }
+\keyword{ggplot2}
 

@@ -89,4 +89,5 @@ ggplot(df, aes(trt, value)) + geom_lollipop()
 ggplot(df, aes(value, trt)) + geom_lollipop(horizontal=TRUE)
 }
 \keyword{datasets}
+\keyword{ggplot2}
 

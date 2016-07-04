@@ -40,22 +40,15 @@ d <- data.frame(x=c(1,1,2),y=c(1,2,2)*100)
 gg <- ggplot(d,aes(x,y))
 gg <- gg + scale_x_continuous(expand=c(0.5,1))
 gg <- gg + scale_y_continuous(expand=c(0.5,1))
-
 gg + geom_spotlight(s_shape=1, expand=0) + geom_point()
 
-gg + geom_spotlight(s_shape=0.5, expand=0.1, colour="purple") + geom_point()
-
-gg + geom_spotlight(data=subset(d, x==1), colour="red", spread=0.02) +
-  geom_point()
 
 gg <- ggplot(mpg, aes(displ, hwy))
-gg + geom_spotlight(data=subset(mpg, hwy>40)) + geom_point()
-
-ss <- subset(mpg,hwy>30 & displ<3)
-
-gg + geom_spotlight(data=ss, colour="blue", s_shape=.7, expand=0.07) +
-  geom_point() + geom_point(data=ss, colour="blue")
+ss <- subset(mpg,hwy>29 & displ<3)
+gg + geom_spotlight(data=ss, colour="blue", s_shape=.8, expand=0) +
+geom_point() + geom_point(data=ss, colour="blue")
 
 }
 \keyword{datasets}
+\keyword{ggplot2}
 

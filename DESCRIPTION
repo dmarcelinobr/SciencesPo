@@ -33,6 +33,7 @@ Suggests:
     testthat,
     scales,
     extrafont,
+    gtable,
     knitr
 VignetteBuilder: knitr
 LazyData: yes

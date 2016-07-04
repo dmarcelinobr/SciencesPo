@@ -220,5 +220,28 @@ NULL
 NULL
 
 
+#' Veritical, left-aligned layout for plots
+#'
+#' Left-align the waffle plots by x-axis. Use the \code{pad} parameter in
+#' \code{waffle} to pad each plot to the max width (num of squares), otherwise
+#' the plots will be scaled.
+#'
+#' @param ... one or more waffle plots
+#' @export
+#' @examples
+#' parts <- c(80, 30, 20, 10)
+#'
+#' w1 <- Waffleplot(parts, rows=8)
+#' w2 <- Waffleplot(parts, rows=8)
+#' w3 <- Waffleplot(parts, rows=8)
+#' chart <- Forge(w1, w2, w3)
+#' print(chart)
+#'
+Forge <- function(...) {
+  grob_list <- list(...)
+  grid::grid.newpage()
+  grid::grid.draw(do.call("rbind_gtable_max", lapply(grob_list, ggplot2::ggplotGrob)))
+}
+NULL
 
 

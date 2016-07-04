@@ -27,4 +27,5 @@ The dark side of the things.
 \author{
 \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 }
+\keyword{ggplot2}
 

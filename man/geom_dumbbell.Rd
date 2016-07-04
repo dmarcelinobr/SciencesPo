@@ -77,4 +77,5 @@ geom_dumbbell(color="#a3c4dc", size=0.75, point.colour.l="#0e668b")
 
 }
 \keyword{datasets}
+\keyword{ggplot2}
 

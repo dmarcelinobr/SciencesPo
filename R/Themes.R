@@ -9,6 +9,7 @@ NULL
 #' @description Used to ascertain required theme fonts.
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @keywords ggplot2
 #' @export
 `SciencesPoFont` <- function(){
   if(IsExtrafontInstalled()){
@@ -29,7 +30,9 @@ NULL
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
-`PreviewTheme` <- function () {
+#' @examples
+#' ThemePreview()
+`ThemePreview` <- function () {
   x_values <- c('A', 'B', 'C')
   blank_data <- data.frame(
     x = factor(x_values, x_values),
@@ -44,13 +47,14 @@ NULL
     ) +
     labs(x = 'x-axis title', y = 'y-axis title', title = 'Plot Title')
 }
-NULL
 
-
-
+#' @export
+#' @rdname ThemePreview
+`PreviewTheme`<- ThemePreview
 
 #' @title Align title left
 #' @description Align ggplot2 title to the left.
+#' @keywords ggplot2
 #' @export
 `align_title_left` <- function ()
   theme(plot.title = element_text(hjust = 0))
@@ -59,6 +63,7 @@ NULL
 
 #' @title Align title right
 #' @description Align ggplot2 title to the right.
+#' @keywords ggplot2
 #' @export
 `align_title_right` <- function ()
   theme(plot.title = element_text(hjust = 1))
@@ -70,6 +75,7 @@ NULL
 #' gridlines from a ggplot2 plot or theme.
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @keywords ggplot2
 #' @export
 `no_y_gridlines` <- function ()
   theme(panel.grid.major.y = element_blank(),
@@ -79,6 +85,7 @@ NULL
 #' @title Remove vertical gridlines.
 #' @description Remove all major and minor vertical
 #' gridlines from a ggplot2 plot or theme.
+#' @keywords ggplot2
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
@@ -89,12 +96,14 @@ NULL
 
 #' @title Remove major x gridlines
 #' @description Do not show major gridlines for x-axis
+#' @keywords ggplot2
 #' @export
 `no_major_x_gridlines` <- function ()
   theme(panel.grid.major.x = element_blank())
 
 #' @title Remove major y gridlines
 #' @description Do not show major gridlines for y-axis
+#' @keywords ggplot2
 #' @export
 `no_major_y_gridlines` <- function ()
   theme(panel.grid.major.y = element_blank())
@@ -102,6 +111,7 @@ NULL
 
 #' @title Remove minor x gridlines
 #' @description Show minor gridlines for x-axis
+#' @keywords ggplot2
 #' @export
 `no_minor_x_gridlines` <- function ()
   theme(panel.grid.minor.x = element_line())
@@ -109,6 +119,7 @@ NULL
 
 #' @title Remove minor y gridlines
 #' @description Do not show minor gridlines for y-axis
+#' @keywords ggplot2
 #' @export
 `no_minor_y_gridlines` <- function ()
   theme(panel.grid.minor.y = element_blank())
@@ -118,6 +129,7 @@ NULL
 #' @title Remove minor gridlines
 #' @description Remove all minor
 #' gridlines from a ggplot2 plot or theme.
+#' @keywords ggplot2
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
@@ -130,6 +142,7 @@ NULL
 #' @title Remove gridlines
 #' @description Remove all major and minor
 #' gridlines from a ggplot2 plot or theme.
+#' @keywords ggplot2
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
@@ -155,9 +168,10 @@ NULL
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @return The theme.
+#' @keywords ggplot2
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
-#' PreviewTheme() + theme_pub()
+#' ThemePreview() + theme_pub()
 #'
 #' # Anscombe data
 #' dat <- data.frame()
@@ -288,6 +302,7 @@ NULL
 #' @param horizontal logical. Horizontal axis lines?
 #' @param colors default colors used in the plot in the following order: background, lines, text, and title.
 #' @family themes 538
+#' @keywords ggplot2
 #' @return The theme.
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
@@ -436,6 +451,7 @@ NULL
 #' @param legend the legend position.
 #' @family themes blank
 #' @return The theme.
+#' @keywords ggplot2
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #'
@@ -481,6 +497,7 @@ NULL
 #' @param base_size overall font size. Default is 12.
 #' @param legend the position of the legend if any.
 #' @family themes darkside
+#' @keywords ggplot2
 #' @author
 #' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @return The theme.

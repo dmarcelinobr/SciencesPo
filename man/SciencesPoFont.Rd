@@ -10,4 +10,8 @@ SciencesPoFont()
 \description{
 Used to ascertain required theme fonts.
 }
+\author{
+\Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+}
+\keyword{ggplot2}
 

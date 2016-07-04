@@ -27,7 +27,7 @@ After loading the SciencesPo package, this theme will be
 set to default for all subsequent graphs made with ggplot2.
 }
 \examples{
-PreviewTheme() + theme_pub()
+ThemePreview() + theme_pub()
 
 # Anscombe data
 dat <- data.frame()
@@ -49,4 +49,5 @@ gg <- gg + theme(panel.background=element_rect(fill="#f7f7f7"))
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 }
+\keyword{ggplot2}
 

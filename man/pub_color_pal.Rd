@@ -42,4 +42,5 @@ show_col(pub_color_pal("cyclic")(20))
 show_col(pub_color_pal("bivariate1")(9))
 
 }
+\keyword{ggplot2}
 

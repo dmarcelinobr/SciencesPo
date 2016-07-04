@@ -1,5 +1,5 @@
 
-globalVariables(c(".data",".id", ".ID", ".variable", ".value", ".count", ".total", ".odds"))
+globalVariables(c(".data",".id", ".ID", ".variable", ".value", ".count", ".total", ".odds", "x", "y"))
 
 globalVariables(c("copy","..count..", "p.level", ".N", ".valid", "layer"))
 

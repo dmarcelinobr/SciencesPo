@@ -9,4 +9,5 @@ align_title_left()
 \description{
 Align ggplot2 title to the left.
 }
+\keyword{ggplot2}
 

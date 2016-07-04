@@ -13,4 +13,5 @@ gridlines from a ggplot2 plot or theme.
 \author{
 \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 }
+\keyword{ggplot2}
 

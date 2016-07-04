@@ -29,4 +29,5 @@ p + scale_shape_pub()
 \seealso{
 Other shape pub: \code{\link{pub_shape_pal}}
 }
+\keyword{ggplot2}
 

@@ -9,4 +9,5 @@ no_major_x_gridlines()
 \description{
 Do not show major gridlines for x-axis
 }
+\keyword{ggplot2}
 

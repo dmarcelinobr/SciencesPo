@@ -37,4 +37,5 @@ party_color_pal("CAN", plot=TRUE, hex=FALSE)
 \seealso{
 Other color party: \code{\link{scale_color_party}}
 }
+\keyword{ggplot2}
 

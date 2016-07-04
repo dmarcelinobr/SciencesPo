@@ -23,4 +23,5 @@ pub_shape_pal("gender")(2)
 \seealso{
 Other shape pub: \code{\link{scale_shape_pub}}
 }
+\keyword{ggplot2}
 
