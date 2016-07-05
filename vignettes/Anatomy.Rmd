@@ -21,12 +21,11 @@ knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.alig
   
 
 # Overview
-This document presents several wrapper functions to deal with a ggplot2 object.
-
+This document presents several wrapper functions to make plotting with ggplot2 a lot easier. 
 
 
 # Preview ggplot2 themes
-Used to preview ggplot2 themes.
+Graph() can be used to preview ggplot2 themes and features.
 ```{r}
 library("SciencesPo", quietly = TRUE)
 
@@ -37,29 +36,78 @@ Graph()
 # Themes
 
 ```{r}
+Graph() + theme_pub()
+```
+
+
+```{r}
 Graph() + theme_darkside()
 ```
 
+
+```{r}
+Graph() + theme_blank()
+```
+
+
+```{r, eval=FALSE, echo=FALSE, include=FALSE}
+x <- rnorm(20000)
+y <- x + rnorm(20000, 0.05)
+df <- data.frame(x = x, y = y,
+  d = densCols(x, y, colramp = colorRampPalette(rev(rainbow(10, end = 4/6)))))
+gg <- ggplot(df) +
+    geom_point(aes(x, y, col = d), size = 1) +
+    scale_color_identity()
+print(gg)
+```
+
+
+```{r, echo=FALSE}
+library("deldir", quietly = TRUE)
+
+set.seed(105)
+long<-rnorm(20,-98,15)
+lat<-rnorm(20,39,10)
+df <- data.frame(lat,long)
+
+voronoi <- deldir(df$long, df$lat)
+
+gg <- ggplot(data=df, aes(x=long,y=lat)) +
+  geom_segment(
+    aes(x = x1, y = y1, xend = x2, yend = y2),
+    size = 2,
+    # Delaunay triangulation
+     # voronoi$delsgs
+    data = voronoi$dirsgs,
+    linetype = 1,
+    color= "#FFB958")
+gg <- gg + geom_point(
+    fill=rgb(70,130,180,255,maxColorValue=255),
+    pch=21,
+    size = 4,
+    color="#333333")
+gg <- gg + labs(x = 'lat', y = 'long', title = "My Voronoi Line Segments")
+```
 
 # Title 
 
 ## Align title right
 Align ggplot2 title to the right.
 ```{r}
-Graph() + align_title_right()
+gg + align_title_right()
 ```
 
 
 ## Align title left 
 Align ggplot2 title to the left.
 ```{r}
-Graph() + align_title_left()
+gg + align_title_left()
 ```
 
 ## Remove ggplot2 title
 Do not show plot title.
 ```{r}
-Graph() + no_title()
+gg + no_title()
 ```
 
 
@@ -69,7 +117,7 @@ Graph() + no_title()
 Remove the x axis from a ggplot2 including the axis lines, titles, labels and ticks.
 
 ```{r}
-Graph() + no_x_axis()
+gg + no_x_axis()
 ```
 
 
@@ -77,7 +125,7 @@ Graph() + no_x_axis()
 Remove the y axis from a ggplot2 including the axis lines, titles, labels and ticks.
 
 ```{r}
-Graph() + no_y_axis()
+gg + no_y_axis()
 ```
 
 
@@ -85,7 +133,7 @@ Graph() + no_y_axis()
 Remove both axes from a ggplot2 including the axes lines, titles, labels and ticks.
 
 ```{r}
-Graph() + no_axes()
+gg + no_axes()
 ```
 
 
@@ -93,41 +141,41 @@ Graph() + no_axes()
 Do not show x-axis line.
 
 ```{r}
-Graph() + no_x_line()
+gg + no_x_line()
 ```
 
 
 ## Remove ggplot2 y-axis line
 Do not show y-axis line.
 ```{r}
-Graph() + no_x_line()
+gg + no_x_line()
 ```
 
 
 ## Remove ggplot2 x-axis text/labels
 Do not show x-axis text/labels
 ```{r}
-Graph() + no_x_text()
+gg + no_x_text()
 ```
 
 
 ## Remove ggplot2 y-axis text/labels
 Do not show y-axis text/labels.
 ```{r}
-Graph() + no_y_text()
+gg + no_y_text()
 ```
 
 
 ## Remove ggplot2 x-axis tick marks
 Do not show tick marks for x-axis.
 ```{r}
-Graph() + no_x_ticks()
+gg + no_x_ticks()
 ```
 
 ## Remove ggplot2 y-axis tick marks
 Do not show tick marks for y-axis.
 ```{r}
-Graph() + no_y_ticks()
+gg + no_y_ticks()
 ```
 
 
@@ -135,49 +183,49 @@ Graph() + no_y_ticks()
 Do not show tick marks for all axes.
 
 ```{r}
-Graph() + no_ticks()
+gg + no_ticks()
 ```
 
 
 ## Remove ggplot2 x-axis titles
 Do not show x-axis title.
 ```{r}
-Graph() + no_x_title()
+gg + no_x_title()
 ```
 
 
 ## Remove ggplot2 y-axis titles
 Do not show y-axis title.
 ```{r}
-Graph() + no_y_title()
+gg + no_y_title()
 ```
 
 
 ## Remove ggplot2 axes titles
 Do not show titles for all axes.
 ```{r}
-Graph() + no_axes_titles()
+gg + no_axes_titles()
 ```
 
 
 ## Rotate ggplot2 x-axis labels
 Rotate the x-axis labels/text by a given angle.
 ```{r}
-Graph() + rotate_x_text(90)
+gg + rotate_x_text(90)
 ```
 
 
 ## Rotate ggplot2 y-axis labels
 Rotate the y-axis labels/text by a given angle.
 ```{r}
-Graph() + rotate_y_text(65)
+gg + rotate_y_text(65)
 ```
 
 
 ## Rotate ggplot2 axes labels
 Rotate both axes labels by a given angle.
 ```{r}
-Graph() + rotate_axes_text(45)
+gg + rotate_axes_text(45)
 ```
 
 
@@ -186,63 +234,63 @@ Graph() + rotate_axes_text(45)
 ## Remove vertical gridlines
 Remove all major and minor vertical gridlines from a ggplot2 plot or theme.
 ```{r}
-Graph() + no_x_gridlines()
+gg + no_x_gridlines()
 ```
 
 
 ## Remove horizontal gridlines
 Remove all major and minor horizontal gridlines from a ggplot2 plot or theme.
 ```{r}
-Graph() + no_y_gridlines()
+gg + no_y_gridlines()
 ```
 
 
 ## Remove all gridlines
 Remove all vertical and horizontal gridlines (major and minor) from a ggplot2 plot or theme.
 ```{r}
-Graph() + no_gridlines()
+gg + no_gridlines()
 ```
 
 
 ## Remove major x gridlines
 Do not show major gridlines for x-axis.
 ```{r}
-Graph() + no_major_x_gridlines()
+gg + no_major_x_gridlines()
 ```
 
 
 ## Remove major y gridlines
 Do not show major gridlines for y-axis.
 ```{r}
-Graph() + no_major_y_gridlines()
+gg + no_major_y_gridlines()
 ```
 
 
 ## Remove major gridlines
 Do not show major gridlines.
 ```{r}
-Graph() + no_major_gridlines()
+gg + no_major_gridlines()
 ```
 
 
 ## Remove minor vertical gridlines
 Do not show minor gridlines for x-axis.
 ```{r}
-Graph() + no_minor_x_gridlines()
+gg + no_minor_x_gridlines()
 ```
 
 
 ## Remove minor horizontal gridlines
 Do not show minor gridlines for y-axis.
 ```{r}
-Graph() + no_minor_y_gridlines()
+gg + no_minor_y_gridlines()
 ```
 
 
 ## Remove minor gridlines
 Do not show minor gridlines.
 ```{r}
-Graph() + no_minor_gridlines()
+gg + no_minor_gridlines()
 ```
 
 
@@ -251,46 +299,46 @@ Graph() + no_minor_gridlines()
 ## Remove ggplot2 legend
 Remove the legend from a ggplot2 plot.
 ```{r}
-Graph() + no_legend()
+gg + no_legend()
 ```
 
 
 ## Remove ggplot2 legend title
 Remove the legend title from a ggplot2 plot.
 ```{r}
-Graph() + no_legend_title()
+gg + no_legend_title()
 ```
 
 ## Legend Position
 Move legend to given location. The location of the legend is 'top', 'bottom', 'right', 'left' or 'none'.
 
 ```{r}
-Graph() + move_legend('bottom')
+gg + move_legend('bottom')
 ```
 
 ## Legend to the bottom
 Move a ggplot2 legend to the bottom of the plot.
 ```{r}
-Graph() + legend_bottom()
+gg + legend_bottom()
 ```
 
 
 ## Legend to the top
 Move a ggplot2 legend to the top of the plot.
 ```{r}
-Graph() + legend_top()
+gg + legend_top()
 ```
 
 
 ## Legend to the left
 Move a ggplot2 legend to the left of the plot.
 ```{r}
-Graph() + legend_left()
+gg + legend_left()
 ```
 
 
 ## Legend to the right
 Move a ggplot2 legend to the right of the plot.
 ```{r}
-Graph() + legend_right()
+gg + legend_right()
 ```

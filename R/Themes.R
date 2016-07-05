@@ -86,7 +86,7 @@ NULL
 #' @keywords ggplot2
 #' @export
 `no_title` <- function ()
-  theme(plot.title = element_text(hjust = 0))
+  theme(plot.title = element_blank())
 
 
 #' @rdname Graph
