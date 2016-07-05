@@ -37,8 +37,8 @@
 #' Senate <- c(`Male (44%)`=44, `Female (56%)`=56)
 #' Waffleplot(Senate, rows=10, size=0.5, colors=c("#af9139", "#544616"))
 #'
-Waffleplot <- function(parts, rows=10, xlab=NULL, title=NULL, colors=NA, size=2, flip=FALSE, reverse=FALSE, equal=TRUE, pad=0,
-use_glyph=FALSE, glyph_size=12, legend_pos="right") {
+Waffleplot <- function(parts, rows=10, xlab=NULL, title=NULL, colors=NA, size=2, legend_pos="right", flip=FALSE, reverse=FALSE, equal=TRUE, pad=0,
+use_glyph=FALSE, glyph_size=12) {
 
   # fill in any missing names
   part_names <- names(parts)

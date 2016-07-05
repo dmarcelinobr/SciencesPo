@@ -1,3 +1,6 @@
+## ----setup, include=FALSE------------------------------------------------
+knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5)
+
 ## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
 #  install.packages("SciencesPo", dependencies = c("Depends", "Suggests"))
 
@@ -54,6 +57,23 @@ with(titanic, Crosstable(SEX, SURVIVED, fisher=TRUE) )
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 with(titanic, Crosstable(SEX, CLASS, SURVIVED, chisq = TRUE))
 
+## ----echo=TRUE, message=FALSE, cache=TRUE--------------------------------
+require("SciencesPo")
+
+data(stature)
+
+## ----echo=TRUE, cache=TRUE,  message=FALSE, comment=NA-------------------
+data(stature)
+
+attach(stature)
+
+# Type 1:
+Skewness(winner.height, type = 1)
+# Type 2 
+Skewness(winner.height, type = 2)
+# Type 3, the default
+Skewness(winner.height)
+
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 data(stature)
 attach(stature)
@@ -70,6 +90,18 @@ Kurtosis(winner.height)
 x <- sample (10, replace = TRUE)
 
 Mode(x)
+
+## ----echo=TRUE, message=FALSE, cache=TRUE, comment=NA--------------------
+data(stature)
+attach(stature)
+
+CI(winner.height, level=.95) # confidence interval
+
+CI(winner.height, level=.95)@mean # get only the mean 
+
+CI(opponent.height, level=.95, na.rm = TRUE) # confidence interval
+
+SE(winner.height) # std. error
 
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 data(stature)
@@ -131,6 +163,15 @@ print(df)
 Destring(df, "X2") 
 
 
+## ----echo=TRUE, cache=TRUE, message=FALSE, comment=NA--------------------
+x <- sample(10)
+
+# won't print normalized values by default 
+(y = Normalize(x) )
+
+# equals to: 
+(x-min(x))/(max(x)-min(x))
+
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 # Smithson and Verkuilen approach
 (y = Normalize(x, method="SV"))
@@ -169,6 +210,18 @@ dt %>% Anonymize()
 
 ## ----eval=FALSE, echo=TRUE, message=FALSE, comment=NA--------------------
 #  invnormal(area=0.35, mu=0, sigma=1)
+
+## ----echo=TRUE, cache=TRUE, message=FALSE, comment=NA--------------------
+alphas <- cbind(1:4, 1, 4:1);
+rdirichlet(4, alphas );
+
+## ----echo=TRUE, cache=TRUE, message=FALSE, comment=NA--------------------
+# draw a sample from the posterior
+set.seed(1234);
+n <- 18116;
+poll <- c(40,24,22,5,5,4) / 100 * n; # The data
+mcmc <- 10000;
+sims <- rdirichlet(mcmc, alpha = poll + 1);
 
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 Describe(sims)
@@ -230,6 +283,19 @@ with(Helsinki, PoliticalDiversity(seats.SL)); #ENP for Saint-Lague
 
 with(Helsinki, PoliticalDiversity(seats.dH)); #ENP for D'Hondt
 
+## ----Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA----
+# 2012 Quebec provincial election:
+Quebec <-
+  data.frame(
+  party = c("PQ", "Lib", "CAQ", "QS", "Option", "Green", "Others"),
+  votes = c(1393703, 1360968, 1180235, 263111, 82539, 43394, 38738),
+  pvotes = c(31.95, 31.20, 27.05, 6.03, 1.89, 0.99, 0.89),
+  seats = c(54, 50, 19, 2, 0, 0, 0),
+  pseats =  c(43.2, 40, 15.2, 1.6, 0, 0, 0)
+  )
+
+Quebec
+
 ## ----echo=TRUE, message=FALSE, comment=NA--------------------------------
 
 with(Quebec, Proportionality(pvotes, pseats, 
@@ -243,6 +309,12 @@ with(Quebec, Proportionality(pvotes, pseats,
 
 with(Quebec, Proportionality(pvotes, pseats, 
                      index = "Gallagher") )
+
+## ----Ceara-election, echo=TRUE, cache=TRUE-------------------------------
+# Results for the state legislative house of Ceara (2014):
+Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
+           "PRB"=2043217,"PSB"=15061, "PSC"=103679, "PSTU"=109830,
+           "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
 
 ## ----highestAverages1, echo=TRUE, message=FALSE, comment=NA--------------
 HighestAverages(parties=names(Ceara), votes=Ceara,
@@ -304,7 +376,7 @@ Atkinson(x, epsilon = 0.5)
 
 ## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
 
-PreviewTheme() + theme_grey()
+Graph() + theme_grey()
 
 ## ----echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5----
 # detach("package:SciencesPo", unload = TRUE)
@@ -470,24 +542,49 @@ gg <- gg + prefs
 gg
 
 ## ---- echo=TRUE, echo=TRUE, size='\\tiny'--------------------------------
-PreviewTheme() + 
+Graph() + 
   theme_538() + 
   align_title_right()
 
 
 ## ---- echo=TRUE, echo=TRUE, size='\\tiny'--------------------------------
-PreviewTheme() + 
+Graph() + 
   theme_538() + 
   no_y_gridlines()
 
 
 ## ---- echo=TRUE, echo=TRUE, size='\\tiny'--------------------------------
 
-PreviewTheme() + 
+Graph() + 
   theme_538() + 
   no_y_gridlines() +
   no_x_gridlines()
 
+
+## ----echo=FALSE, cache=TRUE, message=FALSE, comment=NA, warning=FALSE----
+
+height_ratio <- c(0.924324324, 1.081871345, 1, 0.971098266, 1.029761905,
+                  0.935135135, 0.994252874, 0.908163265, 1.045714286, 1.18404908,
+                  1.115606936, 0.971910112, 0.97752809, 0.978609626, 1,
+                  0.933333333, 1.071428571, 0.944444444, 0.944444444, 1.017142857,
+                  1.011111111, 1.011235955, 1.011235955, 1.089285714, 0.988888889,
+                  1.011111111, 1.032967033, 1.044444444, 1, 1.086705202,
+                  1.011560694, 1.005617978, 1.005617978, 1.005494505, 1.072222222,
+                  1.011111111, 0.983783784, 0.967213115, 1.04519774, 1.027777778,
+                  1.086705202, 1, 1.005347594, 0.983783784, 0.943005181, 1.057142857)
+
+vote_support <- c(0.427780852, 0.56148981, 0.597141922, 0.581254292, 0.530344067,
+              0.507425996, 0.526679292, 0.536690951, 0.577825976, 0.573225387,
+              0.550410082, 0.559380032, 0.484823958, 0.500466176, 0.502934212,
+              0.49569636, 0.516904414, 0.522050547, 0.531494442, 0.60014892, 
+              0.545079801, 0.604274986, 0.51635906, 0.63850958, 0.652184407, 
+              0.587920412, 0.5914898, 0.624614752, 0.550040193, 0.537771958, 
+              0.523673642, 0.554517134, 0.577511576, 0.500856251, 0.613444534, 
+              0.504063153, 0.617883695, 0.51049949, 0.553073235, 0.59166415, 
+              0.538982024, 0.53455133, 0.547304058, 0.497350649, 0.512424242, 
+              0.536914796)
+
+Presidents = data.frame(cbind(height_ratio, vote_support))             
 
 ## ----echo=TRUE, fig.align="center", fig.width=5, fig.height=3.5, comment=NA, warning=FALSE----
 

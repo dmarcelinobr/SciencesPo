@@ -5,8 +5,8 @@
 \title{Make waffle (square pie) charts}
 \usage{
 Waffleplot(parts, rows = 10, xlab = NULL, title = NULL, colors = NA,
-  size = 2, flip = FALSE, reverse = FALSE, equal = TRUE, pad = 0,
-  use_glyph = FALSE, glyph_size = 12, legend_pos = "right")
+  size = 2, legend_pos = "right", flip = FALSE, reverse = FALSE,
+  equal = TRUE, pad = 0, use_glyph = FALSE, glyph_size = 12)
 }
 \arguments{
 \item{parts}{named vector of values to use for the chart}
@@ -23,6 +23,8 @@ If omitted, Color Brewer "Set2" colors are used.}
 
 \item{size}{width of the separator between blocks (defaults to \code{2})}
 
+\item{legend_pos}{position of legend}
+
 \item{flip}{flips x & y axes}
 
 \item{reverse}{reverses the order of the data}
@@ -36,8 +38,6 @@ ggsave or knitr to control output sizes (or manually sizing the chart)}
 \item{use_glyph}{use specified FontAwesome glyph}
 
 \item{glyph_size}{size of the FontAwesome font}
-
-\item{legend_pos}{position of legend}
 }
 \description{
 Given a named vector, this function will return

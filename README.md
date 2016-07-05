@@ -74,4 +74,4 @@ help(package=SciencesPo)
 * [Cross-Tabulation]
 * [Are My Data Normal?]
 * [Measures of Political Behavior](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
-* [The Viz: Plotting Features]
+* [The Anatomy of a Plot](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Anatomy.html)

@@ -20,26 +20,29 @@ NULL
   }
   return(themesFont)
 }
+NULL
 
 
 
 
-#' @encoding UTF-8
-#' @title Preview ggplot2 themes
-#' @description Used to preview ggplot2 themes.
+#' @title Graph
+#' @description Several wrapper functions to deal with ggplot2.
+#' @param angle the angle of rotation.
+#' @param position the location of the legend ('top', 'bottom', 'right', 'left' or 'none').
 #' @author
-#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' \Sexpr[results=rd, stage=build]{tools:::Rd_package_author("SciencesPo")}
+#' @keywords ggplot2
+#' @name Graph
 #' @export
 #' @examples
-#' ThemePreview()
-`ThemePreview` <- function () {
-  x_values <- c('A', 'B', 'C')
-  blank_data <- data.frame(
-    x = factor(x_values, x_values),
+#' Graph()
+`Graph` <- function () {
+  data <- data.frame(
+    x = factor(c('A', 'B', 'C', 'A', 'B', 'C')),
     y = seq(10, 30, 10),
     check.names = FALSE
   )
-  ggplot(blank_data, aes_string(x = 'x', y = 'y')) +
+  ggplot(data, aes_string(x = 'x', y = 'y')) +
     geom_blank() +
     scale_y_continuous(
       labels = function(x)
@@ -48,21 +51,30 @@ NULL
     labs(x = 'x-axis title', y = 'y-axis title', title = 'Plot Title')
 }
 
-#' @export
-#' @rdname ThemePreview
-`PreviewTheme`<- ThemePreview
 
-#' @title Align title left
-#' @description Align ggplot2 title to the left.
 #' @keywords ggplot2
+#' @export
+#' @rdname Graph
+`PreviewTheme`<- Graph
+NULL
+
+#' @keywords ggplot2
+#' @export
+#' @rdname Graph
+`ThemePreview`<- Graph
+NULL
+
+
+
+#' @keywords ggplot2
+#' @name Graph
 #' @export
 `align_title_left` <- function ()
   theme(plot.title = element_text(hjust = 0))
 
 
 
-#' @title Align title right
-#' @description Align ggplot2 title to the right.
+#' @rdname Graph
 #' @keywords ggplot2
 #' @export
 `align_title_right` <- function ()
@@ -70,55 +82,57 @@ NULL
 
 
 
-#' @title Remove horizontal gridlines.
-#' @description Remove all major and minor horizontal
-#' gridlines from a ggplot2 plot or theme.
-#' @author
-#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @rdname Graph
 #' @keywords ggplot2
 #' @export
-`no_y_gridlines` <- function ()
+`no_title` <- function ()
+  theme(plot.title = element_text(hjust = 0))
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_y_gridlines` <- function()
   theme(panel.grid.major.y = element_blank(),
         panel.grid.minor.y = element_blank())
 
 
-#' @title Remove vertical gridlines.
-#' @description Remove all major and minor vertical
-#' gridlines from a ggplot2 plot or theme.
+#' @rdname Graph
 #' @keywords ggplot2
-#' @author
-#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
 `no_x_gridlines` <- function ()
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 
 
-#' @title Remove major x gridlines
-#' @description Do not show major gridlines for x-axis
+#' @rdname Graph
 #' @keywords ggplot2
 #' @export
 `no_major_x_gridlines` <- function ()
   theme(panel.grid.major.x = element_blank())
 
-#' @title Remove major y gridlines
-#' @description Do not show major gridlines for y-axis
+
+#' @rdname Graph
 #' @keywords ggplot2
 #' @export
 `no_major_y_gridlines` <- function ()
   theme(panel.grid.major.y = element_blank())
 
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_major_gridlines` <- function ()
+  theme(panel.grid.major = element_blank())
 
-#' @title Remove minor x gridlines
-#' @description Show minor gridlines for x-axis
+
+#' @rdname Graph
 #' @keywords ggplot2
 #' @export
 `no_minor_x_gridlines` <- function ()
   theme(panel.grid.minor.x = element_line())
 
 
-#' @title Remove minor y gridlines
-#' @description Do not show minor gridlines for y-axis
+#' @rdname Graph
 #' @keywords ggplot2
 #' @export
 `no_minor_y_gridlines` <- function ()
@@ -126,12 +140,8 @@ NULL
 
 
 
-#' @title Remove minor gridlines
-#' @description Remove all minor
-#' gridlines from a ggplot2 plot or theme.
+#' @rdname Graph
 #' @keywords ggplot2
-#' @author
-#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
 `no_minor_gridlines` <- function ()
   theme(panel.grid.minor.x = element_blank(),
@@ -139,18 +149,202 @@ NULL
 
 
 
-#' @title Remove gridlines
-#' @description Remove all major and minor
-#' gridlines from a ggplot2 plot or theme.
+#' @rdname Graph
 #' @keywords ggplot2
-#' @author
-#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
 #' @export
 `no_gridlines` <- function ()
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
         panel.grid.minor.y = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`rotate_axes_text` <- function (angle)
+  theme(axis.text = element_text(angle = angle, hjust = 1L))
+
+
+#' @title Rotate ggplot2 x-axis labels
+#' @description Rotate the x-axis labels/text by a given angle.
+#' @inheritParams rotate_axes_text
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @keywords ggplot2
+#' @export
+rotate_x_text <- function (angle)
+  theme(axis.text.x = element_text(angle = angle, hjust = 1L))
+
+
+#' @title Rotate ggplot2 x-axis labels
+#' @description Rotate the x-axis labels/text by a given angle.
+#' @inheritParams rotate_axes_text
+#' @author
+#' \Sexpr[stage=build,results=rd]{tools:::Rd_package_author("SciencesPo")}
+#' @keywords ggplot2
+#' @export
+rotate_y_text <- function (angle)
+  theme(axis.text.y = element_text(angle = angle, hjust = 1L))
+
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_axes` <- function ()
+  theme(axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_x_axis` <- function ()
+  theme(axis.line.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_y_axis` <- function ()
+  theme(axis.line.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_x_line` <- function ()
+  theme(axis.line.x = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_y_line` <- function ()
+  theme(axis.line.y = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_x_text` <- function ()
+  theme(axis.text.x = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_y_text` <- function ()
+  theme(axis.text.y = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_ticks` <- function ()
+  theme(axis.ticks = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_x_ticks` <- function ()
+  theme(axis.ticks.x = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_y_ticks` <- function ()
+  theme(axis.ticks.y = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_axes_titles` <- function () theme(axis.title = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_x_title` <- function () theme(axis.title.x = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_y_title` <- function() theme(axis.title.y = element_blank())
+
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`move_legend` <- function(position)
+  theme(legend.position = position)
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`legend_bottom` <- function () move_legend('bottom')
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`legend_top` <- function () move_legend('top')
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`legend_left` <- function () move_legend('left')
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`legend_right` <- function () move_legend('right')
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_legend` <- function () move_legend('none')
+
+
+#' @rdname Graph
+#' @keywords ggplot2
+#' @export
+`no_legend_title` <- function () theme(legend.title = element_blank())
+NULL
+
+
+
 
 
 #' @encoding UTF-8
@@ -171,7 +365,7 @@ NULL
 #' @keywords ggplot2
 #' @seealso \code{\link[ggplot2]{theme}}, \code{\link{theme_538}}, \code{\link{theme_blank}}.
 #' @examples
-#' ThemePreview() + theme_pub()
+#' Graph() + theme_pub()
 #'
 #' # Anscombe data
 #' dat <- data.frame()

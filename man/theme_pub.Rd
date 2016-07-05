@@ -27,7 +27,7 @@ After loading the SciencesPo package, this theme will be
 set to default for all subsequent graphs made with ggplot2.
 }
 \examples{
-ThemePreview() + theme_pub()
+Graph() + theme_pub()
 
 # Anscombe data
 dat <- data.frame()
