@@ -25,28 +25,23 @@ This document presents several wrapper functions to make plotting with ggplot2 a
 
 
 # Preview ggplot2 themes
-Graph() can be used to preview ggplot2 themes and features.
+`Previewplot()` can be used to preview ggplot2 themes and features.
 ```{r}
 library("SciencesPo", quietly = TRUE)
 
-Graph()
+Previewplot()
 ```
 
 
 # Themes
 
 ```{r}
-Graph() + theme_pub()
+Previewplot() + theme_pub()
 ```
 
 
 ```{r}
-Graph() + theme_darkside()
-```
-
-
-```{r}
-Graph() + theme_blank()
+Previewplot() + theme_darkside()
 ```
 
 

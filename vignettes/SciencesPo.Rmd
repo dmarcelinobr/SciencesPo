@@ -659,11 +659,11 @@ Atkinson(x, epsilon = 0.5)
 The **SciencesPo** brings in few themes and color palettes to enhance  [ggplot2](https://cran.r-project.org/package=ggplot2) graphs, but there are specialized packages like [ggthemes](https://cran.r-project.org/package=ggthemes),
 [ggthemr](https://github.com/cttobin/ggthemr), [cowplot](https://cran.r-project.org/package=cowplot), [ggalt](https://cran.r-project.org/package=ggalt), [GGally](https://cran.r-project.org/package=GGally), and [sjPlot](https://cran.r-project.org/package=sjPlot) that can make graph decoration a lot easier. There's also an interesting discussion on plot design in the outstanding reference [Cookbook for R](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/) that might be of your interest.
 
-With **SciencesPo**, one can "preview" ggplot themes by simply invoking the `Graph()` function. This will draw a predefined plot that we can combine with themes, for instance.
+With **SciencesPo**, one can "preview" ggplot themes by simply invoking the `Previewplot()` function. This will draw a predefined plot that we can combine with themes, for instance.
 
 ```{r echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5}
 
-Graph() + theme_grey()
+Previewplot() + theme_grey()
 ```
 
 
@@ -882,7 +882,7 @@ gg
 Alternatively, we can use a set of built in function to quick plot customization:
 
 ```{r, echo=TRUE, echo=TRUE, size='\\tiny'}
-Graph() + 
+Previewplot() + 
   theme_538() + 
   align_title_right()
 
@@ -891,7 +891,7 @@ Graph() +
 
 
 ```{r, echo=TRUE, echo=TRUE, size='\\tiny'}
-Graph() + 
+Previewplot() + 
   theme_538() + 
   no_y_gridlines()
 
@@ -901,7 +901,7 @@ Graph() +
 
 ```{r, echo=TRUE, echo=TRUE, size='\\tiny'}
 
-Graph() + 
+Previewplot() + 
   theme_538() + 
   no_y_gridlines() +
   no_x_gridlines()
