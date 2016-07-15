@@ -1,7 +1,7 @@
 ---
 title: "The Anatomy of a Plot"
 author: "Daniel Marcelino"
-date: "`r Sys.Date()`"
+date: "`r as.character(Sys.Date())`"
 output:
   rmarkdown::html_vignette:
     number_sections: yes
@@ -15,10 +15,11 @@ vignette: >
      \usepackage[utf8]{inputenc}
 ---
 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5)
+knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=4, dpi = 72, fig.show = "hold", fig.keep="last", sanitize=TRUE)
 ```
-  
+
 
 # Overview
 This document presents several wrapper functions to make plotting with ggplot2 a lot easier. 

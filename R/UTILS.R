@@ -199,6 +199,27 @@ NULL
 
 
 
+#' @title Print the current date in a pretty format
+#'
+#' @description Print the current date in a pretty format.
+#' @return string
+#' @export
+#'
+#' @examples
+#' Today()
+
+Today <- function() {
+  d <- date()
+  month <- substr(d,5,7)
+  day <- substr(d,9,10)
+  year <- substr(d,21,24)
+  paste(day,month,year)
+}
+NULL
+
+
+
+
 #' @title Render layer on top of a ggplot
 #' @description Set up a rendering layer on top of a ggplot.
 #' @param plot the plot to use as a starting point, either a ggplot2 or gtable.

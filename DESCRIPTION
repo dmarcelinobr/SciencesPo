@@ -4,21 +4,23 @@ Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
 Version: 1.4.1
 Date: 2016-05-20
-Authors@R: person("Daniel Marcelino", role = c("aut", "cre"), email = "dmarcelino@live.com")
+Authors@R: person("Daniel", "Marcelino", email = "dmarcelino@live.com", role = c("aut", "cre"))
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: Provide functions for analyzing political behavior data, including
     measures of political fragmentation, seat apportionment, and options for small
     data visualization.
 URL: http://CRAN.R-project.org/package=SciencesPo
 License: GPL (>= 2)
+Encoding: UTF-8
 Depends:
     R (>= 3.2.0),
-    ggplot2 (>= 2.1.0),
     stats,
     utils,
     graphics,
     grDevices,
-    methods
+    methods,
+    ggplot2 (>= 2.1.0),
+    Rcpp (>= 0.12.5)
 Imports:
     pander (>= 0.6.0),
     data.table (>= 1.9.4),

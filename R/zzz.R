@@ -1,22 +1,12 @@
-.onAttach <- function(...) {
-  # Send message
-  msg <- function() {
-    #message("")
-    packageStartupMessage("initializing ...", appendLF = FALSE)
-    Sys.sleep(1)
-    packageStartupMessage(" done")
-  }
-  packageStartupMessage(msg())
-  # suppressMessages(msg())
+.onAttach <- function(lib, pkg) {
+  ver <- read.dcf(file.path(lib, pkg, "DESCRIPTION"), "Version")
+  packageStartupMessage(paste(pkg, ver))
   options(scipen = 999)
-  # options(quiet = FALSE)
-  # ggplot2::theme_set(theme_pub())
+  options(quiet = TRUE)
+  #ggplot2::theme_set(theme_pub())
 }
 NULL
 # SciencesPo_env <- new.env()
-
-
-
 
 
 `%=%` <- function(x, y) {
@@ -48,8 +38,8 @@ ggname <- function(prefix, grob) {
     c(
       "Hello World!",
       "Yo world!",
-      "Yo, you lookin' at twenty",
-      "Bitch, you ain't givin' me any"
+      "Before there was R, there was S.",
+      "Programming is like writing a book ...\n...except if you miss out a single comma on page 126 the whole thing makes no damn sense."
     ),
     1
   ))

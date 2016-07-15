@@ -58,37 +58,29 @@ use_glyph=FALSE, glyph_size=12) {
   }))
 
   if (reverse) parts_vec <- rev(parts_vec)
-
   # setup the data frame for geom_rect
   dat <- base::expand.grid(y=1:rows, x=seq_len(pad + (ceiling(sum(parts) / rows))))
-
-  # add NAs if needed to fill in the "rectangle"
+# add NAs if needed to fill in the "rectangle"
   dat$.value <- c(parts_vec, rep(NA, nrow(dat)-length(parts_vec)))
   if(!inherits(use_glyph, "logical")){
-    fontlab <- rep(fa_unicode[use_glyph],length(unique(parts_vec)))
-    dat$fontlab <- c(fontlab[as.numeric(factor(parts_vec))], rep(NA, nrow(dat)-length(parts_vec)))
-  }
-
-  dat$.value <- factor(dat$.value, levels=part_names)
-
+fontlab <- rep(fa_unicode[use_glyph],length(unique(parts_vec)))
+dat$fontlab <- c(fontlab[as.numeric(factor(parts_vec))], rep(NA, nrow(dat)-length(parts_vec)))
+}
+dat$.value <- factor(dat$.value, levels=part_names)
   if (flip) {
     gg <- ggplot2::ggplot(dat, aes(x=y, y=x))
   } else {
     gg <- ggplot2::ggplot(dat, aes(x=x, y=y))
   }
-
   gg <- gg + ggplot2::theme_bw()
-
   # make the plot
-
   if (inherits(use_glyph, "logical")) {
-
-    gg <- gg + ggplot2::geom_tile(aes(fill=.value), color="white", size=size)
-    gg <- gg + ggplot2::scale_fill_manual(name="",
+gg <- gg + ggplot2::geom_tile(aes(fill=.value), color="white", size=size)
+gg <- gg + ggplot2::scale_fill_manual(name="",
                                  values=colors,
                                  labels=part_names,
                                  drop=FALSE)
-    gg <- gg + ggplot2::guides(fill=guide_legend(override.aes=list(colour="#00000000")))
+gg <- gg + ggplot2::guides(fill=guide_legend(override.aes=list(colour="#00000000")))
     gg <- gg + ggplot2::theme(legend.background=element_rect(fill="#00000000", color="#00000000"))
     gg <- gg + ggplot2::theme(legend.key=element_rect(fill="#00000000", color="#00000000"))
 

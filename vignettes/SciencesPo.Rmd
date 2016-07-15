@@ -1,7 +1,7 @@
 ---
 title: "Introduction to the SciencesPo Package"
 author: "Daniel Marcelino"
-date: "`r Sys.Date()`"
+date: "`r as.character(Sys.Date())`"
 output:
   rmarkdown::html_vignette:
     number_sections: yes
@@ -16,9 +16,8 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5)
+knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=4, dpi = 96, fig.show = "hold", fig.keep="last", sanitize=TRUE)
 ```
-  
 
 # Overview
 R is rapidly increasing popularity in scientific research; it has several advantages over other programming languages: it is free, it is fairly powerful, there is an excellent user community, and it was designed with the statistical analysis of data in mind. The purpose of this vignette is to introduce some of the function in the **SciencesPo** package, and how these can be used in data analysis workflows and reporting results. 
@@ -1085,18 +1084,9 @@ show_col(pub_color_pal("gray5")(6), labels = FALSE)
 
 
 ```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("carnival")(6))
-```
-
-
-```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("fte")(4))
 ```
 
-
-```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("seasons")(4))
-```
 
 ```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("manyeyes")(20))
@@ -1114,33 +1104,12 @@ show_col(pub_color_pal("tableau10")(10))
 
 
 ```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
-show_col(pub_color_pal("tableau10medium")(10))
-```
-
-
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
  show_col(pub_color_pal("tableau10light")(10))
 ```
 
 
 ```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
 show_col(pub_color_pal("cyclic")(20))
-```
-
-
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
-show_col(pub_color_pal("purplegray12")(12))
-
-```
-
-
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
-show_col(pub_color_pal("greenorange12")(12))
-```
-
-
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
-show_col(pub_color_pal("bluered12")(12))
 ```
 
 

@@ -1,5 +1,5 @@
 ## ----setup, include=FALSE------------------------------------------------
-knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=3.5)
+knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=4, dpi = 96, fig.show = "hold", fig.keep="last", sanitize=TRUE)
 
 ## ----table_A.1, echo=TRUE, cache=TRUE------------------------------------
 # Table A.l
