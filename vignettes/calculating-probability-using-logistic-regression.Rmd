@@ -1,0 +1,51 @@
+---
+title: "Calculating Probability of a binary outcome using Binary Logistic"
+author: "Daniel"
+date: "July 17, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+## First SlideProject Description
+
+    A generalized linear model that to estimate the probability of a vehicle having a V-engine or a straight engine using the user-defined a weight (lbs) and engine displacement values (cu. inches).
+    Generalized linear or regression is useful when you are predicting a binary outcome (i.e. V-engine or straight engine in this example) from a set of continuous predictor variables.
+    The data for this project (mtcars) was published in the 1974 Motor Trend US magazine, and is comprised of fuel consumption, performance and physical features for 32 automobiles.
+
+
+
+## Data
+```{r}
+
+```
+
+
+## generalized linear model
+
+
+```{r}
+
+## Making probability prediction
+
+Our goal here is to calculate a predicted probability of a V engine, for specific values of the predictors:
+
+    a weight of 2100 lbs and
+    engine displacement of 180 cubic inches.
+
+  wt = 1.2
+  disp = 180 
+  data(mtcars)
+  model = glm(formula= vs ~ wt + disp, data=mtcars, family=binomial)
+  newdata = data.frame(wt = wt, disp = disp)
+  prob = predict(model, newdata, type="response")
+
+The predicted probability is 0.07
+
+```
+

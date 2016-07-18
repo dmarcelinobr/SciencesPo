@@ -20,7 +20,7 @@ Depends:
     grDevices,
     methods,
     ggplot2 (>= 2.1.0),
-    Rcpp (>= 0.12.5)
+    Rcpp (>= 0.11.1)
 Imports:
     pander (>= 0.6.0),
     data.table (>= 1.9.4),
@@ -37,7 +37,10 @@ Suggests:
     extrafont,
     gtable,
     knitr
+LinkingTo: Rcpp
+SystemRequirements: C++11
 VignetteBuilder: knitr
+NeedsCompilation: yes
 LazyData: yes
 Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo/issues
