@@ -750,7 +750,7 @@ NULL
 #' # qplot(1:10, (1:10)^2, color="green") + theme_scpo()
 #'
 #' # Check that it is a complete theme
-#' attr(theme_scpo(), "complete")
+#' # attr(theme_scpo(), "complete")
 #'
 `theme_scpo` <- function(base_family="",
                            base_size = 11,
