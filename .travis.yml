@@ -5,6 +5,7 @@
 #   https://github.com/craigcitro/r-travis/wiki
 sudo: required
 language: c
+warnings_are_errors: false
 
 
 env:

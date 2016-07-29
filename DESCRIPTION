@@ -3,7 +3,7 @@ Type: Package
 Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
 Version: 1.4.1
-Date: 2016-05-20
+Date: 2016-08-05
 Authors@R: person("Daniel", "Marcelino", email = "dmarcelino@live.com", role = c("aut", "cre"))
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: Provide functions for analyzing political behavior data, including
@@ -19,9 +19,9 @@ Depends:
     graphics,
     grDevices,
     methods,
-    ggplot2 (>= 2.1.0),
-    Rcpp (>= 0.11.1)
+    ggplot2 (>= 2.1.0)
 Imports:
+    Rcpp (>= 0.12.3),
     pander (>= 0.6.0),
     data.table (>= 1.9.4),
     grid (>= 3.0.0),
@@ -38,11 +38,64 @@ Suggests:
     gtable,
     knitr
 LinkingTo: Rcpp
-SystemRequirements: C++11
 VignetteBuilder: knitr
 NeedsCompilation: yes
-LazyData: yes
+LazyData: TRUE
 Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo/issues
 ByteCompile: TRUE
 RoxygenNote: 5.0.1
+Collate:
+    'Anonymize.R'
+    'Atkinson.R'
+    'Bootstrap.R'
+    'CI.R'
+    'CMDcheckVars.R'
+    'CalibratePlot.R'
+    'Clear.R'
+    'CountMissing.R'
+    'CrossValidation.R'
+    'Crosstable.R'
+    'DATA.R'
+    'DEPRECATED.R'
+    'Describe.R'
+    'Dirichlet.R'
+    'Dummy.R'
+    'Frequency.R'
+    'Geoms.R'
+    'Gini.R'
+    'Herfindahl.R'
+    'HighestAverages.R'
+    'Jackknife.R'
+    'Label.R'
+    'LargestRemainders.R'
+    'Lorenz.R'
+    'MOMENTS.R'
+    'MeanFromRange.R'
+    'Normalize.R'
+    'Operators.R'
+    'Outlier.R'
+    'Palettes.R'
+    'Permutate.R'
+    'PoliticalDiversity.R'
+    'Proportionality.R'
+    'Recode.R'
+    'Rosenbluth.R'
+    'RunShinyApp.R'
+    'ScatterPlot.R'
+    'SciencesPo.R'
+    'Stratify.R'
+    'TESTS.R'
+    'Tableplot.R'
+    'Ternaryplot.R'
+    'Themes.R'
+    'Transform.R'
+    'UTILS.R'
+    'Untable.R'
+    'Voronoi.R'
+    'Waffleplot.R'
+    'Winsorize.R'
+    'flag.R'
+    'print.SciencesPo.R'
+    'zTree.R'
+    'zzz.R'

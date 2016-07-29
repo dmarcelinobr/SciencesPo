@@ -835,7 +835,7 @@ NULL
   ret <- ret + theme(axis.title.y=element_text(hjust=yj, size=axis_title_size, family=axis_title_family))
   ret <- ret + theme(strip.text=element_text(hjust=0, size=strip_text_size, family=strip_text_family))
   ret <- ret + theme(plot.title=element_text(hjust=0, size=title_size, margin=margin(b=title_margin), family=title_family))
-  ret <- ret + theme(plot.subtitle=element_text(hjust=0, size=subtitle_size, margin=margin(b=subtitle_margin), family=subtitle_family))
+  # ret <- ret + theme(plot.subtitle=element_text(hjust=0, size=subtitle_size, margin=margin(b=subtitle_margin), family=subtitle_family))
   ret <- ret + theme(plot.caption=element_text(hjust=1, size=caption_size, margin=margin(t=caption_margin), family=caption_family))
   ret <- ret + theme(plot.margin=margins)
   ret
