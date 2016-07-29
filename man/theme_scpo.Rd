@@ -63,7 +63,7 @@ The scpo theme for using with ggplot2 objects.
 }
 \examples{
 # plot with small amount of padding
-qplot(1:10, (1:10)^2, color="green") + theme_scpo()
+# qplot(1:10, (1:10)^2, color="green") + theme_scpo()
 
 # Check that it is a complete theme
 attr(theme_scpo(), "complete")
