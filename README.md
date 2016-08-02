@@ -11,7 +11,7 @@
 
 
 
-**SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing election and public opinion data as well as experiemental data. The package lives on the R Foundation repository [(CRAN)](https://cran.r-project.org/package=SciencesPo), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
+**SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing elections and political behavior data, including measures of political fragmentation, seat apportionment, and  small data visualization graphs. The package lives on the R Foundation repository [(CRAN)](https://cran.r-project.org/package=SciencesPo), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
 
 1 - From the CRAN repository (stable version):
 
