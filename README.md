@@ -64,9 +64,6 @@ To see what functions are implemented in **SciencesPo**, run:
 help(package=SciencesPo)
 ```
 
-## 
-
-
 
 ## Vignettes
 * [Concepts and Basics of SciencesPo](https://cran.r-project.org/web/packages/SciencesPo/vignettes/SciencesPo.html)
@@ -74,4 +71,4 @@ help(package=SciencesPo)
 * [Cross-Tabulation]
 * [Are My Data Normal?]
 * [Measures of Political Behavior](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
-* [The Anatomy of a Plot](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Anatomy.html)
+* [The Anatomy of a Plot](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Viz.html)

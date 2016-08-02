@@ -2,6 +2,3 @@ base
 ggplot2
 SciencesPo
 deldir
-Rcpp
-knitr
-scales

@@ -7,7 +7,7 @@ library("SciencesPo", quietly = TRUE)
 Previewplot()
 
 ## ------------------------------------------------------------------------
-Previewplot() + theme_pub()
+Previewplot() + theme_scpo()
 
 ## ------------------------------------------------------------------------
 Previewplot() + theme_darkside()
@@ -47,6 +47,7 @@ gg <- gg + geom_point(
     size = 4,
     color="#333333")
 gg <- gg + labs(x = 'lat', y = 'long', title = "My Voronoi Line Segments")
+gg
 
 ## ------------------------------------------------------------------------
 gg + align_title_right()

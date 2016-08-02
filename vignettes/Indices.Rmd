@@ -7,7 +7,7 @@ output:
     number_sections: yes
     toc_depth: 2
     toc: yes
-    fig_width: 5.5
+    css: SciencesPo.css
 abstract: This tutorial describes some of the indices on political behavior that are most visible in scholarly literature, along with measures of political diversity, methods of seats allocation, and methods for graphically displaying results. The framework is provided by the R package **SciencesPo**--version **`r packageVersion("SciencesPo")`**, but other packages are used to help with various tasks.
 vignette: >
   %\VignetteIndexEntry{Measures of Political Behavior}

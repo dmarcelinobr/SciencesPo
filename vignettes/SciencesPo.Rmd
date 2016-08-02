@@ -1,5 +1,5 @@
 ---
-title: "Introduction to the SciencesPo Package"
+title: "Concepts and Basics of the SciencesPo Package"
 author: "Daniel Marcelino"
 date: "`r as.character(Sys.Date())`"
 output:
@@ -7,9 +7,9 @@ output:
     number_sections: yes
     toc_depth: 2
     toc: yes
-    fig_width: 5
+    css: SciencesPo.css
 vignette: >
-  %\VignetteIndexEntry{Introduction to SciencesPo}
+  %\VignetteIndexEntry{Concepts and Basics of the SciencesPo Package}
    %\VignetteEngine{knitr::rmarkdown}
     \usepackage[T1]{fontenc}
      \usepackage[utf8]{inputenc}
