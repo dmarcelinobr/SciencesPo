@@ -37,7 +37,7 @@ Previewplot()
 # Themes
 
 ```{r}
-Previewplot() + theme_scpo()
+Previewplot() + theme_pub()
 ```
 
 

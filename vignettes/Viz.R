@@ -7,7 +7,7 @@ library("SciencesPo", quietly = TRUE)
 Previewplot()
 
 ## ------------------------------------------------------------------------
-Previewplot() + theme_scpo()
+Previewplot() + theme_pub()
 
 ## ------------------------------------------------------------------------
 Previewplot() + theme_darkside()
