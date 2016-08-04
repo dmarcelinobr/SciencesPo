@@ -714,7 +714,7 @@ NULL
 
 
 
-#' @title The ScPo Theme
+#' @title The SciPo Theme
 #' @description The scpo theme for using with ggplot2 objects.
 #' @inheritParams ggplot2::theme_bw
 #'
@@ -747,12 +747,12 @@ NULL
 #' @return The theme.
 #' @examples
 #' # plot with small amount of padding
-#' # qplot(1:10, (1:10)^2, color="green") + theme_scpo()
+#' # qplot(1:10, (1:10)^2, color="green") + theme_scipo()
 #'
 #' # Check that it is a complete theme
-#' # attr(theme_scpo(), "complete")
+#' # attr(theme_scipo(), "complete")
 #'
-`theme_scpo` <- function(base_family="",
+`theme_scipo` <- function(base_family="",
                            base_size = 11,
                            strip_text_family = base_family,
                            strip_text_size = 12,

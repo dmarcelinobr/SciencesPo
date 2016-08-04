@@ -9,6 +9,7 @@ tests/old
 ^\.travis\.yml$
 ^\.lintr$
 ^\.texpadtmp$
+README.md
 cran-comments.md
 Rlogo.png
 SciencesPo_logo.png

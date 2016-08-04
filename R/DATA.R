@@ -692,6 +692,30 @@ NULL
 
 
 
+#' @encoding UTF-8
+#' @title Voting correlations
+#' @description A dataset with voting correlations of traits, where each
+#' trait is measured for 17 developed countries (Europe, US,
+#' Japan, Australia, New Zealand).
+#'
+#' @docType data
+#' @keywords datasets
+#' @name vote
+#' @usage data(vote)
+#' @format A \code{12x12 matrix} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::vote)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::vote)} observations.
+#'
+#' @source
+#' Torben Iversen and David Soskice (2006). Electoral institutions and
+#' the politics of coalitions: Why some democracies redistribute more than
+#' others. \emph{American Political Science Review}, 100, 165-81. Table A2.
+#'
+#' @references
+#' Using Graphs Instead of Tables.
+#' \url{http://www.tables2graphs.com/doku.php?id=03_descriptive_statistics}
+#'
+NULL
+
+
 
 
 
@@ -735,6 +759,44 @@ NULL
 #' @name baseball
 #' @usage data(baseball)
 #' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::baseball)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::baseball)} observations.
+#'
+NULL
+
+
+
+#' @encoding UTF-8
+#' @title Statistics of 1979 automobile models
+#'
+#' @description The data give the following statistics for 74 automobiles in the 1979 model year as sold in the US.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name auto
+#' @usage data(auto)
+#' @format A \code{data.frame} object with \Sexpr[stage=build,results=rd]{ncol(SciencesPo::auto)} variables and \Sexpr[stage=build,results=rd]{nrow(SciencesPo::auto)} observations.
+
+#' \describe{
+#' \item{\code{Model}}{Make and model of car.}
+#' \item{\code{Origin}}{a factor with levels A,E,J}
+#' \item{\code{Price}}{Price in dollars.}
+#' \item{\code{MPG}}{Miles per gallon.}
+#' \item{\code{Rep78}}{Repair record for 1978 on 1 (worst) to 5 (best) scale.}
+#' \item{\code{Rep77}}{Repair record for 1978 on 1 to 5 scale.}
+#' \item{\code{Hroom}}{Headroom in inches.}
+#' \item{\code{Rseat}}{Rear seat clearance in inches.}
+#' \item{\code{Trunk}}{Trunk volume in cubic feet.}
+#' \item{\code{Weight}}{Weight in pounds.}
+#' \item{\code{Length}}{Length in inches.}
+#' \item{\code{Turn}}{Turning diameter in feet.}
+#' \item{\code{Displa}}{Engine displacement in cubic inches.}
+#' \item{\code{Gratio}}{Gear ratio for high gear.}
+#' }
+#'
+#' @source This data frame was created from
+#' \url{http://euclid.psych.yorku.ca/ftp/sas/sssg/data/auto.sas}.
+#'
+#' @references Originally published in Chambers, Cleveland, Kleiner, and Tukey,
+#' \emph{Graphical Methods for Data Analysis}, 1983, pages 352-355.
 #'
 NULL
 

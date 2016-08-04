@@ -1,24 +1,31 @@
 ---
 title: "Concepts and Basics of the SciencesPo Package"
-author: "Daniel Marcelino"
-date: "`r as.character(Sys.Date())`"
-output:
+author: "Daniel Marcelino <<dmarcelino@live.com>>"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+bibliography: SciencesPo.bib
+output: 
   rmarkdown::html_vignette:
-    number_sections: yes
+    toc: true
     toc_depth: 2
-    toc: yes
+    number_sections: true
     css: SciencesPo.css
+create_dir: false
 vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Concepts and Basics of the SciencesPo Package}
-   %\VignetteEngine{knitr::rmarkdown}
-    \usepackage[T1]{fontenc}
-     \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+
+nocite: | 
+  @stats, @cowplot, @GGally, @sjPlot, @ggthemes, @ggalt     
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=4, dpi = 96, fig.show = "hold", fig.keep="last", sanitize=TRUE)
+
+```{r setup, echo = FALSE, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, echo=TRUE, warning = FALSE, message=FALSE, collapse = FALSE, prompt=FALSE,comment=NA, fig.align="center", fig.width=5, fig.height=4, dpi = 96, fig.show = "hold", fig.keep="last", sanitize=TRUE)
 ```
 
+  
 # Overview
 R is rapidly increasing popularity in scientific research; it has several advantages over other programming languages: it is free, it is fairly powerful, there is an excellent user community, and it was designed with the statistical analysis of data in mind. The purpose of this vignette is to introduce some of the function in the **SciencesPo** package, and how these can be used in data analysis workflows and reporting results. 
 
@@ -66,7 +73,7 @@ data(package = "SciencesPo")
 ```
 
 ## To search any topic within the package
-Here are some examples that demonstrates the results of help.search(), or you can also use ?? to search for for all commands that have some strings related to the text within quotes. You can also restrict the search to a specific library as:
+Here are some examples that demonstrates the results of help.search(), or you can also use `??` to search for for all commands that have some strings related to the text within quotes. You can also restrict the search to a specific library as:
 
 ```{r echo=TRUE, message=FALSE, comment=NA}
 help.search("D'Hondt", package = 'SciencesPo')
@@ -161,7 +168,7 @@ data(stature)
 
 ### Computing Method of Moments 
 
-These functions perform three types of skewness and kurtosis assessment to conform with the **e1071** package:
+These functions perform three types of skewness and kurtosis assessments in conformity with the popular **e1071** package [@e1071]:
 
 #### Skewness of Data
 ```{r echo=TRUE, cache=TRUE,  message=FALSE, comment=NA}
@@ -482,7 +489,7 @@ print(Helsinki)
 ```
 
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 # ENEP defaults (laakso/taagepera) method 
 
 with(Helsinki, PoliticalDiversity(votes)); #ENEP Votes
@@ -497,7 +504,7 @@ with(Helsinki, PoliticalDiversity(seats.dH)); #ENP for D'Hondt
 
 Let's use the 2012 Quebec provincial election:
 
-```{r Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+```{r Quebec-election, echo=FALSE}
 # 2012 Quebec provincial election:
 Quebec <-
   data.frame(
@@ -513,7 +520,7 @@ Quebec
 
 ### Rae's proportionality index 
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 
 with(Quebec, Proportionality(pvotes, pseats, 
                      index = "Rae") )
@@ -521,14 +528,14 @@ with(Quebec, Proportionality(pvotes, pseats,
 
 ### Loosemore-Hanby's Proportionality Index
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 with(Quebec, Proportionality(pvotes, pseats, 
                      index = "Loosemore-Hanby") )
 ```                    
 
 ### Gallagher's proportionality index 
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 
 with(Quebec, Proportionality(pvotes, pseats, 
                      index = "Gallagher") )
@@ -538,18 +545,20 @@ with(Quebec, Proportionality(pvotes, pseats,
 
 Now using data from 2014 Brazilian legislative elections, especifically from one district, let's compare the results from D'Hondt, Saint-Lague, Hungtinton-Hill, and Imperiali methods.
 
-```{r Ceara-election, echo=TRUE, cache=TRUE}
+```{r Ceara-election, echo=FALSE}
 # Results for the state legislative house of Ceara (2014):
 Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
            "PRB"=2043217,"PSB"=15061, "PSC"=103679, "PSTU"=109830,
            "PTdoB"=213988, "PTC"=67145, "PTN"=278267)
+
+print(Ceara)
 ```
 
 The basic imputs for this class of functions are: 1) a list of parties, 2) a list of positive votes, and 3) a constant value for the number of seats to be returned. A numeric value (0~1) for the threshold is optional.
 
 ### d'Hondt
 
-```{r highestAverages1, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 HighestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "dh") 
 ```
@@ -558,7 +567,7 @@ The d'Hondt method is only one way of allocating seats in party list systems. Ot
 
 ### Saint-Lague
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 HighestAverages(parties=names(Ceara), votes=Ceara,
                 seats = 42, method = "sl") 
 ```
@@ -567,7 +576,7 @@ HighestAverages(parties=names(Ceara), votes=Ceara,
 
 Let's assume the electoral system has a 5\% vote threshold. Meaning that parties must get at least 5\% of the total unspoiled votes cast in order to participate in the distribution of seats. Parties *PCdoB*, *PTdoB*, *PEN*, *PSC*, *PSTU*, *PSB*, and *PTC* would then be elimiated from competition at the outset. If the d'Hondt method of seat allocation were employed, then party *PRB* would get 4 extra seats than otherwise, and party *PMDB* 3 additional seats.
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 HighestAverages(parties=names(Ceara), votes=Ceara,
                seats = 42, method = "dh", threshold = 5/100) 
 ```
@@ -578,25 +587,25 @@ Other methods divide the votes by a mathematically derived quota, such as the Dr
 
 ### Hare quota
 
-```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r eval=FALSE}
 LargestRemainders(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "hare") 
 ```
 
 ### Droop quota
 
-```{r eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r eval=FALSE}
 LargestRemainders(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "droop") 
 ```
 
 
-## Suitable output for recycling in RMarkdown documents 
+## Suitable output for recycling in rmarkdown documents 
 
-The output produced by the `highestAveragesof()` and `largestRemainders()`  functions is always a `data.frame`; therefore, it's very straightforward  to use with other aplications. For instance, I like the idea of using the output with the **knitr** package to produce publishable-quality tables, or graphs with **ggplot2**.
+The output produced by the `highestAveragesof()` and `largestRemainders()`  functions is always a `data.frame`; therefore, it's very straightforward  to use with other aplications. For instance, I like the idea of using the output with **knitr** [-@knitr] and **ggplot2** [-@ggplot2] packages to produce publishable-quality tables and graphs. 
 
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 mytable = HighestAverages(parties=names(Ceara), votes=Ceara, 
                 seats = 42, method = "dh") 
 
@@ -908,7 +917,6 @@ Previewplot() +
 ```
 
 
-
 ## Generic plot annotations
 
 The function `Footnote()` can be handy for adding extra text information, such as data source, equation, or credits as footnotes to a *ggplot2* or gtable objects. The next chunck demonstrates its usage: 
@@ -1071,50 +1079,45 @@ The following scales help passing manual values to scale colors for ggplot2 obje
 
 ## Discrete palletes
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
 library("scales", quietly = TRUE)
 
-show_col(pub_color_pal("pub12")(12))
+show_col(pub_pal("pub12")(12))
 ```
 
 
-```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("gray5")(6), labels = FALSE)
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+show_col(pub_pal("gray5")(6), labels = FALSE)
 ```
 
 
-```{r echo=TRUE,  fig.align="center", fig.width=3.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("fte")(4))
+```{r, fig.width = 10.67, fig.height = 5, out.width = 790, out.height = 350}
+show_col(pub_pal("manyeyes")(20))
 ```
 
 
-```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("manyeyes")(20))
+```{r, fig.width = 10.67, fig.height = 5, out.width = 790, out.height = 350}
+show_col(pub_pal("tableau20")(20))
 ```
 
 
-```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("tableau20")(20))
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+show_col(pub_pal("tableau10")(10))
 ```
 
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
-show_col(pub_color_pal("tableau10")(10))
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+ show_col(pub_pal("tableau10light")(10))
 ```
 
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=4, comment=NA, warning=FALSE}
- show_col(pub_color_pal("tableau10light")(10))
+```{r, fig.width = 10.67, fig.height = 5, out.width = 790, out.height = 350}
+show_col(pub_pal("cyclic")(20))
 ```
 
 
-```{r echo=TRUE,  fig.align="center", fig.width=6, fig.height=4.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("cyclic")(20))
-```
-
-
-```{r echo=TRUE, fig.align="center", fig.width=6, fig.height=5, comment=NA, warning=FALSE}
-party_color_pal("BRA", plot=TRUE)
+```{r, fig.width = 10.67, fig.height = 5, out.width = 790, out.height = 350}
+party_pal("BRA", plot=TRUE)
 ```
 
 
@@ -1123,87 +1126,31 @@ party_color_pal("BRA", plot=TRUE)
 
 ### Bivariate scales 
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("trafficlight")(9))
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+show_col(pub_pal("trafficlight")(9))
 ```
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("bivariate1")(9))
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+show_col(pub_pal("bivariate1")(9))
 ```
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("bivariate2")(9))
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+show_col(pub_pal("bivariate2")(9))
 ```
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("bivariate3")(9))
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+show_col(pub_pal("bivariate3")(9))
 ```
 
-```{r echo=TRUE,  fig.align="center", fig.width=4.5, fig.height=3.5, comment=NA, warning=FALSE}
-show_col(pub_color_pal("bivariate4")(9))
+```{r, fig.width = 10.67, fig.height = 4, out.width = 790, out.height = 300}
+show_col(pub_pal("bivariate4")(9))
 ```
 
 
-# Session Info
-```{r, echo=FALSE, message=FALSE, comment=NA}
-print(sessionInfo(), locale=FALSE)
-# library(help='SciencesPo')
+# R Session Details 
+```{r, echo=FALSE}
+library("devtools", quietly = TRUE)
+session_info()
 ```
 
 # References
-
-@Book{,
-    author = {Hadley Wickham},
-    title = {ggplot2: Elegant Graphics for Data Analysis},
-    publisher = {Springer-Verlag New York},
-    year = {2009},
-    isbn = {978-0-387-98140-6},
-    url = {http://ggplot2.org},
-  }
-  
-  
-@Manual{,
-    title = {ggalt: Extra Coordinate Systems, Geoms and Statistical Transformations
-for 'ggplot2'},
-    author = {Bob Rudis},
-    year = {2016},
-    note = {R package version 0.1.1},
-    url = {https://CRAN.R-project.org/package=ggalt},
-  }
-  
-@Manual{,
-    title = {ggthemes: Extra Themes, Scales and Geoms for 'ggplot2'},
-    author = {Jeffrey B. Arnold},
-    year = {2016},
-    note = {R package version 3.0.2},
-    url = {https://CRAN.R-project.org/package=ggthemes},
-  } 
-
-@Manual{,
-    title = {sjPlot: Data Visualization for Statistics in Social Science},
-    author = {Daniel Lüdecke},
-    year = {2016},
-    note = {R package version 1.9.4},
-    url = {http://CRAN.R-project.org/package=sjPlot},
-  }
-
-
-@Manual{,
-    title = {GGally: Extension to ggplot2},
-    author = {Barret Schloerke and Jason Crowley and Di Cook and Francois Briatte and Moritz Marbach and Edwin Thoen and Amos Elberg},
-    year = {2016},
-    note = {R package version 1.0.1},
-    url = {https://CRAN.R-project.org/package=GGally},
-  }
-  
-  
-@Manual{,
-    title = {cowplot: Streamlined Plot Theme and Plot Annotations for 'ggplot2'},
-    author = {Claus O. Wilke},
-    year = {2016},
-    note = {R package version 0.6.1},
-    url = {https://CRAN.R-project.org/package=cowplot},
-  }
-  
-Yihui Xie (2016). knitr: A General-Purpose Package for Dynamic
-  Report Generation in R. R package version 1.12.3.

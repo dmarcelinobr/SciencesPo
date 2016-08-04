@@ -49,7 +49,7 @@ use_glyph=FALSE, glyph_size=12) {
   names(parts) <- part_names
 
   # Use tableau20 if no colors are specified
-  if (all(is.na(colors))) colors <- suppressWarnings(pub_color_pal("tableau10")(length(parts)))
+  if (all(is.na(colors))) colors <- suppressWarnings(pub_pal("tableau10")(length(parts)))
 
 
   # make one big vector of all the bits

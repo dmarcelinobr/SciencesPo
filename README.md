@@ -23,12 +23,11 @@
 
 2 -  You can install the latest development version using the nifty function from devtools package.
 
+```
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("danielmarcelino/SciencesPo")
+```
 
-  ```
-  library(devtools)
-  install_github("danielmarcelino/SciencesPo")
-  ```
-  
 3 - Or download the [sources in a zip](https://github.com/danielmarcelino/SciencesPo/zipball/master) file and build manually. To do so, please unzip the file to an empty dir and run the following commands there:
 
 

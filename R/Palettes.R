@@ -9,6 +9,20 @@ Palettes <- {
   x$pub <- list()
   x$pub$colors <-
     list(
+      scipo = c(
+        rgb(0, 107, 164, max = 255),
+        rgb(255, 128, 14, max = 255),
+        rgb(171, 171, 171, max = 255),
+        rgb(89, 89, 89, max = 255),
+        rgb(95, 158, 209, max = 255),
+        rgb(200, 82, 0, max = 255),
+        rgb(137, 137, 137, max = 255),
+        rgb(162, 200, 236, max = 255),
+        rgb(255, 188, 121, max = 255),
+        rgb(207, 207, 207, max = 255),
+        rgb(48, 147, 67, max = 255),
+        rgb(105, 183, 100, max = 255)
+      ),
       pub12 = c(
         rgb(0, 107, 164, max = 255),
         rgb(255, 128, 14, max = 255),
@@ -23,21 +37,15 @@ Palettes <- {
         rgb(48, 147, 67, max = 255),
         rgb(105, 183, 100, max = 255)
       ),
-      gray5 = c(
+      gray9 = c(
+        rgb(17, 17, 17, max = 255),
         rgb(96, 99, 106, max = 255),
         rgb(165, 172, 175, max = 255),
         rgb(65, 68, 81, max = 255),
         rgb(143, 135, 130, max = 255),
-        rgb(207, 207, 207, max = 255)
-      ),
-      chalk = c(
-        rgb(255, 255, 255, max = 255),
-        rgb(194, 197, 190, max = 255),
+        rgb(207, 207, 207, max = 255),
         rgb(212, 218, 218, max = 255),
-        rgb(17, 17, 17, max = 255),
-        rgb(109, 136, 117, max = 255),
-        rgb(234, 234, 234, max = 255),
-        rgb(144, 138, 120, max = 255)
+        rgb(234, 234, 234, max = 255)
       ),
       tableau20 = c(
         rgb(31, 119, 180, max = 255),
@@ -405,8 +413,8 @@ NULL
 #'
 #' @details The following palettes are available:
 #' \itemize{
-#' \item {"pub12"}{A 12-color colorblind safe qualitative discrete palette.}
-#' \item{"gray5"}{5-tons of gray.}
+#' \item {"scipo"}{A 12-color colorblind discrete palette.}
+#' \item{"gray9"}{5-tons of gray.}
 #' \item {"carnival"}{A 5-color palette inspired in the Brazilian samba schools.}
 #' \item {"tableau20"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
 #' \item {"tableau10"}{Based on software \href{http://www.tableausoftware.com/}{Tableau}}
@@ -418,20 +426,19 @@ NULL
 #' library(scales)
 #' library(ggplot2)
 #'
-#' show_col(pub_color_pal("pub12")(12))
-#' show_col(pub_color_pal("gray5")(6), labels = FALSE)
-#' show_col(pub_color_pal("chalk")(8))
-#' show_col(pub_color_pal("carnival")(4))
-#' show_col(pub_color_pal("gdocs")(18))
-#' show_col(pub_color_pal("tableau20")(20))
-#' show_col(pub_color_pal("tableau10")(10))
-#' show_col(pub_color_pal("tableau10medium")(10))
-#' show_col(pub_color_pal("tableau10light")(10))
-#' show_col(pub_color_pal("cyclic")(20))
-#' show_col(pub_color_pal("bivariate1")(9))
+#' show_col(pub_pal("scipo")(12))
+#' show_col(pub_pal("gray9")(9), labels = FALSE)
+#' show_col(pub_pal("carnival")(4))
+#' show_col(pub_pal("gdocs")(18))
+#' show_col(pub_pal("manyeyes")(20))
+#' show_col(pub_pal("tableau10")(10))
+#' show_col(pub_pal("tableau10medium")(10))
+#' show_col(pub_pal("tableau10light")(10))
+#' show_col(pub_pal("cyclic")(20))
+#' show_col(pub_pal("bivariate1")(9))
 #'
 #' @export
-`pub_color_pal` <- function(palette = "pub12") {
+`pub_pal` <- function(palette = "pub12") {
   pal.list <- Palettes$pub$colors
   if (!palette %in% c(
     names(pal.list), "pub12", "gray5", "tableau10", "tableau20", "tableau10medium", "tableau10light", "manyeyes", "fte", "greenorange12", "cyclic", "purplegray12", "bluered12", "bivariate1", "bivariate2", "bivariate3", "bivariate4" )) {
@@ -459,35 +466,35 @@ NULL
 
 #' @title Publication color scales.
 #'
-#' @description See \code{\link{pub_color_pal}} for details.
+#' @description See \code{\link{pub_pal}} for details.
 #'
 #' @inheritParams ggplot2::scale_colour_hue
-#' @inheritParams pub_color_pal
+#' @inheritParams pub_pal
 #' @param palette the palette name, a character string.
 #' @family color publication
-#' @rdname color_pub
+#' @rdname pub_color
 #' @keywords ggplot2
 #' @export
-#' @seealso \code{\link{pub_color_pal}} for references.
+#' @seealso \code{\link{pub_pal}} for references.
 #'
 scale_color_pub <- function(palette = "pub12", ...) {
-  discrete_scale("color", "pub", pub_color_pal(palette), ...)
+  discrete_scale("color", "pub", pub_pal(palette), ...)
 }
 
 
 
 #' @title Publication color scales.
 #'
-#' @description See \code{\link{pub_color_pal}} for details.
+#' @description See \code{\link{pub_pal}} for details.
 #' @inheritParams ggplot2::scale_fill_hue
-#' @inheritParams pub_color_pal
+#' @inheritParams pub_pal
 #' @param palette the palette name, a character string.
 #' @family color publication
 #' @keywords ggplot2
-#' @rdname fill_pub
+#' @rdname pub_fill
 #' @export
 `scale_fill_pub` <- function(palette = "pub12", ...) {
-  discrete_scale("fill", "pub", pub_color_pal(palette), ...)
+  discrete_scale("fill", "pub", pub_pal(palette), ...)
 }
 NULL
 
@@ -505,22 +512,22 @@ NULL
 #' library(scales)
 #'
 #' # Brazil
-#' show_col(party_color_pal("BRA")(20))
+#' show_col(party_pal("BRA")(20))
 #'
 #' # Argentine
-#' show_col(party_color_pal("ARG")(12))
+#' show_col(party_pal("ARG")(12))
 #'
 #' # US
-#' show_col(party_color_pal("USA")(6))
+#' show_col(party_pal("USA")(6))
 #'
 #' # Canada
-#' show_col(party_color_pal("CAN")(10))
+#' show_col(party_pal("CAN")(10))
 #'
-#' party_color_pal("CAN", plot=TRUE, hex=FALSE)
+#' party_pal("CAN", plot=TRUE, hex=FALSE)
 #'
 #' @export
 #'
-`party_color_pal` <- function(palette = "BRA", plot=FALSE, hex=FALSE) {
+`party_pal` <- function(palette = "BRA", plot=FALSE, hex=FALSE) {
   pal.list <- Palettes$party
   if (!palette %in% c(names(pal.list), "BRA", "ARG", "CAN", "USA")) {
     stop(sprintf("%s is not a valid palette name", palette))
@@ -570,15 +577,15 @@ NULL
 #' @title Political Parties Color Palette (Discrete) and Scales
 #' @description An N-color discrete palette for political parties.
 #' @inheritParams ggplot2::scale_colour_hue
-#' @inheritParams party_color_pal
+#' @inheritParams party_pal
 #' @family color party
 #' @param palette the palette name, a character string.
-#' @seealso \code{\link{party_color_pal}} for details and references.
+#' @seealso \code{\link{party_pal}} for details and references.
 #' @keywords ggplot2
 #' @export
 #' @rdname color_party
 `scale_color_party` <- function(palette = "BRA", ...) {
-  discrete_scale("color", "party", party_color_pal(palette), ...)
+  discrete_scale("color", "party", party_pal(palette), ...)
 }
 NULL
 
@@ -588,14 +595,14 @@ NULL
 #' @title Political Parties Color Palette (Discrete) and Scales
 #' @description An N-color discrete palette for political parties.
 #' @inheritParams ggplot2::scale_fill_hue
-#' @inheritParams party_color_pal
+#' @inheritParams party_pal
 #' @param palette the palette name, a character string.
-#' @seealso \code{\link{party_color_pal}} for details and references.
+#' @seealso \code{\link{party_pal}} for details and references.
 #' @keywords ggplot2
 #' @export
 #' @rdname fill_party
 `scale_fill_party` <- function(palette = "BRA", ...) {
-  discrete_scale("fill", "party", party_color_pal(palette), ...)
+  discrete_scale("fill", "party", party_pal(palette), ...)
 }
 NULL
 
@@ -612,11 +619,11 @@ NULL
 #' @examples
 #' library(scales)
 #'
-#' pub_shape_pal("default")(6)
-#' pub_shape_pal("proportions")(4)
-#' pub_shape_pal("gender")(2)
+#' pub_shapes("default")(6)
+#' pub_shapes("proportions")(4)
+#' pub_shapes("gender")(2)
 #'
-`pub_shape_pal` <- function(palette = "pub") {
+`pub_shapes` <- function(palette = "pub") {
   scales::manual_pal(unname(Palettes$pub$shapes[[palette]]))
 }
 NULL
@@ -625,10 +632,10 @@ NULL
 
 #' @title Shape scales for theme_pub (discrete)
 #'
-#' @description See \code{\link{pub_shape_pal}} for details.
+#' @description See \code{\link{pub_shapes}} for details.
 #'
 #' @inheritParams ggplot2::scale_x_discrete
-#' @inheritParams pub_shape_pal
+#' @inheritParams pub_shapes
 #' @param palette the palette name, a character string.
 #' @keywords ggplot2
 #' @family shape pub
@@ -644,7 +651,7 @@ NULL
 #' @export
 #' @rdname shape_pub
 `scale_shape_pub` <- function(palette = "pub", ...) {
-  discrete_scale("shape", "pub", pub_shape_pal(palette), ...)
+  discrete_scale("shape", "pub", pub_shapes(palette), ...)
 }
 NULL
 

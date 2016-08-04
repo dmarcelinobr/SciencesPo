@@ -1,24 +1,33 @@
 ---
 title: "Measures of Political Behavior"
-author: "Daniel Marcelino"
-date: "`r as.character(Sys.Date())`"
+author: "Daniel Marcelino <<dmarcelino@live.com>>"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+bibliography: SciencesPo.bib
 output: 
    rmarkdown::html_vignette:
-    number_sections: yes
+    toc: true
     toc_depth: 2
-    toc: yes
+    number_sections: true
     css: SciencesPo.css
-abstract: This tutorial describes some of the indices on political behavior that are most visible in scholarly literature, along with measures of political diversity, methods of seats allocation, and methods for graphically displaying results. The framework is provided by the R package **SciencesPo**--version **`r packageVersion("SciencesPo")`**, but other packages are used to help with various tasks.
+create_dir: false
+abstract: This tutorial describes some of the political behavior indices that are most visible in scholarly literature, along with measures of political diversity, seats allocation, and a small number of examples for graphically displaying results. The very high-level framework for this tutorial is provided by the R package **SciencesPo**--version **`r packageVersion("SciencesPo")`** [@SciencesPo], but other packages are also engaged to help with various tasks.
 vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Measures of Political Behavior}
-   %\VignetteEngine{knitr::rmarkdown}
-    \usepackage[T1]{fontenc}
-     \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+nocite: | 
+  @ggplot2, @knitr, 
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache=TRUE, echo=TRUE, message=FALSE, comment=NA, fig.align="center", fig.width=5, fig.height=4, dpi = 96, fig.show = "hold", fig.keep="last", sanitize=TRUE)
+
+```{r setup, echo = FALSE, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, echo=TRUE, warning = FALSE, message=FALSE, collapse = FALSE, prompt=FALSE,comment=NA, fig.align="center", fig.width=5, fig.height=4, dpi = 96, fig.show = "hold", fig.keep="last", sanitize=TRUE)
+
+options(java.parameters="-Xmx2g")# optional, but more memory for Java helps
+options(dplyr.print_min=25)
 ```
+
 
   
 # Introduction
@@ -35,7 +44,7 @@ Most democratic countries use apportionment methods to transform election result
 
 Highest averages methods allocate seats proportionally to the number of votes by assigning seats in a way that assures the highest quotient by seat for each party. Other methods divide the votes by a mathematically derived quota, such as Droop and Hare quotas. In what follows are illustrative examples taken from Lijphart (1994) of the operation of some highest averages formulas in a six-member district with four parties.
 
-```{r table_A.1, echo=TRUE, cache=TRUE}
+```{r}
 # Table A.l
 lijphart <- c("A"=41000, "B"=29000,"C"=17000, "D"=13000)
 ```
@@ -49,7 +58,7 @@ The effective number of parties measured the before seat allocation is a measure
 Under the D'Hondt formula, seats are allocated using divisors of 1, 2, 3, 4, etc. Thus, suggesting that the divisors are simply one more than the number of seats that party already has. 
 
 
-```{r highestAverages1, message=FALSE, comment=NA}
+```{r}
 library("SciencesPo", quietly = TRUE)
 
 # The d'Hondt will give the same results as Jefferson's method
@@ -66,7 +75,7 @@ The d'Hondt is only one way of allocating seats in party list systems. Other met
 
 Named after its founder, the pure Sainte-Laguë formula, also known as Schepers method, uses the odd-integer divisor series (1, 3, 5, 7, ...) to elect candidates from political parties in approximate proportion as the proportion of votes won by the party. The outcome would be the same as the outcome produced by the Webster's divisors method.
 
-```{r highestAverages2, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 # The Sainte-Laguë will give the same results as the Webster's method (wb)
 
 HighestAverages(parties=names(lijphart),
@@ -79,7 +88,7 @@ HighestAverages(parties=names(lijphart),
 
 The modified Sainte-Laguë use divisors of 1.4, 3, 5, 7, etc. How does the d'Hondt divisor compare to the Modified Sainte-Laguë one? Which divisor method tend to favor larger parties and which one smaller parties?
 
-```{r highestAverages3, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 HighestAverages(parties=names(lijphart),
                 votes=lijphart, 
                 seats = 6,
@@ -91,7 +100,7 @@ HighestAverages(parties=names(lijphart),
 
 The Danish divisors (1, 4, 7, 10, ...) increase so fast that large parties are quickly cut down, acting much to the benefit of smaller parties.
 
-```{r highestAverages4, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 HighestAverages(parties=names(lijphart), 
                 votes=lijphart, 
                 seats = 6, 
@@ -102,7 +111,7 @@ HighestAverages(parties=names(lijphart),
 
 The Hungarian version of Sainte-Laguë uses divisors of (1.5, 3, 5, 7, 9, ...) increase so fast that large parties are quickly cut down, acting much to the benefit of smaller parties.
 
-```{r highestAverages5, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 HighestAverages(parties=names(lijphart),
                 votes=lijphart, 
                 seats = 6, 
@@ -114,7 +123,7 @@ HighestAverages(parties=names(lijphart),
 
 This approach does not use a standard divisor either. It uses instead a different divisor and modified quota such that rounding with cut-off point at *algebraic* mean of lower and upper quotas: wb = $\frac{L + (L + 1)}{2}$.
 
-```{r highestAverages6, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 HighestAverages(parties=names(lijphart),
                 votes=lijphart, 
                 seats = 6, 
@@ -126,7 +135,7 @@ HighestAverages(parties=names(lijphart),
 
 The Italian Imperiali divisor system has a slowly-increasing sequence (1, 1.5, 2, 2.5, 3, ...), with 0.5 difference between consecutive divisors. This is tighter than the d'Hondt divisors for which this difference is 1. Like d'Hondt, the Imperiali system is designed to encourage coalitions and secure majority governments under a PR system, but the Imperiali will be the most favorable to large parties as they will gain many seats before their quotients are reduced below those of the smaller parties.
 
-```{r highestAverages7, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 HighestAverages(parties=names(lijphart),
                 votes=lijphart, 
                 seats = 6, 
@@ -135,7 +144,7 @@ HighestAverages(parties=names(lijphart),
 
 The Belgian municipal councils were elected by the Imperiali highest averages method. The following example comes from the 2006 election in Bruges, where 47 seats were upon.
 
-```{r highestAverages8, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 Bruges=c("CD&V/N-VA"=32092, "SP.A/Spirit"=20028, 
          "Flemish Interest"=13408, "Open VLD/Vivant"=9520,
          "Green!"=5328, "Other"=2207)
@@ -150,7 +159,7 @@ HighestAverages(parties=names(Bruges),
 
 The method proposed by Joseph Hill and Edward Huntington does not use a standard divisor, but a different one and also a modified quota such that rounding with cut-off point at *geometric* mean: hh = $\sqrt{L(L + 1)}$. This method makes sense only if every party is guaranteed at least one seat. It has been used for allotting seats in the US House of Representatives to the states.
 
-```{r highestAverages9, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 HighestAverages(parties=names(lijphart),
                 votes=lijphart, 
                 seats = 6, method = "hh") 
@@ -162,7 +171,7 @@ Let's assume that we have an election with 1,000 total voters in which five part
 
 If D'Hondt divisor were employed in this hypothetical election, then party *C* would get 1 seat (or 33\% of the seats), party *D* 2 seats (or 67\% of the seats), and parties *A* and *B* none.
 
-```{r highestAverages10, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 
 const <- c("A"=100, "B"=150,"C"=300, "D"=400, "E"=50)
 
@@ -175,7 +184,7 @@ HighestAverages(parties=names(const),
 
 The following example is taken from the 2015 general elections in Spain. The region of Valencia returned 15 seats allocated using the D'Hondt method in a closed list PR system. Only lists that poll at least 3% of the total vote (which includes spoiled votes "en blanco") can be considered.
 
-```{r Valencia-election, echo=FALSE, cache=TRUE, comment=NA}
+```{r Valencia-election}
 (Valencia <- c("PP"=442005, "Podemos"=395729, "PSOE"=275680,
               "C's"=221299, "IU"=68759, "PACMA"=14445, "Others"=35943)) 
 blanco=8738
@@ -183,7 +192,7 @@ nulo=11891
 ```
 
 
-```{r Valencia, echo=TRUE, message=FALSE, comment=NA}
+```{r Valencia}
 # Valencia returned 15 members
 HighestAverages(parties=names(Valencia),
                 votes=Valencia, 
@@ -202,7 +211,7 @@ Highest averages methods allocate seats proportionally to the number of votes by
 ### Hare quota
 The Hare quota is obtained by quota: $\frac{v}{s}$.
 
-```{r largestRemainders1, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 LargestRemainders(parties=names(lijphart),
                   votes=lijphart, 
                   seats = 8, method = "hare") 
@@ -211,7 +220,7 @@ LargestRemainders(parties=names(lijphart),
 ### Droop quota
 The Droop quota is obtained by quota: $\frac{v}{(s + 1)}+1$.
 
-```{r largestRemainders2, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 LargestRemainders(parties=names(lijphart), 
                   votes=lijphart, 
                   seats = 8, method = "droop") 
@@ -221,7 +230,7 @@ LargestRemainders(parties=names(lijphart),
 ### Hagenbach-Bischoff
 The Hagenbach-Bischoff quota is obtained by $\frac{v}{(s + 1)}$.
 
-```{r largestRemainders3, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r, eval=FALSE}
 LargestRemainders(parties=names(lijphart),
                   votes=lijphart, 
                   seats = 8, method = "hagb") 
@@ -232,7 +241,7 @@ LargestRemainders(parties=names(lijphart),
 
 The Imperiali quota is obtained by $\frac{v}{(s + 2)}$. For Italian elections during the 1950s, the quota used was a reinforced version of that quota: $\frac{v}{(s + 3)}$.
  
-```{r data-Italy, echo=TRUE, message=FALSE, comment=NA}
+```{r data-Italy}
 # The 1946 Italian Constituent Assembly election results: parties and unspoiled votes
 
 Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
@@ -244,32 +253,25 @@ Italy = data.frame(party=c("DC", "PSIUP", "PCI", "UDN", "UQ", "PRI",
 ```
 
 
-```{r largestRemainders4, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r , eval=FALSE}
 with(Italy, LargestRemainders(parties=party,
                               votes=votes, seats = 556,
                               method = "imperiali") )
 ```
 
 
-```{r largestRemainders5, eval=FALSE, echo=TRUE, message=FALSE, comment=NA}
+```{r, eval=FALSE}
 with(Italy, LargestRemainders(parties=party,
                               votes=votes, seats = 556,
                               method = "imperiali.adj") )
 ```
 
 
-parts <- c(80, 30, 20, 10)
-w1 <- waffle(parts, rows=8)
-w2 <- waffle(parts, rows=8)
-w3 <- waffle(parts, rows=8)
-chart <- iron(w1, w2, w3)
-
-
 ## Suitable output for recycling within RMarkdown documents 
 
 The output produced by `HighestAverages()` and `LargestRemainders()`  functions is of class `data.frame`, which R users are already familiar with, and makes the process of using the output with other applications very straightforward. Let's take the data from 2014 Brazilian legislative elections. I will look at one electoral district--the state of Ceará--to compare how that caucus would look like if different apportionment methods were in place, keeping voters' preference constant.
 
-```{r Ceara-election, echo=TRUE, cache=TRUE, message=FALSE, comment=NA}
+```{r Ceara-election}
 # Results for the state legislative house of Ceará (2014):
 Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
            "PRB"=2043217,"PSB"=15061, "PSC"=103679, "PSTU"=109830,
@@ -278,7 +280,7 @@ Ceara <- c("PCdoB"=187906, "PDT"=326841,"PEN"=132531, "PMDB"=981096,
 
 Once the data is loaded, producing a table with seat apportionment results is effortless with packages like **knitr**, **pander**, **gtable**, **xtable**, etc. In the following, I demonstrate this using the `kable()` function from the **knitr** package.
 
-```{r highestAverages11, echo=TRUE, message=FALSE, comment=NA}
+```{r}
 mytable = HighestAverages(parties=names(Ceara), 
                           votes=Ceara,
                           seats = 42, method = "dh") 
@@ -291,7 +293,7 @@ kable(mytable, align=c("l","c","c"), caption="Outcome under d'Hondt")
 
 If you rather prefer to visualize data using graphs, that's fine. I've chosen a bar plot with colors alluding to the parties' identification colors. The graph is made with **ggplot2** library along with the **SciencesPo** theme `theme_fte`, which mimics the colors used in the <http://fivethirtyeight.com>.
 
-```{r  highestAverages12, echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center"}
+```{r, fig.width=6.5, fig.height=4.5}
 
 gg <- ggplot()
 gg <- gg +  geom_bar( data = mytable, aes(x = reorder(Party, -Seats), y = Seats, fill = Party), stat = "identity", alpha=.9)
@@ -308,7 +310,7 @@ gg
 
 Next, I use the same example above to make a plot comparing three highest-averages formulas, D'Hondt, Imperiali, and Saint-Laguë. I've chosen a plot resembling a *Cleveland* dot plot (something between a bar and dot plot), and the **SciencesPo** theme.  
 
-```{r echo=TRUE, message=FALSE, comment=NA, fig.width=6.5, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
+```{r, fig.width=6.5, fig.height=4.5, fig.cap= "2014 Legislative Election in Ceará (M=42)"}
 
 out1 = HighestAverages(
   parties = names(Ceara),
@@ -338,7 +340,7 @@ out1 = HighestAverages(
 ```
 
 
-```{r echo=FALSE, message=FALSE, comment=NA, fig.width=7, fig.height=4.5, fig.align="center", fig.cap= "2014 Legislative Election in Ceará (M=42)"}
+```{r, echo=FALSE, fig.width=7, fig.height=4.5, fig.cap= "2014 Legislative Election in Ceará (M=42)"}
   
   p <- ggplot()
   p <- p + geom_bar(
@@ -360,7 +362,7 @@ out1 = HighestAverages(
 
 
 
-```{r largestRemainders7, eval=FALSE, echo=FALSE, message=FALSE, comment=NA}
+```{r , eval=FALSE, echo=FALSE}
 
 # 2014 Federal elections, 30 seats to be returned in the state of Parana, Brazil.
 
@@ -374,7 +376,7 @@ PR = c(
 
 
 
-```{r largestRemainders8, eval=FALSE, echo=FALSE, message=FALSE, comment=NA}
+```{r, eval=FALSE, echo=FALSE}
 
 # 2014 Federal elections, 70 seats to be returned in the state of Sao Paulo, Brazil.
 
@@ -392,7 +394,7 @@ SP = c(
 
 # Measures of Political Diversity 
 
-```{r politicalDiversity1, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+```{r echo=FALSE}
 # The 2004 presidential election in the US (vote share):
 
 US2004 <- c(
@@ -409,18 +411,18 @@ print(US2004)
 ```
 
 
-```{r politicalDiversity2, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 PoliticalDiversity(US2004); # ENEP (laakso/taagepera) method 
 ```
 
-```{r politicalDiversity3, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 PoliticalDiversity(US2004, index= "golosov");
 ```
 
 The Herfindahl-Hirschman Index (HDI) is a well established tool to assess the degree of competition in a market (or, the closeness to a monopolistic market structure), with low values indicating a high degree of competition and, conversely, higher values betraying closeness to a monopoly. In this sense, it has been used by  political scientists as a mesure of political competition. In fact, the more common version is the inverted HDI (or 1 - HDI).  
 
-```{r politicalDiversity4, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 PoliticalDiversity(US2004, index= "inv.herfindahl");
 
@@ -431,7 +433,7 @@ Herfindahl(US2004)
 
 Considers the following `data.frame` with electoral results for the 1999 election in Helsinki. Seats were allocated using both Saint-Laguë and D'Hondt methods, so we can compare the effect of the allocation formulas on the effective number of parties.  
 
-```{r Helsinki-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+```{r Helsinki-election, echo=FALSE}
 # Helsinki's 1999:
 Helsinki <- 
   data.frame(
@@ -445,13 +447,13 @@ Helsinki <-
 ```
 
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 # Helsinki's 1999 election:
 Helsinki
 
 ```
 
-```{r politicalDiversity5, echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 PoliticalDiversity(Helsinki$votes); #ENP given votes
 
@@ -467,7 +469,7 @@ What is electoral disproportionality? A perfectly proportional election is one t
 
 How do we measure (dis)proportionality in practice? Let's consider the following two real-data examples taken from Wikipedia. These two sets of data refer to subnational elections, one from Queensland (Australia) and the other from Quebec (Canada).  
 
-```{r Queensland-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+```{r Queensland-election, echo=FALSE}
 # 2012 Queensland state elecion:
 Queensland <-
 data.frame(
@@ -479,7 +481,7 @@ pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 )
 ```
 
-```{r Quebec-election, echo=FALSE, cache=TRUE, message=FALSE, comment=NA}
+```{r Quebec-election, echo=FALSE}
 # 2012 Quebec provincial election:
 Quebec <-
   data.frame(
@@ -492,13 +494,13 @@ Quebec <-
 
 ```
 
-```{r Queensland, echo=TRUE, message=FALSE, comment=NA}
+```{r Queensland}
 # 2012 Queensland state elecion:
 Queensland
 ```
 
 
-```{r Quebec, echo=TRUE, message=FALSE, comment=NA}
+```{r Quebec}
 # 2012 Quebec provincial election:
 Quebec
 ```
@@ -513,7 +515,7 @@ $$Index = \frac{1}{n}\sum_{i=1}^{n}\,|v_i - s_i|$$
 
 Where, $v_i$ = the votes of party *i*, $s_i$ = the share of seats of party *i*, $n$ = the raw number of parties.
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Rae") )
@@ -529,7 +531,7 @@ The Loosemore-Hanby's score (LHI) is calculated as: the half of the sum of the a
 
 $$Index = \frac{1}{2}\sum_{i=1}^{n}\,|v_i - s_i|$$
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Loosemore-Hanby") )
@@ -546,7 +548,7 @@ $$Index = \sqrt{\frac{1}{2}\sum_{i=1}^{n}\,(v_i - s_i)^{2}}$$
 
 sqrt(sum((V-S)^2)/2). It's considered as a hybrid index between Rae's and Loosemore-Hanby's indices. It's also used the inverted version this index, calculated as 1 - (sqrt(sum((V - S)^2)/2)).
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Gallagher") )
@@ -568,7 +570,7 @@ Where $v_i^*$ is
 
 The inverted version can be obtained by subtracting 1 from the computed score.
 
-```{r eval=FALSE, echo=FALSE, message=FALSE, comment=NA}
+```{r eval=FALSE}
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "mod.Gallagher") )
@@ -587,7 +589,7 @@ with(Quebec, Proportionality(pvotes, pseats,
 The Rose proportionality index (RPI) is computed by the sum the absolute differences between the fraction of votes the parties received and their fraction of seats. A division by 2 is used to standardize values between 0 and 1, and a subtraction from 1 is used so that higher values correspond to smaller differences. The Rose's Index is essentially the inverted version of the Loosemore-Hanby's Index; thus, 1 - LHI = RPI.
 
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Rose") )
@@ -605,7 +607,7 @@ $$Index = \frac{1}{N}\sum_{i=1}^{n}\,|v_i - s_i|$$
 
 $v_i$ = the votes of the party, $s_i$ = share of political seats, N = the effective number of parties
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Grofman") )
@@ -626,7 +628,7 @@ I will write soon...
 
 $$Index = \max\big(|v_i - s_i|\big)$$
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r }
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Lijphart") )
@@ -645,7 +647,7 @@ with(Quebec, Proportionality(pvotes, pseats,
 
 ## Farina's Proportionality Index
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Farina") )
@@ -662,7 +664,7 @@ This function calculates the Cox-Shugart measure of proportionality. It provides
 
 $$Regression - Index =\frac{\sum\,{v_1}{s_i}}{\sum\,{v_i^2}}$$
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Cox-Shugart") )
@@ -683,7 +685,7 @@ Because Sainte-Laguë (Webster) is considered the least biased Divisor method, a
 
 $$SL - Index = \sum_{i=1}^{n}\, \frac{1}{v_i}\,(v_i - s_i)^{2} = \sum_{i=1}^{n}\,{v_i}(1 - \frac{s_i}{v_i})^{2}$$
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "Sainte-Lague") )
@@ -702,10 +704,13 @@ Another option to measuring party proportionality is to compute the D'Hondt scor
 
 $$Index =\max\bigg(\frac{s_i}{v_i}\bigg)$$
 
-```{r echo=TRUE, message=FALSE, comment=NA}
+```{r}
 
 with(Queensland, Proportionality(pvotes, pseats, 
                      index = "DHondt") )
+```
+
+```{r}
 
 with(Quebec, Proportionality(pvotes, pseats, 
                      index = "DHondt") )
@@ -745,8 +750,9 @@ $$Index = {\displaystyle 1 - \frac{\prod_{i=1}^{N}\big(y_i^{(1/N)}\big)}{\bar{y}
 ## Rosenbluth's Index
 
 # R Session Details  
-```{r echo=FALSE, message=FALSE, comment=NA}
-sessionInfo()
+```{r, echo=FALSE}
+library("devtools", quietly = TRUE)
+session_info()
 ```
 
 
@@ -785,3 +791,4 @@ Rae, D. (1967) *The Political Consequences of Electoral Laws.* London: Yale Univ
 Taagepera, R., and B. Grofman (2003) *Mapping the indices of seats-votes disproportionality and inter-election volatility.* Party Politics 9, 6: 659-77.
 
 Taagepera, Rein and Matthew S. Shugart (1989) *Seats and Votes: The Effects and Determinants of Electoral Systems.* New Haven: Yale University Press.
+

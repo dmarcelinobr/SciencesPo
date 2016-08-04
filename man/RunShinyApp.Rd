@@ -15,7 +15,16 @@ Launch a Shiny app that shows a demo.
 \examples{
 # A demo of what \\code{\\link[SciencesPo]{PoliticalDiversity}} does.
 if (interactive()) {
-RunShinyApp(PoliticalDiversity)
+RunShinyApp("PoliticalDiversity")
+}
+
+# Other examples
+if (interactive()) {
+ RunShinyApp("ConjugateNormal")
+}
+
+if (interactive()) {
+ RunShinyApp("Regression")
 }
 }
 

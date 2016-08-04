@@ -16,7 +16,7 @@ to control name, limits, breaks, labels and so forth.}
 An N-color discrete palette for political parties.
 }
 \seealso{
-\code{\link{party_color_pal}} for details and references.
+\code{\link{party_pal}} for details and references.
 }
 \keyword{ggplot2}
 

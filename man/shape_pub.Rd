@@ -14,7 +14,7 @@ scale_shape_pub(palette = "pub", ...)
 \code{\link{discrete_scale}} for more details}
 }
 \description{
-See \code{\link{pub_shape_pal}} for details.
+See \code{\link{pub_shapes}} for details.
 }
 \examples{
 library("ggplot2")
@@ -27,7 +27,7 @@ p + scale_shape_pub()
 
 }
 \seealso{
-Other shape pub: \code{\link{pub_shape_pal}}
+Other shape pub: \code{\link{pub_shapes}}
 }
 \keyword{ggplot2}
 
