@@ -1,4 +1,4 @@
-<img width="300" src="/inst/doc/SciencesPo_logo.jpg" alt="SciencesPo" />
+<img src="/inst/doc/SciencesPo_logo.jpg" alt="SciencesPo" />
 
 
 
