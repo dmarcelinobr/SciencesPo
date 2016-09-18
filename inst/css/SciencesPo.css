@@ -144,7 +144,7 @@ div#blocktext {
     margin:0 0 10px 0em; /* Give each list item a left margin to make room for the numbers */
     padding:10px 30px; /* Add some spacing around the content */
     border-top:2px solid #d15945;
-    background:rgba(241,205,199, 0);
+    background:rgba(241, 205, 199, 0.2);
 }
 
 div#exercise {
@@ -169,7 +169,7 @@ div#blocktexty {
     margin:0 0 10px 0em; /* Give each list item a left margin to make room for the numbers */
     padding:10px 30px; /* Add some spacing around the content */
     border-top:2px solid #ffff4d;
-    background:rgba(255,255,153, 0);
+    background:rgba(255,255,153, 0.2);
 }
 
 
