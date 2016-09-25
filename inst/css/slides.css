@@ -1,218 +1,54 @@
-/*********************************************
- * GLOBAL STYLES
- *********************************************/
+FILE: custom.css
 body {
-    background: #222;
-    background-color: #222;
+  font-family: sans-serif;
+  background-color: white;
+  font-size: 12px;
+  margin: 20px;
 }
 
-.reveal {
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
-    font-size: 38px;
-    font-weight: normal;
-    color: #fff;
-}
+h1 {font-size:1.5em;}
 
-::selection {
-    color: #fff;
-    background: #bee4fd;
-    text-shadow: none;
-}
-
-/*********************************************
- * HEADERS
- *********************************************/
-.reveal h1,
-.reveal h2,
-.reveal h3,
-.reveal h4,
-.reveal h5,
-.reveal h6 {
-    margin: 0 0 20px 0;
-    color: #fff;
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: normal;
-    text-transform: uppercase;
-    text-shadow: none;
-    word-wrap: break-word;
-}
-
-.reveal h1 {
-    font-size: 2.2em;
-}
-
-.reveal h2 {
-    font-size: 1.6em;
-}
-
-.reveal h3 {
-    font-size: 1.3em;
-}
-
-.reveal h4 {
-    font-size: 1em;
-}
-
-.reveal h1 {
-    text-shadow: none;
-}
-
-.reveal .title {
-    padding: 1em 0;
-    margin: 0;
-}
-
-.reveal .author, .reveal .date {
-    text-align: left;
-    margin: 0;
-    font-style: italic;
-    font-size: 1.25em;
-    font-weight: 300;
-    color: yellow;
-}
-
-/*********************************************
- * NAVIGATION CONTROLS
- *********************************************/
-.reveal .controls .navigate-left,
-.reveal .controls .navigate-left.enabled {
-  border-right-color: #a0d7fc; }
-
-.reveal .controls .navigate-right,
-.reveal .controls .navigate-right.enabled {
-  border-left-color: #a0d7fc; }
-
-.reveal .controls .navigate-up,
-.reveal .controls .navigate-up.enabled {
-  border-bottom-color: #a0d7fc; }
-
-.reveal .controls .navigate-down,
-.reveal .controls .navigate-down.enabled {
-  border-top-color: #a0d7fc; }
-
-.reveal .controls .navigate-left.enabled:hover {
-  border-right-color: #a0d7fc; }
-
-.reveal .controls .navigate-right.enabled:hover {
-  border-left-color: #a0d7fc; }
-
-.reveal .controls .navigate-up.enabled:hover {
-  border-bottom-color: #a0d7fc; }
-
-.reveal .controls .navigate-down.enabled:hover {
-  border-top-color: #a0d7fc; }
-
-/*********************************************
- * EMPHASIS
- *********************************************/
-
-.reveal .takeaway h3, .reveal .takeaways .current-fragment {
-  text-align: left;
-  text-transform: none;
-  color: yellow;
-}
-
-.reveal .takeaway-center h3 {
+table {
+  border: solid;
+  border-color: black;
+  border-width: 2px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
   text-align: center;
-  text-transform: none;
-  color: yellow;
+  padding: 0px;
 }
 
-.reveal .codeblock-item pre {
-  text-align: left;
-  width: 70%;
-  text-transform: none;
-  font-family: monospace;
-  white-space: pre;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-  margin: 0 auto;
-  font-size: 1.1em;
-}
-
-.reveal .codeblock-schedule pre {
-  text-align: left;
-  width: 65%;
-  text-transform: none;
-  font-family: monospace;
-  white-space: pre;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-  margin: 0 auto;
-  font-size: 1.1em;
-}
-
-.reveal .codeblock-budget pre {
-  text-align: left;
-  width: 100%;
-  text-transform: none;
-  font-family: monospace;
-  white-space: pre;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-  margin: 0 auto;
-  font-size: 1.1em;
-}
-
-.reveal .highlight {
-  color: yellow;
-}
-
-.reveal .dataTables_wrapper {
-  font-size: 100%;
+.t1 .header {
   color: white;
+  background-color: black;
+  border-bottom: solid;
+  border-color: black;
+  border-width: 2px;
+  font-weight: bold;
 }
 
-.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
-  font-size: 30%;
-  color: yellow;
+.t1 .footer {
+  border-top: solid;
+  border-color: black;
+  border-width: 2px;
 }
 
-.reveal .dataTable tbody td {
-  color: #222222;
+.t1 .col_first {
+  border-right: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: left;
+  font-weight: bold;
+  width: 75px;
 }
 
-/*********************************************
- * OTHER
- *********************************************/
-
-.reveal .current-fragment {
-  color: yellow;
+.t1 .col {
+  width: 50px;
 }
 
-.reveal section img {
-  background: none;
-  border: none;
-  box-shadow: none;
-}
-
-/* Ensure certain elements are never larger than the slide itself */
-.reveal img,
-.reveal video,
-.reveal iframe {
-  max-width: 95%;
-  max-height: 95%; }
-
-.reveal .grViz {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.reveal a {
-  color: #00ff00;
-}
-
-.reveal a:hover {
-  color: #b2ffb2;
-}
-
-/*
-
-.reveal .author, .reveal .date {
-    font-size: 1em;
-    text-align: left;
-    font-style: italic;
-}
-
-.slides {
-    background-color: #eee;
+.t1 .col_last {
+  width: 50px;
+  border-left: solid;
+  border-color: black;
+  border-width: 2px;
 }
