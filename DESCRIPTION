@@ -55,4 +55,3 @@ Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo/issues
 ByteCompile: TRUE
 RoxygenNote: 5.0.1
-Collate:
