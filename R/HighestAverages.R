@@ -3,10 +3,10 @@
 #'
 #' @description Computes the highest averages method for a variety of formulas of allocating seats proportionally.
 #' @param parties A character vector for parties labels or candidates in the same order as \code{votes}. If \code{NULL}, alphabet will be assigned.
-#' @param votes A numeric vector for the number of formal votes received by each party or candidate.
-#' @param seats The number of seats to be filled (scalar or vector).
-#' @param method A character name for the method to be used. See details.
-#' @param threshold A numeric value between (0~1). Default is set to 0.
+#' @param votes a numeric vector for the number of formal votes received by each party or candidate.
+#' @param seats the number of seats to be filled (scalar or vector).
+#' @param method a character name for the method to be used. See details.
+#' @param threshold a numeric value between (0~1). Default is set to 0.
 #' @param \dots Additional arguements (currently ignored)
 #'
 #' @return A \code{data.frame} of length \code{parties} containing apportioned integers (seats) summing to \code{seats}.
@@ -35,7 +35,8 @@
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{LargestRemainders}}, \code{\link{Proportionality}}, \code{\link{PoliticalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
+#'
+#' @seealso \code{\link{largestRemainders}}, \code{\link{proportionality}}, \code{\link{politicalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 #'
 #' @examples
 #' # Results for the state legislative house of Ceara (2014):
@@ -43,7 +44,7 @@
 #'
 #' parties <- c("PCdoB", "PDT", "PEN", "PMDB", "PRB", "PSB", "PSC", "PSTU", "PTdoB", "PTC", "PTN")
 #'
-#' HighestAverages(parties, votes, seats = 42, method = "dh")
+#' highestAverages(parties, votes, seats = 42, method = "dh")
 #'
 #' # Let's create a data.frame with typical election results
 #' # with the following parties and votes to return 10 seats:
@@ -52,14 +53,14 @@
 #' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
 #' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
 #'
-#' HighestAverages(my_election_data$party,
+#' highestAverages(my_election_data$party,
 #' my_election_data$votes,
 #' seats = 10,
 #' method="dh")
 #'
 #' # How this compares to the Sainte-Lague Method
 #'
-#'(dat= HighestAverages(my_election_data$party,
+#'(dat= highestAverages(my_election_data$party,
 #' my_election_data$votes,
 #' seats = 10,
 #' method="sl"))
@@ -68,9 +69,9 @@
 #' # Barplot(data=dat, "Party", "Seats") +
 #' # theme_fte()
 #'
-#' @rdname HighestAverages
+#' @rdname highestAverages
 #' @export
-`HighestAverages` <-
+`highestAverages` <-
   function(parties = NULL,
            votes = NULL,
            seats = NULL,
@@ -87,13 +88,13 @@
                       "hb"),
            threshold = 0,
            ...)
-UseMethod("HighestAverages")
+UseMethod("highestAverages")
 
 
 
 #' @export
-#' @rdname HighestAverages
-`HighestAverages.default` <-
+#' @rdname highestAverages
+`highestAverages.default` <-
   function(parties = NULL,
            votes = NULL,
            seats = NULL,
@@ -228,15 +229,12 @@ UseMethod("HighestAverages")
 
     # ratio = as.vector(sapply(votes, function(x) x /
     # sum(votes)))
-    .temp <- data.frame(parties = rep(parties, each = seats),
+.temp <- data.frame(parties = rep(parties, each = seats),
                         scores = as.vector(sapply(.votes, function(x)
-                          x /
-                            divisor.vec)))
+                          x / divisor.vec)))
 
-
-    out <- with(.temp, (parties[order(-scores)][1:seats]))
-
-    output <- freq(out, digits = 3, perc = TRUE)
+out <- with(.temp, (parties[order(-scores)][1:seats]))
+output <- freq(out, digits = 3, perc = TRUE)
 
     # Political diversity indices
     ENP_votes <- 1 / sum(.ratio ^ 2)

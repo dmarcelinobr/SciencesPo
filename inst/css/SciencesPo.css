@@ -136,7 +136,6 @@ div#boxedtext {
     background-color: rgba(86, 155, 189, 0.2);
     padding: 20px;
     margin-bottom: 20px;
-    font-size: 10pt;
 }
 
 div#blocktext {
@@ -163,14 +162,6 @@ div#example {
     background:rgba(49, 199, 58, 0.1);
 }
 
-
-div#blocktexty {
-    position:relative; /* Create a positioning context */
-    margin:0 0 10px 0em; /* Give each list item a left margin to make room for the numbers */
-    padding:10px 30px; /* Add some spacing around the content */
-    border-top:2px solid #ffff4d;
-    background:rgba(255,255,153, 0.2);
-}
 
 
 

@@ -5,21 +5,21 @@
 #' @examples
 #' # A demo of what \code{\link[SciencesPo]{PoliticalDiversity}} does.
 #' if (interactive()) {
-#' RunShinyApp("PoliticalDiversity")
+#' runShinyApp("PoliticalDiversity")
 #' }
 #'
 #' # Other examples
 #' if (interactive()) {
-#'  RunShinyApp("ConjugateNormal")
+#'  runShinyApp("ConjugateNormal")
 #' }
 #'
 #' if (interactive()) {
-#'  RunShinyApp("Regression")
+#'  runShinyApp("Regression")
 #' }
 
 #' @export
 #'
-`RunShinyApp` <- function(app){
+`runShinyApp` <- function(app){
 # locate all the shiny app examples that exist
 validExamples <- list.files(system.file("shiny-examples", package = "SciencesPo"))
 validExamplesMsg <-

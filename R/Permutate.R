@@ -11,7 +11,7 @@
 #' # row wise permutations
 #' Permutate(x=1:5, k=5)
 #' @export
-Permutate <- function(x, k){
+`Permutate` <- function(x, k){
   n <- length(x)
   mat <- matrix(data=NA,nrow=k,ncol=n) # allocate memory
 .npermutate <- function(v){
@@ -40,7 +40,4 @@ cat("There are", .npermutate(x), "possible outcomes, using", k, "\n")
 cat("\n")
   return(mat)
 }
-NULL
-
-
 NULL

@@ -3,14 +3,19 @@
 \encoding{UTF-8}
 \name{Jackknife}
 \alias{Jackknife}
-\title{Resamples Data Using the Jackknife Method}
+\alias{Jackknife.default}
+\title{Resamples Data Using The Jackknife Method}
 \usage{
-Jackknife(x, p)
+Jackknife(x, FUN = mean, ...)
+
+\method{Jackknife}{default}(x, FUN = mean, ...)
 }
 \arguments{
 \item{x}{A vector}
 
-\item{p}{An function name for estimation of parameter as a string}
+\item{FUN}{a function name to estimate, i.e., 'mean', 'sd', 'var', 'cov', etc.}
+
+\item{\dots}{further arguments passed to or used by other methods.}
 }
 \value{
 est orignial estimation of parameter
@@ -24,12 +29,12 @@ jkbias jackknife estimate of biasness of parameter
 jkbiascorr bias corrected parameter estimate
 }
 \description{
-This function is used for estimating standard errors when the distribution is not know.
+This function is mainly used to estimate statistics (standard errors), when the distribution is not know.
 }
 \examples{
 x = runif(10, 0, 1)
 mean(x)
-Jackknife(x,'mean')
+Jackknife(x, mean)
 
 }
 \author{

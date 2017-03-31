@@ -21,15 +21,10 @@ An object of the same type as \code{x}
 Compute the winsorized mean, which consists of recoding the top k values of a vector.
 }
 \details{
-Winsorizing a vector will produce different results than trimming it. While by trimming a vector causes extreme values to be discarded, by winsorizing it in the other hand, causes extreme values to be replaced by certain percentiles.
+Winsorizing a vector will produce different results than trimming it. While trimming a vector causes the extreme values to be discarded, winsorizing causes the extreme values to be replaced by certain percentiles.
 }
-\references{
-Dixon, W. J., and Yuen, K. K. (1999) Trimming and winsorization: A review. \emph{The American Statistician,} \bold{53(3),} 267--269.
-
-Dixon, W. J., and Yuen, K. K. (1960) Simplified Estimation from Censored Normal Samples, \emph{The Annals of Mathematical Statistics,} \bold{31,} 385--391.
- @references  Wilcox, R. R. (2012) \emph{Introduction to robust estimation and hypothesis testing.} Academic Press, 30-32. Statistics Canada (2010) \emph{Survey Methods and Practices.}
-
- @note One may want to winsorize estimators, however, winsorization tends to be used for one-variable situations.
+\note{
+One may want to winsorize estimators, however, winsorization tends to be used for one-variable situations.
 
  @author Daniel Marcelino, \email{dmarcelino@live.com}
 
@@ -43,6 +38,10 @@ x[1] <- x[1] * 10
 # Compare to mean:
  mean(x)
  Winsorize(x)
+}
+\references{
+Dixon, W. J., and Yuen, K. K. (1999) Trimming and winsorization: A review. \emph{The American Statistician,} \bold{53(3),} 267--269.
+ @references  Wilcox, R. R. (2012) \emph{Introduction to robust estimation and hypothesis testing.} Academic Press, 30-32. Statistics Canada (2010) \emph{Survey Methods and Practices.}
 }
 \keyword{Exploratory}
 

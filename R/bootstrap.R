@@ -24,7 +24,7 @@
   n = length(x)
   lings <-
     replicate(nboots, match.fun(FUN)(sample(x, n, replace = TRUE)))
-  list(se = SD(lings), mu = Mean(lings), lings = lings)
+  list(se = sd(lings, na.rm = TRUE), mu = mean(lings, na.rm = TRUE), lings = lings)
 }
 NULL
 

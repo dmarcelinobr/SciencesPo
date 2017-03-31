@@ -1,47 +1,139 @@
-#' @title Compute Weighted Correlations
-#' @description Compute the weighted correlation.
-#' @useDynLib SciencesPo
+#' Pipe operator
+#'
+#' See \code{\link[magrittr]{\%>\%}} for more details.
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
 #' @export
-#' @param x a matrix or vector to correlate with \code{y}.
-#' @param y a matrix or vector to correlate with \code{x}. If \code{y} is NULL, \code{x} will be used instead.
-#' @param weights an optional vector of weights to be used to determining the weighted mean and variance for calculation of the correlations.
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+NULL
+
+
+
+#' Compound pipe operator
+#'
+#' See \code{\link[magrittr]{\%<>\%}} for more details.
+#'
+#' @name %<>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %<>%
+#' @usage lhs \%<>\% rhs
+NULL
+
+
+
+#' Determine if a vector is discrete.
+#'
+#' A discrete vector is a factor or a character vector
+#'
+#' @param x vector to test
+#' @keywords internal
+#' @export
+#' @examples
+#' is.discrete(1:10)
+#' is.discrete(c("a", "b", "c"))
+#' is.discrete(factor(c("a", "b", "c")))
+is.discrete <- function(x) is.factor(x) || is.character(x) || is.logical(x)
+
+
+
+#' Un-rowname.
+#'
+#' Strip rownames from an object
+#'
+#' @keywords internal
+#' @param x data frame
+#' @export
+unrowname <- function(x) {
+  rownames(x) <- NULL
+  x
+}
+
+
+#' Check if a data frame is empty.
+#'
+#' Empty if it's null or it has 0 rows or columns
+#'
+#' @param df data frame to check
+#' @keywords internal
+#' @export
+is.empty <- function(df) {
+  (is.null(df) || nrow(df) == 0 || ncol(df) == 0)
+}
+
+
+#' Is a formula?
+#' Checks if argument is a formula
+#'
+#' @keywords internal
+#' @export
+is.formula <- function(x) inherits(x, "formula")
+
+
+
+#' @title Compute the Modal Value (Mode)
+#' @description Compute the statistical mode.
+#' @param x the object or variable.
+#' @param na.rm a logical. Should NA values be removed?
 #'
 #' @examples
-#'  x <- sample(10,10)
-#'  y <- sample(10,10)
-#'  w <- sample(5,10, replace=TRUE)
 #'
-#' WeightedCorrelation(x, y, w)
+#' modalValue(mtcars$mpg)
 #'
-`WeightedCorrelation` <- function(x, y = NULL, weights = NULL) {
-  if (is.null(y)) {
-    y <- x
+#'@export
+#'
+`modalValue` <- function(x, na.rm=FALSE)
+{
+  # Determine the modal value of the data x.
+  x = unlist(x)
+  if(na.rm) x = x[!is.na(x)]
+  u = unique(x)
+  n = length(u)
+  frequencies = rep(0, n)
+  for(i in seq_len(n))
+  {
+    if(is.na(u[i]))
+    {
+      frequencies[i] = sum(is.na(x))
+    } else
+    {
+      frequencies[i] = sum(x==u[i], na.rm=TRUE)
+    }
   }
-  q <- as.matrix(x)
-  r <- as.matrix(y)
-  if (is.null(weights)) {
-    weights <- rep(1, dim(q)[1])
-  }
-  x <- q[!is.na(weights), ]
-  y <- r[!is.na(weights), ]
-  weights <- weights[!is.na(weights)]
-  out <-
-    .Call(
-      "wcorr",
-      as.matrix(x),
-      as.matrix(y),
-      as.double(weights),
-      NAOK = TRUE,
-      PACKAGE = "SciencesPo"
-    )
-  ## C code for this package was contributed by Marcus Schwemmle
-  if (!is.null(colnames(x)))
-    rownames(out) <- colnames(x)
-  if (!is.null(colnames(y)))
-    colnames(out) <- colnames(y)
-  out
+  u[which.max(frequencies)]
 }
 NULL
+
+
+
+
+
+
+#' @title Re-sort Factor Levels by Frequency
+#' @description Re-sort factor levels by frequency.
+#' @param x the factor variable to be recoded.
+#' @param decreasing Boolean. Whether to sort decreasing or
+#' not.
+#' @return the recoded factor variable.
+#' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
+#' @examples
+#' sex <- rep(c('m','f'), c(4, 2))
+#' table(sex)
+#'
+#' table(Sortfactors(sex))
+#'
+#' @export
+`Sortfactors` <- function(x, decreasing=TRUE) {
+# TODO: add arbitrary factor levels from which to sort to.
+  cc <- sort(table(x), decreasing=decreasing)
+  return(factor(as.character(x), levels=names(cc)))
+}
+
+
 
 
 
@@ -208,7 +300,7 @@ NULL
 #' @examples
 #' Today()
 
-Today <- function() {
+`Today` <- function() {
   d <- date()
   month <- substr(d,5,7)
   day <- substr(d,9,10)
@@ -241,30 +333,6 @@ NULL
 NULL
 
 
-#' Veritical, left-aligned layout for plots
-#'
-#' Left-align the waffle plots by x-axis. Use the \code{pad} parameter in
-#' \code{waffle} to pad each plot to the max width (num of squares), otherwise
-#' the plots will be scaled.
-#'
-#' @param ... one or more waffle plots
-#' @export
-#' @examples
-#' parts <- c(80, 30, 20, 10)
-#'
-#' w1 <- Waffleplot(parts, rows=8)
-#' w2 <- Waffleplot(parts, rows=8)
-#' w3 <- Waffleplot(parts, rows=8)
-#' chart <- Forge(w1, w2, w3)
-#' print(chart)
-#'
-Forge <- function(...) {
-  grob_list <- list(...)
-  grid::grid.newpage()
-  grid::grid.draw(do.call("rbind_gtable_max", lapply(grob_list, ggplot2::ggplotGrob)))
-}
-NULL
-
 
 
 
@@ -276,7 +344,7 @@ NULL
 #' @return numeric vector
 #' @keywords Clean-up
 #' @export
-MakeNumeric <- function(x) { as.numeric(gsub(",", "", trimws(x))) }
+AsNumeric <- function(x) { as.numeric(gsub(",", "", trimws(x))) }
 
 #' Clean up a character vector to make it a percent
 #'
@@ -286,4 +354,10 @@ MakeNumeric <- function(x) { as.numeric(gsub(",", "", trimws(x))) }
 #' @return numeric vector
 #' @keywords Clean-up
 #' @export
-MakeShare <- function(x) { as.numeric(gsub("%", "", trimws(x))) / 100 }
+AsShare <- function(x) { as.numeric(gsub("%", "", trimws(x))) / 100 }
+
+
+
+
+
+

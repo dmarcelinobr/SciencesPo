@@ -1,11 +1,12 @@
 #' @encoding UTF-8
-#' @title Resamples Data Using the Jackknife Method
+#' @title Resamples Data Using The Jackknife Method
 #'
 #' @description
-#' This function is used for estimating standard errors when the distribution is not know.
+#' This function is mainly used to estimate statistics (standard errors), when the distribution is not know.
 #'
 #' @param x A vector
-#' @param p An function name for estimation of parameter as a string
+#' @param FUN a function name to estimate, i.e., 'mean', 'sd', 'var', 'cov', etc.
+#' @param \dots further arguments passed to or used by other methods.
 #'
 #' @return est orignial estimation of parameter
 #' @return jkest jackknife estimation of parameter
@@ -17,18 +18,22 @@
 #' @examples
 #' x = runif(10, 0, 1)
 #' mean(x)
-#' Jackknife(x,'mean')
+#' Jackknife(x, mean)
 #'
 #' @export
-Jackknife <-function (x,p)
+`Jackknife` <- function(x, FUN = mean, ...) UseMethod("Jackknife")
+
+#' @rdname Jackknife
+#' @export
+`Jackknife.default` <-function (x, FUN = mean, ...)
 {
 	n=length(x)
 	jk=rep(NA,n)
-	est = match.fun(p)(x)
+	est = match.fun(FUN)(x)
 
 	for (i in 1:n)
 	{
-		jk[i]=match.fun(p)(x[-i])
+		jk[i]=match.fun(FUN)(x[-i])
 		jkest=mean(jk)
 		jkvar=(n-1)/n*sum((jk-jkest)^2)
 		jkbias=(n-1)*(jkest-est)

@@ -9,4 +9,4 @@ tests/old
 .Rapp.history
 .lintr
 packrat/src/
-
+.httr-oauth

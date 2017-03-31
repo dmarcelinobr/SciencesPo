@@ -98,7 +98,7 @@
     output <- data.frame(
       class = names(TABLE),
       Freq = as.vector(TABLE[]),
-      Prop = if(perc == TRUE){100*round(as.vector(ptab[]), digits)} else {round(as.vector(ptab[]), digits)}
+     Prop = if(perc == TRUE){100*round(as.vector(ptab[]), digits)} else {round(as.vector(ptab[]), digits)}
     )
     #cumfreq = cumsum(TABLE[]), cumperc = round(cumsum(ptab[]),dig))
     rownames(output) <- NULL # enumerate from 1:nrow(z)
@@ -213,4 +213,3 @@ NULL
 #' @export
 #' @rdname Frequency
 Freq <- Frequency
-

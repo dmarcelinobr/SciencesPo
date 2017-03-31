@@ -4,7 +4,7 @@
 \alias{scale_shape_pub}
 \title{Shape scales for theme_pub (discrete)}
 \usage{
-scale_shape_pub(palette = "pub", ...)
+scale_shape_pub(palette = "default", ...)
 }
 \arguments{
 \item{palette}{the palette name, a character string.}

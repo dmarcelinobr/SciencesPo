@@ -1,7 +1,7 @@
 #' @encoding UTF-8
-#' @title Summary Description Table
+#' @title Summary Statistics Table
 #'
-#' @description Produce summary description table of a dataframe with the following features:
+#' @description Produce summary description table of a data frame with the following features:
 #' variable names, labels, factor levels, frequencies or summary statistics.
 #'
 #' @param .data a data frame.
@@ -83,9 +83,9 @@
 
   attr(output, "n.obs") <- nrow(.data)
   attr(output, "date") <- Sys.Date()
-  attr(output, "pander.args") <- list(style=style, round=digits, justify=justify,
-                                      split.table=Inf, keep.line.breaks=TRUE,
-                                      split.cells=split.cells, ...=...)
+  attr(output, "pander.args") <- list(style = style, round = digits, justify = justify,
+                                      split.table = Inf, keep.line.breaks = TRUE,
+                                      split.cells = split.cells, ...=...)
 
   # iterate over dataframe columns
   for(i in seq_len(ncol(.data))) {
@@ -124,13 +124,13 @@
 
     # For numeric data, display a column of descriptive stats and a column of frequencies
     else if(is.numeric(column.data)) {
-      output[i,4] <- paste("mean (sd) = ",round(Mean(column.data),digits),
-                           " (",round(SD(column.data),digits), ")\n",
-                           "min < med < max = ", round(Min(column.data),digits),
-                           " < ", round(Median(column.data),digits),
-                           " < ", round(Max(column.data),digits),"\n",
+      output[i,4] <- paste("mean (sd) = ",round(mean(column.data, na.rm = TRUE),digits),
+                           " (",round(sd(column.data, na.rm = TRUE),digits), ")\n",
+                           "min < med < max = ", round(min(column.data,  na.rm = TRUE),digits),
+                           " < ", round(median(column.data,  na.rm = TRUE),digits),
+                           " < ", round(max(column.data,  na.rm = TRUE),digits),"\n",
                            "IQR (CV) = ", round(stats::IQR(column.data,na.rm=TRUE),digits),
-                           " (", round(SD(column.data)/Mean(column.data),digits),
+                           " (", round(sd(column.data, na.rm = TRUE)/mean(column.data, na.rm = TRUE),digits),
                            ")", collapse="",sep="")
 
       if(length(unique(column.data)) <= max.number) {
@@ -148,15 +148,15 @@
       output[i,4] <- ""
 
       if(trim.strings)
-        column.data.tmp <- sub(pattern="\\A\\s*(.+?)\\s*\\z", replacement="\\1", x=column.data, perl=TRUE)
+        column.data.tmp <- sub(pattern = "\\A\\s*(.+?)\\s*\\z", replacement="\\1", x=column.data, perl=TRUE)
       else
         column.data.tmp <- column.data
 
       if(length(unique(column.data.tmp)) <= max.number) {
-        fr <- table(column.data.tmp,useNA="no")
+        fr <- table(column.data.tmp,useNA = "no")
         pct <- round(prop.table(fr)*100,1)
         output[i,5] <- paste(substr(names(fr),1,max.width),": ",
-                             fr," (",pct,"%)",sep="",collapse="\n")
+                             fr," (",pct,"%)",sep = "",collapse="\n")
       }
       else output[i,5] <- paste(as.character(length(unique(column.data.tmp))),"distinct val")
     }
@@ -165,10 +165,10 @@
     else {
       output[i,4] <- ""
       if(length(unique(column.data)) <= max.number) {
-        fr <- table(column.data,useNA="no")
+        fr <- table(column.data,useNA = "no")
         pct <- round(prop.table(fr)*100,1)
         output[i,5] <- paste(substr(names(fr),1,max.width),": ",
-                             fr," (",pct,"%)",sep="",collapse="\n")
+                             fr," (",pct,"%)",sep = "",collapse ="\n")
       }
       else output[i,5] <- paste(as.character(length(unique(column.data))),"distinct val")
     }
@@ -178,7 +178,7 @@
     n.val <- nrow(.data) - n.nas
 
     output[i,6] <- paste(n.val,"/", nrow(.data),"\n",
-                         "(", format(n.val/nrow(.data)*100, digits=0, nsmall=1), "%)",
+                         "(", format(n.val/nrow(.data)*100, digits = 0, nsmall=1), "%)",
                          sep="", collapse = "\n")
   }
 
@@ -198,13 +198,12 @@
     }
     else if(grepl("\\.html$",file)) {
       if(isTRUE(append)) message("Append is not supported for html files. This parameter will be ignored")
-      file.copy(from=print(output, method="browser",open=FALSE),to=normalizePath(file, mustWork = FALSE))
+      file.copy(from=print(output, method="browser",open=FALSE),to = normalizePath(file, mustWork = FALSE))
     } else {
       utils::capture.output(output, file = file, append = append)
     }
     message("Output successfully written to file ", normalizePath(file))
     return(invisible(output))
   }
-
   return(output)
 }

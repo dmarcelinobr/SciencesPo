@@ -55,7 +55,7 @@ Daniel Marcelino, \email{dmarcelino@live.com}.
 Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 }
 \seealso{
-\code{\link{HighestAverages}}, \code{\link{LargestRemainders}},  \code{\link{Hamilton}}, \code{\link{PoliticalDiversity}}.
+\code{\link{highestAverages}}, \code{\link{largestRemainders}},  \code{\link{Hamilton}}, \code{\link{politicalDiversity}}.
 }
 \keyword{Electoral}
 

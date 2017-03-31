@@ -40,7 +40,7 @@ Lorenz(x, wgt)
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \seealso{
-\code{\link{Gini}}, \code{\link{GiniSimpson}}.
+\code{\link{Gini}}, \code{\link{Simpson}}.
 }
 \keyword{Concentration,}
 \keyword{Diversity,}

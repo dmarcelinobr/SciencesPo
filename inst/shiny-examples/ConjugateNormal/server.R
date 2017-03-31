@@ -22,9 +22,9 @@ shinyServer(function(input, output) {
     y = seq(post_mu - 8 * post_sigma,
             post_mu + 8 * post_sigma,
             length.out = 500)  # to center plot on posterior
-    y_prior = dnorm(y, prior_mu, prior_sigma)
-    y_lik   = dnorm(y, data_mu,  data_sigma)
-    y_post  = dnorm(y, post_mu,  post_sigma)
+    y_prior = stats::dnorm(y, prior_mu, prior_sigma)
+    y_lik   = stats::dnorm(y, data_mu,  data_sigma)
+    y_post  = stats::dnorm(y, post_mu,  post_sigma)
 
     y_max = max(c(y_prior, y_lik, y_post))
 

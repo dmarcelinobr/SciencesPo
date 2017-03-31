@@ -72,19 +72,19 @@
 #' C <- c(.55,.45);
 #'
 #' # The index by "laakso/taagepera" is the default
-#' PoliticalDiversity(A)
-#' PoliticalDiversity(B)
+#' politicalDiversity(A)
+#' politicalDiversity(B)
 #'
 #' # Using the method proposed by Golosov gives:
-#' PoliticalDiversity(B, index="golosov")
-#' PoliticalDiversity(C, index="golosov")
+#' politicalDiversity(B, index="golosov")
+#' politicalDiversity(C, index="golosov")
 #'
 #' # The 1980 presidential election in the US (vote share):
 #' US1980 <- c("Democratic"=0.410, "Republican"=0.507,
 #' "Independent"=0.066, "Libertarian"=0.011, "Citizens"=0.003,
 #' "Others"=0.003)
 #'
-#' PoliticalDiversity(US1980)
+#' politicalDiversity(US1980)
 #'
 #' # 2010 Brazilian legislative election
 #'
@@ -100,22 +100,22 @@
 #' "PV"=15, "PC do B"=15, "PPS"=12, "PRB"=8, "PMN"=4, "PT do B"=3,
 #'  "PSOL"=3, "PHS"=2, "PRTB"=2, "PRP"=2, "PSL"=1,"PTC"=1)
 #'
-#' PoliticalDiversity(seats_2010)
+#' politicalDiversity(seats_2010)
 #'
-#' PoliticalDiversity(seats_2010, index= "golosov")
+#' politicalDiversity(seats_2010, index= "golosov")
 #'
 #' @export
-#' @rdname PoliticalDiversity
-`PoliticalDiversity` <-
+#' @rdname politicalDiversity
+`politicalDiversity` <-
   function(x,
            index = "laakso/taagepera",
            margin = 1,
            base = exp(1))
-    UseMethod("PoliticalDiversity")
+    UseMethod("politicalDiversity")
 
 #' @export
-#' @rdname PoliticalDiversity
-`PoliticalDiversity.default` <-
+#' @rdname politicalDiversity
+`politicalDiversity.default` <-
   function(x,
            index = "laakso/taagepera",
            margin = 1,
@@ -189,7 +189,7 @@ NULL
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
 #'
-#' @seealso \code{\link{dHondt}}, \code{\link{HighestAverages}}, \code{\link{LargestRemainders}}, \code{\link{PoliticalDiversity}}.
+#' @seealso \code{\link{dHondt}}, \code{\link{highestAverages}}, \code{\link{largestRemainders}}, \code{\link{politicalDiversity}}.
 #'
 #' @importFrom utils head
 #' @examples
@@ -271,7 +271,7 @@ NULL
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso \code{\link{HighestAverages}}, \code{\link{LargestRemainders}},  \code{\link{Hamilton}}, \code{\link{PoliticalDiversity}}.
+#' @seealso \code{\link{highestAverages}}, \code{\link{largestRemainders}},  \code{\link{Hamilton}}, \code{\link{politicalDiversity}}.
 #'
 #' @note Adapted from Carlos Bellosta's replies in the R-list.
 #'

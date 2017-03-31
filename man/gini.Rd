@@ -48,7 +48,7 @@ B <-  c(9000, 40000, 48000, 48000, 55000)
 Daniel Marcelino, \email{dmarcelino@live.com}.
 }
 \seealso{
-\code{\link{GiniSimpson}}, \code{\link{Lorenz}}, \code{\link{Herfindahl}}, \code{\link{Rosenbluth}}, \code{\link{Atkinson}}..
+\code{\link{Simpson}}, \code{\link{Lorenz}}, \code{\link{Herfindahl}}, \code{\link{Rosenbluth}}, \code{\link{Atkinson}}..
 }
 \keyword{Concentration}
 \keyword{Diversity,}

@@ -16,7 +16,7 @@
 #' @import grDevices
 #' @import ggplot2
 #' @import htmltools
+#' @include CMDcheckVars.R
 NULL
 
-globalVariables("Palettes")
 

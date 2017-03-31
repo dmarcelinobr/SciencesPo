@@ -14,7 +14,7 @@
 #'
 #' @keywords Diversity, Concentration, Viz
 #'
-#' @seealso \code{\link{Gini}}, \code{\link{GiniSimpson}}.
+#' @seealso \code{\link{Gini}}, \code{\link{Simpson}}.
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)

@@ -1,7 +1,10 @@
 #' @encoding UTF-8
-#' @title Stratified Sampling
+#' @title Randomly sub-sample data (stratified sampling)
 #'
-#' @description Sample row values of a data frame conditional to some strata attributes.
+#' @description The ability to randomly sub-sample population data "in silico"
+#'  is essential for investigations such as sample effects on parameter
+#'  estimation. This function sample row values of a data frame conditional to
+#'  some strata attributes.
 #'
 #' @param .data the data frame.
 #' @param group the grouping factor, may be a list.
@@ -17,25 +20,25 @@
 #' data(pollster2008)
 #'
 #' # Let's take a 10% sample from all -PollTaker- groups in pollster2008
-#'  Stratify(pollster2008, "PollTaker", 0.1)
+#'  stratify(pollster2008, "PollTaker", 0.1)
 #'
 #'  # Let's take a 10% sample from only 'LV' and 'RV' groups from -Pop- in pollster2008
-#'  Stratify(pollster2008, "Pop", 0.1, select = list(Pop = c("LV", "RV")))
+#'  stratify(pollster2008, "Pop", 0.1, select = list(Pop = c("LV", "RV")))
 #'
 #'  # Let's take 3 samples from all -PollTaker- groups in pollster2008,
 #'  # specified by column 1
-#' Stratify(pollster2008, group = 1, size = 3)
+#' stratify(pollster2008, group = 1, size = 3)
 #'
 #' # Let's take a sample from all -Pop- groups in pollster2008, where we
 #' # specify the number wanted from each group
-#' Stratify(pollster2008, "Pop", size = c(3, 5, 4))
+#' stratify(pollster2008, "Pop", size = c(3, 5, 4))
 #'
 #' # Use a two-column strata (-Pop- and -PollTaker-) but only interested in
 #' # cases where -Pop- == 'LV'
-#' Stratify(pollster2008, c("Pop", "PollTaker"), 0.15, select = list(Pop = "LV"))
+#' stratify(pollster2008, c("Pop", "PollTaker"), 0.15, select = list(Pop = "LV"))
 #'
 #' @export
-`Stratify` <- function(.data, group, size, select = NULL,
+`stratify` <- function(.data, group, size, select = NULL,
                        replace = FALSE, both.sets = FALSE) {
   if (is.null(select)) {
     .data <- .data

@@ -30,7 +30,7 @@
 #'  Lijphart, Arend (1994). \emph{Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990}. Oxford University Press.
 #'
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}.
-#' @seealso  \code{\link{HighestAverages}}, \code{\link{Proportionality}}, \code{\link{PoliticalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
+#' @seealso  \code{\link{highestAverages}}, \code{\link{proportionality}}, \code{\link{PoliticalDiversity}}. For more details see the \emph{Indices} vignette: \code{vignette('Indices', package = 'SciencesPo')}.
 #'
 #' @examples
 #' # Let's create a data.frame with typical election results
@@ -40,21 +40,28 @@
 #' party=c("Yellow", "White", "Red", "Green", "Blue", "Pink"),
 #' votes=c(47000, 16000,	15900,	12000,	6000,	3100))
 #'
-#' LargestRemainders(my_election_data$party,
+#' largestRemainders(my_election_data$party,
 #' my_election_data$votes, seats = 10,  method="droop")
 #'
-#' with(my_election_data, LargestRemainders(party,
+#' with(my_election_data, largestRemainders(party,
 #' votes, seats = 10,  method="hare"))
 #'
-#' @rdname LargestRemainders
 #' @export
-`LargestRemainders` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "hagb", "imperiali", "imperiali.adj"), threshold=0, ...) UseMethod("LargestRemainders")
+`largestRemainders` <- function(parties=NULL,
+                                votes=NULL,
+                                seats=NULL,
+                                method=c("hare",
+                                         "droop",
+                                         "hagb",
+                                         "imperiali",
+                                         "imperiali.adj"),
+                                threshold=0, ...) UseMethod("largestRemainders")
 
 
 
 #' @export
-#' @rdname LargestRemainders
-`LargestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "hagb", "imperiali", "imperiali.adj"), threshold=0, ...){
+#' @rdname largestRemainders
+`largestRemainders.default` <- function(parties=NULL, votes=NULL, seats=NULL, method=c("hare", "droop", "hagb", "imperiali", "imperiali.adj"), threshold=0, ...){
   # Modified :
   # v0.0 2013-11-21
   # v0.1 2014-10-02
@@ -96,10 +103,10 @@
 
   seat.distribution <- .votes%/%divisor.vec
   remainder <- seats - sum(seat.distribution)
+
   .temp <- data.frame(
     party = rep(parties, each = 1),
-    scores = as.vector(sapply(.votes, function(x) x /
-                                divisor.vec ) - seat.distribution)
+    scores = as.vector(sapply(.votes, function(x) x / divisor.vec ) - seat.distribution)
   );
 
   .temp <- .temp[order(as.double(.temp$scores), decreasing = TRUE),]
@@ -107,9 +114,11 @@
   rownames(.temp) <- c(1:nrow(.temp))
   .temp <- .temp[1:remainder,]
 
-  out <- data.frame(party = rep(parties, each = 1),
+  out <- data.frame(party = rep(parties,
+                                each = 1),
                     seat = seat.distribution)
 
+  # Redistribute remainders
   if(as.integer(remainder) == 0){
   }else if(as.integer(remainder) == 1){
     out[as.integer(.temp[1,]$party), 2] <- out[as.integer(.temp[1,]$party), 2] + 1
@@ -118,6 +127,7 @@
       out[as.integer(.temp[i,]$party), 2] <- out[as.integer(.temp[i,]$party), 2] + 1
     }
   }
+
 
   output <- SciencesPo::freq(out, digits = 3, perc=TRUE);
   # Political diversity indices

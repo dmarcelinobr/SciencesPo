@@ -1,6 +1,6 @@
 #' @encoding UTF-8
-#' @title Dirichlet Distribution
-#' @description Density function and random number generation for the Dirichlet distribution
+#' @title The Dirichlet-Multinomial Distribution
+#' @description Density function and random number generation for the Dirichlet distribution.
 #' @param n number of random observations to draw.
 #' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.
 #'
@@ -8,17 +8,17 @@
 #' \code{log} returns the logarithm of the densities (therefore the log-likelihood) and \code{sum.up} returns the product or sum and thereby the likelihood or log-likelihood.
 #'
 #' @return
-#' The \code{rdirichlet} returns a matrix with \code{n} rows, each containing a single random number according to the supplied alpha vector or matrix.
+#' The \code{simulateDirichletSamples} returns a matrix with \code{n} rows, each containing a single random number according to the supplied alpha vector or matrix.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
-#' @keywords Distributions
+#' @keywords Simulation
 #' @examples
 #' # 1) General usage:
-#' rdirichlet(20, c(1,1,1) );
+#' getDirichletSamples(20, c(1,1,1) );
 #' alphas <- cbind(1:10, 5, 10:1);
 #' alphas;
-#' rdirichlet(10, alphas );
+#' getDirichletSamples(10, alphas );
 #' alpha.0 <- sum( alphas );
-#' test <- rdirichlet(10, alphas );
+#' test <- getDirichletSamples(10, alphas );
 #' apply( test, 2, mean );
 #' alphas / alpha.0;
 #' apply( test, 2, var );
@@ -34,7 +34,7 @@
 #' n <- 18116;
 #' poll <- c(40,24,22,5,5,4) / 100 * n; # The data
 #' mcmc <- 100000;
-#' sim <- rdirichlet(mcmc, alpha = poll + 1);
+#' sim <- getDirichletSamples(mcmc, alpha = poll + 1);
 #'
 #' ## Second, look at the margins of Aecio over Marina in the very last moment of the campaign:
 #' margin <- sim[,2] - sim[,3];
@@ -54,9 +54,8 @@
 #' abline(v=mn, col='red', lwd=3, lty=3);
 
 #' @useDynLib SciencesPo
-#' @aliases Dirichlet
 #' @export
-`rdirichlet` <- function(n,
+`getDirichletSamples` <- function(n,
                          alpha) {
   if (((n %% 1) != 0) | (n <= 0))
     stop("n must be an integer > 0")
@@ -80,25 +79,25 @@ NULL
 
 
 #' @encoding UTF-8
-#' @title Dirichlet Distribution
+#' @title The Dirichlet-Multinomial Distribution
 #' @description Density function and random number generation for the Dirichlet distribution
 #' @param x a matrix containing observations.
 #' @param alpha the Dirichlet distribution's parameters. Can be a vector (one set of parameters for all observations) or a matrix (a different set of parameters for each observation), see \dQuote{Details}.
-#' @return the \code{ddirichlet} returns a vector of densities (if \code{sum = FALSE}) or the (log-)likelihood (if \code{sum = TRUE}) for the given data and alphas.
+#' @return the \code{getDirichletSamples} returns a vector of densities (if \code{sum = FALSE}) or the (log-)likelihood (if \code{sum = TRUE}) for the given data and alphas.
 #' @author Daniel Marcelino, \email{dmarcelino@@live.com}
 #' @param log if \code{TRUE}, logarithmic densities are returned.
 #' @param sum if \code{TRUE}, the (log-)likelihood is returned.
-#' @keywords Distributions
+#' @keywords Simulation
 #' @examples
 #' mat <- cbind(1:10, 5, 10:1);
 #' mat;
-#' x <- rdirichlet(10, mat);
+#' draws <- getDirichletSamples(10, mat);
 #'
-#' ddirichlet(x, mat);
+#' getDirichletDensity(draws, mat);
 #'
 #' @useDynLib SciencesPo
 #' @export
-`ddirichlet` <- function(x, alpha, log = FALSE, sum = FALSE) {
+`getDirichletDensity` <- function(x, alpha, log = FALSE, sum = FALSE) {
   if (is.null(dim(x)))
     stop("x must be a matrix")
   x_dims <- dim(x)
@@ -124,20 +123,5 @@ NULL
     else
       return(exp(res))
   }
-}
-NULL
-
-
-
-
-
-`rDirichlet` <- function(n, alpha) {
-  l = length(alpha)
-  theta = matrix(0, n, l)
-  for (j in 1:l) {
-    theta[, j] = stats::rgamma(n, alpha[j], 1)
-  }
-  theta = theta / apply(theta, 1, sum)
-  return(theta)
 }
 NULL

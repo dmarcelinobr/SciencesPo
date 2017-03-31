@@ -2,8 +2,8 @@ Package: SciencesPo
 Type: Package
 Title: A Tool Set for Analyzing Political Behavior Data
 Date/Publication: 2013-08-27
-Version: 1.4.1
-Date: 2016-08-02
+Version: 1.4.2
+Date: 2016-09-10
 Authors@R: person("Daniel", "Marcelino", email = "dmarcelino@live.com", role = c("aut", "cre"))
 Maintainer: Daniel Marcelino <dmarcelino@live.com>
 Description: Provide functions for analyzing elections and political behavior
@@ -25,19 +25,28 @@ Imports:
     pander (>= 0.6.0),
     data.table (>= 1.9.4),
     grid (>= 3.0.0),
+    MASS,
     rstudioapi,
     htmltools,
-    lubridate,
+    lubridate (>= 1.5.6),
+    magrittr (>= 1.5),
+    lazyeval,
     stringr,
     xtable,
-    shiny
+    ggrepel,
+    tibble (>= 1.1),
+    tidyr,
+    dplyr (>= 0.5),
+    purrr (>= 0.2.2),
+    shiny (>= 0.13.2)
 Suggests:
-    testthat,
-    devtools,
-    scales,
     extrafont,
+    devtools,
+    testthat,
+    scales,
     gtable,
-    knitr
+    knitr,
+    rmarkdown
 LinkingTo: Rcpp
 VignetteBuilder: knitr
 NeedsCompilation: yes
@@ -46,3 +55,50 @@ Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo/issues
 ByteCompile: TRUE
 RoxygenNote: 5.0.1
+Collate:
+    'Anonymize.R'
+    'Atkinson.R'
+    'Bootstrap.R'
+    'CMDcheckVars.R'
+    'Contents.R'
+    'Crosstable.R'
+    'DATA.R'
+    'Describe.R'
+    'Dirichlet.R'
+    'Dummy.R'
+    'Frequency.R'
+    'Gini.R'
+    'Herfindahl.R'
+    'HighestAverages.R'
+    'Jackknife.R'
+    'LargestRemainders.R'
+    'Lorenz.R'
+    'Markdown.R'
+    'Normalize.R'
+    'Palettes.R'
+    'Permutate.R'
+    'PoliticalDiversity.R'
+    'Proportionality.R'
+    'RcppExports.R'
+    'Recode.R'
+    'SciencesPo.R'
+    'Stratify.R'
+    'Themes.R'
+    'UTILS.R'
+    'Untable.R'
+    'Winsorize.R'
+    'aaa.R'
+    'exportPlot.R'
+    'fontSelector.R'
+    'formattedRegressionTable.R'
+    'geometricMean.R'
+    'normVarsNames.R'
+    'normalTransform.R'
+    'print.SciencesPo.R'
+    'prune.R'
+    'rcsel.pfix.R'
+    'rescale.R'
+    'runShinyApp.R'
+    'scales.R'
+    'weightedVariance.R'
+    'zzz.R'

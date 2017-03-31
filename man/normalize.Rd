@@ -20,8 +20,8 @@ Normalized values in an object of the same class as \code{x}.
 \description{
 Normalizes as feature scaling \code{min - max}, or unity-based
 normalization typically used to bring the values into the range [0,1].
- Other methods are also available, including scoring, centering,
- and Smithson and Verkuilen (2006) method of dependent variable transformation.
+Other methods are also available, including scoring, centering,
+and Smithson and Verkuilen (2006) method of dependent variable transformation.
 }
 \details{
 The following methods are available:

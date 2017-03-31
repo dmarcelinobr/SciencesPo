@@ -4,7 +4,6 @@
 \name{Herfindahl}
 \alias{Herfindahl}
 \alias{Herfindahl.default}
-\alias{Simpson}
 \title{Herfindahl Index of Concentration}
 \usage{
 Herfindahl(x, n = rep(1, length(x)), base = 1, na.rm = FALSE, ...)

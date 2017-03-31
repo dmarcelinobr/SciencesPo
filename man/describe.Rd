@@ -4,7 +4,7 @@
 \name{Describe}
 \alias{Describe}
 \alias{Detail}
-\title{Summary Description Table}
+\title{Summary Statistics Table}
 \usage{
 Describe(.data, style = "multiline", justify = "left", max.number = 10,
   trim.strings = FALSE, max.width = 15, digits = 2, split.cells = 35,
@@ -43,7 +43,7 @@ line before splitting the cell. Defaults to 35.}
 \item{\dots}{additional arguments passed to \pkg{pander}.}
 }
 \description{
-Produce summary description table of a dataframe with the following features:
+Produce summary description table of a data frame with the following features:
 variable names, labels, factor levels, frequencies or summary statistics.
 }
 \details{

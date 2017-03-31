@@ -1,13 +1,5 @@
-.onAttach <- function(lib, pkg) {
-  ver <- read.dcf(file.path(lib, pkg, "DESCRIPTION"), "Version")
-  packageStartupMessage(paste(pkg, ver))
-  options(scipen = 999)
-  options(quiet = TRUE)
-  #ggplot2::theme_set(theme_pub())
-}
-NULL
-# SciencesPo_env <- new.env()
 
+`.getDots` <- function(...) sapply(substitute(list(...))[-1], deparse)
 
 `%=%` <- function(x, y) {
   assign(as.character(substitute(x)), y, envir = parent.frame())
@@ -26,6 +18,8 @@ NULL
   else
     b
 }
+
+
 
 # copied from ggplot2
 ggname <- function(prefix, grob) {
@@ -69,6 +63,8 @@ NULL
 
 `is.formula` <- function(x)
   inherits(x, "formula")
+
+
 
 # This function takes a string referring to existing data and parses it
 # to get information on the data structure.
@@ -694,5 +690,44 @@ insert_unit <- function (x, values, after = length(x)) {
     grid::unit.c(x[1L:after], values, x[(after + 1L):lengx])
   }
 }
+
+
+
+
+
+#
+AsFirstColumn <- function(df, ..., var = "rowname") {
+  stopifnot(is.data.frame(df))
+
+  if (tibble::has_name(df, var))
+    stop("There is a column named ", var, " already!")
+
+  new_col <- tibble::tibble(...)
+  names(new_col) <- var
+  new_df <- c(new_col, df)
+  dplyr::as_data_frame(new_df)
+}
+NULL
+
+
+
+
+
+hex2name <- function(hex.code){
+  colors.distinct <- colors(distinct = TRUE)
+  r.color.list <- col2rgb(colors.distinct)
+  r.color.list <- apply(r.color.list, 2, as.list)
+  names(r.color.list) <- colors.distinct
+  color.dists <- sapply(
+    lapply(r.color.list, rbind,
+           as.vector(col2rgb(hex.code))), dist)
+  my.color.name <- names(which.min(color.dists))
+  if(min(color.dists)>0){
+    my.color.name <- paste(my.color.name, "(approx)")
+  }
+  return(my.color.name)
+}
+
+hex2name("#3366FF")
 
 

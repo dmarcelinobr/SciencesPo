@@ -1,0 +1,512 @@
+{
+  "few_light": {
+    "source": "http://blog.axc.net/its-the-colors-you-have/",
+    "colors": [
+      "#8C8C8C",
+      "#88BDE6",
+      "#FBB258",
+      "#90CD97",
+      "#F6AAC9",
+      "#BFA554",
+      "#BC99C7",
+      "#EDDD46",
+      "#F07E6E"]
+  },
+    "few_medium": {
+    "source": "http://blog.axc.net/its-the-colors-you-have/",
+    "colors": [
+      "#4D4D4D",
+      "#5DA5DA",
+      "#FAA43A",
+      "#60BD68",
+      "#F17CB0",
+      "#B2912F",
+      "#B276B2",
+      "#DECF3F",
+      "#F15854"]
+  },
+    "few_dark": {
+    "source": "http://blog.axc.net/its-the-colors-you-have/",
+    "colors": [
+      "#000000",
+      "#265DAB",
+      "#DF5C24",
+      "#059748",
+      "#E5126F",
+      "#9D722A",
+      "#7B3A96",
+      "#C7B42E",
+      "#CB2027"]
+  },
+  "colorblind": {
+    "source": "http://tools.medialab.sciences-po.fr/iwanthue/",
+    "colors": [
+      "#cfcfcf",
+      "#ffbc79",
+      "#a2c8ec",
+      "#898989",
+      "#c85200",
+      "#5f9ed1",
+      "#595959",
+      "#ababab",
+      "#ff800e",
+      "#006ba4"
+      ]
+  },
+    "colorblind10" : {
+    "source": "",
+    "colors": [
+        "#006BA4",
+        "#FF800E",
+        "#ABABAB",
+        "#595959",
+        "#5F9ED1",
+        "#C85200",
+        "#898989",
+        "#A2C8EC",
+        "#FFBC79",
+        "#CFCFCF"
+        ]
+},
+  "fancy": {
+    "source": "http://tools.medialab.sciences-po.fr/iwanthue/",
+    "colors": [
+      "#9cc0ec",
+      "#b8d8a7",
+      "#e5afd4",
+      "#82d8d8",
+      "#e5bb99"]
+  },
+  "pastel": {
+    "source": "http://tools.medialab.sciences-po.fr/iwanthue/",
+    "colors": [
+      "#e6b8b3",
+      "#90cad2",
+      "#cad5b3",
+      "#c3bcde",
+      "#bfe6e5"]
+  },
+
+  "ashes": {
+    "source": "upper half of base16 ashes https://github.com/chriskempson/base16-vim/blob/master/colors/base16-ashes.vim",
+    "colors": [
+      "#C7AE95",
+      "#C7C795",
+      "#AEC795",
+      "#95C7AE",
+      "#95AEC7",
+      "#AE95C7",
+      "#C795AE",
+      "#C79595"]
+  },
+    "monokai": {
+    "source": "upper half of base16 monokai https://github.com/chriskempson/base16-vim/blob/master/colors/base16-ashes.vim",
+    "colors": [
+      "#F92672",
+      "#FD971F",
+      "#F4BF75",
+      "#A6E22E",
+      "#A1EFE4",
+      "#66D9EF",
+      "#AE81FF",
+      "#CC6633"]
+  },
+  "flat": {
+    "source": "upper half of base16 flat http://chriskempson.github.io/base16",
+    "colors": [
+      "#E74C3C",
+      "#E67E22",
+      "#F1C40F",
+      "#2ECC71",
+      "#1ABC9C",
+      "#3498DB",
+      "#9B59B6",
+      "#BE643C"
+    ]
+  },
+  "538": {
+    "source": "https://gist.github.com/zachwill/d5190af1a7f455dea45d",
+    "colors": [
+      "#30a2da",
+      "#fc4f30",
+      "#e5ae38",
+      "#6d904f",
+      "#8b8b8b"
+    ]
+  },
+  "vape": {
+    "source": "http://www.color-hex.com/color-palette/895",
+    "colors": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "retro": {
+    "source": "http://www.color-hex.com/color-palette/165",
+    "colors": [
+      "#666547",
+      "#FB2E01",
+      "#6FCB9F",
+      "#FFE28A",
+      "#FFFEB3"
+    ]
+  },
+  "ft": {
+    "source": "",
+    "colors": [
+      "#B1493F",
+      "#DB7365",
+      "#75A5C2",
+      "#EDA45E",
+      "#8A8856"
+    ]
+  },
+  "economist": {
+    "source": "",
+    "colors": [
+      "#6392A4",
+      "#AAAAAC",
+      "#70CEF3",
+      "#00485F",
+      "#039DD7"
+    ]
+  },
+  "bain": {
+    "source": "http://evolver.fm/wp-content/uploads/2011/02/riaa_shipment_chart_bain.png",
+    "colors": [
+      "#21201E",
+      "#A5A9AC",
+      "#D1D2D4",
+      "#808185",
+      "#EE3324"
+    ]
+  },
+ "trafficlight" : {
+    "source": "",
+    "colors": [
+         "#B10318",
+          "#DBA13A",
+          "#309343",
+          "#D82526",
+          "#FFC156",
+          "#69B764",
+          "#F26C64",
+          "#FFDD71",
+          "#9FCD99"
+        ]
+},
+ "tableau10medium": {
+    "source": "",
+  "colors": [
+      "#729ECE",
+      "#FF9E4A",
+      "#67BF5C",
+      "#ED665D",
+      "#AD8BC9",
+      "#A8786E",
+      "#ED97CA",
+      "#A2A2A2",
+      "#CDCC5D",
+      "#6DCCDA"
+      ]
+},
+ "tableau10": {
+    "source": "",
+  "colors": [
+      "#17becf",
+      "#bcbd22",
+      "#7f7f7f",
+      "#e377c2",
+      "#8c564b",
+      "#9467bd",
+      "#d62728",
+      "#2ca02",
+      "#ff7f0e",
+      "#1f77b4"
+      ]
+},
+ "tableau20": {
+    "source": "",
+  "colors": [
+    "#1F77B4",
+    "#AEC7E8",
+    "#FF7F0E",
+    "#FFBB78",
+    "#2CA02C",
+    "#98DF8A",
+    "#D62728",
+    "#FF9896",
+    "#9467BD",
+    "#C5B0D5",
+    "#8C564B",
+    "#C49C94",
+    "#E377C2",
+    "#F7B6D2",
+    "#7F7F7F",
+    "#C7C7C7",
+    "#BCBD22",
+    "#DBDB8D",
+    "#17BECF",
+    "#9EDAE5"
+    ]
+  },
+"cyclic": {
+    "source": "",
+  "colors": [
+     "#1F83B4",
+      "#1696AC",
+      "#18A188",
+      "#29A03C",
+      "#54A338",
+      "#82A93F",
+      "#ADB828",
+      "#D8BD35",
+      "#FFBD4C",
+      "#FFB022",
+      "#FF9C0E",
+      "#FF810E",
+      "#E75727",
+      "#D23E4E",
+      "#C94D8C",
+      "#C04AA7",
+      "#B446B3",
+      "#9658B1",
+      "#8061B4",
+      "#6F63BB"
+]
+},
+"manyeyes": {
+    "source": "",
+  "colors": [
+    "#9c9ede",
+    "#7375b5",
+    "#4a5584",
+    "#cedb9c",
+    "#b5cf6b",
+    "#8ca252",
+    "#637939",
+    "#e7cb94",
+    "#e7ba52",
+    "#bd9e39",
+    "#8c6d31",
+    "#e7969c",
+    "#d6616b",
+    "#ad494a",
+    "#843c39",
+    "#de9ed6",
+    "#ce6dbd",
+    "#a55194",
+    "#7b4173"
+]
+},
+ "gray5": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+      "#cfcfcf",
+      "#8f8782",
+      "#414451",
+      "#a5acaf",
+      "#60636a"
+      ]
+},
+"green-red": {
+    "source": "",
+  "colors": [
+  "#088158",
+  "#ba2f2a"
+  ]
+},
+"black-red": {
+    "source": "",
+  "colors": [
+  "#21201E",
+  "#EE3324"
+  ]
+},
+"black-green": {
+    "source": "",
+  "colors": [
+    "#000000",
+     "#595959",
+     "#59a77f",
+     "#008856"
+]
+},
+"green-orange": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+    "#b85a0d",
+     "#39737c",
+     "#ffd94a",
+     "#3cb7cc",
+     "#ff7f0f",
+     "#32a251"
+]
+},
+"green-orange12": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+    "#ccc94d",
+     "#82853b",
+     "#86b4a9",
+     "#39737c",
+     "#ffd94a",
+     "#b85a0d",
+     "#98d9e4",
+     "#3cb7cc",
+     "#ffb977",
+     "#ff7f0f",
+     "#acd98d",
+     "#32a251"
+]
+},
+"purple-gray": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+    "#d7d5c5",
+     "#d098ee",
+     "#995688",
+     "#94917b",
+     "#dc5fbd",
+     "#7b66d2"
+]
+},
+"blue-red": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+    "#e9c39b",
+     "#ea6b73",
+     "#6ba3d6",
+     "#ac613c",
+     "#f02720",
+     "#2c69b0"
+]
+},
+"blue-red12": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+    "#f4737a",
+     "#bd0a36",
+     "#ddc9b4",
+     "#ac8763",
+     "#b5dffd",
+     "#6ba3d6",
+     "#e9c39b",
+     "#ac613c",
+     "#ffb6b0",
+     "#f02720",
+     "#b5c8e2",
+     "#2c69b0"
+]
+},
+ "gray": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+      "#1e1e1e",
+      "#282828",
+      "#333333",
+      "#3f3f3f",
+      "#4b4b4b",
+      "#585858",
+      "#666666",
+      "#747474",
+      "#838383",
+      "#929292",
+      "#a2a2a2",
+      "#b2b2b2",
+      "#c3c3c3"
+      ]
+},
+ "blue": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+      "#26456e",
+      "#1c5998",
+      "#1c73b1",
+      "#3a87b7",
+      "#67add4",
+      "#7bc8e2",
+      "#b4d4da"
+      ]
+},
+ "red": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+      "#9c0824",
+      "#b10c1d",
+      "#c21417",
+      "#cf1719",
+      "#d8392c",
+      "#e35745",
+      "#f57667",
+      "#f89a90",
+      "#eac0bd"
+      ]
+},
+ "green": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+      "#09622a",
+      "#1a7232",
+      "#27823b",
+      "#339444",
+      "#69a761",
+      "#94bb83",
+      "#bccfb4"
+      ]
+},
+ "div_red-green": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+      "#4a8c1c",
+      "#559633",
+      "#5ea049",
+      "#69aa56",
+      "#75b65d",
+      "#82c162",
+      "#90cb68",
+      "#a0d571",
+      "#b1de7f",
+      "#c7e298",
+      "#e9dabe",
+      "#fca294",
+      "#fe8e7e",
+      "#fd7e6b",
+      "#f7705b",
+      "#ef654d",
+      "#e6583e",
+      "#dc4930",
+      "#d23a21",
+      "#c82912",
+      "#bd1100"
+      ]
+},
+ "div_red-blue": {
+    "source": "http://onlinehelp.tableau.com/current/pro/desktop/en-us/help.htm#formatting_create_custom_colors.html",
+  "colors": [
+      "#26456e",
+      "#1c5998",
+      "#1c73b1",
+      "#3a87b7",
+      "#67add4",
+      "#cacaca",
+      "#fc8375",
+      "#df513f",
+      "#d11719",
+      "#bd1316",
+      "#9c0824"
+      ]
+},
+"likert3": {
+    "source": "",
+  "colors": [
+    "#4393c3",
+    "#92c5de",
+    "#ED665D",
+    "#A8A6A7"
+  ]
+}
+}

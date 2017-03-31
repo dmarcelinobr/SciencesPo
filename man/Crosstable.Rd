@@ -58,7 +58,7 @@ with(df, Crosstable(Race, party))
    count=c(3,1,1,3))
 
 # nicer way of recreating long tables
-data = Untable(tea, freq="count")
+data = untable(tea, freq="count")
 
 with(data, Crosstable(poured, guess, fisher=TRUE, alt="greater")) # fisher=TRUE
 

@@ -3,8 +3,8 @@
 #'
 #' @description Normalizes as feature scaling \code{min - max}, or unity-based
 #' normalization typically used to bring the values into the range [0,1].
-#'  Other methods are also available, including scoring, centering,
-#'  and Smithson and Verkuilen (2006) method of dependent variable transformation.
+#' Other methods are also available, including scoring, centering,
+#' and Smithson and Verkuilen (2006) method of dependent variable transformation.
 #'
 #' @param x is a vector to be normalized.
 #' @param method A string for the method used for normalization. Default is \code{method = "range"}, which coerces values into [0,1] range. See details for other implemented methods.
@@ -65,13 +65,13 @@
 
 #' @export
 `Normalize.default` <- function(x, method = "range", ...){
-  method = .Match(arg = method, choices = c("range","scale","center","z-score","SV"))
+  method = .Match(arg = method, choices = c("range", "scale", "center", "z-score", "SV"))
   n <- length(x)
   mat <- as.matrix(x)
   if(method=="range"){
-  min_attr <- apply(mat, 2, Min)
-  max_attr <- apply(mat, 2, Max)
-  mat <- sweep(mat, 2, min_attr, FUN="-")
+  min_attr <- apply(mat, 2, min, na.rm = TRUE)
+  max_attr <- apply(mat, 2, max, na.rm = TRUE)
+  mat <- sweep(mat, 2, min_attr, FUN = "-")
   ans <- sweep(mat, 2,  max_attr-min_attr, "/")
   attr(ans, 'normalized:min') = min_attr
   attr(ans, 'normalized:max') = max_attr

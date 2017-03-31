@@ -20,6 +20,7 @@
 #' \item {Farina} { Farina index of proportionality, aka cosine proportionality score}
 #' \item {"Gallagher" } { (Percent) Gallagher index of disproportionality}
 #' \item {"Inv.Gallagher" } { The inverse of Gallagher index}
+#' \item {"Mod.Gallagher" } { The Modified or Adjusted Gallagher index}
 #' \item {"Grofman" } { Grofman index of proportionality}
 #' \item {"Inv.Grofman" } { Grofman index of proportionality}
 #' \item {"Lijphart" } { Lijphart index of proportionality}
@@ -32,7 +33,7 @@
 #' \item {"Monroe" } { Monroe index of inequity}
 #' }
 #'
-#' @seealso \code{\link{PoliticalDiversity}}, \code{\link{LargestRemainders}}, \code{\link{HighestAverages}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
+#' @seealso \code{\link{politicalDiversity}}, \code{\link{largestRemainders}}, \code{\link{highestAverages}}. For more details, see the Indices vignette: \code{vignette("Indices", package = "SciencesPo")}.
 
 #' @references
 #' Duncan, O. and Duncan, B. (1955) A methodological analysis of segregation indexes. \emph{American Sociological Review} 20:210-7.
@@ -55,30 +56,30 @@
 #' pvotes= c(49.65, 26.66, 11.5, 7.53, 3.16, 1.47)
 #' pseats = c(87.64, 7.87, 2.25, 0.00, 2.25, 0.00)
 #'
-#' Proportionality(pvotes, pseats) # default is Gallagher
+#' proportionality(pvotes, pseats) # default is Gallagher
 #'
-#' Proportionality(pvotes, pseats, index="Rae")
+#' proportionality(pvotes, pseats, index="Rae")
 #'
-#' # Proportionality(pvotes, pseats, index="Cox-Shugart")
+#' # proportionality(pvotes, pseats, index="Cox-Shugart")
 #'
 #' # 2012 Quebec provincial election:
 #' pvotes = c(PQ=31.95, Lib=31.20, CAQ=27.05, QS=6.03, Option=1.89, Other=1.88)
 #' pseats = c(PQ=54, Lib=50, CAQ=19, QS=2, Option=0, Other=0)
 #'
-#' Proportionality(pvotes, pseats, index="Rae")
+#' proportionality(pvotes, pseats, index="Rae")
 #'
 #' @export
 #' @docType methods
 #' @aliases Disproportionality
-`Proportionality` <-
+`proportionality` <-
   function(v, s, index = "Gallagher", ...) {
-    UseMethod("Proportionality")
+    UseMethod("proportionality")
   }
 
-#' @rdname Proportionality
-#' @aliases Disproportionality
+#' @rdname proportionality
+#' @aliases disproportionality
 #' @export
-`Proportionality.default` <-
+`proportionality.default` <-
   function(v,
            s,
            index = "Gallagher",
@@ -94,6 +95,7 @@ index <- gsub("[^[:alnum:][:blank:]+?&/\\]", "", index)
           "invcoxshugart",
           "farina",
           "gallagher",
+          "modgallagher",
           "invgallagher",
           "grofman",
           "invgrofman",
@@ -123,52 +125,61 @@ index <- gsub("[^[:alnum:][:blank:]+?&/\\]", "", index)
       total_s <- apply(s, margin, sum)
       S <- sweep(s, margin, total_s, "/")
     }
-
-    if (Sum(v > 1)) {
-      V <- (v / Sum(v))
+    if (sum(v > 1, na.rm = TRUE)) {
+      V <- (v / sum(v, na.rm = TRUE))
     }
-    if (Sum(s > 1)) {
-      S <- (s / Sum(s))
+    if (sum(s > 1, na.rm = TRUE)) {
+      S <- (s / sum(s, na.rm = TRUE))
     }
     else {
       S <- s
 
       V <- v
-
     }
 
     switch(
       method,
       rae = {
-        idx <- (Sum(abs(V - S)) / length(V))
+        idx <- (sum(abs(V - S), na.rm = TRUE) / length(V))
         method.name <- c("Rae's Index")
       },
       invrae = {
-        idx <- (Sum(abs(V - S)) / length(V))
+        idx <- (sum(abs(V - S), na.rm = TRUE) / length(V))
         idx <- (1 - idx)
         method.name <- c("Rae's Index (inverse)")
       },
+      # 1-(sum(v*s)/(sum(v^2)*sum(s^2))^.5) # 1 - cos
       loosemorehanby = {
         #Loosemore-Hanby
-        idx <- (Sum(abs(V - S)) / 2)
+        idx <- (sum(abs(V - S), na.rm = TRUE) / 2)
         method.name <- c("Loosemore-Hanby's Index")
       },
       rose = {
         #Rose
-        idx <- (Sum(abs(V - S)) / 2)
+        idx <- (sum(abs(V - S), na.rm = TRUE) / 2)
         idx <- (1 - idx)
         method.name <- c("Rose's Index")
       },
       gallagher = {
         #Gallagher
-        idx <- sqrt(Sum((V - S) ^ 2) / 2)
+        idx <- sqrt(sum((V - S) ^ 2, na.rm = TRUE) / 2)
         method.name <- c("Gallagher's Index")
       },
       invgallagher = {
         #Inv-Gallagher
-        idx <- sqrt(Sum((V - S) ^ 2) / 2)
+        idx <- sqrt(sum((V - S) ^ 2, na.rm = TRUE) / 2)
         idx <- (1 - idx)
         method.name <- c("Gallagher's Index (inverted)")
+      },
+      modgallagher = {
+        # Modified Gallagher index or G'
+        # (x'=x/sum(xi^2)^.5 ) part:
+        v_div <- sum(V^2)^0.5
+        v_mod <- V/v_div
+        # (y'=y/sum(yi^2)^.5) part:
+        s_div <- sum(S^2)^0.5
+        s_mod <- S/s_div
+        sqrt(sum((v_mod-s_mod)^2)/2)
       },
       grofman = {
         #Grofman
@@ -185,41 +196,41 @@ index <- gsub("[^[:alnum:][:blank:]+?&/\\]", "", index)
       coxshugart = {
         #Cox-Shugart
         idx <-
-        Sum((S - Mean(S)) * (V - Mean(V))) / Sum((V - Mean(V)) ^ 2)
+        sum((S - mean(S, na.rm = TRUE)) * (V - mean(V, na.rm = TRUE)), na.rm = TRUE) / sum((V - mean(V, na.rm = TRUE)) ^ 2, na.rm = TRUE)
         method.name <- c("Cox-Shugart Index")
       },
       invcoxshugart = {
         #Cox-Shugart
         idx <-
-          sum((V - Mean(V)) * (S - Mean(S))) / sum((S - Mean(S)) ^ 2)
+          sum((V - mean(V, na.rm = TRUE)) * (S - mean(S, na.rm = TRUE))) / sum((S - mean(S, na.rm = TRUE)) ^ 2)
         method.name <- c("Cox-Shugart Index (inverted)")
       },
       farina = {
         #Farina
-        idx = acos(Sum(V * S) / (Sum(V ^ 2) * Sum(S ^ 2)) ^ .5)
+        idx = acos(sum(V * S, na.rm = TRUE) / (sum(V ^ 2, na.rm = TRUE) * sum(S ^ 2, na.rm = TRUE)) ^ .5)
         method.name <- c("Farina's Index")
       },
       lijphart = {
         #Lijphart
         # Transform to percent
-        idx = Max(S - V)
+        idx = max(S - V, na.rm = TRUE)
         method.name <- c("Lijphart's Index")
       },
       invlijphart = {
-        idx = Max(S - V)
+        idx = max(S - V, na.rm = TRUE)
         idx <- (1 - idx)
         method.name <- c("Lijphart's Index")
       },
       saintelague = {
-        idx = Sum((V - S)^2/S)
+        idx = sum((V - S)^2/S, na.rm = TRUE)
         method.name <- c("Sainte-Lague's Index")
       },
       invsaintelague = {
-        idx = Sum((S - V)^2/V)
+        idx = sum((S - V)^2/V, na.rm = TRUE)
         method.name <- c("Sainte-Lague's Index (inverted)")
       },
       dhondt = {
-      idx = Max(S/V)
+      idx = max(S/V, na.rm = TRUE)
       method.name <- c("D'Hondt Index")
       }
     )

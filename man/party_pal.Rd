@@ -19,19 +19,25 @@ An N-color discrete palette for political parties.
 \examples{
 library(scales)
 
-# Brazil
-show_col(party_pal("BRA")(20))
-
 # Argentine
+party_pal("ARG", plot=TRUE, hex=FALSE)
+
 show_col(party_pal("ARG")(12))
 
-# US
-show_col(party_pal("USA")(6))
+# Brazil
+party_pal("BRA", plot=TRUE, hex=FALSE)
+
+show_col(party_pal("BRA")(20))
 
 # Canada
+party_pal("CAN", plot=TRUE, hex=FALSE)
+
 show_col(party_pal("CAN")(10))
 
-party_pal("CAN", plot=TRUE, hex=FALSE)
+# US
+party_pal("USA", plot=TRUE, hex=FALSE)
+
+show_col(party_pal("USA")(6))
 
 }
 \seealso{

@@ -1,4 +1,4 @@
-Markdown = function(style = "SciencesPo", ...) {
+`Markdown` <- function(style = "SciencesPo", ...) {
   # get the locations of resource files located within the package
   css = system.file("css", paste0(style,".css"), package = "SciencesPo")
   # call the base html_document function

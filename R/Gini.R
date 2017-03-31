@@ -14,8 +14,9 @@
 #' explicitly changes in the top 10% -- which has become the focus of much
 #' inequality research in the past 10 years -- or the bottom 40%, where
 #' most poverty lies. The alternative Palma ratio does.
+#'
 #' @keywords Diversity, Concentration
-#' @seealso \code{\link{GiniSimpson}}, \code{\link{Lorenz}}, \code{\link{Herfindahl}}, \code{\link{Rosenbluth}}, \code{\link{Atkinson}}..
+#' @seealso \code{\link{Simpson}}, \code{\link{Lorenz}}, \code{\link{Herfindahl}}, \code{\link{Rosenbluth}}, \code{\link{Atkinson}}..
 #' @examples
 #' # generate a vector (of incomes)
 #' x <- c(778, 815, 857, 888, 925, 930, 965, 990, 1012)
@@ -32,7 +33,6 @@
 #'
 #'  Gini(A); Gini(B);
 #'
-#' @rdname Gini
 #' @export
 `Gini` <- function(x, weights, ...) UseMethod("Gini")
 
@@ -88,26 +88,27 @@ NULL
 #' @seealso \code{\link{Gini}}.
 #' @examples
 #' # generate a vector (of incomes)
+#'
 #' x <- as.table(c(69,50,40,22))
-#' # let's say AB coalesced
+#'
+#' # let's say AB have coalesced
 #' rownames(x) <- c("AB","C","D","E")
+#'
 #' print(x)
 #'
-#' GiniSimpson(x)
+#' Simpson(x)
 #'
-#' @rdname GiniSimpson
 #' @export
-`GiniSimpson` <- function(x, na.rm=TRUE, ...) UseMethod("GiniSimpson")
+`Simpson` <- function(x, na.rm=TRUE, ...) UseMethod("Simpson")
 
-#' @rdname GiniSimpson
+#' @rdname Simpson
 #' @export
-`GiniSimpson.default` <- function(x,  na.rm = TRUE, ...){
+`Simpson.default` <- function(x,  na.rm = TRUE, ...){
   # reference: Sachs, Angewandte Statistik, S. 57
   if(na.rm) x <- na.omit(x)
   x <- as.table(x)
   ptab <- prop.table(x)
-  idx <-sum(ptab*(1-ptab))
+  idx <- sum(ptab*(1-ptab))
   print(idx, digits = max(3, getOption("digits") - 3))
 }##--end of gini.simpson
 NULL
-

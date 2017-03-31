@@ -32,7 +32,6 @@
 
 
 #' @export
-#' @aliases Simpson
 #' @rdname Herfindahl
 `Herfindahl.default` <- function(x, n = rep(1, length(x)), base = NULL, na.rm = FALSE, ...){
   x <- rep(x, n)

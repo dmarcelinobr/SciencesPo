@@ -16,7 +16,7 @@
 #' print(gss) # aggregated data.frame
 #'
 #' # Then expand it:
-#' GSS <- Untable(gss, freq="count")
+#' GSS <- untable(gss, freq="count")
 #' head(GSS)
 #'
 #' # Expand from a table or xtable object:
@@ -24,21 +24,21 @@
 #'  tea <- table(poured=c("Yes", "Yes", "Yes", "No","Yes","No", "No", "No"),
 #'              guess=c("Yes", "Yes", "Yes", "Yes", "No", "No","No","No"))
 #'
-#' Untable(tea)
+#' untable(tea)
 #'
 #' # Expand with a vector of weights
-#' Untable(c(3,3,3), dimnames=list(c("Brazil","Colombia","Argentina")))
+#' untable(c(3,3,3), dimnames=list(c("Brazil","Colombia","Argentina")))
 #'
-#' @rdname Untable
+#' @rdname untable
 #' @export
-`Untable` <- function(x, ...) {
-  UseMethod("Untable")
+`untable` <- function(x, ...) {
+  UseMethod("untable")
 }
 NULL
 
-#' @rdname Untable
+#' @rdname untable
 #' @export
-`Untable.data.frame` <-
+`untable.data.frame` <-
   function(x,
            freq = "Freq",
            row.names = NULL,
@@ -46,9 +46,9 @@ NULL
     if (all(is.na(match(freq, names(x)))))
       stop(gettextf("Frequency column %s does not exist!", freq))
     res <-
-      x[Untable(x[, freq], type = "as.numeric")[, ],-grep(freq, names(x))]
+      x[untable(x[, freq], type = "as.numeric")[, ],-grep(freq, names(x))]
     rownames(res) <- row.names
-    class(res) <- c("Untable", "data.frame")
+    class(res) <- c("untable", "data.frame")
     return(res)
   }
 NULL
@@ -58,9 +58,9 @@ NULL
 #' @param dimnames set the dimnames of object if required.
 #' @param type the type of variable. If NULL, ordered factor is returned.
 #' @param col.names column names to add to the data.frame.
-#' @rdname Untable
+#' @rdname untable
 #' @export
-`Untable.default` <-
+`untable.default` <-
   function(x,
            dimnames = NULL,
            type = NULL,
@@ -112,7 +112,7 @@ NULL
           rownames(res) <- row.names
         if (!is.null(colnames))
           colnames(res) <- col.names
-        class(res) <- c("Untable", "data.frame")
+        class(res) <- c("untable", "data.frame")
         return(res)
   }### end -- untable function
 NULL
