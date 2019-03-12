@@ -3,7 +3,7 @@
 
 
 
-| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](https://cran.r-project.org/package=SciencesPo) | [Zenodo](https://zenodo.org/) |
+| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](https://cran.r-project.org/package=SciencesPo) | [Coveralls](https://coveralls.io/) | [Zenodo](https://zenodo.org/) |
 | :---- | :----: | :----: | :----: | :----: | 
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) |  [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)]( https://cran.r-project.org/package=SciencesPo) |  
 [![Coverage Status](https://coveralls.io/repos/github/danielmarcelino/SciencesPo/badge.svg?branch=master)](https://coveralls.io/github/danielmarcelino/SciencesPo?branch=master) |
