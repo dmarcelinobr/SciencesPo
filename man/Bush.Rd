@@ -27,4 +27,3 @@ A data set of approval ratings of George Bush over the time of
  \url{http://www.pollingreport.com/BushJob.htm}
 }
 \keyword{datasets}
-

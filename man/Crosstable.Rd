@@ -14,6 +14,8 @@ Crosstable(..., digits = 2, chisq = FALSE, fisher = FALSE,
   deparse.level = 2)
 }
 \arguments{
+\item{\dots}{the variables for the cross tabulation.}
+
 \item{digits}{number of digits after the decimal point.}
 
 \item{chisq}{if \code{TRUE}, the results of a chi-square test will be shown below the table.}
@@ -28,8 +30,6 @@ Crosstable(..., digits = 2, chisq = FALSE, fisher = FALSE,
 "greater" or "less". Only used in the 2 by 2 case.}
 
 \item{deparse.level}{an integer controlling the construction of labels in the case of non-matrix-like arguments. If 0, middle 2 rownames, if 1, 3 rownames, if 2, 4 rownames (default).}
-
-\item{\dots}{the variables for the cross tabulation.}
 }
 \value{
 A cross-tabulated object.
@@ -70,4 +70,3 @@ with(data, Crosstable(poured, guess, fisher=TRUE, alt="greater")) # fisher=TRUE
 Other Crosstables: \code{\link{summary.Crosstable}}
 }
 \keyword{Exploratory}
-

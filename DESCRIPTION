@@ -31,6 +31,7 @@ Imports:
     lubridate (>= 1.5.6),
     magrittr (>= 1.5),
     lazyeval,
+    readr,
     stringr,
     xtable,
     ggrepel,
@@ -54,4 +55,52 @@ LazyData: TRUE
 Repository: CRAN
 BugReports: http://github.com/danielmarcelino/SciencesPo/issues
 ByteCompile: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
+Collate: 
+    'Anonymize.R'
+    'Atkinson.R'
+    'Bootstrap.R'
+    'CMDcheckVars.R'
+    'Contents.R'
+    'Crosstable.R'
+    'DATA.R'
+    'Describe.R'
+    'Dirichlet.R'
+    'Dummy.R'
+    'Frequency.R'
+    'Gini.R'
+    'Herfindahl.R'
+    'HighestAverages.R'
+    'Jackknife.R'
+    'LargestRemainders.R'
+    'Lorenz.R'
+    'Markdown.R'
+    'Normalize.R'
+    'Palettes.R'
+    'Permutate.R'
+    'PoliticalDiversity.R'
+    'Proportionality.R'
+    'RcppExports.R'
+    'Recode.R'
+    'Sampling.R'
+    'SciencesPo.R'
+    'Stratify.R'
+    'Themes.R'
+    'UTILS.R'
+    'Untable.R'
+    'Winsorize.R'
+    'aaa.R'
+    'exportPlot.R'
+    'fontSelector.R'
+    'geometricMean.R'
+    'getGoogleDownloadUrl.R'
+    'normVarsNames.R'
+    'normalTransform.R'
+    'print.SciencesPo.R'
+    'prune.R'
+    'rescale.R'
+    'runShinyApp.R'
+    'scales.R'
+    'weightedVariance.R'
+    'zzz.R'
+    'zzz_useResearch.R'

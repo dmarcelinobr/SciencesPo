@@ -16,4 +16,3 @@ numeric vector
 Remove commas and whitespace, primarily
 }
 \keyword{Clean-up}
-

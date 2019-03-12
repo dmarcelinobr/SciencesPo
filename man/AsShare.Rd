@@ -16,4 +16,3 @@ numeric vector
 Remove "%" primarily, convert to numeric and divide by 100
 }
 \keyword{Clean-up}
-
