@@ -225,16 +225,8 @@ div.figure {
   text-align: center;
 }
 img {
-  background-color: #FFFFFF;
-  padding: 2px;
-  border: 1px solid #DDDDDD;
-  border-radius: 3px;
-  border: 1px solid #CCCCCC;
-  box-shadow: 2px 2px 12px -5px #999999;
-  margin: 0 5px;
-  max-width: 100%;
-  box-sizing: content-box;
-  display: block;
+  background-color: transparent!important;
+  
 }
 
 

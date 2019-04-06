@@ -1,73 +1,83 @@
-<img width="900" src="/inst/doc/SciencesPo_logo.jpg" alt="SciencesPo" />
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# SciencesPo <img src="inst/figures/SciencesPo-logo.png" width="240px" align="right" />
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Build
+Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg?branch=master)](https://travis-ci.org/danielmarcelino/SciencesPo)
+![CRAN Version](https://www.r-pkg.org/badges/version/SciencesPo)
+![](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-blueviolet.svg?style=flat)
+[![Coverage
+Status](https://coveralls.io/repos/github/danielmarcelino/SciencesPo/badge.svg?branch=master)](https://coveralls.io/github/danielmarcelino/SciencesPo?branch=master)
+[![Downloads](https://cranlogs.r-pkg.org/badges/SciencesPo)](https://cran.r-project.org/package=SciencesPo)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.54876.svg)](http://dx.doi.org/10.5281/zenodo.54876)
 
-| [License](http://www.gnu.org/licenses/gpl-2.0.html) | [Version](http://www.r-pkg.org/badges/version/SciencesPo) | [Build Status](https://travis-ci.org) | [Rate](https://cran.r-project.org/package=SciencesPo) | [Coveralls](https://coveralls.io/) | [Zenodo](https://zenodo.org/) |
-| :---- | :----: | :----: | :----: | :----:  | :----: | 
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  | [![Version](http://www.r-pkg.org/badges/version/SciencesPo)](http://cran.r-project.org/package=SciencesPo) | [![Build Status](https://travis-ci.org/danielmarcelino/SciencesPo.svg)](https://travis-ci.org/danielmarcelino/SciencesPo) | [![Downloads](http://cranlogs.r-pkg.org/badges/SciencesPo)]( https://cran.r-project.org/package=SciencesPo) | [![Coverage Status](https://coveralls.io/repos/github/danielmarcelino/SciencesPo/badge.svg?branch=master)]( https://coveralls.io/github/danielmarcelino/SciencesPo?branch=master) |[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.54876.svg)](http://dx.doi.org/10.5281/zenodo.54876) 
-| *License* | *Latest CRAN version* | *Build status*  | *CRAN Downloads* |*Coverage*| *Independently-hosted Archive* |
+## A tool set for analyzing political science data
 
+**SciencesPo** is a tool set for analyzing social and political behavior
+data. It provides functions for analyzing elections results, including
+measures of political fragmentation, seat apportionment, and a variety
+of graph visualizations for small data.
 
+## Installation
 
+1 - From the CRAN repository:
 
-**SciencesPo** is a facility package for the political science crowd. It provides a variety of functions for analyzing elections and political behavior data, including measures of political fragmentation, seat apportionment, and  small data visualization graphs. The package lives on the R Foundation repository [(CRAN)](https://cran.r-project.org/package=SciencesPo), and its development version hosted on [Github](http://github.com/danielmarcelino/SciencesPo). To install it, you can use the following methods.
-
-1 - From the CRAN repository (stable version):
-
-  ```
+``` r
   install.packages('SciencesPo', dep=TRUE)
 
   library(SciencesPo)
-  ```
-
-2 -  You can install the latest development version using the nifty function from devtools package.
-
-```
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("danielmarcelino/SciencesPo")
 ```
 
-3 - Or download the [sources in a zip](https://github.com/danielmarcelino/SciencesPo/zipball/master) file and build manually. To do so, please unzip the file to an empty dir and run the following commands there:
+2 - To get the current development version from Github:
 
+``` r
+## install devtools package if it's not already
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
 
-```
-R CMD build SciencesPo
-R CMD INSTALL SciencesPo_*.tar.gz
-```
+install_github("danielmarcelino/SciencesPo")
 
-Please note that the package contains some C code and thus you need a development environment to build the package. If you're running R on Windows, you need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/ ). Once you have installed `Rtools`, issue following command in command prompt:
-
-```
-R CMD build --binary <path to .tar.gz file>
-R CMD INSTALL <path to .zip file>
+library(SciencesPo)
 ```
 
-## Helping Out
-**SciencesPo** is intended to be a useful project for the social sciences community. Contributions are welcome.
+## Getting help
 
-If you're familar with GitHub and R packages, feel free to submit a [pull request](https://github.com/danielmarcelino/SciencesPo/pulls). If you'd like to report a bug or make a suggestion, please create a GitHub [issue](https://github.com/danielmarcelino/SciencesPo/issues); issues are a usually a good place to ask public questions too.
+If you encounter a bug, please file a minimal reproducible example using
+[reprex](https://reprex.tidyverse.org/index.html) or use [GitHub
+issues](https://github.com/danielmarcelino/SciencesPo/issues). For
+public questions and clarifications,
+[StackOverflow](https://stackoverflow.com/) is a good place to ask.
+
+## Helping out
+
+**SciencesPo** is intended to be useful for the Social Sciences
+community; contributions are very welcome\! Feel free to submit a [pull
+request](https://github.com/danielmarcelino/SciencesPo/pulls).
 
 ## Usage
 
 For a brief introduction to **SciencesPo** functionality, run:
 
-```
+``` r
 demo(SciencesPo)
 ```
 
-
 To see what functions are implemented in **SciencesPo**, run:
 
-```
+``` r
 help(package=SciencesPo)
 ```
 
-
 ## Vignettes
-* [Concepts and Basics of SciencesPo](https://cran.r-project.org/web/packages/SciencesPo/vignettes/SciencesPo.html)
-* [Descriptive Stats]
-* [Cross-Tabulation]
-* [Are My Data Normal?]
-* [Measures of Political Behavior](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
-* [The Anatomy of a Plot](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Viz.html)
+
+  - [Concepts and Basics of
+    SciencesPo](https://cran.r-project.org/web/packages/SciencesPo/vignettes/SciencesPo.html)
+  - \[Descriptive Stats\]
+  - \[Cross-Tabulation\]
+  - [Measures of Political
+    Behavior](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Indices.html)
+  - [The Anatomy of a
+    Plot](https://cran.r-project.org/web/packages/SciencesPo/vignettes/Viz.html)
