@@ -1,0 +1,9 @@
+Name: View Pipe Chain Steps
+Description: Creates Tabs of View Output for Each Pipe Chain Step
+Binding: view_pipes
+Interactive: false
+
+Name: Print Pipe Chain Steps
+Description: Prints Each Pipe Chain Step to the Console
+Binding: print_pipes
+Interactive: false
